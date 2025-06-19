@@ -1,0 +1,30 @@
+- id: 560acee7-72f2-bbbf-d84d-693466466267
+  name: OneDriveStandaloneUpdater.exe - Download a file from the web address specified
+    in HKCU\Software\Microsoft\OneDrive\UpdateOfficeConfig\UpdateRingSettingURLFromOC.
+    ODSUUpdateXMLUrlFromOC and UpdateXMLUrlFromOC must be equal to non-empty string
+    values in that same registry key. UpdateOfficeConfigTimestamp is a UNIX epoch
+    time which must be set to a large QWORD such as 99999999999 (in decimal) to indicate
+    the URL cache is good. The downloaded file will be in %localappdata%\OneDrive\StandaloneUpdater\PreSignInSettingsConfig.json
+  description: Download a file from the web address specified in HKCU\Software\Microsoft\OneDrive\UpdateOfficeConfig\UpdateRingSettingURLFromOC.
+    ODSUUpdateXMLUrlFromOC and UpdateXMLUrlFromOC must be equal to non-empty string
+    values in that same registry key. UpdateOfficeConfigTimestamp is a UNIX epoch
+    time which must be set to a large QWORD such as 99999999999 (in decimal) to indicate
+    the URL cache is good. The downloaded file will be in %localappdata%\OneDrive\StandaloneUpdater\PreSignInSettingsConfig.json
+  tactic: command-and-control
+  technique:
+    attack_id: T1105
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: OneDriveStandaloneUpdater
+  singleton: true
+  privilege: User
+  repeatable: false
+  buckets:
+  - command-and-control
+  version: '1.0'
+  author: Elliot Killick
+  created: '2021-08-22'
+  modified: '2021-08-22'
+  operating_system: Windows All Versions

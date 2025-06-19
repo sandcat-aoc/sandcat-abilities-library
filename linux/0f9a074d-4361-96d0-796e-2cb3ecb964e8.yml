@@ -1,0 +1,21 @@
+- description: 'Emulates modification of syslog configuration.
+
+    '
+  id: 0f9a074d-4361-96d0-796e-2cb3ecb964e8
+  name: Logging Configuration Changes on Linux Host
+  platforms:
+    linux:
+      sh:
+        cleanup: if [ -f "/etc/syslog.conf" ]; then sed -i '$ d' /etc/syslog.conf;
+          fi; if [ -f "/etc/rsyslog.conf" ]; then sed -i '$ d' /etc/rsyslog.conf;
+          fi; if [ -f "/etc/syslog-ng/syslog-ng.conf" ]; then sed -i '$ d' /etc/syslog-ng/syslog-ng.conf;
+          fi
+        command: 'if [ -f "/etc/syslog.conf" ]; then sed -i ''$ a #art_test_1562_006_2''
+          /etc/syslog.conf; fi; if [ -f "/etc/rsyslog.conf" ]; then sed -i ''$ a #art_test_1562_006_2''
+          /etc/rsyslog.conf; fi; if [ -f "/etc/syslog-ng/syslog-ng.conf" ]; then sed
+          -i ''$ a #art_test_1562_006_2'' /etc/syslog-ng/syslog-ng.conf; fi'
+        payloads: []
+  tactic: defense-evasion
+  technique:
+    attack_id: T1562.006
+    name: 'Impair Defenses: Indicator Blocking'

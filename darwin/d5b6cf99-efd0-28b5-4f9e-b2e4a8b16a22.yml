@@ -1,0 +1,19 @@
+---
+
+- id: d5b6cf99-efd0-28b5-4f9e-b2e4a8b16a22
+  name: scutil - Hostname, localhost name and computername
+  description: Display the current hostname, localhost name and computername
+  tactic: discovery
+  technique:
+    attack_id: T1016
+    name: System Network Configuration Discovery
+  platforms:
+    darwin:
+      sh:
+        command: scutil --get { HostName | LocalHostName | ComputerName }
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - scutil
+  - discovery

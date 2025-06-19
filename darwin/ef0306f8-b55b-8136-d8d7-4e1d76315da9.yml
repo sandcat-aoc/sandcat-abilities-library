@@ -1,0 +1,19 @@
+---
+
+- id: ef0306f8-b55b-8136-d8d7-4e1d76315da9
+  name: scutil - Network reachability
+  description: Check if the destination host is reachable from your Mac
+  tactic: discovery
+  technique:
+    attack_id: T1016
+    name: System Network Configuration Discovery
+  platforms:
+    darwin:
+      sh:
+        command: scutil -r { nodename | address | local-address remote-address }
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - scutil
+  - discovery

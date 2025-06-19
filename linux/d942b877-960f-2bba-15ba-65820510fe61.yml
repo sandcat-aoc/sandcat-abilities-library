@@ -1,0 +1,17 @@
+- description: 'Common Sudo enumeration methods.
+
+    '
+  id: d942b877-960f-2bba-15ba-65820510fe61
+  name: Sudo usage (freebsd)
+  platforms:
+    linux:
+      sh:
+        cleanup: ''
+        command: if [ ! -x "$(command -v sudo)" ]; then (which pkg && pkg install
+          -y sudo); fi;  ;  sudo -l      ; sudo cat /usr/local/etc/sudoers; sudo ee
+          /usr/local/etc/sudoers
+        payloads: []
+  tactic: multiple
+  technique:
+    attack_id: T1548.003
+    name: 'Abuse Elevation Control Mechanism: Sudo and Sudo Caching'

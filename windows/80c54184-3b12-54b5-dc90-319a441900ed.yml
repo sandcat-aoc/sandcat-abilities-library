@@ -1,0 +1,23 @@
+- id: 80c54184-3b12-54b5-dc90-319a441900ed
+  name: Cdb.exe - Attaching to any process and executing shell commands.
+  description: Attaching to any process and executing shell commands.
+  tactic: defense-evasion
+  technique:
+    attack_id: T1127
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: 'cdb.exe -pd -pn {process_name}
+
+          .shell #{host.executable.name}'
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: Oddvar Moe
+  created: '2018-05-25'
+  modified: '2018-05-25'
+  operating_system: Windows All Versions

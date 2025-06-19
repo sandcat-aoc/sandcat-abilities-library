@@ -1,0 +1,18 @@
+- description: '[AudioDeviceCmdlets](https://github.com/cdhunt/WindowsAudioDevice-Powershell-Cmdlet)
+
+    '
+  id: 53d41aa7-edbb-10ce-a4c9-9df8c2b0862f
+  name: using device audio capture commandlet
+  platforms:
+    windows:
+      psh:
+        cleanup: ''
+        command: powershell.exe -Command WindowsAudioDevice-Powershell-Cmdlet
+        parsers:
+          plugins.atomic.app.parsers.atomic_powershell:
+          - source: validate_me
+        payloads: []
+  tactic: collection
+  technique:
+    attack_id: T1123
+    name: Audio Capture

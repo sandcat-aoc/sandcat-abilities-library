@@ -1,0 +1,18 @@
+- description: 'Clears Powershell history
+
+    '
+  id: adce11c8-1bb7-7ae7-4660-c6c743a0442d
+  name: Clear Powershell History by Deleting History File
+  platforms:
+    windows:
+      psh:
+        cleanup: ''
+        command: Remove-Item (Get-PSReadlineOption).HistorySavePath
+        parsers:
+          plugins.atomic.app.parsers.atomic_powershell:
+          - source: validate_me
+        payloads: []
+  tactic: defense-evasion
+  technique:
+    attack_id: T1070.003
+    name: 'Indicator Removal on Host: Clear Command History'

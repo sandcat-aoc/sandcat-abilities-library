@@ -1,0 +1,16 @@
+- description: "Simulate Raspberry Robin using the \"standard-in\" command prompt\
+    \ feature cmd `/R <` to read and execute a file via cmd.exe\nSee https://redcanary.com/blog/raspberry-robin/.\
+    \ \n"
+  id: 5c3b5a0a-1fe7-b7ec-e684-6e4fa894b5ad
+  name: Command Prompt read contents from CMD file and execute
+  platforms:
+    windows:
+      cmd:
+        cleanup: ''
+        command: cmd /r cmd<"07a87d_t1059.003_cmd.cmd"
+        payloads:
+        - 07a87d_t1059.003_cmd.cmd
+  tactic: execution
+  technique:
+    attack_id: T1059.003
+    name: 'Command and Scripting Interpreter: Windows Command Shell'

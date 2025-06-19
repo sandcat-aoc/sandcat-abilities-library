@@ -1,0 +1,20 @@
+---
+
+- id: 54751baf-4396-bf38-fa4f-3c23252679b1
+  name: defaults - Add a login item to the current user
+  description: An attacker can use defaults to add a login hook in attempt to gain persistence. This command
+    requires root privileges.
+  tactic: persistence
+  technique:
+    attack_id: T1547.001
+    name: 'Boot or Logon Autostart Execution: Registry Run Keys / Startup Folder'
+  platforms:
+    darwin:
+      sh:
+        command: sudo defaults write /Library/Preferences/com.apple.loginwindow LoginHook gain_persistence.sh
+  singleton: false
+  privilege: Elevated
+  repeatable: true
+  buckets:
+  - defaults
+  - persistence

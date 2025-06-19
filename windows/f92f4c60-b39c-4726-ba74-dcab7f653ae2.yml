@@ -1,0 +1,30 @@
+- id: f92f4c60-b39c-4726-ba74-dcab7f653ae2
+  name: f92f4c60-b39c-4726-ba74-dcab7f653ae2 - Malicious Driver Deployment
+  description: 'Malicious driver: f92f4c60-b39c-4726-ba74-dcab7f653ae2
+
+    Category: vulnerable driver
+
+    Author: Takahiro Haruyama
+
+    Created: 2023-11-02
+
+    MITRE Technique: T1068'
+  tactic: defense-evasion
+  technique:
+    attack_id: T1068
+    name: Rootkit
+  platforms:
+    windows:
+      cmd:
+        command: sc create MaliciousDriver binPath= "C:\Windows\System32\drivers\malicious_driver.sys"
+          type= kernel
+  singleton: true
+  privilege: Elevated
+  repeatable: false
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: Takahiro Haruyama
+  operating_system: Windows (Version Unspecified)
+  created: '2023-11-02'
+  modified: '2023-11-02'

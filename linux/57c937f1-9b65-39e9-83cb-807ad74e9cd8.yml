@@ -1,0 +1,14 @@
+- description: "Print  the last 10 lines of the Uncomplicated Firewall (UFW) log file\
+    \ \n/var/log/ufw.log.\n"
+  id: 57c937f1-9b65-39e9-83cb-807ad74e9cd8
+  name: Tail the UFW firewall log file
+  platforms:
+    linux:
+      sh:
+        cleanup: ''
+        command: tail /var/log/ufw.log
+        payloads: []
+  tactic: defense-evasion
+  technique:
+    attack_id: T1562.004
+    name: 'Impair Defenses: Disable or Modify System Firewall'

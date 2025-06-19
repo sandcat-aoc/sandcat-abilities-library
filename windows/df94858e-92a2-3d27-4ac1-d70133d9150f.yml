@@ -1,0 +1,18 @@
+- description: 'Prevents Powershell history
+
+    '
+  id: df94858e-92a2-3d27-4ac1-d70133d9150f
+  name: Prevent Powershell History Logging
+  platforms:
+    windows:
+      psh:
+        cleanup: Set-PSReadLineOption -HistorySaveStyle SaveIncrementally
+        command: Set-PSReadlineOption -HistorySaveStyle SaveNothing
+        parsers:
+          plugins.atomic.app.parsers.atomic_powershell:
+          - source: validate_me
+        payloads: []
+  tactic: defense-evasion
+  technique:
+    attack_id: T1070.003
+    name: 'Indicator Removal on Host: Clear Command History'

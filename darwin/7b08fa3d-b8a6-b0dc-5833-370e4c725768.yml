@@ -1,0 +1,19 @@
+---
+
+- id: 7b08fa3d-b8a6-b0dc-5833-370e4c725768
+  name: last - Enumerate the users who are currently logged into the system.
+  description: The following command will display sessions that are currently active.
+  tactic: discovery
+  technique:
+    attack_id: T1033
+    name: System Owner/User Discovery
+  platforms:
+    darwin:
+      sh:
+        command: last | grep "still logged in"
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - last
+  - discovery

@@ -1,0 +1,21 @@
+- id: 3cc3b5f2-4cc1-4082-a639-1a3f9b7140d1
+  name: Certutil.exe - Command to decode a hexadecimal-encoded file.
+  description: Command to decode a hexadecimal-encoded file.
+  tactic: defense-evasion
+  technique:
+    attack_id: T1140
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: 'certutil -decodehex {PATH:.hex} #{host.dir.temp}'
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: Oddvar Moe
+  created: '2018-05-25'
+  modified: '2018-05-25'
+  operating_system: Windows All Versions

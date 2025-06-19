@@ -1,0 +1,19 @@
+---
+
+- id: 55d89987-543d-3aeb-c845-efb5e8c8749c
+  name: sysadminctl - Enable AFP Guest Access
+  description: sysadminctl can enable AFP Guest Access
+  tactic: exfiltration
+  technique:
+    attack_id: T1136.001
+    name: 'Create Account: Local Account'
+  platforms:
+    darwin:
+      sh:
+        command: sudo sysadminctl -afpGuestAccess on
+  singleton: true
+  privilege: Elevated
+  repeatable: false
+  buckets:
+  - sysadminctl
+  - exfiltration

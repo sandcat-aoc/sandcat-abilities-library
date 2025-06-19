@@ -1,0 +1,15 @@
+- description: '/etc/passwd file is accessed in FreeBSD and Linux environments
+
+    '
+  id: 13c2fcf6-7b34-4d42-cd9d-ca8b9a310cdc
+  name: Access /etc/passwd (Local)
+  platforms:
+    linux:
+      sh:
+        cleanup: rm -f /tmp/T1003.008.txt
+        command: cat /etc/passwd > /tmp/T1003.008.txt; cat /tmp/T1003.008.txt
+        payloads: []
+  tactic: credential-access
+  technique:
+    attack_id: T1003.008
+    name: 'OS Credential Dumping: /etc/passwd, /etc/master.passwd and /etc/shadow'

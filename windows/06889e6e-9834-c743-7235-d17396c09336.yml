@@ -1,0 +1,20 @@
+- description: "This technique involves using the Clear-History cmdlet in PowerShell\
+    \ to remove all records of previously executed commands.\nThis action is often\
+    \ performed by attackers to eliminate traces of their activities, making incident\
+    \ detection and forensic \ninvestigation more challenging. By clearing the session\
+    \ history, adversaries aim to obfuscate their operational footprint.\n"
+  id: 06889e6e-9834-c743-7235-d17396c09336
+  name: Clear PowerShell Session History
+  platforms:
+    windows:
+      psh:
+        cleanup: ''
+        command: Clear-History
+        parsers:
+          plugins.atomic.app.parsers.atomic_powershell:
+          - source: validate_me
+        payloads: []
+  tactic: defense-evasion
+  technique:
+    attack_id: T1070.003
+    name: 'Indicator Removal on Host: Clear Command History'

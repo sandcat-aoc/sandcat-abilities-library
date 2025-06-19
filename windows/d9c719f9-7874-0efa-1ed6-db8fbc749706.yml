@@ -1,0 +1,13 @@
+- description: "Select Desired ports for packet capture \nhttps://lolbas-project.github.io/lolbas/Binaries/Pktmon/"
+  id: d9c719f9-7874-0efa-1ed6-db8fbc749706
+  name: Windows Internal pktmon set filter
+  platforms:
+    windows:
+      cmd:
+        cleanup: pktmon filter remove
+        command: pktmon.exe filter add -p 445
+        payloads: []
+  tactic: multiple
+  technique:
+    attack_id: T1040
+    name: Network Sniffing

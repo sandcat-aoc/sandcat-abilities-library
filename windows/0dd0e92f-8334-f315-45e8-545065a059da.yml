@@ -1,0 +1,15 @@
+- description: 'Uninstall Sysinternals Sysmon for Defense Evasion
+
+    '
+  id: 0dd0e92f-8334-f315-45e8-545065a059da
+  name: Uninstall Sysmon
+  platforms:
+    windows:
+      cmd:
+        cleanup: sysmon -i -accepteula >nul 2>&1
+        command: sysmon -u
+        payloads: []
+  tactic: defense-evasion
+  technique:
+    attack_id: T1562.001
+    name: 'Impair Defenses: Disable or Modify Tools'

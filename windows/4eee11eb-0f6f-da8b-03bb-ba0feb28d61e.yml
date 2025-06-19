@@ -1,0 +1,16 @@
+- description: 'Allow startup key with TPM for Bitlocker tool
+
+    '
+  id: 4eee11eb-0f6f-da8b-03bb-ba0feb28d61e
+  name: Modify UseTPMKey Registry entry
+  platforms:
+    windows:
+      cmd:
+        cleanup: reg delete "HKLM\SOFTWARE\Policies\Microsoft\FVE" /v UseTPMKey /f
+        command: reg add "HKLM\SOFTWARE\Policies\Microsoft\FVE" /v UseTPMKey /t REG_DWORD
+          /d 2 /f
+        payloads: []
+  tactic: multiple
+  technique:
+    attack_id: T1112
+    name: Modify Registry

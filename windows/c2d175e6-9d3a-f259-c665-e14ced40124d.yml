@@ -1,0 +1,23 @@
+- id: c2d175e6-9d3a-f259-c665-e14ced40124d
+  name: Msiexec.exe - Calls DllRegisterServer to register the target DLL.
+  description: Calls DllRegisterServer to register the target DLL.
+  tactic: defense-evasion
+  technique:
+    attack_id: T1218.007
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: msiexec /y payload.dll
+        payloads:
+        - payload.dll
+  singleton: true
+  privilege: User
+  repeatable: false
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: Oddvar Moe
+  created: '2018-05-25'
+  modified: '2018-05-25'
+  operating_system: Windows All Versions

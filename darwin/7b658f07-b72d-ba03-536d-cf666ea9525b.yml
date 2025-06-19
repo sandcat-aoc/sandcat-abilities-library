@@ -1,0 +1,20 @@
+---
+
+- id: 7b658f07-b72d-ba03-536d-cf666ea9525b
+  name: tmutil - Delete a backup
+  description: The following command deletes the specified backup. An adversary may perform this action
+    before launching a ransonware attack to prevent the victim from restoring their files.
+  tactic: impact
+  technique:
+    attack_id: T1490
+    name: Inhibit System Recovery
+  platforms:
+    darwin:
+      sh:
+        command: tmutil delete /path/to/backup
+  singleton: true
+  privilege: Elevated
+  repeatable: false
+  buckets:
+  - tmutil
+  - impact

@@ -1,0 +1,30 @@
+- id: 6c0c60f0-895d-428a-a8ae-e10390bceb12
+  name: 6c0c60f0-895d-428a-a8ae-e10390bceb12 - Malicious Driver Deployment
+  description: 'Malicious driver: 6c0c60f0-895d-428a-a8ae-e10390bceb12
+
+    Category: vulnerable drivers
+
+    Author: Michael Haag
+
+    Created: 2023-07-22
+
+    MITRE Technique: T1068'
+  tactic: defense-evasion
+  technique:
+    attack_id: T1068
+    name: Rootkit
+  platforms:
+    windows:
+      cmd:
+        command: sc create MaliciousDriver binPath= "C:\Windows\System32\drivers\malicious_driver.sys"
+          type= kernel
+  singleton: true
+  privilege: Elevated
+  repeatable: false
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: Michael Haag
+  operating_system: Windows (Version Unspecified)
+  created: '2023-07-22'
+  modified: '2023-07-22'

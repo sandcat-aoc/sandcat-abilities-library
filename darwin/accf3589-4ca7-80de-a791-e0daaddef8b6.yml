@@ -1,0 +1,20 @@
+---
+
+- id: accf3589-4ca7-80de-a791-e0daaddef8b6
+  name: ditto - Copy and compress sensitive data locally
+  description: The following command gathers and compresses (-c) files from the specified folder and writes
+    them to a zip (-k) file.
+  tactic: collection
+  technique:
+    attack_id: T1005
+    name: Data from Local System
+  platforms:
+    darwin:
+      sh:
+        command: ditto -c -k --sequesterRsrc --keepParent /home/user/sensitive-files /tmp/l00t.zip
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - ditto
+  - collection

@@ -1,0 +1,19 @@
+---
+
+- id: beb4fad2-fa6e-f4e5-131b-a9ac5323044d
+  name: dns-sd - Discover hosts serving remote screen sharing
+  description: Hosts serving remote screen sharing can be discovered using the _rfb._tcp service string.
+  tactic: discovery
+  technique:
+    attack_id: T1046
+    name: Network Service Scanning
+  platforms:
+    darwin:
+      sh:
+        command: dns-sd -B _rfb._tcp
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - dns-sd
+  - discovery

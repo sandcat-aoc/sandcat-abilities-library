@@ -1,0 +1,22 @@
+---
+
+- id: dfdd26a2-a460-28c4-e88d-f4523b46d91d
+  name: sqlite3 - Get apps with Full Disk access
+  description: The following command interacts with the TCC (Transparency, Consent, and Control) database
+    to show the apps that have Full Disk access permission
+  tactic: discovery
+  technique:
+    attack_id: T1005
+    name: Data from Local System
+  platforms:
+    darwin:
+      sh:
+        command: 'sqlite3 /Library/Application\ Support/com.apple.TCC/TCC.db \
+
+          ''select client from access where auth_value and service = "kTCCServiceSystemPolicyAllFiles"'''
+  singleton: false
+  privilege: Elevated
+  repeatable: true
+  buckets:
+  - sqlite3
+  - discovery

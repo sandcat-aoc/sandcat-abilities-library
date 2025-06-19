@@ -1,0 +1,23 @@
+- id: 9c8acbd5-7adf-4227-8b77-d916dd149bc1
+  name: devtunnel.exe - Enabling a forwarded port for locally hosted service at port
+    8080 to be exposed on the internet.
+  description: Enabling a forwarded port for locally hosted service at port 8080 to
+    be exposed on the internet.
+  tactic: command-and-control
+  technique:
+    attack_id: T1105
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: devtunnel.exe host -p 8080
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - command-and-control
+  version: '1.0'
+  author: Kamran Saifullah
+  created: '2023-09-16'
+  modified: '2023-09-16'
+  operating_system: Windows All Versions

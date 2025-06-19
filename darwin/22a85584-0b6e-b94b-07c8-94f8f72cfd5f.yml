@@ -1,0 +1,19 @@
+---
+
+- id: 22a85584-0b6e-b94b-07c8-94f8f72cfd5f
+  name: networksetup - Enable auto proxy state
+  description: Use networksetup to enable the proxy auto-config
+  tactic: command-and-control
+  technique:
+    attack_id: T1016
+    name: System Network Configuration Discovery
+  platforms:
+    darwin:
+      sh:
+        command: networksetup -setautoproxystate "Wi-Fi" on
+  singleton: true
+  privilege: User
+  repeatable: false
+  buckets:
+  - networksetup
+  - command-and-control

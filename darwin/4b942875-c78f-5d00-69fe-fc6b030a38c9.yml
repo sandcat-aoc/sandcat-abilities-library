@@ -1,0 +1,19 @@
+---
+
+- id: 4b942875-c78f-5d00-69fe-fc6b030a38c9
+  name: odutil - Retrieves active session
+  description: Retrieves the all active sessions
+  tactic: discovery
+  technique:
+    attack_id: T1087.001
+    name: 'Account Discovery: Local Account'
+  platforms:
+    darwin:
+      sh:
+        command: odutil show sessions
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - odutil
+  - discovery

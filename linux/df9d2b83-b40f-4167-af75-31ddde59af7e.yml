@@ -1,0 +1,55 @@
+- id: df9d2b83-b40f-4167-af75-31ddde59af7e
+  name: Hash Bash Profiles
+  description: If bash profile doesn't exist, create it, and then hash each profile.
+  tactic: setup
+  technique:
+    attack_id: x
+    name: x
+  repeatable: false
+  platforms:
+    linux:
+      sh:
+        command: "mkdir -p /tmp/sensitive_file_backups;\nuser_profiles=\".bashrc .bash_profile\
+          \ .bash_login .profile\";\noutput=\"\";\nhome_dir=$(echo \"/home/*\" | sed\
+          \ 's/\\\\\\*/\\*/g');\ndirs=$(find $home_dir -maxdepth 0 -type d);\ndirs=\"\
+          ${dirs} /root\";\nfiles=\"\";\nfor dir in $dirs;\n  do for prof in $user_profiles;\n\
+          \    do files=\"${files}${dir}/${prof} \";\n  done;\ndone;\nfiles=\"${files}\
+          \ /etc/profile /etc/bash.bashrc\";\nfor file in $files;\n  do if [ ! -f\
+          \ $file ];\n    then touch $file;\n  fi;\n  hash=$(sha256sum $file | cut\
+          \ -d' ' -f1);\n  output=\"${output}${file}>${hash}\\n\";\ndone;\necho $output\
+          \ | sed '/^[[:space:]]*$/d'\n"
+        parsers:
+          plugins.response.app.parsers.key_value:
+          - source: file.sensitive.path
+            edge: has_hash
+            target: file.sensitive.hash
+        cleanup: "user_profiles=\".bashrc .bash_profile .bash_login .profile\";\n\
+          output=\"\";\nhome_dir=$(echo \"/home/*\" | sed 's/\\\\\\*/\\*/g');\ndirs=$(find\
+          \ $home_dir -maxdepth 0 -type d);\ndirs=\"${dirs} /root\";\nfiles=\"\";\n\
+          for dir in $dirs;\n  do for prof in $user_profiles;\n    do files=\"${files}${dir}/${prof}\
+          \ \";\n  done;\ndone;\nfiles=\"${files} /etc/profile /etc/bash.bashrc\"\
+          ;\nfor file in $files;\n  do if [ ! -s $file ];\n    then rm -f $file;\n\
+          \  fi;\ndone;\n"
+    darwin:
+      sh:
+        command: "mkdir -p /tmp/sensitive_file_backups;\nuser_profiles=\".bashrc .bash_profile\
+          \ .bash_login .profile\";\noutput=\"\";\nhome_dir=$(echo \"/Users/*\" |\
+          \ sed 's/\\\\\\*/\\*/g');\ndirs=$(find $home_dir -maxdepth 0 -type d);\n\
+          dirs=\"${dirs} /var/root\";\nfiles=\"\";\nfor dir in $dirs;\n  do for prof\
+          \ in $user_profiles;\n    do files=\"${files}${dir}/${prof} \";\n  done;\n\
+          done;\nfiles=\"${files} /etc/profile /etc/bash.bashrc\";\nfor file in $files;\n\
+          \  do if [ ! -f $file ];\n    then touch $file;\n  fi;\n  hash=$(shasum\
+          \ -a 256 $file | cut -d' ' -f1);\n  output=\"${output}${file}>${hash}\\\
+          n\";\ndone;\necho $output | sed '/^[[:space:]]*$/d'\n"
+        parsers:
+          plugins.response.app.parsers.key_value:
+          - source: file.sensitive.path
+            edge: has_hash
+            target: file.sensitive.hash
+        cleanup: "user_profiles=\".bashrc .bash_profile .bash_login .profile\";\n\
+          output=\"\";\nhome_dir=$(echo \"/Users/*\" | sed 's/\\\\\\*/\\*/g');\ndirs=$(find\
+          \ $home_dir -maxdepth 0 -type d);\ndirs=\"${dirs} /var/root\";\nfiles=\"\
+          \";\nfor dir in $dirs;\n  do for prof in $user_profiles;\n    do files=\"\
+          ${files}${dir}/${prof} \";\n  done;\ndone;\nfiles=\"${files} /etc/profile\
+          \ /etc/bash.bashrc\";\nfor file in $files;\n  do if [ ! -s $file ];\n  \
+          \  then rm -f $file;\n  fi;\ndone;"

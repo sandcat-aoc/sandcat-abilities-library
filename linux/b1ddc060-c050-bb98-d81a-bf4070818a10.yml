@@ -1,0 +1,15 @@
+- description: 'Lists the password expiration policy to console on CentOS/RHEL/Ubuntu.
+
+    '
+  id: b1ddc060-c050-bb98-d81a-bf4070818a10
+  name: Examine password expiration policy - All Linux
+  platforms:
+    linux:
+      sh:
+        cleanup: ''
+        command: cat /etc/login.defs
+        payloads: []
+  tactic: discovery
+  technique:
+    attack_id: T1201
+    name: Password Policy Discovery

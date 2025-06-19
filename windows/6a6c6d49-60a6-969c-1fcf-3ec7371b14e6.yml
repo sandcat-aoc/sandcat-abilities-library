@@ -1,0 +1,23 @@
+- id: 6a6c6d49-60a6-969c-1fcf-3ec7371b14e6
+  name: Installutil.exe - Execute the target .NET DLL or EXE.
+  description: Execute the target .NET DLL or EXE.
+  tactic: defense-evasion
+  technique:
+    attack_id: T1218.004
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: InstallUtil.exe /logfile= /LogToConsole=false /U payload.dll
+        payloads:
+        - payload.dll
+  singleton: true
+  privilege: User
+  repeatable: false
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: Oddvar Moe
+  created: '2018-05-25'
+  modified: '2018-05-25'
+  operating_system: Windows All Versions

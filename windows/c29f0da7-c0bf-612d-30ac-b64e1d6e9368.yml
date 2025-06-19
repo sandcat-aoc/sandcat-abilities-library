@@ -1,0 +1,20 @@
+- description: Executes an HTA Application with Simulate lateral movement over UNC
+    Path.
+  id: c29f0da7-c0bf-612d-30ac-b64e1d6e9368
+  name: Invoke HTML Application - Simulate Lateral Movement over UNC Path
+  platforms:
+    windows:
+      psh:
+        cleanup: ''
+        command: $RequiredModule = Get-Module -Name AtomicTestHarnesses -ListAvailable;
+          if (-not $RequiredModule) {Install-Module -Name AtomicTestHarnesses -Scope
+          CurrentUser -Force};  ;  Invoke-ATHHTMLApplication -TemplatePE -AsLocalUNCPath
+          -MSHTAFilePath $env:windir\system32\mshta.exe
+        parsers:
+          plugins.atomic.app.parsers.atomic_powershell:
+          - source: validate_me
+        payloads: []
+  tactic: defense-evasion
+  technique:
+    attack_id: T1218.005
+    name: 'Signed Binary Proxy Execution: Mshta'

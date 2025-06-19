@@ -1,0 +1,17 @@
+- description: 'Requires the BitLocker PIN for Pre-boot authentication
+
+    '
+  id: cf578857-bf84-2dc5-af82-fa4e7d37b54c
+  name: Requires the BitLocker PIN for Pre-boot authentication
+  platforms:
+    windows:
+      cmd:
+        cleanup: reg delete "HKLM\SOFTWARE\Policies\Microsoft\FVE" /v UseAdvancedStartup
+          /f
+        command: reg add "HKLM\SOFTWARE\Policies\Microsoft\FVE" /v UseAdvancedStartup
+          /t REG_DWORD /d 1 /f
+        payloads: []
+  tactic: multiple
+  technique:
+    attack_id: T1112
+    name: Modify Registry

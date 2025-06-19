@@ -1,0 +1,16 @@
+- description: "Add and delete a rule on the Packet Filter (PF) if installed and enabled.\
+    \ \n"
+  id: ff9a739c-3d87-bf40-4d96-7ad2774b5bc6
+  name: Add and delete Packet Filter rules
+  platforms:
+    linux:
+      sh:
+        cleanup: pfctl -a pf-rules -F rules; sed -i "" '/anchor pf-rules/d'; pfctl
+          -f /etc/pf.conf
+        command: echo "block in proto tcp from 1.2.3.4 to any" | pfctl -a pf-rules
+          -f -; pfctl -a pf-rules -s rules
+        payloads: []
+  tactic: defense-evasion
+  technique:
+    attack_id: T1562.004
+    name: 'Impair Defenses: Disable or Modify System Firewall'

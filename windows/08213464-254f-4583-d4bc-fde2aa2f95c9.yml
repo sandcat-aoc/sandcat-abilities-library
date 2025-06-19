@@ -1,0 +1,23 @@
+- id: 08213464-254f-4583-d4bc-fde2aa2f95c9
+  name: winfile.exe - Execute an executable file with WinFile as a parent process.
+  description: Execute an executable file with WinFile as a parent process.
+  tactic: defense-evasion
+  technique:
+    attack_id: T1202
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: winfile.exe payload.exe
+        payloads:
+        - payload.exe
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: Avihay Eldad
+  created: '2024-04-30'
+  modified: '2024-04-30'
+  operating_system: Windows All Versions

@@ -1,0 +1,19 @@
+---
+
+- id: 44fad193-2bc4-8156-d7ef-d8ad6b3f3515
+  name: scutil - Proxy configuration
+  description: Get the current proxy configuration of the systems
+  tactic: discovery
+  technique:
+    attack_id: T1016
+    name: System Network Configuration Discovery
+  platforms:
+    darwin:
+      sh:
+        command: scutil --proxy
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - scutil
+  - discovery

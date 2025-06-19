@@ -1,0 +1,15 @@
+- description: 'Lists the password complexity policy to console on FreeBSD.
+
+    '
+  id: 0aaa91ce-eb6c-b9f4-b201-bf25050ff2ae
+  name: Examine password complexity policy - FreeBSD
+  platforms:
+    linux:
+      sh:
+        cleanup: ''
+        command: cat /etc/pam.d/passwd
+        payloads: []
+  tactic: discovery
+  technique:
+    attack_id: T1201
+    name: Password Policy Discovery

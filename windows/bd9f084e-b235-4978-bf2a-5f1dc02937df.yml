@@ -1,0 +1,30 @@
+- id: bd9f084e-b235-4978-bf2a-5f1dc02937df
+  name: bd9f084e-b235-4978-bf2a-5f1dc02937df - Malicious Driver Deployment
+  description: 'Malicious driver: bd9f084e-b235-4978-bf2a-5f1dc02937df
+
+    Category: vulnerable driver
+
+    Author: rahulwt
+
+    Created: 2024-08-15
+
+    MITRE Technique: T1068'
+  tactic: defense-evasion
+  technique:
+    attack_id: T1068
+    name: Rootkit
+  platforms:
+    windows:
+      cmd:
+        command: sc create MaliciousDriver binPath= "C:\Windows\System32\drivers\malicious_driver.sys"
+          type= kernel
+  singleton: true
+  privilege: Elevated
+  repeatable: false
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: rahulwt
+  operating_system: Windows (Version Unspecified)
+  created: '2024-08-15'
+  modified: '2024-08-15'

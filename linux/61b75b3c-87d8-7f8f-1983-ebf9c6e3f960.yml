@@ -1,0 +1,18 @@
+- description: 'Methods to identify Security Software on an endpoint
+
+    when sucessfully executed, command shell  is going to display AV/Security software
+    it is running.
+
+    '
+  id: 61b75b3c-87d8-7f8f-1983-ebf9c6e3f960
+  name: Security Software Discovery - ps (Linux)
+  platforms:
+    linux:
+      sh:
+        cleanup: ''
+        command: ps aux | egrep 'falcond|nessusd|cbagentd|td-agent|packetbeat|filebeat|auditbeat|osqueryd'
+        payloads: []
+  tactic: discovery
+  technique:
+    attack_id: T1518.001
+    name: 'Software Discovery: Security Software Discovery'

@@ -1,0 +1,21 @@
+- description: 'Launch an executable that attempts to masquerade as a legitimate executable.
+
+    '
+  id: 029770bd-7c3a-403d-aeab-3af692af0046
+  name: Masquerade as a built-in system executable
+  platforms:
+    windows:
+      psh:
+        cleanup: Remove-Item -Path "$Env:windir\Temp\svchost.exe" -ErrorAction Ignore
+        command: Add-Type -TypeDefinition @'; public class Test {;     public static
+          void Main(string[] args) {;         System.Console.WriteLine("tweet, tweet");     };
+          }; '@ -OutputAssembly "$Env:windir\Temp\svchost.exe"; Start-Process -FilePath
+          "$Env:windir\Temp\svchost.exe"
+        parsers:
+          plugins.atomic.app.parsers.atomic_powershell:
+          - source: validate_me
+        payloads: []
+  tactic: defense-evasion
+  technique:
+    attack_id: T1036.005
+    name: 'Masquerading: Match Legitimate Name or Location'

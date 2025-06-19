@@ -1,0 +1,29 @@
+- description: 'Create a process in a suspended state, execute shellcode to spawn
+    calc.exe in a child process, and then resume the original process.
+
+    This test uses the CreatePipe function to create an anonymous pipe that parent
+    and child processes can communicate over. This anonymous pipe
+
+    allows for the retrieval of output generated from executed shellcode.
+
+    - PoC Credit: (https://github.com/Ne0nd0g/go-shellcode#createprocesswithpipe)
+
+    '
+  id: f9cc12d2-624d-c75d-9186-1fbbf1de52cf
+  name: Process Hollowing in Go using CreateProcessW and CreatePipe WinAPIs (T1055.012)
+  platforms:
+    windows:
+      psh:
+        cleanup: Stop-Process -Name CalculatorApp -ErrorAction SilentlyContinue; Stop-Process
+          -Name "werfault" -ErrorAction SilentlyContinue
+        command: a6956d_CreateProcessWithPipe.exe -program "C:\Windows\System32\werfault.exe"
+          -debug
+        parsers:
+          plugins.atomic.app.parsers.atomic_powershell:
+          - source: validate_me
+        payloads:
+        - a6956d_CreateProcessWithPipe.exe
+  tactic: multiple
+  technique:
+    attack_id: T1055.012
+    name: 'Process Injection: Process Hollowing'

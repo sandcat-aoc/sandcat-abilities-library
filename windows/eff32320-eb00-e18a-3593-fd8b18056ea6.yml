@@ -1,0 +1,18 @@
+- description: "This test executes a custom script called LanguageKeyboardLayout.exe\
+    \ which outputs the values of the following Windows API functions to the user\
+    \ terminal: \n\n`GetKeyboardLayout`, `GetKeyboardLayoutList`, `GetUserDefaultUILanguage`,\
+    \ `GetSystemDefaultUILanguage`, `GetUserDefaultLangID`.\n\nDocumentation for these\
+    \ functions is located [here](https://learn.microsoft.com/en-us/windows/win32/api/winuser/).\
+    \    \n"
+  id: eff32320-eb00-e18a-3593-fd8b18056ea6
+  name: Discover System Language by Windows API Query
+  platforms:
+    windows:
+      cmd:
+        cleanup: ''
+        command: PathToAtomicsFolder\..\ExternalPayloads\LanguageKeyboardLayout.exe
+        payloads: []
+  tactic: discovery
+  technique:
+    attack_id: T1614.001
+    name: 'System Location Discovery: System Language Discovery'

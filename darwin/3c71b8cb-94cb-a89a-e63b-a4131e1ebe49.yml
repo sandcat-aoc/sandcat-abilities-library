@@ -1,0 +1,20 @@
+---
+
+- id: 3c71b8cb-94cb-a89a-e63b-a4131e1ebe49
+  name: csrutil - Disable authenticated-root
+  description: When authenticated-root is disabled, booting is allowed from non-sealed system snapshots
+    - requires booting into recovery mode
+  tactic: defense-evasion
+  technique:
+    attack_id: T1562.001
+    name: 'Impair Defenses: Disable or Modify Tools'
+  platforms:
+    darwin:
+      sh:
+        command: csrutil authenticated-root disable
+  singleton: true
+  privilege: Elevated
+  repeatable: false
+  buckets:
+  - csrutil
+  - defense-evasion

@@ -1,0 +1,16 @@
+- description: 'Edit the Uncomplicated Firewall (UFW) rules file /etc/ufw/user.rules.
+
+    '
+  id: a1e9351c-7799-d884-d29a-5e61712ab58e
+  name: Edit UFW firewall user.rules file
+  platforms:
+    linux:
+      sh:
+        cleanup: sed -i 's/# THIS IS A COMMENT//g' /etc/ufw/user.rules
+        command: echo "# THIS IS A COMMENT" >> /etc/ufw/user.rules; grep "# THIS IS
+          A COMMENT" /etc/ufw/user.rules
+        payloads: []
+  tactic: defense-evasion
+  technique:
+    attack_id: T1562.004
+    name: 'Impair Defenses: Disable or Modify System Firewall'

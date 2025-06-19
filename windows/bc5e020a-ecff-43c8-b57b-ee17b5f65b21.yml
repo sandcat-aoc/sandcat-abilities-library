@@ -1,0 +1,30 @@
+- id: bc5e020a-ecff-43c8-b57b-ee17b5f65b21
+  name: bc5e020a-ecff-43c8-b57b-ee17b5f65b21 - Malicious Driver Deployment
+  description: 'Malicious driver: bc5e020a-ecff-43c8-b57b-ee17b5f65b21
+
+    Category: vulnerable driver
+
+    Author: Michael Haag
+
+    Created: 2023-01-09
+
+    MITRE Technique: T1068'
+  tactic: defense-evasion
+  technique:
+    attack_id: T1068
+    name: Rootkit
+  platforms:
+    windows:
+      cmd:
+        command: sc create MaliciousDriver binPath= "C:\Windows\System32\drivers\malicious_driver.sys"
+          type= kernel
+  singleton: true
+  privilege: Elevated
+  repeatable: false
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: Michael Haag
+  operating_system: Windows (Version Unspecified)
+  created: '2023-01-09'
+  modified: '2023-01-09'

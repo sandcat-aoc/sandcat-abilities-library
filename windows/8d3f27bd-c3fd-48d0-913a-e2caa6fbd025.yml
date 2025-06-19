@@ -1,0 +1,30 @@
+- id: 8d3f27bd-c3fd-48d0-913a-e2caa6fbd025
+  name: 8d3f27bd-c3fd-48d0-913a-e2caa6fbd025 - Malicious Driver Deployment
+  description: 'Malicious driver: 8d3f27bd-c3fd-48d0-913a-e2caa6fbd025
+
+    Category: vulnerable driver
+
+    Author: Michael Haag, Nasreddine Bencherchali
+
+    Created: 2023-01-09
+
+    MITRE Technique: T1068'
+  tactic: defense-evasion
+  technique:
+    attack_id: T1068
+    name: Rootkit
+  platforms:
+    windows:
+      cmd:
+        command: sc create MaliciousDriver binPath= "C:\Windows\System32\drivers\malicious_driver.sys"
+          type= kernel
+  singleton: true
+  privilege: Elevated
+  repeatable: false
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: Michael Haag, Nasreddine Bencherchali
+  operating_system: Windows (Version Unspecified)
+  created: '2023-01-09'
+  modified: '2023-01-09'

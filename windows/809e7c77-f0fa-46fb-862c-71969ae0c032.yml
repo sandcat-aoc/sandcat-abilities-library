@@ -1,0 +1,30 @@
+- id: 809e7c77-f0fa-46fb-862c-71969ae0c032
+  name: 809e7c77-f0fa-46fb-862c-71969ae0c032 - Malicious Driver Deployment
+  description: 'Malicious driver: 809e7c77-f0fa-46fb-862c-71969ae0c032
+
+    Category: malicious
+
+    Author: Michael Haag
+
+    Created: 2023-07-12
+
+    MITRE Technique: T1068'
+  tactic: defense-evasion
+  technique:
+    attack_id: T1068
+    name: Rootkit
+  platforms:
+    windows:
+      cmd:
+        command: sc create MaliciousDriver binPath= "C:\Windows\System32\drivers\malicious_driver.sys"
+          type= kernel
+  singleton: true
+  privilege: Elevated
+  repeatable: false
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: Michael Haag
+  operating_system: Windows (Version Unspecified)
+  created: '2023-07-12'
+  modified: '2023-07-12'

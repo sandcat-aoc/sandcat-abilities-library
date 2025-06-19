@@ -1,0 +1,20 @@
+---
+
+- id: 68ebb61c-2e41-f606-484b-e37daf9b6658
+  name: ioreg - Check all ioreg properties for hypervisor names.
+  description: Grep for "virtual box", "oracle", and "vmware" from the output of the ioreg -l command.
+    This is an additional way to check for virtualization.
+  tactic: discovery
+  technique:
+    attack_id: T1082
+    name: System Information Discovery
+  platforms:
+    darwin:
+      sh:
+        command: ioreg -l
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - ioreg
+  - discovery

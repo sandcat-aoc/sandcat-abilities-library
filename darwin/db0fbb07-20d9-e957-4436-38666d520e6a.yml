@@ -1,0 +1,19 @@
+---
+
+- id: db0fbb07-20d9-e957-4436-38666d520e6a
+  name: security - Add an arbitrary trusted certificate to aid a MITM attack
+  description: This command will add a certificate to the keychain.
+  tactic: defense-evasion
+  technique:
+    attack_id: T1555.001
+    name: 'Credentials from Password Stores: Keychain'
+  platforms:
+    darwin:
+      sh:
+        command: security add-trusted-cert -d -r trustRoot -k /Library/Keychains/System.keychain bad_cert.crt
+  singleton: false
+  privilege: Elevated
+  repeatable: true
+  buckets:
+  - security
+  - defense-evasion

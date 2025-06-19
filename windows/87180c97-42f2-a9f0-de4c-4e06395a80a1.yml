@@ -1,0 +1,22 @@
+- description: 'Creates a file and marks it as hidden through powershell. Upon execution,
+    open File Epxplorer and enable View > Hidden Items. Then, open Properties > Details
+    on the file
+
+    and observe that the Attributes is "H" Hidden.
+
+    '
+  id: 87180c97-42f2-a9f0-de4c-4e06395a80a1
+  name: Create Windows Hidden File with powershell
+  platforms:
+    windows:
+      psh:
+        cleanup: cmd /c 'del /A:H %temp%\T1564.001-9.txt >nul 2>&1'
+        command: $file = Get-Item $env:temp\T1564.001-9.txt -Force; $file.attributes='Hidden'
+        parsers:
+          plugins.atomic.app.parsers.atomic_powershell:
+          - source: validate_me
+        payloads: []
+  tactic: defense-evasion
+  technique:
+    attack_id: T1564.001
+    name: 'Hide Artifacts: Hidden Files and Directories'

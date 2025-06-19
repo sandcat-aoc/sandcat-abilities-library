@@ -1,0 +1,30 @@
+- id: 56cdac8e-d87d-49c8-b281-6e096c2390d1
+  name: 56cdac8e-d87d-49c8-b281-6e096c2390d1 - Malicious Driver Deployment
+  description: 'Malicious driver: 56cdac8e-d87d-49c8-b281-6e096c2390d1
+
+    Category: vulnerable driver
+
+    Author: Nasreddine Bencherchali
+
+    Created: 2023-05-06
+
+    MITRE Technique: T1068'
+  tactic: defense-evasion
+  technique:
+    attack_id: T1068
+    name: Rootkit
+  platforms:
+    windows:
+      cmd:
+        command: sc create MaliciousDriver binPath= "C:\Windows\System32\drivers\malicious_driver.sys"
+          type= kernel
+  singleton: true
+  privilege: Elevated
+  repeatable: false
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: Nasreddine Bencherchali
+  operating_system: Windows (Version Unspecified)
+  created: '2023-05-06'
+  modified: '2023-05-06'

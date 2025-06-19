@@ -1,0 +1,23 @@
+---
+
+- id: 66f76091-1dd6-0c10-992f-cfcba59f5e21
+  name: dscl - Password policy discovery
+  description: Gain password policy information
+  tactic: discovery
+  technique:
+    attack_id: T1087.001
+    name: 'Account Discovery: Local Account'
+  platforms:
+    darwin:
+      sh:
+        command: 'dscl . -read /Config/shadowhash
+
+          dscl . read /Config/shadowhash
+
+          dscl . cat /Config/shadowhash'
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - dscl
+  - discovery

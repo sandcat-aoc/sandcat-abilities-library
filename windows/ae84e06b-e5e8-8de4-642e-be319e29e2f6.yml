@@ -1,0 +1,22 @@
+- id: ae84e06b-e5e8-8de4-642e-be319e29e2f6
+  name: Ilasm.exe - Binary file used by .NET to compile C#/intermediate (IL) code
+    to .exe
+  description: Binary file used by .NET to compile C#/intermediate (IL) code to .exe
+  tactic: defense-evasion
+  technique:
+    attack_id: T1127
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: 'ilasm.exe #{host.file.path} /exe'
+  singleton: true
+  privilege: User
+  repeatable: false
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: Hai vaknin (lux)
+  created: '2020-03-17'
+  modified: '2020-03-17'
+  operating_system: Windows All Versions

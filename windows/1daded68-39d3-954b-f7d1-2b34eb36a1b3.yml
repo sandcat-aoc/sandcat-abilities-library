@@ -1,0 +1,17 @@
+- description: 'Use certutil -urlcache argument to download a file from the web. Note
+    - /urlcache also works!
+
+    '
+  id: 1daded68-39d3-954b-f7d1-2b34eb36a1b3
+  name: certutil download (urlcache)
+  platforms:
+    windows:
+      cmd:
+        cleanup: del Atomic-license.txt >nul 2>&1
+        command: cmd /c certutil -urlcache -split -f https://raw.githubusercontent.com/redcanaryco/atomic-red-team/master/LICENSE.txt
+          Atomic-license.txt
+        payloads: []
+  tactic: command-and-control
+  technique:
+    attack_id: T1105
+    name: Ingress Tool Transfer

@@ -1,0 +1,19 @@
+- description: 'Executes the Uninstall Method, No Admin Rights Required. Upon execution,
+    "I shouldn''t really execute either." will be displayed.
+
+    '
+  id: 020e0442-e35b-f0ea-8fd4-d925c955f11f
+  name: Regasm Uninstall Method Call Test
+  platforms:
+    windows:
+      cmd:
+        cleanup: del %tmp%\T1218.009.dll >nul 2>&1
+        command: C:\Windows\Microsoft.NET\Framework\v4.0.30319\csc.exe /r:System.EnterpriseServices.dll
+          /out:"%tmp%\T1218.009.dll" /target:library "aaaa08_T1218.009.cs" && C:\Windows\Microsoft.NET\Framework\v4.0.30319\regasm.exe
+          /U %tmp%\T1218.009.dll
+        payloads:
+        - aaaa08_T1218.009.cs
+  tactic: defense-evasion
+  technique:
+    attack_id: T1218.009
+    name: 'Signed Binary Proxy Execution: Regsvcs/Regasm'

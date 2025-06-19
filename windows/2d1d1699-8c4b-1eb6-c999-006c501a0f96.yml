@@ -1,0 +1,17 @@
+- description: "This action demonstrates how an attacker might gather a system's region\
+    \ and language settings using PowerShell, which could aid in profiling \nthe machine's\
+    \ location and user language preferences. The command outputs system locale details\
+    \ to a temporary file for further analysis.\n"
+  id: 2d1d1699-8c4b-1eb6-c999-006c501a0f96
+  name: Identify System Locale and Regional Settings with PowerShell
+  platforms:
+    windows:
+      cmd:
+        cleanup: cmd.exe /c del "%TMP%\a.txt"
+        command: powershell.exe -c "Get-Culture | Format-List | Out-File -FilePath
+          %TMP%\a.txt"
+        payloads: []
+  tactic: discovery
+  technique:
+    attack_id: T1082
+    name: System Information Discovery

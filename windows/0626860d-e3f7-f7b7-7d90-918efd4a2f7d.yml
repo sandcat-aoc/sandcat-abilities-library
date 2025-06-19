@@ -1,0 +1,23 @@
+- id: 0626860d-e3f7-f7b7-7d90-918efd4a2f7d
+  name: Bitsadmin.exe - Command for copying cmd.exe to another folder
+  description: Command for copying cmd.exe to another folder
+  tactic: command-and-control
+  technique:
+    attack_id: T1105
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: bitsadmin /create 1 & bitsadmin /addfile 1 c:\windows\system32\cmd.exe
+          c:\data\playfolder\cmd.exe & bitsadmin /RESUME 1 & bitsadmin /Complete 1
+          & bitsadmin /reset
+  singleton: true
+  privilege: Elevated
+  repeatable: false
+  buckets:
+  - command-and-control
+  version: '1.0'
+  author: Oddvar Moe
+  created: '2018-05-25'
+  modified: '2018-05-25'
+  operating_system: Windows All Versions

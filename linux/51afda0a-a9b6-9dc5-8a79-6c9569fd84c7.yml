@@ -1,0 +1,17 @@
+- description: 'This test overwrites the specified log. This technique was used by
+    threat actor Rocke during the exploitation of Linux web servers.
+
+    '
+  id: 51afda0a-a9b6-9dc5-8a79-6c9569fd84c7
+  name: Overwrite Linux Log
+  platforms:
+    linux:
+      sh:
+        cleanup: if [ "/var/log/secure" != "/var/log/secure" ] ; then rm -f /var/log/secure
+          ; fi
+        command: echo 0> /var/log/secure
+        payloads: []
+  tactic: defense-evasion
+  technique:
+    attack_id: T1070.002
+    name: 'Indicator Removal on Host: Clear FreeBSD, Linux or Mac System Logs'

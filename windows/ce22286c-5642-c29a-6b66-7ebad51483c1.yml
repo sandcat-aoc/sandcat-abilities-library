@@ -1,0 +1,21 @@
+- id: ce22286c-5642-c29a-6b66-7ebad51483c1
+  name: Fsutil.exe - Zero out a file
+  description: Zero out a file
+  tactic: impact
+  technique:
+    attack_id: T1485
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: 'fsutil.exe file setZeroData offset=0 length=9999999999 #{host.dir.temp}'
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - impact
+  version: '1.0'
+  author: Elliot Killick
+  created: '2021-08-16'
+  modified: '2021-08-16'
+  operating_system: Windows All Versions

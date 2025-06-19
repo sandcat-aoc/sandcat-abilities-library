@@ -1,0 +1,17 @@
+- description: 'Enforce Smart Card Authentication Through Registry
+
+    '
+  id: 0534dcf0-e8da-c2d8-aa93-c7814e83e7e4
+  name: Enforce Smart Card Authentication Through Registry
+  platforms:
+    windows:
+      cmd:
+        cleanup: reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System"
+          /v scforceoption /f
+        command: reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System"
+          /v scforceoption /t REG_DWORD /d 1 /f
+        payloads: []
+  tactic: multiple
+  technique:
+    attack_id: T1112
+    name: Modify Registry

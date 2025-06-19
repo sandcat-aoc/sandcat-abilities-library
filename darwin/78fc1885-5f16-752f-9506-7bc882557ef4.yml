@@ -1,0 +1,24 @@
+- description: '(requires root)
+
+    '
+  id: 78fc1885-5f16-752f-9506-7bc882557ef4
+  name: View sudoers access
+  platforms:
+    darwin:
+      sh:
+        cleanup: rm -f /tmp/T1087.001.txt
+        command: if [ -f /etc/sudoers ]; then sudo cat /etc/sudoers > /tmp/T1087.001.txt;
+          fi; if [ -f /usr/local/etc/sudoers ]; then sudo cat /usr/local/etc/sudoers
+          > /tmp/T1087.001.txt; fi; cat /tmp/T1087.001.txt
+        payloads: []
+    linux:
+      sh:
+        cleanup: rm -f /tmp/T1087.001.txt
+        command: if [ -f /etc/sudoers ]; then sudo cat /etc/sudoers > /tmp/T1087.001.txt;
+          fi; if [ -f /usr/local/etc/sudoers ]; then sudo cat /usr/local/etc/sudoers
+          > /tmp/T1087.001.txt; fi; cat /tmp/T1087.001.txt
+        payloads: []
+  tactic: discovery
+  technique:
+    attack_id: T1087.001
+    name: 'Account Discovery: Local Account'

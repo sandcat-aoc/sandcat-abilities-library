@@ -1,0 +1,30 @@
+- id: a261cd64-0d04-4bf5-ad73-f3bb96bf83cf
+  name: a261cd64-0d04-4bf5-ad73-f3bb96bf83cf - Malicious Driver Deployment
+  description: 'Malicious driver: a261cd64-0d04-4bf5-ad73-f3bb96bf83cf
+
+    Category: vulnerable driver
+
+    Author: Michael Haag
+
+    Created: 2023-01-09
+
+    MITRE Technique: T1068'
+  tactic: defense-evasion
+  technique:
+    attack_id: T1068
+    name: Rootkit
+  platforms:
+    windows:
+      cmd:
+        command: sc create MaliciousDriver binPath= "C:\Windows\System32\drivers\malicious_driver.sys"
+          type= kernel
+  singleton: true
+  privilege: Elevated
+  repeatable: false
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: Michael Haag
+  operating_system: Windows (Version Unspecified)
+  created: '2023-01-09'
+  modified: '2023-01-09'

@@ -1,0 +1,19 @@
+---
+
+- id: c8f1890c-9085-6ec6-7a32-f3e56921cc77
+  name: system_profiler - Print the information of developer tools
+  description: Prints the currently active version of the Xcode developer tools and SDK.
+  tactic: discovery
+  technique:
+    attack_id: T1082
+    name: System Information Discovery
+  platforms:
+    darwin:
+      sh:
+        command: system_profiler SPDeveloperToolsDataType
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - system_profiler
+  - discovery

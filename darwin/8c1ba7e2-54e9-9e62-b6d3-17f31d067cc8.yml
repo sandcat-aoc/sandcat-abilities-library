@@ -1,0 +1,19 @@
+---
+
+- id: 8c1ba7e2-54e9-9e62-b6d3-17f31d067cc8
+  name: softwareupdate - Get OS update policy
+  description: Use the --schedule flag to return the OS update policy.
+  tactic: discovery
+  technique:
+    attack_id: T1082
+    name: System Information Discovery
+  platforms:
+    darwin:
+      sh:
+        command: softwareupdate --schedule
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - softwareupdate
+  - discovery

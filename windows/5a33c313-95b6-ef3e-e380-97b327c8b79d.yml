@@ -1,0 +1,23 @@
+- description: 'The following Atomic test will utilize ADSISearcher to enumerate users
+    within Active Directory.
+
+    Upon successful execution a listing of users will output with their paths in AD.
+
+    Reference: https://devblogs.microsoft.com/scripting/use-the-powershell-adsisearcher-type-accelerator-to-search-active-directory/
+
+    '
+  id: 5a33c313-95b6-ef3e-e380-97b327c8b79d
+  name: Enumerate Active Directory Users with ADSISearcher
+  platforms:
+    windows:
+      psh:
+        cleanup: ''
+        command: ([adsisearcher]"objectcategory=user").FindAll(); ([adsisearcher]"objectcategory=user").FindOne()
+        parsers:
+          plugins.atomic.app.parsers.atomic_powershell:
+          - source: validate_me
+        payloads: []
+  tactic: discovery
+  technique:
+    attack_id: T1087.002
+    name: 'Account Discovery: Domain Account'

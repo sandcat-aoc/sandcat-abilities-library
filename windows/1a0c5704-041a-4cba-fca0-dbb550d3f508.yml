@@ -1,0 +1,22 @@
+- description: 'Create an Alternate Data Stream Directory and File with the command
+    prompt. Write access is required. Upon execution,
+
+    run "dir /A /Q /R" in the %temp% folder to view that the alternate data stream
+    folder exists. To view the data in the
+
+    alternate data stream, run "type %temp%\...$.......::$index_allocation\secrets.txt"
+
+    '
+  id: 1a0c5704-041a-4cba-fca0-dbb550d3f508
+  name: Create Hidden Directory via $index_allocation
+  platforms:
+    windows:
+      cmd:
+        cleanup: rmdir /S /Q %temp%\...$.......::$index_allocation >nul 2>&1
+        command: md %temp%\...$.......::$index_allocation && echo too many secrets
+          > %temp%\...$.......::$index_allocation\secrets.txt
+        payloads: []
+  tactic: defense-evasion
+  technique:
+    attack_id: T1564.004
+    name: 'Hide Artifacts: NTFS File Attributes'

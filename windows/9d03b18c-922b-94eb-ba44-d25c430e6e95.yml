@@ -1,0 +1,24 @@
+- description: 'Copies and deletes mail data on Windows
+
+    '
+  id: 9d03b18c-922b-94eb-ba44-d25c430e6e95
+  name: Copy and Delete Mailbox Data on Windows
+  platforms:
+    windows:
+      psh:
+        cleanup: Remove-Item -Path "C:\Users\$env:USERNAME\AppData\Local\Comms\Unistore\data\copy"
+          -Recurse -Force -ErrorAction Ignore
+        command: New-Item -Path "C:\Users\$env:USERNAME\AppData\Local\Comms\Unistore\data\copy"
+          -ItemType Directory -ErrorAction Ignore; Get-ChildItem -Path "C:\Users\$env:USERNAME\AppData\Local\Comms\Unistore\data"
+          -Exclude copy | ForEach-Object { Copy-Item -Path $_.FullName -Destination
+          "C:\Users\$env:USERNAME\AppData\Local\Comms\Unistore\data\copy" -Recurse
+          -Force -ErrorAction Ignore }; Remove-Item -Path "C:\Users\$env:USERNAME\AppData\Local\Comms\Unistore\data\copy"
+          -Recurse -Force -ErrorAction Ignore
+        parsers:
+          plugins.atomic.app.parsers.atomic_powershell:
+          - source: validate_me
+        payloads: []
+  tactic: defense-evasion
+  technique:
+    attack_id: T1070.008
+    name: 'Email Collection: Mailbox Manipulation'

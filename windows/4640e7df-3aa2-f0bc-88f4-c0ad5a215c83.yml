@@ -1,0 +1,17 @@
+- description: "Start C2 Session Using Ncat\nTo start the listener on a Linux device,\
+    \ type the following: \nnc -l -p <port>\n"
+  id: 4640e7df-3aa2-f0bc-88f4-c0ad5a215c83
+  name: Netcat C2
+  platforms:
+    windows:
+      psh:
+        cleanup: ''
+        command: cmd /c "#{ncat_exe}"
+        parsers:
+          plugins.atomic.app.parsers.atomic_powershell:
+          - source: validate_me
+        payloads: []
+  tactic: command-and-control
+  technique:
+    attack_id: T1095
+    name: Non-Application Layer Protocol

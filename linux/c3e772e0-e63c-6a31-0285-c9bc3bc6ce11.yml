@@ -1,0 +1,17 @@
+- description: 'The first sub-test deletes the journal files using rm utility in the
+    "/var/log/journal/" directory and the second sub-test clears the journal by modifiying
+    time period of logs that should be retained to zero.
+
+    '
+  id: c3e772e0-e63c-6a31-0285-c9bc3bc6ce11
+  name: Delete system journal logs via rm and journalctl utilities
+  platforms:
+    linux:
+      sh:
+        cleanup: ''
+        command: sudo rm /var/log/journal/*; sudo journalctl --vacuum-time=0
+        payloads: []
+  tactic: defense-evasion
+  technique:
+    attack_id: T1070.002
+    name: 'Indicator Removal on Host: Clear FreeBSD, Linux or Mac System Logs'

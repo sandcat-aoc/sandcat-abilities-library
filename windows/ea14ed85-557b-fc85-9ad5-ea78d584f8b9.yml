@@ -1,0 +1,25 @@
+- id: ea14ed85-557b-fc85-9ad5-ea78d584f8b9
+  name: Makecab.exe - Compresses the target file into a CAB file stored in the Alternate
+    Data Stream (ADS) of the target file.
+  description: Compresses the target file into a CAB file stored in the Alternate
+    Data Stream (ADS) of the target file.
+  tactic: defense-evasion
+  technique:
+    attack_id: T1564.004
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: 'makecab payload.exe #{host.dir.temp}:autoruns.cab'
+        payloads:
+        - payload.exe
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: Oddvar Moe
+  created: '2018-05-25'
+  modified: '2018-05-25'
+  operating_system: Windows All Versions

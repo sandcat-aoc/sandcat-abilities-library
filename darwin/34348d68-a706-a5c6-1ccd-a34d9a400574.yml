@@ -1,0 +1,20 @@
+---
+
+- id: 34348d68-a706-a5c6-1ccd-a34d9a400574
+  name: nvram - Get nvram variables
+  description: The -p option prints all the nvram variables that contain some potentially sensitive information
+    like WiFi SSIDs and Bluetooth devices.
+  tactic: discovery
+  technique:
+    attack_id: T1082
+    name: System Information Discovery
+  platforms:
+    darwin:
+      sh:
+        command: nvram -p
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - nvram
+  - discovery

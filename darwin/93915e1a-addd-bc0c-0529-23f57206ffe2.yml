@@ -1,0 +1,19 @@
+---
+
+- id: 93915e1a-addd-bc0c-0529-23f57206ffe2
+  name: sw_vers - Retrieving macOS Product Version
+  description: Fetch macOS product version.
+  tactic: discovery
+  technique:
+    attack_id: T1082
+    name: System Information Discovery
+  platforms:
+    darwin:
+      sh:
+        command: sw_vers -productVersion
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - sw_vers
+  - discovery

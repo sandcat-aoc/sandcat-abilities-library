@@ -1,0 +1,17 @@
+- description: 'Writes text to a file and display the results. This test is intended
+    to emulate the dropping of a malicious file to disk.
+
+    '
+  id: e0d7856b-f287-4178-9ecf-1e0654d96995
+  name: Writes text to a file and displays it.
+  platforms:
+    windows:
+      cmd:
+        cleanup: del "%TEMP%\test.bin" >nul 2>&1
+        command: echo "Hello from the Windows Command Prompt!" > "%TEMP%\test.bin"
+          & type "%TEMP%\test.bin"
+        payloads: []
+  tactic: execution
+  technique:
+    attack_id: T1059.003
+    name: 'Command and Scripting Interpreter: Windows Command Shell'

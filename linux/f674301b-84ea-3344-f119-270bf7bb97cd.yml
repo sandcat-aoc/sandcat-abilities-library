@@ -1,0 +1,15 @@
+- description: 'Delete messages and security logs
+
+    '
+  id: f674301b-84ea-3344-f119-270bf7bb97cd
+  name: rm -rf
+  platforms:
+    linux:
+      sh:
+        cleanup: ''
+        command: rm -rf /var/log/messages; rm -rf /var/log/security
+        payloads: []
+  tactic: defense-evasion
+  technique:
+    attack_id: T1070.002
+    name: 'Indicator Removal on Host: Clear FreeBSD, Linux or Mac System Logs'

@@ -1,0 +1,19 @@
+---
+
+- id: 74bd3108-486d-a718-7357-957033e44782
+  name: nscurl - Download file
+  description: Download file to the Downloads directory using -dl
+  tactic: defense-evasion
+  technique:
+    attack_id: T1105
+    name: Ingress Tool Transfer
+  platforms:
+    darwin:
+      sh:
+        command: nscurl https://google.com -dl
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - nscurl
+  - defense-evasion

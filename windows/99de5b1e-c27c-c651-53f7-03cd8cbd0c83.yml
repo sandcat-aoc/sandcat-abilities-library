@@ -1,0 +1,23 @@
+- id: 99de5b1e-c27c-c651-53f7-03cd8cbd0c83
+  name: Microsoft.Workflow.Compiler.exe - Compile and execute C# or VB.net code in
+    a XOML file referenced in the first argument (any extension accepted).
+  description: Compile and execute C# or VB.net code in a XOML file referenced in
+    the first argument (any extension accepted).
+  tactic: defense-evasion
+  technique:
+    attack_id: T1127
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: 'Microsoft.Workflow.Compiler.exe #{host.dir.temp} #{host.file.path}'
+  singleton: true
+  privilege: User
+  repeatable: false
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: Conor Richard
+  created: '2018-10-22'
+  modified: '2018-10-22'
+  operating_system: Windows All Versions

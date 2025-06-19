@@ -1,0 +1,19 @@
+- description: 'Rename certutil and decode a file. This is in reference to latest
+    research by FireEye [here](https://www.fireeye.com/blog/threat-research/2018/09/apt10-targeting-japanese-corporations-using-updated-ttps.html)
+
+    '
+  id: e510c5fd-2f1e-a418-990f-cf06775bc9b4
+  name: Certutil Rename and Decode
+  platforms:
+    windows:
+      cmd:
+        cleanup: del %temp%\tcm.tmp >nul 2>&1 && del %temp%\T1140_calc2.txt >nul 2>&1
+          && del %temp%\T1140_calc2_decoded.exe >nul 2>&1
+        command: copy %windir%\system32\certutil.exe %temp%\tcm.tmp && %temp%\tcm.tmp
+          -encode C:\Windows\System32\calc.exe %temp%\T1140_calc2.txt && %temp%\tcm.tmp
+          -decode %temp%\T1140_calc2.txt %temp%\T1140_calc2_decoded.exe
+        payloads: []
+  tactic: defense-evasion
+  technique:
+    attack_id: T1140
+    name: Deobfuscate/Decode Files or Information

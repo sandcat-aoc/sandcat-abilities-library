@@ -1,0 +1,21 @@
+- description: 'Using a space before a command causes the command to not be logged
+    in the Bash History file
+
+    '
+  id: 8e7c2887-7a9c-7826-fece-190f185b534c
+  name: Use Space Before Command to Avoid Logging to History
+  platforms:
+    darwin:
+      sh:
+        cleanup: ''
+        command: hostname; whoami
+        payloads: []
+    linux:
+      sh:
+        cleanup: ''
+        command: hostname; whoami
+        payloads: []
+  tactic: defense-evasion
+  technique:
+    attack_id: T1070.003
+    name: 'Indicator Removal on Host: Clear Command History'

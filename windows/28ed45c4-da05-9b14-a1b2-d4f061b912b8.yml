@@ -1,0 +1,22 @@
+- description: 'Attempt an RDP session via Remote Desktop Application to a DomainController.
+
+    '
+  id: 28ed45c4-da05-9b14-a1b2-d4f061b912b8
+  name: RDP to DomainController
+  platforms:
+    windows:
+      psh:
+        cleanup: $p=Tasklist /svc /fi "IMAGENAME eq mstsc.exe" /fo csv | convertfrom-csv;
+          if(-not ([string]::IsNullOrEmpty($p.PID))) { Stop-Process -Id $p.PID }
+        command: if((Get-CIMInstance -Class Win32_ComputerSystem) { ; } else {Write-Host
+          Joining this computer to a domain must be done manually};  ;  $Server=#{logonserver};
+          $User = Join-Path; $Password="#{password}"; cmdkey /generic:TERMSRV/$Server
+          /user:$User /pass:$Password; mstsc /v:$Server; echo "RDP connection established"
+        parsers:
+          plugins.atomic.app.parsers.atomic_powershell:
+          - source: validate_me
+        payloads: []
+  tactic: lateral-movement
+  technique:
+    attack_id: T1021.001
+    name: 'Remote Services: Remote Desktop Protocol'

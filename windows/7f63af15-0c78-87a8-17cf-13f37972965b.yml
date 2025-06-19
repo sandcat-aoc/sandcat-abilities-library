@@ -1,0 +1,25 @@
+- id: 7f63af15-0c78-87a8-17cf-13f37972965b
+  name: Rasautou.exe - Loads the target .DLL specified in -d and executes the export
+    specified in -p. Options removed in Windows 10.
+  description: Loads the target .DLL specified in -d and executes the export specified
+    in -p. Options removed in Windows 10.
+  tactic: defense-evasion
+  technique:
+    attack_id: T1218
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: rasautou -d payload.dll -p export_name -a a -e e
+        payloads:
+        - payload.dll
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: Tony Lambert
+  created: '2020-01-10'
+  modified: '2020-01-10'
+  operating_system: Windows All Versions

@@ -1,0 +1,16 @@
+- description: 'Copy in new loginwindow.plist to launch Calculator.
+
+    '
+  id: 13370afb-983b-cc33-44af-451d8877f047
+  name: Copy in loginwindow.plist for Re-Opened Applications
+  platforms:
+    darwin:
+      sh:
+        cleanup: rm -f ~/Library/Preferences/ByHost/com.apple.loginwindow.plist
+        command: cp b1d66c_reopen_loginwindow_calc.plist ~/Library/Preferences/ByHost/com.apple.loginwindow.plist
+        payloads:
+        - b1d66c_reopen_loginwindow_calc.plist
+  tactic: multiple
+  technique:
+    attack_id: T1547.007
+    name: 'Boot or Logon Autostart Execution: Re-opened Applications'

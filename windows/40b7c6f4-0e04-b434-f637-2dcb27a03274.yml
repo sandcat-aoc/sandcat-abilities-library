@@ -1,0 +1,16 @@
+- description: Disables ETW for the .NET Framework by setting the COMPlus_ETWEnabled
+    environment variable to 0 in the HKCU registry using the reg.exe utility. In order
+    for changes to take effect a logout might be required.
+  id: 40b7c6f4-0e04-b434-f637-2dcb27a03274
+  name: Disable .NET Event Tracing for Windows Via Environment Variable HKCU Registry
+    - Cmd
+  platforms:
+    windows:
+      cmd:
+        cleanup: REG DELETE HKCU\Environment /v COMPlus_ETWEnabled /f > nul 2>&1
+        command: REG ADD HKCU\Environment /v COMPlus_ETWEnabled /t REG_SZ /d 0 /f
+        payloads: []
+  tactic: defense-evasion
+  technique:
+    attack_id: T1562.006
+    name: 'Impair Defenses: Indicator Blocking'

@@ -1,0 +1,30 @@
+- id: 85335187-dae0-4f06-acea-209efaf74973
+  name: 85335187-dae0-4f06-acea-209efaf74973 - Malicious Driver Deployment
+  description: 'Malicious driver: 85335187-dae0-4f06-acea-209efaf74973
+
+    Category: malicious
+
+    Author: Michael Haag
+
+    Created: 2024-09-10
+
+    MITRE Technique: T1068'
+  tactic: defense-evasion
+  technique:
+    attack_id: T1068
+    name: Rootkit
+  platforms:
+    windows:
+      cmd:
+        command: sc create MaliciousDriver binPath= "C:\Windows\System32\drivers\malicious_driver.sys"
+          type= kernel
+  singleton: true
+  privilege: Elevated
+  repeatable: false
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: Michael Haag
+  operating_system: Windows (Version Unspecified)
+  created: '2024-09-10'
+  modified: '2024-09-10'

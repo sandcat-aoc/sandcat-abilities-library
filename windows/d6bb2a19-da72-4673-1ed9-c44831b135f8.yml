@@ -1,0 +1,19 @@
+- description: 'Identify system services.
+
+
+    Upon successful execution, cmd.exe will execute service commands with expected
+    result to stdout.
+
+    '
+  id: d6bb2a19-da72-4673-1ed9-c44831b135f8
+  name: System Service Discovery
+  platforms:
+    windows:
+      cmd:
+        cleanup: ''
+        command: tasklist.exe && sc query && sc query state= all
+        payloads: []
+  tactic: discovery
+  technique:
+    attack_id: T1007
+    name: System Service Discovery

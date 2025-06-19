@@ -1,0 +1,30 @@
+- id: 4c815256-2534-4476-b15d-7cbf24c80098
+  name: 4c815256-2534-4476-b15d-7cbf24c80098 - Malicious Driver Deployment
+  description: 'Malicious driver: 4c815256-2534-4476-b15d-7cbf24c80098
+
+    Category: vulnerable drivers
+
+    Author: Michael Haag
+
+    Created: 2023-07-22
+
+    MITRE Technique: T1068'
+  tactic: defense-evasion
+  technique:
+    attack_id: T1068
+    name: Rootkit
+  platforms:
+    windows:
+      cmd:
+        command: sc create MaliciousDriver binPath= "C:\Windows\System32\drivers\malicious_driver.sys"
+          type= kernel
+  singleton: true
+  privilege: Elevated
+  repeatable: false
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: Michael Haag
+  operating_system: Windows (Version Unspecified)
+  created: '2023-07-22'
+  modified: '2023-07-22'

@@ -1,0 +1,19 @@
+- description: Spawns a notepad.exe process as a child of the current process.
+  id: 9ac97b0e-88af-420a-8c76-7a7512985895
+  name: Parent PID Spoofing - Spawn from Specified Process
+  platforms:
+    windows:
+      psh:
+        cleanup: ''
+        command: $RequiredModule = Get-Module -Name AtomicTestHarnesses -ListAvailable;
+          if (-not $RequiredModule) {Install-Module -Name AtomicTestHarnesses -Scope
+          CurrentUser -Force};  ;  Start-ATHProcessUnderSpecificParent  -ParentId
+          $PID -TestGuid 12345678-1234-1234-1234-123456789123
+        parsers:
+          plugins.atomic.app.parsers.atomic_powershell:
+          - source: validate_me
+        payloads: []
+  tactic: multiple
+  technique:
+    attack_id: T1134.004
+    name: 'Access Token Manipulation: Parent PID Spoofing'

@@ -1,0 +1,21 @@
+- description: 'Uses the ping command to introduce a delay before executing a malicious
+    payload.
+
+    '
+  id: a2f4981a-a236-1483-1c5b-01d89283b7e6
+  name: Delay execution with ping
+  platforms:
+    darwin:
+      sh:
+        cleanup: ''
+        command: ping -c 250 8.8.8.8 > /dev/null; whoami
+        payloads: []
+    linux:
+      sh:
+        cleanup: ''
+        command: ping -c 250 8.8.8.8 > /dev/null; whoami
+        payloads: []
+  tactic: multiple
+  technique:
+    attack_id: T1497.003
+    name: Time Based Evasion

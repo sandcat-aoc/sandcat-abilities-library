@@ -1,0 +1,19 @@
+---
+
+- id: 61e173be-0864-613a-4c74-1b9cfbda5251
+  name: networksetup - network device enumeration
+  description: Use networksetup to list all network interface names.
+  tactic: discovery
+  technique:
+    attack_id: T1016
+    name: System Network Configuration Discovery
+  platforms:
+    darwin:
+      sh:
+        command: networksetup -listallnetworkservices
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - networksetup
+  - discovery

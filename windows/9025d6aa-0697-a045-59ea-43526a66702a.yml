@@ -1,0 +1,24 @@
+- id: 9025d6aa-0697-a045-59ea-43526a66702a
+  name: Shell32.dll - Load a DLL/CPL by calling undocumented Control_RunDLLNoFallback
+    function.
+  description: Load a DLL/CPL by calling undocumented Control_RunDLLNoFallback function.
+  tactic: defense-evasion
+  technique:
+    attack_id: T1218.011
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: rundll32.exe shell32.dll,#44 payload.dll
+        payloads:
+        - payload.dll
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: LOLBAS Team
+  created: '2018-05-25'
+  modified: '2018-05-25'
+  operating_system: Windows All Versions

@@ -1,0 +1,17 @@
+- description: "Microsoft's Software Inventory Logging (SIL) collects information\
+    \ about software installed per host basis. Adversary can use such logs to passively\
+    \ \ncheck for existence of software of interest to them. Status of SIL can be\
+    \ checked via registry.\n[Reference](https://blog.talosintelligence.com/chinese-hacking-group-apt41-compromised-taiwanese-government-affiliated-research-institute-with-shadowpad-and-cobaltstrike-2/)\n"
+  id: ecde884c-05a9-ea36-c199-5dd1b3dd523d
+  name: Check Software Inventory Logging (SIL) status via Registry
+  platforms:
+    windows:
+      cmd:
+        cleanup: ''
+        command: reg.exe query hklm\software\microsoft\windows\softwareinventorylogging
+          /v collectionstate /reg:64
+        payloads: []
+  tactic: discovery
+  technique:
+    attack_id: T1012
+    name: Query Registry

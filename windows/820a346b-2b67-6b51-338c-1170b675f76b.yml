@@ -1,0 +1,21 @@
+- description: 'An adversary may attempt to trick the user into downloading UltraVNC
+    for use as a C2 channel.
+
+    Upon successful execution, UltraVNC will be executed.
+
+    '
+  id: 820a346b-2b67-6b51-338c-1170b675f76b
+  name: UltraVNC Execution
+  platforms:
+    windows:
+      psh:
+        cleanup: Stop-Process -Name "vncviewer" -force -erroraction silentlycontinue
+        command: Start-Process $env:ProgramFiles\'uvnc bvba\UltraVnc\vncviewer.exe'
+        parsers:
+          plugins.atomic.app.parsers.atomic_powershell:
+          - source: validate_me
+        payloads: []
+  tactic: command-and-control
+  technique:
+    attack_id: T1219
+    name: Remote Access Software

@@ -1,0 +1,15 @@
+- description: 'Identify virtual machine host kernel modules.
+
+    '
+  id: ede4a911-2d7a-4497-7702-505de1d42091
+  name: FreeBSD VM Check via Kernel Modules
+  platforms:
+    linux:
+      sh:
+        cleanup: ''
+        command: kldstat | grep -i "vmm"; kldstat | grep -i "vbox"
+        payloads: []
+  tactic: discovery
+  technique:
+    attack_id: T1082
+    name: System Information Discovery

@@ -1,0 +1,23 @@
+- description: 'Modifies the last access timestamp of a specified file. This technique
+    was seen in use by the Stitch RAT.
+
+    To verify execution, use File Explorer to view the Properties of the file and
+    observe that the Accessed time is the year 1970.
+
+    '
+  id: 68ce066d-0796-0123-ccd9-81dd8c38a7c1
+  name: Windows - Modify file last access timestamp with PowerShell
+  platforms:
+    windows:
+      psh:
+        cleanup: ''
+        command: Get-ChildItem "PathToAtomicsFolder\..\ExternalPayloads\T1551.006_timestomp.txt"
+          | % { $_.LastAccessTime = "01/01/1970 00:00:00" }
+        parsers:
+          plugins.atomic.app.parsers.atomic_powershell:
+          - source: validate_me
+        payloads: []
+  tactic: defense-evasion
+  technique:
+    attack_id: T1070.006
+    name: 'Indicator Removal on Host: Timestomp'

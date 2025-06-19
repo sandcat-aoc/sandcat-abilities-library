@@ -1,0 +1,30 @@
+- id: 33a9c9ae-5ca3-442d-9f0f-2615637c1c57
+  name: 33a9c9ae-5ca3-442d-9f0f-2615637c1c57 - Malicious Driver Deployment
+  description: 'Malicious driver: 33a9c9ae-5ca3-442d-9f0f-2615637c1c57
+
+    Category: malicious
+
+    Author: Michael Haag
+
+    Created: 2023-02-28
+
+    MITRE Technique: T1068'
+  tactic: defense-evasion
+  technique:
+    attack_id: T1068
+    name: Rootkit
+  platforms:
+    windows:
+      cmd:
+        command: sc create MaliciousDriver binPath= "C:\Windows\System32\drivers\malicious_driver.sys"
+          type= kernel
+  singleton: true
+  privilege: Elevated
+  repeatable: false
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: Michael Haag
+  operating_system: Windows (Version Unspecified)
+  created: '2023-02-28'
+  modified: '2023-02-28'

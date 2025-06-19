@@ -1,0 +1,18 @@
+- description: Executes outdated PowerShell Version 2 which does not support security
+    features like AMSI. By default the atomic will attempt to execute the cmdlet Invoke-Mimikatz
+    whether it exists or not, as this cmdlet will be blocked by AMSI when active.
+  id: 6ae04343-21d8-fd54-71da-7b77e3d7ed39
+  name: PowerShell Version 2 Downgrade
+  platforms:
+    windows:
+      psh:
+        cleanup: ''
+        command: PowerShell -version 2 -command 'Invoke-Mimikatz'
+        parsers:
+          plugins.atomic.app.parsers.atomic_powershell:
+          - source: validate_me
+        payloads: []
+  tactic: defense-evasion
+  technique:
+    attack_id: T1562.010
+    name: 'Impair Defenses: Downgrade Attack'

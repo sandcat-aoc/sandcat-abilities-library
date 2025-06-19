@@ -1,0 +1,20 @@
+---
+
+- id: 8179ad14-5fbc-e41f-05e7-6dbb4e482a47
+  name: kextstat - List kernel extensions
+  description: Uses kexstat showloaded to display kernel extensions and address in kernel memory it has
+    been loaded
+  tactic: discovery
+  technique:
+    attack_id: T1082
+    name: System Information Discovery
+  platforms:
+    darwin:
+      sh:
+        command: kexstat
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - kextstat
+  - discovery

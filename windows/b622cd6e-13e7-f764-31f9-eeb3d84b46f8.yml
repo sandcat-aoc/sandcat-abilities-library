@@ -1,0 +1,27 @@
+- description: 'This test simulates an adversary modifying access permissions for
+    a Windows Event Log Channel by altering the "ChannelAccess" registry value. Specifically,
+    it changes the Security Descriptor Definition Language (SDDL) string. These modifications
+    can restrict or grant access to specific users or groups, potentially aiding in
+    defense evasion by controlling who can view or modify a event log channel.
+
+    Upon execution, the user shouldn''t be able to access the event log channel via
+    the event viewer or via utilities such as "Get-EventLog" or "wevtutil".'
+  id: b622cd6e-13e7-f764-31f9-eeb3d84b46f8
+  name: Modify Event Log Channel Access Permissions via Registry 2 - PowerShell
+  platforms:
+    windows:
+      psh:
+        cleanup: Remove-Item -Path HKLM:\SOFTWARE\Policies\Microsoft\Windows\EventLog\Setup
+          -Force; Restart-Service -Name EventLog -Force -ErrorAction Ignore
+        command: New-Item -Path HKLM:\SOFTWARE\Policies\Microsoft\Windows\EventLog\Setup
+          -Force; Set-ItemProperty -Path HKLM:\SOFTWARE\Policies\Microsoft\Windows\EventLog\Setup
+          -Name "ChannelAccess" -Value "O:SYG:SYD:(D;;0x1;;;WD)"; Restart-Service
+          -Name EventLog -Force -ErrorAction Ignore
+        parsers:
+          plugins.atomic.app.parsers.atomic_powershell:
+          - source: validate_me
+        payloads: []
+  tactic: defense-evasion
+  technique:
+    attack_id: T1562.002
+    name: 'Impair Defenses: Disable Windows Event Logging'

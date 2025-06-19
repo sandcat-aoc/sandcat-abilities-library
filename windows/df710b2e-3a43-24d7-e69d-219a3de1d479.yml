@@ -1,0 +1,15 @@
+- description: "Rundll32.exe loading dll using ordinal value #2 to DLLRegisterServer.\
+    \ \nUpon successful execution, Calc.exe will spawn.\n"
+  id: df710b2e-3a43-24d7-e69d-219a3de1d479
+  name: Rundll32 with Ordinal Value
+  platforms:
+    windows:
+      cmd:
+        cleanup: ''
+        command: rundll32.exe "be0315_AllTheThingsx64.dll",#2
+        payloads:
+        - be0315_AllTheThingsx64.dll
+  tactic: defense-evasion
+  technique:
+    attack_id: T1218.011
+    name: 'Signed Binary Proxy Execution: Rundll32'

@@ -1,0 +1,21 @@
+- description: 'Ursnif downloads additional modules from the C&C server and saves
+    these in the registry folder HKEY_CURRENT_USER\Software\AppDataLow\Software\Microsoft\
+
+    More information - https://blog.trendmicro.com/trendlabs-security-intelligence/phishing-campaign-uses-hijacked-emails-to-deliver-ursnif-by-replying-to-ongoing-threads/
+
+    '
+  id: 9e45dba4-42d5-aa5c-977f-2086a09c2d0c
+  name: Ursnif Malware Registry Key Creation
+  platforms:
+    windows:
+      cmd:
+        cleanup: reg delete HKCU\Software\AppDataLow\Software\Microsoft\3A861D62-51E0-15700F2219A4
+          /va /f >nul 2>&1 && reg delete HKCU\Software\AppDataLow\Software\Microsoft\3A861D62-51E0-15700F2219A4
+          /f >nul 2>&1
+        command: reg add HKCU\Software\AppDataLow\Software\Microsoft\3A861D62-51E0-15700F2219A4
+          /v comsxRes /t REG_BINARY  /d 72656463616e617279 /f
+        payloads: []
+  tactic: multiple
+  technique:
+    attack_id: T1112
+    name: Modify Registry

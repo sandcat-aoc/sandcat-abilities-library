@@ -1,0 +1,19 @@
+---
+
+- id: c13c4155-f2d0-a672-2263-4da58c6fdc82
+  name: networksetup - Set auto proxy URL for an interface
+  description: Use networksetup to set the proxy URL for an interface.
+  tactic: command-and-control
+  technique:
+    attack_id: T1016
+    name: System Network Configuration Discovery
+  platforms:
+    darwin:
+      sh:
+        command: networksetup -setautoproxyurl "Wi-Fi" $autoProxyURL
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - networksetup
+  - command-and-control

@@ -1,0 +1,19 @@
+---
+
+- id: 9976a6f6-0987-dafa-c72a-7ac254d7895a
+  name: csrutil - Determine if SIP is enabled
+  description: Determine if System Integrity Protection is enabled
+  tactic: discovery
+  technique:
+    attack_id: T1562.001
+    name: 'Impair Defenses: Disable or Modify Tools'
+  platforms:
+    darwin:
+      sh:
+        command: csrutil status
+  singleton: true
+  privilege: Elevated
+  repeatable: false
+  buckets:
+  - csrutil
+  - discovery

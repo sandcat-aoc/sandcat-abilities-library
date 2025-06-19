@@ -1,0 +1,16 @@
+- description: After execution the new account will be active and added to the Administrators
+    group
+  id: c74f43a6-ba27-a277-e821-4be228a6360f
+  name: Create local account with admin privileges
+  platforms:
+    windows:
+      cmd:
+        cleanup: net localgroup administrators art-test /delete >nul 2>&1 && net user
+          art-test /delete >nul 2>&1
+        command: 'net user art-test /add && net user art-test #{password} && net localgroup
+          administrators art-test /add'
+        payloads: []
+  tactic: multiple
+  technique:
+    attack_id: T1078.003
+    name: 'Valid Accounts: Local Accounts'

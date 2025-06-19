@@ -1,0 +1,22 @@
+- id: 51ab764e-72cf-8fc9-92ae-dc2a4f6f44be
+  name: Verclsid.exe - Used to verify a COM object before it is instantiated by Windows
+    Explorer
+  description: Used to verify a COM object before it is instantiated by Windows Explorer
+  tactic: defense-evasion
+  technique:
+    attack_id: T1218.012
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: verclsid.exe /S /C {CLSID}
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: '@bohops'
+  created: '2018-12-04'
+  modified: '2018-12-04'
+  operating_system: Windows All Versions

@@ -1,0 +1,23 @@
+- id: 2df287c5-1c2c-ab68-ca1f-a626ffb13565
+  name: Vshadow.exe - Executes specified executable from vshadow.exe.
+  description: Executes specified executable from vshadow.exe.
+  tactic: defense-evasion
+  technique:
+    attack_id: T1202
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: 'vshadow.exe -nw -exec=payload.exe C:'
+        payloads:
+        - payload.exe
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: "Ayberk Hala\xE7"
+  created: '2023-09-06'
+  modified: '2023-09-06'
+  operating_system: Windows All Versions

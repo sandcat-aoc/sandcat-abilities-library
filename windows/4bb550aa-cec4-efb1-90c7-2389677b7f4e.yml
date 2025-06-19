@@ -1,0 +1,21 @@
+- description: 'Copies a windows exe, renames it as another windows exe, and launches
+    it to masquerade as second windows exe
+
+    '
+  id: 4bb550aa-cec4-efb1-90c7-2389677b7f4e
+  name: Masquerading - windows exe running as different windows exe
+  platforms:
+    windows:
+      psh:
+        cleanup: Remove-Item ($env:TEMP + "\svchost.exe") -Force -ErrorAction Ignore
+        command: copy "$env:ComSpec" ($env:TEMP + "\svchost.exe"); $myT1036_003 =
+          (Start-Process -PassThru -FilePath ($env:TEMP + "\svchost.exe")).Id; Stop-Process
+          -ID $myT1036_003
+        parsers:
+          plugins.atomic.app.parsers.atomic_powershell:
+          - source: validate_me
+        payloads: []
+  tactic: defense-evasion
+  technique:
+    attack_id: T1036.003
+    name: 'Masquerading: Rename System Utilities'

@@ -1,0 +1,30 @@
+- id: 2225128d-a23f-434a-aaee-69a88ea64fbd
+  name: 2225128d-a23f-434a-aaee-69a88ea64fbd - Malicious Driver Deployment
+  description: 'Malicious driver: 2225128d-a23f-434a-aaee-69a88ea64fbd
+
+    Category: vulnerable drivers
+
+    Author: Michael Haag
+
+    Created: 2023-07-22
+
+    MITRE Technique: T1068'
+  tactic: defense-evasion
+  technique:
+    attack_id: T1068
+    name: Rootkit
+  platforms:
+    windows:
+      cmd:
+        command: sc create MaliciousDriver binPath= "C:\Windows\System32\drivers\malicious_driver.sys"
+          type= kernel
+  singleton: true
+  privilege: Elevated
+  repeatable: false
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: Michael Haag
+  operating_system: Windows (Version Unspecified)
+  created: '2023-07-22'
+  modified: '2023-07-22'

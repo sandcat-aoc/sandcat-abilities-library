@@ -1,0 +1,19 @@
+---
+
+- id: 0932a42c-cafc-21c0-57da-04da8fa4e6f8
+  name: mdfind - Use mdfind to search for apps to infect
+  description: Allows an attacker to determine if specific applications are installed and can be leveraged
+  tactic: reconnaissance
+  technique:
+    attack_id: T1083
+    name: File and Directory Discovery
+  platforms:
+    darwin:
+      sh:
+        command: set appId to do shell script "mdfind kMDItemCFBundleIdentifier = '" & bundleId & "'"
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - mdfind
+  - reconnaissance

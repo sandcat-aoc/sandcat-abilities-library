@@ -1,0 +1,19 @@
+- description: 'Create a plist and execute it
+
+    '
+  id: 23246f1b-0428-98be-6b16-8efedcb36fd4
+  name: Launch Agent
+  platforms:
+    darwin:
+      sh:
+        cleanup: sudo launchctl unload ~/Library/LaunchAgents/com.atomicredteam.plist;
+          sudo rm ~/Library/LaunchAgents/com.atomicredteam.plist
+        command: if [ ! -d ~/Library/LaunchAgents ]; then mkdir ~/Library/LaunchAgents;
+          fi; sudo cp a42d6f_atomicredteam_T1543_001.plist ~/Library/LaunchAgents/com.atomicredteam.plist;
+          sudo launchctl load -w ~/Library/LaunchAgents/com.atomicredteam.plist
+        payloads:
+        - a42d6f_atomicredteam_T1543_001.plist
+  tactic: multiple
+  technique:
+    attack_id: T1543.001
+    name: 'Create or Modify System Process: Launch Agent'

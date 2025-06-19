@@ -1,0 +1,19 @@
+---
+
+- id: 298071e7-18cc-c0e9-1299-9a026b8df05f
+  name: csrutil - Map infrastructure
+  description: List allowed NetBoot sources
+  tactic: reconnaissance
+  technique:
+    attack_id: T1562.001
+    name: 'Impair Defenses: Disable or Modify Tools'
+  platforms:
+    darwin:
+      sh:
+        command: csrutil netboot list
+  singleton: false
+  privilege: Elevated
+  repeatable: true
+  buckets:
+  - csrutil
+  - reconnaissance

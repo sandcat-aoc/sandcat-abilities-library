@@ -1,0 +1,23 @@
+- id: 4e203211-2152-69b2-35a7-d54ba9e90b3b
+  name: Mmc.exe - Load an arbitrary payload DLL by configuring COR Profiler registry
+    settings and launching MMC to bypass UAC.
+  description: Load an arbitrary payload DLL by configuring COR Profiler registry
+    settings and launching MMC to bypass UAC.
+  tactic: defense-evasion
+  technique:
+    attack_id: T1218.014
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: mmc.exe gpedit.msc
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: '@bohops'
+  created: '2018-12-04'
+  modified: '2018-12-04'
+  operating_system: Windows All Versions

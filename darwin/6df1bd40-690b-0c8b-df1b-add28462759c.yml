@@ -1,0 +1,20 @@
+---
+
+- id: 6df1bd40-690b-0c8b-df1b-add28462759c
+  name: tmutil - Restore a backup
+  description: The following command restore the specified backup. An attacker can use this to restore
+    a backup of a sensitive file that was deleted.
+  tactic: collection
+  technique:
+    attack_id: T1490
+    name: Inhibit System Recovery
+  platforms:
+    darwin:
+      sh:
+        command: tmutil restore /path/to/backup
+  singleton: false
+  privilege: Elevated
+  repeatable: true
+  buckets:
+  - tmutil
+  - collection

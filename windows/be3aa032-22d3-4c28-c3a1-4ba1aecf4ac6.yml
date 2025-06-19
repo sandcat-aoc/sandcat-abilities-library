@@ -1,0 +1,27 @@
+- description: 'You can register a "helper dll" with Netsh as a persistance mechanism.
+    The code in the dll is executed every time netsh.exe is called.
+
+    The NetshHelper.dll provided with the atomic will simply launch notepad when netsh.exe
+    is run.
+
+
+    [Blog](https://htmlpreview.github.io/?https://github.com/MatthewDemaske/blogbackup/blob/master/netshell.html)
+
+    [Sample DLL code](https://github.com/outflanknl/NetshHelperBeacon)
+
+    '
+  id: be3aa032-22d3-4c28-c3a1-4ba1aecf4ac6
+  name: Netsh Helper DLL Registration
+  platforms:
+    windows:
+      cmd:
+        cleanup: netsh.exe delete helper "08497f_NetshHelper.dll"
+        command: netsh.exe add helper "08497f_NetshHelper.dll" && taskkill /im notepad.exe
+          /t /f > NUL 2>&1
+        payloads:
+        - 08497f_NetshHelper.dll
+        - 08497f_NetshHelper.dll
+  tactic: multiple
+  technique:
+    attack_id: T1546.007
+    name: 'Event Triggered Execution: Netsh Helper DLL'

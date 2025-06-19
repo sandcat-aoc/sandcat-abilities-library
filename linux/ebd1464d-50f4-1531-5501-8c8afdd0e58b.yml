@@ -1,0 +1,22 @@
+- description: 'Use common shell utilities to decode a base64-encoded text string
+    and echo it to the console
+
+    '
+  id: ebd1464d-50f4-1531-5501-8c8afdd0e58b
+  name: Base64 decoding with shell utilities (freebsd)
+  platforms:
+    linux:
+      sh:
+        cleanup: ''
+        command: ENCODED=$(echo 'Hello from Atomic Red Team test T1140!' | b64encode
+          -r -); printf $ENCODED | b64decode -r; echo $ENCODED | b64decode -r; echo
+          $(echo $ENCODED) | b64decode -r; echo $ENCODED > /tmp/T1140.encoded && b64encode
+          -r /tmp/T1140.encoded; echo $ENCODED > /tmp/T1140.encoded && b64decode -r
+          < /tmp/T1140.encoded; echo $ENCODED > /tmp/T1140.encoded && cat /tmp/T1140.encoded
+          | b64decode -r; echo $ENCODED > /tmp/T1140.encoded && cat < /tmp/T1140.encoded
+          | b64decode -r
+        payloads: []
+  tactic: defense-evasion
+  technique:
+    attack_id: T1140
+    name: Deobfuscate/Decode Files or Information

@@ -1,0 +1,17 @@
+- description: "Schedule a user level transient task (will not survive a reboot) without\
+    \ having to create the .timer or .service files by using the systemd-run command.\
+    \ \n"
+  id: f0e294c2-5efe-6c5a-459c-2e353f586b10
+  name: Create a user level transient systemd service and timer
+  platforms:
+    linux:
+      sh:
+        cleanup: systemctl --user stop Atomic-Red-Team.service; systemctl --user stop
+          Atomic-Red-Team.timer; rm /tmp/log
+        command: systemd-run --user --unit=Atomic-Red-Team --on-calendar '*:0/1' /bin/sh
+          -c 'echo "$(date) $(whoami)" >>/tmp/log'
+        payloads: []
+  tactic: multiple
+  technique:
+    attack_id: T1053.006
+    name: 'Scheduled Task/Job: Systemd Timers'

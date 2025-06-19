@@ -1,0 +1,27 @@
+- description: 'With root privileges, an adversary can disable real time protection.
+    Note, this test assumes Defender is not in passive mode and real-time protection
+    is enabled. The use of a managed.json on Linux or Defender .plist on MacOS will
+    prevent these changes. Tamper protection will also prevent this (available on
+    MacOS, but not Linux at the time of writing). Installation of MDATP is a prerequisite.
+    Installation steps vary across MacOS and Linux distros. See Microsoft public documentation
+    for instructions: https://learn.microsoft.com/en-us/microsoft-365/security/defender-endpoint/mac-install-manually?view=o365-worldwide
+    https://learn.microsoft.com/en-us/microsoft-365/security/defender-endpoint/linux-install-manually?view=o365-worldwide
+
+    '
+  id: e1f65b54-abde-c1c5-c6f9-411b31a4ed01
+  name: Tamper with Defender ATP on Linux/MacOS
+  platforms:
+    darwin:
+      sh:
+        cleanup: sudo mdatp config real-time-protection --value enabled
+        command: sudo mdatp config real-time-protection --value disabled
+        payloads: []
+    linux:
+      sh:
+        cleanup: sudo mdatp config real-time-protection --value enabled
+        command: sudo mdatp config real-time-protection --value disabled
+        payloads: []
+  tactic: defense-evasion
+  technique:
+    attack_id: T1562.001
+    name: 'Impair Defenses: Disable or Modify Tools'

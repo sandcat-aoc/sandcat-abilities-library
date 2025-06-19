@@ -1,0 +1,66 @@
+- id: 2ed3c315-2022-499e-a844-1bbd119d0abe
+  name: Hash Sensitive Directories
+  description: Acquire hashes of compressed sensitive directories as a baseline to
+    check if they are changed in the future
+  tactic: setup
+  technique:
+    attack_id: x
+    name: x
+  repeatable: false
+  platforms:
+    linux:
+      sh:
+        command: "output=\"\";\ndir_path=$(echo \"#{directory.sensitive.path}\" |\
+          \ sed 's/\\\\\\*/\\*/g');\ndirectories=$(find $dir_path -maxdepth 0 -type\
+          \ d 2>/dev/null);\nfor directory in $directories;\n  do if [ -z \"$(ls -A\
+          \ $directory)\" ]; then\n    touch \"${directory}/.bak\";\n  fi;\n  tar\
+          \ -czf /tmp/dir_sens_comp -C $directory .;\n  hash=$(sha256sum /tmp/dir_sens_comp\
+          \ | cut -d' ' -f1);\n  output=\"${output}${directory}>${hash}\\n\";\n  rm\
+          \ -f /tmp/dir_sens_comp;\ndone;\necho $output | sed '/^[[:space:]]*$/d'\n"
+        parsers:
+          plugins.response.app.parsers.key_value:
+          - source: directory.sensitive.path
+            edge: has_hash
+            target: directory.sensitive.hash
+        cleanup: "dir_path=$(echo \"#{directory.sensitive.path}\" | sed 's/\\\\\\\
+          */\\*/g');\ndirectories=$(find $dir_path -maxdepth 0 -type d 2>/dev/null);\n\
+          for directory in $directories;\n  do rm -f \"${directory}/.bak\";\ndone;\n"
+    darwin:
+      sh:
+        command: "output=\"\";\ndir_path=$(echo \"#{directory.sensitive.path}\" |\
+          \ sed 's/\\\\\\*/\\*/g');\ndirectories=$(find $dir_path -maxdepth 0 -type\
+          \ d 2>/dev/null);\nfor directory in $directories;\n  do if [ -z \"$(ls -A\
+          \ $directory)\" ]; then\n    touch \"${directory}/.bak\";\n  fi;\n  tar\
+          \ -cf - -C $directory . | gzip --no-name > /tmp/dir_sens_comp;\n  hash=$(shasum\
+          \ -a 256 /tmp/dir_sens_comp | cut -d' ' -f1);\n  output=\"${output}${directory}>${hash}\\\
+          n\";\n  rm -f /tmp/dir_sens_comp;\ndone;\necho $output | sed '/^[[:space:]]*$/d'\n"
+        parsers:
+          plugins.response.app.parsers.key_value:
+          - source: directory.sensitive.path
+            edge: has_hash
+            target: directory.sensitive.hash
+        cleanup: "dir_path=$(echo \"#{directory.sensitive.path}\" | sed 's/\\\\\\\
+          */\\*/g');\ndirectories=$(find $dir_path -maxdepth 0 -type d 2>/dev/null);\n\
+          for directory in $directories;\n  do rm -f \"${directory}/.bak\";\ndone;\n"
+    windows:
+      psh:
+        command: "$output = '';\nGet-Item #{directory.sensitive.path} -EA silentlycontinue\
+          \ | Where-Object { $_ -is [System.IO.DirectoryInfo] } | foreach-object {\n\
+          \  if ((Get-ChildItem $_.FullName -Force | Measure-Object).count -eq 0)\
+          \ {\n    echo '' > $($_.FullName + \"\\.bak\");\n  };\n  Compress-Archive\
+          \ -Force -Path $($_.FullName + \"\\*\") -DestinationPath $(\"C:\\Users\\\
+          Public\\dir_sens_comp.zip\");\n  $hash = (Get-FileHash C:\\Users\\Public\\\
+          dir_sens_comp.zip).Hash;\n  Remove-Item -Force C:\\Users\\Public\\dir_sens_comp.zip;\n\
+          \  $output = \"$($output)$($_.FullName)>$($hash)`n\";\n};\n$output;\n"
+        parsers:
+          plugins.response.app.parsers.key_value:
+          - source: directory.sensitive.path
+            edge: has_hash
+            target: directory.sensitive.hash
+        cleanup: "Remove-Item -Recurse -Force C:\\Users\\Public\\sensitive_file_backups\
+          \ -EA silentlycontinue;\nGet-Item #{directory.sensitive.path} -EA silentlycontinue\
+          \ | Where-Object { $_ -is [System.IO.DirectoryInfo] } | foreach-object {\n\
+          \  Remove-Item -Force \"$($_.FullName)\\.bak\" -EA silentlycontinue;\n}\n"
+  requirements:
+  - plugins.response.app.requirements.source_fact:
+    - source: directory.sensitive.path

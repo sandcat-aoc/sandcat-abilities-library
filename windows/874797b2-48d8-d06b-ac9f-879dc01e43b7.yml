@@ -1,0 +1,29 @@
+- id: 874797b2-48d8-d06b-ac9f-879dc01e43b7
+  name: Update.exe - Copy your payload into "%localappdata%\Microsoft\Teams\current\".
+    Then run the command. Update.exe will create a shortcut to the specified executable
+    in "%appdata%\Microsoft\Windows\Start Menu\Programs\Startup". Then payload will
+    run on every login of the user who runs it.
+  description: Copy your payload into "%localappdata%\Microsoft\Teams\current\". Then
+    run the command. Update.exe will create a shortcut to the specified executable
+    in "%appdata%\Microsoft\Windows\Start Menu\Programs\Startup". Then payload will
+    run on every login of the user who runs it.
+  tactic: persistence
+  technique:
+    attack_id: T1547
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: Update.exe --createShortcut=payload.exe -l=Startup
+        payloads:
+        - payload.exe
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - persistence
+  version: '1.0'
+  author: Oddvar Moe
+  created: '2019-06-26'
+  modified: '2019-06-26'
+  operating_system: Windows All Versions

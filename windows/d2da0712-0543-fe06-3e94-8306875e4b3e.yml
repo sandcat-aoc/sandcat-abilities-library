@@ -1,0 +1,21 @@
+- id: d2da0712-0543-fe06-3e94-8306875e4b3e
+  name: Appvlp.exe - Executes .bat file through AppVLP.exe
+  description: Executes .bat file through AppVLP.exe
+  tactic: defense-evasion
+  technique:
+    attack_id: T1218
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: 'AppVLP.exe #{host.file.script}'
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: Oddvar Moe
+  created: '2018-05-25'
+  modified: '2018-05-25'
+  operating_system: Windows All Versions

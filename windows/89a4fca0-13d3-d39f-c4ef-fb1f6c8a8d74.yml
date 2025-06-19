@@ -1,0 +1,29 @@
+- description: 'Stores base64-encoded PowerShell code in the Windows Registry and
+    deobfuscates it for execution. This is used by numerous adversaries and malicious
+    tools.
+
+
+    Upon successful execution, powershell will execute encoded command and read/write
+    from the registry.
+
+    '
+  id: 89a4fca0-13d3-d39f-c4ef-fb1f6c8a8d74
+  name: Execute base64-encoded PowerShell from Windows Registry
+  platforms:
+    windows:
+      psh:
+        cleanup: Remove-ItemProperty -Force -ErrorAction Ignore -Path HKCU:Software\Microsoft\Windows\CurrentVersion
+          -Name Debug
+        command: $OriginalCommand = 'Write-Host "Hey, Atomic!"'; $Bytes = [System.Text.Encoding]::Unicode.GetBytes($OriginalCommand);
+          $EncodedCommand =[Convert]::ToBase64String($Bytes); $EncodedCommand; Set-ItemProperty
+          -Force -Path HKCU:Software\Microsoft\Windows\CurrentVersion -Name Debug
+          -Value $EncodedCommand; powershell.exe -Command "IEX ([Text.Encoding]::UNICODE.GetString([Convert]::FromBase64String((gp
+          HKCU:Software\Microsoft\Windows\CurrentVersion Debug).Debug)))"
+        parsers:
+          plugins.atomic.app.parsers.atomic_powershell:
+          - source: validate_me
+        payloads: []
+  tactic: defense-evasion
+  technique:
+    attack_id: T1027
+    name: Obfuscated Files or Information

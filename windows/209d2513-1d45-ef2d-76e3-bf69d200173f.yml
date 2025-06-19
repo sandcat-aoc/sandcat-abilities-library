@@ -1,0 +1,19 @@
+- description: 'Executes startup scripts configured in Group Policy
+
+    https://lolbas-project.github.io/lolbas/Binaries/Gpscript/
+
+    https://oddvar.moe/2018/04/27/gpscript-exe-another-lolbin-to-the-list/
+
+    '
+  id: 209d2513-1d45-ef2d-76e3-bf69d200173f
+  name: Lolbin Gpscript startup option
+  platforms:
+    windows:
+      cmd:
+        cleanup: ''
+        command: Gpscript /startup
+        payloads: []
+  tactic: defense-evasion
+  technique:
+    attack_id: T1218
+    name: Signed Binary Proxy Execution

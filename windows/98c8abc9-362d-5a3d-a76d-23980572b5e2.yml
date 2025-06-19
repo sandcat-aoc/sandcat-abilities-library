@@ -1,0 +1,16 @@
+- description: 'Identify the Windows MachineGUID value for a system. Upon execution,
+    the machine GUID will be displayed from registry.
+
+    '
+  id: 98c8abc9-362d-5a3d-a76d-23980572b5e2
+  name: Windows MachineGUID Discovery
+  platforms:
+    windows:
+      cmd:
+        cleanup: ''
+        command: REG QUERY HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Cryptography /v MachineGuid
+        payloads: []
+  tactic: discovery
+  technique:
+    attack_id: T1082
+    name: System Information Discovery

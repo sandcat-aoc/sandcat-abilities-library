@@ -1,0 +1,19 @@
+---
+
+- id: cfe17c6a-87fe-304c-5110-3f3099eee253
+  name: csrutil - Disable SIP
+  description: disable SIP (System Integrity Protection) - requires booting into recovery mode
+  tactic: defense-evasion
+  technique:
+    attack_id: T1562.001
+    name: 'Impair Defenses: Disable or Modify Tools'
+  platforms:
+    darwin:
+      sh:
+        command: csrutil disable
+  singleton: true
+  privilege: Elevated
+  repeatable: false
+  buckets:
+  - csrutil
+  - defense-evasion

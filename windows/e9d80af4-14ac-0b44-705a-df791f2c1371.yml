@@ -1,0 +1,21 @@
+- id: e9d80af4-14ac-0b44-705a-df791f2c1371
+  name: vbc.exe - Binary file used by .NET to compile Visual Basic code to an executable.
+  description: Binary file used by .NET to compile Visual Basic code to an executable.
+  tactic: defense-evasion
+  technique:
+    attack_id: T1127
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: 'vbc.exe /target:exe #{host.dir.temp}'
+  singleton: true
+  privilege: User
+  repeatable: false
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: Lior Adar
+  created: '2020-02-27'
+  modified: '2020-02-27'
+  operating_system: Windows All Versions

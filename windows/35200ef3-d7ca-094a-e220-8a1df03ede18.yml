@@ -1,0 +1,20 @@
+- description: Executes an HTA Application with JScript Engine and Inline Protocol
+    Handler.
+  id: 35200ef3-d7ca-094a-e220-8a1df03ede18
+  name: Invoke HTML Application - JScript Engine with Inline Protocol Handler
+  platforms:
+    windows:
+      psh:
+        cleanup: ''
+        command: $RequiredModule = Get-Module -Name AtomicTestHarnesses -ListAvailable;
+          if (-not $RequiredModule) {Install-Module -Name AtomicTestHarnesses -Scope
+          CurrentUser -Force};  ;  Invoke-ATHHTMLApplication -ScriptEngine JScript
+          -InlineProtocolHandler About -MSHTAFilePath $env:windir\system32\mshta.exe
+        parsers:
+          plugins.atomic.app.parsers.atomic_powershell:
+          - source: validate_me
+        payloads: []
+  tactic: defense-evasion
+  technique:
+    attack_id: T1218.005
+    name: 'Signed Binary Proxy Execution: Mshta'

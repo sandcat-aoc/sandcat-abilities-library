@@ -1,0 +1,19 @@
+- description: 'Emulates attack with a DiskShadow.exe (LOLBIN installed by default
+    on Windows) being used to execute arbitrary commands Reference: https://bohops.com/2018/03/26/diskshadow-the-return-of-vss-evasion-persistence-and-active-directory-database-extraction/
+
+    '
+  id: 7802ee02-cf34-e0e7-cbee-64ee22a79b8d
+  name: DiskShadow Command Execution
+  platforms:
+    windows:
+      psh:
+        cleanup: ''
+        command: ''
+        parsers:
+          plugins.atomic.app.parsers.atomic_powershell:
+          - source: validate_me
+        payloads: []
+  tactic: defense-evasion
+  technique:
+    attack_id: T1218
+    name: Signed Binary Proxy Execution

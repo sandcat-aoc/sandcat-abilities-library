@@ -1,0 +1,17 @@
+- description: 'Uses tarfile from Python to compress files
+
+    '
+  id: 42cac5c8-3a77-1f10-85fc-e202abb5826d
+  name: Compressing data using tarfile in Python (FreeBSD/Linux)
+  platforms:
+    linux:
+      sh:
+        cleanup: rm /tmp/passwd.tar.gz
+        command: which_python=`which python || which python3`; $which_python -c "import
+          tarfile; output_file = tarfile.open('/tmp/passwd.tar.gz','w'); output_file.add('/etc/passwd');
+          output_file.close()"
+        payloads: []
+  tactic: collection
+  technique:
+    attack_id: T1560.002
+    name: 'Archive Collected Data: Archive via Library'

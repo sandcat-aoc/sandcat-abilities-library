@@ -1,0 +1,17 @@
+- description: 'Searches for Google Chrome''s Bookmark file (on macOS) that contains
+    bookmarks in JSON format and lists any found instances to a text file.
+
+    '
+  id: 0142dca1-5d1e-aabd-3333-bae002d1e15a
+  name: List Google Chrome Bookmark JSON Files on macOS
+  platforms:
+    darwin:
+      sh:
+        cleanup: rm -f /tmp/T1217-Chrome.txt 2>/dev/null
+        command: find / -path "*/Google/Chrome/*/Bookmarks" -exec echo {} >> /tmp/T1217-Chrome.txt
+          \; cat /tmp/T1217-Chrome.txt 2>/dev/null
+        payloads: []
+  tactic: discovery
+  technique:
+    attack_id: T1217
+    name: Browser Bookmark Discovery

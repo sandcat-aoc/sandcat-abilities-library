@@ -1,0 +1,16 @@
+- description: 'Opens a /dev/bpf file (O_RDONLY), sets BPF filter for ''udp'' and
+    captures packets for a few seconds.
+
+    '
+  id: 38609b9d-ecfc-9731-e611-769bb4923f1b
+  name: Filtered Packet Capture macOS using /dev/bpfN with sudo
+  platforms:
+    darwin:
+      sh:
+        cleanup: rm -f /tmp/t1040_macos_pcapdemo
+        command: sudo /tmp/t1040_macos_pcapdemo -f -i en0 -t 3
+        payloads: []
+  tactic: multiple
+  technique:
+    attack_id: T1040
+    name: Network Sniffing

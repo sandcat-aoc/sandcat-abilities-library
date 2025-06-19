@@ -1,0 +1,30 @@
+- id: 1c92e1bf-103b-4545-b242-e5a9858ec9c8
+  name: 1c92e1bf-103b-4545-b242-e5a9858ec9c8 - Malicious Driver Deployment
+  description: 'Malicious driver: 1c92e1bf-103b-4545-b242-e5a9858ec9c8
+
+    Category: vulnerable driver
+
+    Author: Nasreddine Bencherchali
+
+    Created: 2024-08-21
+
+    MITRE Technique: T1068'
+  tactic: defense-evasion
+  technique:
+    attack_id: T1068
+    name: Rootkit
+  platforms:
+    windows:
+      cmd:
+        command: sc create MaliciousDriver binPath= "C:\Windows\System32\drivers\malicious_driver.sys"
+          type= kernel
+  singleton: true
+  privilege: Elevated
+  repeatable: false
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: Nasreddine Bencherchali
+  operating_system: Windows (Version Unspecified)
+  created: '2024-08-21'
+  modified: '2024-08-21'

@@ -1,0 +1,21 @@
+- description: 'chmods a file using a c script
+
+    '
+  id: 2b403e3d-0f55-01a4-3b02-5c29b7c55d60
+  name: Chmod through c script
+  platforms:
+    darwin:
+      sh:
+        cleanup: ''
+        command: /tmp/T1222002 /tmp/ T1222002
+        payloads: []
+    linux:
+      sh:
+        cleanup: ''
+        command: /tmp/T1222002 /tmp/ T1222002
+        payloads: []
+  tactic: defense-evasion
+  technique:
+    attack_id: T1222.002
+    name: 'File and Directory Permissions Modification: FreeBSD, Linux and Mac File
+      and Directory Permissions Modification'

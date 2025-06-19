@@ -1,0 +1,21 @@
+- description: "Executes User Account Control Bypass according to the methods listed\
+    \ below. Upon successful execution you should see event viewer load and two administrative\
+    \ command prompts.\nNote: The cleanup_command's which kill the spawned cmd and\
+    \ event viewer processes only work if run as admin.\n\nAuthor: James Forshaw\n\
+    \nType:\tShell API\n\nMethod: Environment variables expansion\n\nTarget:\t\\system32\\\
+    svchost.exe via \\system32\\schtasks.exe\n\nComponent:\tAttacker defined\n\nImplementation:\t\
+    ucmDiskCleanupEnvironmentVariable\n\nUCM Method:\tUacMethodDiskSilentCleanup\n\
+    \nhttps://github.com/hfiref0x/UACME\n"
+  id: a91344ec-5a94-b1ca-4732-1935f977cf24
+  name: UACME Bypass Method 34
+  platforms:
+    windows:
+      cmd:
+        cleanup: powershell Stop-Process -Name cmd -Force -ErrorAction Ignore && powershell
+          Stop-Process -Name mmc -Force -ErrorAction Ignore
+        command: '"PathToAtomicsFolder\..\ExternalPayloads\uacme\34 Akagi64.exe"'
+        payloads: []
+  tactic: multiple
+  technique:
+    attack_id: T1548.002
+    name: 'Abuse Elevation Control Mechanism: Bypass User Account Control'

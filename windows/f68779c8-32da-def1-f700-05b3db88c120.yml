@@ -1,0 +1,20 @@
+- description: 'Note: Requires winzip installation
+
+    wzzip sample.zip -s"blueblue" *.txt (VARIANT)
+
+    '
+  id: f68779c8-32da-def1-f700-05b3db88c120
+  name: Compress Data and lock with password for Exfiltration with winzip
+  platforms:
+    windows:
+      cmd:
+        cleanup: ''
+        command: path=%path%;"C:\Program Files (x86)\winzip" && mkdir .\tmp\victim-files
+          && cd .\tmp\victim-files && echo "This file will be encrypted" > .\encrypted_file.txt
+          && "%ProgramFiles%\WinZip\winzip64.exe" -min -a -s"hello" archive.zip *
+          && dir
+        payloads: []
+  tactic: collection
+  technique:
+    attack_id: T1560.001
+    name: 'Archive Collected Data: Archive via Utility'

@@ -1,0 +1,30 @@
+- id: 4f0a65a7-9a01-40cb-8d95-0844515103e6
+  name: 4f0a65a7-9a01-40cb-8d95-0844515103e6 - Malicious Driver Deployment
+  description: 'Malicious driver: 4f0a65a7-9a01-40cb-8d95-0844515103e6
+
+    Category: vulnerable driver
+
+    Author: Takahiro Haruyama
+
+    Created: 2023-11-02
+
+    MITRE Technique: T1068'
+  tactic: defense-evasion
+  technique:
+    attack_id: T1068
+    name: Rootkit
+  platforms:
+    windows:
+      cmd:
+        command: sc create MaliciousDriver binPath= "C:\Windows\System32\drivers\malicious_driver.sys"
+          type= kernel
+  singleton: true
+  privilege: Elevated
+  repeatable: false
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: Takahiro Haruyama
+  operating_system: Windows (Version Unspecified)
+  created: '2023-11-02'
+  modified: '2023-11-02'

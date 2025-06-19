@@ -1,0 +1,19 @@
+---
+
+- id: 63d72ae4-1712-6896-fa46-a6bccd442655
+  name: sysadminctl - Create a Local Admin Account
+  description: sysadminctl can be used to create a local admin account
+  tactic: persistence
+  technique:
+    attack_id: T1136.001
+    name: 'Create Account: Local Account'
+  platforms:
+    darwin:
+      sh:
+        command: sudo sysadminctl -addUser randomUser -password "randomPassword" -admin
+  singleton: false
+  privilege: Elevated
+  repeatable: true
+  buckets:
+  - sysadminctl
+  - persistence

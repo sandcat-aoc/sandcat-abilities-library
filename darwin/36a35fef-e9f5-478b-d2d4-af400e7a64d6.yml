@@ -1,0 +1,20 @@
+---
+
+- id: 36a35fef-e9f5-478b-d2d4-af400e7a64d6
+  name: system_profiler - Print power and battery information
+  description: Prints power and battery information, including the current AC wattage and battery cycle
+    count.
+  tactic: discovery
+  technique:
+    attack_id: T1082
+    name: System Information Discovery
+  platforms:
+    darwin:
+      sh:
+        command: system_profiler SPPowerDataType
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - system_profiler
+  - discovery

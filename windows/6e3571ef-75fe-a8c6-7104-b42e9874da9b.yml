@@ -1,0 +1,23 @@
+- id: 6e3571ef-75fe-a8c6-7104-b42e9874da9b
+  name: Diantz.exe - Execute diantz directives as defined in the specified Diamond
+    Definition File (.ddf); see resources for the format specification.
+  description: Execute diantz directives as defined in the specified Diamond Definition
+    File (.ddf); see resources for the format specification.
+  tactic: defense-evasion
+  technique:
+    attack_id: T1036
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: diantz /f {PATH:.ddf}
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: Tamir Yehuda
+  created: '2020-08-08'
+  modified: '2020-08-08'
+  operating_system: Windows All Versions

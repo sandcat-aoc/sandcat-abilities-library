@@ -1,0 +1,19 @@
+---
+
+- id: 6f12891a-e6fd-c30d-877f-dbb3ab343d6b
+  name: softwareupdate - Get OS and browser version information
+  description: Determine OS and Safari version by enumerating the available software updates.
+  tactic: discovery
+  technique:
+    attack_id: T1082
+    name: System Information Discovery
+  platforms:
+    darwin:
+      sh:
+        command: softwareupdate --list
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - softwareupdate
+  - discovery

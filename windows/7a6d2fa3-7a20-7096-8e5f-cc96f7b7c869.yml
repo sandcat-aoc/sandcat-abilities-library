@@ -1,0 +1,25 @@
+- id: 7a6d2fa3-7a20-7096-8e5f-cc96f7b7c869
+  name: Stordiag.exe - Once executed, Stordiag.exe will execute schtasks.exe systeminfo.exe
+    and fltmc.exe - if stordiag.exe is copied to a folder and an arbitrary executable
+    is renamed to one of these names, stordiag.exe will execute it.
+  description: Once executed, Stordiag.exe will execute schtasks.exe systeminfo.exe
+    and fltmc.exe - if stordiag.exe is copied to a folder and an arbitrary executable
+    is renamed to one of these names, stordiag.exe will execute it.
+  tactic: defense-evasion
+  technique:
+    attack_id: T1218
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: stordiag.exe
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: Eral4m
+  created: '2021-10-21'
+  modified: '2021-10-21'
+  operating_system: Windows All Versions

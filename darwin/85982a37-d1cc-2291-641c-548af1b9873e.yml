@@ -1,0 +1,19 @@
+---
+
+- id: 85982a37-d1cc-2291-641c-548af1b9873e
+  name: sysadminctl - Enable Guest Account
+  description: sysadminctl can be used to enable the guest account
+  tactic: initial-access
+  technique:
+    attack_id: T1136.001
+    name: 'Create Account: Local Account'
+  platforms:
+    darwin:
+      sh:
+        command: sudo sysadminctl -guestAccount on
+  singleton: true
+  privilege: Elevated
+  repeatable: false
+  buckets:
+  - sysadminctl
+  - initial-access

@@ -1,0 +1,19 @@
+---
+
+- id: 858b53cb-645c-aec8-5301-f537bc856cbb
+  name: networksetup - DNS server enumeration
+  description: Use networksetup to get configured DNS servers for a specific interface.
+  tactic: discovery
+  technique:
+    attack_id: T1016
+    name: System Network Configuration Discovery
+  platforms:
+    darwin:
+      sh:
+        command: networksetup -getdnsservers Wi-Fi
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - networksetup
+  - discovery

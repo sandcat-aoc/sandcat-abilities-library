@@ -1,0 +1,14 @@
+- description: Executes the Get-Service cmdlet to gather objects representing all
+    services on the local system.
+  id: a6bff761-2c9f-5dec-9c44-574181feac26
+  name: Get-Service Execution
+  platforms:
+    windows:
+      cmd:
+        cleanup: ''
+        command: powershell.exe Get-Service
+        payloads: []
+  tactic: discovery
+  technique:
+    attack_id: T1007
+    name: System Service Discovery

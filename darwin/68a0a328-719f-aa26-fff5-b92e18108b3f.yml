@@ -1,0 +1,16 @@
+- description: 'Utilize local utilities to enumerate users and groups
+
+    '
+  id: 68a0a328-719f-aa26-fff5-b92e18108b3f
+  name: Enumerate users and groups
+  platforms:
+    darwin:
+      sh:
+        cleanup: ''
+        command: dscl . list /Groups; dscl . list /Users; dscl . list /Users | grep
+          -v '_'; dscacheutil -q group; dscacheutil -q user
+        payloads: []
+  tactic: discovery
+  technique:
+    attack_id: T1087.001
+    name: 'Account Discovery: Local Account'

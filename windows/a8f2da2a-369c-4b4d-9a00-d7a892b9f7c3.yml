@@ -1,0 +1,30 @@
+- id: a8f2da2a-369c-4b4d-9a00-d7a892b9f7c3
+  name: a8f2da2a-369c-4b4d-9a00-d7a892b9f7c3 - Malicious Driver Deployment
+  description: 'Malicious driver: a8f2da2a-369c-4b4d-9a00-d7a892b9f7c3
+
+    Category: vulnerable driver
+
+    Author: Chris Beckett, Jon Petersen
+
+    Created: 2023-09-12
+
+    MITRE Technique: T1068'
+  tactic: defense-evasion
+  technique:
+    attack_id: T1068
+    name: Rootkit
+  platforms:
+    windows:
+      cmd:
+        command: sc create MaliciousDriver binPath= "C:\Windows\System32\drivers\malicious_driver.sys"
+          type= kernel
+  singleton: true
+  privilege: Elevated
+  repeatable: false
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: Chris Beckett, Jon Petersen
+  operating_system: Windows (Version Unspecified)
+  created: '2023-09-12'
+  modified: '2023-09-12'

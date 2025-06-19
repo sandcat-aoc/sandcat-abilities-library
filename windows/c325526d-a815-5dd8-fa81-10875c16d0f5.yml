@@ -1,0 +1,20 @@
+- description: 'Avoslocker malware has inbuilt functionality to enumerate the VM instances
+    and uses the esxcli command to forcefully power off them.
+
+    [Reference](https://blogs.vmware.com/security/2022/02/avoslocker-modern-linux-ransomware-threats.html)
+
+    '
+  id: c325526d-a815-5dd8-fa81-10875c16d0f5
+  name: ESXi - Avoslocker enumerates VMs and forcefully kills VMs
+  platforms:
+    windows:
+      cmd:
+        cleanup: ''
+        command: echo "" | "PathToAtomicsFolder\..\ExternalPayloads\plink.exe" "atomic.local"
+          -ssh  -l "root" -pw "pass" -m "648b79_esx_avoslocker_kill_vm.txt"
+        payloads:
+        - 648b79_esx_avoslocker_kill_vm.txt
+  tactic: impact
+  technique:
+    attack_id: T1529
+    name: System Shutdown/Reboot

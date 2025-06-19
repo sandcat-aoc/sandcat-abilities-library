@@ -1,0 +1,18 @@
+- description: Enumerates active directory usernames using the userenum function of
+    Kerbrute
+  id: 3d628a54-3cd1-95d2-a19b-89b76a8e5d74
+  name: Kerbrute - userenum
+  platforms:
+    windows:
+      psh:
+        cleanup: ''
+        command: cd "PathToAtomicsFolder\..\ExternalPayloads"; .\kerbrute.exe userenum
+          -d $env:USERDOMAIN --dc $env:UserDnsDomain "PathToAtomicsFolder\..\ExternalPayloads\username.txt"
+        parsers:
+          plugins.atomic.app.parsers.atomic_powershell:
+          - source: validate_me
+        payloads: []
+  tactic: discovery
+  technique:
+    attack_id: T1087.002
+    name: 'Account Discovery: Domain Account'

@@ -1,0 +1,23 @@
+- id: 413012c1-73c3-b9fe-98ba-c3148f1f342d
+  name: Regasm.exe - Loads the target .DLL file and executes the UnRegisterClass function.
+  description: Loads the target .DLL file and executes the UnRegisterClass function.
+  tactic: defense-evasion
+  technique:
+    attack_id: T1218.009
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: regasm.exe /U payload.dll
+        payloads:
+        - payload.dll
+  singleton: true
+  privilege: User
+  repeatable: false
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: Oddvar Moe
+  created: '2018-05-25'
+  modified: '2018-05-25'
+  operating_system: Windows All Versions

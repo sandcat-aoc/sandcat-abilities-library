@@ -1,0 +1,58 @@
+- id: 7a6ba833-de40-466a-8969-5c37b13603e0
+  name: Check analysis environment processes
+  description: Check for analysis/sandbox environment processes. Process black list
+    is based on the SUNBURST malware observed in a Solarwinds related compromise (https://research.checkpoint.com/2020/sunburst-teardrop-and-the-netsec-new-normal/).
+  tactic: defense-evasion
+  technique:
+    attack_id: T1497.001
+    name: 'Virtualization/Sandbox Evasion: System Checks'
+  platforms:
+    windows:
+      psh:
+        command: "$forensicProcesses = @(\n    \"apimonitor-x64\",\n    \"apimonitor-x86\"\
+          ,\n    \"autopsy64\",\n    \"autopsy\",\n    \"autoruns64\",\n    \"autoruns\"\
+          ,\n    \"autorunsc64\",\n    \"autorunsc\",\n    \"binaryninja\",\n    \"\
+          blacklight\",\n    \"cff explorer\",\n    \"cutter\",\n    \"de4dot\",\n\
+          \    \"debugview\",\n    \"diskmon\",\n    \"dnsd\",\n    \"dnspy\",\n \
+          \   \"dotpeek32\",\n    \"dotpeek64\",\n    \"dumpcap\",\n    \"evidence\
+          \ center\",\n    \"exeinfope\",\n    \"fakedns\",\n    \"fakenet\",\n  \
+          \  \"ffdec\",\n    \"fiddler\",\n    \"fileinsight\",\n    \"floss\",\n\
+          \    \"gdb\",\n    \"hiew32demo\",\n    \"hiew32\",\n    \"hollows_hunter\"\
+          ,\n    \"idaq64\",\n    \"idaq\",\n    \"idr\",\n    \"ildasm\",\n    \"\
+          ilspy\",\n    \"jd-gui\",\n    \"lordpe\",\n    \"officemalscanner\",\n\
+          \    \"ollydbg\",\n    \"pdfstreamdumper\",\n    \"pe-bear\",\n    \"pebrowse64\"\
+          ,\n    \"peid\",\n    \"pe-sieve32\",\n    \"pe-sieve64\",\n    \"pestudio\"\
+          ,\n    \"peview\",\n    \"ppee\",\n    \"procdump64\",\n    \"procdump\"\
+          ,\n    \"processhacker\",\n    \"procexp64\",\n    \"procexp\",\n    \"\
+          procmon\",\n    \"prodiscoverbasic\",\n    \"py2exedecompiler\",\n    \"\
+          r2agent\",\n    \"rabin2\",\n    \"radare2\",\n    \"ramcapture64\",\n \
+          \   \"ramcapture\",\n    \"reflector\",\n    \"regmon\",\n    \"resourcehacker\"\
+          ,\n    \"retdec-ar-extractor\",\n    \"retdec-bin2llvmir\",\n    \"retdec-bin2pat\"\
+          ,\n    \"retdec-config\",\n    \"retdec-fileinfo\",\n    \"retdec-getsig\"\
+          ,\n    \"retdec-idr2pat\",\n    \"retdec-llvmir2hll\",\n    \"retdec-macho-extractor\"\
+          ,\n    \"retdec-pat2yara\",\n    \"retdec-stacofin\",\n    \"retdec-unpacker\"\
+          ,\n    \"retdec-yarac\",\n    \"rundotnetdll\",\n    \"sbiesvc\",\n    \"\
+          scdbg\",\n    \"scylla_x64\",\n    \"scylla_x86\",\n    \"shellcode_launcher\"\
+          ,\n    \"solarwindsdiagnostics\",\n    \"sysmon64\",\n    \"sysmon\",\n\
+          \    \"task explorer\",\n    \"task explorer-x64\",\n    \"tcpdump\",\n\
+          \    \"tcpvcon\",\n    \"tcpview\",\n    \"vboxservice\",\n    \"win32_remote\"\
+          ,\n    \"win64_remotex64\",\n    \"windbg\",\n    \"windump\",\n    \"winhex64\"\
+          ,\n    \"winhex\",\n    \"winobj\",\n    \"wireshark\",\n    \"x32dbg\"\
+          ,\n    \"x64dbg\",\n    \"xwforensics64\",\n    \"xwforensics\",\n    \"\
+          redcloak\",\n    \"avgsvc\",\n    \"avgui\",\n    \"avgsvca\",\n    \"avgidsagent\"\
+          ,\n    \"avgsvcx\",\n    \"avgwdsvcx\",\n    \"avgadminclientservice\",\n\
+          \    \"afwserv\",\n    \"avastui\",\n    \"avastsvc\",\n    \"aswidsagent\"\
+          ,\n    \"aswidsagenta\",\n    \"aswengsrv\",\n    \"avastavwrapper\",\n\
+          \    \"bccavsvc\",\n    \"psanhost\",\n    \"psuaservice\",\n    \"psuamain\"\
+          ,\n    \"avp\",\n    \"avpui\",\n    \"ksde\",\n    \"ksdeui\",\n    \"\
+          tanium\",\n    \"taniumclient\",\n    \"taniumdetectengine\",\n    \"taniumendpointindex\"\
+          ,\n    \"taniumtracecli\",\n    \"taniumtracewebsocketclient64\"\n);\n\n\
+          function Find-ForensicProcesses {\n    param (\n        $ForensicProcessList\n\
+          \    );\n    $CurrentProcesses = Get-Process | Sort-Object | Select-Object\
+          \ -Property Name | Get-Unique -AsString;\n    foreach ($proc in $CurrentProcesses)\
+          \ {\n        foreach ($forensicProc in $ForensicProcessList) {\n       \
+          \     if ($proc.name -like $forensicProc) {\n                $procPath =\
+          \ Get-Process -Name $proc.Name | Sort-Object | Select-Object -Property Path\
+          \ | Get-Unique;\n                Write-Host \"[!] Forensic process found:\
+          \ \" $proc.Name;\n                Write-Host \"[!] Path: \" $procPath.Path;\n\
+          \            }\n        }\n    }\n}\n\nFind-ForensicProcesses($forensicProcesses);"

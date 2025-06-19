@@ -1,0 +1,20 @@
+---
+
+- id: c054888b-d386-3771-78d3-7f9391397a94
+  name: last - Enumerate all user accounts that have logged into the system previously.
+  description: The last command can be used to output users who have previously logged in, by specifying
+    the tty interface 'console'.
+  tactic: discovery
+  technique:
+    attack_id: T1033
+    name: System Owner/User Discovery
+  platforms:
+    darwin:
+      sh:
+        command: last -t console
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - last
+  - discovery

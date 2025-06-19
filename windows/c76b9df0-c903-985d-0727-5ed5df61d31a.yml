@@ -1,0 +1,21 @@
+- id: c76b9df0-c903-985d-0727-5ed5df61d31a
+  name: Wmic.exe - Execute evil.exe on the remote system.
+  description: Execute evil.exe on the remote system.
+  tactic: defense-evasion
+  technique:
+    attack_id: T1218
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: wmic.exe /node:"192.168.0.1" process call create "#{host.executable.name}"
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: Oddvar Moe
+  created: '2018-05-25'
+  modified: '2018-05-25'
+  operating_system: Windows All Versions

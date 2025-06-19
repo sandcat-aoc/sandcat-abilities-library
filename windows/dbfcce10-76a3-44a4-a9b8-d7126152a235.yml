@@ -1,0 +1,30 @@
+- id: dbfcce10-76a3-44a4-a9b8-d7126152a235
+  name: dbfcce10-76a3-44a4-a9b8-d7126152a235 - Malicious Driver Deployment
+  description: 'Malicious driver: dbfcce10-76a3-44a4-a9b8-d7126152a235
+
+    Category: malicious
+
+    Author: Michael Haag
+
+    Created: 2024-09-10
+
+    MITRE Technique: T1068'
+  tactic: defense-evasion
+  technique:
+    attack_id: T1068
+    name: Rootkit
+  platforms:
+    windows:
+      cmd:
+        command: sc create MaliciousDriver binPath= "C:\Windows\System32\drivers\malicious_driver.sys"
+          type= kernel
+  singleton: true
+  privilege: Elevated
+  repeatable: false
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: Michael Haag
+  operating_system: Windows (Version Unspecified)
+  created: '2024-09-10'
+  modified: '2024-09-10'

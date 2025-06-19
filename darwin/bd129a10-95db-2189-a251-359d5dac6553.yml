@@ -1,0 +1,26 @@
+- description: 'Find or discover files on the file system
+
+    '
+  id: bd129a10-95db-2189-a251-359d5dac6553
+  name: Nix File and Directory Discovery 2
+  platforms:
+    darwin:
+      sh:
+        cleanup: rm /tmp/T1083.txt
+        command: cd $HOME && find . -print | sed -e 's;[^/]*/;|__;g;s;__|; |;g' >
+          /tmp/T1083.txt; if [ -f /etc/mtab ]; then cat /etc/mtab >> /tmp/T1083.txt;
+          fi; find . -type f -iname *.pdf >> /tmp/T1083.txt; cat /tmp/T1083.txt; find
+          . -type f -name ".*"
+        payloads: []
+    linux:
+      sh:
+        cleanup: rm /tmp/T1083.txt
+        command: cd $HOME && find . -print | sed -e 's;[^/]*/;|__;g;s;__|; |;g' >
+          /tmp/T1083.txt; if [ -f /etc/mtab ]; then cat /etc/mtab >> /tmp/T1083.txt;
+          fi; find . -type f -iname *.pdf >> /tmp/T1083.txt; cat /tmp/T1083.txt; find
+          . -type f -name ".*"
+        payloads: []
+  tactic: discovery
+  technique:
+    attack_id: T1083
+    name: File and Directory Discovery

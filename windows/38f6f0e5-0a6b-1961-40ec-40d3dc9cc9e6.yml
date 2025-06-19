@@ -1,0 +1,15 @@
+- description: 'Lists the domain password policy to console on Windows.
+
+    '
+  id: 38f6f0e5-0a6b-1961-40ec-40d3dc9cc9e6
+  name: Examine domain password policy - Windows
+  platforms:
+    windows:
+      cmd:
+        cleanup: ''
+        command: net accounts /domain
+        payloads: []
+  tactic: discovery
+  technique:
+    attack_id: T1201
+    name: Password Policy Discovery

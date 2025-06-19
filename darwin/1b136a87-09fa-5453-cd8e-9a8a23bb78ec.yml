@@ -1,0 +1,21 @@
+- description: 'Identify all environment variables. Upon execution, environments variables
+    and your path info will be displayed.
+
+    '
+  id: 1b136a87-09fa-5453-cd8e-9a8a23bb78ec
+  name: Environment variables discovery on freebsd, macos and linux
+  platforms:
+    darwin:
+      sh:
+        cleanup: ''
+        command: env
+        payloads: []
+    linux:
+      sh:
+        cleanup: ''
+        command: env
+        payloads: []
+  tactic: discovery
+  technique:
+    attack_id: T1082
+    name: System Information Discovery

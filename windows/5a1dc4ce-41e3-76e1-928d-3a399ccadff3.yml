@@ -1,0 +1,18 @@
+- description: 'The Get-GPO cmdlet gets one Group Policy Object (GPO) or all the GPOs
+    in a domain. Tested on Windows Server 2019 as a domain user with computer joined
+    to domain. Reference: https://docs.microsoft.com/en-us/powershell/module/grouppolicy/get-gpo?view=windowsserver2022-ps'
+  id: 5a1dc4ce-41e3-76e1-928d-3a399ccadff3
+  name: MSFT Get-GPO Cmdlet
+  platforms:
+    windows:
+      psh:
+        cleanup: del $env:temp\GPO_Output.txt -erroraction silentlycontinue
+        command: Get-GPO -Domain $ENV:userdnsdomain -All >> $env:temp\GPO_Output.txt
+        parsers:
+          plugins.atomic.app.parsers.atomic_powershell:
+          - source: validate_me
+        payloads: []
+  tactic: discovery
+  technique:
+    attack_id: T1615
+    name: Group Policy Discovery

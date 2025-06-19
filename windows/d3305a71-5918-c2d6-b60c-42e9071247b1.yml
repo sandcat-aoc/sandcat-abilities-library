@@ -1,0 +1,16 @@
+- description: 'Enumerate logged on users. Upon exeuction, logged on users will be
+    displayed.
+
+    '
+  id: d3305a71-5918-c2d6-b60c-42e9071247b1
+  name: Enumerate logged on users via CMD (Domain)
+  platforms:
+    windows:
+      cmd:
+        cleanup: ''
+        command: query user /SERVER:%COMPUTERNAME%
+        payloads: []
+  tactic: discovery
+  technique:
+    attack_id: T1087.002
+    name: 'Account Discovery: Domain Account'

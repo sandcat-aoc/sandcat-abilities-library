@@ -1,0 +1,20 @@
+- description: 'Clears bash history via a symlink to /dev/null
+
+    '
+  id: dd2031cb-809d-5233-4e1d-19bdb7778977
+  name: Clear Bash history (ln dev/null)
+  platforms:
+    darwin:
+      sh:
+        cleanup: ''
+        command: ln -sf /dev/null ~/.bash_history
+        payloads: []
+    linux:
+      sh:
+        cleanup: ''
+        command: ln -sf /dev/null ~/.bash_history
+        payloads: []
+  tactic: defense-evasion
+  technique:
+    attack_id: T1070.003
+    name: 'Indicator Removal on Host: Clear Command History'

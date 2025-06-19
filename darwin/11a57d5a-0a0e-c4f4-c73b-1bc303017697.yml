@@ -1,0 +1,19 @@
+---
+
+- id: 11a57d5a-0a0e-c4f4-c73b-1bc303017697
+  name: dsconfigad - Retrieves the Active Directory configuration
+  description: Retrieves the Active Directory configuration
+  tactic: discovery
+  technique:
+    attack_id: T1016
+    name: System Network Configuration Discovery
+  platforms:
+    darwin:
+      sh:
+        command: dsconfigad -show
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - dsconfigad
+  - discovery

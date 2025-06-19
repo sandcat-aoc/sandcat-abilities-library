@@ -1,0 +1,19 @@
+- description: 'Copies and then runs a simple binary (just outputting "the cake is
+    a lie"), that was packed by UPX.
+
+    No other protection/compression were applied.
+
+    '
+  id: eefa25ef-5e2f-9402-0b95-d80e31ef2bc9
+  name: Binary simply packed by UPX
+  platforms:
+    darwin:
+      sh:
+        cleanup: rm /tmp/packed_bin
+        command: cp 741a31_test_upx /tmp/packed_bin && /tmp/packed_bin
+        payloads:
+        - 741a31_test_upx
+  tactic: defense-evasion
+  technique:
+    attack_id: T1027.002
+    name: 'Obfuscated Files or Information: Software Packing'

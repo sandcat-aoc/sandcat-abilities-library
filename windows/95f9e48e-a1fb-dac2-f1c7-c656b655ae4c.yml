@@ -1,0 +1,25 @@
+- description: "Simulates an adversary copying malware to all connected removable\
+    \ drives. \n"
+  id: 95f9e48e-a1fb-dac2-f1c7-c656b655ae4c
+  name: USB Malware Spread Simulation
+  platforms:
+    windows:
+      psh:
+        cleanup: $RemovableDrives = Get-WmiObject -Class Win32_LogicalDisk -filter
+          "drivetype=2" | select-object -expandproperty DeviceID; ForEach ($Drive
+          in $RemovableDrives); {; Remove-Item -Path $Drive\T1091Test1.txt -Force
+          -ErrorAction Ignore; }
+        command: $RemovableDrives=@(); $RemovableDrives = Get-WmiObject -Class Win32_LogicalDisk
+          -filter "drivetype=2" | select-object -expandproperty DeviceID; ForEach
+          ($Drive in $RemovableDrives); {; write-host "Removable Drive Found:" $Drive;
+          New-Item -Path $Drive/T1091Test1.txt -ItemType "file" -Force -Value "T1091
+          Test 1 has created this file to simulate malware spread to removable drives.";
+          }
+        parsers:
+          plugins.atomic.app.parsers.atomic_powershell:
+          - source: validate_me
+        payloads: []
+  tactic: multiple
+  technique:
+    attack_id: T1091
+    name: Replication Through Removable Media

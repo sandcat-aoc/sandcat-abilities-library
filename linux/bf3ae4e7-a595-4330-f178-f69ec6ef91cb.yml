@@ -1,0 +1,17 @@
+- description: 'This test truncates the system log files using the truncate utility
+    with (-s 0 or --size=0) parameter which sets file size to zero, thus emptying
+    the file content
+
+    '
+  id: bf3ae4e7-a595-4330-f178-f69ec6ef91cb
+  name: Truncate system log files via truncate utility (freebsd)
+  platforms:
+    linux:
+      sh:
+        cleanup: ''
+        command: truncate -s 0 /var/log/messages; truncate --size=0 /var/log/security
+        payloads: []
+  tactic: defense-evasion
+  technique:
+    attack_id: T1070.002
+    name: 'Indicator Removal on Host: Clear FreeBSD, Linux or Mac System Logs'

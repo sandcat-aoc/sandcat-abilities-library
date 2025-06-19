@@ -1,0 +1,26 @@
+- id: 461a416a-c9ba-80e6-5471-7cd4f5ff68dc
+  name: AppCert.exe - Execute an executable file via the Windows App Certification
+    Kit command-line tool.
+  description: Execute an executable file via the Windows App Certification Kit command-line
+    tool.
+  tactic: defense-evasion
+  technique:
+    attack_id: T1127
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: 'appcert.exe test -apptype desktop -setuppath payload.exe -reportoutputpath
+          #{host.file.path}'
+        payloads:
+        - payload.exe
+  singleton: true
+  privilege: User
+  repeatable: false
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: Avihay Eldad
+  created: '2024-03-06'
+  modified: '2024-03-06'
+  operating_system: Windows All Versions

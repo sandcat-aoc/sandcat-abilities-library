@@ -1,0 +1,20 @@
+---
+
+- id: cfe4431c-8d10-d60a-5128-5fb2481e201b
+  name: spctl - Disable Gatekeeper
+  description: The --master-disable switch disables Gatekeeper. The command must be run with root/sudo
+    permission.
+  tactic: defense-evasion
+  technique:
+    attack_id: T1562.001
+    name: 'Impair Defenses: Disable or Modify Tools'
+  platforms:
+    darwin:
+      sh:
+        command: sudo spctl --master-disable
+  singleton: true
+  privilege: Elevated
+  repeatable: false
+  buckets:
+  - spctl
+  - defense-evasion

@@ -1,0 +1,20 @@
+---
+
+- id: baae6c91-e8ef-1c85-dd37-4d85df8bbb8e
+  name: launchctl - Use launchctl to execute an application
+  description: A oneliner that will load a plist as a LaunchAgent or LaunchDaemon, achieving persistence
+    on a target machine. This command requires root privileges.
+  tactic: execution
+  technique:
+    attack_id: T1543.001
+    name: 'Create or Modify System Process: Launch Agent'
+  platforms:
+    darwin:
+      sh:
+        command: sudo launchctl load /Library/LaunchAgent/com.apple.installer
+  singleton: false
+  privilege: Elevated
+  repeatable: true
+  buckets:
+  - launchctl
+  - execution

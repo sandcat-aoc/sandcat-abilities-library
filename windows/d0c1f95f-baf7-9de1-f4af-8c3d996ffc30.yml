@@ -1,0 +1,27 @@
+- id: d0c1f95f-baf7-9de1-f4af-8c3d996ffc30
+  name: Bitsadmin.exe - One-liner that creates a bitsadmin job named 1, add cmd.exe
+    to the job, configure the job to run the target command, then resume and complete
+    the job.
+  description: One-liner that creates a bitsadmin job named 1, add cmd.exe to the
+    job, configure the job to run the target command, then resume and complete the
+    job.
+  tactic: defense-evasion
+  technique:
+    attack_id: T1218
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: bitsadmin /create 1 & bitsadmin /addfile 1 c:\windows\system32\cmd.exe
+          c:\data\playfolder\cmd.exe & bitsadmin /SetNotifyCmdLine 1 c:\data\playfolder\cmd.exe
+          NULL & bitsadmin /RESUME 1 & bitsadmin /Reset
+  singleton: true
+  privilege: Elevated
+  repeatable: false
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: Oddvar Moe
+  created: '2018-05-25'
+  modified: '2018-05-25'
+  operating_system: Windows All Versions

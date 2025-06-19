@@ -1,0 +1,20 @@
+---
+
+- id: a7644cdb-2417-0686-174a-41476ea3fa76
+  name: mdfind - Use mdfind to search for AWS Keys
+  description: Allows an attacker to query the filesystem via the CommandLine/Terminal to search for AWS
+    keys.
+  tactic: reconnaissance
+  technique:
+    attack_id: T1083
+    name: File and Directory Discovery
+  platforms:
+    darwin:
+      sh:
+        command: mdfind 'kMDItemTextContext == AKIA || kMDItemDisplayName = *AKIA* -onlyin ~'
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - mdfind
+  - reconnaissance

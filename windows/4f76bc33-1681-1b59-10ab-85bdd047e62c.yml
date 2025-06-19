@@ -1,0 +1,17 @@
+- description: 'This test uses wmic.exe to execute a DLL function using rundll32.
+    Specify a valid value for remote IP using the node parameter.
+
+    '
+  id: 4f76bc33-1681-1b59-10ab-85bdd047e62c
+  name: WMI Execute rundll32
+  platforms:
+    windows:
+      cmd:
+        cleanup: taskkill /f /im calculator.exe
+        command: wmic /node:127.0.0.1 process call create "rundll32.exe \"PathToAtomicsFolder\..\ExternalPayloads\calc.dll\"
+          StartW"
+        payloads: []
+  tactic: execution
+  technique:
+    attack_id: T1047
+    name: Windows Management Instrumentation

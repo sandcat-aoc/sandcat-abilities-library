@@ -1,0 +1,13 @@
+- description: Creating a user with a username containing "$"
+  id: dedfa0a5-4c9c-13ce-5714-a0dc2e1f5d1a
+  name: Create a Hidden User Called "$"
+  platforms:
+    windows:
+      cmd:
+        cleanup: net user $ /DELETE 2>&1
+        command: net user $ ATOMIC123! /add /active:yes
+        payloads: []
+  tactic: defense-evasion
+  technique:
+    attack_id: T1564
+    name: Hide Artifacts

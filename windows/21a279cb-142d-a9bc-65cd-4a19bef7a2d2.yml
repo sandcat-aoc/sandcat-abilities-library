@@ -1,0 +1,16 @@
+- description: Disables ETW for the .NET Framework using the reg.exe utility to update
+    the Windows registry
+  id: 21a279cb-142d-a9bc-65cd-4a19bef7a2d2
+  name: Disable .NET Event Tracing for Windows Via Registry (cmd)
+  platforms:
+    windows:
+      cmd:
+        cleanup: REG DELETE HKLM\Software\Microsoft\.NETFramework /v ETWEnabled /f
+          > nul 2>&1
+        command: REG ADD HKLM\Software\Microsoft\.NETFramework /v ETWEnabled /t REG_DWORD
+          /d 0
+        payloads: []
+  tactic: defense-evasion
+  technique:
+    attack_id: T1562.006
+    name: 'Impair Defenses: Indicator Blocking'

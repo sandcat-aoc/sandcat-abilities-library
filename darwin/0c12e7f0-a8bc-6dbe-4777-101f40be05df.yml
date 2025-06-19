@@ -1,0 +1,19 @@
+---
+
+- id: 0c12e7f0-a8bc-6dbe-4777-101f40be05df
+  name: networksetup - Set the https web proxy for an interface
+  description: Use networksetup to set the https web proxy for an interface.
+  tactic: command-and-control
+  technique:
+    attack_id: T1016
+    name: System Network Configuration Discovery
+  platforms:
+    darwin:
+      sh:
+        command: networksetup -setsecurewebproxy "Wi-Fi" 46.226.108.171
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - networksetup
+  - command-and-control

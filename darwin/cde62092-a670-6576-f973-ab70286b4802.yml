@@ -1,0 +1,19 @@
+---
+
+- id: cde62092-a670-6576-f973-ab70286b4802
+  name: networksetup - Enumerate configured web proxy URL for an interface
+  description: Displays web proxy auto-configuration information for the specified interface.
+  tactic: discovery
+  technique:
+    attack_id: T1016
+    name: System Network Configuration Discovery
+  platforms:
+    darwin:
+      sh:
+        command: networksetup -getautoproxyurl "Thunderbolt Ethernet"
+  singleton: true
+  privilege: User
+  repeatable: false
+  buckets:
+  - networksetup
+  - discovery

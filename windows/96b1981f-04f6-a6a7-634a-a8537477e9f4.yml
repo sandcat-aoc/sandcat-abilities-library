@@ -1,0 +1,18 @@
+- description: 'An adverary may launch taskmgr.exe with the /7 switch via command
+    prompt to view processes running on the system.
+
+    [Reference](https://github.com/trellix-enterprise/ac3-threat-sightings/blob/main/sightings/Sightings_Conti_Ransomware.yml)
+
+    '
+  id: 96b1981f-04f6-a6a7-634a-a8537477e9f4
+  name: Launch Taskmgr from cmd to View running processes
+  platforms:
+    windows:
+      cmd:
+        cleanup: ''
+        command: taskmgr.exe /7
+        payloads: []
+  tactic: discovery
+  technique:
+    attack_id: T1057
+    name: Process Discovery

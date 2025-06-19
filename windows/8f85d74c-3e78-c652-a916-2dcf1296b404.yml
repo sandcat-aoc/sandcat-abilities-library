@@ -1,0 +1,16 @@
+- description: 'Enumerate logged on users. Upon execution, logged on users will be
+    displayed.
+
+    '
+  id: 8f85d74c-3e78-c652-a916-2dcf1296b404
+  name: Enumerate logged on users via CMD (Local)
+  platforms:
+    windows:
+      cmd:
+        cleanup: ''
+        command: query user
+        payloads: []
+  tactic: discovery
+  technique:
+    attack_id: T1087.001
+    name: 'Account Discovery: Local Account'

@@ -1,0 +1,25 @@
+- description: 'PowerShell code to set Winlogon shell key to execute a binary at logon
+    along with explorer.exe.
+
+
+    Upon successful execution, PowerShell will modify a registry value to execute
+    cmd.exe upon logon/logoff.
+
+    '
+  id: dc74af5b-90b9-cbb4-dcfb-caaa3e412a5e
+  name: Winlogon HKLM Shell Key Persistence - PowerShell
+  platforms:
+    windows:
+      psh:
+        cleanup: Remove-ItemProperty -Path "HKLM:\Software\Microsoft\Windows NT\CurrentVersion\Winlogon\"
+          -Name "Shell" -Force -ErrorAction Ignore
+        command: Set-ItemProperty "HKLM:\Software\Microsoft\Windows NT\CurrentVersion\Winlogon\"
+          "Shell" "explorer.exe, C:\Windows\System32\cmd.exe" -Force
+        parsers:
+          plugins.atomic.app.parsers.atomic_powershell:
+          - source: validate_me
+        payloads: []
+  tactic: multiple
+  technique:
+    attack_id: T1547.004
+    name: 'Boot or Logon Autostart Execution: Winlogon Helper DLL'

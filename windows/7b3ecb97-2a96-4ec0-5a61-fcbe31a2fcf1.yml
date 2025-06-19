@@ -1,0 +1,21 @@
+- id: 7b3ecb97-2a96-4ec0-5a61-fcbe31a2fcf1
+  name: Cdb.exe - Launch 64-bit shellcode from the specified .wds file using cdb.exe.
+  description: Launch 64-bit shellcode from the specified .wds file using cdb.exe.
+  tactic: defense-evasion
+  technique:
+    attack_id: T1127
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: cdb.exe -cf {PATH:.wds} -o notepad.exe
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: Oddvar Moe
+  created: '2018-05-25'
+  modified: '2018-05-25'
+  operating_system: Windows All Versions

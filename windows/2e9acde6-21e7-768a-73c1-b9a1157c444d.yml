@@ -1,0 +1,26 @@
+- description: 'Uninstall Crowdstrike Falcon. If the WindowsSensor.exe path is not
+    provided as an argument we need to search for it. Since the executable is located
+    in a folder named with a random guid we need to identify it before invoking the
+    uninstaller.
+
+    '
+  id: 2e9acde6-21e7-768a-73c1-b9a1157c444d
+  name: Uninstall Crowdstrike Falcon on Windows
+  platforms:
+    windows:
+      psh:
+        cleanup: ''
+        command: if (Test-Path "C:\ProgramData\Package Cache\{7489ba93-b668-447f-8401-7e57a6fe538d}\WindowsSensor.exe")
+          {. "C:\ProgramData\Package Cache\{7489ba93-b668-447f-8401-7e57a6fe538d}\WindowsSensor.exe"
+          /repair /uninstall /quiet } else { Get-ChildItem -Path "C:\ProgramData\Package
+          Cache" -Include "WindowsSensor.exe" -Recurse | % { $sig=$(Get-AuthenticodeSignature
+          -FilePath $_.FullName); if ($sig.Status -eq "Valid" -and $sig.SignerCertificate.DnsNameList
+          -eq "CrowdStrike, Inc.") { . "$_" /repair /uninstall /quiet; break;}}}
+        parsers:
+          plugins.atomic.app.parsers.atomic_powershell:
+          - source: validate_me
+        payloads: []
+  tactic: defense-evasion
+  technique:
+    attack_id: T1562.001
+    name: 'Impair Defenses: Disable or Modify Tools'

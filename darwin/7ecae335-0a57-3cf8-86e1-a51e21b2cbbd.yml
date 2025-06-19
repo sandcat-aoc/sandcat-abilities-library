@@ -1,0 +1,23 @@
+- description: 'Make, change owner, and change file attributes on a C source code
+    file
+
+    '
+  id: 7ecae335-0a57-3cf8-86e1-a51e21b2cbbd
+  name: Make and modify binary from C source
+  platforms:
+    darwin:
+      sh:
+        cleanup: sudo rm /tmp/hello; sudo rm /tmp/hello.c
+        command: cp; sudo chown root /tmp/hello.c; sudo make /tmp/hello; sudo chown
+          root /tmp/hello; sudo chmod u+s /tmp/hello; /tmp/hello
+        payloads: []
+    linux:
+      sh:
+        cleanup: sudo rm /tmp/hello; sudo rm /tmp/hello.c
+        command: cp; sudo chown root /tmp/hello.c; sudo make /tmp/hello; sudo chown
+          root /tmp/hello; sudo chmod u+s /tmp/hello; /tmp/hello
+        payloads: []
+  tactic: multiple
+  technique:
+    attack_id: T1548.001
+    name: 'Abuse Elevation Control Mechanism: Setuid and Setgid'

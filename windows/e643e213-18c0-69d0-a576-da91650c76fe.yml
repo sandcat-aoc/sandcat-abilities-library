@@ -1,0 +1,22 @@
+- description: 'Powershell Enable WinRM
+
+
+    Upon successful execution, powershell will "Enable-PSRemoting" allowing for remote
+    PS access.
+
+    '
+  id: e643e213-18c0-69d0-a576-da91650c76fe
+  name: Enable Windows Remote Management
+  platforms:
+    windows:
+      psh:
+        cleanup: ''
+        command: Enable-PSRemoting -Force
+        parsers:
+          plugins.atomic.app.parsers.atomic_powershell:
+          - source: validate_me
+        payloads: []
+  tactic: lateral-movement
+  technique:
+    attack_id: T1021.006
+    name: 'Remote Services: Windows Remote Management'

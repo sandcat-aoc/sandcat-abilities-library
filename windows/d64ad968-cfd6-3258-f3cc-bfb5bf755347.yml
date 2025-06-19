@@ -1,0 +1,19 @@
+- description: 'Scan ports to check for listening ports with python
+
+    '
+  id: d64ad968-cfd6-3258-f3cc-bfb5bf755347
+  name: Port Scan using python
+  platforms:
+    windows:
+      psh:
+        cleanup: ''
+        command: python "53b103_T1046.py" -i 127.0.0.1
+        parsers:
+          plugins.atomic.app.parsers.atomic_powershell:
+          - source: validate_me
+        payloads:
+        - 53b103_T1046.py
+  tactic: discovery
+  technique:
+    attack_id: T1046
+    name: Network Service Discovery

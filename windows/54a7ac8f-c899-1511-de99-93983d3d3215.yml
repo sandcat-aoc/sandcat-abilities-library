@@ -1,0 +1,16 @@
+- description: 'Use Mshta to execute arbitrary PowerShell. Example is from the 2021
+    Threat Detection Report by Red Canary.
+
+    '
+  id: 54a7ac8f-c899-1511-de99-93983d3d3215
+  name: Mshta used to Execute PowerShell
+  platforms:
+    windows:
+      cmd:
+        cleanup: ''
+        command: mshta.exe "about:<hta:application><script language="VBScript">Close(Execute("CreateObject(""Wscript.Shell"").Run%20""powershell.exe%20-nop%20-Command%20Write-Host%20Hello,%20MSHTA!;Start-Sleep%20-Seconds%205"""))</script>'"
+        payloads: []
+  tactic: defense-evasion
+  technique:
+    attack_id: T1218.005
+    name: 'Signed Binary Proxy Execution: Mshta'

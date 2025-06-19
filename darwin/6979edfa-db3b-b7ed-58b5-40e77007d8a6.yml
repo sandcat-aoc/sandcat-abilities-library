@@ -1,0 +1,23 @@
+---
+
+- id: 6979edfa-db3b-b7ed-58b5-40e77007d8a6
+  name: dscl - Share enumration
+  description: Enumerate all shares.
+  tactic: discovery
+  technique:
+    attack_id: T1087.001
+    name: 'Account Discovery: Local Account'
+  platforms:
+    darwin:
+      sh:
+        command: 'dscl . -list /SharePoints
+
+          dscl . list /SharePoints
+
+          dscl . ls /SharePoints'
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - dscl
+  - discovery

@@ -1,0 +1,19 @@
+- description: 'Get a listing of network connections.
+
+
+    Upon successful execution, cmd.exe will execute `netstat`, `net use` and `net
+    sessions`. Results will output via stdout.
+
+    '
+  id: a14392d7-13df-fba6-a397-682ff83259a0
+  name: System Network Connections Discovery
+  platforms:
+    windows:
+      cmd:
+        cleanup: ''
+        command: netstat && net use && net sessions
+        payloads: []
+  tactic: discovery
+  technique:
+    attack_id: T1049
+    name: System Network Connections Discovery

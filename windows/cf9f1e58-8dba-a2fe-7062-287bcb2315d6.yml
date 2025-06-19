@@ -1,0 +1,19 @@
+- description: 'Executes the signed SyncAppvPublishingServer script with options to
+    execute an arbitrary PowerShell command.
+
+    Upon execution, calc.exe will be launched.
+
+    '
+  id: cf9f1e58-8dba-a2fe-7062-287bcb2315d6
+  name: SyncAppvPublishingServer Signed Script PowerShell Command Execution
+  platforms:
+    windows:
+      cmd:
+        cleanup: ''
+        command: C:\windows\system32\SyncAppvPublishingServer.vbs "\n;Start-Process
+          calc"
+        payloads: []
+  tactic: defense-evasion
+  technique:
+    attack_id: T1216
+    name: Signed Script Proxy Execution

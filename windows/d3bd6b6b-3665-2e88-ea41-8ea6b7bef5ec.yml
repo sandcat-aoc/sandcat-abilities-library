@@ -1,0 +1,22 @@
+- id: d3bd6b6b-3665-2e88-ea41-8ea6b7bef5ec
+  name: At.exe - Create a recurring task to execute every day at a specific time.
+  description: Create a recurring task to execute every day at a specific time.
+  tactic: execution
+  technique:
+    attack_id: T1053.002
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: 'C:\Windows\System32\at.exe 09:00 /interactive /every:m,t,w,th,f,s,su
+          #{host.executable.name}'
+  singleton: false
+  privilege: Elevated
+  repeatable: true
+  buckets:
+  - execution
+  version: '1.0'
+  author: Freddie Barr-Smith
+  created: '2019-09-20'
+  modified: '2019-09-20'
+  operating_system: Windows All Versions

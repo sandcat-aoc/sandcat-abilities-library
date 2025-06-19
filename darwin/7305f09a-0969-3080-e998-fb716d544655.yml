@@ -1,0 +1,20 @@
+---
+
+- id: 7305f09a-0969-3080-e998-fb716d544655
+  name: defaults - Disable Gatekeeper's auto rearm functionality
+  description: The following command can be used to disable Gatekeepers rearm functionality. This command
+    requires root privileges.
+  tactic: defense-evasion
+  technique:
+    attack_id: T1547.001
+    name: 'Boot or Logon Autostart Execution: Registry Run Keys / Startup Folder'
+  platforms:
+    darwin:
+      sh:
+        command: sudo defaults write /Library/Preferences/com.apple.security GKAutoRearm -bool NO
+  singleton: true
+  privilege: Elevated
+  repeatable: false
+  buckets:
+  - defaults
+  - defense-evasion

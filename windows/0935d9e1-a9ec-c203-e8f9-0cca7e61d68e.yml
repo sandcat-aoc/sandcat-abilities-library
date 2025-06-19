@@ -1,0 +1,25 @@
+- id: 0935d9e1-a9ec-c203-e8f9-0cca7e61d68e
+  name: Createdump.exe - Dump process by PID and create a minidump file. If "-f dump.dmp"
+    is not specified, the file is created as '%TEMP%\dump.%p.dmp' where %p is the
+    PID of the target process.
+  description: Dump process by PID and create a minidump file. If "-f dump.dmp" is
+    not specified, the file is created as '%TEMP%\dump.%p.dmp' where %p is the PID
+    of the target process.
+  tactic: credential-access
+  technique:
+    attack_id: T1003
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: 'createdump.exe -n -f {PATH:.dmp} #{host.process.id}'
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - credential-access
+  version: '1.0'
+  author: mr.d0x, Daniel Santos
+  created: '2022-01-20'
+  modified: '2022-01-20'
+  operating_system: Windows All Versions

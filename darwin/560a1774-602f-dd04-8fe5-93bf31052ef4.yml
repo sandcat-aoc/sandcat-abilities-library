@@ -1,0 +1,22 @@
+- description: 'Changes a file or folder''s ownership and group information using
+    chown.
+
+    '
+  id: 560a1774-602f-dd04-8fe5-93bf31052ef4
+  name: chown - Change file or folder ownership and group
+  platforms:
+    darwin:
+      sh:
+        cleanup: ''
+        command: chown
+        payloads: []
+    linux:
+      sh:
+        cleanup: ''
+        command: chown
+        payloads: []
+  tactic: defense-evasion
+  technique:
+    attack_id: T1222.002
+    name: 'File and Directory Permissions Modification: FreeBSD, Linux and Mac File
+      and Directory Permissions Modification'

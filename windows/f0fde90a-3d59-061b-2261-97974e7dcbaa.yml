@@ -1,0 +1,25 @@
+- description: 'Attempting to disable scheduled scanning and other parts of windows
+    defender atp. Upon execution Virus and Threat Protection will show as disabled
+
+    in Windows settings.
+
+    '
+  id: f0fde90a-3d59-061b-2261-97974e7dcbaa
+  name: Tamper with Windows Defender ATP PowerShell
+  platforms:
+    windows:
+      psh:
+        cleanup: Set-MpPreference -DisableRealtimeMonitoring 0; Set-MpPreference -DisableBehaviorMonitoring
+          0; Set-MpPreference -DisableScriptScanning 0; Set-MpPreference -DisableBlockAtFirstSeen
+          0
+        command: Set-MpPreference -DisableRealtimeMonitoring 1; Set-MpPreference -DisableBehaviorMonitoring
+          1; Set-MpPreference -DisableScriptScanning 1; Set-MpPreference -DisableBlockAtFirstSeen
+          1
+        parsers:
+          plugins.atomic.app.parsers.atomic_powershell:
+          - source: validate_me
+        payloads: []
+  tactic: defense-evasion
+  technique:
+    attack_id: T1562.001
+    name: 'Impair Defenses: Disable or Modify Tools'

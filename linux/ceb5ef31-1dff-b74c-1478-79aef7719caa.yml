@@ -1,0 +1,15 @@
+- description: 'This test shuts down a FreeBSD/Linux system using `poweroff`.
+
+    '
+  id: ceb5ef31-1dff-b74c-1478-79aef7719caa
+  name: Shutdown System via `poweroff` - FreeBSD/Linux
+  platforms:
+    linux:
+      sh:
+        cleanup: ''
+        command: poweroff
+        payloads: []
+  tactic: impact
+  technique:
+    attack_id: T1529
+    name: System Shutdown/Reboot

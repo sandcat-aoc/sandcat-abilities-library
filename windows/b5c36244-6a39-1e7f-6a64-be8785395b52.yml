@@ -1,0 +1,23 @@
+- id: b5c36244-6a39-1e7f-6a64-be8785395b52
+  name: Sc.exe - Modifies an existing service and executes the file stored in the
+    ADS.
+  description: Modifies an existing service and executes the file stored in the ADS.
+  tactic: defense-evasion
+  technique:
+    attack_id: T1564.004
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: sc config {ExistingServiceName} binPath="\"c:\\ADS\\file.txt:cmd.exe\"
+          /c echo works > \"c:\ADS\works.txt\"" & sc start {ExistingServiceName}
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: Oddvar Moe
+  created: '2018-05-25'
+  modified: '2018-05-25'
+  operating_system: Windows All Versions

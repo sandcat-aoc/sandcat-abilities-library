@@ -1,0 +1,16 @@
+- description: 'Injects arbitrary DLL into running process specified by process ID.
+    Requires Windows 10.
+
+    '
+  id: c3553cab-29e7-32b0-5f81-acf3eccc8308
+  name: mavinject - Inject DLL into running process
+  platforms:
+    windows:
+      cmd:
+        cleanup: ''
+        command: 'mavinject.exe #{process_id} /INJECTRUNNING "#{dll_payload}"'
+        payloads: []
+  tactic: defense-evasion
+  technique:
+    attack_id: T1218
+    name: Signed Binary Proxy Execution

@@ -1,0 +1,19 @@
+---
+
+- id: 683258de-ec7c-e650-b0a5-7c273e347325
+  name: xattr - Bypass Gatekeeper via xattr
+  description: Use xattr to remove quaratine extended attribute from multiple files or directories.
+  tactic: execution
+  technique:
+    attack_id: T1562.001
+    name: 'Impair Defenses: Disable or Modify Tools'
+  platforms:
+    darwin:
+      sh:
+        command: xattr -d -r com.apple.quarantine *
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - xattr
+  - execution

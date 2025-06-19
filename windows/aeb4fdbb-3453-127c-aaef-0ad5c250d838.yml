@@ -1,0 +1,20 @@
+- description: 'Extracting Credentials from Files. Upon execution, the contents of
+    files that contain the word "password" will be displayed.
+
+    '
+  id: aeb4fdbb-3453-127c-aaef-0ad5c250d838
+  name: Extracting passwords with findstr
+  platforms:
+    windows:
+      psh:
+        cleanup: ''
+        command: findstr /si pass *.xml *.doc *.txt *.xls; ls -R | select-string -ErrorAction
+          SilentlyContinue -Pattern password
+        parsers:
+          plugins.atomic.app.parsers.atomic_powershell:
+          - source: validate_me
+        payloads: []
+  tactic: credential-access
+  technique:
+    attack_id: T1552.001
+    name: 'Unsecured Credentials: Credentials In Files'

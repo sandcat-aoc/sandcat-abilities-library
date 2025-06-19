@@ -1,0 +1,30 @@
+- id: 4db827b1-325b-444d-9f23-171285a4d12f
+  name: 4db827b1-325b-444d-9f23-171285a4d12f - Malicious Driver Deployment
+  description: 'Malicious driver: 4db827b1-325b-444d-9f23-171285a4d12f
+
+    Category: vulnerable driver
+
+    Author: Michael Haag
+
+    Created: 2023-01-09
+
+    MITRE Technique: T1068'
+  tactic: defense-evasion
+  technique:
+    attack_id: T1068
+    name: Rootkit
+  platforms:
+    windows:
+      cmd:
+        command: sc create MaliciousDriver binPath= "C:\Windows\System32\drivers\malicious_driver.sys"
+          type= kernel
+  singleton: true
+  privilege: Elevated
+  repeatable: false
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: Michael Haag
+  operating_system: Windows (Version Unspecified)
+  created: '2023-01-09'
+  modified: '2023-01-09'

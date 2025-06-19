@@ -1,0 +1,20 @@
+---
+
+- id: 44435192-0fde-9107-6777-45f1e3c059ff
+  name: hdiutil - Exfiltrate data in encrypted dmg file
+  description: Uses hdiutil to create a dmg file to store exfiltrate data
+  tactic: collection
+  technique:
+    attack_id: T1140
+    name: Deobfuscate/Decode Files or Information
+  platforms:
+    darwin:
+      sh:
+        command: hdiutil create -encryption -stdinpass -volname "Volume Name" -srcfolder /path/to/folder
+          -ov encrypteddiskimage.dmg
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - hdiutil
+  - collection

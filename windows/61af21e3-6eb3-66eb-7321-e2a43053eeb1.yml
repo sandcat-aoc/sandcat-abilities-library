@@ -1,0 +1,16 @@
+- description: 'Replicating observed Gozi maldoc behavior registering a dll with an
+    altered extension
+
+    '
+  id: 61af21e3-6eb3-66eb-7321-e2a43053eeb1
+  name: Regsvr32 Registering Non DLL
+  platforms:
+    windows:
+      cmd:
+        cleanup: C:\Windows\system32\regsvr32.exe /U /s %temp%\shell32.jpg
+        command: C:\Windows\system32\regsvr32.exe /s %temp%\shell32.jpg
+        payloads: []
+  tactic: defense-evasion
+  technique:
+    attack_id: T1218.010
+    name: 'Signed Binary Proxy Execution: Regsvr32'

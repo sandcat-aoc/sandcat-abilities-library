@@ -1,0 +1,14 @@
+- description: The command shows all available volume shadow copies, along with their
+    creation time and location.
+  id: 3671c846-ae1a-fa71-4e46-7ba447bdbdaa
+  name: Display volume shadow copies with "vssadmin"
+  platforms:
+    windows:
+      cmd:
+        cleanup: ''
+        command: vssadmin.exe list shadows
+        payloads: []
+  tactic: discovery
+  technique:
+    attack_id: T1082
+    name: System Information Discovery

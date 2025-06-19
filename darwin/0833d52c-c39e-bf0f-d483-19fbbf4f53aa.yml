@@ -1,0 +1,19 @@
+---
+
+- id: 0833d52c-c39e-bf0f-d483-19fbbf4f53aa
+  name: scutil - DNS configuration
+  description: Get the current DNS configuration of the systems
+  tactic: discovery
+  technique:
+    attack_id: T1016
+    name: System Network Configuration Discovery
+  platforms:
+    darwin:
+      sh:
+        command: scutil --dns
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - scutil
+  - discovery

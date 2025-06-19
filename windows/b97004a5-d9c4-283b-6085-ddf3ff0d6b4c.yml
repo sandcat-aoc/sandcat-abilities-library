@@ -1,0 +1,27 @@
+- description: "This test disables Hypervisor-Enforced Code Integrity (HVCI) by setting\
+    \ the registry key HKLM:\\SYSTEM\\CurrentControlSet\\Control\\DeviceGuard\\Scenarios\\\
+    HypervisorEnforcedCodeIntegrity \"Enabled\" value to \"0\".\nThe pre-req needs\
+    \ to be ran in order to setup HVCI and have it enabled. \nWe do not recommend\
+    \ running this in production.\n[Black Lotus Campaign](https://www.microsoft.com/en-us/security/blog/2023/04/11/guidance-for-investigating-attacks-using-cve-2022-21894-the-blacklotus-campaign/)\n\
+    [Microsoft](https://learn.microsoft.com/en-us/windows/security/threat-protection/device-guard/enable-virtualization-based-protection-of-code-integrity)\n"
+  id: b97004a5-d9c4-283b-6085-ddf3ff0d6b4c
+  name: Disable Hypervisor-Enforced Code Integrity (HVCI)
+  platforms:
+    windows:
+      psh:
+        cleanup: reg delete "HKLM\SYSTEM\CurrentControlSet\Control\DeviceGuard" /v
+          "EnableVirtualizationBasedSecurity" /f; reg delete "HKLM\SYSTEM\CurrentControlSet\Control\DeviceGuard"
+          /v "RequirePlatformSecurityFeatures" /f; reg delete "HKLM\SYSTEM\CurrentControlSet\Control\DeviceGuard"
+          /v "Locked" /f; reg delete "HKLM\SYSTEM\CurrentControlSet\Control\DeviceGuard\Scenarios\HypervisorEnforcedCodeIntegrity"
+          /v "Enabled" /f; reg delete "HKLM\SYSTEM\CurrentControlSet\Control\DeviceGuard\Scenarios\HypervisorEnforcedCodeIntegrity"
+          /v "Locked" /f
+        command: reg add "HKLM\SYSTEM\CurrentControlSet\Control\DeviceGuard\Scenarios\HypervisorEnforcedCodeIntegrity"
+          /v "Enabled" /t REG_DWORD /d 0 /f
+        parsers:
+          plugins.atomic.app.parsers.atomic_powershell:
+          - source: validate_me
+        payloads: []
+  tactic: defense-evasion
+  technique:
+    attack_id: T1562.001
+    name: 'Impair Defenses: Disable or Modify Tools'

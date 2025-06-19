@@ -1,0 +1,17 @@
+- description: 'Emulates modification of syslog configuration.
+
+    '
+  id: 2eb224b9-c337-cd19-ea8a-858f58ade8a4
+  name: Logging Configuration Changes on FreeBSD Host
+  platforms:
+    linux:
+      sh:
+        cleanup: if [ -f "/etc/syslog.conf" ]; then sed -i "" '/#art_test_1562_006_2/d'
+          /etc/syslog.conf; fi
+        command: if [ -f "/etc/syslog.conf" ]; then echo '#art_test_1562_006_2' >>
+          /etc/syslog.conf; fi
+        payloads: []
+  tactic: defense-evasion
+  technique:
+    attack_id: T1562.006
+    name: 'Impair Defenses: Indicator Blocking'

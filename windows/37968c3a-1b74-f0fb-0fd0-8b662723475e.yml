@@ -1,0 +1,21 @@
+- id: 37968c3a-1b74-f0fb-0fd0-8b662723475e
+  name: Hh.exe - Open the target batch script with HTML Help.
+  description: Open the target batch script with HTML Help.
+  tactic: command-and-control
+  technique:
+    attack_id: T1105
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: 'HH.exe #{host.file.script}'
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - command-and-control
+  version: '1.0'
+  author: Oddvar Moe
+  created: '2018-05-25'
+  modified: '2018-05-25'
+  operating_system: Windows All Versions

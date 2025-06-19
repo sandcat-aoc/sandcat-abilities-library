@@ -1,0 +1,20 @@
+- description: 'Enumerates started system services using net.exe and writes them to
+    a file. This technique has been used by multiple threat actors.
+
+
+    Upon successful execution, net.exe will run from cmd.exe that queries services.
+    Expected output is to a txt file in in the temp directory called service-list.txt.
+
+    '
+  id: a088eb8a-2130-689f-a774-ec2653f79db1
+  name: System Service Discovery - net.exe
+  platforms:
+    windows:
+      cmd:
+        cleanup: del /f /q /s %temp%\service-list.txt >nul 2>&1
+        command: net.exe start >> %temp%\service-list.txt
+        payloads: []
+  tactic: discovery
+  technique:
+    attack_id: T1007
+    name: System Service Discovery

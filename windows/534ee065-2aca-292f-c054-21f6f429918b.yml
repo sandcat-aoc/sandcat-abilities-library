@@ -1,0 +1,17 @@
+- description: "RunOnce Key Persistence.\n\nUpon successful execution, cmd.exe will\
+    \ modify the registry to load AtomicRedTeam.dll to RunOnceEx. Output will be via\
+    \ stdout. \n"
+  id: 534ee065-2aca-292f-c054-21f6f429918b
+  name: Reg Key RunOnce
+  platforms:
+    windows:
+      cmd:
+        cleanup: REG DELETE HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\RunOnceEx\0001\Depend
+          /v 1 /f >nul 2>&1
+        command: REG ADD HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\RunOnceEx\0001\Depend
+          /v 1 /d "C:\Path\AtomicRedTeam.dll"
+        payloads: []
+  tactic: multiple
+  technique:
+    attack_id: T1547.001
+    name: 'Boot or Logon Autostart Execution: Registry Run Keys / Startup Folder'

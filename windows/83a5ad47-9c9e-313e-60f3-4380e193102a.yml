@@ -1,0 +1,16 @@
+- description: Creating a user with a username containing with a space on the end
+  id: 83a5ad47-9c9e-313e-60f3-4380e193102a
+  name: Create an "Administrator " user (with a space on the end)
+  platforms:
+    windows:
+      psh:
+        cleanup: Remove-LocalUser -Name "Administrator " 2>&1 | out-null
+        command: New-LocalUser -Name "Administrator " -NoPassword
+        parsers:
+          plugins.atomic.app.parsers.atomic_powershell:
+          - source: validate_me
+        payloads: []
+  tactic: defense-evasion
+  technique:
+    attack_id: T1564
+    name: Hide Artifacts

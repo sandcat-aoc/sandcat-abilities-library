@@ -1,0 +1,15 @@
+- description: 'Disables syslog collection
+
+    '
+  id: c59d5b63-99f7-708e-b559-5e2a8381814c
+  name: Disable syslog (freebsd)
+  platforms:
+    linux:
+      sh:
+        cleanup: sysrc syslogd_enable="YES"; service syslogd start
+        command: service syslogd stop; sysrc syslogd_enable="NO"
+        payloads: []
+  tactic: defense-evasion
+  technique:
+    attack_id: T1562.001
+    name: 'Impair Defenses: Disable or Modify Tools'

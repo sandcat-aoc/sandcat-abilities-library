@@ -1,0 +1,23 @@
+- description: 'This test looks for .netrc files (which stores github credentials
+    in clear text )and dumps its contents if found.
+
+    '
+  id: b6f51ad4-214f-5e96-a150-9b1865f7fbd0
+  name: Find and Access Github Credentials
+  platforms:
+    darwin:
+      sh:
+        cleanup: ''
+        command: for file in $(find /home -type f -name .netrc 2> /dev/null);do echo
+          $file ; cat $file ; done
+        payloads: []
+    linux:
+      sh:
+        cleanup: ''
+        command: for file in $(find /home -type f -name .netrc 2> /dev/null);do echo
+          $file ; cat $file ; done
+        payloads: []
+  tactic: credential-access
+  technique:
+    attack_id: T1552.001
+    name: 'Unsecured Credentials: Credentials In Files'

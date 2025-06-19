@@ -1,0 +1,23 @@
+- description: 'This test uses PowerShell to create a Hollow from a PE on disk with
+    explorer as the parent.
+
+    Credit to FuzzySecurity (https://github.com/FuzzySecurity/PowerShell-Suite/blob/master/Start-Hollow.ps1)
+
+    '
+  id: 5fef676a-9954-9385-37bd-1e2191d3e9b5
+  name: Process Hollowing using PowerShell
+  platforms:
+    windows:
+      psh:
+        cleanup: Stop-Process -Name "notepad" -ErrorAction Ignore
+        command: . "$PathToAtomicsFolder\T1055.012\src\Start-Hollow.ps1"; $ppid=Get-Process
+          explorer | select -expand id; Start-Hollow -Sponsor "C:\Windows\System32\notepad.exe"
+          -Hollow "C:\Windows\System32\cmd.exe" -ParentPID $ppid -Verbose
+        parsers:
+          plugins.atomic.app.parsers.atomic_powershell:
+          - source: validate_me
+        payloads: []
+  tactic: multiple
+  technique:
+    attack_id: T1055.012
+    name: 'Process Injection: Process Hollowing'

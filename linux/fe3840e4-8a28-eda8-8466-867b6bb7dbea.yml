@@ -1,0 +1,20 @@
+- description: 'Emulates modification of auditd configuration files
+
+    '
+  id: fe3840e4-8a28-eda8-8466-867b6bb7dbea
+  name: Auditing Configuration Changes on Linux Host
+  platforms:
+    linux:
+      sh:
+        cleanup: sed -i '$ d' /etc/audisp/audispd.conf; if [ -f "/etc/auditd.conf"
+          ]; then sed -i '$ d' /etc/auditd.conf; else sed -i '$ d' /etc/audit/auditd.conf;
+          fi; sed -i '$ d' /etc/libaudit.conf
+        command: 'sed -i ''$ a #art_test_1562_006_1'' /etc/audisp/audispd.conf; if
+          [ -f "/etc/auditd.conf" ]; then sed -i ''$ a #art_test_1562_006_1'' /etc/auditd.conf;
+          else sed -i ''$ a #art_test_1562_006_1'' /etc/audit/auditd.conf; fi ; sed
+          -i ''$ a #art_test_1562_006_1'' /etc/libaudit.conf'
+        payloads: []
+  tactic: defense-evasion
+  technique:
+    attack_id: T1562.006
+    name: 'Impair Defenses: Indicator Blocking'

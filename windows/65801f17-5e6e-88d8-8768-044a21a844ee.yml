@@ -1,0 +1,17 @@
+- description: 'Get geolocation info through IP-Lookup services using curl Windows.
+    The default URL of the IP-Lookup service is https://ipinfo.io/. References: https://securelist.com/transparent-tribe-part-1/98127/
+    and https://news.sophos.com/en-us/2016/05/03/location-based-ransomware-threat-research/
+
+    '
+  id: 65801f17-5e6e-88d8-8768-044a21a844ee
+  name: Get geolocation info through IP-Lookup services using curl Windows
+  platforms:
+    windows:
+      cmd:
+        cleanup: ''
+        command: C:\Windows\System32\Curl.exe -k https://ipinfo.io/
+        payloads: []
+  tactic: discovery
+  technique:
+    attack_id: T1614
+    name: System Location Discovery

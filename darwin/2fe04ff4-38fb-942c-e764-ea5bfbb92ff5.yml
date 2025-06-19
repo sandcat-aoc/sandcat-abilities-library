@@ -1,0 +1,24 @@
+---
+
+- id: 2fe04ff4-38fb-942c-e764-ea5bfbb92ff5
+  name: dscl - Active Directory group information gathering
+  description: Gain useful Active Directory group information such as which users belong to that group,
+    SMB SIDs and group ID. Especially useful for the "admin" group.
+  tactic: discovery
+  technique:
+    attack_id: T1087.001
+    name: 'Account Discovery: Local Account'
+  platforms:
+    darwin:
+      sh:
+        command: 'dscl "/Active Directory/TEST/All Domains" -read /Groups/$GROUPNAME
+
+          dscl "/Active Directory/TEST/All Domains" read /Groups/$GROUPNAME
+
+          dscl "/Active Directory/TEST/All Domains" cat /Groups/$GROUPNAME'
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - dscl
+  - discovery

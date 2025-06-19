@@ -1,0 +1,21 @@
+- description: 'https://github.com/BeichenDream/BadPotato
+
+    Privilege escalation using named pipe connections'
+  id: 2cda9de4-9fe7-ac16-813a-23d0741e9b28
+  name: Bad Potato
+  platforms:
+    windows:
+      psh:
+        cleanup: taskkill /f /im notepad.exe
+        command: cd "PathToAtomicsFolder\..\ExternalPayloads"; Start-Process .\BadPotato.exe
+          notepad.exe; Start-Sleep -Second 20; Stop-Process -Name "notepad" -force
+          -erroraction silentlycontinue; Stop-Process -Name "BadPotato" -force -erroraction
+          silentlycontinue
+        parsers:
+          plugins.atomic.app.parsers.atomic_powershell:
+          - source: validate_me
+        payloads: []
+  tactic: multiple
+  technique:
+    attack_id: T1134.001
+    name: 'Access Token Manipulation: Token Impersonation/Theft'

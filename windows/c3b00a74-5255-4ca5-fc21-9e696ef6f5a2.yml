@@ -1,0 +1,23 @@
+- id: c3b00a74-5255-4ca5-fc21-9e696ef6f5a2
+  name: Diskshadow.exe - Execute commands using diskshadow.exe to spawn child process
+  description: Execute commands using diskshadow.exe to spawn child process
+  tactic: defense-evasion
+  technique:
+    attack_id: T1202
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: diskshadow> exec payload.exe
+        payloads:
+        - payload.exe
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: Oddvar Moe
+  created: '2018-05-25'
+  modified: '2018-05-25'
+  operating_system: Windows All Versions

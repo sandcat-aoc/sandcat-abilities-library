@@ -1,0 +1,20 @@
+- description: 'This test restarts a FreeBSD/macOS/Linux system via `reboot`.
+
+    '
+  id: e7d3b48d-c523-4515-b0a6-e67160e132c8
+  name: Restart System via `reboot` - FreeBSD/macOS/Linux
+  platforms:
+    darwin:
+      sh:
+        cleanup: ''
+        command: reboot
+        payloads: []
+    linux:
+      sh:
+        cleanup: ''
+        command: reboot
+        payloads: []
+  tactic: impact
+  technique:
+    attack_id: T1529
+    name: System Shutdown/Reboot

@@ -1,0 +1,16 @@
+- description: 'Executes the LaunchApplication function in pcwutl.dll to proxy execution
+    of an executable.
+
+    '
+  id: 6a411cad-f7c8-7edc-b445-422ce6785550
+  name: Launches an executable using Rundll32 and pcwutl.dll
+  platforms:
+    windows:
+      cmd:
+        cleanup: ''
+        command: rundll32.exe pcwutl.dll,LaunchApplication %windir%\System32\notepad.exe
+        payloads: []
+  tactic: defense-evasion
+  technique:
+    attack_id: T1218.011
+    name: 'Signed Binary Proxy Execution: Rundll32'

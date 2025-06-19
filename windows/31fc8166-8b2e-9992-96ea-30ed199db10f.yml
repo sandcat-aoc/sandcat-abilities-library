@@ -1,0 +1,18 @@
+- description: 'Uses hh.exe to execute a local compiled HTML Help payload.
+
+    Upon execution calc.exe will open
+
+    '
+  id: 31fc8166-8b2e-9992-96ea-30ed199db10f
+  name: Compiled HTML Help Local Payload
+  platforms:
+    windows:
+      cmd:
+        cleanup: ''
+        command: hh.exe "9e2e6f_T1218.001.chm"
+        payloads:
+        - 9e2e6f_T1218.001.chm
+  tactic: defense-evasion
+  technique:
+    attack_id: T1218.001
+    name: 'Signed Binary Proxy Execution: Compiled HTML File'

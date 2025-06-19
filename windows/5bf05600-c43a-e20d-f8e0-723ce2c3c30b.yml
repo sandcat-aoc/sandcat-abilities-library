@@ -1,0 +1,15 @@
+- description: 'Install a driver via pnputil.exe lolbin
+
+    '
+  id: 5bf05600-c43a-e20d-f8e0-723ce2c3c30b
+  name: Add a driver
+  platforms:
+    windows:
+      cmd:
+        cleanup: ''
+        command: pnputil.exe /add-driver "C:\Windows\INF\usbstor.inf"
+        payloads: []
+  tactic: multiple
+  technique:
+    attack_id: T1547
+    name: Boot or Logon Autostart Execution

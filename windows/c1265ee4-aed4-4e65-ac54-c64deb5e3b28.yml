@@ -1,0 +1,30 @@
+- id: c1265ee4-aed4-4e65-ac54-c64deb5e3b28
+  name: c1265ee4-aed4-4e65-ac54-c64deb5e3b28 - Malicious Driver Deployment
+  description: 'Malicious driver: c1265ee4-aed4-4e65-ac54-c64deb5e3b28
+
+    Category: malicious
+
+    Author: Guus Verbeek
+
+    Created: 2023-05-07
+
+    MITRE Technique: T1068'
+  tactic: defense-evasion
+  technique:
+    attack_id: T1068
+    name: Rootkit
+  platforms:
+    windows:
+      cmd:
+        command: sc create MaliciousDriver binPath= "C:\Windows\System32\drivers\malicious_driver.sys"
+          type= kernel
+  singleton: true
+  privilege: Elevated
+  repeatable: false
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: Guus Verbeek
+  operating_system: Windows (Version Unspecified)
+  created: '2023-05-07'
+  modified: '2023-05-07'

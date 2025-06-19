@@ -1,0 +1,21 @@
+- description: "Snaffler is an open-source tool that has been used by various threat\
+    \ groups, including Scattered Spider/Muddled Libra, to enumerate accessible shares\
+    \ and credential-containing files within a domain. \n[Reference](https://unit42.paloaltonetworks.com/muddled-libra/)\n"
+  id: 36058a93-1773-9485-e422-6f9e1ab871d4
+  name: Enumerate All Network Shares with Snaffler
+  platforms:
+    windows:
+      psh:
+        cleanup: remove-item "$env:temp\T1135SnafflerOutput.txt" -force -erroraction
+          silentlycontinue
+        command: invoke-expression 'cmd /c start powershell -command { cmd /c "PathToAtomicsFolder\..\ExternalPayloads\Snaffler.exe"
+          -a -o "$env:temp\T1135SnafflerOutput.txt" }; start-sleep 90; stop-process
+          -name "snaffler"'
+        parsers:
+          plugins.atomic.app.parsers.atomic_powershell:
+          - source: validate_me
+        payloads: []
+  tactic: discovery
+  technique:
+    attack_id: T1135
+    name: Network Share Discovery

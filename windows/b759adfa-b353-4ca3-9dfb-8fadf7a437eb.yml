@@ -1,0 +1,30 @@
+- id: b759adfa-b353-4ca3-9dfb-8fadf7a437eb
+  name: b759adfa-b353-4ca3-9dfb-8fadf7a437eb - Malicious Driver Deployment
+  description: 'Malicious driver: b759adfa-b353-4ca3-9dfb-8fadf7a437eb
+
+    Category: malicious
+
+    Author: Michael Haag
+
+    Created: 2023-07-12
+
+    MITRE Technique: T1068'
+  tactic: defense-evasion
+  technique:
+    attack_id: T1068
+    name: Rootkit
+  platforms:
+    windows:
+      cmd:
+        command: sc create MaliciousDriver binPath= "C:\Windows\System32\drivers\malicious_driver.sys"
+          type= kernel
+  singleton: true
+  privilege: Elevated
+  repeatable: false
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: Michael Haag
+  operating_system: Windows (Version Unspecified)
+  created: '2023-07-12'
+  modified: '2023-07-12'

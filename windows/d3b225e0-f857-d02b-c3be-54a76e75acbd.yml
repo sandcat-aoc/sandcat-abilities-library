@@ -1,0 +1,23 @@
+- id: d3b225e0-f857-d02b-c3be-54a76e75acbd
+  name: DefaultPack.EXE - Use DefaultPack.EXE to execute arbitrary binaries, with
+    added argument support.
+  description: Use DefaultPack.EXE to execute arbitrary binaries, with added argument
+    support.
+  tactic: defense-evasion
+  technique:
+    attack_id: T1218
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: DefaultPack.EXE /C:"#{host.executable.name}"
+  singleton: true
+  privilege: User
+  repeatable: false
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: '@checkymander'
+  created: '2020-10-01'
+  modified: '2020-10-01'
+  operating_system: Windows All Versions

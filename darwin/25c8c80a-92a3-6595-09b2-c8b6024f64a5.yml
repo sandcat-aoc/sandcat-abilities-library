@@ -1,0 +1,19 @@
+---
+
+- id: 25c8c80a-92a3-6595-09b2-c8b6024f64a5
+  name: csrutil - Add a netboot server
+  description: Insert a new IPv4 address in the list of allowed NetBoot sources
+  tactic: defense-evasion
+  technique:
+    attack_id: T1562.001
+    name: 'Impair Defenses: Disable or Modify Tools'
+  platforms:
+    darwin:
+      sh:
+        command: csrutil netboot add <address>
+  singleton: false
+  privilege: Elevated
+  repeatable: true
+  buckets:
+  - csrutil
+  - defense-evasion

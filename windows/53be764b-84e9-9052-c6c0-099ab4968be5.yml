@@ -1,0 +1,21 @@
+- description: 'Create an Alternate Data Stream with the command prompt. Write access
+    is required. Upon execution, run "dir /a-d /s /r | find ":$DATA"" in the %temp%
+
+    folder to view that the alternate data stream exists. To view the data in the
+    alternate data stream, run "notepad T1564.004_has_ads.txt:adstest.txt"
+
+    '
+  id: 53be764b-84e9-9052-c6c0-099ab4968be5
+  name: Create ADS command prompt
+  platforms:
+    windows:
+      cmd:
+        cleanup: del %temp%\T1564.004_has_ads_cmd.txt >nul 2>&1
+        command: echo cmd /c echo "Shell code execution."> %temp%\T1564.004_has_ads_cmd.txt:adstest.txt
+          && for /f "usebackq delims=?" %i in (%temp%\T1564.004_has_ads_cmd.txt:adstest.txt)
+          do %i
+        payloads: []
+  tactic: defense-evasion
+  technique:
+    attack_id: T1564.004
+    name: 'Hide Artifacts: NTFS File Attributes'

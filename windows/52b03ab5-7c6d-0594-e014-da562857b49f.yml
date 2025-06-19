@@ -1,0 +1,15 @@
+- description: "Change Default File Association From cmd.exe of hta to notepad.\n\n\
+    Upon successful execution, cmd.exe will change the file association of .hta to\
+    \ notepad.exe. \n"
+  id: 52b03ab5-7c6d-0594-e014-da562857b49f
+  name: Change Default File Association
+  platforms:
+    windows:
+      cmd:
+        cleanup: assoc  .hta=htafile
+        command: assoc .hta=txtfile
+        payloads: []
+  tactic: multiple
+  technique:
+    attack_id: T1546.001
+    name: 'Event Triggered Execution: Change Default File Association'

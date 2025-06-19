@@ -1,0 +1,17 @@
+- description: 'Enumerate kernel modules loaded. Upon successful execution stdout
+    will display kernel modules loaded, followed by list of modules matching ''vmm''
+    if present.
+
+    '
+  id: 1d01dd49-7e38-2250-df14-5242095827fd
+  name: FreeBSD List Kernel Modules
+  platforms:
+    linux:
+      sh:
+        cleanup: ''
+        command: kldstat; kldstat | grep vmm
+        payloads: []
+  tactic: discovery
+  technique:
+    attack_id: T1082
+    name: System Information Discovery

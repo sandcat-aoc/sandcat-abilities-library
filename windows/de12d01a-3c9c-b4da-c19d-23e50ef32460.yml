@@ -1,0 +1,25 @@
+- id: de12d01a-3c9c-b4da-c19d-23e50ef32460
+  name: Syssetup.dll - Execute the specified (local or remote) .wsh/.sct script with
+    scrobj.dll in the .inf file by calling an information file directive (section
+    name specified).
+  description: Execute the specified (local or remote) .wsh/.sct script with scrobj.dll
+    in the .inf file by calling an information file directive (section name specified).
+  tactic: defense-evasion
+  technique:
+    attack_id: T1218.011
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: 'rundll32 syssetup.dll,SetupInfObjectInstallAction DefaultInstall
+          128 #{host.dir.temp}'
+  singleton: true
+  privilege: User
+  repeatable: false
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: LOLBAS Team
+  created: '2018-05-25'
+  modified: '2018-05-25'
+  operating_system: Windows All Versions

@@ -1,0 +1,19 @@
+- description: 'Find or discover files on the file system. Upon execution, file and
+    folder information will be displayed.
+
+    '
+  id: d7967a23-c8c0-30c6-9889-3f242e622be1
+  name: File and Directory Discovery (PowerShell)
+  platforms:
+    windows:
+      psh:
+        cleanup: ''
+        command: ls -recurse; get-childitem -recurse; gci -recurse
+        parsers:
+          plugins.atomic.app.parsers.atomic_powershell:
+          - source: validate_me
+        payloads: []
+  tactic: discovery
+  technique:
+    attack_id: T1083
+    name: File and Directory Discovery

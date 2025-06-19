@@ -1,0 +1,19 @@
+---
+
+- id: 01cc5b9e-adfb-c2ab-6798-22a2a17cd32b
+  name: dns-sd - Discover SSH hosts
+  description: Hosts serving SSH can be discovered using the _ssh._tcp service string.
+  tactic: discovery
+  technique:
+    attack_id: T1046
+    name: Network Service Scanning
+  platforms:
+    darwin:
+      sh:
+        command: dns-sd -B _ssh._tcp
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - dns-sd
+  - discovery

@@ -1,0 +1,30 @@
+- id: 97ed6c7b-be4c-4f60-9157-c788a555ca9f
+  name: 97ed6c7b-be4c-4f60-9157-c788a555ca9f - Malicious Driver Deployment
+  description: 'Malicious driver: 97ed6c7b-be4c-4f60-9157-c788a555ca9f
+
+    Category: vulnerable driver
+
+    Author: Takahiro Haruyama
+
+    Created: 2023-10-12
+
+    MITRE Technique: T1542'
+  tactic: defense-evasion
+  technique:
+    attack_id: T1542
+    name: Rootkit
+  platforms:
+    windows:
+      cmd:
+        command: sc create MaliciousDriver binPath= "C:\Windows\System32\drivers\malicious_driver.sys"
+          type= kernel
+  singleton: true
+  privilege: Elevated
+  repeatable: false
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: Takahiro Haruyama
+  operating_system: Windows (Version Unspecified)
+  created: '2023-10-12'
+  modified: '2023-10-12'

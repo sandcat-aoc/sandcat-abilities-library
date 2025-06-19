@@ -1,0 +1,30 @@
+- id: da7314dc-6cf1-4d74-a0d1-796fc08944f8
+  name: da7314dc-6cf1-4d74-a0d1-796fc08944f8 - Malicious Driver Deployment
+  description: 'Malicious driver: da7314dc-6cf1-4d74-a0d1-796fc08944f8
+
+    Category: malicious
+
+    Author: Michael Haag
+
+    Created: 2023-05-20
+
+    MITRE Technique: T1068'
+  tactic: defense-evasion
+  technique:
+    attack_id: T1068
+    name: Rootkit
+  platforms:
+    windows:
+      cmd:
+        command: sc create MaliciousDriver binPath= "C:\Windows\System32\drivers\malicious_driver.sys"
+          type= kernel
+  singleton: true
+  privilege: Elevated
+  repeatable: false
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: Michael Haag
+  operating_system: Windows (Version Unspecified)
+  created: '2023-05-20'
+  modified: '2023-05-20'

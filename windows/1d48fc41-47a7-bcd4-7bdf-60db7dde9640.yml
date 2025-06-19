@@ -1,0 +1,18 @@
+- description: "Utilize Get-Process PowerShell cmdlet to identify processes.\n\nUpon\
+    \ successful execution, powershell.exe will execute Get-Process to list processes.\
+    \ Output will be via stdout. \n"
+  id: 1d48fc41-47a7-bcd4-7bdf-60db7dde9640
+  name: Process Discovery - Get-Process
+  platforms:
+    windows:
+      psh:
+        cleanup: ''
+        command: Get-Process
+        parsers:
+          plugins.atomic.app.parsers.atomic_powershell:
+          - source: validate_me
+        payloads: []
+  tactic: discovery
+  technique:
+    attack_id: T1057
+    name: Process Discovery

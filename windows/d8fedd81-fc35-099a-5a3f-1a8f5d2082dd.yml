@@ -1,0 +1,20 @@
+- description: 'Identify remote systems with net.exe querying the Active Directory
+    Domain Computers group.
+
+
+    Upon successful execution, cmd.exe will execute cmd.exe against Active Directory
+    to list the "Domain Computers" group. Output will be via stdout.
+
+    '
+  id: d8fedd81-fc35-099a-5a3f-1a8f5d2082dd
+  name: Remote System Discovery - net group Domain Computers
+  platforms:
+    windows:
+      cmd:
+        cleanup: ''
+        command: net group "Domain Computers" /domain
+        payloads: []
+  tactic: discovery
+  technique:
+    attack_id: T1018
+    name: Remote System Discovery

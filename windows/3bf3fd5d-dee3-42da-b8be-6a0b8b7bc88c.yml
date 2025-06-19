@@ -1,0 +1,30 @@
+- id: 3bf3fd5d-dee3-42da-b8be-6a0b8b7bc88c
+  name: 3bf3fd5d-dee3-42da-b8be-6a0b8b7bc88c - Malicious Driver Deployment
+  description: 'Malicious driver: 3bf3fd5d-dee3-42da-b8be-6a0b8b7bc88c
+
+    Category: vulnerable driver
+
+    Author: Antonio Parata, Andrea Monzani
+
+    Created: 2025-01-29
+
+    MITRE Technique: T1562'
+  tactic: defense-evasion
+  technique:
+    attack_id: T1562
+    name: Rootkit
+  platforms:
+    windows:
+      cmd:
+        command: sc create MaliciousDriver binPath= "C:\Windows\System32\drivers\malicious_driver.sys"
+          type= kernel
+  singleton: true
+  privilege: Elevated
+  repeatable: false
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: Antonio Parata, Andrea Monzani
+  operating_system: Windows (Version Unspecified)
+  created: '2025-01-29'
+  modified: '2025-01-29'

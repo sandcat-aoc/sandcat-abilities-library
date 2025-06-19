@@ -1,0 +1,20 @@
+---
+
+- id: 57b1c0f3-4c0c-0b8c-3492-49d3849cb663
+  name: osascript - Use the osascript binary to gather system information
+  description: osascript can be used to gather the operating system version, current username, user ID,
+    computer name, IP address, and other information.
+  tactic: collection
+  technique:
+    attack_id: T1059.002
+    name: 'Command and Scripting Interpreter: AppleScript'
+  platforms:
+    darwin:
+      sh:
+        command: osascript -e 'return (system info)'
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - osascript
+  - collection

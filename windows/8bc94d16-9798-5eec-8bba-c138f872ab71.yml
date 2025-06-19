@@ -1,0 +1,15 @@
+- description: 'Executes an MSI containing an embedded EXE using msiexec.exe
+
+    '
+  id: 8bc94d16-9798-5eec-8bba-c138f872ab71
+  name: Msiexec.exe - Execute Local MSI file with an embedded EXE
+  platforms:
+    windows:
+      cmd:
+        cleanup: ''
+        command: '#{msi_exe} /q /#{action} "#{msi_payload}"'
+        payloads: []
+  tactic: defense-evasion
+  technique:
+    attack_id: T1218.007
+    name: 'Signed Binary Proxy Execution: Msiexec'

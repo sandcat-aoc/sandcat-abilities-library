@@ -1,0 +1,21 @@
+- description: "This test will decrease the version number of the 'Internet Explorer\
+    \ Core Fonts' (UUID {C9E9A340-D1F1-11D0-821E-444553540600}) registry key for the\
+    \ current user, \nwhich will force the StubPath payload (if set) to execute.\n"
+  id: 7ad5840a-79f3-2599-65fa-28835dda93c4
+  name: HKLM - re-execute 'Internet Explorer Core Fonts' StubPath payload by decreasing
+    version number
+  platforms:
+    windows:
+      psh:
+        cleanup: ''
+        command: Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Active Setup\Installed
+          Components\{C9E9A340-D1F1-11D0-821E-444553540600}" -Name "Version" -Value
+          "0,0,0,0"; & $env:SYSTEMROOT\system32\runonce.exe /AlternateShellStartup
+        parsers:
+          plugins.atomic.app.parsers.atomic_powershell:
+          - source: validate_me
+        payloads: []
+  tactic: multiple
+  technique:
+    attack_id: T1547.014
+    name: Active Setup

@@ -1,0 +1,23 @@
+- id: 3d891f13-7338-188b-0380-38146f19d2d1
+  name: Mftrace.exe - Launch specified executable as a subprocess of Mftrace.exe.
+  description: Launch specified executable as a subprocess of Mftrace.exe.
+  tactic: defense-evasion
+  technique:
+    attack_id: T1127
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: Mftrace.exe payload.exe
+        payloads:
+        - payload.exe
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: Oddvar Moe
+  created: '2018-05-25'
+  modified: '2018-05-25'
+  operating_system: Windows All Versions

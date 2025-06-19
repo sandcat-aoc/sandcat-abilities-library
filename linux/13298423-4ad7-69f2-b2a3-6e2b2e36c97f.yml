@@ -1,0 +1,14 @@
+- description: "Clear Shell History. This technique only affect the bash shell application.\
+    \ \n"
+  id: 13298423-4ad7-69f2-b2a3-6e2b2e36c97f
+  name: Clear History
+  platforms:
+    linux:
+      sh:
+        cleanup: ''
+        command: history -c
+        payloads: []
+  tactic: defense-evasion
+  technique:
+    attack_id: T1562.001
+    name: 'Impair Defenses: Disable or Modify Tools'

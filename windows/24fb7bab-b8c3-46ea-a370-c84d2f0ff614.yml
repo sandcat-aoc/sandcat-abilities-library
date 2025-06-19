@@ -1,0 +1,30 @@
+- id: 24fb7bab-b8c3-46ea-a370-c84d2f0ff614
+  name: 24fb7bab-b8c3-46ea-a370-c84d2f0ff614 - Malicious Driver Deployment
+  description: 'Malicious driver: 24fb7bab-b8c3-46ea-a370-c84d2f0ff614
+
+    Category: vulnerable driver
+
+    Author: Michael Haag
+
+    Created: 2023-01-09
+
+    MITRE Technique: T1068'
+  tactic: defense-evasion
+  technique:
+    attack_id: T1068
+    name: Rootkit
+  platforms:
+    windows:
+      cmd:
+        command: sc create MaliciousDriver binPath= "C:\Windows\System32\drivers\malicious_driver.sys"
+          type= kernel
+  singleton: true
+  privilege: Elevated
+  repeatable: false
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: Michael Haag
+  operating_system: Windows (Version Unspecified)
+  created: '2023-01-09'
+  modified: '2023-01-09'

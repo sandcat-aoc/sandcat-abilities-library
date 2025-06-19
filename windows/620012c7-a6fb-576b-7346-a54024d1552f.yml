@@ -1,0 +1,16 @@
+- description: 'An adversary may use Radmin Viewer Utility to remotely control Windows
+    device, this will start the radmin console.
+
+    '
+  id: 620012c7-a6fb-576b-7346-a54024d1552f
+  name: Radmin Viewer Utility
+  platforms:
+    windows:
+      cmd:
+        cleanup: ''
+        command: '"%PROGRAMFILES(x86)%/Radmin Viewer 3/Radmin.exe"'
+        payloads: []
+  tactic: multiple
+  technique:
+    attack_id: T1072
+    name: Software Deployment Tools

@@ -1,0 +1,16 @@
+- description: 'Hide a file on MacOS
+
+    '
+  id: a148e685-a0a8-3fb4-5ee1-c4a722905e7c
+  name: Mac Hidden file
+  platforms:
+    darwin:
+      sh:
+        cleanup: ''
+        command: xattr -lr * / 2>&1 /dev/null | grep -C 2 "00 00 00 00 00 00 00 00
+          40 00 FF FF FF FF 00 00"
+        payloads: []
+  tactic: defense-evasion
+  technique:
+    attack_id: T1564.001
+    name: 'Hide Artifacts: Hidden Files and Directories'

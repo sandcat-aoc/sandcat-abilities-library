@@ -1,0 +1,25 @@
+- description: 'Modifies the `modify` and `access` timestamps using the timestamps
+    of a specified reference file.
+
+
+    This technique was used by the threat actor Rocke during the compromise of Linux
+    web servers.
+
+    '
+  id: baf1e1af-5a9a-7fdf-e4cf-c5d111a25174
+  name: Modify file timestamps using reference file
+  platforms:
+    darwin:
+      sh:
+        cleanup: rm -f /tmp/T1070.006-reference.txt
+        command: touch /tmp/T1070.006-reference.txt; touch -acmr /bin/sh /tmp/T1070.006-reference.txt
+        payloads: []
+    linux:
+      sh:
+        cleanup: rm -f /tmp/T1070.006-reference.txt
+        command: touch /tmp/T1070.006-reference.txt; touch -acmr /bin/sh /tmp/T1070.006-reference.txt
+        payloads: []
+  tactic: defense-evasion
+  technique:
+    attack_id: T1070.006
+    name: 'Indicator Removal on Host: Timestomp'

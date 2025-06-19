@@ -1,0 +1,18 @@
+- description: 'Uses openssl to encrypt a file
+
+    '
+  id: e289eb7e-dadc-dc7a-c0ed-7a26f636ae89
+  name: Encrypt files using openssl (FreeBSD/Linux)
+  platforms:
+    linux:
+      sh:
+        cleanup: $which_openssl rsautl -decrypt -inkey /tmp/key.pem -in /tmp/passwd.zip;
+          rm /tmp/passwd.zip
+        command: which_openssl=`which openssl`; $which_openssl genrsa -out /tmp/key.pem
+          2048; $which_openssl rsa -in /tmp/key.pem -pubout -out /tmp/pub.pem; $which_openssl
+          rsautl -encrypt -inkey /tmp/pub.pem -pubin -in /etc/passwd -out /tmp/passwd.zip
+        payloads: []
+  tactic: impact
+  technique:
+    attack_id: T1486
+    name: Data Encrypted for Impact

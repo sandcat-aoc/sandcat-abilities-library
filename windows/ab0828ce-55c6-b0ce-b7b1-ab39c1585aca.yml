@@ -1,0 +1,23 @@
+- id: ab0828ce-55c6-b0ce-b7b1-ab39c1585aca
+  name: Forfiles.exe - Executes specified command since there is a match for notepad.exe
+    in the c:\windows\System32 folder.
+  description: Executes specified command since there is a match for notepad.exe in
+    the c:\windows\System32 folder.
+  tactic: defense-evasion
+  technique:
+    attack_id: T1202
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: forfiles /p c:\windows\system32 /m notepad.exe /c "#{host.executable.name}"
+  singleton: false
+  privilege: Elevated
+  repeatable: true
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: Oddvar Moe
+  created: '2018-05-25'
+  modified: '2018-05-25'
+  operating_system: Windows All Versions

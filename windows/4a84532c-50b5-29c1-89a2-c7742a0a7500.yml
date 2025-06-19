@@ -1,0 +1,25 @@
+- id: 4a84532c-50b5-29c1-89a2-c7742a0a7500
+  name: VSDiagnostics.exe - Starts a collection session with sessionID 1 and calls
+    kernelbase.CreateProcessW to launch specified executable.
+  description: Starts a collection session with sessionID 1 and calls kernelbase.CreateProcessW
+    to launch specified executable.
+  tactic: defense-evasion
+  technique:
+    attack_id: T1127
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: VSDiagnostics.exe start 1 /launch:payload.exe
+        payloads:
+        - payload.exe
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: Bobby Cooke
+  created: '2023-07-12'
+  modified: '2023-07-12'
+  operating_system: Windows All Versions

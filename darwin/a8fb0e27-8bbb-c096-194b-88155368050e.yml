@@ -1,0 +1,24 @@
+- description: 'Overwrites and deletes a file using DD.
+
+    To stop the test, break the command with CTRL/CMD+C.
+
+    '
+  id: a8fb0e27-8bbb-c096-194b-88155368050e
+  name: FreeBSD/macOS/Linux - Overwrite file with DD
+  platforms:
+    darwin:
+      sh:
+        cleanup: ''
+        command: dd of=/var/log/syslog if=/dev/zero count=$(ls -l /var/log/syslog
+          | awk '{print $5}') iflag=count_bytes
+        payloads: []
+    linux:
+      sh:
+        cleanup: ''
+        command: dd of=/var/log/syslog if=/dev/zero count=$(ls -l /var/log/syslog
+          | awk '{print $5}') iflag=count_bytes
+        payloads: []
+  tactic: impact
+  technique:
+    attack_id: T1485
+    name: Data Destruction

@@ -1,0 +1,20 @@
+- description: 'Creates a hidden file inside a hidden directory
+
+    '
+  id: 379509c4-b83f-252b-c779-446f0512e936
+  name: Create a hidden file in a hidden directory
+  platforms:
+    darwin:
+      sh:
+        cleanup: rm -rf /var/tmp/.hidden-directory/
+        command: mkdir /var/tmp/.hidden-directory; echo "T1564.001" > /var/tmp/.hidden-directory/.hidden-file
+        payloads: []
+    linux:
+      sh:
+        cleanup: rm -rf /var/tmp/.hidden-directory/
+        command: mkdir /var/tmp/.hidden-directory; echo "T1564.001" > /var/tmp/.hidden-directory/.hidden-file
+        payloads: []
+  tactic: defense-evasion
+  technique:
+    attack_id: T1564.001
+    name: 'Hide Artifacts: Hidden Files and Directories'

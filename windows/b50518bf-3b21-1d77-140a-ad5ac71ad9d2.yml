@@ -1,0 +1,25 @@
+- id: b50518bf-3b21-1d77-140a-ad5ac71ad9d2
+  name: Diantz.exe - Compress a file (first argument) into a CAB file stored in the
+    Alternate Data Stream (ADS) of the target file.
+  description: Compress a file (first argument) into a CAB file stored in the Alternate
+    Data Stream (ADS) of the target file.
+  tactic: defense-evasion
+  technique:
+    attack_id: T1564.004
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: 'diantz.exe payload.exe #{host.dir.temp}:targetFile.cab'
+        payloads:
+        - payload.exe
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: Tamir Yehuda
+  created: '2020-08-08'
+  modified: '2020-08-08'
+  operating_system: Windows All Versions

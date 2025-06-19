@@ -1,0 +1,23 @@
+- description: 'Use Psr.exe binary to collect screenshots of user display. Test will
+    do left mouse click to simulate user behaviour
+
+    '
+  id: 582871bc-bf9a-88ca-ed89-ae25d76d018c
+  name: Windows Screencapture
+  platforms:
+    windows:
+      psh:
+        cleanup: rm c:\temp\T1113_desktop.zip -ErrorAction Ignore
+        command: cmd /c start /b psr.exe /start /output c:\temp\T1113_desktop.zip
+          /sc 1 /gui 0 /stopevent 12; Add-Type -MemberDefinition '[DllImport("user32.dll")]
+          public static extern void mouse_event(int flags, int dx, int dy, int cButtons,
+          int info);' -Name U32 -Namespace W; [W.U32]::mouse_event(0x02 -bor 0x04
+          -bor 0x01, 0, 0, 0, 0); cmd /c "timeout 5 > NULL && psr.exe /stop"
+        parsers:
+          plugins.atomic.app.parsers.atomic_powershell:
+          - source: validate_me
+        payloads: []
+  tactic: collection
+  technique:
+    attack_id: T1113
+    name: Screen Capture

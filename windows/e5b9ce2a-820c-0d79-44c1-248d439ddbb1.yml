@@ -1,0 +1,22 @@
+- id: e5b9ce2a-820c-0d79-44c1-248d439ddbb1
+  name: Control.exe - Execute .cpl file. A CPL is a DLL file with CPlApplet export
+    function)
+  description: Execute .cpl file. A CPL is a DLL file with CPlApplet export function)
+  tactic: defense-evasion
+  technique:
+    attack_id: T1218.002
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: 'control.exe #{host.dir.temp}'
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: Oddvar Moe
+  created: '2018-05-25'
+  modified: '2018-05-25'
+  operating_system: Windows All Versions

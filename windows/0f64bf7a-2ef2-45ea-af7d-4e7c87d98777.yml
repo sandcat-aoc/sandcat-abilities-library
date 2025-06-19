@@ -1,0 +1,30 @@
+- id: 0f64bf7a-2ef2-45ea-af7d-4e7c87d98777
+  name: 0f64bf7a-2ef2-45ea-af7d-4e7c87d98777 - Malicious Driver Deployment
+  description: 'Malicious driver: 0f64bf7a-2ef2-45ea-af7d-4e7c87d98777
+
+    Category: vulnerable
+
+    Author: Northwave Cyber Security
+
+    Created: 2024-09-11
+
+    MITRE Technique: T1068'
+  tactic: defense-evasion
+  technique:
+    attack_id: T1068
+    name: Rootkit
+  platforms:
+    windows:
+      cmd:
+        command: sc create MaliciousDriver binPath= "C:\Windows\System32\drivers\malicious_driver.sys"
+          type= kernel
+  singleton: true
+  privilege: Elevated
+  repeatable: false
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: Northwave Cyber Security
+  operating_system: Windows (Version Unspecified)
+  created: '2024-09-11'
+  modified: '2024-09-11'

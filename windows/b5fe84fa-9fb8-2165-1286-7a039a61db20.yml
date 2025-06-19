@@ -1,0 +1,25 @@
+- description: 'Query the registry to determine software and versions installed on
+    the system. Upon execution a table of
+
+    software name and version information will be displayed.
+
+    '
+  id: b5fe84fa-9fb8-2165-1286-7a039a61db20
+  name: Applications Installed
+  platforms:
+    windows:
+      psh:
+        cleanup: ''
+        command: Get-ItemProperty HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\*
+          | Select-Object DisplayName, DisplayVersion, Publisher, InstallDate | Format-Table
+          -Autosize; Get-ItemProperty HKLM:\Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\*
+          | Select-Object DisplayName, DisplayVersion, Publisher, InstallDate | Format-Table
+          -Autosize
+        parsers:
+          plugins.atomic.app.parsers.atomic_powershell:
+          - source: validate_me
+        payloads: []
+  tactic: discovery
+  technique:
+    attack_id: T1518
+    name: Software Discovery

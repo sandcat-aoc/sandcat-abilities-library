@@ -1,0 +1,21 @@
+- id: 2c71fad8-2ef5-de91-817e-94ce4395db9c
+  name: Mmc.exe - Download and save an executable to disk
+  description: Download and save an executable to disk
+  tactic: defense-evasion
+  technique:
+    attack_id: T1218.014
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: 'mmc.exe -Embedding #{host.dir.temp}'
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: '@bohops'
+  created: '2018-12-04'
+  modified: '2018-12-04'
+  operating_system: Windows All Versions

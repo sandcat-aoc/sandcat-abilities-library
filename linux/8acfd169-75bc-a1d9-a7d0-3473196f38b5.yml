@@ -1,0 +1,15 @@
+- description: 'Enumerate all accounts by copying /etc/passwd to another file
+
+    '
+  id: 8acfd169-75bc-a1d9-a7d0-3473196f38b5
+  name: Enumerate all accounts (Local)
+  platforms:
+    linux:
+      sh:
+        cleanup: rm -f /tmp/T1087.001.txt
+        command: cat /etc/passwd > /tmp/T1087.001.txt; cat /tmp/T1087.001.txt
+        payloads: []
+  tactic: discovery
+  technique:
+    attack_id: T1087.001
+    name: 'Account Discovery: Local Account'

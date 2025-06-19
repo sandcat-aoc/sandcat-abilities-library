@@ -1,0 +1,23 @@
+- description: 'Compiles and executes C# code to list main window titles associated
+    with each process.
+
+
+    Upon successful execution, powershell will download the .cs from the Atomic Red
+    Team repo, and cmd.exe will compile and execute T1010.exe. Upon T1010.exe execution,
+    expected output will be via stdout.
+
+    '
+  id: 9ee77435-9a16-9a66-6d48-3d0b09cc7892
+  name: List Process Main Windows - C# .NET
+  platforms:
+    windows:
+      cmd:
+        cleanup: del /f /q /s %TEMP%\T1010.exe >nul 2>&1
+        command: C:\Windows\Microsoft.NET\Framework\v4.0.30319\csc.exe -out:%TEMP%\T1010.exe
+          "1b4409_T1010.cs" && %TEMP%\T1010.exe
+        payloads:
+        - 1b4409_T1010.cs
+  tactic: discovery
+  technique:
+    attack_id: T1010
+    name: Application Window Discovery

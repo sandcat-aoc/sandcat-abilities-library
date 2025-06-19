@@ -1,0 +1,18 @@
+- description: 'This test uses the IOKit API to load a kernel module for macOS.
+
+    Harcoded to use SoftRAID kext
+
+    '
+  id: b9dd5e88-53b5-e832-99c4-39c34f9b77de
+  name: MacOS - Load Kernel Module via KextManagerLoadKextWithURL()
+  platforms:
+    darwin:
+      sh:
+        cleanup: rm -f /tmp/T1547006_iokit_loader
+        command: sudo /tmp/T1547006_iokit_loader; kextstat 2>/dev/null | grep SoftRAID;
+          sudo kextunload /Library/Extensions/SoftRAID.kext
+        payloads: []
+  tactic: multiple
+  technique:
+    attack_id: T1547.006
+    name: 'Boot or Logon Autostart Execution: Kernel Modules and Extensions'

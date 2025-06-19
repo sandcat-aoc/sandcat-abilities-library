@@ -1,0 +1,21 @@
+- description: "Get a listing of network connections, domains, domain users, and etc.\
+    \  \nsharpview.exe located in the bin folder, an opensource red-team tool.\nUpon\
+    \ successful execution, cmd.exe will execute sharpview.exe <method>. Results will\
+    \ output via stdout.\n"
+  id: 6e3d4c70-8ab0-ff57-1eb0-5691cc8bcdda
+  name: System Discovery using SharpView
+  platforms:
+    windows:
+      psh:
+        cleanup: ''
+        command: $syntaxList = "Invoke-ACLScanner", "Invoke-Kerberoast", "Find-DomainShare"
+          ; foreach ($syntax in $syntaxList) {; PathToAtomicsFolder\..\ExternalPayloads\SharpView.exe
+          $syntax -}
+        parsers:
+          plugins.atomic.app.parsers.atomic_powershell:
+          - source: validate_me
+        payloads: []
+  tactic: discovery
+  technique:
+    attack_id: T1049
+    name: System Network Connections Discovery

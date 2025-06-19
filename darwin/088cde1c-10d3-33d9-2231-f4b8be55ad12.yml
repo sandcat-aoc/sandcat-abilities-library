@@ -1,0 +1,47 @@
+- description: 'This test will scan a target system with a wordlist of common directories
+    and file paths.
+
+    '
+  id: 088cde1c-10d3-33d9-2231-f4b8be55ad12
+  name: Web Server Wordlist Scan
+  platforms:
+    darwin:
+      psh:
+        cleanup: ''
+        command: 'Import-Module "PathToAtomicsFolder/T1595.003/src/WebServerScan.ps1";
+          Invoke-WordlistScan -Target "http://localhost" -Wordlist "ff7df8_wordlist.txt"
+          -Timeout "5" -OutputFile "$env:TMPDIR/wordlist_scan.txt"; Write-Host "Scan
+          complete. Results saved to: $env:TMPDIR/wordlist_scan.txt"'
+        parsers:
+          plugins.atomic.app.parsers.atomic_powershell:
+          - source: validate_me
+        payloads:
+        - ff7df8_wordlist.txt
+    linux:
+      psh:
+        cleanup: ''
+        command: 'Import-Module "PathToAtomicsFolder/T1595.003/src/WebServerScan.ps1";
+          Invoke-WordlistScan -Target "http://localhost" -Wordlist "ff7df8_wordlist.txt"
+          -Timeout "5" -OutputFile "$env:TMPDIR/wordlist_scan.txt"; Write-Host "Scan
+          complete. Results saved to: $env:TMPDIR/wordlist_scan.txt"'
+        parsers:
+          plugins.atomic.app.parsers.atomic_powershell:
+          - source: validate_me
+        payloads:
+        - ff7df8_wordlist.txt
+    windows:
+      psh:
+        cleanup: ''
+        command: 'Import-Module "PathToAtomicsFolder/T1595.003/src/WebServerScan.ps1";
+          Invoke-WordlistScan -Target "http://localhost" -Wordlist "ff7df8_wordlist.txt"
+          -Timeout "5" -OutputFile "$env:TMPDIR/wordlist_scan.txt"; Write-Host "Scan
+          complete. Results saved to: $env:TMPDIR/wordlist_scan.txt"'
+        parsers:
+          plugins.atomic.app.parsers.atomic_powershell:
+          - source: validate_me
+        payloads:
+        - ff7df8_wordlist.txt
+  tactic: reconnaissance
+  technique:
+    attack_id: T1595.003
+    name: 'Active Scanning: Wordlist Scanning'

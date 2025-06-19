@@ -1,0 +1,21 @@
+- id: bc6cb96d-38a2-7221-de75-a9f007da43bf
+  name: Wmic.exe - Execute a .EXE file stored as an Alternate Data Stream (ADS)
+  description: Execute a .EXE file stored as an Alternate Data Stream (ADS)
+  tactic: defense-evasion
+  technique:
+    attack_id: T1564.004
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: wmic.exe process call create "#{host.dir.temp}:program.exe"
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: Oddvar Moe
+  created: '2018-05-25'
+  modified: '2018-05-25'
+  operating_system: Windows All Versions

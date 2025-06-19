@@ -1,0 +1,17 @@
+- description: 'This test searches for Safari''s Bookmarks file (on macOS) and lists
+    any found instances to a text file.
+
+    '
+  id: 8afbf7b7-1eb2-2ce8-a3d6-4218f6a8128f
+  name: List Safari Bookmarks on MacOS
+  platforms:
+    darwin:
+      sh:
+        cleanup: rm -f /tmp/T1217-Safari.txt 2>/dev/null
+        command: find / -path "*/Safari/Bookmarks.plist" 2>/dev/null >> /tmp/T1217-Safari.txt
+          ; cat /tmp/T1217-Safari.txt
+        payloads: []
+  tactic: discovery
+  technique:
+    attack_id: T1217
+    name: Browser Bookmark Discovery

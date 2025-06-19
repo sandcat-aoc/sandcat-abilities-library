@@ -1,0 +1,24 @@
+- description: 'Adds a registry key to set up a proxy on the endpoint at HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\PortProxy\v4tov4
+
+    Upon execution there will be a new proxy entry in netsh
+
+    netsh interface portproxy show all
+
+    '
+  id: b0eb5108-debf-92ed-5707-a964b2bf3481
+  name: portproxy reg key
+  platforms:
+    windows:
+      psh:
+        cleanup: netsh interface portproxy delete v4tov4 listenport=1337 -ErrorAction
+          Ignore | Out-Null
+        command: netsh interface portproxy add v4tov4 listenport=1337 connectport=1337
+          connectaddress=127.0.0.1
+        parsers:
+          plugins.atomic.app.parsers.atomic_powershell:
+          - source: validate_me
+        payloads: []
+  tactic: command-and-control
+  technique:
+    attack_id: T1090.001
+    name: 'Proxy: Internal Proxy'

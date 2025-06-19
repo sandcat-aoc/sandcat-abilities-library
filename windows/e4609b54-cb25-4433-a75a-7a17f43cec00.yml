@@ -1,0 +1,30 @@
+- id: e4609b54-cb25-4433-a75a-7a17f43cec00
+  name: e4609b54-cb25-4433-a75a-7a17f43cec00 - Malicious Driver Deployment
+  description: 'Malicious driver: e4609b54-cb25-4433-a75a-7a17f43cec00
+
+    Category: vulnerable driver
+
+    Author: Michael Haag
+
+    Created: 2023-01-09
+
+    MITRE Technique: T1068'
+  tactic: defense-evasion
+  technique:
+    attack_id: T1068
+    name: Rootkit
+  platforms:
+    windows:
+      cmd:
+        command: sc create MaliciousDriver binPath= "C:\Windows\System32\drivers\malicious_driver.sys"
+          type= kernel
+  singleton: true
+  privilege: Elevated
+  repeatable: false
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: Michael Haag
+  operating_system: Windows (Version Unspecified)
+  created: '2023-01-09'
+  modified: '2023-01-09'

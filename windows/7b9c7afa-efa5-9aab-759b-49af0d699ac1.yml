@@ -1,0 +1,19 @@
+- description: Perform peripheral device discovery using Get-WMIObject Win32_PnPEntity
+  id: 7b9c7afa-efa5-9aab-759b-49af0d699ac1
+  name: Win32_PnPEntity Hardware Inventory
+  platforms:
+    windows:
+      psh:
+        cleanup: Remove-Item $env:TEMP\T1120_collection.txt -ErrorAction Ignore
+        command: Get-WMIObject Win32_PnPEntity | Format-Table Name, Description, Manufacturer
+          > $env:TEMP\T1120_collection.txt; $Space,$Heading,$Break,$Data = Get-Content
+          $env:TEMP\T1120_collection.txt; @($Heading; $Break; $Data |Sort-Object -Unique)
+          | ? {$_.trim() -ne "" } |Set-Content $env:TEMP\T1120_collection.txt
+        parsers:
+          plugins.atomic.app.parsers.atomic_powershell:
+          - source: validate_me
+        payloads: []
+  tactic: discovery
+  technique:
+    attack_id: T1120
+    name: Peripheral Device Discovery

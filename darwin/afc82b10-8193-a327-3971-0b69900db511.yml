@@ -1,0 +1,20 @@
+---
+
+- id: afc82b10-8193-a327-3971-0b69900db511
+  name: ioreg - Use ioreg to check whether the remote macOS screen is locked.
+  description: The following command will display a list of keys that contain "CGSSession". If the key
+    "CGSSessionScreenIsLocked" is present, the screen is actively locked.
+  tactic: discovery
+  technique:
+    attack_id: T1082
+    name: System Information Discovery
+  platforms:
+    darwin:
+      sh:
+        command: ioreg -n Root -d1 -a | grep CGSSession
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - ioreg
+  - discovery

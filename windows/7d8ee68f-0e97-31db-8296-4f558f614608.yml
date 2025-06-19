@@ -1,0 +1,20 @@
+- description: 'Identify network configuration information
+
+
+    Upon successful execution, cmd.exe will spawn multiple commands to list network
+    configuration settings. Output will be via stdout.
+
+    '
+  id: 7d8ee68f-0e97-31db-8296-4f558f614608
+  name: System Network Configuration Discovery on Windows
+  platforms:
+    windows:
+      cmd:
+        cleanup: ''
+        command: ipconfig /all && netsh interface show interface && arp -a && nbtstat
+          -n && net config
+        payloads: []
+  tactic: discovery
+  technique:
+    attack_id: T1016
+    name: System Network Configuration Discovery

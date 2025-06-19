@@ -1,0 +1,21 @@
+- id: a5189e4f-5b7b-36ad-4416-7cc8ded4edc8
+  name: Ftp.exe - Executes the commands you put inside the text file.
+  description: Executes the commands you put inside the text file.
+  tactic: defense-evasion
+  technique:
+    attack_id: T1202
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: echo !#{host.executable.name} > ftpcommands.txt && ftp -s:ftpcommands.txt
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: Oddvar Moe
+  created: '2018-12-10'
+  modified: '2018-12-10'
+  operating_system: Windows All Versions

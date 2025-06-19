@@ -1,0 +1,24 @@
+- description: 'This test simulates an adversary leveraging bitsadmin.exe to download
+
+    and execute a payload leveraging PowerShell
+
+
+    Upon execution you will find a github markdown file downloaded to the Temp directory
+
+    '
+  id: 5a9be3b1-696c-c0cc-e855-7f9596547e13
+  name: Bitsadmin Download (PowerShell)
+  platforms:
+    windows:
+      psh:
+        cleanup: Remove-Item $env:TEMP\bitsadmin2_flag.ps1 -ErrorAction Ignore
+        command: Start-BitsTransfer -Priority foreground -Source https://raw.githubusercontent.com/redcanaryco/atomic-red-team/master/atomics/T1197/T1197.md
+          -Destination $env:TEMP\bitsadmin2_flag.ps1
+        parsers:
+          plugins.atomic.app.parsers.atomic_powershell:
+          - source: validate_me
+        payloads: []
+  tactic: multiple
+  technique:
+    attack_id: T1197
+    name: BITS Jobs

@@ -1,0 +1,22 @@
+- description: "This test simulates an infected host returning data to a command and\
+    \ control server using long domain names.\nThe simulation involves sending DoH\
+    \ queries that gradually increase in length until reaching the maximum length.\
+    \ The intent is to test the effectiveness of detection of DoH queries for long\
+    \ domain names over a set threshold.\n Upon execution, DNS information about the\
+    \ domain will be displayed for each callout in a JSON format.\n"
+  id: 45f462c0-9f28-d5b0-819a-f7b1ed0913e1
+  name: DNS over HTTPS Long Domain Query
+  platforms:
+    windows:
+      psh:
+        cleanup: ''
+        command: Set-Location "PathToAtomicsFolder"; .\T1572\src\T1572-doh-domain-length.ps1
+          -DohServer
+        parsers:
+          plugins.atomic.app.parsers.atomic_powershell:
+          - source: validate_me
+        payloads: []
+  tactic: command-and-control
+  technique:
+    attack_id: T1572
+    name: Protocol Tunneling

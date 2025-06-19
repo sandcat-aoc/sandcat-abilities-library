@@ -1,0 +1,30 @@
+- id: fa612342-5ae0-4e69-ad9c-14d574d9fb1e
+  name: fa612342-5ae0-4e69-ad9c-14d574d9fb1e - Malicious Driver Deployment
+  description: 'Malicious driver: fa612342-5ae0-4e69-ad9c-14d574d9fb1e
+
+    Category: vulnerable driver
+
+    Author: Takahiro Haruyama
+
+    Created: 2023-11-02
+
+    MITRE Technique: T1068'
+  tactic: defense-evasion
+  technique:
+    attack_id: T1068
+    name: Rootkit
+  platforms:
+    windows:
+      cmd:
+        command: sc create MaliciousDriver binPath= "C:\Windows\System32\drivers\malicious_driver.sys"
+          type= kernel
+  singleton: true
+  privilege: Elevated
+  repeatable: false
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: Takahiro Haruyama
+  operating_system: Windows (Version Unspecified)
+  created: '2023-11-02'
+  modified: '2023-11-02'

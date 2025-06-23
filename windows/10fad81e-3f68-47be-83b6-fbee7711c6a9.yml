@@ -4,7 +4,7 @@
     Drops a payload file to the host to parse
 
     arguments rather than running multiple commands for each fact (e.g., each file
-    type). This ability allows for a safe
+    type). This procedure allows for a safe
 
     mode, only staging files found that have the appropriate file ending. The staging
     directory is configurable but

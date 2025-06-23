@@ -1,6 +1,6 @@
 - id: 110cea7a-5b03-4443-92ee-7ccefaead451
   name: Scheduled Exfiltration
-  description: This ability exfiltrates the staged directory at a scheduled time.
+  description: This procedure exfiltrates the staged directory at a scheduled time.
   tactic: exfiltration
   technique:
     attack_id: T1029

@@ -1,11 +1,11 @@
 - id: 5c5b0392-1daa-45e1-967c-2f361ce78849
   name: Compress Staged Directory (Password Protected) and Split Into Smaller Chunks
-  description: "This ability will compress the staged files into a password protected\
+  description: "This procedure will compress the staged files into a password protected\
     \ archive and break it\ninto smaller chunks based on the given byte size. The\
     \ original archive will be automatically\ndeleted. Use this instead of other archiving\
-    \ abilities if small file sizes for exfiltration \nare desired. When used with\
-    \ an exfiltration ability, the exfiltration ability will run numerous\ntimes in\
-    \ an operation depending on how many chunks are created. \n"
+    \ procedures if small file sizes for exfiltration \nare desired. When used with\
+    \ an exfiltration procedure, the exfiltration procedure will run numerous\ntimes\
+    \ in an operation depending on how many chunks are created. \n"
   tactic: exfiltration
   technique:
     attack_id: T1030

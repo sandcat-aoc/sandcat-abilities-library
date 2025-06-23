@@ -1,6 +1,6 @@
 - id: d754878c-17dd-46dc-891c-a993f8a10336
   name: Exfil Compressed Archive to FTP Server
-  description: This ability exfiltrates a compressed archive to an FTP server.
+  description: This procedure exfiltrates a compressed archive to an FTP server.
   tactic: exfiltration
   technique:
     attack_id: T1048.003

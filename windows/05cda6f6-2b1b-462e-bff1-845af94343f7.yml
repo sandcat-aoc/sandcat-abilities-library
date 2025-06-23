@@ -1,6 +1,6 @@
 - id: 05cda6f6-2b1b-462e-bff1-845af94343f7
   name: Discover injectable process
-  description: Discovers processes that the current user has the ability to access
+  description: Discovers processes that the current user has the procedure to access
     and selects an injectable one
   tactic: discovery
   technique:

@@ -11,7 +11,7 @@
       psh:
         command: 'Import-Module .\powerview.ps1;
 
-          $backup = "#{backup.admin.ability}";
+          $backup = "#{backup.admin.procedure}";
 
           $userName = "#{domain.user.name}";
 
@@ -38,7 +38,7 @@
     - source: remote.host.fqdn
       edge: has_admin
   - plugins.stockpile.app.requirements.basic:
-    - source: backup.admin.ability
+    - source: backup.admin.procedure
       edge: first_failed
   - plugins.stockpile.app.requirements.basic:
     - source: domain.user.name

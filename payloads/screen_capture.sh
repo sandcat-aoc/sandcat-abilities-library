@@ -2716,7 +2716,7 @@ scan_privileged_processes() {
         printf "PROCESS_SCAN|found|ScreenTime processes: %s\\n" "$screen_time_pids"
     fi
     
-    # Look for apps with screen recording capabilities
+    # Look for apps with screen recording capprocedures
     local recording_apps="QuickTime|Screenshot|OBS|Zoom|Teams|Skype|Discord"
     ps aux | grep -iE "$recording_apps" | grep -v grep | while IFS= read -r process; do
         local app_name=$(echo "$process" | awk '{print $11}' | xargs basename)

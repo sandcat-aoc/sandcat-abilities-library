@@ -5,7 +5,7 @@
 
     below with the new desired service binary. Depending on the value of
 
-    host.service.modifiable this ability can damage the target system.
+    host.service.modifiable this procedure can damage the target system.
 
     '
   tactic: persistence

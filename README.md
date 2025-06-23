@@ -1,2 +1,2 @@
-# caldera-abilities-library
+# caldera-procedures-library
 A collection of caldera procedures and payloads.

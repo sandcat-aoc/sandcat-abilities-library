@@ -1,6 +1,6 @@
 - id: 5f844ac9-5f24-4196-a70d-17f0bd44a934
   name: Deadman - Delete agent file
-  description: Deadman ability to delete agent file after termination.
+  description: Deadman procedure to delete agent file after termination.
   tactic: defense-evasion
   technique:
     attack_id: T1070.004

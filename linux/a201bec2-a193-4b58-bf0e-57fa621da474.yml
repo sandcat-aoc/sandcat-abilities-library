@@ -1,7 +1,7 @@
 - id: a201bec2-a193-4b58-bf0e-57fa621da474
   name: Exfil Directory Files to GitHub
-  description: 'This ability will exfiltrate all files in a set staged directory to
-    a repository in GitHub.
+  description: 'This procedure will exfiltrate all files in a set staged directory
+    to a repository in GitHub.
 
     '
   tactic: exfiltration

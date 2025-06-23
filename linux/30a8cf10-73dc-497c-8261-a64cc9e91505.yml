@@ -1,6 +1,6 @@
 - id: 30a8cf10-73dc-497c-8261-a64cc9e91505
   name: Compress staged directory (Password Protected)
-  description: This ability packages staged files into a password-protected archive.
+  description: This procedure packages staged files into a password-protected archive.
     Note - Requires 7Z for Windows and GPG version 2.1+ for Linux
   tactic: collection
   technique:

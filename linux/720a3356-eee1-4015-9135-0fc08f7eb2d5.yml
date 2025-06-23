@@ -1,6 +1,6 @@
 - id: 720a3356-eee1-4015-9135-0fc08f7eb2d5
   name: Find Git Repositories
-  description: This ability will locate directories that are cloned Git repositories.
+  description: This procedure will locate directories that are cloned Git repositories.
   tactic: collection
   technique:
     attack_id: T1005

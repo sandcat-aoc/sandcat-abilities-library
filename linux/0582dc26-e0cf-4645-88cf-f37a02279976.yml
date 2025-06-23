@@ -1,6 +1,6 @@
 - id: 0582dc26-e0cf-4645-88cf-f37a02279976
   name: Exfil Compressed Archive to Github Gist
-  description: 'This ability exfiltrates a compressed archive to Github Gists (Base64
+  description: 'This procedure exfiltrates a compressed archive to Github Gists (Base64
     Encoded). To reconstitute, save
 
     the base64 string from the Gist and run ----

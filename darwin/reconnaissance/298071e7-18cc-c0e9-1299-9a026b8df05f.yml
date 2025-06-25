@@ -1,0 +1,27 @@
+- id: 298071e7-18cc-c0e9-1299-9a026b8df05f
+  name: csrutil - Map infrastructure
+  description: List allowed NetBoot sources
+  tactic: reconnaissance
+  technique:
+    attack_id: T1562.001
+    name: 'Impair Defenses: Disable or Modify Tools'
+  platforms:
+    darwin:
+      sh:
+        command: csrutil netboot list
+  singleton: false
+  privilege: Elevated
+  repeatable: true
+  delete_payload: true
+  buckets:
+  - loobins
+  - csrutil
+  - reconnaissance
+  version: '1.0'
+  author: LOOBins Project
+  additional_info:
+    loobins_tool: csrutil
+    use_case: Map infrastructure
+    source_file: csrutil.yml
+    source_repository: https://github.com/infosecB/LOOBins
+    import_timestamp: '2025-06-24T09:00:11.719199Z'

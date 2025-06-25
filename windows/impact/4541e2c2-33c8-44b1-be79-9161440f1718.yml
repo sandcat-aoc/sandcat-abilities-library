@@ -1,0 +1,71 @@
+- id: 4541e2c2-33c8-44b1-be79-9161440f1718
+  name: Data Encrypted with GPG4Win
+  description: Gpg4win is a Windows tool (also called Kleopatra which is the preferred
+    certificate manager) that uses email and file encryption packages for symmetric
+    encryption. It is used by attackers to encrypt disks. User will need to add pass
+    phrase to encrypt file as automation is not allowed under newer versions.
+  tactic: impact
+  technique:
+    attack_id: T1486
+    name: Data Encrypted for Impact
+  platforms:
+    windows:
+      psh:
+        command: 'if (test-path ''C:\Program Files (x86)\GnuPG\bin\gpg.exe''){exit
+          0} else {exit 1}; then : ; else Set-Content -Path "$env:temp\test.txt" -Value
+          "populating this file with some text"  # Create the test.txt file; New-Item
+          -Type Directory "PathToAtomicsFolder\..\ExternalPayloads\" -ErrorAction
+          Ignore -Force | Out-Null; invoke-webrequest "https://files.gpg4win.org/gpg4win-4.1.0.exe"
+          -outfile "PathToAtomicsFolder\..\ExternalPayloads\gpginstall.exe"; cmd /c
+          "PathToAtomicsFolder\..\ExternalPayloads\gpginstall.exe" /S; fi; Set-Content
+          -Path "$env:temp\test.txt" -Value "populating this file with some text"  #
+          Create the test.txt file again in case prereqs failed; cmd /c "`"C:\Program
+          Files (x86)\GnuPG\bin\gpg.exe`" --passphrase ''SomeParaphraseBlah'' --batch
+          --yes -c `"$env:temp\test.txt`""'
+        cleanup: Remove-Item -Path "#{File_to_Encrypt_Location}" -Force -ErrorAction
+          SilentlyContinue; Remove-Item -Path "#{File_to_Encrypt_Location}.gpg" -Force
+          -ErrorAction SilentlyContinue
+        elevation_required: false
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - impact
+  - t1486
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      GPG_Exe_Location:
+        description: Path of the GPG program
+        type: path
+        default: C:\Program Files (x86)\GnuPG\bin\gpg.exe
+      File_to_Encrypt_Location:
+        description: Path of File
+        type: path
+        default: $env:temp\test.txt
+    dependencies:
+    - description: 'GPG must exist at (#{GPG_Exe_Location}). If -GetPrereqs fails,
+        try to install GPG4WIN manually at ''https://www.gpg4win.org/download.html''.
+        Once done, run -CheckPrereqs to confirm that it works.
+
+        '
+      prereq_command: 'if (test-path ''#{GPG_Exe_Location}''){exit 0} else {exit 1}
+
+        '
+      get_prereq_command: 'Set-Content -Path "#{File_to_Encrypt_Location}" -Value
+        "populating this file with some text"  # Create the test.txt file
+
+        New-Item -Type Directory "PathToAtomicsFolder\..\ExternalPayloads\" -ErrorAction
+        Ignore -Force | Out-Null
+
+        invoke-webrequest "https://files.gpg4win.org/gpg4win-4.1.0.exe" -outfile "PathToAtomicsFolder\..\ExternalPayloads\gpginstall.exe"
+
+        cmd /c "PathToAtomicsFolder\..\ExternalPayloads\gpginstall.exe" /S
+
+        '
+    technique_created: '2019-03-15T13:59:30.390Z'
+    atomic_guid: 4541e2c2-33c8-44b1-be79-9161440f1718
+    import_timestamp: '2025-06-24T11:15:07.749798Z'

@@ -1,0 +1,28 @@
+- id: d8bf48ba-7fa1-92cb-fa96-11cee523c15b
+  name: profiles - Remove configuration profiles.
+  description: The following command deletes the specified profiles. An optional password used when removing
+    a configuration profile which requires the password removal option.
+  tactic: impact
+  technique:
+    attack_id: T1082
+    name: System Information Discovery
+  platforms:
+    darwin:
+      sh:
+        command: profiles remove -identifier com.profile.identifier -password <password>
+  singleton: true
+  privilege: User
+  repeatable: false
+  delete_payload: true
+  buckets:
+  - loobins
+  - profiles
+  - impact
+  version: '1.0'
+  author: LOOBins Project
+  additional_info:
+    loobins_tool: profiles
+    use_case: Remove configuration profiles.
+    source_file: profiles.yml
+    source_repository: https://github.com/infosecB/LOOBins
+    import_timestamp: '2025-06-24T09:00:11.339034Z'

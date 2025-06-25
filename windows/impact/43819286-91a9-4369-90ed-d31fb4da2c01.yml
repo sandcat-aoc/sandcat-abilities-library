@@ -1,0 +1,53 @@
+- id: 43819286-91a9-4369-90ed-d31fb4da2c01
+  name: Windows - Delete Volume Shadow Copies
+  description: 'Deletes Windows Volume Shadow Copies. This technique is used by numerous
+    ransomware families and APT malware such as Olympic Destroyer. Upon
+
+    execution, if no shadow volumes exist the message "No items found that satisfy
+    the query." will be displayed. If shadow volumes are present, it
+
+    will delete them without printing output to the screen. This is because the /quiet
+    parameter was passed which also suppresses the y/n
+
+    confirmation prompt. Shadow copies can only be created on Windows server or Windows
+    8.
+
+
+    https://docs.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2012-R2-and-2012/cc788055(v=ws.11)'
+  tactic: impact
+  technique:
+    attack_id: T1490
+    name: Inhibit System Recovery
+  platforms:
+    windows:
+      sh:
+        command: 'if(!(vssadmin.exe list shadows | findstr "No items found that satisfy
+          the query.")) { exit 0 } else { exit 1 }; then : ; else vssadmin.exe create
+          shadow /for=c:; fi; vssadmin.exe delete shadows /all /quiet'
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1490
+  - impact
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    dependencies:
+    - description: 'Create volume shadow copy of C:\ . This prereq command only works
+        on Windows Server or Windows 8.
+
+        '
+      prereq_command: 'if(!(vssadmin.exe list shadows | findstr "No items found that
+        satisfy the query.")) { exit 0 } else { exit 1 }
+
+        '
+      get_prereq_command: 'vssadmin.exe create shadow /for=c:
+
+        '
+    technique_created: '2019-04-02T13:54:43.136Z'
+    atomic_guid: 43819286-91a9-4369-90ed-d31fb4da2c01
+    import_timestamp: '2025-06-24T11:15:07.784001Z'

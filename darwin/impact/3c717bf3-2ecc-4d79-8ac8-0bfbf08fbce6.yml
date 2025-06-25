@@ -1,0 +1,33 @@
+- id: 3c717bf3-2ecc-4d79-8ac8-0bfbf08fbce6
+  name: Change User Password via passwd
+  description: This test changes the user password to hinder access to the account
+    using passwd utility.
+  tactic: impact
+  technique:
+    attack_id: T1531
+    name: Account Access Removal
+  platforms:
+    darwin:
+      sh:
+        command: 'passwd ARTUser #enter admin password > enter new password > confirm
+          new password'
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1531
+  - impact
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      user_account:
+        description: User account whose password will be changed.
+        type: string
+        default: ARTUser
+    technique_created: '2019-10-09T18:48:31.906Z'
+    atomic_guid: 3c717bf3-2ecc-4d79-8ac8-0bfbf08fbce6
+    import_timestamp: '2025-06-24T11:14:07.839678Z'

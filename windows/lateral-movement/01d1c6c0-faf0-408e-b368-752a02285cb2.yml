@@ -1,0 +1,41 @@
+- id: 01d1c6c0-faf0-408e-b368-752a02285cb2
+  name: Disable NLA for RDP via Command Prompt
+  description: 'Disables network-level authentication (NLA) for RDP by changing a
+    registry key via Command Prompt
+
+    Disabling NLA for RDP can allow remote user interaction with the Windows sign-in
+    screen prior to authentication. According to Microsoft, Flax Typhoon actors used
+    this technique implementation to achieve persistence on victim systems: https://www.microsoft.com/en-us/security/blog/2023/08/24/flax-typhoon-using-legitimate-software-to-quietly-access-taiwanese-organizations/
+
+    See also: https://github.com/EmpireProject/Empire/blob/master/lib/modules/powershell/management/enable_rdp.py'
+  tactic: lateral-movement
+  technique:
+    attack_id: T1021.001
+    name: 'Remote Services: Remote Desktop Protocol'
+  platforms:
+    windows:
+      sh:
+        command: reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Terminal
+          Server\WinStations\RDP-Tcp" /v UserAuthentication /d 0 /t REG_DWORD /f
+        cleanup: 'reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Terminal
+          Server\WinStations\RDP-Tcp" /v UserAuthentication /d #{Default_UserAuthentication}
+          /t REG_DWORD -f >nul 2>&1'
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1021.001
+  - lateral-movement
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      Default_UserAuthentication:
+        description: Default UserAuthentication registry value
+        type: string
+        default: '1'
+    technique_created: '2020-02-11T18:23:26.059Z'
+    atomic_guid: 01d1c6c0-faf0-408e-b368-752a02285cb2
+    import_timestamp: '2025-06-24T11:15:06.042957Z'

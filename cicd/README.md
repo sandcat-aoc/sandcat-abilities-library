@@ -1,45 +1,56 @@
-# CI/CD Pipeline
-
-Automated weekly updates for Caldera procedure libraries from external security research projects.
-
-## Automation
-
-**Schedule**: Every Sunday at 2 AM UTC  
-**Actions**: Downloads latest data, converts to Caldera format, updates repository and README badges
-
 ## Import Scripts
+
+These scripts import security procedures from various sources into Caldera procedure format:
 
 | Script | Source | Platform |
 |--------|--------|----------|
+| `import_atomic_index_to_caldera.py` | [Atomic Red Team](https://github.com/redcanaryco/atomic-red-team) | Windows, macOS, Linux |
+| `import_attack_macos_to_caldera.py` | [Attack-macOS](https://github.com/armadoinc/caldera-plugin-attack-macos) | macOS |
 | `import_lolbas_to_caldera.py` | [LOLBAS](https://lolbas-project.github.io/) | Windows |
 | `import_loldrivers_to_caldera.py` | [LOLDrivers](https://github.com/magicsword-io/LOLDrivers) | Windows |
 | `import_loobins_to_caldera.py` | [LOOBins](https://github.com/infosecB/LOOBins) | macOS |
-| `convert_loldrivers_to_caldera.py` | [LOLDrivers](https://github.com/magicsword-io/LOLDrivers) | Windows |
 
 ## Setup
 
-### Required Repository Settings
-1. **GitHub Actions**: Enable with "Read and write permissions"
-2. **Branch**: Allow Actions to push to main branch
-
-### Dependencies
-- Python 3.9+
-- Packages: `pyyaml`, `requests`, `mitreattack-python`
-
-### Files
-- `requirements.txt` - Python dependencies
-- `config.py` - Environment configuration
-- `.github/workflows/update-procedures.yml` - Main automation
-- `.github/workflows/test-imports.yml` - Manual testing
+Run the setup script to create virtual environment and install dependencies:
+```bash
+./setup_venv.sh
+source venv/bin/activate
+```
 
 ## Usage
 
-**Automatic**: Runs every Sunday at 2 AM UTC  
-**Manual**: GitHub Actions → "Update Procedure Libraries" → "Run workflow"
+Each script can be run independently:
 
-## Troubleshooting
+```bash
+# Import all Atomic Red Team platforms
+python3 import_atomic_index_to_caldera.py --all-platforms --force
 
-- **No changes**: Normal if external sources have no updates
-- **Script failures**: Individual failures won't stop the pipeline
-- **MITRE data**: Automatically downloads if missing
-- **Logs**: Check GitHub Actions for detailed error information 
+# Import Attack-macOS procedures  
+python3 import_attack_macos_to_caldera.py --output ../abilities/darwin/ --force
+
+# Import Windows living-off-the-land binaries
+python3 import_lolbas_to_caldera.py --output ../abilities/windows/ 
+
+# Import malicious Windows drivers
+python3 import_loldrivers_to_caldera.py --output ../abilities/windows/
+
+# Import macOS living-off-the-land binaries
+python3 import_loobins_to_caldera.py --output ../abilities/darwin/ --force
+```
+
+Use `--help` with any script for detailed options.
+
+## Output
+
+Procedures are organized by tactic in the `abilities/` directory:
+- `abilities/windows/[tactic]/[procedure-id].yml`
+- `abilities/darwin/[tactic]/[procedure-id].yml` 
+- `abilities/linux/[tactic]/[procedure-id].yml`
+
+## Files
+
+- `requirements.txt` - Python dependencies
+- `setup_venv.sh` - Environment setup script
+- `cti/enterprise-attack.json` - MITRE ATT&CK data for tactic mapping
+

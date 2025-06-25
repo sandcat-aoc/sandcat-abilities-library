@@ -1,0 +1,71 @@
+- id: dc3488b0-08c7-4fea-b585-905c83b48180
+  name: Malicious User Agents - CMD
+  description: "This test simulates an infected host beaconing to command and control.\
+    \ Upon execution, no out put will be displayed. \nUse an application such as Wireshark\
+    \ to record the session and observe user agent strings and responses.\n\nInspired\
+    \ by APTSimulator - https://github.com/NextronSystems/APTSimulator/blob/master/test-sets/command-and-control/malicious-user-agents.bat"
+  tactic: command-and-control
+  technique:
+    attack_id: T1071.001
+    name: 'Application Layer Protocol: Web Protocols'
+  platforms:
+    windows:
+      sh:
+        command: 'if (Test-Path C:\Windows\System32\Curl.exe) {exit 0} else {exit
+          1}; then : ; else New-Item -Type Directory "PathToAtomicsFolder\..\ExternalPayloads\"
+          -ErrorAction Ignore -Force | Out-Null; Invoke-WebRequest "https://curl.se/windows/dl-8.6.0_2/curl-8.6.0_2-win32-mingw.zip"
+          -Outfile "PathToAtomicsFolder\..\ExternalPayloads\curl.zip"; Expand-Archive
+          -Path "PathToAtomicsFolder\..\ExternalPayloads\curl.zip" -DestinationPath
+          "PathToAtomicsFolder\..\ExternalPayloads\curl"; Copy-Item "PathToAtomicsFolder\..\ExternalPayloads\curl\curl-8.6.0_2-win32-mingw\bin\curl.exe"
+          C:\Windows\System32\Curl.exe; Remove-Item "PathToAtomicsFolder\..\ExternalPayloads\curl";
+          Remove-Item "PathToAtomicsFolder\..\ExternalPayloads\curl.zip"; fi; C:\Windows\System32\Curl.exe
+          -s -A "HttpBrowser/1.0" -m3 www.google.com >nul 2>&1; C:\Windows\System32\Curl.exe
+          -s -A "Wget/1.9+cvs-stable (Red Hat modified)" -m3 www.google.com >nul 2>&1;
+          C:\Windows\System32\Curl.exe -s -A "Opera/8.81 (Windows NT 6.0; U; en)"
+          -m3 www.google.com >nul 2>&1; C:\Windows\System32\Curl.exe -s -A "*<|>*"
+          -m3 www.google.com >nul 2>&1'
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1071.001
+  - atomic-red-team
+  - command-and-control
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      domain:
+        description: Default domain to simulate against
+        type: string
+        default: www.google.com
+      curl_path:
+        description: path to curl.exe
+        type: path
+        default: C:\Windows\System32\Curl.exe
+    dependencies:
+    - description: "Curl must be installed on system \n"
+      prereq_command: 'if (Test-Path #{curl_path}) {exit 0} else {exit 1}
+
+        '
+      get_prereq_command: 'New-Item -Type Directory "PathToAtomicsFolder\..\ExternalPayloads\"
+        -ErrorAction Ignore -Force | Out-Null
+
+        Invoke-WebRequest "https://curl.se/windows/dl-8.6.0_2/curl-8.6.0_2-win32-mingw.zip"
+        -Outfile "PathToAtomicsFolder\..\ExternalPayloads\curl.zip"
+
+        Expand-Archive -Path "PathToAtomicsFolder\..\ExternalPayloads\curl.zip" -DestinationPath
+        "PathToAtomicsFolder\..\ExternalPayloads\curl"
+
+        Copy-Item "PathToAtomicsFolder\..\ExternalPayloads\curl\curl-8.6.0_2-win32-mingw\bin\curl.exe"
+        #{curl_path}
+
+        Remove-Item "PathToAtomicsFolder\..\ExternalPayloads\curl"
+
+        Remove-Item "PathToAtomicsFolder\..\ExternalPayloads\curl.zip"
+
+        '
+    technique_created: '2020-03-15T16:13:46.151Z'
+    atomic_guid: dc3488b0-08c7-4fea-b585-905c83b48180
+    import_timestamp: '2025-06-24T11:15:05.600200Z'

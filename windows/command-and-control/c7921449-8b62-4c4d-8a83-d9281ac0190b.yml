@@ -1,0 +1,125 @@
+- id: c7921449-8b62-4c4d-8a83-d9281ac0190b
+  name: Steganographic Tarball Embedding
+  description: "This atomic test, named \"Steganographic Tarball Embedding\", simulates\
+    \ the technique of data obfuscation via steganography by embedding a tar archive\
+    \ file (tarball) \nwithin an image.\n\nThe test begins by ensuring the availability\
+    \ of the image file and the tarball file containing data . It then generates random\
+    \ passwords and saves them to a \nfile. Subsequently, the tarball file is created,\
+    \ containing the passwords file. The test executor command reads the contents\
+    \ of the image \nfile and the tarball file as byte arrays and appends them together\
+    \ to form a new image file. This process effectively embeds the tarball \nfile\
+    \ within the image, utilizing steganography techniques for data obfuscation.\n\
+    \nThis atomic test simulates the technique of data obfuscation via steganography,\
+    \ enabling attackers to clandestinely transfer files across systems undetected.\
+    \ \nBy embedding the tarball file within the image, adversaries can obscure their\
+    \ activities, facilitating covert communication and data exfiltration."
+  tactic: command-and-control
+  technique:
+    attack_id: T1001.002
+    name: Data Obfuscation via Steganography
+  platforms:
+    windows:
+      psh:
+        command: 'if (!(Test-Path "PathToAtomicsFolder\T1001.002\bin\T1001.002.jpg"))
+          {exit 1} else {; {exit 0}; }; then : ; else New-Item -Type Directory (split-path
+          "PathToAtomicsFolder\T1001.002\bin\T1001.002.jpg") -ErrorAction ignore |
+          Out-Null; Write-Output "Downloading image file..."; $imageUrl = "https://github.com/raghavsingh7/Pictures/raw/a9617d9fce289909441120a1e0366315c2c5e19d/lime.jpg";
+          Invoke-WebRequest -Uri $imageUrl -OutFile "PathToAtomicsFolder\T1001.002\bin\T1001.002.jpg";
+          fi; if (!(Test-Path "$env:TEMP\random_passwords.txt")) {exit 1} else {;
+          {exit 0}; }; then : ; else Write-Output "Generating random passwords and
+          saving to file..."; $passwords = 1..10 | ForEach-Object { -join ((1..12)
+          | ForEach-Object { @(''A'',''B'',''C'',''D'',''E'',''F'',''G'',''H'',''I'',''J'',''K'',''L'',''M'',''N'',''O'',''P'',''Q'',''R'',''S'',''T'',''U'',''V'',''W'',''X'',''Y'',''Z'')
+          + @(''a'',''b'',''c'',''d'',''e'',''f'',''g'',''h'',''i'',''j'',''k'',''l'',''m'',''n'',''o'',''p'',''q'',''r'',''s'',''t'',''u'',''v'',''w'',''x'',''y'',''z'')
+          + @(''0'',''1'',''2'',''3'',''4'',''5'',''6'',''7'',''8'',''9'') + @(''!'',''@'',''#'',''$'',''%'',''^'',''&'',''*'',''('',''('','')'',''-'',''='',''+'',''_'',''['','']'',''{'',''}'',''|'','';'','';'','':'','','',''<'',''>'',''?'')
+          | Get-Random }) }; $passwords | Out-File -FilePath "$env:TEMP\random_passwords.txt";
+          fi; if (!(Test-Path "$env:PUBLIC\Downloads\T1001.002.tarz")) {exit 1} else
+          {; {exit 0}; }; then : ; else Write-Output "Generating tarz file..."; tar
+          -cvf "$env:PUBLIC\Downloads\T1001.002.tarz" "$env:TEMP\random_passwords.txt";
+          fi; Get-Content "PathToAtomicsFolder\T1001.002\bin\T1001.002.jpg", "$env:PUBLIC\Downloads\T1001.002.tarz"
+          -Encoding byte -ReadCount 0 | Set-Content "$env:PUBLIC\Downloads\T1001.002New.jpg"
+          -Encoding byte'
+        cleanup: Set-ExecutionPolicy Bypass -Scope Process -Force -ErrorAction Ignore;
+          Remove-Item -Path "#{new_image_file}" -Force -ErrorAction Ignore
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1001.002
+  - atomic-red-team
+  - command-and-control
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      image_file:
+        description: Image file which will be downloaded to be used to hide data
+        type: path
+        default: PathToAtomicsFolder\T1001.002\bin\T1001.002.jpg
+      tar_file:
+        description: Tarz file containing random passwords
+        type: path
+        default: $env:PUBLIC\Downloads\T1001.002.tarz
+      new_image_file:
+        description: new image file ready for extraction
+        type: path
+        default: $env:PUBLIC\Downloads\T1001.002New.jpg
+      passwords_file:
+        description: Text file containing random passwords
+        type: path
+        default: $env:TEMP\random_passwords.txt
+    dependencies:
+    - description: 'Image file must exist
+
+        '
+      prereq_command: 'if (!(Test-Path "#{image_file}")) {exit 1} else {
+
+        {exit 0}
+
+        }
+
+        '
+      get_prereq_command: 'New-Item -Type Directory (split-path "#{image_file}") -ErrorAction
+        ignore | Out-Null
+
+        Write-Output "Downloading image file..."
+
+        $imageUrl = "https://github.com/raghavsingh7/Pictures/raw/a9617d9fce289909441120a1e0366315c2c5e19d/lime.jpg"
+
+        Invoke-WebRequest -Uri $imageUrl -OutFile "#{image_file}"
+
+        '
+    - description: 'File to hide within tarz file must exist
+
+        '
+      prereq_command: 'if (!(Test-Path "#{passwords_file}")) {exit 1} else {
+
+        {exit 0}
+
+        }
+
+        '
+      get_prereq_command: "Write-Output \"Generating random passwords and saving to\
+        \ file...\"\n$passwords = 1..10 | ForEach-Object { -join ((1..12) | ForEach-Object\
+        \ { @('A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z')\
+        \ + @('a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z')\
+        \ + @('0','1','2','3','4','5','6','7','8','9') + @('!','@','#','$','%','^','&','*','(','(',')','-','=','+','_','[',']','{','}','|',';',';',':',',','<','>','?')\
+        \ | Get-Random }) }\n$passwords | Out-File -FilePath \"#{passwords_file}\"\
+        \    \n"
+    - description: "Tarz file to embed in image must exist \n"
+      prereq_command: 'if (!(Test-Path "#{tar_file}")) {exit 1} else {
+
+        {exit 0}
+
+        }
+
+        '
+      get_prereq_command: 'Write-Output "Generating tarz file..."
+
+        tar -cvf "#{tar_file}" "#{passwords_file}"
+
+        '
+    technique_created: '2020-03-15T00:37:58.963Z'
+    atomic_guid: c7921449-8b62-4c4d-8a83-d9281ac0190b
+    import_timestamp: '2025-06-24T11:15:05.790085Z'

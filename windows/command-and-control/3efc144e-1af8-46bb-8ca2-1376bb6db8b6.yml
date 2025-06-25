@@ -1,0 +1,61 @@
+- id: 3efc144e-1af8-46bb-8ca2-1376bb6db8b6
+  name: DNS Regular Beaconing
+  description: 'This test simulates an infected host beaconing via DNS queries to
+    a command and control server at regular intervals over time.
+
+    This behaviour is typical of implants either in an idle state waiting for instructions
+    or configured to use a low query volume over time to evade threshold based detection.
+
+    A custom domain and sub-domain will need to be passed as input parameters for
+    this test to work. Upon execution, DNS information about the domain will be displayed
+    for each callout.'
+  tactic: command-and-control
+  technique:
+    attack_id: T1071.004
+    name: 'Application Layer Protocol: DNS'
+  platforms:
+    windows:
+      psh:
+        command: Set-Location "PathToAtomicsFolder"; .\T1071.004\src\T1071-dns-beacon.ps1
+          -Domain 127.0.0.1.nip.io -Subdomain atomicredteam -QueryType TXT -C2Interval
+          30 -C2Jitter 20 -RunTime 30
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1071.004
+  - atomic-red-team
+  - command-and-control
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      runtime:
+        description: Time in minutes to run the simulation
+        type: integer
+        default: 30
+      domain:
+        description: Default domain to simulate against
+        type: string
+        default: 127.0.0.1.nip.io
+      subdomain:
+        description: Subdomain prepended to the domain name
+        type: string
+        default: atomicredteam
+      query_type:
+        description: DNS query type
+        type: string
+        default: TXT
+      c2_interval:
+        description: Seconds between C2 requests to the command and control server
+        type: integer
+        default: 30
+      c2_jitter:
+        description: Percentage of jitter to add to the C2 interval to create variance
+          in the times between C2 requests
+        type: integer
+        default: 20
+    technique_created: '2020-03-15T16:27:31.768Z'
+    atomic_guid: 3efc144e-1af8-46bb-8ca2-1376bb6db8b6
+    import_timestamp: '2025-06-24T11:15:05.463440Z'

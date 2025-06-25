@@ -1,0 +1,51 @@
+- id: b8223ea9-4be2-44a6-b50a-9657a3d4e72a
+  name: portproxy reg key
+  description: 'Adds a registry key to set up a proxy on the endpoint at HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\PortProxy\v4tov4
+
+    Upon execution there will be a new proxy entry in netsh
+
+    netsh interface portproxy show all'
+  tactic: command-and-control
+  technique:
+    attack_id: T1090.001
+    name: 'Proxy: Internal Proxy'
+  platforms:
+    windows:
+      psh:
+        command: netsh interface portproxy add v4tov4 listenport=1337 connectport=1337
+          connectaddress=127.0.0.1
+        cleanup: netsh interface portproxy delete v4tov4 listenport=#{listenport}
+          -ErrorAction Ignore | Out-Null
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1090.001
+  - atomic-red-team
+  - command-and-control
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      connectaddress:
+        description: Specifies the IPv4 address to which to connect. Acceptable values
+          are IP address, computer NetBIOS name, or computer DNS name. If an address
+          is not specified, the default is the local computer.
+        type: string
+        default: 127.0.0.1
+      connectport:
+        description: Specifies the IPv4 port, by port number or service name, to which
+          to connect. If connectport is not specified, the default is the value of
+          listenport on the local computer.
+        type: string
+        default: '1337'
+      listenport:
+        description: Specifies the IPv4 port, by port number or service name, on which
+          to listen.
+        type: string
+        default: '1337'
+    technique_created: '2020-03-14T23:08:20.244Z'
+    atomic_guid: b8223ea9-4be2-44a6-b50a-9657a3d4e72a
+    import_timestamp: '2025-06-24T11:15:05.808131Z'

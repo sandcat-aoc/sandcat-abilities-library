@@ -1,0 +1,30 @@
+- id: d1de3767-99c2-4c6c-8c5a-4ba4586474c8
+  name: Do Not Connect To Win Update
+  description: Do Not Connect To Win Update. Redline is using this as part of its
+    defense evasion.
+  tactic: defense-evasion
+  technique:
+    attack_id: T1112
+    name: Modify Registry
+  platforms:
+    windows:
+      sh:
+        command: reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate"
+          /v "DoNotConnectToWindowsUpdateInternetLocations" /t REG_DWORD /d 1 /f
+        cleanup: reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate"
+          /v "DoNotConnectToWindowsUpdateInternetLocations" /t REG_DWORD /d 0 /f
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1112
+  - atomic-red-team
+  - defense-evasion
+  author: Atomic Red Team
+  additional_info:
+    technique_created: '2017-05-31T21:31:23.587Z'
+    atomic_guid: d1de3767-99c2-4c6c-8c5a-4ba4586474c8
+    import_timestamp: '2025-06-24T11:15:00.597824Z'

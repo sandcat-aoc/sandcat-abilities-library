@@ -1,0 +1,51 @@
+- id: f45df6be-2e1e-4136-a384-8f18ab3826fb
+  name: Decode base64 Data into Script
+  description: "Creates a base64-encoded data file and decodes it into an executable\
+    \ shell script\n\nUpon successful execution, sh will execute art.sh, which is\
+    \ a base64 encoded command, that echoes `Hello from the Atomic Red Team` \nand\
+    \ uname -v"
+  tactic: defense-evasion
+  technique:
+    attack_id: T1027
+    name: Obfuscated Files or Information
+  platforms:
+    linux:
+      sh:
+        command: 'if [ -e "/tmp/encoded.dat" ]; then : ; else if [ "$(uname)" = ''FreeBSD''
+          ]; then cmd="b64encode -r -"; else cmd="base64"; fi;; echo "echo Hello from
+          the Atomic Red Team && uname -v" | $cmd > /tmp/encoded.dat; fi; if [ "$(uname)"
+          = ''FreeBSD'' ]; then cmd="b64decode -r"; else cmd="base64 -d"; fi;; cat
+          /tmp/encoded.dat | $cmd > /tmp/art.sh; chmod +x /tmp/art.sh; /tmp/art.sh'
+        cleanup: rm /tmp/encoded.dat; rm /tmp/art.sh
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1027
+  - atomic-red-team
+  - defense-evasion
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      shell_command:
+        description: command to encode
+        type: string
+        default: echo Hello from the Atomic Red Team && uname -v
+    dependencies:
+    - description: 'encode the command into base64 file
+
+        '
+      prereq_command: 'if [ -e "/tmp/encoded.dat" ]; then exit 0; else exit 1; fi
+
+        '
+      get_prereq_command: 'if [ "$(uname)" = ''FreeBSD'' ]; then cmd="b64encode -r
+        -"; else cmd="base64"; fi;
+
+        echo "#{shell_command}" | $cmd > /tmp/encoded.dat
+
+        '
+    technique_created: '2017-05-31T21:30:32.662Z'
+    atomic_guid: f45df6be-2e1e-4136-a384-8f18ab3826fb
+    import_timestamp: '2025-06-24T11:15:55.726589Z'

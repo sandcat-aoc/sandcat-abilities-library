@@ -1,0 +1,55 @@
+- id: 75483ef8-f10f-444a-bf02-62eb0e48db6f
+  name: Loadable Kernel Module based Rootkit
+  description: Loadable Kernel Module based Rootkit
+  tactic: defense-evasion
+  technique:
+    attack_id: T1014
+    name: Rootkit
+  platforms:
+    linux:
+      sh:
+        command: 'if [ -f /lib/modules/$(uname -r)/T1014.ko ]; then : ; else sudo
+          apt install make; sudo apt install gcc; if [ ! -d /tmp/T1014 ]; then mkdir
+          /tmp/T1014; touch /tmp/T1014/safe_to_delete; fi;; cp Linux/* /tmp/T1014;
+          cd /tmp/T1014; make; sudo cp /tmp/T1014/T1014.ko /lib/modules/$(uname -r)/;
+          [ -f /tmp/T1014/safe_to_delete ] && rm -rf /tmp/T1014; sudo depmod -a; fi;
+          sudo modprobe T1014'
+        cleanup: 'sudo modprobe -r #{rootkit_name}; sudo rm /lib/modules/$(uname -r)/#{rootkit_name}.ko;
+          sudo depmod -a'
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - defense-evasion
+  - atomic-red-team
+  - t1014
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      rootkit_source_path:
+        description: Path to the rootkit source. Used when prerequisites are fetched.
+        type: path
+        default: PathToAtomicsFolder/T1014/src/Linux
+      rootkit_name:
+        description: Module name
+        type: string
+        default: T1014
+    dependencies:
+    - description: 'The kernel module must exist on disk at specified location (#{rootkit_source_path}/#{rootkit_name}.ko)
+
+        '
+      prereq_command: 'if [ -f /lib/modules/$(uname -r)/#{rootkit_name}.ko ]; then
+        exit 0; else exit 1; fi;
+
+        '
+      get_prereq_command: "sudo apt install make\nsudo apt install gcc\nif [ ! -d\
+        \ /tmp/T1014 ]; then mkdir /tmp/T1014; touch /tmp/T1014/safe_to_delete; fi;\n\
+        cp #{rootkit_source_path}/* /tmp/T1014\ncd /tmp/T1014; make        \nsudo\
+        \ cp /tmp/T1014/#{rootkit_name}.ko /lib/modules/$(uname -r)/\n[ -f /tmp/T1014/safe_to_delete\
+        \ ] && rm -rf /tmp/T1014\nsudo depmod -a\n"
+    technique_created: '2017-05-31T21:30:26.496Z'
+    atomic_guid: 75483ef8-f10f-444a-bf02-62eb0e48db6f
+    import_timestamp: '2025-06-24T11:15:55.404669Z'

@@ -1,0 +1,39 @@
+- id: b2563a4e-c4b8-429c-8d47-d5bcb227ba7a
+  name: Add and delete UFW firewall rules
+  description: Add and delete a rule on the Uncomplicated Firewall (UFW) if installed
+    and enabled.
+  tactic: defense-evasion
+  technique:
+    attack_id: T1562.004
+    name: 'Impair Defenses: Disable or Modify System Firewall'
+  platforms:
+    linux:
+      sh:
+        command: ufw prepend deny from 1.2.3.4; ufw status numbered
+        cleanup: '{ echo y; echo response; } | ufw delete 1; ufw status numbered'
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1562.004
+  - atomic-red-team
+  - defense-evasion
+  author: Atomic Red Team
+  additional_info:
+    dependencies:
+    - description: 'Check if ufw is installed on the machine and enabled.
+
+        '
+      prereq_command: "if [ ! -x \"$(command -v ufw)\" ]; then echo -e \"\\n*****\
+        \ ufw NOT installed *****\\n\"; exit 1; fi\nif echo \"$(ufw status)\" |grep\
+        \ -q \"inactive\"; then echo -e \"\\n***** ufw inactive *****\\n\"; exit 1;\
+        \ fi \n"
+      get_prereq_command: 'echo ""
+
+        '
+    technique_created: '2020-02-21T21:00:48.814Z'
+    atomic_guid: b2563a4e-c4b8-429c-8d47-d5bcb227ba7a
+    import_timestamp: '2025-06-24T11:15:55.565820Z'

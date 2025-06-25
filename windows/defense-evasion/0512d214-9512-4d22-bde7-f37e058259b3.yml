@@ -1,0 +1,30 @@
+- id: 0512d214-9512-4d22-bde7-f37e058259b3
+  name: Remove Network Share PowerShell
+  description: Removes a Network Share utilizing PowerShell
+  tactic: defense-evasion
+  technique:
+    attack_id: T1070.005
+    name: 'Indicator Removal on Host: Network Share Connection Removal'
+  platforms:
+    windows:
+      psh:
+        command: Remove-SmbShare -Name \\test\share; Remove-FileShare -Name \\test\share
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1070.005
+  - atomic-red-team
+  - defense-evasion
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      share_name:
+        description: Share to remove.
+        type: string
+        default: \\test\share
+    technique_created: '2020-01-31T12:39:18.816Z'
+    atomic_guid: 0512d214-9512-4d22-bde7-f37e058259b3
+    import_timestamp: '2025-06-24T11:15:00.992961Z'

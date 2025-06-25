@@ -1,0 +1,44 @@
+- id: 33a29ab1-cabb-407f-9448-269041bf2856
+  name: Delete all auditd rules using auditctl
+  description: Using 'auditctl -D' deletes all existing audit rules, resulting in
+    the loss of previously configured monitoring settings and the audit trail. This
+    action reduces visibility into system activities, potentially leading to compliance
+    concerns and hampering security monitoring efforts. Additionally, it poses a risk
+    of covering unauthorized activities by erasing evidence from audit logs.
+  tactic: defense-evasion
+  technique:
+    attack_id: T1562.012
+    name: 'Impair Defenses: Disable or Modify Linux Audit System'
+  platforms:
+    linux:
+      sh:
+        command: 'if [ $(command -v auditctl) ]; then : ; else (yum install auditd
+          -y) || (apt-get install auditd -y) || (dnf install auditd -y); fi; auditctl
+          -D'
+        cleanup: service auditd restart
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1562.012
+  - atomic-red-team
+  - defense-evasion
+  author: Atomic Red Team
+  additional_info:
+    dependencies:
+    - description: 'Check if auditd is installed.
+
+        '
+      prereq_command: 'if [ $(command -v auditctl) ]; then exit 0; else exit 1; fi
+
+        '
+      get_prereq_command: '(yum install auditd -y) || (apt-get install auditd -y)
+        || (dnf install auditd -y)
+
+        '
+    technique_created: '2023-05-24T19:03:03.855Z'
+    atomic_guid: 33a29ab1-cabb-407f-9448-269041bf2856
+    import_timestamp: '2025-06-24T11:15:55.592293Z'

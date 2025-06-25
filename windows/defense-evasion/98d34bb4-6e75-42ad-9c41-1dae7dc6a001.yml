@@ -1,0 +1,48 @@
+- id: 98d34bb4-6e75-42ad-9c41-1dae7dc6a001
+  name: Take ownership using takeown utility
+  description: 'Modifies the filesystem permissions of the specified file or folder
+    to take ownership of the object. Upon execution, "SUCCESS" will
+
+    be displayed for the folder and each file inside of it.'
+  tactic: defense-evasion
+  technique:
+    attack_id: T1222.001
+    name: 'File and Directory Permissions Modification: Windows File and Directory
+      Permissions Modification'
+  platforms:
+    windows:
+      sh:
+        command: takeown.exe /f %temp%\T1222.001_takeown_folder /r
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1222.001
+  - atomic-red-team
+  - defense-evasion
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      file_folder_to_own:
+        description: Path of the file or folder for takeown to take ownership.
+        type: path
+        default: '%temp%\T1222.001_takeown_folder'
+    dependencies:
+    - description: 'Test requrires a file to take ownership of to be located at (#{file_folder_to_own})
+
+        '
+      prereq_command: 'IF EXIST #{file_folder_to_own} ( EXIT 0 ) ELSE ( EXIT 1 )
+
+        '
+      get_prereq_command: 'mkdir #{file_folder_to_own}
+
+        echo T1222.001_takeown1 >> #{file_folder_to_own}\T1222.001_takeown1.txt
+
+        echo T1222.001_takeown2 >> #{file_folder_to_own}\T1222.001_takeown2.txt
+
+        '
+    technique_created: '2020-02-04T19:17:41.767Z'
+    atomic_guid: 98d34bb4-6e75-42ad-9c41-1dae7dc6a001
+    import_timestamp: '2025-06-24T11:15:00.066102Z'

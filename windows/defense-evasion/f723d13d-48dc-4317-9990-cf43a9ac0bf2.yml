@@ -1,0 +1,29 @@
+- id: f723d13d-48dc-4317-9990-cf43a9ac0bf2
+  name: Clears Recycle bin via rd
+  description: 'An adversary clears the recycle bin in the system partition using
+    rd to remove traces of deleted files.
+
+    [Reference](https://thedfirreport.com/2024/08/12/threat-actors-toolkit-leveraging-sliver-poshc2-batch-scripts/)'
+  tactic: defense-evasion
+  technique:
+    attack_id: T1070.004
+    name: 'Indicator Removal on Host: File Deletion'
+  platforms:
+    windows:
+      sh:
+        command: rd /s /q %systemdrive%\$RECYCLE.BIN
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - defense-evasion
+  - atomic-red-team
+  - t1070.004
+  author: Atomic Red Team
+  additional_info:
+    technique_created: '2020-01-31T12:35:36.479Z'
+    atomic_guid: f723d13d-48dc-4317-9990-cf43a9ac0bf2
+    import_timestamp: '2025-06-24T11:15:01.341524Z'

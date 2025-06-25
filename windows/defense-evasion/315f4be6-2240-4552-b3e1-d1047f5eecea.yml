@@ -1,0 +1,35 @@
+- id: 315f4be6-2240-4552-b3e1-d1047f5eecea
+  name: Tamper with Windows Defender Evade Scanning -Extension
+  description: "Malware can exclude specific extensions from being scanned and evading\
+    \ detection. \nUpon successful execution, the extension(s) should be on the list\
+    \ of excluded extensions.\nTo check the exclusion list using poweshell  (Get-MpPreference).ExclusionExtension."
+  tactic: defense-evasion
+  technique:
+    attack_id: T1562.001
+    name: 'Impair Defenses: Disable or Modify Tools'
+  platforms:
+    windows:
+      psh:
+        command: $excludedExts= ".exe"; Add-MpPreference -ExclusionExtension  $excludedExts
+        cleanup: $excludedExts= "#{excluded_exts}"; Remove-MpPreference -ExclusionExtension  $excludedExts
+          -ErrorAction Ignore
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1562.001
+  - atomic-red-team
+  - defense-evasion
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      excluded_exts:
+        description: A list of extension to exclude from scanning
+        type: string
+        default: .exe
+    technique_created: '2020-02-21T20:32:20.810Z'
+    atomic_guid: 315f4be6-2240-4552-b3e1-d1047f5eecea
+    import_timestamp: '2025-06-24T11:15:01.046197Z'

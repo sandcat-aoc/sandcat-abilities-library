@@ -1,0 +1,32 @@
+- id: afedc8c4-038c-4d82-b3e5-623a95f8a612
+  name: Disable Microsoft Defender Firewall via Registry
+  description: 'Disables the Microsoft Defender Firewall for the public profile via
+    registry
+
+    Caution if you access remotely the host where the test runs! Especially with the
+    cleanup command which will re-enable firewall for the current profile...'
+  tactic: defense-evasion
+  technique:
+    attack_id: T1562.004
+    name: 'Impair Defenses: Disable or Modify System Firewall'
+  platforms:
+    windows:
+      sh:
+        command: reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\PublicProfile"
+          /v "EnableFirewall" /t REG_DWORD /d 0 /f
+        cleanup: reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\PublicProfile"
+          /v "EnableFirewall" /t REG_DWORD /d 1 /f
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1562.004
+  - atomic-red-team
+  - defense-evasion
+  author: Atomic Red Team
+  additional_info:
+    technique_created: '2020-02-21T21:00:48.814Z'
+    atomic_guid: afedc8c4-038c-4d82-b3e5-623a95f8a612
+    import_timestamp: '2025-06-24T11:15:00.382868Z'

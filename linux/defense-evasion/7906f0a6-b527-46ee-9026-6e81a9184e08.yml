@@ -1,0 +1,46 @@
+- id: 7906f0a6-b527-46ee-9026-6e81a9184e08
+  name: Disable auditd using auditctl
+  description: The command `auditctl -e 0` disables the audit system. By setting the
+    parameter to `0`, auditing is deactivated, halting the monitoring and recording
+    of security-related events. This action stops the generation of audit logs, ceasing
+    the collection of data regarding system activities. Disabling auditing may be
+    done for various reasons, such as troubleshooting, performance optimization, or
+    temporarily suspending auditing requirements, but it reduces visibility into system
+    events and can impact security monitoring and compliance efforts.
+  tactic: defense-evasion
+  technique:
+    attack_id: T1562.012
+    name: 'Impair Defenses: Disable or Modify Linux Audit System'
+  platforms:
+    linux:
+      sh:
+        command: 'if [ $(command -v auditctl) ]; then : ; else (yum install auditd
+          -y) || (apt-get install auditd -y) || (dnf install auditd -y); fi; auditctl
+          -e 0'
+        cleanup: auditctl -e 1
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1562.012
+  - atomic-red-team
+  - defense-evasion
+  author: Atomic Red Team
+  additional_info:
+    dependencies:
+    - description: 'Check if auditd is installed.
+
+        '
+      prereq_command: 'if [ $(command -v auditctl) ]; then exit 0; else exit 1; fi
+
+        '
+      get_prereq_command: '(yum install auditd -y) || (apt-get install auditd -y)
+        || (dnf install auditd -y)
+
+        '
+    technique_created: '2023-05-24T19:03:03.855Z'
+    atomic_guid: 7906f0a6-b527-46ee-9026-6e81a9184e08
+    import_timestamp: '2025-06-24T11:15:55.595605Z'

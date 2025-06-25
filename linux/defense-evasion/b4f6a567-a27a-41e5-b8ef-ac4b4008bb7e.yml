@@ -1,0 +1,42 @@
+- id: b4f6a567-a27a-41e5-b8ef-ac4b4008bb7e
+  name: Base64 decoding with shell utilities
+  description: Use common shell utilities to decode a base64-encoded text string and
+    echo it to the console
+  tactic: defense-evasion
+  technique:
+    attack_id: T1140
+    name: Deobfuscate/Decode Files or Information
+  platforms:
+    linux:
+      sh:
+        command: ENCODED=$(echo 'Hello from Atomic Red Team test T1140!' | base64);
+          printf $ENCODED | base64 -d; echo $ENCODED | base64 -d; echo $(echo $ENCODED)
+          | base64 -d; echo $ENCODED > /tmp/T1140.encoded && base64 -d /tmp/T1140.encoded;
+          echo $ENCODED > /tmp/T1140.encoded && base64 -d < /tmp/T1140.encoded; echo
+          $ENCODED > /tmp/T1140.encoded && cat /tmp/T1140.encoded | base64 -d; echo
+          $ENCODED > /tmp/T1140.encoded && cat < /tmp/T1140.encoded | base64 -d; bash
+          -c "{echo,\"$(echo $ENCODED)\"}|{base64,-d}"
+        elevation_required: false
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1140
+  - atomic-red-team
+  - defense-evasion
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      message:
+        description: Message to print to the screen
+        type: string
+        default: Hello from Atomic Red Team test T1140!
+      encoded_file:
+        description: File to temporarily save encoded text
+        type: path
+        default: /tmp/T1140.encoded
+    technique_created: '2017-12-14T16:46:06.044Z'
+    atomic_guid: b4f6a567-a27a-41e5-b8ef-ac4b4008bb7e
+    import_timestamp: '2025-06-24T11:15:55.502433Z'

@@ -1,0 +1,33 @@
+- id: f151ee37-9e2b-47e6-80e4-550b9f999b7a
+  name: Hidden Window
+  description: 'Launch PowerShell with the "-WindowStyle Hidden" argument to conceal
+    PowerShell windows by setting the WindowStyle parameter to hidden.
+
+    Upon execution a hidden PowerShell window will launch calc.exe'
+  tactic: defense-evasion
+  technique:
+    attack_id: T1564.003
+    name: 'Hide Artifacts: Hidden Window'
+  platforms:
+    windows:
+      psh:
+        command: Start-Process powershell.exe -WindowStyle hidden calc.exe
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1564.003
+  - atomic-red-team
+  - defense-evasion
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      powershell_command:
+        description: Command to launch calc.exe from a hidden PowerShell Window
+        type: string
+        default: powershell.exe -WindowStyle hidden calc.exe
+    technique_created: '2020-03-13T20:26:49.433Z'
+    atomic_guid: f151ee37-9e2b-47e6-80e4-550b9f999b7a
+    import_timestamp: '2025-06-24T11:15:01.308443Z'

@@ -1,0 +1,41 @@
+- id: 69f50a5f-967c-4327-a5bb-e1a9a9983785
+  name: Delete TeamViewer Log Files
+  description: 'Adversaries may delete TeamViewer log files to hide activity. This
+    should provide a high true-positive alert ration.
+
+    This test just places the files in a non-TeamViewer folder, a detection would
+    just check for a deletion event matching the TeamViewer
+
+    log file format of TeamViewer_##.log. Upon execution, no output will be displayed.
+    Use File Explorer to verify the folder was deleted.
+
+
+    https://twitter.com/SBousseaden/status/1197524463304290305?s=20'
+  tactic: defense-evasion
+  technique:
+    attack_id: T1070.004
+    name: 'Indicator Removal on Host: File Deletion'
+  platforms:
+    windows:
+      psh:
+        command: New-Item -Path $env:TEMP\TeamViewer_54.log -Force | Out-Null; Remove-Item
+          $env:TEMP\TeamViewer_54.log -Force -ErrorAction Ignore
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - defense-evasion
+  - atomic-red-team
+  - t1070.004
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      teamviewer_log_file:
+        description: Teamviewer log file to create and delete.
+        type: string
+        default: $env:TEMP\TeamViewer_54.log
+    technique_created: '2020-01-31T12:35:36.479Z'
+    atomic_guid: 69f50a5f-967c-4327-a5bb-e1a9a9983785
+    import_timestamp: '2025-06-24T11:15:01.337727Z'

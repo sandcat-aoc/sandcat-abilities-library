@@ -1,0 +1,26 @@
+- id: 2f898b81-3e97-4abb-bc3f-a95138988370
+  name: Prevent Powershell History Logging
+  description: Prevents Powershell history
+  tactic: defense-evasion
+  technique:
+    attack_id: T1070.003
+    name: 'Indicator Removal on Host: Clear Command History'
+  platforms:
+    windows:
+      psh:
+        command: Set-PSReadlineOption -HistorySaveStyle SaveNothing
+        cleanup: Set-PSReadLineOption -HistorySaveStyle SaveIncrementally
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1070.003
+  - atomic-red-team
+  - defense-evasion
+  author: Atomic Red Team
+  additional_info:
+    technique_created: '2020-01-31T12:32:08.228Z'
+    atomic_guid: 2f898b81-3e97-4abb-bc3f-a95138988370
+    import_timestamp: '2025-06-24T11:15:00.145983Z'

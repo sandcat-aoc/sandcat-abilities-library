@@ -1,0 +1,45 @@
+- id: 9dee89bd-9a98-4c4f-9e2d-4256690b0e72
+  name: Delete a single file - Windows PowerShell
+  description: Delete a single file from the temporary directory using Powershell.
+    Upon execution, no output will be displayed. Use File Explorer to verify the file
+    was deleted.
+  tactic: defense-evasion
+  technique:
+    attack_id: T1070.004
+    name: 'Indicator Removal on Host: File Deletion'
+  platforms:
+    windows:
+      psh:
+        command: 'if (Test-Path $env:TEMP\deleteme_T1551.004) {exit 0} else {exit
+          1}; then : ; else New-Item -Path $env:TEMP\deleteme_T1551.004 | Out-Null;
+          fi; Remove-Item -path $env:TEMP\deleteme_T1551.004'
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - defense-evasion
+  - atomic-red-team
+  - t1070.004
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      file_to_delete:
+        description: File to delete. Run the prereq command to create it if it does
+          not exist.
+        type: string
+        default: $env:TEMP\deleteme_T1551.004
+    dependencies:
+    - description: 'The file to delete must exist on disk at specified location (#{file_to_delete})
+
+        '
+      prereq_command: 'if (Test-Path #{file_to_delete}) {exit 0} else {exit 1}
+
+        '
+      get_prereq_command: 'New-Item -Path #{file_to_delete} | Out-Null
+
+        '
+    technique_created: '2020-01-31T12:35:36.479Z'
+    atomic_guid: 9dee89bd-9a98-4c4f-9e2d-4256690b0e72
+    import_timestamp: '2025-06-24T11:15:01.328568Z'

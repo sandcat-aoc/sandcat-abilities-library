@@ -1,0 +1,29 @@
+- id: dbecd623-defb-82ee-891a-9838c68289cd
+  name: chflags - Remove hidden flag
+  description: 'Remove the hidden flag to a file or directory to make it visible in Finder
+
+    and Terminal.'
+  tactic: defense-evasion
+  technique:
+    attack_id: T1564.001
+    name: 'Hide Artifacts: Hidden Files and Directories'
+  platforms:
+    darwin:
+      sh:
+        command: chflags nohidden ~/evil
+  singleton: false
+  privilege: User
+  repeatable: true
+  delete_payload: true
+  buckets:
+  - loobins
+  - chflags
+  - defense-evasion
+  version: '1.0'
+  author: LOOBins Project
+  additional_info:
+    loobins_tool: chflags
+    use_case: Remove hidden flag
+    source_file: chflags.yml
+    source_repository: https://github.com/infosecB/LOOBins
+    import_timestamp: '2025-06-24T09:00:11.346969Z'

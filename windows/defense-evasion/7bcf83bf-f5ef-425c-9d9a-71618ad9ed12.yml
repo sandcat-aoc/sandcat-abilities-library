@@ -1,0 +1,40 @@
+- id: 7bcf83bf-f5ef-425c-9d9a-71618ad9ed12
+  name: Event Log Manipulations- Time slipping via Powershell
+  description: "Changes the system time on the computer to a time that you specify.\
+    \ It involves altering the system\u2019s clock or adjusting the dates of files,\
+    \ affecting timestamp integrity within Event Logs. This technique can disrupt\
+    \ the sequence of logged events, complicating incident analysis and forensics.\
+    \ \nReference - \nhttps://detect.fyi/event-log-manipulations-1-time-slipping-55bf95631c40\n\
+    https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/set-date?view=powershell-7.4"
+  tactic: defense-evasion
+  technique:
+    attack_id: T1070.006
+    name: 'Indicator Removal on Host: Timestomp'
+  platforms:
+    windows:
+      psh:
+        command: try{; Set-Date -Date (Get-Date).AddDays(3); Add-Content "$env:APPDATA\slipDays.bak"
+          3; }; catch {exit 1}
+        cleanup: if(Test-Path "$env:APPDATA\slipDays.bak" ){; foreach($line in (get-content
+          $env:APPDATA\slipDays.bak)){; Set-Date -Date (Get-Date).AddDays(-$line);
+          }; rm "$env:APPDATA\slipDays.bak"; }
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1070.006
+  - atomic-red-team
+  - defense-evasion
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      days_to_modify:
+        description: Value to which system time will update
+        type: string
+        default: '3'
+    technique_created: '2020-01-31T12:42:44.103Z'
+    atomic_guid: 7bcf83bf-f5ef-425c-9d9a-71618ad9ed12
+    import_timestamp: '2025-06-24T11:15:00.327271Z'

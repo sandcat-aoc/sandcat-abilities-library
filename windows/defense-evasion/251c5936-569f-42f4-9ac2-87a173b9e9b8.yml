@@ -1,0 +1,35 @@
+- id: 251c5936-569f-42f4-9ac2-87a173b9e9b8
+  name: Disable UAC admin consent prompt via ConsentPromptBehaviorAdmin registry key
+  description: "Disable User Account Conrol (UAC) for admin by setting the registry\
+    \ key \nHKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\\
+    ConsentPromptBehaviorAdmin to 0.\n\n[MedusaLocker Ransomware](https://cloudsek.com/technical-analysis-of-medusalocker-ransomware/),\
+    \ \n[Purple Fox Rootkit](https://blogs.blackberry.com/en/2022/01/threat-thursday-purple-fox-rootkit),\
+    \ \n[Avaddon Ransomware](https://blogs.blackberry.com/en/2021/06/threat-thursday-avaddon-ransomware-uses-ddos-attacks-as-triple-threat)"
+  tactic: defense-evasion
+  technique:
+    attack_id: T1548.002
+    name: 'Abuse Elevation Control Mechanism: Bypass User Account Control'
+  platforms:
+    windows:
+      psh:
+        command: $orgValue =(Get-ItemProperty HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System
+          -Name ConsentPromptBehaviorAdmin).ConsentPromptBehaviorAdmin; Set-ItemProperty
+          HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System -Name ConsentPromptBehaviorAdmin
+          -Value 0 -Type Dword -Force
+        cleanup: Set-ItemProperty HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System
+          -Name ConsentPromptBehaviorAdmin -Value $orgValue -Type Dword -Force
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1548.002
+  - atomic-red-team
+  - defense-evasion
+  author: Atomic Red Team
+  additional_info:
+    technique_created: '2020-01-30T14:24:34.977Z'
+    atomic_guid: 251c5936-569f-42f4-9ac2-87a173b9e9b8
+    import_timestamp: '2025-06-24T11:14:59.933045Z'

@@ -1,0 +1,53 @@
+- id: 1ae5ea1f-0a4e-4e54-b2f5-4ac328a7f421
+  name: Regsvr32 Registering Non DLL
+  description: Replicating observed Gozi maldoc behavior registering a dll with an
+    altered extension
+  tactic: defense-evasion
+  technique:
+    attack_id: T1218.010
+    name: 'Signed Binary Proxy Execution: Regsvr32'
+  platforms:
+    windows:
+      sh:
+        command: 'if exist %temp%\shell32.jpg ( exit 0 ) else ( exit 1 ); then : ;
+          else copy "C:\Windows\System32\shell32.dll" "%temp%\shell32.jpg"; fi; C:\Windows\system32\regsvr32.exe
+          /s %temp%\shell32.jpg'
+        cleanup: '#{regsvr32path}\#{regsvr32name} /U /s #{dll_file}'
+        elevation_required: false
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1218.010
+  - atomic-red-team
+  - defense-evasion
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      dll_file:
+        description: Path to renamed dll file to be registered
+        type: path
+        default: '%temp%\shell32.jpg'
+      regsvr32path:
+        description: Default location of Regsvr32.exe
+        type: path
+        default: C:\Windows\system32
+      regsvr32name:
+        description: Default name of Regsvr32.exe
+        type: string
+        default: regsvr32.exe
+    dependencies:
+    - description: 'Test requires a renamed dll file
+
+        '
+      prereq_command: 'if exist #{dll_file} ( exit 0 ) else ( exit 1 )
+
+        '
+      get_prereq_command: 'copy "C:\Windows\System32\shell32.dll" "#{dll_file}"
+
+        '
+    technique_created: '2020-01-23T19:52:17.414Z'
+    atomic_guid: 1ae5ea1f-0a4e-4e54-b2f5-4ac328a7f421
+    import_timestamp: '2025-06-24T11:15:01.221589Z'

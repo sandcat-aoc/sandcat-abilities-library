@@ -1,0 +1,42 @@
+- id: 86f0e4d5-3ca7-45fb-829d-4eda32b232bb
+  name: Delete system log files using shred utility
+  description: This test overwrites the contents of the log file with zero bytes(-z)
+    using three passes(-n 3) of data, and then delete the file(-u) securely
+  tactic: defense-evasion
+  technique:
+    attack_id: T1070.002
+    name: 'Indicator Removal on Host: Clear FreeBSD, Linux or Mac System Logs'
+  platforms:
+    darwin:
+      sh:
+        command: sudo shred -u -z -n 3 /var/log/system.log
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1070.002
+  - atomic-red-team
+  - defense-evasion
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      system_log_path:
+        description: path to system.log
+        type: string
+        default: /var/log/system.log
+    dependencies:
+    - description: 'target files must exist
+
+        '
+      prereq_command: 'stat #{system_log_path}
+
+        '
+      get_prereq_command: 'touch #{system_log_path}
+
+        '
+    technique_created: '2020-01-28T17:11:54.034Z'
+    atomic_guid: 86f0e4d5-3ca7-45fb-829d-4eda32b232bb
+    import_timestamp: '2025-06-24T11:14:07.096942Z'

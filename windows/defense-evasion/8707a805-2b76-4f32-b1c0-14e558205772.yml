@@ -1,0 +1,35 @@
+- id: 8707a805-2b76-4f32-b1c0-14e558205772
+  name: Mshta used to Execute PowerShell
+  description: Use Mshta to execute arbitrary PowerShell. Example is from the 2021
+    Threat Detection Report by Red Canary.
+  tactic: defense-evasion
+  technique:
+    attack_id: T1218.005
+    name: 'Signed Binary Proxy Execution: Mshta'
+  platforms:
+    windows:
+      sh:
+        command: mshta.exe "about:<hta:application><script language="VBScript">Close(Execute("CreateObject(""Wscript.Shell"").Run%20""powershell.exe%20-nop%20-Command%20Write-Host%20Hello,%20MSHTA!;Start-Sleep%20-Seconds%205"""))</script>'"
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1218.005
+  - atomic-red-team
+  - defense-evasion
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      message:
+        description: Encoded message to include
+        type: string
+        default: Hello,%20MSHTA!
+      seconds_to_sleep:
+        description: How many seconds to sleep/wait
+        type: integer
+        default: 5
+    technique_created: '2020-01-23T19:32:49.557Z'
+    atomic_guid: 8707a805-2b76-4f32-b1c0-14e558205772
+    import_timestamp: '2025-06-24T11:15:00.890605Z'

@@ -1,0 +1,28 @@
+- id: 00cc3fbb-2b34-6ee1-683c-cb3a62afbb77
+  name: plutil - Set app to run with dock icon hidden
+  description: plutil can be used to set the "LSUIElement" attribute to tue which will force the targeted
+    app to run without the UI and dock icon.
+  tactic: defense-evasion
+  technique:
+    attack_id: T1647
+    name: Plist File Modification
+  platforms:
+    darwin:
+      sh:
+        command: plutil -insert LSUIElement -string "1" /Applications/TargetApp.app/Contents/Info.plist
+  singleton: false
+  privilege: User
+  repeatable: true
+  delete_payload: true
+  buckets:
+  - loobins
+  - plutil
+  - defense-evasion
+  version: '1.0'
+  author: LOOBins Project
+  additional_info:
+    loobins_tool: plutil
+    use_case: Set app to run with dock icon hidden
+    source_file: plutil.yml
+    source_repository: https://github.com/infosecB/LOOBins
+    import_timestamp: '2025-06-24T09:00:11.379414Z'

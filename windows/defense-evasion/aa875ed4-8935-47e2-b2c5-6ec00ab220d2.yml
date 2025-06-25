@@ -1,0 +1,35 @@
+- id: aa875ed4-8935-47e2-b2c5-6ec00ab220d2
+  name: Tamper with Windows Defender Command Prompt
+  description: 'Attempting to disable scheduled scanning and other parts of windows
+    defender atp. These commands must be run as System, so they still fail as administrator.
+
+    However, adversaries do attempt to perform this action so monitoring for these
+    command lines can help alert to other bad things going on. Upon execution, "Access
+    Denied"
+
+    will be displayed twice and the WinDefend service status will be displayed.'
+  tactic: defense-evasion
+  technique:
+    attack_id: T1562.001
+    name: 'Impair Defenses: Disable or Modify Tools'
+  platforms:
+    windows:
+      sh:
+        command: sc stop WinDefend; sc config WinDefend start=disabled; sc query WinDefend
+        cleanup: sc start WinDefend >nul 2>&1; sc config WinDefend start=enabled >nul
+          2>&1
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1562.001
+  - atomic-red-team
+  - defense-evasion
+  author: Atomic Red Team
+  additional_info:
+    technique_created: '2020-02-21T20:32:20.810Z'
+    atomic_guid: aa875ed4-8935-47e2-b2c5-6ec00ab220d2
+    import_timestamp: '2025-06-24T11:15:01.024940Z'

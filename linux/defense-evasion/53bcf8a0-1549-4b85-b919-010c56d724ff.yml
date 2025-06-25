@@ -1,0 +1,53 @@
+- id: 53bcf8a0-1549-4b85-b919-010c56d724ff
+  name: Install root CA on Debian/Ubuntu
+  description: Creates a root CA with openssl
+  tactic: defense-evasion
+  technique:
+    attack_id: T1553.004
+    name: 'Subvert Trust Controls: Install Root Certificate'
+  platforms:
+    linux:
+      sh:
+        command: 'if [ -f rootCA.crt ]; then : ; else if [ ! -f rootCA.key ]; then
+          openssl genrsa -out rootCA.key 4096; fi;; openssl req -x509 -new -nodes
+          -key rootCA.key -sha256 -days 365 -subj "/C=US/ST=Denial/L=Springfield/O=Dis/CN=www.example.com"
+          -out rootCA.crt; fi; mv rootCA.crt /usr/local/share/ca-certificates; sudo
+          update-ca-certificates'
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1553.004
+  - atomic-red-team
+  - defense-evasion
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      cert_filename:
+        description: CA file name
+        type: path
+        default: rootCA.crt
+      key_filename:
+        description: Key we create that is used to create the CA certificate
+        type: path
+        default: rootCA.key
+    dependencies:
+    - description: 'Verify the certificate exists. It generates if not on disk.
+
+        '
+      prereq_command: 'if [ -f #{cert_filename} ]; then exit 0; else exit 1; fi;
+
+        '
+      get_prereq_command: 'if [ ! -f #{key_filename} ]; then openssl genrsa -out #{key_filename}
+        4096; fi;
+
+        openssl req -x509 -new -nodes -key #{key_filename} -sha256 -days 365 -subj
+        "/C=US/ST=Denial/L=Springfield/O=Dis/CN=www.example.com" -out #{cert_filename}
+
+        '
+    technique_created: '2020-02-21T21:05:32.844Z'
+    atomic_guid: 53bcf8a0-1549-4b85-b919-010c56d724ff
+    import_timestamp: '2025-06-24T11:15:55.740607Z'

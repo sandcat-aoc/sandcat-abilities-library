@@ -1,0 +1,29 @@
+- id: 58bd8c8d-3a1a-4467-a69c-439c75469b07
+  name: Detect a Debugger Presence in the Machine
+  description: Detecting a running debugger process or if the debugger is attached
+    to a process via PowerShell
+  tactic: defense-evasion
+  technique:
+    attack_id: T1622
+    name: Debugger Evasion
+  platforms:
+    windows:
+      psh:
+        command: '# Check for common debugger processes; $debuggerProcesses = Get-Process
+          | Where-Object { $_.ProcessName -match "dbg" -or $_.ProcessName -match "debug"
+          }; # Check for debugging flags; $debuggingFlags = [System.Diagnostics.Debugger]::IsAttached'
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1622
+  - atomic-red-team
+  - defense-evasion
+  author: Atomic Red Team
+  additional_info:
+    technique_created: '2022-04-01T17:59:46.156Z'
+    atomic_guid: 58bd8c8d-3a1a-4467-a69c-439c75469b07
+    import_timestamp: '2025-06-24T11:15:01.347170Z'

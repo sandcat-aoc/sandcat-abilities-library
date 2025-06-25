@@ -1,0 +1,45 @@
+- id: c23bdb88-928d-493e-b46d-df2906a50941
+  name: Delete log files via cat utility by appending /dev/null or /dev/zero
+  description: The first sub-test truncates the log file to zero bytes via /dev/null
+    and the second sub-test fills the log file with null bytes(zeroes) via /dev/zero,
+    using cat utility
+  tactic: defense-evasion
+  technique:
+    attack_id: T1070.002
+    name: 'Indicator Removal on Host: Clear FreeBSD, Linux or Mac System Logs'
+  platforms:
+    darwin:
+      sh:
+        command: 'sudo cat /dev/null > /var/log/system.log #truncating the file to
+          zero bytes; sudo dd if=/dev/zero bs=1000 count=5 of=/var/log/system.log
+          #log file filled with null bytes(zeros)'
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1070.002
+  - atomic-red-team
+  - defense-evasion
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      system_log_path:
+        description: path of system log to delete.
+        type: string
+        default: /var/log/system.log
+    dependencies:
+    - description: 'target files must exist
+
+        '
+      prereq_command: 'stat #{system_log_path}
+
+        '
+      get_prereq_command: 'touch #{system_log_path}
+
+        '
+    technique_created: '2020-01-28T17:11:54.034Z'
+    atomic_guid: c23bdb88-928d-493e-b46d-df2906a50941
+    import_timestamp: '2025-06-24T11:14:07.081938Z'

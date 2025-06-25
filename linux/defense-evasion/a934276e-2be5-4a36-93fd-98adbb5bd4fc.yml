@@ -1,0 +1,30 @@
+- id: a934276e-2be5-4a36-93fd-98adbb5bd4fc
+  name: Clear Bash history (rm)
+  description: Clears bash history via rm
+  tactic: defense-evasion
+  technique:
+    attack_id: T1070.003
+    name: 'Indicator Removal on Host: Clear Command History'
+  platforms:
+    linux:
+      sh:
+        command: rm ~/.bash_history
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1070.003
+  - atomic-red-team
+  - defense-evasion
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      history_path:
+        description: Bash history path
+        type: path
+        default: ~/.bash_history
+    technique_created: '2020-01-31T12:32:08.228Z'
+    atomic_guid: a934276e-2be5-4a36-93fd-98adbb5bd4fc
+    import_timestamp: '2025-06-24T11:15:55.468738Z'

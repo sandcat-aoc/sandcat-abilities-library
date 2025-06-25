@@ -1,0 +1,36 @@
+- id: 34ca1464-de9d-40c6-8c77-690adf36a135
+  name: chmod - Change file or folder mode (numeric mode)
+  description: Changes a file or folder's permissions using chmod and a specified
+    numeric mode.
+  tactic: defense-evasion
+  technique:
+    attack_id: T1222.002
+    name: 'File and Directory Permissions Modification: FreeBSD, Linux and Mac File
+      and Directory Permissions Modification'
+  platforms:
+    darwin:
+      sh:
+        command: chmod 755 /tmp/AtomicRedTeam/atomics/T1222.002
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1222.002
+  - atomic-red-team
+  - defense-evasion
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      numeric_mode:
+        description: Specified numeric mode value
+        type: integer
+        default: 755
+      file_or_folder:
+        description: Path of the file or folder
+        type: path
+        default: /tmp/AtomicRedTeam/atomics/T1222.002
+    technique_created: '2020-02-04T19:24:27.774Z'
+    atomic_guid: 34ca1464-de9d-40c6-8c77-690adf36a135
+    import_timestamp: '2025-06-24T11:14:07.019704Z'

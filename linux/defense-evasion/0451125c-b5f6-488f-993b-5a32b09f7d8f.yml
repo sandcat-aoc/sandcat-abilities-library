@@ -1,0 +1,36 @@
+- id: 0451125c-b5f6-488f-993b-5a32b09f7d8f
+  name: chmod - Change file or folder mode (symbolic mode) recursively
+  description: Changes a file or folder's permissions recursively using chmod and
+    a specified symbolic mode.
+  tactic: defense-evasion
+  technique:
+    attack_id: T1222.002
+    name: 'File and Directory Permissions Modification: FreeBSD, Linux and Mac File
+      and Directory Permissions Modification'
+  platforms:
+    linux:
+      sh:
+        command: chmod -R a+w /tmp/AtomicRedTeam/atomics/T1222.002
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1222.002
+  - atomic-red-team
+  - defense-evasion
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      symbolic_mode:
+        description: Specified symbolic mode value
+        type: string
+        default: a+w
+      file_or_folder:
+        description: Path of the file or folder
+        type: path
+        default: /tmp/AtomicRedTeam/atomics/T1222.002
+    technique_created: '2020-02-04T19:24:27.774Z'
+    atomic_guid: 0451125c-b5f6-488f-993b-5a32b09f7d8f
+    import_timestamp: '2025-06-24T11:15:55.364626Z'

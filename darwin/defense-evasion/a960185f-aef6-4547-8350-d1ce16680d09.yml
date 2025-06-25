@@ -1,0 +1,29 @@
+- id: a960185f-aef6-4547-8350-d1ce16680d09
+  name: Detect Virtualization Environment via ioreg
+  description: ioreg contains registry entries for all the device drivers in the system.
+    If it's a virtual machine, one of the device manufacturer will be a Virtualization
+    Software.
+  tactic: defense-evasion
+  technique:
+    attack_id: T1497.001
+    name: 'Virtualization/Sandbox Evasion: System Checks'
+  platforms:
+    darwin:
+      sh:
+        command: if (ioreg -l | grep -e Manufacturer -e 'Vendor Name' | grep -iE 'Oracle|VirtualBox|VMWare|Parallels')
+          then echo 'Virtualization Environment detected'; fi;
+        elevation_required: false
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - defense-evasion
+  - atomic-red-team
+  - t1497.001
+  author: Atomic Red Team
+  additional_info:
+    technique_created: '2020-03-06T20:57:37.959Z'
+    atomic_guid: a960185f-aef6-4547-8350-d1ce16680d09
+    import_timestamp: '2025-06-24T11:14:07.063002Z'

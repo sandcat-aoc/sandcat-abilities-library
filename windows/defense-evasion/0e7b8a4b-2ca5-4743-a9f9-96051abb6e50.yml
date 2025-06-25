@@ -1,0 +1,35 @@
+- id: 0e7b8a4b-2ca5-4743-a9f9-96051abb6e50
+  name: Delete Microsoft Defender ASR Rules - GPO
+  description: This test simulates the deletion of the ASR rules loaded by Microsoft
+    Defender using the registry. Depending on the deployment, rules can be pushed
+    either using GPO or InTune, This test simulates a GPO-based rules deployment.
+  tactic: defense-evasion
+  technique:
+    attack_id: T1562.001
+    name: 'Impair Defenses: Disable or Modify Tools'
+  platforms:
+    windows:
+      psh:
+        command: '$registryPath = "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\Windows
+          Defender Exploit Guard\ASR\Rules"; if (-not (Test-Path $registryPath)) {;
+          New-Item -Path $registryPath -Force; Write-Host "Registry key created: $registryPath";
+          }; $newValueName = "36190899-1602-49e8-8b27-eb1d0a1ce869"; $newValueData
+          = "1"; New-ItemProperty -Path $registryPath -Name $newValueName -PropertyType
+          String -Value $newValueData -Force; Write-Host "Registry value created:
+          $newValueName with data $newValueData"; Remove-ItemProperty -Path $registryPath
+          -Name $newValueName; Write-Host "Registry value deleted: $newValueName"'
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1562.001
+  - atomic-red-team
+  - defense-evasion
+  author: Atomic Red Team
+  additional_info:
+    technique_created: '2020-02-21T20:32:20.810Z'
+    atomic_guid: 0e7b8a4b-2ca5-4743-a9f9-96051abb6e50
+    import_timestamp: '2025-06-24T11:15:01.123179Z'

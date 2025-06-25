@@ -1,0 +1,33 @@
+- id: 15e57006-79dd-46df-9bf9-31bc24fb5a80
+  name: Opening ports for proxy - HARDRAIN
+  description: 'This test creates a listening interface on a victim device. This tactic
+    was used by HARDRAIN for proxying.
+
+
+    reference: https://www.us-cert.gov/sites/default/files/publications/MAR-10135536-F.pdf'
+  tactic: defense-evasion
+  technique:
+    attack_id: T1562.004
+    name: 'Impair Defenses: Disable or Modify System Firewall'
+  platforms:
+    windows:
+      sh:
+        command: netsh advfirewall firewall add rule name="atomic testing" action=allow
+          dir=in protocol=TCP localport=450
+        cleanup: netsh advfirewall firewall delete rule name="atomic testing" protocol=TCP
+          localport=450 >nul 2>&1
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1562.004
+  - atomic-red-team
+  - defense-evasion
+  author: Atomic Red Team
+  additional_info:
+    technique_created: '2020-02-21T21:00:48.814Z'
+    atomic_guid: 15e57006-79dd-46df-9bf9-31bc24fb5a80
+    import_timestamp: '2025-06-24T11:15:00.388439Z'

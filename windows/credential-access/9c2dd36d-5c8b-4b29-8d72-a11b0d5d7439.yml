@@ -1,0 +1,34 @@
+- id: 9c2dd36d-5c8b-4b29-8d72-a11b0d5d7439
+  name: Access Saved Credentials via VaultCmd
+  description: 'List credentials currently stored in Windows Credential Manager via
+    the native Windows utility vaultcmd.exe
+
+    Credential Manager stores credentials for signing into websites, applications,
+    and/or devices that request authentication through NTLM or Kerberos
+
+    https://blog.malwarebytes.com/101/2016/01/the-windows-vaults/
+
+    https://medium.com/threatpunter/detecting-adversary-tradecraft-with-image-load-event-logging-and-eql-8de93338c16'
+  tactic: credential-access
+  technique:
+    attack_id: T1555.004
+    name: 'Credentials from Password Stores: Windows Credential Manager'
+  platforms:
+    windows:
+      sh:
+        command: vaultcmd /listcreds:"Windows Credentials"
+        elevation_required: false
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1555.004
+  - credential-access
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    technique_created: '2020-11-23T15:35:53.793Z'
+    atomic_guid: 9c2dd36d-5c8b-4b29-8d72-a11b0d5d7439
+    import_timestamp: '2025-06-24T11:15:06.807089Z'

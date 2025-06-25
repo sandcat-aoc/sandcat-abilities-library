@@ -1,0 +1,36 @@
+- id: 46959285-906d-40fa-9437-5a439accd878
+  name: Discover Private SSH Keys
+  description: Discover private SSH keys on a FreeBSD, macOS or Linux system.
+  tactic: credential-access
+  technique:
+    attack_id: T1552.004
+    name: 'Unsecured Credentials: Private Keys'
+  platforms:
+    darwin:
+      sh:
+        command: find / -name id_rsa 2>/dev/null >> /tmp/keyfile_locations.txt; exit
+          0
+        cleanup: 'rm #{output_file}'
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - credential-access
+  - t1552.004
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      search_path:
+        description: Path where to start searching from.
+        type: path
+        default: /
+      output_file:
+        description: Output file containing locations of SSH key files
+        type: path
+        default: /tmp/keyfile_locations.txt
+    technique_created: '2020-02-04T13:06:49.258Z'
+    atomic_guid: 46959285-906d-40fa-9437-5a439accd878
+    import_timestamp: '2025-06-24T11:14:07.674840Z'

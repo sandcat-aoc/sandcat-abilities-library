@@ -1,0 +1,35 @@
+- id: 542bb97e-da53-436b-8e43-e0a7d31a6c24
+  name: Create Volume Shadow Copy with Powershell
+  description: 'This test is intended to be run on a domain Controller.
+
+
+    The Active Directory database NTDS.dit may be dumped by copying it from a Volume
+    Shadow Copy.'
+  tactic: credential-access
+  technique:
+    attack_id: T1003.003
+    name: 'OS Credential Dumping: NTDS'
+  platforms:
+    windows:
+      psh:
+        command: (gwmi -list win32_shadowcopy).Create('C:\','ClientAccessible')
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1003.003
+  - credential-access
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      drive_letter:
+        description: Drive letter to source VSC (including colon)
+        type: string
+        default: C:\
+    technique_created: '2020-02-11T18:42:35.572Z'
+    atomic_guid: 542bb97e-da53-436b-8e43-e0a7d31a6c24
+    import_timestamp: '2025-06-24T11:15:06.852141Z'

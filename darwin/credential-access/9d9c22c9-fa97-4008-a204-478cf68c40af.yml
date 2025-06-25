@@ -1,0 +1,31 @@
+- id: 9d9c22c9-fa97-4008-a204-478cf68c40af
+  name: Find OCI credentials
+  description: Find local Oracle cloud credentials from file, defaults to using /
+    as the look path.
+  tactic: credential-access
+  technique:
+    attack_id: T1552.001
+    name: 'Unsecured Credentials: Credentials In Files'
+  platforms:
+    darwin:
+      sh:
+        command: find //.oci/sessions -name "token" -type f 2>/dev/null
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - credential-access
+  - t1552.001
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      file_path:
+        description: Path to search
+        type: string
+        default: /
+    technique_created: '2020-02-04T12:52:13.006Z'
+    atomic_guid: 9d9c22c9-fa97-4008-a204-478cf68c40af
+    import_timestamp: '2025-06-24T11:14:07.701764Z'

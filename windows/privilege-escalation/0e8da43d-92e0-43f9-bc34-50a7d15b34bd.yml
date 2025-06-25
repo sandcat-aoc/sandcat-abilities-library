@@ -1,0 +1,30 @@
+- id: 0e8da43d-92e0-43f9-bc34-50a7d15b34bd
+  name: 0e8da43d-92e0-43f9-bc34-50a7d15b34bd - Malicious Driver Deployment
+  description: 'Malicious driver: 0e8da43d-92e0-43f9-bc34-50a7d15b34bd
+
+    Category: vulnerable driver
+
+    Author: Nasreddine Bencherchali
+
+    Created: 2023-05-11
+
+    MITRE Technique: T1068'
+  tactic: privilege-escalation
+  technique:
+    attack_id: T1068
+    name: Rootkit
+  platforms:
+    windows:
+      cmd:
+        command: sc create MaliciousDriver binPath= "C:\Windows\System32\drivers\malicious_driver.sys"
+          type= kernel
+  singleton: true
+  privilege: Elevated
+  repeatable: false
+  buckets:
+  - privilege-escalation
+  version: '1.0'
+  author: Nasreddine Bencherchali
+  operating_system: Windows (Version Unspecified)
+  created: '2023-05-11'
+  modified: '2023-05-11'

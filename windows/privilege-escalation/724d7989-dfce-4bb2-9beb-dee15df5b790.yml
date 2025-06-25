@@ -1,0 +1,30 @@
+- id: 724d7989-dfce-4bb2-9beb-dee15df5b790
+  name: 724d7989-dfce-4bb2-9beb-dee15df5b790 - Malicious Driver Deployment
+  description: 'Malicious driver: 724d7989-dfce-4bb2-9beb-dee15df5b790
+
+    Category: vulnerable drivers
+
+    Author: Michael Haag
+
+    Created: 2023-07-22
+
+    MITRE Technique: T1068'
+  tactic: privilege-escalation
+  technique:
+    attack_id: T1068
+    name: Rootkit
+  platforms:
+    windows:
+      cmd:
+        command: sc create MaliciousDriver binPath= "C:\Windows\System32\drivers\malicious_driver.sys"
+          type= kernel
+  singleton: true
+  privilege: Elevated
+  repeatable: false
+  buckets:
+  - privilege-escalation
+  version: '1.0'
+  author: Michael Haag
+  operating_system: Windows (Version Unspecified)
+  created: '2023-07-22'
+  modified: '2023-07-22'

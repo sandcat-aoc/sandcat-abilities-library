@@ -1,0 +1,30 @@
+- id: 0144dbef-1da8-406c-8e35-7afee57dc471
+  name: 0144dbef-1da8-406c-8e35-7afee57dc471 - Malicious Driver Deployment
+  description: 'Malicious driver: 0144dbef-1da8-406c-8e35-7afee57dc471
+
+    Category: vulnerable driver
+
+    Author: Michael Haag
+
+    Created: 2025-03-26
+
+    MITRE Technique: T1068'
+  tactic: privilege-escalation
+  technique:
+    attack_id: T1068
+    name: Rootkit
+  platforms:
+    windows:
+      cmd:
+        command: sc create MaliciousDriver binPath= "C:\Windows\System32\drivers\malicious_driver.sys"
+          type= kernel
+  singleton: true
+  privilege: Elevated
+  repeatable: false
+  buckets:
+  - privilege-escalation
+  version: '1.0'
+  author: Michael Haag
+  operating_system: Windows (Version Unspecified)
+  created: '2025-03-26'
+  modified: '2025-03-26'

@@ -1,0 +1,30 @@
+- id: 82087b26-b649-4ad1-a353-3a225c757ff7
+  name: 82087b26-b649-4ad1-a353-3a225c757ff7 - Malicious Driver Deployment
+  description: 'Malicious driver: 82087b26-b649-4ad1-a353-3a225c757ff7
+
+    Category: malicious
+
+    Author: Michael Haag
+
+    Created: 2024-09-10
+
+    MITRE Technique: T1068'
+  tactic: privilege-escalation
+  technique:
+    attack_id: T1068
+    name: Rootkit
+  platforms:
+    windows:
+      cmd:
+        command: sc create MaliciousDriver binPath= "C:\Windows\System32\drivers\malicious_driver.sys"
+          type= kernel
+  singleton: true
+  privilege: Elevated
+  repeatable: false
+  buckets:
+  - privilege-escalation
+  version: '1.0'
+  author: Michael Haag
+  operating_system: Windows (Version Unspecified)
+  created: '2024-09-10'
+  modified: '2024-09-10'

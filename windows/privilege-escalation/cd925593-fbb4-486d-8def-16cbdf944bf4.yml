@@ -1,0 +1,56 @@
+- id: cd925593-fbb4-486d-8def-16cbdf944bf4
+  name: Import XML Schedule Task with Hidden Attribute
+  description: "Create an scheduled task that executes calc.exe after user login from\
+    \ XML that contains hidden setting attribute. \nThis technique was seen several\
+    \ times in tricbot malware and also with the targetted attack campaigne the industroyer2."
+  tactic: privilege-escalation
+  technique:
+    attack_id: T1053.005
+    name: 'Scheduled Task/Job: Scheduled Task'
+  platforms:
+    windows:
+      psh:
+        command: 'if (Test-Path "PathToAtomicsFolder\T1053.005\src\T1053_05_SCTASK_HIDDEN_ATTRIB.xml")
+          {exit 0} else {exit 1}; then : ; else New-Item -Type Directory (split-path
+          "PathToAtomicsFolder\T1053.005\src\T1053_05_SCTASK_HIDDEN_ATTRIB.xml") -ErrorAction
+          ignore | Out-Null; Invoke-WebRequest "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1053.005/src/T1053_05_SCTASK_HIDDEN_ATTRIB.xml"
+          -OutFile "PathToAtomicsFolder\T1053.005\src\T1053_05_SCTASK_HIDDEN_ATTRIB.xml";
+          fi; $xml = [System.IO.File]::ReadAllText("PathToAtomicsFolder\T1053.005\src\T1053_05_SCTASK_HIDDEN_ATTRIB.xml");
+          Invoke-CimMethod -ClassName PS_ScheduledTask -NameSpace "Root\Microsoft\Windows\TaskScheduler"
+          -MethodName "RegisterByXml" -Arguments @{ Force = $true; Xml =$xml; }'
+        cleanup: Unregister-ScheduledTask -TaskName "atomic red team" -confirm:$false
+          >$null 2>&1
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - privilege-escalation
+  - t1053.005
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      xml_path:
+        description: path of vbs to use when creating masquerading files
+        type: path
+        default: PathToAtomicsFolder\T1053.005\src\T1053_05_SCTASK_HIDDEN_ATTRIB.xml
+    dependencies:
+    - description: 'File to copy must exist on disk at specified location (#{xml_path})
+
+        '
+      prereq_command: 'if (Test-Path "#{xml_path}") {exit 0} else {exit 1}
+
+        '
+      get_prereq_command: 'New-Item -Type Directory (split-path "#{xml_path}") -ErrorAction
+        ignore | Out-Null
+
+        Invoke-WebRequest "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1053.005/src/T1053_05_SCTASK_HIDDEN_ATTRIB.xml"
+        -OutFile "#{xml_path}"
+
+        '
+    technique_created: '2019-11-27T14:58:00.429Z'
+    atomic_guid: cd925593-fbb4-486d-8def-16cbdf944bf4
+    import_timestamp: '2025-06-24T11:15:01.588470Z'

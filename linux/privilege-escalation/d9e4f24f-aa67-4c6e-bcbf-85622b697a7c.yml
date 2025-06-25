@@ -1,0 +1,75 @@
+- id: d9e4f24f-aa67-4c6e-bcbf-85622b697a7c
+  name: Create Systemd Service
+  description: This test creates a Systemd service unit file and enables it as a service.
+  tactic: privilege-escalation
+  technique:
+    attack_id: T1543.002
+    name: 'Create or Modify System Process: SysV/Systemd Service'
+  platforms:
+    linux:
+      sh:
+        command: echo "[Unit]" > /etc/systemd/system/art-systemd-service.service;
+          echo "Description=Atomic Red Team Systemd Service" >> /etc/systemd/system/art-systemd-service.service;
+          echo "" >> /etc/systemd/system/art-systemd-service.service; echo "[Service]"
+          >> /etc/systemd/system/art-systemd-service.service; echo "Type=simple";
+          echo "ExecStart=/bin/touch /tmp/art-systemd-execstart-marker" >> /etc/systemd/system/art-systemd-service.service;
+          echo "ExecStartPre=/bin/touch /tmp/art-systemd-execstartpre-marker" >> /etc/systemd/system/art-systemd-service.service;
+          echo "ExecStartPost=/bin/touch /tmp/art-systemd-execstartpost-marker" >>
+          /etc/systemd/system/art-systemd-service.service; echo "ExecReload=/bin/touch
+          /tmp/art-systemd-execreload-marker" >> /etc/systemd/system/art-systemd-service.service;
+          echo "ExecStop=/bin/touch /tmp/art-systemd-execstop-marker" >> /etc/systemd/system/art-systemd-service.service;
+          echo "ExecStopPost=/bin/touch /tmp/art-systemd-execstoppost-marker" >> /etc/systemd/system/art-systemd-service.service;
+          echo "" >> /etc/systemd/system/art-systemd-service.service; echo "[Install]"
+          >> /etc/systemd/system/art-systemd-service.service; echo "WantedBy=default.target"
+          >> /etc/systemd/system/art-systemd-service.service; systemctl daemon-reload;
+          systemctl enable art-systemd-service.service; systemctl start art-systemd-service.service
+        cleanup: 'systemctl stop #{systemd_service_file}; systemctl disable #{systemd_service_file};
+          rm -rf #{systemd_service_path}/#{systemd_service_file}; systemctl daemon-reload'
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - privilege-escalation
+  - t1543.002
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      systemd_service_path:
+        description: Path to systemd service unit file
+        type: path
+        default: /etc/systemd/system
+      systemd_service_file:
+        description: File name of systemd service unit file
+        type: string
+        default: art-systemd-service.service
+      execstoppost_action:
+        description: ExecStopPost action for Systemd service
+        type: string
+        default: /bin/touch /tmp/art-systemd-execstoppost-marker
+      execreload_action:
+        description: ExecReload action for Systemd service
+        type: string
+        default: /bin/touch /tmp/art-systemd-execreload-marker
+      execstart_action:
+        description: ExecStart action for Systemd service
+        type: string
+        default: /bin/touch /tmp/art-systemd-execstart-marker
+      execstop_action:
+        description: ExecStop action for Systemd service
+        type: string
+        default: /bin/touch /tmp/art-systemd-execstop-marker
+      execstartpre_action:
+        description: ExecStartPre action for Systemd service
+        type: string
+        default: /bin/touch /tmp/art-systemd-execstartpre-marker
+      execstartpost_action:
+        description: ExecStartPost action for Systemd service
+        type: string
+        default: /bin/touch /tmp/art-systemd-execstartpost-marker
+    technique_created: '2020-01-17T16:15:19.870Z'
+    atomic_guid: d9e4f24f-aa67-4c6e-bcbf-85622b697a7c
+    import_timestamp: '2025-06-24T11:15:55.935307Z'

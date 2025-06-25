@@ -1,0 +1,30 @@
+- id: ea0e7351-b65c-4c5a-9863-83b9d5efcec3
+  name: ea0e7351-b65c-4c5a-9863-83b9d5efcec3 - Malicious Driver Deployment
+  description: 'Malicious driver: ea0e7351-b65c-4c5a-9863-83b9d5efcec3
+
+    Category: vulnerable
+
+    Author: Northwave Cyber Security
+
+    Created: 2024-09-11
+
+    MITRE Technique: T1068'
+  tactic: privilege-escalation
+  technique:
+    attack_id: T1068
+    name: Rootkit
+  platforms:
+    windows:
+      cmd:
+        command: sc create MaliciousDriver binPath= "C:\Windows\System32\drivers\malicious_driver.sys"
+          type= kernel
+  singleton: true
+  privilege: Elevated
+  repeatable: false
+  buckets:
+  - privilege-escalation
+  version: '1.0'
+  author: Northwave Cyber Security
+  operating_system: Windows (Version Unspecified)
+  created: '2024-09-11'
+  modified: '2024-09-11'

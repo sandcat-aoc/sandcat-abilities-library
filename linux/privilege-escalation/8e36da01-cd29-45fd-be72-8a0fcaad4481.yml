@@ -1,0 +1,26 @@
+- id: 8e36da01-cd29-45fd-be72-8a0fcaad4481
+  name: Do reconnaissance for files that have the setuid bit set
+  description: This test simulates a command that can be run to enumerate files that
+    have the setuid bit set
+  tactic: privilege-escalation
+  technique:
+    attack_id: T1548.001
+    name: 'Abuse Elevation Control Mechanism: Setuid and Setgid'
+  platforms:
+    linux:
+      sh:
+        command: find /usr/bin -perm -4000
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1548.001
+  - privilege-escalation
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    technique_created: '2020-01-30T14:11:41.212Z'
+    atomic_guid: 8e36da01-cd29-45fd-be72-8a0fcaad4481
+    import_timestamp: '2025-06-24T11:15:55.885422Z'

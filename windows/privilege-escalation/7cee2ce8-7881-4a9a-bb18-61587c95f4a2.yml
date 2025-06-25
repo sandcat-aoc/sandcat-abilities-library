@@ -1,0 +1,30 @@
+- id: 7cee2ce8-7881-4a9a-bb18-61587c95f4a2
+  name: 7cee2ce8-7881-4a9a-bb18-61587c95f4a2 - Malicious Driver Deployment
+  description: 'Malicious driver: 7cee2ce8-7881-4a9a-bb18-61587c95f4a2
+
+    Category: vulnerable driver
+
+    Author: Wack0
+
+    Created: 2023-11-30
+
+    MITRE Technique: T1068'
+  tactic: privilege-escalation
+  technique:
+    attack_id: T1068
+    name: Rootkit
+  platforms:
+    windows:
+      cmd:
+        command: sc create MaliciousDriver binPath= "C:\Windows\System32\drivers\malicious_driver.sys"
+          type= kernel
+  singleton: true
+  privilege: Elevated
+  repeatable: false
+  buckets:
+  - privilege-escalation
+  version: '1.0'
+  author: Wack0
+  operating_system: Windows (Version Unspecified)
+  created: '2023-11-30'
+  modified: '2023-11-30'

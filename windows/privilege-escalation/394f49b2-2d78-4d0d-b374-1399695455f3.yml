@@ -1,0 +1,30 @@
+- id: 394f49b2-2d78-4d0d-b374-1399695455f3
+  name: 394f49b2-2d78-4d0d-b374-1399695455f3 - Malicious Driver Deployment
+  description: 'Malicious driver: 394f49b2-2d78-4d0d-b374-1399695455f3
+
+    Category: vulnerable driver
+
+    Author: Nasreddine Bencherchali
+
+    Created: 2024-08-21
+
+    MITRE Technique: T1068'
+  tactic: privilege-escalation
+  technique:
+    attack_id: T1068
+    name: Rootkit
+  platforms:
+    windows:
+      cmd:
+        command: sc create MaliciousDriver binPath= "C:\Windows\System32\drivers\malicious_driver.sys"
+          type= kernel
+  singleton: true
+  privilege: Elevated
+  repeatable: false
+  buckets:
+  - privilege-escalation
+  version: '1.0'
+  author: Nasreddine Bencherchali
+  operating_system: Windows (Version Unspecified)
+  created: '2024-08-21'
+  modified: '2024-08-21'

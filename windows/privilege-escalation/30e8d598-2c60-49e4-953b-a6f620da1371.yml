@@ -1,0 +1,30 @@
+- id: 30e8d598-2c60-49e4-953b-a6f620da1371
+  name: 30e8d598-2c60-49e4-953b-a6f620da1371 - Malicious Driver Deployment
+  description: 'Malicious driver: 30e8d598-2c60-49e4-953b-a6f620da1371
+
+    Category: vulnerable
+
+    Author: Northwave Cyber Security
+
+    Created: 2024-09-11
+
+    MITRE Technique: T1068'
+  tactic: privilege-escalation
+  technique:
+    attack_id: T1068
+    name: Rootkit
+  platforms:
+    windows:
+      cmd:
+        command: sc create MaliciousDriver binPath= "C:\Windows\System32\drivers\malicious_driver.sys"
+          type= kernel
+  singleton: true
+  privilege: Elevated
+  repeatable: false
+  buckets:
+  - privilege-escalation
+  version: '1.0'
+  author: Northwave Cyber Security
+  operating_system: Windows (Version Unspecified)
+  created: '2024-09-11'
+  modified: '2024-09-11'

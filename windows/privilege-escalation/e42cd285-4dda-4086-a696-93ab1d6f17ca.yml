@@ -1,0 +1,30 @@
+- id: e42cd285-4dda-4086-a696-93ab1d6f17ca
+  name: e42cd285-4dda-4086-a696-93ab1d6f17ca - Malicious Driver Deployment
+  description: 'Malicious driver: e42cd285-4dda-4086-a696-93ab1d6f17ca
+
+    Category: vulnerable driver
+
+    Author: Michael Haag
+
+    Created: 2023-01-09
+
+    MITRE Technique: T1068'
+  tactic: privilege-escalation
+  technique:
+    attack_id: T1068
+    name: Rootkit
+  platforms:
+    windows:
+      cmd:
+        command: sc create MaliciousDriver binPath= "C:\Windows\System32\drivers\malicious_driver.sys"
+          type= kernel
+  singleton: true
+  privilege: Elevated
+  repeatable: false
+  buckets:
+  - privilege-escalation
+  version: '1.0'
+  author: Michael Haag
+  operating_system: Windows (Version Unspecified)
+  created: '2023-01-09'
+  modified: '2023-01-09'

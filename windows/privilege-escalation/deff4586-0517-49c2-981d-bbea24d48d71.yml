@@ -1,0 +1,47 @@
+- id: deff4586-0517-49c2-981d-bbea24d48d71
+  name: HKLM - Add atomic_test key to launch executable as part of user setup
+  description: "This test will create an \"atomic_test\" key under 'HKLM:\\SOFTWARE\\\
+    Microsoft\\Active Setup\\Installed Components' to launch calc by configuring an\
+    \ active setup executable and \nforcing to run active setup using the \"runonce.exe\
+    \ /AlternateShellStartup\" command. \nWithout the \"runonce.exe /AlternateShellStartup\"\
+    \ command it would run during the next logon for each user.\n\nNote: If you logout\
+    \ before running the cleanup command, you will be required to go through the OOBE\
+    \ (out-of-box experience) setup sequence to log back in. \nThe payload will only\
+    \ run once unless the cleanup command is run in between tests.\n\n[Active Setup\
+    \ Explained](https://helgeklein.com/blog/active-setup-explained/)"
+  tactic: privilege-escalation
+  technique:
+    attack_id: T1547.014
+    name: Active Setup
+  platforms:
+    windows:
+      psh:
+        command: New-Item "HKLM:\SOFTWARE\Microsoft\Active Setup\Installed Components"
+          -Name "atomic_test" -Force; Set-ItemProperty "HKLM:\SOFTWARE\Microsoft\Active
+          Setup\Installed Components\atomic_test" "(Default)" "ART TEST" -Force; Set-ItemProperty
+          "HKLM:\SOFTWARE\Microsoft\Active Setup\Installed Components\atomic_test"
+          "StubPath" "C:\Windows\System32\calc.exe" -Force; & $env:SYSTEMROOT\system32\runonce.exe
+          /AlternateShellStartup
+        cleanup: Remove-Item "HKLM:\SOFTWARE\Microsoft\Active Setup\Installed Components\atomic_test"
+          -Force -ErrorAction Ignore; Remove-Item "HKCU:\SOFTWARE\Microsoft\Active
+          Setup\Installed Components\atomic_test" -Force -ErrorAction Ignore
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1547.014
+  - privilege-escalation
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      payload:
+        description: Payload to run once during login
+        type: string
+        default: C:\Windows\System32\calc.exe
+    technique_created: '2020-12-18T16:33:13.098Z'
+    atomic_guid: deff4586-0517-49c2-981d-bbea24d48d71
+    import_timestamp: '2025-06-24T11:15:01.788790Z'

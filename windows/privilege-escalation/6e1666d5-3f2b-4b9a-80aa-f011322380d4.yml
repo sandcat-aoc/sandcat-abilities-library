@@ -1,0 +1,39 @@
+- id: 6e1666d5-3f2b-4b9a-80aa-f011322380d4
+  name: Creating Boot Verification Program Key for application execution during successful
+    boot
+  description: "Microsoft allows users to define a custom boot verification program\
+    \ for those situations by creating the registry key \u201CHKLM\\System\\CurrentControlSet\\\
+    Control\\BootVerificationProgram\u201D and setting the value of ImagePath to the\
+    \ path of boot verification program.Threat Actor\ncan abuse by creating this registry\
+    \ key and providing a malicious application to be executed during successful boot"
+  tactic: privilege-escalation
+  technique:
+    attack_id: T1547.001
+    name: 'Boot or Logon Autostart Execution: Registry Run Keys / Startup Folder'
+  platforms:
+    windows:
+      sh:
+        command: reg add HKLM\System\CurrentControlSet\Control\BootVerificationProgram
+          /v ImagePath /t REG_SZ /d "C:\Program Files\Internet Explorer\iexplore.exe"
+        cleanup: reg delete HKLM\System\CurrentControlSet\Control\BootVerificationProgram
+          /f
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - privilege-escalation
+  - t1547.001
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      malicious_file:
+        description: Application to be executed during successful boot
+        type: string
+        default: C:\Program Files\Internet Explorer\iexplore.exe
+    technique_created: '2020-01-23T22:02:48.566Z'
+    atomic_guid: 6e1666d5-3f2b-4b9a-80aa-f011322380d4
+    import_timestamp: '2025-06-24T11:15:02.548014Z'

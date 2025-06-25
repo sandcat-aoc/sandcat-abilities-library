@@ -1,0 +1,27 @@
+- id: 0833d52c-c39e-bf0f-d483-19fbbf4f53aa
+  name: scutil - DNS configuration
+  description: Get the current DNS configuration of the systems
+  tactic: discovery
+  technique:
+    attack_id: T1016
+    name: System Network Configuration Discovery
+  platforms:
+    darwin:
+      sh:
+        command: scutil --dns
+  singleton: false
+  privilege: User
+  repeatable: true
+  delete_payload: true
+  buckets:
+  - loobins
+  - scutil
+  - discovery
+  version: '1.0'
+  author: LOOBins Project
+  additional_info:
+    loobins_tool: scutil
+    use_case: DNS configuration
+    source_file: scutil.yml
+    source_repository: https://github.com/infosecB/LOOBins
+    import_timestamp: '2025-06-24T09:00:11.364915Z'

@@ -1,0 +1,27 @@
+- id: 50c90b62-c0b8-04bc-c890-877e4c06410c
+  name: dsconfigad - Retrieves the Active Directory name
+  description: Retrieves the Active Directory name
+  tactic: discovery
+  technique:
+    attack_id: T1016
+    name: System Network Configuration Discovery
+  platforms:
+    darwin:
+      sh:
+        command: dsconfigad -show |awk '/Active Directory Domain/{print $NF}'
+  singleton: false
+  privilege: User
+  repeatable: true
+  delete_payload: true
+  buckets:
+  - loobins
+  - dsconfigad
+  - discovery
+  version: '1.0'
+  author: LOOBins Project
+  additional_info:
+    loobins_tool: dsconfigad
+    use_case: Retrieves the Active Directory name
+    source_file: dsconfigad.yml
+    source_repository: https://github.com/infosecB/LOOBins
+    import_timestamp: '2025-06-24T09:00:11.326949Z'

@@ -1,0 +1,86 @@
+- id: 515942b0-a09f-4163-a7bb-22fefb6f185f
+  name: Port Scan Nmap
+  description: 'Scan ports to check for listening ports with Nmap.
+
+    Upon successful execution, sh will utilize nmap, telnet, and nc to contact a single
+    or range of addresses on port 80 to determine if listening. Results will be via
+    stdout.'
+  tactic: discovery
+  technique:
+    attack_id: T1046
+    name: Network Service Discovery
+  platforms:
+    linux:
+      sh:
+        command: 'if [ -x "$(command -v nmap)" ]; then : ; else (which yum && yum
+          -y install epel-release nmap)||(which apt-get && DEBIAN_FRONTEND=noninteractive
+          apt-get install -y nmap)||(which pkg && pkg install -y nmap); fi; if [ -x
+          "$(command -v nc)" ]; then : ; else (which yum && yum -y install epel-release
+          nc)||(which apt-get && DEBIAN_FRONTEND=noninteractive apt-get install -y
+          netcat)||(which pkg && pkg install -y netcat); fi; if [ -x "$(command -v
+          telnet)" ]; then : ; else (which yum && yum -y install epel-release telnet)||(which
+          apt-get && DEBIAN_FRONTEND=noninteractive apt-get install -y telnet); fi;
+          sudo nmap -sS 192.168.1.0/24 -p 80; telnet 192.168.1.1 80; nc -nv 192.168.1.1
+          80'
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - discovery
+  - atomic-red-team
+  - t1046
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      host:
+        description: Host to scan.
+        type: string
+        default: 192.168.1.1
+      port:
+        description: Ports to scan.
+        type: string
+        default: '80'
+      network_range:
+        description: Network Range to Scan.
+        type: string
+        default: 192.168.1.0/24
+    dependencies:
+    - description: 'Check if nmap command exists on the machine
+
+        '
+      prereq_command: 'if [ -x "$(command -v nmap)" ]; then exit 0; else exit 1; fi;
+
+        '
+      get_prereq_command: '(which yum && yum -y install epel-release nmap)||(which
+        apt-get && DEBIAN_FRONTEND=noninteractive apt-get install -y nmap)||(which
+        pkg && pkg install -y nmap)
+
+        '
+    - description: 'Check if nc command exists on the machine
+
+        '
+      prereq_command: 'if [ -x "$(command -v nc)" ]; then exit 0; else exit 1; fi;
+
+        '
+      get_prereq_command: '(which yum && yum -y install epel-release nc)||(which apt-get
+        && DEBIAN_FRONTEND=noninteractive apt-get install -y netcat)||(which pkg &&
+        pkg install -y netcat)
+
+        '
+    - description: 'Check if telnet command exists on the machine
+
+        '
+      prereq_command: 'if [ -x "$(command -v telnet)" ]; then exit 0; else exit 1;
+        fi;
+
+        '
+      get_prereq_command: '(which yum && yum -y install epel-release telnet)||(which
+        apt-get && DEBIAN_FRONTEND=noninteractive apt-get install -y telnet)
+
+        '
+    technique_created: '2017-05-31T21:30:43.915Z'
+    atomic_guid: 515942b0-a09f-4163-a7bb-22fefb6f185f
+    import_timestamp: '2025-06-24T11:15:56.722593Z'

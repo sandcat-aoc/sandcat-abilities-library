@@ -1,0 +1,28 @@
+- id: 36a35fef-e9f5-478b-d2d4-af400e7a64d6
+  name: system_profiler - Print power and battery information
+  description: Prints power and battery information, including the current AC wattage and battery cycle
+    count.
+  tactic: discovery
+  technique:
+    attack_id: T1082
+    name: System Information Discovery
+  platforms:
+    darwin:
+      sh:
+        command: system_profiler SPPowerDataType
+  singleton: false
+  privilege: User
+  repeatable: true
+  delete_payload: true
+  buckets:
+  - loobins
+  - system_profiler
+  - discovery
+  version: '1.0'
+  author: LOOBins Project
+  additional_info:
+    loobins_tool: system_profiler
+    use_case: Print power and battery information
+    source_file: system_profiler.yml
+    source_repository: https://github.com/infosecB/LOOBins
+    import_timestamp: '2025-06-24T09:00:11.504693Z'

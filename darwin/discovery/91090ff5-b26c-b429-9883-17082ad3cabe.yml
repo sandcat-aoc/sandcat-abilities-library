@@ -1,0 +1,29 @@
+- id: 91090ff5-b26c-b429-9883-17082ad3cabe
+  name: ioreg - Use ioreg to check USB device vendor names
+  description: Grep for "USB Vendor Name" values to view USB vendor names. On virtualized hardware these
+    values may contain the hypervisor name such as "VirtualBox". This is an additional way to check for
+    virtualization.
+  tactic: discovery
+  technique:
+    attack_id: T1082
+    name: System Information Discovery
+  platforms:
+    darwin:
+      sh:
+        command: ioreg -rd1 -c IOUSBHostDevice
+  singleton: false
+  privilege: User
+  repeatable: true
+  delete_payload: true
+  buckets:
+  - loobins
+  - ioreg
+  - discovery
+  version: '1.0'
+  author: LOOBins Project
+  additional_info:
+    loobins_tool: ioreg
+    use_case: Use ioreg to check USB device vendor names
+    source_file: ioreg.yml
+    source_repository: https://github.com/infosecB/LOOBins
+    import_timestamp: '2025-06-24T09:00:11.307483Z'

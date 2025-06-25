@@ -1,0 +1,28 @@
+- id: 69f625ba-938f-4900-bdff-82ada3df5d9c
+  name: Discover System Language with dism.exe
+  description: The Windows utility DISM (Deployment Image Servicing and Management)
+    can be used to display information about international settings and languages
+    on the currently installed Windows image using an elevated terminal.
+  tactic: discovery
+  technique:
+    attack_id: T1614.001
+    name: 'System Location Discovery: System Language Discovery'
+  platforms:
+    windows:
+      sh:
+        command: dism.exe /online /Get-Intl
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1614.001
+  - discovery
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    technique_created: '2021-08-18T14:06:45.244Z'
+    atomic_guid: 69f625ba-938f-4900-bdff-82ada3df5d9c
+    import_timestamp: '2025-06-24T11:15:07.515557Z'

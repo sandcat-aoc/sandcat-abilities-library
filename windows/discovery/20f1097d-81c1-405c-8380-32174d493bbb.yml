@@ -1,0 +1,33 @@
+- id: 20f1097d-81c1-405c-8380-32174d493bbb
+  name: Network Share Discovery command prompt
+  description: 'Network Share Discovery utilizing the command prompt. The computer
+    name variable may need to be modified to point to a different host
+
+    Upon execution available network shares will be displayed in the powershell session'
+  tactic: discovery
+  technique:
+    attack_id: T1135
+    name: Network Share Discovery
+  platforms:
+    windows:
+      sh:
+        command: net view \\localhost
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1135
+  - discovery
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      computer_name:
+        description: Computer name to find a mount on.
+        type: string
+        default: localhost
+    technique_created: '2017-12-14T16:46:06.044Z'
+    atomic_guid: 20f1097d-81c1-405c-8380-32174d493bbb
+    import_timestamp: '2025-06-24T11:15:07.207436Z'

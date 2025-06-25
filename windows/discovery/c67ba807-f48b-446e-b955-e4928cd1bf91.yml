@@ -1,0 +1,30 @@
+- id: c67ba807-f48b-446e-b955-e4928cd1bf91
+  name: Windows Internal pktmon capture
+  description: 'Will start a packet capture and store log file as t1040.etl.
+
+    https://lolbas-project.github.io/lolbas/Binaries/Pktmon/'
+  tactic: discovery
+  technique:
+    attack_id: T1040
+    name: Network Sniffing
+  platforms:
+    windows:
+      sh:
+        command: pktmon.exe start --etw  -f %TEMP%\t1040.etl; TIMEOUT /T 5 >nul 2>&1;
+          pktmon.exe stop
+        cleanup: del %TEMP%\t1040.etl
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1040
+  - discovery
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    technique_created: '2017-05-31T21:30:41.399Z'
+    atomic_guid: c67ba807-f48b-446e-b955-e4928cd1bf91
+    import_timestamp: '2025-06-24T11:15:07.199582Z'

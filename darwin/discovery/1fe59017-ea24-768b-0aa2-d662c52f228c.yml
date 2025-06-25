@@ -1,0 +1,27 @@
+- id: 1fe59017-ea24-768b-0aa2-d662c52f228c
+  name: system_profiler - Listing the available datatypes
+  description: List all available sub-systems to get information from.
+  tactic: discovery
+  technique:
+    attack_id: T1082
+    name: System Information Discovery
+  platforms:
+    darwin:
+      sh:
+        command: system_profiler -listDataTypes
+  singleton: false
+  privilege: User
+  repeatable: true
+  delete_payload: true
+  buckets:
+  - loobins
+  - system_profiler
+  - discovery
+  version: '1.0'
+  author: LOOBins Project
+  additional_info:
+    loobins_tool: system_profiler
+    use_case: Listing the available datatypes
+    source_file: system_profiler.yml
+    source_repository: https://github.com/infosecB/LOOBins
+    import_timestamp: '2025-06-24T09:00:11.493351Z'

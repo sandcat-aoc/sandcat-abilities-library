@@ -1,0 +1,31 @@
+- id: 6beae646-eb4c-4730-95be-691a4094408c
+  name: Detect Virtualization Environment using sysctl (hw.model)
+  description: 'sysctl hw.model will return the model name of the hardware(Macmini8,1,
+    MacBookAir10,1, etc.) in case of native Apple hardware
+
+    but will return the hypervisor name (VMware7,0).
+
+    Reference: https://evasions.checkpoint.com/src/MacOS/macos.html#hardware-model'
+  tactic: discovery
+  technique:
+    attack_id: T1497.001
+    name: 'Virtualization/Sandbox Evasion: System Checks'
+  platforms:
+    darwin:
+      sh:
+        command: if [ "$(sysctl -n hw.model | grep -v 'Mac')" != "" ]; then echo 'Virtualization
+          Environment detected'; fi;
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - discovery
+  - atomic-red-team
+  - t1497.001
+  author: Atomic Red Team
+  additional_info:
+    technique_created: '2020-03-06T20:57:37.959Z'
+    atomic_guid: 6beae646-eb4c-4730-95be-691a4094408c
+    import_timestamp: '2025-06-24T11:14:07.732021Z'

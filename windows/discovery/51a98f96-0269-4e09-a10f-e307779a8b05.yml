@@ -1,0 +1,39 @@
+- id: 51a98f96-0269-4e09-a10f-e307779a8b05
+  name: Suspicious LAPS Attributes Query with adfind ms-Mcs-AdmPwd
+  description: This test executes LDAP query using adfind command and lists Microsoft
+    LAPS attributes ms-mcs-AdmPwd and ms-mcs-AdmPwdExpirationTime
+  tactic: discovery
+  technique:
+    attack_id: T1087.002
+    name: 'Account Discovery: Domain Account'
+  platforms:
+    windows:
+      psh:
+        command: '& "PathToAtomicsFolder\..\ExternalPayloads\AdFind.exe" #{optional_args}
+          -h $env:USERDOMAIN -s subtree -f "objectclass=computer" ms-Mcs-AdmPwd, ms-Mcs-AdmPwdExpirationTime'
+        elevation_required: false
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1087.002
+  - discovery
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      optional_args:
+        description: Allows defining arguments to add to the adfind command to tailor
+          it to the specific needs of the environment. Use "-arg" notation to add
+          arguments separated by spaces.
+        type: string
+        default: null
+      domain:
+        description: Domain of the host
+        type: string
+        default: $env:USERDOMAIN
+    technique_created: '2020-02-21T21:08:26.480Z'
+    atomic_guid: 51a98f96-0269-4e09-a10f-e307779a8b05
+    import_timestamp: '2025-06-24T11:15:07.099554Z'

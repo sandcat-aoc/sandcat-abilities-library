@@ -1,0 +1,28 @@
+- id: c054888b-d386-3771-78d3-7f9391397a94
+  name: last - Enumerate all user accounts that have logged into the system previously.
+  description: The last command can be used to output users who have previously logged in, by specifying
+    the tty interface 'console'.
+  tactic: discovery
+  technique:
+    attack_id: T1033
+    name: System Owner/User Discovery
+  platforms:
+    darwin:
+      sh:
+        command: last -t console
+  singleton: false
+  privilege: User
+  repeatable: true
+  delete_payload: true
+  buckets:
+  - loobins
+  - last
+  - discovery
+  version: '1.0'
+  author: LOOBins Project
+  additional_info:
+    loobins_tool: last
+    use_case: Enumerate all user accounts that have logged into the system previously.
+    source_file: last.yml
+    source_repository: https://github.com/infosecB/LOOBins
+    import_timestamp: '2025-06-24T09:00:11.483722Z'

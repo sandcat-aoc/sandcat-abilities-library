@@ -1,0 +1,55 @@
+- id: ea1b4f2d-5b82-4006-b64f-f2845608a3bf
+  name: TruffleSnout - Listing AD Infrastructure
+  description: Iterative AD discovery toolkit for offensive operators. Situational
+    awareness and targeted low noise enumeration. Preference for OpSec.- https://github.com/dsnezhkov/TruffleSnout
+  tactic: discovery
+  technique:
+    attack_id: T1482
+    name: Domain Trust Discovery
+  platforms:
+    windows:
+      sh:
+        command: 'if (Test-Path "PathToAtomicsFolder\..\ExternalPayloads\TruffleSnout.exe")
+          {exit 0} else {exit 1}; then : ; else New-Item -ItemType Directory (Split-Path
+          "PathToAtomicsFolder\..\ExternalPayloads\TruffleSnout.exe") -Force | Out-Null;
+          Invoke-WebRequest -Uri "https://github.com/dsnezhkov/TruffleSnout/releases/download/0.5/TruffleSnout.exe"
+          -OutFile "PathToAtomicsFolder\..\ExternalPayloads\TruffleSnout.exe"; fi;
+          "PathToAtomicsFolder\..\ExternalPayloads\TruffleSnout.exe" forest -n %userdomain%;
+          "PathToAtomicsFolder\..\ExternalPayloads\TruffleSnout.exe" domain -n %userdomain%'
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1482
+  - discovery
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      trufflesnout_path:
+        description: Path to the TruffleSnout executable
+        type: path
+        default: PathToAtomicsFolder\..\ExternalPayloads\TruffleSnout.exe
+      domain:
+        description: Domain name to search on
+        type: string
+        default: '%userdomain%'
+    dependencies:
+    - description: 'TruffleSnout.exe must exist on disk at specified location (#{trufflesnout_path})
+
+        '
+      prereq_command: 'if (Test-Path "#{trufflesnout_path}") {exit 0} else {exit 1}
+
+        '
+      get_prereq_command: 'New-Item -ItemType Directory (Split-Path "#{trufflesnout_path}")
+        -Force | Out-Null
+
+        Invoke-WebRequest -Uri "https://github.com/dsnezhkov/TruffleSnout/releases/download/0.5/TruffleSnout.exe"
+        -OutFile "#{trufflesnout_path}"
+
+        '
+    technique_created: '2019-02-14T16:15:05.974Z'
+    atomic_guid: ea1b4f2d-5b82-4006-b64f-f2845608a3bf
+    import_timestamp: '2025-06-24T11:15:07.410633Z'

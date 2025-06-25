@@ -1,0 +1,54 @@
+- id: 69bd4abe-8759-49a6-8d21-0f15822d6370
+  name: Griffon Recon
+  description: "This script emulates the reconnaissance script seen in used by Griffon\
+    \ and was modified by security researcher Kirk Sayre \nin order simply print the\
+    \ recon results to the screen as opposed to exfiltrating them. [Script](https://gist.github.com/kirk-sayre-work/7cb5bf4e2c7c77fa5684ddc17053f1e5).\
+    \  \nFor more information see also [https://malpedia.caad.fkie.fraunhofer.de/details/js.griffon](https://malpedia.caad.fkie.fraunhofer.de/details/js.griffon)\
+    \ and [https://attack.mitre.org/software/S0417/](https://attack.mitre.org/software/S0417/)"
+  tactic: discovery
+  technique:
+    attack_id: T1082
+    name: System Information Discovery
+  platforms:
+    windows:
+      psh:
+        command: 'if (Test-Path "PathToAtomicsFolder\T1082\src\griffon_recon.vbs")
+          {exit 0} else {exit 1}; then : ; else New-Item -Type Directory (split-path
+          "PathToAtomicsFolder\T1082\src\griffon_recon.vbs") -ErrorAction ignore |
+          Out-Null; Invoke-WebRequest "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1082/src/griffon_recon.vbs"
+          -OutFile "PathToAtomicsFolder\T1082\src\griffon_recon.vbs"; fi; cscript
+          "PathToAtomicsFolder\T1082\src\griffon_recon.vbs"'
+        elevation_required: false
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1082
+  - discovery
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      vbscript:
+        description: Path to sample script
+        type: string
+        default: PathToAtomicsFolder\T1082\src\griffon_recon.vbs
+    dependencies:
+    - description: 'Sample script file must exist on disk at specified location (#{vbscript})
+
+        '
+      prereq_command: 'if (Test-Path "#{vbscript}") {exit 0} else {exit 1}
+
+        '
+      get_prereq_command: 'New-Item -Type Directory (split-path "#{vbscript}") -ErrorAction
+        ignore | Out-Null
+
+        Invoke-WebRequest "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1082/src/griffon_recon.vbs"
+        -OutFile "#{vbscript}"
+
+        '
+    technique_created: '2017-05-31T21:31:04.307Z'
+    atomic_guid: 69bd4abe-8759-49a6-8d21-0f15822d6370
+    import_timestamp: '2025-06-24T11:15:07.257069Z'

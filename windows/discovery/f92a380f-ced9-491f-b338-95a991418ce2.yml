@@ -1,0 +1,40 @@
+- id: f92a380f-ced9-491f-b338-95a991418ce2
+  name: Security Software Discovery
+  description: 'Methods to identify Security Software on an endpoint
+
+
+    when sucessfully executed, the test is going to display running processes, firewall
+    configuration on network profiles
+
+    and specific security software.'
+  tactic: discovery
+  technique:
+    attack_id: T1518.001
+    name: 'Software Discovery: Security Software Discovery'
+  platforms:
+    windows:
+      sh:
+        command: netsh.exe advfirewall  show allprofiles; netsh.exe advfirewall firewall
+          dump; netsh.exe advfirewall show currentprofile; netsh.exe advfirewall firewall
+          show rule name=all; netsh.exe firewall show state; netsh.exe firewall show
+          config; sc query windefend; powershell.exe /c "Get-Process | Where-Object
+          { $_.ProcessName -eq 'Sysmon' }"; powershell.exe /c "Get-Service | where-object
+          {$_.DisplayName -like '*sysm*'}"; powershell.exe /c "Get-CimInstance Win32_Service
+          -Filter 'Description = ''System Monitor service'''"; tasklist.exe; tasklist.exe
+          | findstr /i virus; tasklist.exe | findstr /i cb; tasklist.exe | findstr
+          /i defender; tasklist.exe | findstr /i cylance; tasklist.exe | findstr /i
+          mc; tasklist.exe | findstr /i "virus cb defender cylance mc"
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - discovery
+  - t1518.001
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    technique_created: '2020-02-21T21:16:18.066Z'
+    atomic_guid: f92a380f-ced9-491f-b338-95a991418ce2
+    import_timestamp: '2025-06-24T11:15:07.560425Z'

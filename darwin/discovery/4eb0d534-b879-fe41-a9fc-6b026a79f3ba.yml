@@ -1,0 +1,28 @@
+- id: 4eb0d534-b879-fe41-a9fc-6b026a79f3ba
+  name: networksetup - network device enumeration
+  description: Use networksetup to display services with corresponding port and device in order they are
+    tried for connecting to a network.
+  tactic: discovery
+  technique:
+    attack_id: T1016
+    name: System Network Configuration Discovery
+  platforms:
+    darwin:
+      sh:
+        command: networksetup -listnetworkserviceorder
+  singleton: false
+  privilege: User
+  repeatable: true
+  delete_payload: true
+  buckets:
+  - loobins
+  - networksetup
+  - discovery
+  version: '1.0'
+  author: LOOBins Project
+  additional_info:
+    loobins_tool: networksetup
+    use_case: network device enumeration
+    source_file: networksetup.yml
+    source_repository: https://github.com/infosecB/LOOBins
+    import_timestamp: '2025-06-24T09:00:11.445455Z'

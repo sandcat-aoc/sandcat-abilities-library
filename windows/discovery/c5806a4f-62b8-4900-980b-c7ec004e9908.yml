@@ -1,0 +1,29 @@
+- id: c5806a4f-62b8-4900-980b-c7ec004e9908
+  name: Process Discovery - tasklist
+  description: 'Utilize tasklist to identify processes.
+
+
+    Upon successful execution, cmd.exe will execute tasklist.exe to list processes.
+    Output will be via stdout.'
+  tactic: discovery
+  technique:
+    attack_id: T1057
+    name: Process Discovery
+  platforms:
+    windows:
+      sh:
+        command: tasklist
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1057
+  - discovery
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    technique_created: '2017-05-31T21:30:48.728Z'
+    atomic_guid: c5806a4f-62b8-4900-980b-c7ec004e9908
+    import_timestamp: '2025-06-24T11:15:07.453857Z'

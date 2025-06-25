@@ -1,0 +1,27 @@
+- id: 034fe21c-3186-49dd-8d5d-128b35f181c7
+  name: Linux List Kernel Modules
+  description: Enumerate kernel modules installed 3 different ways. Upon successful
+    execution stdout will display kernel modules installed on host 2 times, followed
+    by list of modules matching 'vmw' if present.
+  tactic: discovery
+  technique:
+    attack_id: T1082
+    name: System Information Discovery
+  platforms:
+    linux:
+      sh:
+        command: lsmod; kmod list; grep vmw /proc/modules
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1082
+  - discovery
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    technique_created: '2017-05-31T21:31:04.307Z'
+    atomic_guid: 034fe21c-3186-49dd-8d5d-128b35f181c7
+    import_timestamp: '2025-06-24T11:15:56.633658Z'

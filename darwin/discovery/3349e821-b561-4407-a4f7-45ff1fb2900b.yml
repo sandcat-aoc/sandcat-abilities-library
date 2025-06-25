@@ -1,0 +1,36 @@
+- id: 3349e821-b561-4407-a4f7-45ff1fb2900b
+  name: security_software
+  description: Comprehensive security software discovery for macOS systems including EDR, AV, firewalls,
+    and built-in protections
+  tactic: discovery
+  technique:
+    attack_id: T1518
+    name: Security Software
+  platforms:
+    darwin:
+      sh:
+        command: './security_software.sh --edr --edr-ps --edr-info --av --ost --mrt-apps
+
+          --log-forwarder --vpn --hids --tcc --gatekeeper --xprotect --mrt --firewall
+
+          --quarantine
+
+          '
+        payloads:
+        - security_software.sh
+        cleanup: rm -f security_software.sh
+  singleton: false
+  privilege: Elevated
+  repeatable: true
+  delete_payload: false
+  buckets:
+  - attack-macos
+  - discovery
+  - t1518
+  version: '1.0'
+  author: Attack-macOS Project
+  additional_info:
+    source_file: 3349e821-b561-4407-a4f7-45ff1fb2900b.yml
+    source_repository: https://github.com/armadoinc/caldera-plugin-attack-macos
+    import_timestamp: '2025-06-24T09:59:53.866006Z'
+    original_plugin: caldera-plugin-attack-macos

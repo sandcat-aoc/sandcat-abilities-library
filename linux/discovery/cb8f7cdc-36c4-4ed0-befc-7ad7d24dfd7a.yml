@@ -1,0 +1,53 @@
+- id: cb8f7cdc-36c4-4ed0-befc-7ad7d24dfd7a
+  name: Discover System Language by Environment Variable Query
+  description: 'Identify System language by checking the environment variables
+
+
+    Upon successful execution, the 5 character locale result can be looked up to
+
+    correlate the language and territory. Environment query commands are likely
+
+    to run with a pattern match command e.g. `env | grep LANG`
+
+
+    Note: `env` and `printenv` will usually provide the same results. `set` is
+
+    also used as a builtin command that does not generate syscall telemetry but
+
+    does provide a list of the environment variables.'
+  tactic: discovery
+  technique:
+    attack_id: T1614.001
+    name: 'System Location Discovery: System Language Discovery'
+  platforms:
+    linux:
+      sh:
+        command: '[ -x "$(command -v printenv)" ] && exit 0 || exit 1; then : ; else
+          echo "printenv command does not exist"; exit 1; fi; env | grep LANG; printenv
+          LANG; set | grep LANG'
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1614.001
+  - discovery
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    dependencies:
+    - description: 'Check if printenv command exists on the machine
+
+        '
+      prereq_command: '[ -x "$(command -v printenv)" ] && exit 0 || exit 1
+
+        '
+      get_prereq_command: 'echo "printenv command does not exist"
+
+        exit 1
+
+        '
+    technique_created: '2021-08-18T14:06:45.244Z'
+    atomic_guid: cb8f7cdc-36c4-4ed0-befc-7ad7d24dfd7a
+    import_timestamp: '2025-06-24T11:15:56.692868Z'

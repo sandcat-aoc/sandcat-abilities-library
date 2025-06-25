@@ -1,0 +1,58 @@
+- id: 8f7578c4-9863-4d83-875c-a565573bbdf0
+  name: Query Registry
+  description: 'Query Windows Registry.
+
+    Upon successful execution, cmd.exe will perform multiple reg queries. Some will
+    succeed and others will fail (dependent upon OS).
+
+    References:
+
+    https://blog.cylance.com/windows-registry-persistence-part-2-the-run-keys-and-search-order
+
+    https://blog.cylance.com/windows-registry-persistence-part-1-introduction-attack-phases-and-windows-services
+
+    http://www.handgrep.se/repository/cheatsheets/postexploitation/WindowsPost-Exploitation.pdf
+
+    https://www.offensive-security.com/wp-content/uploads/2015/04/wp.Registry_Quick_Find_Chart.en_us.pdf'
+  tactic: discovery
+  technique:
+    attack_id: T1012
+    name: Query Registry
+  platforms:
+    windows:
+      sh:
+        command: reg query "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Windows";
+          reg query HKLM\Software\Microsoft\Windows\CurrentVersion\RunServicesOnce;
+          reg query HKCU\Software\Microsoft\Windows\CurrentVersion\RunServicesOnce;
+          reg query HKLM\Software\Microsoft\Windows\CurrentVersion\RunServices; reg
+          query HKCU\Software\Microsoft\Windows\CurrentVersion\RunServices; reg query
+          "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon\Notify"; reg
+          query "HKLM\Software\Microsoft\Windows NT\CurrentVersion\Winlogon\Userinit";
+          reg query "HKCU\Software\Microsoft\Windows NT\CurrentVersion\Winlogon\\Shell";
+          reg query "HKLM\Software\Microsoft\Windows NT\CurrentVersion\Winlogon\\Shell";
+          reg query HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\ShellServiceObjectDelayLoad;
+          reg query HKLM\Software\Microsoft\Windows\CurrentVersion\RunOnce; reg query
+          HKLM\Software\Microsoft\Windows\CurrentVersion\RunOnceEx; reg query HKLM\Software\Microsoft\Windows\CurrentVersion\Run;
+          reg query HKCU\Software\Microsoft\Windows\CurrentVersion\Run; reg query
+          HKCU\Software\Microsoft\Windows\CurrentVersion\RunOnce; reg query HKLM\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer\Run;
+          reg query HKCU\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer\Run;
+          reg query HKLM\system\currentcontrolset\services /s | findstr ImagePath
+          2>nul | findstr /Ri ".*\.sys$"; reg query HKLM\Software\Microsoft\Windows\CurrentVersion\Run;
+          reg query HKLM\SYSTEM\CurrentControlSet\Control\SafeBoot; reg query "HKLM\SOFTWARE\Microsoft\Active
+          Setup\Installed Components"; reg query "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Group
+          Policy\Scripts\Startup"
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - discovery
+  - atomic-red-team
+  - t1012
+  author: Atomic Red Team
+  additional_info:
+    technique_created: '2017-05-31T21:30:25.584Z'
+    atomic_guid: 8f7578c4-9863-4d83-875c-a565573bbdf0
+    import_timestamp: '2025-06-24T11:15:07.530759Z'

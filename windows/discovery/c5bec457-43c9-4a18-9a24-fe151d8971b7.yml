@@ -1,0 +1,70 @@
+- id: c5bec457-43c9-4a18-9a24-fe151d8971b7
+  name: Launch DirLister Executable
+  description: 'Launches the DirLister executable for a short period of time and then
+    exits.
+
+
+    Recently seen used by [BlackCat ransomware](https://news.sophos.com/en-us/2022/07/14/blackcat-ransomware-attacks-not-merely-a-byproduct-of-bad-luck/)
+    to create a list of accessible directories and files.'
+  tactic: discovery
+  technique:
+    attack_id: T1083
+    name: File and Directory Discovery
+  platforms:
+    windows:
+      psh:
+        command: 'if (Test-Path "PathToAtomicsFolder\..\ExternalPayloads\DirLister.exe")
+          {exit 0} else {exit 1}; then : ; else $parentpath = Split-Path "PathToAtomicsFolder\..\ExternalPayloads\DirLister.exe";
+          New-Item -ItemType Directory -Force -Path $parentpath | Out-Null; Invoke-WebRequest
+          https://github.com/SanderSade/DirLister/releases/download/v2.beta4/DirLister.v2.beta4.zip
+          -OutFile "PathToAtomicsFolder\..\ExternalPayloads\TDirLister.v2.beta4.zip";
+          Expand-Archive -Path "PathToAtomicsFolder\..\ExternalPayloads\TDirLister.v2.beta4.zip"
+          -DestinationPath "PathToAtomicsFolder\..\ExternalPayloads\TDirLister.v2.beta4"
+          -Force; Copy-Item "PathToAtomicsFolder\..\ExternalPayloads\TDirLister.v2.beta4\*"
+          "$parentpath" -Recurse; Remove-Item "PathToAtomicsFolder\..\ExternalPayloads\TDirLister.v2.beta4.zip","PathToAtomicsFolder\..\ExternalPayloads\TDirLister.v2.beta4"
+          -Recurse -ErrorAction Ignore; fi; Start-Process "PathToAtomicsFolder\..\ExternalPayloads\DirLister.exe";
+          Start-Sleep -Second 4; Stop-Process -Name "DirLister"'
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1083
+  - discovery
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      dirlister_path:
+        description: 'Path to the DirLister executable '
+        type: string
+        default: PathToAtomicsFolder\..\ExternalPayloads\DirLister.exe
+    dependencies:
+    - description: 'DirLister.exe must exist in the specified path #{dirlister_path}
+
+        '
+      prereq_command: 'if (Test-Path "#{dirlister_path}") {exit 0} else {exit 1}
+
+        '
+      get_prereq_command: '$parentpath = Split-Path "#{dirlister_path}"
+
+        New-Item -ItemType Directory -Force -Path $parentpath | Out-Null
+
+        Invoke-WebRequest https://github.com/SanderSade/DirLister/releases/download/v2.beta4/DirLister.v2.beta4.zip
+        -OutFile "PathToAtomicsFolder\..\ExternalPayloads\TDirLister.v2.beta4.zip"
+
+        Expand-Archive -Path "PathToAtomicsFolder\..\ExternalPayloads\TDirLister.v2.beta4.zip"
+        -DestinationPath "PathToAtomicsFolder\..\ExternalPayloads\TDirLister.v2.beta4"
+        -Force
+
+        Copy-Item "PathToAtomicsFolder\..\ExternalPayloads\TDirLister.v2.beta4\*"
+        "$parentpath" -Recurse
+
+        Remove-Item "PathToAtomicsFolder\..\ExternalPayloads\TDirLister.v2.beta4.zip","PathToAtomicsFolder\..\ExternalPayloads\TDirLister.v2.beta4"
+        -Recurse -ErrorAction Ignore
+
+        '
+    technique_created: '2017-05-31T21:31:04.710Z'
+    atomic_guid: c5bec457-43c9-4a18-9a24-fe151d8971b7
+    import_timestamp: '2025-06-24T11:15:07.425353Z'

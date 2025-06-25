@@ -1,0 +1,29 @@
+- id: f069f0f1-baad-4831-aa2b-eddac4baac4a
+  name: System Network Connections Discovery with PowerShell
+  description: 'Get a listing of network connections.
+
+
+    Upon successful execution, powershell.exe will execute `get-NetTCPConnection`.
+    Results will output via stdout.'
+  tactic: discovery
+  technique:
+    attack_id: T1049
+    name: System Network Connections Discovery
+  platforms:
+    windows:
+      psh:
+        command: Get-NetTCPConnection
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - discovery
+  - atomic-red-team
+  - t1049
+  author: Atomic Red Team
+  additional_info:
+    technique_created: '2017-05-31T21:30:45.139Z'
+    atomic_guid: f069f0f1-baad-4831-aa2b-eddac4baac4a
+    import_timestamp: '2025-06-24T11:15:07.439569Z'

@@ -1,0 +1,42 @@
+- id: 962a6017-1c09-45a6-880b-adc9c57cb22e
+  name: Enumerate domain computers within Active Directory using DirectorySearcher
+  description: "This test is a Powershell script that enumerates Active Directory\
+    \ to determine computers that are joined to the domain. \nThis test is designed\
+    \ to mimic how SessionGopher can determine the additional systems within a domain,\
+    \ which has been used before by threat actors to aid in lateral movement. \nReference:\
+    \ [Head Fake: Tackling Disruptive Ransomware Attacks](https://www.mandiant.com/resources/head-fake-tackling-disruptive-ransomware-attacks).\
+    \ \nUpon successful execution, this test will output the names of the computers\
+    \ that reside on the domain to the console window."
+  tactic: discovery
+  technique:
+    attack_id: T1018
+    name: Remote System Discovery
+  platforms:
+    windows:
+      psh:
+        command: 'if ((Get-WmiObject -Class Win32_ComputerSystem).partofdomain -eq
+          $true) {exit 0} else {exit 1}; then : ; else write-host "This PC must be
+          manually added to a domain."; fi; $DirectorySearcher = New-Object System.DirectoryServices.DirectorySearcher("(ObjectCategory=Computer)");
+          $DirectorySearcher.PropertiesToLoad.Add("Name"); $Computers = $DirectorySearcher.findall();
+          foreach ($Computer in $Computers) {; $Computer = $Computer.Properties.name;
+          if (!$Computer) { Continue }; Write-Host $Computer}'
+        elevation_required: false
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1018
+  - discovery
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    dependencies:
+    - description: This PC must be joined to a domain.
+      prereq_command: if ((Get-WmiObject -Class Win32_ComputerSystem).partofdomain
+        -eq $true) {exit 0} else {exit 1}
+      get_prereq_command: 'write-host "This PC must be manually added to a domain." '
+    technique_created: '2017-05-31T21:30:28.187Z'
+    atomic_guid: 962a6017-1c09-45a6-880b-adc9c57cb22e
+    import_timestamp: '2025-06-24T11:15:07.619666Z'

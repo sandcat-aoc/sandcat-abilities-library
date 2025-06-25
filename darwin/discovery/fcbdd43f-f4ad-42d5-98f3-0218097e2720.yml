@@ -1,0 +1,26 @@
+- id: fcbdd43f-f4ad-42d5-98f3-0218097e2720
+  name: Environment variables discovery on freebsd, macos and linux
+  description: Identify all environment variables. Upon execution, environments variables
+    and your path info will be displayed.
+  tactic: discovery
+  technique:
+    attack_id: T1082
+    name: System Information Discovery
+  platforms:
+    darwin:
+      sh:
+        command: env
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1082
+  - discovery
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    technique_created: '2017-05-31T21:31:04.307Z'
+    atomic_guid: fcbdd43f-f4ad-42d5-98f3-0218097e2720
+    import_timestamp: '2025-06-24T11:14:07.760601Z'

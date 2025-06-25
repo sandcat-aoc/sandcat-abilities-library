@@ -1,0 +1,27 @@
+- id: c8f1890c-9085-6ec6-7a32-f3e56921cc77
+  name: system_profiler - Print the information of developer tools
+  description: Prints the currently active version of the Xcode developer tools and SDK.
+  tactic: discovery
+  technique:
+    attack_id: T1082
+    name: System Information Discovery
+  platforms:
+    darwin:
+      sh:
+        command: system_profiler SPDeveloperToolsDataType
+  singleton: false
+  privilege: User
+  repeatable: true
+  delete_payload: true
+  buckets:
+  - loobins
+  - system_profiler
+  - discovery
+  version: '1.0'
+  author: LOOBins Project
+  additional_info:
+    loobins_tool: system_profiler
+    use_case: Print the information of developer tools
+    source_file: system_profiler.yml
+    source_repository: https://github.com/infosecB/LOOBins
+    import_timestamp: '2025-06-24T09:00:11.502068Z'

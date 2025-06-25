@@ -1,0 +1,30 @@
+- id: be3b5fe3-a575-4fb8-83f6-ad4a68dd5ce7
+  name: Discover OS Product Name via Registry
+  description: 'Identify the Operating System Product Name via registry with the reg.exe
+    command.
+
+    Upon execution, the OS Product Name will be displayed.'
+  tactic: discovery
+  technique:
+    attack_id: T1082
+    name: System Information Discovery
+  platforms:
+    windows:
+      sh:
+        command: reg query "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion" /v
+          ProductName
+        elevation_required: false
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1082
+  - discovery
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    technique_created: '2017-05-31T21:31:04.307Z'
+    atomic_guid: be3b5fe3-a575-4fb8-83f6-ad4a68dd5ce7
+    import_timestamp: '2025-06-24T11:15:07.327433Z'

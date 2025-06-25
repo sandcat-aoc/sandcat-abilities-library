@@ -1,0 +1,25 @@
+- id: 486e88ea-4f56-470f-9b57-3f4d73f39133
+  name: Hostname Discovery
+  description: Identify system hostname for FreeBSD, Linux and macOS systems.
+  tactic: discovery
+  technique:
+    attack_id: T1082
+    name: System Information Discovery
+  platforms:
+    linux:
+      sh:
+        command: hostname
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1082
+  - discovery
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    technique_created: '2017-05-31T21:31:04.307Z'
+    atomic_guid: 486e88ea-4f56-470f-9b57-3f4d73f39133
+    import_timestamp: '2025-06-24T11:15:56.629281Z'

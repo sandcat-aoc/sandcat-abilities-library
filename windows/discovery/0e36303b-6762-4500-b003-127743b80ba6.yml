@@ -1,0 +1,37 @@
+- id: 0e36303b-6762-4500-b003-127743b80ba6
+  name: File and Directory Discovery (cmd.exe)
+  description: Find or discover files on the file system.  Upon successful execution,
+    this test will output the results of all the data discovery commands to a specified
+    file.
+  tactic: discovery
+  technique:
+    attack_id: T1083
+    name: File and Directory Discovery
+  platforms:
+    windows:
+      sh:
+        command: dir /s c:\ >> %temp%\T1083Test1.txt; dir /s "c:\Documents and Settings"
+          >> %temp%\T1083Test1.txt; dir /s "c:\Program Files\" >> %temp%\T1083Test1.txt;
+          dir "%systemdrive%\Users\*.*" >> %temp%\T1083Test1.txt; dir "%userprofile%\AppData\Roaming\Microsoft\Windows\Recent\*.*"
+          >> %temp%\T1083Test1.txt; dir "%userprofile%\Desktop\*.*" >> %temp%\T1083Test1.txt;
+          tree /F >> %temp%\T1083Test1.txt
+        cleanup: 'del #{output_file}'
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1083
+  - discovery
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      output_file:
+        description: File to output results to
+        type: string
+        default: '%temp%\T1083Test1.txt'
+    technique_created: '2017-05-31T21:31:04.710Z'
+    atomic_guid: 0e36303b-6762-4500-b003-127743b80ba6
+    import_timestamp: '2025-06-24T11:15:07.414413Z'

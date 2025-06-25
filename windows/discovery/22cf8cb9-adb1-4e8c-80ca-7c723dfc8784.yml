@@ -1,0 +1,54 @@
+- id: 22cf8cb9-adb1-4e8c-80ca-7c723dfc8784
+  name: Active Directory Enumeration with LDIFDE
+  description: 'Output information from Active Directory to a specified file. [Ldifde](https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2012-R2-and-2012/cc731033(v=ws.11))
+    is a CLI tool for creating, modifying and deleting directory objects.
+
+    The test is derived from the CISA Report on Voly Typhoon. Reference: https://media.defense.gov/2023/May/24/2003229517/-1/-1/0/CSA_Living_off_the_Land.PDF'
+  tactic: discovery
+  technique:
+    attack_id: T1069.002
+    name: 'Permission Groups Discovery: Domain Groups'
+  platforms:
+    windows:
+      sh:
+        command: 'Try {; Import-Module ActiveDirectory -ErrorAction Stop | Out-Null;
+          exit 0; }; Catch {; exit 1; }; then : ; else if((Get-CimInstance -ClassName
+          Win32_OperatingSystem).ProductType -eq 1) {; Add-WindowsCapability -Name
+          (Get-WindowsCapability -Name RSAT.ActiveDirectory.DS* -Online).Name -Online;
+          } else {; Install-WindowsFeature RSAT-AD-PowerShell; }; fi; ldifde.exe -f
+          C:\Windows\temp\atomic_ldifde.txt -p subtree'
+        cleanup: 'del #{output_path}\#{output_file}'
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1069.002
+  - discovery
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      output_path:
+        description: Path to the file that ldifde will output
+        type: path
+        default: C:\Windows\temp
+      output_file:
+        description: The filename to be created by ldifde
+        type: string
+        default: atomic_ldifde.txt
+    dependencies:
+    - description: 'PowerShell ActiveDirectory Module must be installed
+
+        '
+      prereq_command: "Try {\n    Import-Module ActiveDirectory -ErrorAction Stop\
+        \ | Out-Null\n    exit 0\n}\nCatch {\n    exit 1\n}\n"
+      get_prereq_command: "if((Get-CimInstance -ClassName Win32_OperatingSystem).ProductType\
+        \ -eq 1) {\n  Add-WindowsCapability -Name (Get-WindowsCapability -Name RSAT.ActiveDirectory.DS*\
+        \ -Online).Name -Online\n} else {\n  Install-WindowsFeature RSAT-AD-PowerShell\n\
+        }\n"
+    technique_created: '2020-02-21T21:15:06.561Z'
+    atomic_guid: 22cf8cb9-adb1-4e8c-80ca-7c723dfc8784
+    import_timestamp: '2025-06-24T11:15:07.177132Z'

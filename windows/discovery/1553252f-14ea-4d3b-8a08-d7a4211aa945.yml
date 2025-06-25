@@ -1,0 +1,30 @@
+- id: 1553252f-14ea-4d3b-8a08-d7a4211aa945
+  name: Security Software Discovery - AV Discovery via WMI
+  description: 'Discovery of installed antivirus products via a WMI query.
+
+
+    when sucessfully executed, the test is going to display installed AV software.'
+  tactic: discovery
+  technique:
+    attack_id: T1518.001
+    name: 'Software Discovery: Security Software Discovery'
+  platforms:
+    windows:
+      sh:
+        command: wmic.exe /Namespace:\\root\SecurityCenter2 Path AntiVirusProduct
+          Get displayName /Format:List
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - discovery
+  - t1518.001
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    technique_created: '2020-02-21T21:16:18.066Z'
+    atomic_guid: 1553252f-14ea-4d3b-8a08-d7a4211aa945
+    import_timestamp: '2025-06-24T11:15:07.570345Z'

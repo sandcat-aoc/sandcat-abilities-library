@@ -1,0 +1,31 @@
+- id: fef0ace1-3550-4bf1-a075-9fea55a778dd
+  name: Enumerate Windows Security Log via WevtUtil
+  description: "WevtUtil is a command line tool that can be utilised by adversaries\
+    \ to gather intelligence on a targeted Windows system's logging infrastructure.\
+    \ \n\nBy executing this command, malicious actors can enumerate all available\
+    \ event logs, including both default logs such as Application, Security, and System\n\
+    as well as any custom logs created by administrators. \n\nThis information provides\
+    \ valuable insight into the system's logging mechanisms, potentially allowing\
+    \ attackers to identify gaps or weaknesses in the logging configuration"
+  tactic: discovery
+  technique:
+    attack_id: T1654
+    name: Log Enumeration
+  platforms:
+    windows:
+      sh:
+        command: wevtutil enum-logs
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - discovery
+  - atomic-red-team
+  - t1654
+  author: Atomic Red Team
+  additional_info:
+    technique_created: '2023-07-10T16:50:57.587Z'
+    atomic_guid: fef0ace1-3550-4bf1-a075-9fea55a778dd
+    import_timestamp: '2025-06-24T11:15:07.449846Z'

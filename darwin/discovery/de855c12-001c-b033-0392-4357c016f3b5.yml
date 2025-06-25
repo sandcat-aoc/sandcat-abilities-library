@@ -1,0 +1,27 @@
+- id: de855c12-001c-b033-0392-4357c016f3b5
+  name: dns-sd - Discover web hosts
+  description: Hosts serving web services can be discovered using the _http._tcp service string.
+  tactic: discovery
+  technique:
+    attack_id: T1046
+    name: Network Service Scanning
+  platforms:
+    darwin:
+      sh:
+        command: dns-sd -B _http._tcp
+  singleton: false
+  privilege: User
+  repeatable: true
+  delete_payload: true
+  buckets:
+  - loobins
+  - dns-sd
+  - discovery
+  version: '1.0'
+  author: LOOBins Project
+  additional_info:
+    loobins_tool: dns-sd
+    use_case: Discover web hosts
+    source_file: dns-sd.yml
+    source_repository: https://github.com/infosecB/LOOBins
+    import_timestamp: '2025-06-24T09:00:11.418238Z'

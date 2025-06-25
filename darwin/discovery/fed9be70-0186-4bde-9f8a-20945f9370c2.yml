@@ -1,0 +1,34 @@
+- id: fed9be70-0186-4bde-9f8a-20945f9370c2
+  name: View sudoers access
+  description: (requires root)
+  tactic: discovery
+  technique:
+    attack_id: T1087.001
+    name: 'Account Discovery: Local Account'
+  platforms:
+    darwin:
+      sh:
+        command: if [ -f /etc/sudoers ]; then sudo cat /etc/sudoers > /tmp/T1087.001.txt;
+          fi;; if [ -f /usr/local/etc/sudoers ]; then sudo cat /usr/local/etc/sudoers
+          > /tmp/T1087.001.txt; fi;; cat /tmp/T1087.001.txt
+        cleanup: 'rm -f #{output_file}'
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - discovery
+  - t1087.001
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      output_file:
+        description: Path where captured results will be placed
+        type: path
+        default: /tmp/T1087.001.txt
+    technique_created: '2020-02-21T21:07:55.393Z'
+    atomic_guid: fed9be70-0186-4bde-9f8a-20945f9370c2
+    import_timestamp: '2025-06-24T11:14:07.717315Z'

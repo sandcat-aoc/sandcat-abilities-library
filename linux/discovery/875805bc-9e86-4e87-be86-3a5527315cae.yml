@@ -1,0 +1,50 @@
+- id: 875805bc-9e86-4e87-be86-3a5527315cae
+  name: Network Share Discovery - linux
+  description: Network Share Discovery using smbstatus
+  tactic: discovery
+  technique:
+    attack_id: T1135
+    name: Network Share Discovery
+  platforms:
+    linux:
+      sh:
+        command: 'if (rpm -q samba &>/dev/null) || (dpkg -s samba | grep -q installed)
+          > /dev/null; then : ; else (which yum && yum -y install epel-release samba)||(which
+          apt-get && DEBIAN_FRONTEND=noninteractive apt-get install -y samba); fi;
+          smbstatus --shares'
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1135
+  - discovery
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      package_checker:
+        description: Package checking command. Debian - dpkg -s samba
+        type: string
+        default: (rpm -q samba &>/dev/null) || (dpkg -s samba | grep -q installed)
+      package_installer:
+        description: Package installer command. Debian - apt install samba
+        type: string
+        default: (which yum && yum -y install epel-release samba)||(which apt-get
+          && DEBIAN_FRONTEND=noninteractive apt-get install -y samba)
+    dependencies:
+    - description: 'Package with smbstatus (samba) must exist on device
+
+        '
+      prereq_command: 'if #{package_checker} > /dev/null; then exit 0; else exit 1;
+        fi
+
+        '
+      get_prereq_command: '#{package_installer}
+
+        '
+    technique_created: '2017-12-14T16:46:06.044Z'
+    atomic_guid: 875805bc-9e86-4e87-be86-3a5527315cae
+    import_timestamp: '2025-06-24T11:15:56.611692Z'

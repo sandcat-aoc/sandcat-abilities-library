@@ -1,0 +1,29 @@
+- id: ce049800-9a40-98d4-30cc-f7ac473b2a7b
+  name: lsregister - Force an update of the Launch Services database
+  description: The -f flag can be used to force an update of the Launch Services database. This can be
+    used to quickly register a custom URL scheme that points to a malicious app.
+  tactic: discovery
+  technique:
+    attack_id: T1546.015
+    name: 'Event Triggered Execution: Component Object Model Hijacking'
+  platforms:
+    darwin:
+      sh:
+        command: /System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/LaunchServices.framework/Versions/A/Support/lsregister
+          -f
+  singleton: false
+  privilege: Elevated
+  repeatable: true
+  delete_payload: true
+  buckets:
+  - loobins
+  - lsregister
+  - discovery
+  version: '1.0'
+  author: LOOBins Project
+  additional_info:
+    loobins_tool: lsregister
+    use_case: Force an update of the Launch Services database
+    source_file: lsregister.yml
+    source_repository: https://github.com/infosecB/LOOBins
+    import_timestamp: '2025-06-24T09:00:11.662071Z'

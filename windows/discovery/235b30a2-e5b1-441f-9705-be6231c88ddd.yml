@@ -1,0 +1,30 @@
+- id: 235b30a2-e5b1-441f-9705-be6231c88ddd
+  name: Device Driver Discovery
+  description: "Displays a list of installed device drivers on the local computer\
+    \ and their properties. Threat actors use this command to enumerate the existing\
+    \ drivers on the computer. \nParameters: \n/v /fo list - Displays verbose output\
+    \ in a list format - the /v parameter is not valid for signed drivers\n/si /fo\
+    \ list - Provides information about signed drivers and outputs it in a list format"
+  tactic: discovery
+  technique:
+    attack_id: T1652
+    name: Device Driver Discovery
+  platforms:
+    windows:
+      psh:
+        command: driverquery /v /fo list; driverquery /si /fo list
+        elevation_required: false
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - discovery
+  - t1652
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    technique_created: '2023-03-28T20:14:49.087Z'
+    atomic_guid: 235b30a2-e5b1-441f-9705-be6231c88ddd
+    import_timestamp: '2025-06-24T11:15:06.982239Z'

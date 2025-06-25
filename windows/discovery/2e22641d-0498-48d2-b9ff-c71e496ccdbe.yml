@@ -1,0 +1,40 @@
+- id: 2e22641d-0498-48d2-b9ff-c71e496ccdbe
+  name: Windows - Discover domain trusts with nltest
+  description: 'Uses the nltest command to discover domain trusts.
+
+    Requires the installation of nltest via Windows RSAT or the Windows Server AD
+    DS role.
+
+    This technique has been used by the Trickbot malware family.'
+  tactic: discovery
+  technique:
+    attack_id: T1482
+    name: Domain Trust Discovery
+  platforms:
+    windows:
+      sh:
+        command: nltest /domain_trusts; nltest /trusted_domains
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1482
+  - discovery
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    dependencies:
+    - description: 'nltest.exe from RSAT must be present on disk
+
+        '
+      prereq_command: 'WHERE nltest.exe >NUL 2>&1
+
+        '
+      get_prereq_command: 'echo Sorry RSAT must be installed manually
+
+        '
+    technique_created: '2019-02-14T16:15:05.974Z'
+    atomic_guid: 2e22641d-0498-48d2-b9ff-c71e496ccdbe
+    import_timestamp: '2025-06-24T11:15:07.388425Z'

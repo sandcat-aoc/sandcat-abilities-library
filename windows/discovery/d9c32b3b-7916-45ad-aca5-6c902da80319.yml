@@ -1,0 +1,33 @@
+- id: d9c32b3b-7916-45ad-aca5-6c902da80319
+  name: Check internet connection using Test-NetConnection in PowerShell (TCP-SMB)
+  description: Check internet connection using PowerShell's Test-NetConnection cmdlet
+    and the TCP protocol to check for outbound SMB (Port 445) access. The default
+    target is 8.8.8.8.
+  tactic: discovery
+  technique:
+    attack_id: T1016.001
+    name: 'System Network Configuration Discovery: Internet Connection Discovery'
+  platforms:
+    windows:
+      psh:
+        command: Test-NetConnection -CommonTCPPort SMB -ComputerName 8.8.8.8
+        elevation_required: false
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - discovery
+  - atomic-red-team
+  - t1016.001
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      target:
+        description: target of the request
+        type: string
+        default: 8.8.8.8
+    technique_created: '2021-03-17T15:28:10.689Z'
+    atomic_guid: d9c32b3b-7916-45ad-aca5-6c902da80319
+    import_timestamp: '2025-06-24T11:15:06.959402Z'

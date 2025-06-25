@@ -1,0 +1,92 @@
+- id: a5b2f6a0-24b4-493e-9590-c699f75723ca
+  name: Packet Capture Windows Command Prompt
+  description: 'Perform a packet capture using the windows command prompt. This will
+    require a host that has Wireshark/Tshark
+
+    installed.
+
+
+    Upon successful execution, tshark will execute and capture 5 packets on interface
+    "Ethernet".'
+  tactic: discovery
+  technique:
+    attack_id: T1040
+    name: Network Sniffing
+  platforms:
+    windows:
+      sh:
+        command: 'if (test-path "c:\program files\wireshark\tshark.exe") {exit 0}
+          else {exit 1}; then : ; else New-Item -Type Directory "PathToAtomicsFolder\..\ExternalPayloads\"
+          -ErrorAction Ignore -Force | Out-Null; Invoke-WebRequest -OutFile "PathToAtomicsFolder\..\ExternalPayloads\wireshark_installer.exe"
+          https://1.eu.dl.wireshark.org/win64/Wireshark-latest-x64.exe; Start-Process
+          "PathToAtomicsFolder\..\ExternalPayloads\wireshark_installer.exe" /S; fi;
+          if (test-path "C:\Program Files\Npcap\npcap.sys") {exit 0} else {exit 1};
+          then : ; else New-Item -Type Directory "PathToAtomicsFolder\..\ExternalPayloads\"
+          -ErrorAction Ignore -Force | Out-Null; Invoke-WebRequest -OutFile "PathToAtomicsFolder\..\ExternalPayloads\npcap_installer.exe"
+          https://nmap.org/npcap/dist/npcap-1.31.exe; Start-Process "PathToAtomicsFolder\..\ExternalPayloads\npcap_installer.exe";
+          fi; "c:\Program Files\Wireshark\tshark.exe" -i Ethernet -c 5'
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1040
+  - discovery
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      interface:
+        description: Specify interface to perform PCAP on.
+        type: string
+        default: Ethernet
+      wireshark_url:
+        description: wireshark installer download URL
+        type: url
+        default: https://1.eu.dl.wireshark.org/win64/Wireshark-latest-x64.exe
+      tshark_path:
+        description: path to tshark.exe
+        type: path
+        default: c:\program files\wireshark\tshark.exe
+      npcap_url:
+        description: npcap installed download URL
+        type: url
+        default: https://nmap.org/npcap/dist/npcap-1.31.exe
+      npcap_path:
+        description: path to npcap.sys
+        type: path
+        default: C:\Program Files\Npcap\npcap.sys
+    dependencies:
+    - description: 'tshark must be installed and in the default path of "c:\Program
+        Files\Wireshark\Tshark.exe".
+
+        '
+      prereq_command: if (test-path "#{tshark_path}") {exit 0} else {exit 1}
+      get_prereq_command: 'New-Item -Type Directory "PathToAtomicsFolder\..\ExternalPayloads\"
+        -ErrorAction Ignore -Force | Out-Null
+
+        Invoke-WebRequest -OutFile "PathToAtomicsFolder\..\ExternalPayloads\wireshark_installer.exe"
+        #{wireshark_url}
+
+        Start-Process "PathToAtomicsFolder\..\ExternalPayloads\wireshark_installer.exe"
+        /S
+
+        '
+    - description: 'npcap must be installed.
+
+        '
+      prereq_command: if (test-path "#{npcap_path}") {exit 0} else {exit 1}
+      get_prereq_command: 'New-Item -Type Directory "PathToAtomicsFolder\..\ExternalPayloads\"
+        -ErrorAction Ignore -Force | Out-Null
+
+        Invoke-WebRequest -OutFile "PathToAtomicsFolder\..\ExternalPayloads\npcap_installer.exe"
+        #{npcap_url}
+
+        Start-Process "PathToAtomicsFolder\..\ExternalPayloads\npcap_installer.exe"
+
+        '
+    technique_created: '2017-05-31T21:30:41.399Z'
+    atomic_guid: a5b2f6a0-24b4-493e-9590-c699f75723ca
+    import_timestamp: '2025-06-24T11:15:07.190318Z'

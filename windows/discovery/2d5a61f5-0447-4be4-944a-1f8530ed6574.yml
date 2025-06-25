@@ -1,0 +1,26 @@
+- id: 2d5a61f5-0447-4be4-944a-1f8530ed6574
+  name: Remote System Discovery - arp
+  description: "Identify remote systems via arp. \n\nUpon successful execution, cmd.exe\
+    \ will execute arp to list out the arp cache. Output will be via stdout."
+  tactic: discovery
+  technique:
+    attack_id: T1018
+    name: Remote System Discovery
+  platforms:
+    windows:
+      sh:
+        command: arp -a
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1018
+  - discovery
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    technique_created: '2017-05-31T21:30:28.187Z'
+    atomic_guid: 2d5a61f5-0447-4be4-944a-1f8530ed6574
+    import_timestamp: '2025-06-24T11:15:07.595460Z'

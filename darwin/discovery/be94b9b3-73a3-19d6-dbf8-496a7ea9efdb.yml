@@ -1,0 +1,31 @@
+- id: be94b9b3-73a3-19d6-dbf8-496a7ea9efdb
+  name: dscl - Local group enumeration
+  description: Enumerate all local groups.
+  tactic: discovery
+  technique:
+    attack_id: T1087.001
+    name: 'Account Discovery: Local Account'
+  platforms:
+    darwin:
+      sh:
+        command: 'dscl . -list /Groups
+
+          dscl . list /Groups
+
+          dscl . ls /Groups'
+  singleton: false
+  privilege: User
+  repeatable: true
+  delete_payload: true
+  buckets:
+  - loobins
+  - dscl
+  - discovery
+  version: '1.0'
+  author: LOOBins Project
+  additional_info:
+    loobins_tool: dscl
+    use_case: Local group enumeration
+    source_file: dscl.yml
+    source_repository: https://github.com/infosecB/LOOBins
+    import_timestamp: '2025-06-24T09:00:11.607814Z'

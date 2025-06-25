@@ -1,0 +1,33 @@
+- id: 7c35779d-42ec-42ab-a283-6255b28e9d68
+  name: Check internet connection using Test-NetConnection in PowerShell (TCP-HTTP)
+  description: Check internet connection using PowerShell's Test-NetConnection cmdlet
+    and the TCP protocol to check for outbound HTTP (Port 80) access. The default
+    target is www.google.com.
+  tactic: discovery
+  technique:
+    attack_id: T1016.001
+    name: 'System Network Configuration Discovery: Internet Connection Discovery'
+  platforms:
+    windows:
+      psh:
+        command: Test-NetConnection -CommonTCPPort HTTP -ComputerName www.google.com
+        elevation_required: false
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - discovery
+  - atomic-red-team
+  - t1016.001
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      target:
+        description: target of the request
+        type: string
+        default: www.google.com
+    technique_created: '2021-03-17T15:28:10.689Z'
+    atomic_guid: 7c35779d-42ec-42ab-a283-6255b28e9d68
+    import_timestamp: '2025-06-24T11:15:06.954113Z'

@@ -27,7 +27,7 @@ jobs:
     - name: Set up Python
       uses: actions/setup-python@v4
       with:
-        python-version: '3.9'
+        python-version: '3.11'
         
     - name: Install dependencies
       run: |
@@ -115,4 +115,36 @@ jobs:
             exit(1)
         
         print(f'\\nSUCCESS: All {total_procedures} procedures are valid')
-        " 
+        "
+        
+    - name: Create issue on validation failure
+      if: failure()
+      uses: actions/github-script@v7
+      with:
+        script: |
+          const title = `Validation Failed - Workflow Run ${context.runId}`;
+          const body = `## Validation Failure Report
+          
+          **Date**: ${new Date().toISOString()}
+          **Workflow Run**: [${context.runId}](${context.payload.repository.html_url}/actions/runs/${context.runId})
+          **Branch**: ${context.ref}
+          **Commit**: ${context.sha.substring(0, 7)}
+          
+          The procedure validation workflow failed. Please check the workflow logs for details.
+          
+          ### Next Steps
+          1. Check the workflow logs for specific error details
+          2. Fix any broken procedures or dependency issues
+          3. Re-run the validation workflow
+          
+          ### Auto-generated
+          This issue was automatically created by the validate-procedures workflow.
+          `;
+          
+          await github.rest.issues.create({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            title: title,
+            body: body,
+            labels: ['bug', 'validation', 'auto-generated']
+          }); 

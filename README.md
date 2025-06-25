@@ -10,7 +10,36 @@
 The CALDERA Abilities is a library **ready-to-deploy** procedures and payloads from [Atomic Red Team](https://github.com/redcanaryco/atomic-red-team), [LOLBAS Project](https://github.com/LOLBAS-Project/LOLBAS), [LOLDrivers](https://github.com/magicsword-io/LOLDrivers), and [Attack-macOS](https://github.com/armadoinc/attack-macOS). All abilities are mapped to the MITRE ATT&CK knowledge base.
 
 
+## What's Included
 
+- **2,948+ Procedures** for Windows, macOS, and Linux
+- **MITRE ATT&CK mapping** - Each procedure links to specific techniques
+- **Multiple sources** - Commands from five security research projects
+- **Automatic updates** - Scripts import new procedures automatically
+- **Validation** - All procedures tested before inclusion
+
+## Import FLow
+
+```mermaid
+graph LR
+    A[Atomic Red Team] --> D[Import Pipeline]
+    B[LOLBAS] --> D
+    C[LOLDrivers] --> D
+    E[LOOBins] --> D
+    F[Attack-macOS] --> D
+    D --> G[Validation]
+    G --> H[CALDERA Procedures]
+    H --> I[Windows]
+    H --> J[Darwin] 
+    H --> K[Linux]
+```
+
+## Support
+
+- **Issues**: [GitHub Issues](https://github.com/yourusername/caldera-procedures-library/issues)
+- **Discussions**: [GitHub Discussions](https://github.com/yourusername/caldera-procedures-library/discussions)
+- **Documentation**: This wiki 
+- 
 ## Sources
 | Source | Description | Platform |
 |--------|-------------|----------|
@@ -20,13 +49,6 @@ The CALDERA Abilities is a library **ready-to-deploy** procedures and payloads f
 | [LOOBins](https://www.loobins.io/) | macOS Living Off the Orchard Binaries | macOS |
 | [Attack-macOS](https://github.com/armadoinc/attack-macOS) | macOS post-exploitation scripts and techniques | macOS |
 
-
-## Documentation
-git stt
-**[📖 Complete Documentation](https://yourusername.github.io/caldera-procedures-library/)**
-
-- [Schema Reference](https://yourusername.github.io/caldera-procedures-library/procedures/schema/) - Complete procedure format specification
-- [Importing Procedures](https://yourusername.github.io/caldera-procedures-library/getting-started/importing/) - How to import procedures from sources
 
 
 ## Contributing
@@ -42,15 +64,14 @@ Contributions are welcome!
 
 ## Acknowledgements
 
-This library builds upon the work of several open source security research projects:
+This library builds upon the work of several open source security projects:
 
-- **[Red Canary Atomic Red Team](https://github.com/redcanaryco/atomic-red-team)** - For the comprehensive library of security test procedures mapped to MITRE ATT&CK framework
-- **[LOLBAS Project](https://github.com/LOLBAS-Project/LOLBAS)** - For documenting Windows Living Off The Land Binaries and Scripts
-- **[MagicSword LOLDrivers](https://github.com/magicsword-io/LOLDrivers)** - For cataloging vulnerable and malicious Windows drivers
-- **[LOOBins](https://www.loobins.io/)** - For documenting macOS Living Off the Orchard Binaries
-- **[ARMADO Attack-macOS](https://github.com/armadoinc/attack-macOS)** - For macOS post-exploitation techniques and scripts
+- **[Red Canary Atomic Red Team](https://github.com/redcanaryco/atomic-red-team)** 
+- **[LOLBAS Project](https://github.com/LOLBAS-Project/LOLBAS)** 
+- **[MagicSword LOLDrivers](https://github.com/magicsword-io/LOLDrivers)**
+- **[LOOBins](https://www.loobins.io/)** 
+- **[ARMADO Attack-macOS](https://github.com/armadoinc/attack-macOS)** 
 
-We acknowledge and appreciate the significant contributions these projects have made to the cybersecurity community.
 
 
 

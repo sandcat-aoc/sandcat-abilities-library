@@ -2,8 +2,8 @@ name: Update Procedure Libraries
 
 on:
   schedule:
-    # Run every Sunday at 2 AM UTC (weekly)
-    - cron: '0 * * * *'
+    # Run daily at 2 AM UTC
+    - cron: '0 2 * * *'
   workflow_dispatch: # Allow manual trigger
     inputs:
       force_update:
@@ -51,7 +51,7 @@ jobs:
         
     - name: Create output directories
       run: |
-        mkdir -p windows darwin linux
+        mkdir -p abilities/windows abilities/darwin abilities/linux
         
     - name: Configure Git
       run: |
@@ -61,9 +61,9 @@ jobs:
     - name: Get current counts (before update)
       id: counts_before
       run: |
-        WINDOWS_BEFORE=$(ls windows/*.yml 2>/dev/null | wc -l || echo 0)
-        DARWIN_BEFORE=$(ls darwin/*.yml 2>/dev/null | wc -l || echo 0) 
-        LINUX_BEFORE=$(ls linux/*.yml 2>/dev/null | wc -l || echo 0)
+        WINDOWS_BEFORE=$(find abilities/windows -name "*.yml" 2>/dev/null | wc -l || echo 0)
+        DARWIN_BEFORE=$(find abilities/darwin -name "*.yml" 2>/dev/null | wc -l || echo 0) 
+        LINUX_BEFORE=$(find abilities/linux -name "*.yml" 2>/dev/null | wc -l || echo 0)
         TOTAL_BEFORE=$((WINDOWS_BEFORE + DARWIN_BEFORE + LINUX_BEFORE))
         
         echo "windows_before=$WINDOWS_BEFORE" >> $GITHUB_OUTPUT
@@ -78,7 +78,7 @@ jobs:
       run: |
         echo "Updating LOLBAS procedures..."
         cd cicd
-        python import_lolbas_to_caldera.py --output ../windows/ --verbose
+        python import_lolbas_to_caldera.py --output ../abilities/windows/ --verbose
         echo "LOLBAS update completed"
       continue-on-error: true
       
@@ -87,7 +87,7 @@ jobs:
       run: |
         echo "Updating LOLDrivers procedures..."
         cd cicd
-        python import_loldrivers_to_caldera.py --output ../windows/ --payloads-dir ../payloads/ --verbose
+        python import_loldrivers_to_caldera.py --output ../abilities/windows/ --payloads-dir ../payloads/ --verbose
         echo "LOLDrivers update completed"
       continue-on-error: true
       
@@ -96,7 +96,7 @@ jobs:
       run: |
         echo "Updating LOOBins procedures..."
         cd cicd
-        python import_loobins_to_caldera.py --output ../darwin/ --verbose --force
+        python import_loobins_to_caldera.py --output ../abilities/darwin/ --verbose --force
         echo "LOOBins update completed"
       continue-on-error: true
       
@@ -105,7 +105,7 @@ jobs:
       run: |
         echo "Updating Attack-macOS procedures..."
         cd cicd
-        python import_attack_macos_to_caldera.py --output ../darwin/ --payloads-dir ../payloads/ --verbose --force
+        python import_attack_macos_to_caldera.py --output ../abilities/darwin/ --payloads-dir ../payloads/ --verbose --force
         echo "Attack-macOS update completed"
       continue-on-error: true
       
@@ -114,7 +114,7 @@ jobs:
       run: |
         echo "Updating Atomic Red Team procedures for all platforms..."
         cd cicd
-        python import_atomic_index_to_caldera.py --all-platforms --payloads-dir ../payloads/ --force
+        python import_atomic_index_to_caldera.py --all-platforms --payloads-dir ../payloads/ --windows-output ../abilities/windows --darwin-output ../abilities/darwin --linux-output ../abilities/linux --force
         echo "Atomic Red Team all platforms update completed"
       continue-on-error: true
       
@@ -122,9 +122,9 @@ jobs:
     - name: Get updated counts and calculate changes
       id: counts_after
       run: |
-        WINDOWS_AFTER=$(ls windows/*.yml 2>/dev/null | wc -l || echo 0)
-        DARWIN_AFTER=$(ls darwin/*.yml 2>/dev/null | wc -l || echo 0)
-        LINUX_AFTER=$(ls linux/*.yml 2>/dev/null | wc -l || echo 0) 
+        WINDOWS_AFTER=$(find abilities/windows -name "*.yml" 2>/dev/null | wc -l || echo 0)
+        DARWIN_AFTER=$(find abilities/darwin -name "*.yml" 2>/dev/null | wc -l || echo 0)
+        LINUX_AFTER=$(find abilities/linux -name "*.yml" 2>/dev/null | wc -l || echo 0) 
         TOTAL_AFTER=$((WINDOWS_AFTER + DARWIN_AFTER + LINUX_AFTER))
         
         WINDOWS_DIFF=$((WINDOWS_AFTER - ${{ steps.counts_before.outputs.windows_before }}))
@@ -178,7 +178,7 @@ jobs:
         echo "Committing changes..."
         
         # Add all new/modified YAML files and payloads
-        git add windows/*.yml darwin/*.yml linux/*.yml 2>/dev/null || true
+        git add abilities/ 2>/dev/null || true
         git add payloads/ 2>/dev/null || true
         git add README.md
         

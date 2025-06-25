@@ -1,0 +1,48 @@
+- id: e86f1b4b-fcc1-4a2a-ae10-b49da01458db
+  name: Compressing data using tarfile in Python (FreeBSD/Linux)
+  description: Uses tarfile from Python to compress files
+  tactic: collection
+  technique:
+    attack_id: T1560.002
+    name: 'Archive Collected Data: Archive via Library'
+  platforms:
+    linux:
+      sh:
+        command: which_python=`which python || which python3`; $which_python -c "import
+          tarfile; output_file = tarfile.open('/tmp/passwd.tar.gz','w'); output_file.add('/etc/passwd');
+          output_file.close()"
+        cleanup: 'rm #{path_to_output_file}'
+        elevation_required: false
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1560.002
+  - atomic-red-team
+  - collection
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      path_to_input_file:
+        description: Path to the file that you want to compress
+        type: path
+        default: /etc/passwd
+      path_to_output_file:
+        description: Path of the file that you want your .tar.gz file to be
+        type: path
+        default: /tmp/passwd.tar.gz
+    dependencies:
+    - description: 'Requires Python
+
+        '
+      prereq_command: 'which python || which python3
+
+        '
+      get_prereq_command: 'echo "please install python to run this test"; exit 1
+
+        '
+    technique_created: '2020-02-20T21:08:52.529Z'
+    atomic_guid: e86f1b4b-fcc1-4a2a-ae10-b49da01458db
+    import_timestamp: '2025-06-24T11:15:56.362693Z'

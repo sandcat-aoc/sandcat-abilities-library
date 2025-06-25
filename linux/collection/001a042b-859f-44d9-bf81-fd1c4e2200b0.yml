@@ -1,0 +1,47 @@
+- id: 001a042b-859f-44d9-bf81-fd1c4e2200b0
+  name: Compressing data using zipfile in Python (FreeBSD/Linux)
+  description: Uses zipfile from Python to compress files
+  tactic: collection
+  technique:
+    attack_id: T1560.002
+    name: 'Archive Collected Data: Archive via Library'
+  platforms:
+    linux:
+      sh:
+        command: which_python=`which python || which python3`; $which_python -c "from
+          zipfile import ZipFile; ZipFile('/tmp/passwd.zip', mode='w').write('/etc/passwd')"
+        cleanup: 'rm #{path_to_output_file}'
+        elevation_required: false
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1560.002
+  - atomic-red-team
+  - collection
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      path_to_input_file:
+        description: Path to the file that you want to compress
+        type: path
+        default: /etc/passwd
+      path_to_output_file:
+        description: Path of the file that you want your .zip file to be
+        type: path
+        default: /tmp/passwd.zip
+    dependencies:
+    - description: 'Requires Python
+
+        '
+      prereq_command: 'which python || which python3
+
+        '
+      get_prereq_command: 'echo "please install python to run this test"; exit 1
+
+        '
+    technique_created: '2020-02-20T21:08:52.529Z'
+    atomic_guid: 001a042b-859f-44d9-bf81-fd1c4e2200b0
+    import_timestamp: '2025-06-24T11:15:56.359705Z'

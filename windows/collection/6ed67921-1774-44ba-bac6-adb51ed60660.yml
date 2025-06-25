@@ -1,0 +1,67 @@
+- id: 6ed67921-1774-44ba-bac6-adb51ed60660
+  name: Copy a sensitive File over Administrative share with copy
+  description: 'Copy from sensitive File from the c$ of another LAN computer with
+    copy cmd
+
+    https://twitter.com/SBousseaden/status/1211636381086339073'
+  tactic: collection
+  technique:
+    attack_id: T1039
+    name: Data from Network Shared Drive
+  platforms:
+    windows:
+      sh:
+        command: 'if (Test-Path "\\127.0.0.1\C$") {exit 0} else {exit 1}; then : ;
+          else Write-Host ''Please Enable "C$" share on 127.0.0.1''; fi; if (Test-Path
+          "\\127.0.0.1\C$\Windows\temp\Easter_Bunny.password") {exit 0} else {exit
+          1}; then : ; else Out-File -FilePath "\\127.0.0.1\C$\Windows\temp\Easter_Bunny.password";
+          fi; copy \\127.0.0.1\C$\Windows\temp\Easter_Bunny.password %TEMP%\Easter_egg.password'
+        cleanup: del \\#{remote}\C$\#{share_file}; del %TEMP%\#{local_file}
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1039
+  - atomic-red-team
+  - collection
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      remote:
+        description: Remote server name
+        type: string
+        default: 127.0.0.1
+      share_file:
+        description: Remote Path to the file
+        type: path
+        default: Windows\temp\Easter_Bunny.password
+      local_file:
+        description: Local name
+        type: string
+        default: Easter_egg.password
+    dependencies:
+    - description: 'Administrative share must exist on #{remote}
+
+        '
+      prereq_command: 'if (Test-Path "\\#{remote}\C$") {exit 0} else {exit 1}
+
+        '
+      get_prereq_command: 'Write-Host ''Please Enable "C$" share on #{remote}''
+
+        '
+    - description: '"\\#{remote}\C$\#{share_file}" must exist on #{remote}
+
+        '
+      prereq_command: 'if (Test-Path "\\#{remote}\C$\#{share_file}") {exit 0} else
+        {exit 1}
+
+        '
+      get_prereq_command: 'Out-File -FilePath "\\#{remote}\C$\#{share_file}"
+
+        '
+    technique_created: '2017-05-31T21:30:41.022Z'
+    atomic_guid: 6ed67921-1774-44ba-bac6-adb51ed60660
+    import_timestamp: '2025-06-24T11:15:05.915514Z'

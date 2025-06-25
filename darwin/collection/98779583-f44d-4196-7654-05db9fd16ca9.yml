@@ -1,0 +1,17 @@
+- id: 98779583-f44d-4196-7654-05db9fd16ca9
+  name: osascript - Clipboard Access
+  description: Access clipboard data using AppleScript
+  tactic: collection
+  technique:
+    attack_id: T1059.002
+    name: 'Command and Scripting Interpreter: AppleScript'
+  platforms:
+    darwin:
+      sh:
+        command: osascript -e 'the clipboard'
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - osascript
+  - collection

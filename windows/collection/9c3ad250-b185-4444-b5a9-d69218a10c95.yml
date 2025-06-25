@@ -1,0 +1,25 @@
+- id: 9c3ad250-b185-4444-b5a9-d69218a10c95
+  name: using device audio capture commandlet
+  description: '[AudioDeviceCmdlets](https://github.com/cdhunt/WindowsAudioDevice-Powershell-Cmdlet)'
+  tactic: collection
+  technique:
+    attack_id: T1123
+    name: Audio Capture
+  platforms:
+    windows:
+      psh:
+        command: powershell.exe -Command WindowsAudioDevice-Powershell-Cmdlet
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1123
+  - atomic-red-team
+  - collection
+  author: Atomic Red Team
+  additional_info:
+    technique_created: '2017-05-31T21:31:34.528Z'
+    atomic_guid: 9c3ad250-b185-4444-b5a9-d69218a10c95
+    import_timestamp: '2025-06-24T11:15:05.857697Z'

@@ -1,0 +1,43 @@
+- id: 562f3bc2-74e8-46c5-95c7-0e01f9ccc65c
+  name: X Windows Capture (freebsd)
+  description: Use xwd command to collect a full desktop screenshot and review file
+    with xwud
+  tactic: collection
+  technique:
+    attack_id: T1113
+    name: Screen Capture
+  platforms:
+    linux:
+      sh:
+        command: 'if [ -x "$(command -v xwd)" ]; then : ; else pkg install -y xwd
+          xwud; fi; xwd -root -out /tmp/T1113_desktop.xwd; xwud -in /tmp/T1113_desktop.xwd'
+        cleanup: 'rm #{output_file}'
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1113
+  - atomic-red-team
+  - collection
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      output_file:
+        description: Output file path
+        type: path
+        default: /tmp/T1113_desktop.xwd
+    dependencies:
+    - description: 'Package with XWD and XWUD must exist on device
+
+        '
+      prereq_command: 'if [ -x "$(command -v xwd)" ]; then exit 0; else exit 1; fi
+
+        if [ -x "$(command -v xwud)" ]; then exit 0; else exit 1; fi
+
+        '
+      get_prereq_command: "pkg install -y xwd xwud \n"
+    technique_created: '2017-05-31T21:31:25.060Z'
+    atomic_guid: 562f3bc2-74e8-46c5-95c7-0e01f9ccc65c
+    import_timestamp: '2025-06-24T11:15:56.309576Z'

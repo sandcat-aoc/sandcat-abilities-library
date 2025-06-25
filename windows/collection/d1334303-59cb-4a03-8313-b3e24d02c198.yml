@@ -1,0 +1,53 @@
+- id: d1334303-59cb-4a03-8313-b3e24d02c198
+  name: Compress Data and lock with password for Exfiltration with 7zip
+  description: 'Note: This test requires 7zip installation'
+  tactic: collection
+  technique:
+    attack_id: T1560.001
+    name: 'Archive Collected Data: Archive via Utility'
+  platforms:
+    windows:
+      sh:
+        command: mkdir $PathToAtomicsFolder\T1560.001\victim-files; cd $PathToAtomicsFolder\T1560.001\victim-files;
+          echo "This file will be encrypted" > .\encrypted_file.txt; "%ProgramFiles%\7-zip\7z.exe"
+          u archive.7z *txt -pblue; dir
+        cleanup: rmdir /s /Q $PathToAtomicsFolder\T1560.001\victim-files >nul 2>&1
+        elevation_required: false
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1560.001
+  - atomic-red-team
+  - collection
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      7zip_installer:
+        description: 7zip installer
+        type: path
+        default: '%TEMP%\7zip.exe'
+      7zip_exe:
+        description: Path to installed 7zip executable
+        type: path
+        default: '%ProgramFiles%\7-zip\7z.exe'
+    dependencies:
+    - description: '7zip tool must be installed at specified location (#{7zip_exe})
+
+        '
+      prereq_command: 'if not exist "#{7zip_exe}" (exit /b 1)
+
+        '
+      get_prereq_command: 'echo Downloading 7-zip installer
+
+        bitsadmin /transfer myDownloadJob /download /priority normal "https://www.7-zip.org/a/7z2301-x64.exe"
+        #{7zip_installer}
+
+        #{7zip_installer} /S
+
+        '
+    technique_created: '2020-02-20T21:01:25.428Z'
+    atomic_guid: d1334303-59cb-4a03-8313-b3e24d02c198
+    import_timestamp: '2025-06-24T11:15:05.825685Z'

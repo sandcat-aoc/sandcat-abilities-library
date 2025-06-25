@@ -1,0 +1,40 @@
+- id: a668edb9-334e-48eb-8c2e-5413a40867af
+  name: Auditd keylogger
+  description: The linux audit tool auditd can be used to capture 32 and 64 bit command
+    execution and place the command in the /var/log/audit/audit.log audit log.
+  tactic: collection
+  technique:
+    attack_id: T1056.001
+    name: 'Input Capture: Keylogging'
+  platforms:
+    linux:
+      sh:
+        command: auditctl -a always,exit -F arch=b64 -S execve -k CMDS; auditctl -a
+          always,exit -F arch=b32 -S execve -k CMDS; whoami; ausearch -i --start now
+        cleanup: systemctl restart auditd
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - collection
+  - atomic-red-team
+  - t1056.001
+  author: Atomic Red Team
+  additional_info:
+    dependencies:
+    - description: 'This test requires sshd and auditd
+
+        '
+      prereq_command: 'if [ ! -x "$(command -v auditd)" ]; then echo -e "\n***** auditd
+        NOT installed *****\n"; exit 1; fi
+
+        '
+      get_prereq_command: 'echo ""
+
+        '
+    technique_created: '2020-02-11T18:58:11.791Z'
+    atomic_guid: a668edb9-334e-48eb-8c2e-5413a40867af
+    import_timestamp: '2025-06-24T11:15:56.338389Z'

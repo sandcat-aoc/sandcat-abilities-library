@@ -1,0 +1,35 @@
+- id: 629c194e-c952-4cbc-bfa6-9c224b31d118
+  name: screen_capture
+  description: Capture screenshots of the desktop for reconnaissance and data collection
+  tactic: collection
+  technique:
+    attack_id: T1113
+    name: Screen Capture
+  platforms:
+    darwin:
+      sh:
+        command: './screen_capture.sh --screenshot --display --list-windows --window-id
+
+          --browser-windows --app-windows --hidden --masquerade --cache --osascript
+
+          --swift --python --tcc-query --process-scan --tcc-proxy --all-methods
+
+          '
+        payloads:
+        - screen_capture.sh
+        cleanup: rm -f screen_capture.sh
+  singleton: false
+  privilege: User
+  repeatable: true
+  delete_payload: false
+  buckets:
+  - attack-macos
+  - collection
+  - t1113
+  version: '1.0'
+  author: Attack-macOS Project
+  additional_info:
+    source_file: 629c194e-c952-4cbc-bfa6-9c224b31d118.yml
+    source_repository: https://github.com/armadoinc/caldera-plugin-attack-macos
+    import_timestamp: '2025-06-24T09:59:53.817650Z'
+    original_plugin: caldera-plugin-attack-macos

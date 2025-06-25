@@ -1,0 +1,27 @@
+- id: 53cf1903-0fa7-4177-ab14-f358ae809eec
+  name: Enumerate Stored Wi-Fi Profiles And Passwords via netsh
+  description: Upon successful execution, information about previously connected Wi-Fi
+    networks will be displayed with their corresponding key (if present).
+  tactic: discovery
+  technique:
+    attack_id: T1016.002
+    name: 'System Network Configuration Discovery: Wi-Fi Discovery'
+  platforms:
+    windows:
+      sh:
+        command: netsh wlan show profile * key=clear
+        elevation_required: false
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - discovery
+  - atomic-red-team
+  - t1016.002
+  author: Atomic Red Team
+  additional_info:
+    technique_created: '2023-09-08T15:39:50.269Z'
+    atomic_guid: 53cf1903-0fa7-4177-ab14-f358ae809eec
+    import_timestamp: '2025-06-24T11:15:07.333702Z'

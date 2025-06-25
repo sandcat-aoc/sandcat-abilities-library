@@ -1,0 +1,54 @@
+- id: 0e59d59d-3265-4d35-bebd-bf5c1ec40db5
+  name: Logging bash history to syslog
+  description: 'There are several variables that can be set to control the appearance
+    of the bash command prompt: PS1, PS2, PS3, PS4 and PROMPT_COMMAND. The contents
+    of these variables are executed as if they had been typed on the command line.
+    The PROMPT_COMMAND variable "if set" will be executed before the PS1 variable
+    and can be configured to write the latest "bash history" entries to the syslog.
+
+
+    To gain persistence the command could be added to the users .bashrc or .bash_aliases
+    or the systems default .bashrc in /etc/skel/'
+  tactic: collection
+  technique:
+    attack_id: T1056.001
+    name: 'Input Capture: Keylogging'
+  platforms:
+    linux:
+      sh:
+        command: PROMPT_COMMAND='history -a >(tee -a ~/.bash_history |logger -t "$USER[$$]
+          $SSH_CONNECTION ")'; echo "\$PROMPT_COMMAND=$PROMPT_COMMAND"; tail /var/log/syslog
+        cleanup: unset PROMPT_COMMAND
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - collection
+  - atomic-red-team
+  - t1056.001
+  author: Atomic Red Team
+  additional_info:
+    dependencies:
+    - description: 'This test requires to be run in a bash shell and that logger and
+        tee are installed.
+
+        '
+      prereq_command: 'if [ "$(echo $SHELL)" != "/bin/bash" ]; then echo -e "\n*****
+        Bash not running! *****\n"; exit 1; fi
+
+        if [ ! -x "$(command -v logger)" ]; then echo -e "\n***** logger NOT installed
+        *****\n"; exit 1; fi
+
+        if [ ! -x "$(command -v tee)" ]; then echo -e "\n***** tee NOT installed *****\n";
+        exit 1; fi
+
+        '
+      get_prereq_command: 'echo ""
+
+        '
+    technique_created: '2020-02-11T18:58:11.791Z'
+    atomic_guid: 0e59d59d-3265-4d35-bebd-bf5c1ec40db5
+    import_timestamp: '2025-06-24T11:15:56.323060Z'

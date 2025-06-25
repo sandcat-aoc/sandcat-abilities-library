@@ -1,0 +1,41 @@
+- id: 74ace21e-a31c-4f7d-b540-53e4eb6d1f73
+  name: Changing RDP Port to Non Standard Port via Command_Prompt
+  description: Changing RDP Port to Non Standard Port via Command_Prompt
+  tactic: lateral-movement
+  technique:
+    attack_id: T1021.001
+    name: 'Remote Services: Remote Desktop Protocol'
+  platforms:
+    windows:
+      sh:
+        command: reg add "HKLM\System\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp"
+          /v PortNumber /t REG_DWORD /d 4489 /f; netsh advfirewall firewall add rule
+          name="RDPPORTLatest-TCP-In" dir=in action=allow protocol=TCP localport=4489
+        cleanup: 'reg add "HKLM\System\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp"
+          /v PortNumber /t REG_DWORD /d #{OLD_Remote_Port} /f >nul 2>&1; netsh advfirewall
+          firewall delete rule name="RDPPORTLatest-TCP-In" >nul 2>&1; net stop TermService
+          /y >nul 2>&1; net start TermService >nul 2>&1'
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1021.001
+  - lateral-movement
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      OLD_Remote_Port:
+        description: Default RDP Listening Port
+        type: string
+        default: '3389'
+      NEW_Remote_Port:
+        description: New RDP Listening Port
+        type: string
+        default: '4489'
+    technique_created: '2020-02-11T18:23:26.059Z'
+    atomic_guid: 74ace21e-a31c-4f7d-b540-53e4eb6d1f73
+    import_timestamp: '2025-06-24T11:15:06.039900Z'

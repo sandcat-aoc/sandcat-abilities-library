@@ -1,0 +1,66 @@
+site_name: CALDERA Procedures Library
+site_description: Unified library of adversary emulation procedures for CALDERA operations
+site_url: https://yourusername.github.io/caldera-procedures-library/
+repo_url: https://github.com/yourusername/caldera-procedures-library
+repo_name: caldera-procedures-library
+
+theme:
+  name: material
+  palette:
+    - scheme: default
+      primary: blue
+      accent: blue
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - scheme: slate
+      primary: blue
+      accent: blue
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  features:
+    - navigation.tabs
+    - navigation.top
+    - search.highlight
+    - search.share
+    - content.code.copy
+
+plugins:
+  - search
+  - git-revision-date-localized
+
+markdown_extensions:
+  - admonition
+  - codehilite
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+  - toc:
+      permalink: true
+
+nav:
+  - Home: index.md
+  - Getting Started:
+    - Quick Start: getting-started/quick-start.md
+    - Installation: getting-started/installation.md
+    - Importing Procedures: getting-started/importing.md
+  - Procedures:
+    - Schema Reference: procedures/schema.md
+    - Platform Guide: procedures/platforms.md
+    - MITRE ATT&CK Mapping: procedures/attack-mapping.md
+    - Examples: procedures/examples.md
+  - Sources:
+    - Atomic Red Team: sources/atomic-red-team.md
+    - LOLBAS: sources/lolbas.md
+    - LOLDrivers: sources/loldrivers.md
+    - LOOBins: sources/loobins.md
+    - Attack-macOS: sources/attack-macos.md
+  - Development:
+    - CI/CD Pipeline: development/cicd.md
+    - Validation: development/validation.md
+    - Contributing: development/contributing.md
+  - API Reference:
+    - Schema Validation: api/validation.md
+    - Import Scripts: api/import-scripts.md 

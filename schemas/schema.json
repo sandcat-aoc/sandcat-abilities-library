@@ -1,0 +1,231 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Caldera Ability Schema",
+  "description": "Complete schema for Caldera abilities YAML files based on official documentation and source code analysis",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "required": ["id", "name", "description", "tactic", "technique", "platforms"],
+    "properties": {
+      "id": {
+        "type": "string",
+        "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+        "description": "UUID identifier for the ability"
+      },
+      "name": {
+        "type": "string",
+        "minLength": 1,
+        "description": "Human-readable name of the ability"
+      },
+      "description": {
+        "type": "string", 
+        "minLength": 1,
+        "description": "Detailed description of what the abilities does"
+      },
+      "tactic": {
+        "type": "string",
+        "description": "MITRE ATT&CK tactic",
+        "enum": [
+          "discovery", "collection", "credential-access", "defense-evasion", 
+          "execution", "exfiltration", "impact", "initial-access", 
+          "lateral-movement", "persistence", "privilege-escalation", 
+          "command-and-control", "technical-information-gathering"
+        ]
+      },
+      "technique": {
+        "type": "object",
+        "required": ["attack_id", "name"],
+        "properties": {
+          "attack_id": {
+            "type": "string",
+            "pattern": "^T[0-9]{4}(\\.[0-9]{3})?$",
+            "description": "MITRE ATT&CK technique ID (e.g., T1057, T1021.006)"
+          },
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "description": "MITRE ATT&CK technique name"
+          }
+        },
+        "additionalProperties": false,
+        "description": "MITRE ATT&CK technique information"
+      },
+      "platforms": {
+        "type": "object",
+        "minProperties": 1,
+        "patternProperties": {
+          "^(windows|linux|darwin|darwin,linux)$": {
+            "type": "object",
+            "minProperties": 1,
+            "patternProperties": {
+              "^(psh|pwsh|cmd|sh|osa|donut_amd64)$": {
+                "type": "object",
+                "required": ["command"],
+                "properties": {
+                  "command": {
+                    "type": "string",
+                    "minLength": 1,
+                    "description": "Command to execute on the target platform"
+                  },
+                  "code": {
+                    "type": "string",
+                    "description": "Source code for dynamically compiled executables"
+                  },
+                  "language": {
+                    "type": "string",
+                    "enum": ["csharp", "python", "powershell"],
+                    "description": "Programming language for code compilation"
+                  },
+                  "build_target": {
+                    "type": "string",
+                    "description": "Target executable filename for compiled code"
+                  },
+                  "timeout": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "default": 60,
+                    "description": "Execution timeout in seconds"
+                  },
+                  "cleanup": {
+                    "oneOf": [
+                      {"type": "string"},
+                      {"type": "array", "items": {"type": "string"}}
+                    ],
+                    "description": "Cleanup commands to reverse the abilities effects"
+                  },
+                  "payloads": {
+                    "type": "array",
+                    "items": {"type": "string"},
+                    "description": "List of payload files required for execution"
+                  },
+                  "uploads": {
+                    "type": "array", 
+                    "items": {"type": "string"},
+                    "description": "List of files to upload to C2 server after execution"
+                  },
+                  "parsers": {
+                    "type": "object",
+                    "patternProperties": {
+                      "^plugins\\.[a-zA-Z0-9_]+\\.[a-zA-Z0-9_]+\\.[a-zA-Z0-9_]+\\.[a-zA-Z0-9_]+$": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "required": ["source"],
+                          "properties": {
+                            "source": {
+                              "type": "string",
+                              "description": "Source fact name to extract"
+                            },
+                            "edge": {
+                              "type": "string", 
+                              "description": "Relationship edge between source and target"
+                            },
+                            "target": {
+                              "type": "string",
+                              "description": "Target fact name in relationship"
+                            }
+                          },
+                          "additionalProperties": false
+                        }
+                      }
+                    },
+                    "additionalProperties": false,
+                    "description": "Parser modules to extract facts from command output"
+                  },
+                  "variations": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "required": ["description", "command"],
+                      "properties": {
+                        "description": {"type": "string"},
+                        "command": {"type": "string"}
+                      }
+                    },
+                    "description": "Command variations for different scenarios"
+                  }
+                },
+                "additionalProperties": false
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "additionalProperties": false,
+        "description": "Platform-specific executor implementations"
+      },
+      "requirements": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "patternProperties": {
+            "^plugins\\.[a-zA-Z0-9_]+\\.[a-zA-Z0-9_]+\\.[a-zA-Z0-9_]+\\.[a-zA-Z0-9_]+$": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": ["source"],
+                "properties": {
+                  "source": {
+                    "type": "string",
+                    "description": "Source fact name for requirement validation"
+                  },
+                  "edge": {
+                    "type": "string",
+                    "description": "Relationship edge for requirement validation"
+                  },
+                  "target": {
+                    "type": "string", 
+                    "description": "Target fact name for requirement validation"
+                  }
+                },
+                "additionalProperties": false
+              }
+            }
+          },
+          "additionalProperties": false
+        },
+        "description": "Prerequisites that must be met before executing ability"
+      },
+      "singleton": {
+        "type": "boolean",
+        "default": false,
+        "description": "Whether this abilities should only run once per operation"
+      },
+      "repeatable": {
+        "type": "boolean", 
+        "default": false,
+        "description": "Whether this abilities can be repeated as many times as the planner desires"
+      },
+      "delete_payload": {
+        "type": "boolean",
+        "default": true,
+        "description": "Whether the agent should remove payload files after execution"
+      },
+      "privilege": {
+        "type": "string",
+        "enum": ["", "User", "Elevated", "SYSTEM"],
+        "description": "Required privilege level for execution"
+      },
+      "buckets": {
+        "type": "array",
+        "items": {"type": "string"},
+        "description": "Classification buckets for organizing abilities"
+      },
+      "access": {
+        "type": "object",
+        "description": "Access control requirements for the ability"
+      },
+      "additional_info": {
+        "type": "object",
+        "description": "Additional metadata and custom properties"
+      },
+      "plugin": {
+        "type": "string",
+        "description": "Source plugin name where abilities originated"
+      }
+    },
+    "additionalProperties": false
+  },
+  "minItems": 1,
+  "maxItems": 1
+} 

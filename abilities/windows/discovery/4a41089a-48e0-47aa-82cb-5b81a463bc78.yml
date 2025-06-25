@@ -1,0 +1,35 @@
+- id: 4a41089a-48e0-47aa-82cb-5b81a463bc78
+  name: Detect Virtualization Environment via WMI Manufacturer/Model Listing (Windows)
+  description: Windows Management Instrumentation(WMI) objects contain system information
+    which helps to detect virtualization. This test will get the model and manufacturer
+    of the machine to determine if it is a virtual machine, such as through VMware
+    or VirtualBox.
+  tactic: discovery
+  technique:
+    attack_id: T1497.001
+    name: 'Virtualization/Sandbox Evasion: System Checks'
+  platforms:
+    windows:
+      psh:
+        command: $Manufacturer = Get-WmiObject -Class Win32_ComputerSystem | select-object
+          -expandproperty "Manufacturer"; $Model = Get-WmiObject -Class Win32_ComputerSystem
+          | select-object -expandproperty "Model"; if((($Manufacturer.ToLower() -eq
+          "microsoft corporation") -and ($Model.ToLower().contains("virtual"))) -or
+          ($Manufacturer.ToLower().contains("vmware")) -or ($Model.ToLower() -eq "virtualbox"))
+          {write-host "Virtualization environment detected!"} else {write-host "No
+          virtualization environment detected!"}
+        elevation_required: false
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - discovery
+  - atomic-red-team
+  - t1497.001
+  author: Atomic Red Team
+  additional_info:
+    technique_created: '2020-03-06T20:57:37.959Z'
+    atomic_guid: 4a41089a-48e0-47aa-82cb-5b81a463bc78
+    import_timestamp: '2025-06-24T11:15:07.128966Z'

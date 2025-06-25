@@ -1,0 +1,31 @@
+- id: dafaf052-5508-402d-bf77-51e0700c02e2
+  name: System Network Configuration Discovery (TrickBot Style)
+  description: 'Identify network configuration information as seen by Trickbot and
+    described here https://www.sneakymonkey.net/2019/10/29/trickbot-analysis-part-ii/
+
+
+    Upon successful execution, cmd.exe will spawn `ipconfig /all`, `net config workstation`,
+    `net view /all /domain`, `nltest /domain_trusts`. Output will be via stdout.'
+  tactic: discovery
+  technique:
+    attack_id: T1016
+    name: System Network Configuration Discovery
+  platforms:
+    windows:
+      sh:
+        command: ipconfig /all; net config workstation; net view /all /domain; nltest
+          /domain_trusts
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - discovery
+  - atomic-red-team
+  - t1016
+  author: Atomic Red Team
+  additional_info:
+    technique_created: '2017-05-31T21:30:27.342Z'
+    atomic_guid: dafaf052-5508-402d-bf77-51e0700c02e2
+    import_timestamp: '2025-06-24T11:15:07.366413Z'

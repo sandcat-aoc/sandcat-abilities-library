@@ -1,0 +1,33 @@
+- id: d5b886d9-d1c7-4b6e-a7b0-460041bf2823
+  name: Password Change on Directory Service Restore Mode (DSRM) Account
+  description: Change the password on the Directory Service Restore Mode (DSRM) account
+    using ntdsutil by syncing to existing account
+  tactic: privilege-escalation
+  technique:
+    attack_id: T1098
+    name: Account Manipulation
+  platforms:
+    windows:
+      sh:
+        command: ntdsutil "set dsrm password" "sync from domain account %username%"
+          "q" "q"
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1098
+  - privilege-escalation
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      sync_account:
+        description: Account to sync password from
+        type: string
+        default: '%username%'
+    technique_created: '2017-05-31T21:31:12.196Z'
+    atomic_guid: d5b886d9-d1c7-4b6e-a7b0-460041bf2823
+    import_timestamp: '2025-06-24T11:15:02.580411Z'

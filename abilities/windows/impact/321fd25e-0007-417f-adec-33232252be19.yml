@@ -1,0 +1,28 @@
+- id: 321fd25e-0007-417f-adec-33232252be19
+  name: Overwrite deleted data on C drive
+  description: "RansomEXX malware removes all deleted files using windows built-in\
+    \ cipher.exe to prevent forensic recover.\nThis process is very slow and test\
+    \ execution may timeout. \nhttps://www.cybereason.com/blog/cybereason-vs.-ransomexx-ransomware\n\
+    https://support.microsoft.com/en-us/topic/cipher-exe-security-tool-for-the-encrypting-file-system-56c85edd-85cf-ac07-f2f7-ca2d35dab7e4"
+  tactic: impact
+  technique:
+    attack_id: T1485
+    name: Data Destruction
+  platforms:
+    windows:
+      sh:
+        command: 'cipher.exe /w:C:'
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - impact
+  - t1485
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    technique_created: '2019-03-14T18:47:17.701Z'
+    atomic_guid: 321fd25e-0007-417f-adec-33232252be19
+    import_timestamp: '2025-06-24T11:15:07.772628Z'

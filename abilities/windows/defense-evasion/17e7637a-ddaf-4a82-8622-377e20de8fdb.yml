@@ -1,0 +1,41 @@
+- id: 17e7637a-ddaf-4a82-8622-377e20de8fdb
+  name: Create ADS command prompt
+  description: 'Create an Alternate Data Stream with the command prompt. Write access
+    is required. Upon execution, run "dir /a-d /s /r | find ":$DATA"" in the %temp%
+
+    folder to view that the alternate data stream exists. To view the data in the
+    alternate data stream, run "notepad T1564.004_has_ads.txt:adstest.txt"'
+  tactic: defense-evasion
+  technique:
+    attack_id: T1564.004
+    name: 'Hide Artifacts: NTFS File Attributes'
+  platforms:
+    windows:
+      sh:
+        command: echo cmd /c echo "Shell code execution."> %temp%\T1564.004_has_ads_cmd.txt:adstest.txt;
+          for /f "usebackq delims=?" %i in (%temp%\T1564.004_has_ads_cmd.txt:adstest.txt)
+          do %i
+        cleanup: 'del #{file_name} >nul 2>&1'
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - defense-evasion
+  - atomic-red-team
+  - t1564.004
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      file_name:
+        description: File name of file to create ADS on.
+        type: string
+        default: '%temp%\T1564.004_has_ads_cmd.txt'
+      ads_filename:
+        description: Name of ADS.
+        type: string
+        default: adstest.txt
+    technique_created: '2020-03-13T20:33:00.009Z'
+    atomic_guid: 17e7637a-ddaf-4a82-8622-377e20de8fdb
+    import_timestamp: '2025-06-24T11:15:01.455843Z'

@@ -1,0 +1,36 @@
+- id: 562bfb9d-a679-4384-b5ca-61151e284a55
+  name: modify_security_settings
+  description: Modify macOS security settings including Gatekeeper, firewall, SIP, login items, and system
+    logs
+  tactic: defense_evasion
+  technique:
+    attack_id: T1562.001
+    name: Modify Security Settings
+  platforms:
+    darwin:
+      sh:
+        command: './modify_security_settings.sh --restore-defaults --show-security-settings
+
+          --disable-sip --disable-authenticated-root --reset-login-items --erase-logs
+
+          --disable-quarantine
+
+          '
+        payloads:
+        - modify_security_settings.sh
+        cleanup: rm -f modify_security_settings.sh
+  singleton: true
+  privilege: Elevated
+  repeatable: false
+  delete_payload: false
+  buckets:
+  - attack-macos
+  - defense_evasion
+  - t1562.001
+  version: '1.0'
+  author: Attack-macOS Project
+  additional_info:
+    source_file: 562bfb9d-a679-4384-b5ca-61151e284a55.yml
+    source_repository: https://github.com/armadoinc/caldera-plugin-attack-macos
+    import_timestamp: '2025-06-24T09:59:53.873256Z'
+    original_plugin: caldera-plugin-attack-macos

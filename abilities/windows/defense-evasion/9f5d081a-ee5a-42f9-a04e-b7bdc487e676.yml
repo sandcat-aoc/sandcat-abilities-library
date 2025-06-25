@@ -1,0 +1,31 @@
+- id: 9f5d081a-ee5a-42f9-a04e-b7bdc487e676
+  name: Launches an executable using Rundll32 and pcwutl.dll
+  description: Executes the LaunchApplication function in pcwutl.dll to proxy execution
+    of an executable.
+  tactic: defense-evasion
+  technique:
+    attack_id: T1218.011
+    name: 'Signed Binary Proxy Execution: Rundll32'
+  platforms:
+    windows:
+      sh:
+        command: rundll32.exe pcwutl.dll,LaunchApplication %windir%\System32\notepad.exe
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1218.011
+  - atomic-red-team
+  - defense-evasion
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      exe_to_launch:
+        description: Path of the executable to launch
+        type: path
+        default: '%windir%\System32\notepad.exe'
+    technique_created: '2020-01-23T18:03:46.248Z'
+    atomic_guid: 9f5d081a-ee5a-42f9-a04e-b7bdc487e676
+    import_timestamp: '2025-06-24T11:14:59.808489Z'

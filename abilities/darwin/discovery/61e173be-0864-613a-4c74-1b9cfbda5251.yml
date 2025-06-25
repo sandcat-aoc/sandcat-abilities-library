@@ -1,0 +1,27 @@
+- id: 61e173be-0864-613a-4c74-1b9cfbda5251
+  name: networksetup - network device enumeration
+  description: Use networksetup to list all network interface names.
+  tactic: discovery
+  technique:
+    attack_id: T1016
+    name: System Network Configuration Discovery
+  platforms:
+    darwin:
+      sh:
+        command: networksetup -listallnetworkservices
+  singleton: false
+  privilege: User
+  repeatable: true
+  delete_payload: true
+  buckets:
+  - loobins
+  - networksetup
+  - discovery
+  version: '1.0'
+  author: LOOBins Project
+  additional_info:
+    loobins_tool: networksetup
+    use_case: network device enumeration
+    source_file: networksetup.yml
+    source_repository: https://github.com/infosecB/LOOBins
+    import_timestamp: '2025-06-24T09:00:11.454122Z'

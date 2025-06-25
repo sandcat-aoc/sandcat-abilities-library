@@ -1,0 +1,30 @@
+- id: 5c784969-1d43-4ac7-8c3d-ed6d025ed10d
+  name: Check Software Inventory Logging (SIL) status via Registry
+  description: "Microsoft's Software Inventory Logging (SIL) collects information\
+    \ about software installed per host basis. Adversary can use such logs to passively\
+    \ \ncheck for existence of software of interest to them. Status of SIL can be\
+    \ checked via registry.\n[Reference](https://blog.talosintelligence.com/chinese-hacking-group-apt41-compromised-taiwanese-government-affiliated-research-institute-with-shadowpad-and-cobaltstrike-2/)"
+  tactic: discovery
+  technique:
+    attack_id: T1012
+    name: Query Registry
+  platforms:
+    windows:
+      sh:
+        command: reg.exe query hklm\software\microsoft\windows\softwareinventorylogging
+          /v collectionstate /reg:64
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - discovery
+  - atomic-red-team
+  - t1012
+  author: Atomic Red Team
+  additional_info:
+    technique_created: '2017-05-31T21:30:25.584Z'
+    atomic_guid: 5c784969-1d43-4ac7-8c3d-ed6d025ed10d
+    import_timestamp: '2025-06-24T11:15:07.548224Z'

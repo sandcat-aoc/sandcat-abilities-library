@@ -1,0 +1,71 @@
+- id: 0eb03d41-79e4-4393-8e57-6344856be1cf
+  name: Copy and Execute File with PsExec
+  description: Copies a file to a remote host and executes it using PsExec. Requires
+    the download of PsExec from [https://docs.microsoft.com/en-us/sysinternals/downloads/psexec](https://docs.microsoft.com/en-us/sysinternals/downloads/psexec).
+  tactic: lateral-movement
+  technique:
+    attack_id: T1021.002
+    name: 'Remote Services: SMB/Windows Admin Shares'
+  platforms:
+    windows:
+      sh:
+        command: 'if (Test-Path "PathToAtomicsFolder\..\ExternalPayloads\PsExec.exe")
+          { exit 0} else { exit 1}; then : ; else New-Item -Type Directory "PathToAtomicsFolder\..\ExternalPayloads\"
+          -ErrorAction Ignore -Force | Out-Null; Invoke-WebRequest "https://download.sysinternals.com/files/PSTools.zip"
+          -OutFile "PathToAtomicsFolder\..\ExternalPayloads\PsTools.zip"; Expand-Archive
+          "PathToAtomicsFolder\..\ExternalPayloads\PsTools.zip" "PathToAtomicsFolder\..\ExternalPayloads\PsTools"
+          -Force; New-Item -ItemType Directory (Split-Path "PathToAtomicsFolder\..\ExternalPayloads\PsExec.exe")
+          -Force | Out-Null; Copy-Item "PathToAtomicsFolder\..\ExternalPayloads\PsTools\PsExec.exe"
+          "PathToAtomicsFolder\..\ExternalPayloads\PsExec.exe" -Force; fi; "PathToAtomicsFolder\..\ExternalPayloads\PsExec.exe"
+          \\localhost -accepteula -c C:\Windows\System32\cmd.exe'
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1021.002
+  - lateral-movement
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      command_path:
+        description: File to copy and execute
+        type: path
+        default: C:\Windows\System32\cmd.exe
+      remote_host:
+        description: Remote computer to receive the copy and execute the file
+        type: string
+        default: \\localhost
+      psexec_exe:
+        description: Path to PsExec
+        type: string
+        default: PathToAtomicsFolder\..\ExternalPayloads\PsExec.exe
+    dependencies:
+    - description: 'PsExec tool from Sysinternals must exist on disk at specified
+        location (#{psexec_exe})
+
+        '
+      prereq_command: 'if (Test-Path "#{psexec_exe}") { exit 0} else { exit 1}
+
+        '
+      get_prereq_command: 'New-Item -Type Directory "PathToAtomicsFolder\..\ExternalPayloads\"
+        -ErrorAction Ignore -Force | Out-Null
+
+        Invoke-WebRequest "https://download.sysinternals.com/files/PSTools.zip" -OutFile
+        "PathToAtomicsFolder\..\ExternalPayloads\PsTools.zip"
+
+        Expand-Archive "PathToAtomicsFolder\..\ExternalPayloads\PsTools.zip" "PathToAtomicsFolder\..\ExternalPayloads\PsTools"
+        -Force
+
+        New-Item -ItemType Directory (Split-Path "#{psexec_exe}") -Force | Out-Null
+
+        Copy-Item "PathToAtomicsFolder\..\ExternalPayloads\PsTools\PsExec.exe" "#{psexec_exe}"
+        -Force
+
+        '
+    technique_created: '2020-02-11T18:25:28.212Z'
+    atomic_guid: 0eb03d41-79e4-4393-8e57-6344856be1cf
+    import_timestamp: '2025-06-24T11:15:05.950815Z'

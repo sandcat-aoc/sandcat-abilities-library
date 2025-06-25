@@ -1,0 +1,42 @@
+- id: 0ad9ab92-c48c-4f08-9b20-9633277c4646
+  name: Headless Browser Accessing Mockbin
+  description: 'The following Atomic Red Team test leverages the Chrome headless browser
+    to access a mockbin site. Create your own Mockbin.org site and replace the BIN
+    in the inputs.
+
+    The default Mockbin ID forwards to google.com and you may view the details here
+    https://mockbin.org/bin/f6b9a876-a826-4ac0-83b8-639d6ad516ec/view.
+
+    Reference: https://cert.gov.ua/article/5702579'
+  tactic: defense-evasion
+  technique:
+    attack_id: T1564.003
+    name: 'Hide Artifacts: Hidden Window'
+  platforms:
+    windows:
+      sh:
+        command: start "" chrome --headless --disable-gpu https://mockbin.org/bin/f6b9a876-a826-4ac0-83b8-639d6ad516ec
+        cleanup: 'taskkill /im #{browser} /f'
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1564.003
+  - atomic-red-team
+  - defense-evasion
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      bin_id:
+        description: Mockbin.org BIN ID
+        type: string
+        default: f6b9a876-a826-4ac0-83b8-639d6ad516ec
+      browser:
+        description: Browser to use (msedge, chrome, firefox)
+        type: string
+        default: chrome
+    technique_created: '2020-03-13T20:26:49.433Z'
+    atomic_guid: 0ad9ab92-c48c-4f08-9b20-9633277c4646
+    import_timestamp: '2025-06-24T11:15:01.310959Z'

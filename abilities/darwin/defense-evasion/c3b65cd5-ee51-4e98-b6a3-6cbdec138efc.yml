@@ -1,0 +1,44 @@
+- id: c3b65cd5-ee51-4e98-b6a3-6cbdec138efc
+  name: XOR decoding and command execution using Python
+  description: An adversary can obfuscate malicious commands or payloads using XOR
+    and execute them on the victim's machine. This test uses Python to decode and
+    execute commands on the machine.
+  tactic: defense-evasion
+  technique:
+    attack_id: T1140
+    name: Deobfuscate/Decode Files or Information
+  platforms:
+    darwin:
+      sh:
+        command: 'python3 -c ''import base64; import subprocess; xor_decrypt = lambda
+          text, key: "".join([chr(c ^ ord(k)) for c, k in zip(base64.b64decode(text.encode()),
+          key)]); command = "AAkqKQEM"; key = "waEHleblxiQjoxFJQaIMLdHKz"; exec =
+          xor_decrypt(command, key); subprocess.call(exec, shell=True)'''
+        elevation_required: false
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1140
+  - atomic-red-team
+  - defense-evasion
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      xor_key:
+        description: 'Key used to decrypt the command '
+        type: string
+        default: waEHleblxiQjoxFJQaIMLdHKz
+      encrypted_command:
+        description: Encrypted command that will be executed
+        type: string
+        default: AAkqKQEM
+    dependencies:
+    - description: Python3 must be installed
+      prereq_command: which python3
+      get_prereq_command: echo "Install Python3"
+    technique_created: '2017-12-14T16:46:06.044Z'
+    atomic_guid: c3b65cd5-ee51-4e98-b6a3-6cbdec138efc
+    import_timestamp: '2025-06-24T11:14:07.147048Z'

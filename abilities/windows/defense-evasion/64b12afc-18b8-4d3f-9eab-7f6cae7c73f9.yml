@@ -1,0 +1,49 @@
+- id: 64b12afc-18b8-4d3f-9eab-7f6cae7c73f9
+  name: Remove the Zone.Identifier alternate data stream
+  description: 'Remove the Zone.Identifier alternate data stream which identifies
+    the file as downloaded from the internet.
+
+    Removing this allows more freedom in executing scripts in PowerShell and avoids
+    opening files in protected view.'
+  tactic: defense-evasion
+  technique:
+    attack_id: T1553.005
+    name: 'Subvert Trust Controls: Mark-of-the-Web Bypass'
+  platforms:
+    windows:
+      psh:
+        command: Unblock-File -Path $env:tmp\ReadMe.md
+        cleanup: 'Set-Content -Path #{file_path} -Stream Zone.Identifier -Value ''[ZoneTransfer]'',''ZoneId=3'''
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1553.005
+  - atomic-red-team
+  - defense-evasion
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      file_to_download:
+        description: File that will be downloaded to test against.
+        type: url
+        default: https://raw.githubusercontent.com/redcanaryco/atomic-red-team/master/README.md
+      file_path:
+        description: File to have the Zone.Identifier removed.
+        type: string
+        default: $env:tmp\ReadMe.md
+    dependencies:
+    - description: A test file with the Zone.Identifier attribute must be present.
+      prereq_command: 'if (Test-Path #{file_path}) { EXIT 0 } else { EXIT 1 }
+
+        '
+      get_prereq_command: 'Invoke-WebRequest #{file_to_download} -OutFile #{file_path}
+
+        Set-Content -Path #{file_path} -Stream Zone.Identifier -Value ''[ZoneTransfer]'',''ZoneId=3''
+
+        '
+    technique_created: '2021-02-22T14:20:31.650Z'
+    atomic_guid: 64b12afc-18b8-4d3f-9eab-7f6cae7c73f9
+    import_timestamp: '2025-06-24T11:15:00.832069Z'

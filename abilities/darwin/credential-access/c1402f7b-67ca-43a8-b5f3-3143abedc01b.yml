@@ -1,0 +1,35 @@
+- id: c1402f7b-67ca-43a8-b5f3-3143abedc01b
+  name: Search macOS Safari Cookies
+  description: 'This test uses `grep` to search a macOS Safari binaryCookies file
+    for specified values. This was used by CookieMiner malware.
+
+
+    Upon successful execution, MacOS shell will cd to `~/Libraries/Cookies` and grep
+    for `Cookies.binarycookies`.'
+  tactic: credential-access
+  technique:
+    attack_id: T1555.003
+    name: 'Credentials from Password Stores: Credentials from Web Browsers'
+  platforms:
+    darwin:
+      sh:
+        command: cd ~/Library/Cookies; grep -q "coinbase" "Cookies.binarycookies"
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - credential-access
+  - atomic-red-team
+  - t1555.003
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      search_string:
+        description: String to search Safari cookies to find.
+        type: string
+        default: coinbase
+    technique_created: '2020-02-12T18:57:36.041Z'
+    atomic_guid: c1402f7b-67ca-43a8-b5f3-3143abedc01b
+    import_timestamp: '2025-06-24T11:14:07.668913Z'

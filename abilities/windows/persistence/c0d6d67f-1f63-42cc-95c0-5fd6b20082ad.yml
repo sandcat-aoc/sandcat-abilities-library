@@ -1,0 +1,32 @@
+- id: c0d6d67f-1f63-42cc-95c0-5fd6b20082ad
+  name: Disable Windows Notification Center
+  description: 'Modify the registry of the currently logged in user using reg.exe
+    via cmd console to disable the windows notification center.
+
+    See how remcos rat abuses this technique- https://tccontre.blogspot.com/2020/01/remcos-rat-evading-windows-defender-av.html'
+  tactic: persistence
+  technique:
+    attack_id: T1112
+    name: Modify Registry
+  platforms:
+    windows:
+      sh:
+        command: reg add HKEY_CURRENT_USER\SOFTWARE\Policies\Microsoft\Windows\Explorer
+          /v DisableNotificationCenter /t REG_DWORD /d 1 /f
+        cleanup: reg delete HKEY_CURRENT_USER\SOFTWARE\Policies\Microsoft\Windows\Explorer
+          /v DisableNotificationCenter /f >nul 2>&1
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - persistence
+  - t1112
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    technique_created: '2017-05-31T21:31:23.587Z'
+    atomic_guid: c0d6d67f-1f63-42cc-95c0-5fd6b20082ad
+    import_timestamp: '2025-06-24T11:15:03.974393Z'

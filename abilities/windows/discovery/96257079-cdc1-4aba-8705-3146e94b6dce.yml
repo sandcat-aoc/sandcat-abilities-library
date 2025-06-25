@@ -1,0 +1,29 @@
+- id: 96257079-cdc1-4aba-8705-3146e94b6dce
+  name: Inspect SystemStartOptions Value in Registry
+  description: The objective of this test is to query the SystemStartOptions key under
+    HKLM\SYSTEM\CurrentControlSet\Control in the Windows registry. This action could
+    be used to uncover specific details about how the system is configured to start,
+    potentially aiding in understanding boot parameters or identifying security-related
+    settings. key is.
+  tactic: discovery
+  technique:
+    attack_id: T1012
+    name: Query Registry
+  platforms:
+    windows:
+      sh:
+        command: reg.exe query HKLM\SYSTEM\CurrentControlSet\Control /v SystemStartOptions
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - discovery
+  - atomic-red-team
+  - t1012
+  author: Atomic Red Team
+  additional_info:
+    technique_created: '2017-05-31T21:30:25.584Z'
+    atomic_guid: 96257079-cdc1-4aba-8705-3146e94b6dce
+    import_timestamp: '2025-06-24T11:15:07.552141Z'

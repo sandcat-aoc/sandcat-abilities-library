@@ -1,0 +1,31 @@
+- id: f790927b-ea85-4a16-b7b2-7eb44176a510
+  name: Clear Pagging Cache
+  description: 'clear pagging cache via system request. This is a temporary change
+    in the system to clear paging cache. This technique seen in Awfulshred wiper as
+    part
+
+    of its malicious payload on the compromised host. added reference link for this
+    technique: https://www.tecmint.com/clear-ram-memory-cache-buffer-and-swap-space-on-linux/'
+  tactic: defense-evasion
+  technique:
+    attack_id: T1562.001
+    name: 'Impair Defenses: Disable or Modify Tools'
+  platforms:
+    linux:
+      sh:
+        command: free && echo 3 > /proc/sys/vm/drop_caches && free; echo 3> /proc/sys/vm/drop_caches
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1562.001
+  - atomic-red-team
+  - defense-evasion
+  author: Atomic Red Team
+  additional_info:
+    technique_created: '2020-02-21T20:32:20.810Z'
+    atomic_guid: f790927b-ea85-4a16-b7b2-7eb44176a510
+    import_timestamp: '2025-06-24T11:15:55.714053Z'

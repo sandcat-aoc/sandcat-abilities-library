@@ -1,0 +1,30 @@
+- id: 5969b6dc-b136-480e-a527-3cb2ea2f0da9
+  name: 5969b6dc-b136-480e-a527-3cb2ea2f0da9 - Malicious Driver Deployment
+  description: 'Malicious driver: 5969b6dc-b136-480e-a527-3cb2ea2f0da9
+
+    Category: vulnerable driver
+
+    Author: Guus Verbeek
+
+    Created: 2023-01-09
+
+    MITRE Technique: T1068'
+  tactic: privilege-escalation
+  technique:
+    attack_id: T1068
+    name: Rootkit
+  platforms:
+    windows:
+      cmd:
+        command: sc create MaliciousDriver binPath= "C:\Windows\System32\drivers\malicious_driver.sys"
+          type= kernel
+  singleton: true
+  privilege: Elevated
+  repeatable: false
+  buckets:
+  - privilege-escalation
+  version: '1.0'
+  author: Guus Verbeek
+  operating_system: Windows (Version Unspecified)
+  created: '2023-01-09'
+  modified: '2023-01-09'

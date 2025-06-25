@@ -1,0 +1,52 @@
+- id: b0768a5e-0f32-4e75-ae5b-d036edcf96b6
+  name: Delete system log files using srm utility
+  description: 'This test securely deletes the system log files individually and recursively
+    using the srm utility.
+
+    Install srm using Homebrew with the command: brew install khell/homebrew-srm/srm
+
+    Refer: https://github.com/khell/homebrew-srm/issues/1 for installation'
+  tactic: defense-evasion
+  technique:
+    attack_id: T1070.002
+    name: 'Indicator Removal on Host: Clear FreeBSD, Linux or Mac System Logs'
+  platforms:
+    darwin:
+      sh:
+        command: 'sudo srm /var/log/system.log #system log file deletion; sudo srm
+          -r /var/log/ #recursive deletion of log files'
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1070.002
+  - atomic-red-team
+  - defense-evasion
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      system_log_path:
+        description: path to system.log
+        type: string
+        default: /var/log/system.log
+      system_log_folder:
+        description: path to log parent folder
+        type: string
+        default: /var/log/
+    dependencies:
+    - description: 'target files must exist
+
+        '
+      prereq_command: 'stat #{system_log_path} #{system_log_folder}
+
+        '
+      get_prereq_command: 'mkdir -p #{system_log_folder} && touch #{system_log_path}
+        #{system_log_folder}/system.log
+
+        '
+    technique_created: '2020-01-28T17:11:54.034Z'
+    atomic_guid: b0768a5e-0f32-4e75-ae5b-d036edcf96b6
+    import_timestamp: '2025-06-24T11:14:07.099601Z'

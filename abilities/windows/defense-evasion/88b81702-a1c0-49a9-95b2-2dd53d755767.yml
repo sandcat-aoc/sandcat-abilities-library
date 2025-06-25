@@ -1,0 +1,103 @@
+- id: 88b81702-a1c0-49a9-95b2-2dd53d755767
+  name: Create and start VirtualBox virtual machine
+  description: 'Create a simple VirtualBox VM and start up the machine
+
+    Cleanup command stops and deletes the newly created VM and associated files
+
+    https://www.virtualbox.org/manual/ch08.html#vboxmanage-startvm
+
+    https://news.sophos.com/en-us/2020/05/21/ragnar-locker-ransomware-deploys-virtual-machine-to-dodge-security/
+
+    https://attack.mitre.org/techniques/T1564/006/'
+  tactic: defense-evasion
+  technique:
+    attack_id: T1564.006
+    name: Run Virtual Instance
+  platforms:
+    windows:
+      sh:
+        command: 'if (Test-Path "C:\Program Files\Oracle\VirtualBox\VirtualBox.exe")
+          {exit 0} else {exit 1}; then : ; else New-Item -Type Directory "PathToAtomicsFolder\..\ExternalPayloads\"
+          -ErrorAction Ignore -Force | Out-Null; $wc = New-Object System.Net.WebClient;
+          $wc.DownloadFile("https://download.virtualbox.org/virtualbox/6.1.32/VirtualBox-6.1.32-149290-Win.exe","PathToAtomicsFolder\..\ExternalPayloads\VirtualBox-6.1.32-149290-Win.exe");
+          start-process -FilePath "PathToAtomicsFolder\..\ExternalPayloads\VirtualBox-6.1.32-149290-Win.exe"
+          -ArgumentList "--silent" -Wait; fi; if (Test-Path "C:\Program Files\Oracle\VirtualBox\VBoxManage.exe")
+          {exit 0} else {exit 1}; then : ; else $wc = New-Object System.Net.WebClient;
+          $wc.DownloadFile("https://download.virtualbox.org/virtualbox/6.1.32/VirtualBox-6.1.32-149290-Win.exe","PathToAtomicsFolder\..\ExternalPayloads\VirtualBox-6.1.32-149290-Win.exe");
+          start-process -FilePath "PathToAtomicsFolder\..\ExternalPayloads\VirtualBox-6.1.32-149290-Win.exe"
+          -ArgumentList "--silent" -Wait; fi; "C:\Program Files\Oracle\VirtualBox\VBoxManage.exe"
+          createvm --name "Atomic VM" --register; "C:\Program Files\Oracle\VirtualBox\VBoxManage.exe"
+          modifyvm "Atomic VM" --firmware efi; "C:\Program Files\Oracle\VirtualBox\VBoxManage.exe"
+          startvm "Atomic VM"'
+        cleanup: '"#{vboxmanage_exe}" controlvm "#{vm_name}" poweroff; "#{vboxmanage_exe}"
+          unregistervm "#{vm_name}" --delete'
+        elevation_required: false
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1564.006
+  - atomic-red-team
+  - defense-evasion
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      vm_name:
+        description: Name of the new virtual machine
+        type: string
+        default: Atomic VM
+      virtualbox_exe:
+        description: Path to the VirtualBox executable
+        type: path
+        default: C:\Program Files\Oracle\VirtualBox\VirtualBox.exe
+      vboxmanage_exe:
+        description: Path to the executable for VBoxManage, the command-line interface
+          to VirtualBox
+        type: path
+        default: C:\Program Files\Oracle\VirtualBox\VBoxManage.exe
+      virtualbox_download:
+        description: URL for the current installer for the Windows version of VirtualBox,
+          as of March 2022
+        type: url
+        default: https://download.virtualbox.org/virtualbox/6.1.32/VirtualBox-6.1.32-149290-Win.exe
+      virtualbox_installer:
+        description: Executable for the Virtualbox installer
+        type: string
+        default: VirtualBox-6.1.32-149290-Win.exe
+    dependencies:
+    - description: 'VirtualBox must exist on disk at specified locations (#{virtualbox_exe})
+
+        '
+      prereq_command: 'if (Test-Path "#{virtualbox_exe}") {exit 0} else {exit 1}
+
+        '
+      get_prereq_command: 'New-Item -Type Directory "PathToAtomicsFolder\..\ExternalPayloads\"
+        -ErrorAction Ignore -Force | Out-Null
+
+        $wc = New-Object System.Net.WebClient
+
+        $wc.DownloadFile("#{virtualbox_download}","PathToAtomicsFolder\..\ExternalPayloads\#{virtualbox_installer}")
+
+        start-process -FilePath "PathToAtomicsFolder\..\ExternalPayloads\#{virtualbox_installer}"
+        -ArgumentList "--silent" -Wait
+
+        '
+    - description: 'VBoxManage must exist on disk at specified locations (#{vboxmanage_exe})
+
+        '
+      prereq_command: 'if (Test-Path "#{vboxmanage_exe}") {exit 0} else {exit 1}
+
+        '
+      get_prereq_command: '$wc = New-Object System.Net.WebClient
+
+        $wc.DownloadFile("#{virtualbox_download}","PathToAtomicsFolder\..\ExternalPayloads\#{virtualbox_installer}")
+
+        start-process -FilePath "PathToAtomicsFolder\..\ExternalPayloads\#{virtualbox_installer}"
+        -ArgumentList "--silent" -Wait
+
+        '
+    technique_created: '2020-06-29T15:36:41.535Z'
+    atomic_guid: 88b81702-a1c0-49a9-95b2-2dd53d755767
+    import_timestamp: '2025-06-24T11:15:01.190922Z'

@@ -1,0 +1,28 @@
+- id: 8c3173a3-98de-c5c9-0444-979dedde878d
+  name: system_profiler - Print software information
+  description: Prints an overview of the software of the current machine, including the exact macOS version
+    number.
+  tactic: discovery
+  technique:
+    attack_id: T1082
+    name: System Information Discovery
+  platforms:
+    darwin:
+      sh:
+        command: system_profiler SPSoftwareDataType
+  singleton: false
+  privilege: User
+  repeatable: true
+  delete_payload: true
+  buckets:
+  - loobins
+  - system_profiler
+  - discovery
+  version: '1.0'
+  author: LOOBins Project
+  additional_info:
+    loobins_tool: system_profiler
+    use_case: Print software information
+    source_file: system_profiler.yml
+    source_repository: https://github.com/infosecB/LOOBins
+    import_timestamp: '2025-06-24T09:00:11.499935Z'

@@ -1,0 +1,45 @@
+- id: e5d95be6-02ee-4ff1-aebe-cf86013b6189
+  name: Linux - Stop service by killing process using killall
+  description: 'Stops a specified service by sending a SIGTERM signal to the linked
+    process using the killall command.
+
+    Upon execution, if the service''s main process was running, it will be terminated.
+
+    If the service was not running, no process will be found to kill and it can be
+    restarted by running the cleanup command.
+
+    You can list all available services with following command: "systemctl list-units
+    --type=service"'
+  tactic: impact
+  technique:
+    attack_id: T1489
+    name: Service Stop
+  platforms:
+    linux:
+      sh:
+        command: sudo killall -SIGTERM cron
+        cleanup: 'sudo systemctl start #{service_name} 2> /dev/null'
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - impact
+  - t1489
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      process_name:
+        description: Name of a process to stop
+        type: string
+        default: cron
+      service_name:
+        description: Name of a service to restart
+        type: string
+        default: cron
+    technique_created: '2019-03-29T19:00:55.901Z'
+    atomic_guid: e5d95be6-02ee-4ff1-aebe-cf86013b6189
+    import_timestamp: '2025-06-24T11:15:56.741260Z'

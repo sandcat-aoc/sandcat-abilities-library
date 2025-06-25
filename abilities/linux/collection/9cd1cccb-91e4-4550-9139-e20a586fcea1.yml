@@ -1,0 +1,43 @@
+- id: 9cd1cccb-91e4-4550-9139-e20a586fcea1
+  name: Capture Linux Desktop using Import Tool
+  description: Use import command from ImageMagick to collect a full desktop screenshot
+  tactic: collection
+  technique:
+    attack_id: T1113
+    name: Screen Capture
+  platforms:
+    linux:
+      sh:
+        command: 'if import -help > /dev/null 2>&1; then : ; else sudo apt install
+          graphicsmagick-imagemagick-compat; fi; import -window root /tmp/T1113_desktop.png'
+        cleanup: 'rm #{output_file}'
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1113
+  - atomic-red-team
+  - collection
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      output_file:
+        description: Output file path
+        type: path
+        default: /tmp/T1113_desktop.png
+    dependencies:
+    - description: 'ImageMagick must be installed
+
+        '
+      prereq_command: 'if import -help > /dev/null 2>&1; then exit 0; else exit 1;
+        fi
+
+        '
+      get_prereq_command: 'sudo apt install graphicsmagick-imagemagick-compat
+
+        '
+    technique_created: '2017-05-31T21:31:25.060Z'
+    atomic_guid: 9cd1cccb-91e4-4550-9139-e20a586fcea1
+    import_timestamp: '2025-06-24T11:15:56.312528Z'

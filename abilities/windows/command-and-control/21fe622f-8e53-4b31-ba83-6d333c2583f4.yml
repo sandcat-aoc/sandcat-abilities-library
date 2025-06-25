@@ -1,0 +1,37 @@
+- id: 21fe622f-8e53-4b31-ba83-6d333c2583f4
+  name: Testing usage of uncommonly used port with PowerShell
+  description: 'Testing uncommonly used port utilizing PowerShell. APT33 has been
+    known to attempt telnet over port 8081. Upon execution, details about the successful
+
+    port check will be displayed.'
+  tactic: command-and-control
+  technique:
+    attack_id: T1571
+    name: Non-Standard Port
+  platforms:
+    windows:
+      psh:
+        command: Test-NetConnection -ComputerName google.com -port 8081
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1571
+  - atomic-red-team
+  - command-and-control
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      port:
+        description: Specify uncommon port number
+        type: string
+        default: '8081'
+      domain:
+        description: Specify target hostname
+        type: string
+        default: google.com
+    technique_created: '2020-03-14T18:18:32.443Z'
+    atomic_guid: 21fe622f-8e53-4b31-ba83-6d333c2583f4
+    import_timestamp: '2025-06-24T11:15:05.575013Z'

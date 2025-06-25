@@ -1,0 +1,29 @@
+- id: 0d8a9a72-e647-edf1-33fe-364a82e7684d
+  name: sqlite3 - View URL associated with file downloads
+  description: The following sqlite command is commonly used by macOS malware to view the URL in which
+    the payload was downloaded from.
+  tactic: collection
+  technique:
+    attack_id: T1005
+    name: Data from Local System
+  platforms:
+    darwin:
+      sh:
+        command: sqlite3 ~/Library/Preferences/com.apple.LaunchServices.QuarantineEventsV* 'select LSQuarantineDataURLString
+          from LSQuarantineEvent'
+  singleton: false
+  privilege: Elevated
+  repeatable: true
+  delete_payload: true
+  buckets:
+  - loobins
+  - sqlite3
+  - collection
+  version: '1.0'
+  author: LOOBins Project
+  additional_info:
+    loobins_tool: sqlite3
+    use_case: View URL associated with file downloads
+    source_file: sqlite3.yml
+    source_repository: https://github.com/infosecB/LOOBins
+    import_timestamp: '2025-06-24T09:00:11.432887Z'

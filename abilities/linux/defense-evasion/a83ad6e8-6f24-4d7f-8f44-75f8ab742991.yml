@@ -1,0 +1,41 @@
+- id: a83ad6e8-6f24-4d7f-8f44-75f8ab742991
+  name: Unlimited sudo cache timeout (freebsd)
+  description: Sets sudo caching timestamp_timeout to a value for unlimited. This
+    is dangerous to modify without using 'visudo', do not do this on a production
+    system.
+  tactic: defense-evasion
+  technique:
+    attack_id: T1548.003
+    name: 'Abuse Elevation Control Mechanism: Sudo and Sudo Caching'
+  platforms:
+    linux:
+      sh:
+        command: 'if [ ! -x "$(command -v sudo)" ]; then : ; else (which pkg && pkg
+          install -y sudo); fi; sudo sed -i ''s/env_reset.*$/env_reset,timestamp_timeout=-1/''
+          /usr/local/etc/sudoers; sudo visudo -c -f /usr/local/etc/sudoers'
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1548.003
+  - atomic-red-team
+  - defense-evasion
+  author: Atomic Red Team
+  additional_info:
+    dependencies:
+    - description: 'Check if sudo is installed.
+
+        '
+      prereq_command: 'if [ ! -x "$(command -v sudo)" ]; then exit 1; else exit 0;
+        fi;
+
+        '
+      get_prereq_command: '(which pkg && pkg install -y sudo)
+
+        '
+    technique_created: '2020-01-30T14:34:44.992Z'
+    atomic_guid: a83ad6e8-6f24-4d7f-8f44-75f8ab742991
+    import_timestamp: '2025-06-24T11:15:55.426286Z'

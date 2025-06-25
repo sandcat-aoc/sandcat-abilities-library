@@ -1,0 +1,29 @@
+- id: f9c3d0ab-479b-4019-945f-22ace2b1731a
+  name: Search for Passwords in Powershell History
+  description: 'Find passwords in the powershell history files
+
+    Searching for following strings: "password", "-p", "key", "pwd", "pass"'
+  tactic: credential-access
+  technique:
+    attack_id: T1552
+    name: Unsecured Credentials
+  platforms:
+    windows:
+      psh:
+        command: ls -R C:\Users\*\AppData\Roaming\Microsoft\Windows\PowerShell\PSReadLine\ConsoleHost_history.txt
+          | Select-String "password", "-p", "key", "pwd", "pass"
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1552
+  - credential-access
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    technique_created: '2020-02-04T12:47:23.631Z'
+    atomic_guid: f9c3d0ab-479b-4019-945f-22ace2b1731a
+    import_timestamp: '2025-06-24T11:15:06.255871Z'

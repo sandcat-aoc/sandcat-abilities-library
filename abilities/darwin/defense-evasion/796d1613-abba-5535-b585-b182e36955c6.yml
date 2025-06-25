@@ -1,0 +1,32 @@
+- id: 796d1613-abba-5535-b585-b182e36955c6
+  name: textutil - Use the textutil to read several files and build a new file
+  description: A one-liner can load the content of multiple RTF files in a directory, concatenate their
+    contents, and write the results out as a new file. This provides two sub-use-cases; one is building
+    a malicious file from a collection of smaller files which could evade both network and host-based
+    security controls as the traditional means of signature-based detection would be redundant; two is
+    concatenating the content of several, potentially sensitive files before exfiltration. This command
+    can also be looped to iterate a directory of files.
+  tactic: defense-evasion
+  technique:
+    attack_id: T1005
+    name: Data from Local System
+  platforms:
+    darwin:
+      sh:
+        command: textutil -convert html Quote.doc secondQuote.doc
+  singleton: false
+  privilege: User
+  repeatable: true
+  delete_payload: true
+  buckets:
+  - loobins
+  - textutil
+  - defense-evasion
+  version: '1.0'
+  author: LOOBins Project
+  additional_info:
+    loobins_tool: textutil
+    use_case: Use the textutil to read several files and build a new file
+    source_file: textutil.yml
+    source_repository: https://github.com/infosecB/LOOBins
+    import_timestamp: '2025-06-24T09:00:11.583507Z'

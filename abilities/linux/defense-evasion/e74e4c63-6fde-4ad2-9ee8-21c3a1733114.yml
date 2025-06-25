@@ -1,0 +1,30 @@
+- id: e74e4c63-6fde-4ad2-9ee8-21c3a1733114
+  name: Disable Memory Swap
+  description: "disable swapping of device paging that impaire the compromised host\
+    \ to swap data if the RAM is full. Awfulshred wiper used this technique as an\
+    \ additional \npayload to the compromised host and to make sure that there will\
+    \ be no recoverable data due to swap feature of FreeBSD/linux."
+  tactic: defense-evasion
+  technique:
+    attack_id: T1562.001
+    name: 'Impair Defenses: Disable or Modify Tools'
+  platforms:
+    linux:
+      sh:
+        command: swapon -a; sleep 2; swapoff -a; sync
+        cleanup: swapon -a; sleep 2; sync
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1562.001
+  - atomic-red-team
+  - defense-evasion
+  author: Atomic Red Team
+  additional_info:
+    technique_created: '2020-02-21T20:32:20.810Z'
+    atomic_guid: e74e4c63-6fde-4ad2-9ee8-21c3a1733114
+    import_timestamp: '2025-06-24T11:15:55.716653Z'

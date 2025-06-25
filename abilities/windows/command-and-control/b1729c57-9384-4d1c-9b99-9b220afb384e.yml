@@ -1,0 +1,64 @@
+- id: b1729c57-9384-4d1c-9b99-9b220afb384e
+  name: Nimgrab - Transfer Files
+  description: Use nimgrab.exe to download a file from the web.
+  tactic: command-and-control
+  technique:
+    attack_id: T1105
+    name: Ingress Tool Transfer
+  platforms:
+    windows:
+      sh:
+        command: 'if (Test-Path "PathToAtomicsFolder\..\ExternalPayloads\nimgrab.exe")
+          {exit 0} else {exit 1}; then : ; else New-Item -Type Directory "PathToAtomicsFolder\..\ExternalPayloads\"
+          -ErrorAction Ignore -Force | Out-Null; Invoke-WebRequest "https://nim-lang.org/download/nim-1.6.6_x64.zip"
+          -Outfile "PathToAtomicsFolder\..\ExternalPayloads\nim.zip"; Expand-Archive
+          -Path "PathToAtomicsFolder\..\ExternalPayloads\nim.zip" -DestinationPath
+          "PathToAtomicsFolder\..\ExternalPayloads\nim" -Force; Copy-Item "PathToAtomicsFolder\..\ExternalPayloads\nim\nim-1.6.6\bin\nimgrab.exe"
+          "PathToAtomicsFolder\..\ExternalPayloads\nimgrab.exe"; fi; cmd /c "PathToAtomicsFolder\..\ExternalPayloads\nimgrab.exe"
+          https://raw.githubusercontent.com/redcanaryco/atomic-red-team/master/LICENSE.txt
+          $env:TEMP\Atomic-license.txt'
+        cleanup: 'del #{destination_path} >nul 2>&1'
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1105
+  - atomic-red-team
+  - command-and-control
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      remote_file:
+        description: URL of file to copy
+        type: url
+        default: https://raw.githubusercontent.com/redcanaryco/atomic-red-team/master/LICENSE.txt
+      destination_path:
+        description: Destination path to file
+        type: path
+        default: $env:TEMP\Atomic-license.txt
+    dependencies:
+    - description: 'NimGrab must be installed on system.
+
+        '
+      prereq_command: 'if (Test-Path "PathToAtomicsFolder\..\ExternalPayloads\nimgrab.exe")
+        {exit 0} else {exit 1}
+
+        '
+      get_prereq_command: 'New-Item -Type Directory "PathToAtomicsFolder\..\ExternalPayloads\"
+        -ErrorAction Ignore -Force | Out-Null
+
+        Invoke-WebRequest "https://nim-lang.org/download/nim-1.6.6_x64.zip" -Outfile
+        "PathToAtomicsFolder\..\ExternalPayloads\nim.zip"
+
+        Expand-Archive -Path "PathToAtomicsFolder\..\ExternalPayloads\nim.zip" -DestinationPath
+        "PathToAtomicsFolder\..\ExternalPayloads\nim" -Force
+
+        Copy-Item "PathToAtomicsFolder\..\ExternalPayloads\nim\nim-1.6.6\bin\nimgrab.exe"
+        "PathToAtomicsFolder\..\ExternalPayloads\nimgrab.exe"
+
+        '
+    technique_created: '2017-05-31T21:31:16.408Z'
+    atomic_guid: b1729c57-9384-4d1c-9b99-9b220afb384e
+    import_timestamp: '2025-06-24T11:15:05.734108Z'

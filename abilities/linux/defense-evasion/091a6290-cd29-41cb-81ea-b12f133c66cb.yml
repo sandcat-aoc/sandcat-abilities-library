@@ -1,0 +1,56 @@
+- id: 091a6290-cd29-41cb-81ea-b12f133c66cb
+  name: ESXi - Disable Account Lockout Policy via PowerCLI
+  description: An adversary may disable account lockout policy within ESXi to have
+    the ability to prevent defensive actions from being enforced in the future or
+    to prevent future alerting.
+  tactic: defense-evasion
+  technique:
+    attack_id: T1562.001
+    name: 'Impair Defenses: Disable or Modify Tools'
+  platforms:
+    linux:
+      psh:
+        command: Set-PowerCLIConfiguration -InvalidCertificateAction Ignore -ParticipateInCEIP:$false
+          -Confirm:$false; Connect-VIServer -Server atomic.local -User root -Password
+          pass; Get-AdvancedSetting -Entity atomic.local -Name 'Security.AccountLockFailures'
+          | Set-AdvancedSetting -Value '0' -Confirm:$false; Disconnect-VIServer -Confirm:$false
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1562.001
+  - atomic-red-team
+  - defense-evasion
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      vm_host:
+        description: Specify the host name of the ESXi Server
+        type: string
+        default: atomic.local
+      vm_user:
+        description: Specify the privilege user account on ESXi Server
+        type: string
+        default: root
+      vm_pass:
+        description: Specify the privilege user password on ESXi Server
+        type: string
+        default: pass
+    dependencies:
+    - description: 'Check if VMWARE PowerCLI PowerShell Module is installed.
+
+        '
+      prereq_command: '$RequiredModule = Get-Module -Name VMware.PowerCLI -ListAvailable
+
+        if (-not $RequiredModule) {exit 1}
+
+        '
+      get_prereq_command: 'Install-Module -Name VMware.PowerCLI -Confirm:$false
+
+        '
+    technique_created: '2020-02-21T20:32:20.810Z'
+    atomic_guid: 091a6290-cd29-41cb-81ea-b12f133c66cb
+    import_timestamp: '2025-06-24T11:15:55.722251Z'

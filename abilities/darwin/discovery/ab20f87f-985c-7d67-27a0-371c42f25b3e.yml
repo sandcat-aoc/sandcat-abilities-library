@@ -1,0 +1,27 @@
+- id: ab20f87f-985c-7d67-27a0-371c42f25b3e
+  name: sw_vers - Retrieving macOS Product Name
+  description: Fetch detailed macOS product name.
+  tactic: discovery
+  technique:
+    attack_id: T1082
+    name: System Information Discovery
+  platforms:
+    darwin:
+      sh:
+        command: sw_vers -productName
+  singleton: false
+  privilege: User
+  repeatable: true
+  delete_payload: true
+  buckets:
+  - loobins
+  - sw_vers
+  - discovery
+  version: '1.0'
+  author: LOOBins Project
+  additional_info:
+    loobins_tool: sw_vers
+    use_case: Retrieving macOS Product Name
+    source_file: sw_vers.yml
+    source_repository: https://github.com/infosecB/LOOBins
+    import_timestamp: '2025-06-24T09:00:11.534104Z'

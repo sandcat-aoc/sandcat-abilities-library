@@ -1,0 +1,60 @@
+- id: 43e92449-ff60-46e9-83a3-1a38089df94d
+  name: Install MS Exchange Transport Agent Persistence
+  description: 'Install a Microsoft Exchange Transport Agent for persistence. This
+    requires execution from an Exchange Client Access Server and the creation of a
+    DLL with specific exports. Seen in use by Turla.
+
+    More details- https://docs.microsoft.com/en-us/exchange/transport-agents-exchange-2013-help'
+  tactic: persistence
+  technique:
+    attack_id: T1505.002
+    name: 'Server Software Component: Transport Agent'
+  platforms:
+    windows:
+      psh:
+        command: Install-TransportAgent -Name Security Interop Agent -TransportAgentFactory
+          Microsoft.Exchange.Security.Interop.SecurityInteropAgentFactory -AssemblyPath
+          c:\program files\microsoft\Exchange Server\v15\bin\Microsoft.Exchange.Security.Interop.dll;
+          Enable-TransportAgent Security Interop Agent; Get-TransportAgent | Format-List
+          Name,Enabled
+        cleanup: 'if(Get-Command "Get-TransportAgent" -ErrorAction Ignore){; Disable-TransportAgent
+          #{transport_agent_identity}; Uninstall-TransportAgent #{transport_agent_identity};
+          Get-TransportAgent; }'
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1505.002
+  - persistence
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      class_factory:
+        description: Class factory of transport agent.
+        type: string
+        default: Microsoft.Exchange.Security.Interop.SecurityInteropAgentFactory
+      dll_path:
+        description: Path of DLL to use as transport agent.
+        type: path
+        default: c:\program files\microsoft\Exchange Server\v15\bin\Microsoft.Exchange.Security.Interop.dll
+      transport_agent_identity:
+        description: Friendly name of transport agent once installed.
+        type: string
+        default: Security Interop Agent
+    dependencies:
+    - description: 'Microsoft Exchange SnapIn must be installed
+
+        '
+      prereq_command: 'Get-TransportAgent -TransportService FrontEnd
+
+        '
+      get_prereq_command: 'Add-PSSnapin Microsoft.Exchange.Management.PowerShell.SnapIn
+
+        '
+    technique_created: '2019-12-12T15:08:20.972Z'
+    atomic_guid: 43e92449-ff60-46e9-83a3-1a38089df94d
+    import_timestamp: '2025-06-24T11:15:03.737486Z'

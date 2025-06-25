@@ -1,0 +1,44 @@
+- id: 0f0b6a29-08c3-44ad-a30b-47fd996b2110
+  name: Show if a user account has ever logged in remotely
+  description: Show if a user account has ever logged in remotely
+  tactic: discovery
+  technique:
+    attack_id: T1087.001
+    name: 'Account Discovery: Local Account'
+  platforms:
+    linux:
+      sh:
+        command: 'if [ -x "$(command -v lastlog)" ]; then : ; else sudo apt-get install
+          login; exit 1;; fi; [ "$(uname)" = ''FreeBSD'' ] && cmd="lastlogin" || cmd="lastlog";
+          $cmd > /tmp/T1087.001.txt; cat /tmp/T1087.001.txt'
+        cleanup: 'rm -f #{output_file}'
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - discovery
+  - t1087.001
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      output_file:
+        description: Path where captured results will be placed
+        type: path
+        default: /tmp/T1087.001.txt
+    dependencies:
+    - description: 'Check if lastlog command exists on the machine
+
+        '
+      prereq_command: 'if [ -x "$(command -v lastlog)" ]; then exit 0; else exit 1;
+        fi
+
+        '
+      get_prereq_command: 'sudo apt-get install login; exit 1;
+
+        '
+    technique_created: '2020-02-21T21:07:55.393Z'
+    atomic_guid: 0f0b6a29-08c3-44ad-a30b-47fd996b2110
+    import_timestamp: '2025-06-24T11:15:56.567167Z'

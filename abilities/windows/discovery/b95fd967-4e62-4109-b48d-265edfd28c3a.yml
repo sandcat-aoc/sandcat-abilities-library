@@ -1,0 +1,56 @@
+- id: b95fd967-4e62-4109-b48d-265edfd28c3a
+  name: Adfind - Enumerate Active Directory Admins
+  description: 'Adfind tool can be used for reconnaissance in an Active directory
+    environment. This example has been documented by ransomware actors enumerating
+    Active Directory Admin accounts
+
+    reference- http://www.joeware.net/freetools/tools/adfind/, https://stealthbits.com/blog/fun-with-active-directorys-admincount-attribute/'
+  tactic: discovery
+  technique:
+    attack_id: T1087.002
+    name: 'Account Discovery: Domain Account'
+  platforms:
+    windows:
+      sh:
+        command: 'if (Test-Path "PathToAtomicsFolder\..\ExternalPayloads\AdFind.exe")
+          {exit 0} else {exit 1}; then : ; else New-Item -Type Directory (split-path
+          "PathToAtomicsFolder\..\ExternalPayloads\AdFind.exe") -ErrorAction ignore
+          | Out-Null; Invoke-WebRequest -Uri "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1087.002/bin/AdFind.exe"
+          -OutFile "PathToAtomicsFolder\..\ExternalPayloads\AdFind.exe"; fi; "PathToAtomicsFolder\..\ExternalPayloads\AdFind.exe"
+          -sc admincountdmp #{optional_args}'
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1087.002
+  - discovery
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      optional_args:
+        description: Allows defining arguments to add to the adfind command to tailor
+          it to the specific needs of the environment. Use "-arg" notation to add
+          arguments separated by spaces.
+        type: string
+        default: null
+    dependencies:
+    - description: 'AdFind.exe must exist on disk at specified location (PathToAtomicsFolder\..\ExternalPayloads\AdFind.exe)
+
+        '
+      prereq_command: 'if (Test-Path "PathToAtomicsFolder\..\ExternalPayloads\AdFind.exe")
+        {exit 0} else {exit 1}
+
+        '
+      get_prereq_command: 'New-Item -Type Directory (split-path "PathToAtomicsFolder\..\ExternalPayloads\AdFind.exe")
+        -ErrorAction ignore | Out-Null
+
+        Invoke-WebRequest -Uri "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1087.002/bin/AdFind.exe"
+        -OutFile "PathToAtomicsFolder\..\ExternalPayloads\AdFind.exe"
+
+        '
+    technique_created: '2020-02-21T21:08:26.480Z'
+    atomic_guid: b95fd967-4e62-4109-b48d-265edfd28c3a
+    import_timestamp: '2025-06-24T11:15:07.013515Z'

@@ -1,0 +1,68 @@
+- id: dfb50072-e45a-4c75-a17e-a484809c8553
+  name: Loadable Kernel Module based Rootkit
+  description: Loadable Kernel Module based Rootkit
+  tactic: defense-evasion
+  technique:
+    attack_id: T1014
+    name: Rootkit
+  platforms:
+    linux:
+      sh:
+        command: 'if [ -f bin/T1014.ko ]; then : ; else sudo apt install make; sudo
+          apt install gcc; if [ ! -d /tmp/T1014 ]; then mkdir /tmp/T1014; fi;; cp
+          Linux/* /tmp/T1014/; cd /tmp/T1014; make; mkdir bin; mv /tmp/T1014/T1014.ko
+          bin/T1014.ko; rm -rf /tmp/T1014; fi; sudo insmod bin/T1014.ko'
+        cleanup: 'sudo rmmod #{rootkit_name}; sudo rm -rf #{rootkit_path}'
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - defense-evasion
+  - atomic-red-team
+  - t1014
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      rootkit_source_path:
+        description: Path to the rootkit source. Used when prerequisites are fetched.
+        type: path
+        default: PathToAtomicsFolder/T1014/src/Linux
+      rootkit_path:
+        description: Path To rootkit
+        type: string
+        default: PathToAtomicsFolder/T1014/bin
+      rootkit_name:
+        description: Module name
+        type: string
+        default: T1014
+    dependencies:
+    - description: 'The kernel module must exist on disk at specified location (#{rootkit_path}/#{rootkit_name}.ko)
+
+        '
+      prereq_command: 'if [ -f #{rootkit_path}/#{rootkit_name}.ko ]; then exit 0;
+        else exit 1; fi;
+
+        '
+      get_prereq_command: 'sudo apt install make
+
+        sudo apt install gcc
+
+        if [ ! -d /tmp/T1014 ]; then mkdir /tmp/T1014; fi;
+
+        cp #{rootkit_source_path}/* /tmp/T1014/
+
+        cd /tmp/T1014; make
+
+        mkdir #{rootkit_path}
+
+        mv /tmp/T1014/#{rootkit_name}.ko #{rootkit_path}/#{rootkit_name}.ko
+
+        rm -rf /tmp/T1014
+
+        '
+    technique_created: '2017-05-31T21:30:26.496Z'
+    atomic_guid: dfb50072-e45a-4c75-a17e-a484809c8553
+    import_timestamp: '2025-06-24T11:15:55.400816Z'

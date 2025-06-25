@@ -1,0 +1,30 @@
+- id: f1bf6c8f-9016-4edf-aff9-80b65f5d711f
+  name: Remote System Discovery - net group Domain Computers
+  description: 'Identify remote systems with net.exe querying the Active Directory
+    Domain Computers group.
+
+
+    Upon successful execution, cmd.exe will execute cmd.exe against Active Directory
+    to list the "Domain Computers" group. Output will be via stdout.'
+  tactic: discovery
+  technique:
+    attack_id: T1018
+    name: Remote System Discovery
+  platforms:
+    windows:
+      sh:
+        command: net group "Domain Computers" /domain
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1018
+  - discovery
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    technique_created: '2017-05-31T21:30:28.187Z'
+    atomic_guid: f1bf6c8f-9016-4edf-aff9-80b65f5d711f
+    import_timestamp: '2025-06-24T11:15:07.587181Z'

@@ -1,0 +1,40 @@
+- id: 161d694c-b543-4434-85c3-c3a433e33792
+  name: Python pty module and spawn function used to spawn sh or bash
+  description: 'Uses the Python spawn function to spawn a sh shell followed by a bash
+    shell. Per Volexity, this technique was observed in exploitation of Atlassian
+    Confluence [CVE-2022-26134]. Reference: https://www.volexity.com/blog/2022/06/02/zero-day-exploitation-of-atlassian-confluence'
+  tactic: execution
+  technique:
+    attack_id: T1059.006
+    name: 'Command and Scripting Interpreter: Python'
+  platforms:
+    linux:
+      sh:
+        command: which_python=$(which python || which python3 || which python3.9 ||
+          which python2); $which_python -c "import pty;pty.spawn('/bin/sh')"; exit;
+          $which_python -c "import pty;pty.spawn('/bin/bash')"; exit
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - execution
+  - t1059.006
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    dependencies:
+    - description: 'Verify if python is in the environment variable path and attempt
+        to import requests library.
+
+        '
+      prereq_command: "which_python=$(which python || which python3 || which python3.9\
+        \ || which python2); $which_python -V\n$which_python -c 'import requests'\
+        \ 2>/dev/null; echo $?          \n"
+      get_prereq_command: 'pip install requests
+
+        '
+    technique_created: '2020-03-09T14:38:24.334Z'
+    atomic_guid: 161d694c-b543-4434-85c3-c3a433e33792
+    import_timestamp: '2025-06-24T11:15:56.062813Z'

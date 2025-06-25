@@ -1,0 +1,31 @@
+- id: b5656f67-d67f-4de8-8e62-b5581630f528
+  name: Windows Internal Packet Capture
+  description: 'Uses the built-in Windows packet capture
+
+    After execution you should find a file named trace.etl and trace.cab in the temp
+    directory'
+  tactic: credential-access
+  technique:
+    attack_id: T1040
+    name: Network Sniffing
+  platforms:
+    windows:
+      sh:
+        command: netsh trace start capture=yes tracefile=%temp%\trace.etl maxsize=10
+        cleanup: netsh trace stop >nul 2>&1; TIMEOUT /T 5 >nul 2>&1; del %temp%\trace.etl
+          >nul 2>&1; del %temp%\trace.cab >nul 2>&1
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1040
+  - credential-access
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    technique_created: '2017-05-31T21:30:41.399Z'
+    atomic_guid: b5656f67-d67f-4de8-8e62-b5581630f528
+    import_timestamp: '2025-06-24T11:15:06.184186Z'

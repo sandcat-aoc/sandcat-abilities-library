@@ -1,0 +1,59 @@
+- id: 142752dc-ca71-443b-9359-cf6f497315f1
+  name: Encrypt files using openssl (FreeBSD/Linux)
+  description: Uses openssl to encrypt a file
+  tactic: impact
+  technique:
+    attack_id: T1486
+    name: Data Encrypted for Impact
+  platforms:
+    linux:
+      sh:
+        command: which_openssl=`which openssl`; $which_openssl genrsa -out /tmp/key.pem
+          2048; $which_openssl rsa -in /tmp/key.pem -pubout -out /tmp/pub.pem; $which_openssl
+          rsautl -encrypt -inkey /tmp/pub.pem -pubin -in /etc/passwd -out /tmp/passwd.zip
+        cleanup: '$which_openssl rsautl -decrypt -inkey #{private_key_path} -in #{encrypted_file_path};
+          rm #{encrypted_file_path}'
+        elevation_required: false
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - impact
+  - t1486
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      private_key_path:
+        description: path to the private key
+        type: path
+        default: /tmp/key.pem
+      public_key_path:
+        description: path to the public key
+        type: path
+        default: /tmp/pub.pem
+      encryption_bit_size:
+        description: size of the bit of encryption
+        type: integer
+        default: 2048
+      encrypted_file_path:
+        description: path to the encrypted file
+        type: path
+        default: /tmp/passwd.zip
+      input_file_path:
+        description: path to the file that you want to encrypt
+        type: path
+        default: /etc/passwd
+    dependencies:
+    - description: 'Finds where openssl is located
+
+        '
+      prereq_command: 'which_openssl=`which openssl`
+
+        '
+      get_prereq_command: ''
+    technique_created: '2019-03-15T13:59:30.390Z'
+    atomic_guid: 142752dc-ca71-443b-9359-cf6f497315f1
+    import_timestamp: '2025-06-24T11:15:56.764283Z'

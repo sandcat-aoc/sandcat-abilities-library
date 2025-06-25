@@ -1,0 +1,50 @@
+- id: aee3a097-4c5c-4fff-bbd3-0a705867ae29
+  name: MacOS Swift Keylogger
+  description: 'Utilizes a swift script to log keys to sout. It runs for 5 seconds
+    then dumps the output to standard. Input Monitoring is required.
+
+    Input Monitoring can be enabled in System Preferences > Security & Privacy > Privacy
+    > Input Monitoring.
+
+    Referece: https://cedowens.medium.com/taking-esf-for-a-nother-spin-6e1e6acd1b74'
+  tactic: collection
+  technique:
+    attack_id: T1056.001
+    name: 'Input Capture: Keylogging'
+  platforms:
+    darwin:
+      sh:
+        command: swift MacOSKeylogger.swift -keylog
+        cleanup: kill `pgrep swift-frontend`
+        elevation_required: false
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - collection
+  - atomic-red-team
+  - t1056.001
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      swift_src:
+        description: Location of swift script
+        type: path
+        default: PathToAtomicsFolder/T1056.001/src/MacOSKeylogger.swift
+    dependencies:
+    - description: 'swift script must exist at #{swift_src}, and the terminal must
+        have input monitoring permissions.
+
+        '
+      prereq_command: 'if [ -f #{swift_src} ]; then chmod +x #{swift_src}; else exit
+        1; fi
+
+        '
+      get_prereq_command: 'echo ""
+
+        '
+    technique_created: '2020-02-11T18:58:11.791Z'
+    atomic_guid: aee3a097-4c5c-4fff-bbd3-0a705867ae29
+    import_timestamp: '2025-06-24T11:14:07.606134Z'

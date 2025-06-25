@@ -1,0 +1,118 @@
+name: validate-procedures
+
+# This workflow validates all procedure files before allowing PRs to merge
+# Enable branch protection: Settings > Branches > Add rule > Require status checks: "validate / validate"
+
+on:
+  pull_request:
+    branches: [ main, master ]
+    paths:
+      - 'abilities/**/*.yml'
+      - 'cicd/**'
+  push:
+    branches: [ main, master ]
+    paths:
+      - 'abilities/**/*.yml'
+  schedule:
+    - cron: '0 * * * *'  # Every hour until stable, then switch to daily
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.9'
+        
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r cicd/requirements.txt
+        
+    - name: Validate procedure schemas
+      run: |
+        cd cicd
+        python validate_procedures.py
+        
+    - name: Check procedure counts
+      run: |
+        echo "Windows procedures: $(find abilities/windows -name "*.yml" | wc -l)"
+        echo "Darwin procedures: $(find abilities/darwin -name "*.yml" | wc -l)" 
+        echo "Linux procedures: $(find abilities/linux -name "*.yml" | wc -l)"
+        echo "Total procedures: $(find abilities -name "*.yml" | wc -l)"
+        
+    - name: Validate all procedures
+      run: |
+        cd cicd
+        python -c "
+        import yaml
+        from pathlib import Path
+        
+        broken_procedures = []
+        total_procedures = 0
+        valid_procedures = 0
+        
+        for platform in ['windows', 'darwin', 'linux']:
+            platform_path = Path(f'../abilities/{platform}')
+            if not platform_path.exists():
+                continue
+                
+            for yml_file in platform_path.rglob('*.yml'):
+                total_procedures += 1
+                try:
+                    with open(yml_file) as f:
+                        data = yaml.safe_load(f)
+                        
+                    # Basic validation checks
+                    if not data or len(data) == 0:
+                        raise ValueError('Empty or invalid YAML structure')
+                        
+                    procedure = data[0]
+                    
+                    # Required fields check
+                    required_fields = ['id', 'name', 'description', 'tactic', 'technique', 'platforms']
+                    missing_fields = [field for field in required_fields if field not in procedure]
+                    if missing_fields:
+                        raise ValueError(f'Missing required fields: {missing_fields}')
+                    
+                    # MITRE ATT&CK mapping check
+                    if 'attack_id' not in procedure.get('technique', {}):
+                        raise ValueError('Missing MITRE ATT&CK technique.attack_id')
+                    
+                    valid_procedures += 1
+                    
+                except Exception as e:
+                    print(f'ERROR: {yml_file} - {e}')
+                    broken_procedures.append({
+                        'file': str(yml_file),
+                        'platform': platform,
+                        'error': str(e)
+                    })
+        
+        # Generate summary
+        success_rate = (valid_procedures / total_procedures * 100) if total_procedures > 0 else 0
+        print(f'\\nVALIDATION SUMMARY:')
+        print(f'Total procedures: {total_procedures}')
+        print(f'Valid procedures: {valid_procedures}')
+        print(f'Broken procedures: {len(broken_procedures)}')
+        print(f'Success rate: {success_rate:.1f}%')
+        
+        # List broken procedures for easy fixing
+        if broken_procedures:
+            print(f'\\nBROKEN PROCEDURES:')
+            for proc in broken_procedures:
+                print(f'  {proc[\"file\"]}: {proc[\"error\"]}')
+        
+        # Fail if any broken procedures (strict validation for PRs)
+        if broken_procedures:
+            print(f'\\nERROR: {len(broken_procedures)} broken procedures found')
+            print('Fix these procedures before merging')
+            exit(1)
+        
+        print(f'\\nSUCCESS: All {total_procedures} procedures are valid')
+        " 

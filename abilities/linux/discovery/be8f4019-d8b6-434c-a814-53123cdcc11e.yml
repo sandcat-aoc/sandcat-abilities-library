@@ -1,0 +1,32 @@
+- id: be8f4019-d8b6-434c-a814-53123cdcc11e
+  name: Check internet connection using ping freebsd, linux or macos
+  description: Check internet connection using ping on Linux, MACOS. The default target
+    of the ping is 8.8.8.8 (Google Public DNS).
+  tactic: discovery
+  technique:
+    attack_id: T1016.001
+    name: 'System Network Configuration Discovery: Internet Connection Discovery'
+  platforms:
+    linux:
+      sh:
+        command: ping -c 4 8.8.8.8
+        elevation_required: false
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - discovery
+  - atomic-red-team
+  - t1016.001
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      ping_target:
+        description: target of the ping
+        type: url
+        default: 8.8.8.8
+    technique_created: '2021-03-17T15:28:10.689Z'
+    atomic_guid: be8f4019-d8b6-434c-a814-53123cdcc11e
+    import_timestamp: '2025-06-24T11:15:56.545441Z'

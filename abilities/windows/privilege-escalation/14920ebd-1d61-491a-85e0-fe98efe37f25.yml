@@ -1,0 +1,56 @@
+- id: 14920ebd-1d61-491a-85e0-fe98efe37f25
+  name: Parent PID Spoofing - Spawn from Current Process
+  description: Spawns a powershell.exe process as a child of the current process.
+  tactic: privilege-escalation
+  technique:
+    attack_id: T1134.004
+    name: 'Access Token Manipulation: Parent PID Spoofing'
+  platforms:
+    windows:
+      psh:
+        command: '$RequiredModule = Get-Module -Name AtomicTestHarnesses -ListAvailable;
+          if (-not $RequiredModule) {exit 1}; if (-not $RequiredModule.ExportedCommands[''Start-ATHProcessUnderSpecificParent''])
+          {exit 1} else {exit 0}; then : ; else Install-Module -Name AtomicTestHarnesses
+          -Scope CurrentUser -Force; fi; Start-ATHProcessUnderSpecificParent -FilePath
+          $Env:windir\System32\WindowsPowerShell\v1.0\powershell.exe -CommandLine
+          ''-Command Start-Sleep 10'' -ParentId $PID'
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1134.004
+  - privilege-escalation
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      file_path:
+        description: File path or name of process to spawn
+        type: path
+        default: $Env:windir\System32\WindowsPowerShell\v1.0\powershell.exe
+      parent_pid:
+        description: PID of process to spawn from
+        type: string
+        default: $PID
+      command_line:
+        description: Specified command line to use
+        type: string
+        default: -Command Start-Sleep 10
+    dependencies:
+    - description: The AtomicTestHarnesses module must be installed and Start-ATHProcessUnderSpecificParent
+        must be exported in the module.
+      prereq_command: '$RequiredModule = Get-Module -Name AtomicTestHarnesses -ListAvailable
+
+        if (-not $RequiredModule) {exit 1}
+
+        if (-not $RequiredModule.ExportedCommands[''Start-ATHProcessUnderSpecificParent''])
+        {exit 1} else {exit 0}'
+      get_prereq_command: 'Install-Module -Name AtomicTestHarnesses -Scope CurrentUser
+        -Force
+
+        '
+    technique_created: '2020-02-18T18:22:41.448Z'
+    atomic_guid: 14920ebd-1d61-491a-85e0-fe98efe37f25
+    import_timestamp: '2025-06-24T11:15:02.403848Z'

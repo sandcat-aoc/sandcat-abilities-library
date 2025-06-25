@@ -1,0 +1,46 @@
+- id: 89a83c3e-0b39-4c80-99f5-c2aa084098bd
+  name: Web Server Wordlist Scan
+  description: This test will scan a target system with a wordlist of common directories
+    and file paths.
+  tactic: reconnaissance
+  technique:
+    attack_id: T1595.003
+    name: 'Active Scanning: Wordlist Scanning'
+  platforms:
+    linux:
+      psh:
+        command: 'Import-Module "PathToAtomicsFolder/T1595.003/src/WebServerScan.ps1";
+          Invoke-WordlistScan -Target "http://localhost" -Wordlist "wordlist.txt"
+          -Timeout "5" -OutputFile "$env:TMPDIR/wordlist_scan.txt"; Write-Host "Scan
+          complete. Results saved to: $env:TMPDIR/wordlist_scan.txt"'
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1595.003
+  - reconnaissance
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      target:
+        description: The target system to scan
+        type: string
+        default: http://localhost
+      wordlist:
+        description: The wordlist to use for scanning
+        type: path
+        default: PathToAtomicsFolder/T1595.003/src/wordlist.txt
+      request_timeout:
+        description: The timeout for each request (in seconds)
+        type: integer
+        default: 5
+      output_file:
+        description: File to output results to
+        type: string
+        default: $env:TMPDIR/wordlist_scan.txt
+    technique_created: '2022-03-04T18:56:38.844Z'
+    atomic_guid: 89a83c3e-0b39-4c80-99f5-c2aa084098bd
+    import_timestamp: '2025-06-24T11:15:56.733948Z'

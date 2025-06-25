@@ -1,0 +1,56 @@
+- id: d3eaaf6a-cdb1-44a9-9ede-b6c337d0d840
+  name: Invoke HTML Application - JScript Engine with Inline Protocol Handler
+  description: Executes an HTA Application with JScript Engine and Inline Protocol
+    Handler.
+  tactic: defense-evasion
+  technique:
+    attack_id: T1218.005
+    name: 'Signed Binary Proxy Execution: Mshta'
+  platforms:
+    windows:
+      psh:
+        command: '$RequiredModule = Get-Module -Name AtomicTestHarnesses -ListAvailable;
+          if (-not $RequiredModule) {exit 1}; if (-not $RequiredModule.ExportedCommands[''Invoke-ATHHTMLApplication''])
+          {exit 1} else {exit 0}; then : ; else Install-Module -Name AtomicTestHarnesses
+          -Scope CurrentUser -Force; fi; Invoke-ATHHTMLApplication -ScriptEngine JScript
+          -InlineProtocolHandler About -MSHTAFilePath $env:windir\system32\mshta.exe'
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1218.005
+  - atomic-red-team
+  - defense-evasion
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      mshta_file_path:
+        description: Location of mshta.exe
+        type: path
+        default: $env:windir\system32\mshta.exe
+      script_engine:
+        description: Script Engine to use
+        type: string
+        default: JScript
+      protocol_handler:
+        description: Protocol Handler to use
+        type: string
+        default: About
+    dependencies:
+    - description: The AtomicTestHarnesses module must be installed and Invoke-ATHHTMLApplication
+        must be exported in the module.
+      prereq_command: '$RequiredModule = Get-Module -Name AtomicTestHarnesses -ListAvailable
+
+        if (-not $RequiredModule) {exit 1}
+
+        if (-not $RequiredModule.ExportedCommands[''Invoke-ATHHTMLApplication''])
+        {exit 1} else {exit 0}'
+      get_prereq_command: 'Install-Module -Name AtomicTestHarnesses -Scope CurrentUser
+        -Force
+
+        '
+    technique_created: '2020-01-23T19:32:49.557Z'
+    atomic_guid: d3eaaf6a-cdb1-44a9-9ede-b6c337d0d840
+    import_timestamp: '2025-06-24T11:15:00.882538Z'

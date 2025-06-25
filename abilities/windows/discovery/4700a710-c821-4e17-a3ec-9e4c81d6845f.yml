@@ -1,0 +1,28 @@
+- id: 4700a710-c821-4e17-a3ec-9e4c81d6845f
+  name: Windows - Discover domain trusts with dsquery
+  description: 'Uses the dsquery command to discover domain trusts.
+
+    Requires the installation of dsquery via Windows RSAT or the Windows Server AD
+    DS role.'
+  tactic: discovery
+  technique:
+    attack_id: T1482
+    name: Domain Trust Discovery
+  platforms:
+    windows:
+      sh:
+        command: dsquery * -filter "(objectClass=trustedDomain)" -attr *
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1482
+  - discovery
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    technique_created: '2019-02-14T16:15:05.974Z'
+    atomic_guid: 4700a710-c821-4e17-a3ec-9e4c81d6845f
+    import_timestamp: '2025-06-24T11:15:07.386321Z'

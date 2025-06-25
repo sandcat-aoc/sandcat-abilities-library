@@ -1,0 +1,37 @@
+- id: 386d3850-2ce7-4508-b56b-c0558922c814
+  name: Setting the HISTSIZE environment variable
+  description: 'An Adversary may set the sh history files size environment variable
+    (HISTSIZE) to zero to prevent the logging of commands to the history file after
+    they log out of the system.
+
+
+    Note: we don''t wish to log out, so we are just confirming the value of HISTSIZE.
+    In this test we 1. echo HISTSIZE 2. set it to zero 3. confirm that HISTSIZE is
+    set to zero.'
+  tactic: defense-evasion
+  technique:
+    attack_id: T1562.003
+    name: 'Impair Defenses: Impair Command History Logging'
+  platforms:
+    linux:
+      sh:
+        command: echo $HISTSIZE; export HISTSIZE=0; echo "runnning some commands to
+          populate the history"; whoami; groups; if [ $(echo $HISTSIZE) -eq 0 ]; then
+          echo "\$HISTSIZE is zero"; else HIST_LENGTH=$(wc -l $HISTFILE); echo "\$HISTSIZE
+          is not zero, history size is $HIST_LENGTH";  fi
+        cleanup: export HISTSIZE=100
+        elevation_required: false
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - defense-evasion
+  - atomic-red-team
+  - t1562.003
+  author: Atomic Red Team
+  additional_info:
+    technique_created: '2020-02-21T20:56:06.498Z'
+    atomic_guid: 386d3850-2ce7-4508-b56b-c0558922c814
+    import_timestamp: '2025-06-24T11:15:55.680934Z'

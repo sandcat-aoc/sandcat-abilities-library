@@ -1,0 +1,47 @@
+- id: 391f5298-b12d-4636-8482-35d9c17d53a8
+  name: Compressing data using GZip in Python (FreeBSD/Linux)
+  description: Uses GZip from Python to compress files
+  tactic: collection
+  technique:
+    attack_id: T1560.002
+    name: 'Archive Collected Data: Archive via Library'
+  platforms:
+    linux:
+      sh:
+        command: which_python=`which python || which python3`; $which_python -c "import
+          gzip;input_file=open('/etc/passwd', 'rb');content=input_file.read();input_file.close();output_file=gzip.GzipFile('/tmp/passwd.gz','wb',compresslevel=6);output_file.write(content);output_file.close();"
+        cleanup: 'rm #{path_to_output_file}'
+        elevation_required: false
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1560.002
+  - atomic-red-team
+  - collection
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      path_to_input_file:
+        description: Path to the file that you want to compress
+        type: path
+        default: /etc/passwd
+      path_to_output_file:
+        description: Path of the file that you want your .gz file to be
+        type: path
+        default: /tmp/passwd.gz
+    dependencies:
+    - description: 'Requires Python
+
+        '
+      prereq_command: 'which python || which python3
+
+        '
+      get_prereq_command: 'echo "please install python to run this test"; exit 1
+
+        '
+    technique_created: '2020-02-20T21:08:52.529Z'
+    atomic_guid: 391f5298-b12d-4636-8482-35d9c17d53a8
+    import_timestamp: '2025-06-24T11:15:56.351815Z'

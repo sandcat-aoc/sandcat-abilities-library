@@ -1,0 +1,39 @@
+- id: dda6fc7b-c9a6-4c18-b98d-95ec6542af6d
+  name: PowerShell Modify A Scheduled Task
+  description: "Create a scheduled task with an action and modify the action to do\
+    \ something else. The initial idea is to showcase Microsoft Windows TaskScheduler\
+    \ Operational log modification of an action on a Task already registered. \nIt\
+    \ will first be created to spawn cmd.exe, but modified to run notepad.exe.\n\n\
+    Upon successful execution, powershell.exe will create a scheduled task and modify\
+    \ the action."
+  tactic: execution
+  technique:
+    attack_id: T1053.005
+    name: 'Scheduled Task/Job: Scheduled Task'
+  platforms:
+    windows:
+      psh:
+        command: $Action = New-ScheduledTaskAction -Execute "cmd.exe"; $Trigger =
+          New-ScheduledTaskTrigger -AtLogon; $User = New-ScheduledTaskPrincipal -GroupId
+          "BUILTIN\Administrators" -RunLevel Highest; $Set = New-ScheduledTaskSettingsSet;
+          $object = New-ScheduledTask -Action $Action -Principal $User -Trigger $Trigger
+          -Settings $Set; Register-ScheduledTask AtomicTaskModifed -InputObject $object;
+          $NewAction = New-ScheduledTaskAction -Execute "Notepad.exe"; Set-ScheduledTask
+          "AtomicTaskModifed" -Action $NewAction
+        cleanup: Unregister-ScheduledTask -TaskName "AtomicTaskModifed" -confirm:$false
+          >$null 2>&1
+        elevation_required: false
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - execution
+  - t1053.005
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    technique_created: '2019-11-27T14:58:00.429Z'
+    atomic_guid: dda6fc7b-c9a6-4c18-b98d-95ec6542af6d
+    import_timestamp: '2025-06-24T11:15:02.955011Z'

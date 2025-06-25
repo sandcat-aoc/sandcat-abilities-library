@@ -1,0 +1,32 @@
+- id: d3415a0e-66ef-429b-acf4-a768876954f6
+  name: Security Software Discovery - Windows Defender Enumeration
+  description: 'Windows Defender Enumeration via different built-in windows native
+    tools.
+
+    when sucessfully executed, information about windows defender is displayed.'
+  tactic: discovery
+  technique:
+    attack_id: T1518.001
+    name: 'Software Discovery: Security Software Discovery'
+  platforms:
+    windows:
+      psh:
+        command: 'Get-Service WinDefend #check the service state of Windows Defender;
+          Get-MpComputerStatus #provides the current status of security solution elements,
+          including Anti-Spyware, Antivirus, LoavProtection, Real-time protection,
+          etc; Get-MpThreat #threats details that have been detected using MS Defender'
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - discovery
+  - t1518.001
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    technique_created: '2020-02-21T21:16:18.066Z'
+    atomic_guid: d3415a0e-66ef-429b-acf4-a768876954f6
+    import_timestamp: '2025-06-24T11:15:07.575743Z'

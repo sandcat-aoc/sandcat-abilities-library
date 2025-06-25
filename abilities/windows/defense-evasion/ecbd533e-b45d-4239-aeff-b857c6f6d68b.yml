@@ -1,0 +1,31 @@
+- id: ecbd533e-b45d-4239-aeff-b857c6f6d68b
+  name: Flush Shimcache
+  description: 'The ShimCache is a component in Windows operating systems that stores
+    information about recently executed applications. It is used by the operating
+    system to speed up the launching process of applications. The ShimCache is also
+    used by IR teams and Forensic teams. Forensic investigators can use the ShimCache
+    to determine which programs have been executed on a system, even if they have
+    been deleted or their logs have been cleared.Reference : https://blueteamops.medium.com/shimcache-flush-89daff28d15e'
+  tactic: defense-evasion
+  technique:
+    attack_id: T1112
+    name: Modify Registry
+  platforms:
+    windows:
+      sh:
+        command: Rundll32.exe apphelp.dll,ShimFlushCache
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1112
+  - atomic-red-team
+  - defense-evasion
+  author: Atomic Red Team
+  additional_info:
+    technique_created: '2017-05-31T21:31:23.587Z'
+    atomic_guid: ecbd533e-b45d-4239-aeff-b857c6f6d68b
+    import_timestamp: '2025-06-24T11:15:00.652636Z'

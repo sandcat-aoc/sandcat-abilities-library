@@ -1,0 +1,35 @@
+- id: 56506854-89d6-46a3-9804-b7fde90791f9
+  name: Cached Credential Dump via Cmdkey
+  description: 'List credentials currently stored on the host via the built-in Windows
+    utility cmdkey.exe
+
+    Credentials listed with Cmdkey only pertain to the current user
+
+    Passwords will not be displayed once they are stored
+
+    https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/cmdkey
+
+    https://www.peew.pw/blog/2017/11/26/exploring-cmdkey-an-edge-case-for-privilege-escalation'
+  tactic: credential-access
+  technique:
+    attack_id: T1003.005
+    name: 'OS Credential Dumping: Cached Domain Credentials'
+  platforms:
+    windows:
+      sh:
+        command: cmdkey /list
+        elevation_required: false
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - credential-access
+  - t1003.005
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    technique_created: '2020-02-21T15:42:25.991Z'
+    atomic_guid: 56506854-89d6-46a3-9804-b7fde90791f9
+    import_timestamp: '2025-06-24T11:15:06.670217Z'

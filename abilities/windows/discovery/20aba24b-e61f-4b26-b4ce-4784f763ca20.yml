@@ -1,0 +1,31 @@
+- id: 20aba24b-e61f-4b26-b4ce-4784f763ca20
+  name: System Time Discovery
+  description: Identify the system time. Upon execution, the local computer system
+    time and timezone will be displayed.
+  tactic: discovery
+  technique:
+    attack_id: T1124
+    name: System Time Discovery
+  platforms:
+    windows:
+      sh:
+        command: net time \\localhost; w32tm /tz
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - discovery
+  - t1124
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      computer_name:
+        description: computer name to query
+        type: string
+        default: localhost
+    technique_created: '2017-05-31T21:31:37.450Z'
+    atomic_guid: 20aba24b-e61f-4b26-b4ce-4784f763ca20
+    import_timestamp: '2025-06-24T11:15:07.689889Z'

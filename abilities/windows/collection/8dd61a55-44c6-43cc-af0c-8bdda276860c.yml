@@ -1,0 +1,54 @@
+- id: 8dd61a55-44c6-43cc-af0c-8bdda276860c
+  name: Compress Data and lock with password for Exfiltration with winrar
+  description: 'Note: Requires winrar installation
+
+    rar a -p"blue" hello.rar (VARIANT)'
+  tactic: collection
+  technique:
+    attack_id: T1560.001
+    name: 'Archive Collected Data: Archive via Utility'
+  platforms:
+    windows:
+      sh:
+        command: mkdir .\tmp\victim-files; cd .\tmp\victim-files; echo "This file
+          will be encrypted" > .\encrypted_file.txt; "%programfiles%/WinRAR/Rar.exe"
+          a -hp"blue" hello.rar; dir
+        elevation_required: false
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1560.001
+  - atomic-red-team
+  - collection
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      rar_installer:
+        description: Winrar installer
+        type: path
+        default: '%TEMP%\winrar.exe'
+      rar_exe:
+        description: The RAR executable from Winrar
+        type: path
+        default: '%programfiles%/WinRAR/Rar.exe'
+    dependencies:
+    - description: 'Rar tool must be installed at specified location (#{rar_exe})
+
+        '
+      prereq_command: 'if not exist "#{rar_exe}" (exit /b 1)
+
+        '
+      get_prereq_command: 'echo Downloading Winrar installer
+
+        bitsadmin /transfer myDownloadJob /download /priority normal "https://www.win-rar.com/fileadmin/winrar-versions/winrar/th/winrar-x64-580.exe"
+        #{rar_installer}
+
+        #{rar_installer} /S
+
+        '
+    technique_created: '2020-02-20T21:01:25.428Z'
+    atomic_guid: 8dd61a55-44c6-43cc-af0c-8bdda276860c
+    import_timestamp: '2025-06-24T11:15:05.818021Z'

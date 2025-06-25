@@ -1,0 +1,30 @@
+- id: 4dd3289c-522c-4fce-b48e-5370efc90fa1
+  name: 4dd3289c-522c-4fce-b48e-5370efc90fa1 - Malicious Driver Deployment
+  description: 'Malicious driver: 4dd3289c-522c-4fce-b48e-5370efc90fa1
+
+    Category: vulnerable driver
+
+    Author: Nasreddine Bencherchali
+
+    Created: 2023-05-06
+
+    MITRE Technique: T1068'
+  tactic: privilege-escalation
+  technique:
+    attack_id: T1068
+    name: Rootkit
+  platforms:
+    windows:
+      cmd:
+        command: sc create MaliciousDriver binPath= "C:\Windows\System32\drivers\malicious_driver.sys"
+          type= kernel
+  singleton: true
+  privilege: Elevated
+  repeatable: false
+  buckets:
+  - privilege-escalation
+  version: '1.0'
+  author: Nasreddine Bencherchali
+  operating_system: Windows (Version Unspecified)
+  created: '2023-05-06'
+  modified: '2023-05-06'

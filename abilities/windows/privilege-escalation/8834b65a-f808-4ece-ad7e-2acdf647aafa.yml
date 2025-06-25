@@ -1,0 +1,43 @@
+- id: 8834b65a-f808-4ece-ad7e-2acdf647aafa
+  name: Change Startup Folder - HKCU Modify User Shell Folders Startup Value
+  description: "This test will modify the HKEY_CURRENT_USER\\SOFTWARE\\Microsoft\\\
+    Windows\\CurrentVersion\\Explorer\\User Shell Folders  -V \"Startup\" value \n\
+    to point to a new startup folder where a payload could be stored to launch at\
+    \ boot.  *successful execution requires system restart"
+  tactic: privilege-escalation
+  technique:
+    attack_id: T1547.001
+    name: 'Boot or Logon Autostart Execution: Registry Run Keys / Startup Folder'
+  platforms:
+    windows:
+      psh:
+        command: New-Item -ItemType Directory -path "$env:TMP\atomictest\"; Copy-Item
+          -path "C:\Windows\System32\calc.exe" -destination "$env:TMP\atomictest\";
+          Set-ItemProperty -Path  "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\User
+          Shell Folders" -Name "Startup" -Value "$env:TMP\atomictest\"
+        cleanup: Set-ItemProperty -Path  "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\User
+          Shell Folders" -Name "Startup" -Value "$env:APPDATA\Microsoft\Windows\Start
+          Menu\Programs\Startup"; Remove-Item "#{new_startup_folder}" -Recurse -Force
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - privilege-escalation
+  - t1547.001
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      new_startup_folder:
+        description: new startup folder to replace standard one
+        type: string
+        default: $env:TMP\atomictest\
+      payload:
+        description: 'executable to be placed in new startup location '
+        type: string
+        default: C:\Windows\System32\calc.exe
+    technique_created: '2020-01-23T22:02:48.566Z'
+    atomic_guid: 8834b65a-f808-4ece-ad7e-2acdf647aafa
+    import_timestamp: '2025-06-24T11:15:02.485856Z'

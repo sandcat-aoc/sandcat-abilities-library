@@ -1,0 +1,33 @@
+- id: 2db012d4-935e-4a20-be3f-2321e1516378
+  name: system_info
+  description: Discovers detailed system information on macOS systems using native commands for enumeration.
+  tactic: discovery
+  technique:
+    attack_id: T1082
+    name: System Info
+  platforms:
+    darwin:
+      sh:
+        command: './system_info.sh --help --verbose --all --system --hardware --env
+
+          --network --boot --power
+
+          '
+        payloads:
+        - system_info.sh
+        cleanup: rm -f system_info.sh
+  singleton: false
+  privilege: Elevated
+  repeatable: true
+  delete_payload: false
+  buckets:
+  - attack-macos
+  - discovery
+  - t1082
+  version: '1.0'
+  author: Attack-macOS Project
+  additional_info:
+    source_file: 2db012d4-935e-4a20-be3f-2321e1516378.yml
+    source_repository: https://github.com/armadoinc/caldera-plugin-attack-macos
+    import_timestamp: '2025-06-24T09:59:53.861954Z'
+    original_plugin: caldera-plugin-attack-macos

@@ -1,0 +1,30 @@
+- id: 13637210-2e1c-45a4-9f76-fe38c3c34264
+  name: 13637210-2e1c-45a4-9f76-fe38c3c34264 - Malicious Driver Deployment
+  description: 'Malicious driver: 13637210-2e1c-45a4-9f76-fe38c3c34264
+
+    Category: vulnerable driver
+
+    Author: Nasreddine Bencherchali
+
+    Created: 2023-05-06
+
+    MITRE Technique: T1068'
+  tactic: privilege-escalation
+  technique:
+    attack_id: T1068
+    name: Rootkit
+  platforms:
+    windows:
+      cmd:
+        command: sc create MaliciousDriver binPath= "C:\Windows\System32\drivers\malicious_driver.sys"
+          type= kernel
+  singleton: true
+  privilege: Elevated
+  repeatable: false
+  buckets:
+  - privilege-escalation
+  version: '1.0'
+  author: Nasreddine Bencherchali
+  operating_system: Windows (Version Unspecified)
+  created: '2023-05-06'
+  modified: '2023-05-06'

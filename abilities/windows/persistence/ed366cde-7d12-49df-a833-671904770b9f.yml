@@ -1,0 +1,43 @@
+- id: ed366cde-7d12-49df-a833-671904770b9f
+  name: Modify Fax service to run PowerShell
+  description: 'This test will temporarily modify the service Fax by changing the
+    binPath to PowerShell
+
+    and will then revert the binPath change, restoring Fax to its original state.
+
+    Upon successful execution, cmd will modify the binpath for `Fax` to spawn powershell.
+    Powershell will then spawn.'
+  tactic: persistence
+  technique:
+    attack_id: T1543.003
+    name: 'Create or Modify System Process: Windows Service'
+  platforms:
+    windows:
+      sh:
+        command: sc config Fax binPath= "C:\windows\system32\WindowsPowerShell\v1.0\powershell.exe
+          -noexit -c \"write-host 'T1543.003 Test'\""; sc start Fax
+        cleanup: 'sc config #{service_name} binPath= "#{service_binpath}" >nul 2>&1'
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - persistence
+  - t1543.003
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      service_name:
+        description: The name of the service that will be modified
+        type: string
+        default: Fax
+      service_binpath:
+        description: The default value for the binary path of the service
+        type: string
+        default: C:\WINDOWS\system32\fxssvc.exe
+    technique_created: '2020-01-17T19:13:50.402Z'
+    atomic_guid: ed366cde-7d12-49df-a833-671904770b9f
+    import_timestamp: '2025-06-24T11:15:03.634914Z'

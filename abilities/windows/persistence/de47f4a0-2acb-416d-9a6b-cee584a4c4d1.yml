@@ -1,0 +1,33 @@
+- id: de47f4a0-2acb-416d-9a6b-cee584a4c4d1
+  name: Add persistence via Windows Context Menu
+  description: 'This atomic test add persistence taking advantage of the  Windows
+    Context Menu [Hexacorn](https://www.hexacorn.com/blog/2018/07/29/beyond-good-ol-run-key-part-82/)
+
+    User have to right click on the main screen or in the white space of the opened
+    folder (e.g. Size Modify).'
+  tactic: persistence
+  technique:
+    attack_id: T1547.001
+    name: 'Boot or Logon Autostart Execution: Registry Run Keys / Startup Folder'
+  platforms:
+    windows:
+      sh:
+        command: reg add "HKEY_CLASSES_ROOT\Directory\Background\shell\Size Modify\command"
+          /ve /t REG_SZ /d "C:\Windows\System32\calc.exe" /f
+        cleanup: reg delete "HKEY_CLASSES_ROOT\Directory\Background\shell\Size Modify"
+          /f
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - persistence
+  - t1547.001
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    technique_created: '2020-01-23T22:02:48.566Z'
+    atomic_guid: de47f4a0-2acb-416d-9a6b-cee584a4c4d1
+    import_timestamp: '2025-06-24T11:15:05.222117Z'

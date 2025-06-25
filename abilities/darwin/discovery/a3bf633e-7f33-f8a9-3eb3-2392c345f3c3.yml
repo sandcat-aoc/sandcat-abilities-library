@@ -1,0 +1,27 @@
+- id: a3bf633e-7f33-f8a9-3eb3-2392c345f3c3
+  name: defaults - Show mounted servers
+  description: Show all mounted servers on the desktop.
+  tactic: discovery
+  technique:
+    attack_id: T1547.001
+    name: 'Boot or Logon Autostart Execution: Registry Run Keys / Startup Folder'
+  platforms:
+    darwin:
+      sh:
+        command: defaults read com.apple.finder "ShowMountedServersOnDesktop"
+  singleton: false
+  privilege: Elevated
+  repeatable: true
+  delete_payload: true
+  buckets:
+  - loobins
+  - defaults
+  - discovery
+  version: '1.0'
+  author: LOOBins Project
+  additional_info:
+    loobins_tool: defaults
+    use_case: Show mounted servers
+    source_file: defaults.yml
+    source_repository: https://github.com/infosecB/LOOBins
+    import_timestamp: '2025-06-24T09:00:11.273405Z'

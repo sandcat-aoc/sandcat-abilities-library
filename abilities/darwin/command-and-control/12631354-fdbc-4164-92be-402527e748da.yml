@@ -1,0 +1,46 @@
+- id: 12631354-fdbc-4164-92be-402527e748da
+  name: Tor Proxy Usage - MacOS
+  description: 'This test is designed to launch the tor proxy service, which is what
+    is utilized in the background by the Tor Browser and other applications with add-ons
+    in order to provide onion routing functionality.
+
+    Upon successful execution, the tor proxy service will be launched.'
+  tactic: command-and-control
+  technique:
+    attack_id: T1090.003
+    name: 'Proxy: Multi-hop Proxy'
+  platforms:
+    darwin:
+      sh:
+        command: 'if [ -x "$(command -v tor --version)" ]; then : ; else if [ ! -x
+          "$(command -v brew --version)" ]; then /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh
+          keystroke return)"; fi; brew install tor; fi; osascript -e ''tell application
+          "Terminal" to do script "tor"'''
+        cleanup: killall tor > /dev/null 2>&1
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1090.003
+  - atomic-red-team
+  - command-and-control
+  author: Atomic Red Team
+  additional_info:
+    dependencies:
+    - description: "Tor must be installed on the machine \n"
+      prereq_command: 'if [ -x "$(command -v tor --version)" ]; then exit 0; else
+        exit 1; fi
+
+        '
+      get_prereq_command: 'if [ ! -x "$(command -v brew --version)" ]; then /bin/bash
+        -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh
+        keystroke return)"; fi
+
+        brew install tor
+
+        '
+    technique_created: '2020-03-14T23:23:41.770Z'
+    atomic_guid: 12631354-fdbc-4164-92be-402527e748da
+    import_timestamp: '2025-06-24T11:14:07.534603Z'

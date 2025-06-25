@@ -1,0 +1,33 @@
+- id: 896dfe97-ae43-4101-8e96-9a7996555d80
+  name: Make and modify binary from C source
+  description: Make, change owner, and change file attributes on a C source code file
+  tactic: defense-evasion
+  technique:
+    attack_id: T1548.001
+    name: 'Abuse Elevation Control Mechanism: Setuid and Setgid'
+  platforms:
+    darwin:
+      sh:
+        command: cp hello.c /tmp/hello.c; sudo chown root /tmp/hello.c; sudo make
+          /tmp/hello; sudo chown root /tmp/hello; sudo chmod u+s /tmp/hello; /tmp/hello
+        cleanup: sudo rm /tmp/hello; sudo rm /tmp/hello.c
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1548.001
+  - atomic-red-team
+  - defense-evasion
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      payload:
+        description: hello.c payload
+        type: path
+        default: PathToAtomicsFolder/T1548.001/src/hello.c
+    technique_created: '2020-01-30T14:11:41.212Z'
+    atomic_guid: 896dfe97-ae43-4101-8e96-9a7996555d80
+    import_timestamp: '2025-06-24T11:14:07.186362Z'

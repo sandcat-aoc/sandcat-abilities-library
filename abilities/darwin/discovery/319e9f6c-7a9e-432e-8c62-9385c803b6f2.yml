@@ -1,0 +1,26 @@
+- id: 319e9f6c-7a9e-432e-8c62-9385c803b6f2
+  name: Enumerate users and groups
+  description: Utilize local utilities to enumerate users and groups
+  tactic: discovery
+  technique:
+    attack_id: T1087.001
+    name: 'Account Discovery: Local Account'
+  platforms:
+    darwin:
+      sh:
+        command: dscl . list /Groups; dscl . list /Users; dscl . list /Users | grep
+          -v '_'; dscacheutil -q group; dscacheutil -q user
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - discovery
+  - t1087.001
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    technique_created: '2020-02-21T21:07:55.393Z'
+    atomic_guid: 319e9f6c-7a9e-432e-8c62-9385c803b6f2
+    import_timestamp: '2025-06-24T11:14:07.727680Z'

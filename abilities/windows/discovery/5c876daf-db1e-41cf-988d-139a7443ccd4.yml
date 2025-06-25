@@ -1,0 +1,28 @@
+- id: 5c876daf-db1e-41cf-988d-139a7443ccd4
+  name: Get Printer Device List via PowerShell Command
+  description: "This test uses PowerShell to list printers on a Windows system, demonstrating\
+    \ a discovery technique attackers might use to \ngather details on connected devices.\
+    \ Using Get-Printer, they can view information on all available printers, identifying\
+    \ \npotential devices for further targeting."
+  tactic: discovery
+  technique:
+    attack_id: T1120
+    name: Peripheral Device Discovery
+  platforms:
+    windows:
+      psh:
+        command: Get-Printer
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1120
+  - discovery
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    technique_created: '2017-05-31T21:31:28.471Z'
+    atomic_guid: 5c876daf-db1e-41cf-988d-139a7443ccd4
+    import_timestamp: '2025-06-24T11:15:07.246845Z'

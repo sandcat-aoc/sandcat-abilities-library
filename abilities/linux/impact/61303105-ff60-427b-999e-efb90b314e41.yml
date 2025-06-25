@@ -1,0 +1,26 @@
+- id: 61303105-ff60-427b-999e-efb90b314e41
+  name: Reboot System via `poweroff` - Linux
+  description: This test restarts a Linux system using `poweroff`.
+  tactic: impact
+  technique:
+    attack_id: T1529
+    name: System Shutdown/Reboot
+  platforms:
+    linux:
+      sh:
+        command: poweroff --reboot
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - impact
+  - t1529
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    technique_created: '2019-10-04T20:42:28.541Z'
+    atomic_guid: 61303105-ff60-427b-999e-efb90b314e41
+    import_timestamp: '2025-06-24T11:15:56.794418Z'

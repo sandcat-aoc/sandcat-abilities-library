@@ -1,0 +1,32 @@
+- id: 5ba5a3d1-cf3c-4499-968a-a93155d1f717
+  name: Masquerading as Windows LSASS process
+  description: 'Copies cmd.exe, renames it, and launches it to masquerade as an instance
+    of lsass.exe.
+
+
+    Upon execution, cmd will be launched by powershell. If using Invoke-AtomicTest,
+    The test will hang until the 120 second timeout cancels the session'
+  tactic: defense-evasion
+  technique:
+    attack_id: T1036.003
+    name: 'Masquerading: Rename System Utilities'
+  platforms:
+    windows:
+      sh:
+        command: copy %SystemRoot%\System32\cmd.exe %SystemRoot%\Temp\lsass.exe; %SystemRoot%\Temp\lsass.exe
+          /B
+        cleanup: del /Q /F %SystemRoot%\Temp\lsass.exe >nul 2>&1
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - defense-evasion
+  - atomic-red-team
+  - t1036.003
+  author: Atomic Red Team
+  additional_info:
+    technique_created: '2020-02-10T20:03:11.691Z'
+    atomic_guid: 5ba5a3d1-cf3c-4499-968a-a93155d1f717
+    import_timestamp: '2025-06-24T11:15:01.229593Z'

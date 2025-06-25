@@ -1,0 +1,35 @@
+- id: f3ad3c5b-1db1-45c1-81bf-d3370ebab6c8
+  name: Rundll32 execute command via FileProtocolHandler
+  description: 'Test execution of a command using rundll32.exe and the FileProtocolHandler
+    technique.
+
+    Upon execution, calc.exe will be launched.
+
+    This technique is documented by Levan Abesadze - https://medium.com/@Wolverineisstillalive/system-binary-proxy-execution-rundll32-bypass-method-790871e1f2b7'
+  tactic: defense-evasion
+  technique:
+    attack_id: T1218.011
+    name: 'Signed Binary Proxy Execution: Rundll32'
+  platforms:
+    windows:
+      sh:
+        command: rundll32.exe url.dll,FileProtocolHandler calc.exe
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1218.011
+  - atomic-red-team
+  - defense-evasion
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      command_to_execute:
+        description: Command for rundll32.exe to execute
+        type: string
+        default: calc.exe
+    technique_created: '2020-01-23T18:03:46.248Z'
+    atomic_guid: f3ad3c5b-1db1-45c1-81bf-d3370ebab6c8
+    import_timestamp: '2025-06-24T11:14:59.832287Z'

@@ -1,0 +1,61 @@
+- id: a9b93f17-31cb-435d-a462-5e838a2a6026
+  name: AutoIt Script Execution
+  description: An adversary may attempt to execute suspicious or malicious script
+    using AutoIt software instead of regular terminal like powershell or cmd. Calculator
+    will popup when the script is executed successfully.
+  tactic: execution
+  technique:
+    attack_id: T1059
+    name: Command and Scripting Interpreter
+  platforms:
+    windows:
+      psh:
+        command: 'if(Test-Path "C:\Program Files (x86)\AutoIt3\AutoIt3.exe") {; exit
+          0; } else {; exit 1; }; then : ; else New-Item -Type Directory "PathToAtomicsFolder\..\ExternalPayloads\"
+          -ErrorAction Ignore -Force | Out-Null; $AutoItURL = "https://www.autoitscript.com/cgi-bin/getfile.pl?autoit3/autoit-v3-setup.exe";
+          $InstallerPath = "$PathToAtomicsFolder\..\ExternalPayloads\autoit-v3-setup.exe";
+          Invoke-WebRequest -Uri $AutoItURL -OutFile $InstallerPath; Start-Process
+          -FilePath $InstallerPath -ArgumentList "/S" -Wait; fi; Start-Process -FilePath
+          "C:\Program Files (x86)\AutoIt3\AutoIt3.exe" -ArgumentList "PathToAtomicsFolder\T1059\src\calc.au3"'
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1059
+  - execution
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      script_path:
+        description: AutoIt Script Path
+        type: path
+        default: PathToAtomicsFolder\T1059\src\calc.au3
+      autoit_path:
+        description: AutoIt Executable File Path
+        type: path
+        default: C:\Program Files (x86)\AutoIt3\AutoIt3.exe
+    dependencies:
+    - description: 'AutoIt executable file must exist on disk at the specified location
+        (#{autoit_path})
+
+        '
+      prereq_command: "if(Test-Path \"#{autoit_path}\") {\n    exit 0\n} else {\n\
+        \    exit 1\n}\n"
+      get_prereq_command: 'New-Item -Type Directory "PathToAtomicsFolder\..\ExternalPayloads\"
+        -ErrorAction Ignore -Force | Out-Null
+
+        $AutoItURL = "https://www.autoitscript.com/cgi-bin/getfile.pl?autoit3/autoit-v3-setup.exe"
+
+        $InstallerPath = "$PathToAtomicsFolder\..\ExternalPayloads\autoit-v3-setup.exe"
+
+        Invoke-WebRequest -Uri $AutoItURL -OutFile $InstallerPath
+
+        Start-Process -FilePath $InstallerPath -ArgumentList "/S" -Wait
+
+        '
+    technique_created: '2017-05-31T21:30:49.546Z'
+    atomic_guid: a9b93f17-31cb-435d-a462-5e838a2a6026
+    import_timestamp: '2025-06-24T11:15:03.191448Z'

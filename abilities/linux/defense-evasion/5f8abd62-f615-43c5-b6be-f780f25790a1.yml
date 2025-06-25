@@ -1,0 +1,46 @@
+- id: 5f8abd62-f615-43c5-b6be-f780f25790a1
+  name: Disable Bash History Logging with SSH -T
+  description: Keeps history clear and stays out of lastlog,wtmp,btmp ssh -T keeps
+    the ssh client from catching a proper TTY, which is what usually gets logged on
+    lastlog
+  tactic: defense-evasion
+  technique:
+    attack_id: T1070.003
+    name: 'Indicator Removal on Host: Clear Command History'
+  platforms:
+    linux:
+      sh:
+        command: sshpass -p 'pwd101!' ssh testuser1@localhost -T hostname
+        cleanup: '[ "$(uname)" = ''FreeBSD'' ] && rmuser -y testuser1 || userdel -f
+          testuser1'
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1070.003
+  - atomic-red-team
+  - defense-evasion
+  author: Atomic Red Team
+  additional_info:
+    dependencies:
+    - description: 'Install sshpass and create user account used for excuting
+
+        '
+      prereq_command: '$(getent passwd testuser1 >/dev/null) && $(which sshpass >/dev/null)
+
+        '
+      get_prereq_command: '[ "$(uname)" = ''FreeBSD'' ] && pw useradd testuser1 -g
+        wheel -s /bin/sh || /usr/sbin/useradd testuser1
+
+        [ "$(uname)" = ''FreeBSD'' ] && echo ''pwd101!'' | pw mod user testuser1 -h
+        0 || echo -e ''pwd101!\npwd101!'' | passwd testuser1
+
+        (which yum && yum -y install epel-release sshpass)||(which apt-get && DEBIAN_FRONTEND=noninteractive
+        apt-get install -y sshpass)||(which pkg && pkg install -y sshpass)
+
+        '
+    technique_created: '2020-01-31T12:32:08.228Z'
+    atomic_guid: 5f8abd62-f615-43c5-b6be-f780f25790a1
+    import_timestamp: '2025-06-24T11:15:55.489207Z'

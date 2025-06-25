@@ -1,0 +1,56 @@
+- id: e16b3b75-dc9e-4cde-a23d-dfa2d0507b3b
+  name: WMI Invoke-CimMethod Scheduled Task
+  description: Create an scheduled task that executes notepad.exe after user login
+    from XML by leveraging WMI class PS_ScheduledTask. Does the same thing as Register-ScheduledTask
+    cmdlet behind the scenes.
+  tactic: execution
+  technique:
+    attack_id: T1053.005
+    name: 'Scheduled Task/Job: Scheduled Task'
+  platforms:
+    windows:
+      psh:
+        command: 'if (Test-Path "PathToAtomicsFolder\T1053.005\src\T1053_005_WMI.xml")
+          {exit 0} else {exit 1}; then : ; else New-Item -Type Directory (split-path
+          "PathToAtomicsFolder\T1053.005\src\T1053_005_WMI.xml") -ErrorAction ignore
+          | Out-Null; Invoke-WebRequest "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1053.005/src/T1053_005_WMI.xml"
+          -OutFile "PathToAtomicsFolder\T1053.005\src\T1053_005_WMI.xml"; fi; $xml
+          = [System.IO.File]::ReadAllText("PathToAtomicsFolder\T1053.005\src\T1053_005_WMI.xml");
+          Invoke-CimMethod -ClassName PS_ScheduledTask -NameSpace "Root\Microsoft\Windows\TaskScheduler"
+          -MethodName "RegisterByXml" -Arguments @{ Force = $true; Xml =$xml; }'
+        cleanup: Unregister-ScheduledTask -TaskName "T1053_005_WMI" -confirm:$false
+          >$null 2>&1
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - execution
+  - t1053.005
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      xml_path:
+        description: path of vbs to use when creating masquerading files
+        type: path
+        default: PathToAtomicsFolder\T1053.005\src\T1053_005_WMI.xml
+    dependencies:
+    - description: 'File to copy must exist on disk at specified location (#{xml_path})
+
+        '
+      prereq_command: 'if (Test-Path "#{xml_path}") {exit 0} else {exit 1}
+
+        '
+      get_prereq_command: 'New-Item -Type Directory (split-path "#{xml_path}") -ErrorAction
+        ignore | Out-Null
+
+        Invoke-WebRequest "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1053.005/src/T1053_005_WMI.xml"
+        -OutFile "#{xml_path}"
+
+        '
+    technique_created: '2019-11-27T14:58:00.429Z'
+    atomic_guid: e16b3b75-dc9e-4cde-a23d-dfa2d0507b3b
+    import_timestamp: '2025-06-24T11:15:02.933063Z'

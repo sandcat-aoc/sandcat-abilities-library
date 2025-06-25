@@ -1,0 +1,27 @@
+- id: 11a57d5a-0a0e-c4f4-c73b-1bc303017697
+  name: dsconfigad - Retrieves the Active Directory configuration
+  description: Retrieves the Active Directory configuration
+  tactic: discovery
+  technique:
+    attack_id: T1016
+    name: System Network Configuration Discovery
+  platforms:
+    darwin:
+      sh:
+        command: dsconfigad -show
+  singleton: false
+  privilege: User
+  repeatable: true
+  delete_payload: true
+  buckets:
+  - loobins
+  - dsconfigad
+  - discovery
+  version: '1.0'
+  author: LOOBins Project
+  additional_info:
+    loobins_tool: dsconfigad
+    use_case: Retrieves the Active Directory configuration
+    source_file: dsconfigad.yml
+    source_repository: https://github.com/infosecB/LOOBins
+    import_timestamp: '2025-06-24T09:00:11.322659Z'

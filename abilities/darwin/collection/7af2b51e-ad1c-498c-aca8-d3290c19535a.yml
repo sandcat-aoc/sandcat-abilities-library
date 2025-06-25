@@ -1,0 +1,47 @@
+- id: 7af2b51e-ad1c-498c-aca8-d3290c19535a
+  name: Data Compressed - nix - tar Folder or File
+  description: An adversary may compress data (e.g., sensitive documents) that is
+    collected prior to exfiltration. This test uses standard gzip compression.
+  tactic: collection
+  technique:
+    attack_id: T1560.001
+    name: 'Archive Collected Data: Archive via Utility'
+  platforms:
+    darwin:
+      sh:
+        command: tar -cvzf $HOME/data.tar.gz $HOME/$USERNAME
+        cleanup: 'rm -f #{output_file}'
+        elevation_required: false
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1560.001
+  - atomic-red-team
+  - collection
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      input_file_folder:
+        description: Path that should be compressed
+        type: path
+        default: $HOME/$USERNAME
+      output_file:
+        description: File that should be output
+        type: path
+        default: $HOME/data.tar.gz
+    dependencies:
+    - description: 'Folder to zip must exist (#{input_file_folder})
+
+        '
+      prereq_command: 'test -e #{input_file_folder}
+
+        '
+      get_prereq_command: 'mkdir -p #{input_file_folder} && touch #{input_file_folder}/file1
+
+        '
+    technique_created: '2020-02-20T21:01:25.428Z'
+    atomic_guid: 7af2b51e-ad1c-498c-aca8-d3290c19535a
+    import_timestamp: '2025-06-24T11:14:07.588376Z'

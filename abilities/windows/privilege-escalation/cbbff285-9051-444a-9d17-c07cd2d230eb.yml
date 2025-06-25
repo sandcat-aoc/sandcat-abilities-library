@@ -1,0 +1,51 @@
+- id: cbbff285-9051-444a-9d17-c07cd2d230eb
+  name: Parent PID Spoofing - Spawn from Specified Process
+  description: Spawns a notepad.exe process as a child of the current process.
+  tactic: privilege-escalation
+  technique:
+    attack_id: T1134.004
+    name: 'Access Token Manipulation: Parent PID Spoofing'
+  platforms:
+    windows:
+      psh:
+        command: '$RequiredModule = Get-Module -Name AtomicTestHarnesses -ListAvailable;
+          if (-not $RequiredModule) {exit 1}; if (-not $RequiredModule.ExportedCommands[''Start-ATHProcessUnderSpecificParent''])
+          {exit 1} else {exit 0}; then : ; else Install-Module -Name AtomicTestHarnesses
+          -Scope CurrentUser -Force; fi; Start-ATHProcessUnderSpecificParent  -ParentId
+          $PID -TestGuid 12345678-1234-1234-1234-123456789123'
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1134.004
+  - privilege-escalation
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      parent_pid:
+        description: PID of process to spawn from
+        type: string
+        default: $PID
+      test_guid:
+        description: Defined test GUID
+        type: string
+        default: 12345678-1234-1234-1234-123456789123
+    dependencies:
+    - description: The AtomicTestHarnesses module must be installed and Start-ATHProcessUnderSpecificParent
+        must be exported in the module.
+      prereq_command: '$RequiredModule = Get-Module -Name AtomicTestHarnesses -ListAvailable
+
+        if (-not $RequiredModule) {exit 1}
+
+        if (-not $RequiredModule.ExportedCommands[''Start-ATHProcessUnderSpecificParent''])
+        {exit 1} else {exit 0}'
+      get_prereq_command: 'Install-Module -Name AtomicTestHarnesses -Scope CurrentUser
+        -Force
+
+        '
+    technique_created: '2020-02-18T18:22:41.448Z'
+    atomic_guid: cbbff285-9051-444a-9d17-c07cd2d230eb
+    import_timestamp: '2025-06-24T11:15:02.410590Z'

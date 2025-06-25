@@ -1,0 +1,237 @@
+name: Update Procedure Libraries
+
+on:
+  schedule:
+    # Run every Sunday at 2 AM UTC (weekly)
+    - cron: '0 * * * *'
+  workflow_dispatch: # Allow manual trigger
+    inputs:
+      force_update:
+        description: 'Force update even if no changes detected'
+        required: false
+        default: false
+        type: boolean
+
+env:
+  PYTHON_VERSION: '3.9'
+
+jobs:
+  update-procedures:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # Allow pushing changes back to repo
+      
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0 # Full history for proper git operations
+        
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ env.PYTHON_VERSION }}
+        
+    - name: Cache Python dependencies
+      uses: actions/cache@v3
+      with:
+        path: ~/.cache/pip
+        key: ${{ runner.os }}-pip-${{ hashFiles('cicd/requirements.txt') }}
+        restore-keys: |
+          ${{ runner.os }}-pip-
+          
+    - name: Install Python dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install pyyaml requests mitreattack-python
+        # Install any additional dependencies if requirements.txt exists
+        if [ -f cicd/requirements.txt ]; then
+          pip install -r cicd/requirements.txt
+        fi
+        
+    - name: Create output directories
+      run: |
+        mkdir -p windows darwin linux
+        
+    - name: Configure Git
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        
+    - name: Get current counts (before update)
+      id: counts_before
+      run: |
+        WINDOWS_BEFORE=$(ls windows/*.yml 2>/dev/null | wc -l || echo 0)
+        DARWIN_BEFORE=$(ls darwin/*.yml 2>/dev/null | wc -l || echo 0) 
+        LINUX_BEFORE=$(ls linux/*.yml 2>/dev/null | wc -l || echo 0)
+        TOTAL_BEFORE=$((WINDOWS_BEFORE + DARWIN_BEFORE + LINUX_BEFORE))
+        
+        echo "windows_before=$WINDOWS_BEFORE" >> $GITHUB_OUTPUT
+        echo "darwin_before=$DARWIN_BEFORE" >> $GITHUB_OUTPUT  
+        echo "linux_before=$LINUX_BEFORE" >> $GITHUB_OUTPUT
+        echo "total_before=$TOTAL_BEFORE" >> $GITHUB_OUTPUT
+        
+        echo "Current counts - Windows: $WINDOWS_BEFORE, Darwin: $DARWIN_BEFORE, Linux: $LINUX_BEFORE, Total: $TOTAL_BEFORE"
+        
+    - name: Update LOLBAS procedures (Windows)
+      id: lolbas
+      run: |
+        echo "Updating LOLBAS procedures..."
+        cd cicd
+        python import_lolbas_to_caldera.py --output ../windows/ --verbose
+        echo "LOLBAS update completed"
+      continue-on-error: true
+      
+    - name: Update LOLDrivers procedures (Windows) 
+      id: loldrivers
+      run: |
+        echo "Updating LOLDrivers procedures..."
+        cd cicd
+        python import_loldrivers_to_caldera.py --output ../windows/ --payloads-dir ../payloads/ --verbose
+        echo "LOLDrivers update completed"
+      continue-on-error: true
+      
+    - name: Update LOOBins procedures (Darwin/macOS)
+      id: loobins  
+      run: |
+        echo "Updating LOOBins procedures..."
+        cd cicd
+        python import_loobins_to_caldera.py --output ../darwin/ --verbose --force
+        echo "LOOBins update completed"
+      continue-on-error: true
+      
+    - name: Update Attack-macOS procedures (Darwin/macOS)
+      id: attack_macos
+      run: |
+        echo "Updating Attack-macOS procedures..."
+        cd cicd
+        python import_attack_macos_to_caldera.py --output ../darwin/ --payloads-dir ../payloads/ --verbose --force
+        echo "Attack-macOS update completed"
+      continue-on-error: true
+      
+    - name: Update Atomic Red Team procedures (All Platforms)
+      id: atomic_all
+      run: |
+        echo "Updating Atomic Red Team procedures for all platforms..."
+        cd cicd
+        python import_atomic_index_to_caldera.py --all-platforms --payloads-dir ../payloads/ --force
+        echo "Atomic Red Team all platforms update completed"
+      continue-on-error: true
+      
+      
+    - name: Get updated counts and calculate changes
+      id: counts_after
+      run: |
+        WINDOWS_AFTER=$(ls windows/*.yml 2>/dev/null | wc -l || echo 0)
+        DARWIN_AFTER=$(ls darwin/*.yml 2>/dev/null | wc -l || echo 0)
+        LINUX_AFTER=$(ls linux/*.yml 2>/dev/null | wc -l || echo 0) 
+        TOTAL_AFTER=$((WINDOWS_AFTER + DARWIN_AFTER + LINUX_AFTER))
+        
+        WINDOWS_DIFF=$((WINDOWS_AFTER - ${{ steps.counts_before.outputs.windows_before }}))
+        DARWIN_DIFF=$((DARWIN_AFTER - ${{ steps.counts_before.outputs.darwin_before }}))
+        LINUX_DIFF=$((LINUX_AFTER - ${{ steps.counts_before.outputs.linux_before }}))
+        TOTAL_DIFF=$((TOTAL_AFTER - ${{ steps.counts_before.outputs.total_before }}))
+        
+        echo "windows_after=$WINDOWS_AFTER" >> $GITHUB_OUTPUT
+        echo "darwin_after=$DARWIN_AFTER" >> $GITHUB_OUTPUT
+        echo "linux_after=$LINUX_AFTER" >> $GITHUB_OUTPUT
+        echo "total_after=$TOTAL_AFTER" >> $GITHUB_OUTPUT
+        
+        echo "windows_diff=$WINDOWS_DIFF" >> $GITHUB_OUTPUT
+        echo "darwin_diff=$DARWIN_DIFF" >> $GITHUB_OUTPUT
+        echo "linux_diff=$LINUX_DIFF" >> $GITHUB_OUTPUT
+        echo "total_diff=$TOTAL_DIFF" >> $GITHUB_OUTPUT
+        
+        echo "Updated counts - Windows: $WINDOWS_AFTER (+$WINDOWS_DIFF), Darwin: $DARWIN_AFTER (+$DARWIN_DIFF), Linux: $LINUX_AFTER (+$LINUX_DIFF), Total: $TOTAL_AFTER (+$TOTAL_DIFF)"
+        
+    - name: Update README badges with new counts
+      run: |
+        echo "Updating README badges..."
+        
+        # Get unique attack IDs count
+        UNIQUE_ATTACKS=$(grep -r "attack_id:" . --include="*.yml" | awk -F': ' '{print $NF}' | sort -u | wc -l || echo 0)
+        
+        # Update README.md badges
+        sed -i "s/Total%20Abilities-[0-9]\+/Total%20Abilities-${{ steps.counts_after.outputs.total_after }}/g" README.md
+        sed -i "s/Windows-[0-9]\+/Windows-${{ steps.counts_after.outputs.windows_after }}/g" README.md  
+        sed -i "s/Darwin-[0-9]\+/Darwin-${{ steps.counts_after.outputs.darwin_after }}/g" README.md
+        sed -i "s/Linux-[0-9]\+/Linux-${{ steps.counts_after.outputs.linux_after }}/g" README.md
+        sed -i "s/Unique%20Techniques-[0-9]\+/Unique%20Techniques-$UNIQUE_ATTACKS/g" README.md
+        
+        echo "README badges updated"
+        
+    - name: Check for changes
+      id: changes
+      run: |
+        if git diff --quiet; then
+          echo "has_changes=false" >> $GITHUB_OUTPUT
+          echo "No changes detected"
+        else
+          echo "has_changes=true" >> $GITHUB_OUTPUT
+          echo "Changes detected:"
+          git diff --stat
+        fi
+        
+    - name: Commit and push changes
+      if: steps.changes.outputs.has_changes == 'true' || github.event.inputs.force_update == 'true'
+      run: |
+        echo "Committing changes..."
+        
+        # Add all new/modified YAML files and payloads
+        git add windows/*.yml darwin/*.yml linux/*.yml 2>/dev/null || true
+        git add payloads/ 2>/dev/null || true
+        git add README.md
+        
+        # Create detailed commit message
+        COMMIT_MSG="Automated procedure library update
+
+        Summary:
+        - Windows: ${{ steps.counts_before.outputs.windows_before }} → ${{ steps.counts_after.outputs.windows_after }} (${{ steps.counts_after.outputs.windows_diff }})
+        - Darwin:  ${{ steps.counts_before.outputs.darwin_before }} → ${{ steps.counts_after.outputs.darwin_after }} (${{ steps.counts_after.outputs.darwin_diff }})  
+        - Linux:   ${{ steps.counts_before.outputs.linux_before }} → ${{ steps.counts_after.outputs.linux_after }} (${{ steps.counts_after.outputs.linux_diff }})
+        - Total:   ${{ steps.counts_before.outputs.total_before }} → ${{ steps.counts_after.outputs.total_after }} (${{ steps.counts_after.outputs.total_diff }})
+
+        Updated from:
+        - LOLBAS Project (Windows)
+        - LOLDrivers Project (Windows) 
+        - LOOBins Project (macOS)
+        - Attack-macOS Project (macOS)
+        - Atomic Red Team (All Platforms: Windows, macOS, Linux)
+        
+        $(date -u '+%Y-%m-%d %H:%M:%S UTC')"
+        
+        git commit -m "$COMMIT_MSG"
+        git push origin main
+        
+        echo "Changes pushed to repository"
+        
+    - name: Create summary
+      if: always()
+      run: |
+        echo "## Weekly Procedure Library Update Summary" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "| Platform | Before | After | Change |" >> $GITHUB_STEP_SUMMARY
+        echo "|----------|--------|--------|--------|" >> $GITHUB_STEP_SUMMARY
+        echo "| Windows  | ${{ steps.counts_before.outputs.windows_before }} | ${{ steps.counts_after.outputs.windows_after }} | ${{ steps.counts_after.outputs.windows_diff }} |" >> $GITHUB_STEP_SUMMARY
+        echo "| Darwin   | ${{ steps.counts_before.outputs.darwin_before }} | ${{ steps.counts_after.outputs.darwin_after }} | ${{ steps.counts_after.outputs.darwin_diff }} |" >> $GITHUB_STEP_SUMMARY  
+        echo "| Linux    | ${{ steps.counts_before.outputs.linux_before }} | ${{ steps.counts_after.outputs.linux_after }} | ${{ steps.counts_after.outputs.linux_diff }} |" >> $GITHUB_STEP_SUMMARY
+        echo "| **Total** | **${{ steps.counts_before.outputs.total_before }}** | **${{ steps.counts_after.outputs.total_after }}** | **${{ steps.counts_after.outputs.total_diff }}** |" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        
+        # Add status indicators
+        echo "### Update Status" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "- LOLBAS: ${{ steps.lolbas.outcome == 'success' && 'SUCCESS' || 'FAILED' }}" >> $GITHUB_STEP_SUMMARY
+        echo "- LOLDrivers: ${{ steps.loldrivers.outcome == 'success' && 'SUCCESS' || 'FAILED' }}" >> $GITHUB_STEP_SUMMARY  
+        echo "- LOOBins: ${{ steps.loobins.outcome == 'success' && 'SUCCESS' || 'FAILED' }}" >> $GITHUB_STEP_SUMMARY
+        echo "- Attack-macOS: ${{ steps.attack_macos.outcome == 'success' && 'SUCCESS' || 'FAILED' }}" >> $GITHUB_STEP_SUMMARY
+        echo "- Atomic Red Team (All Platforms): ${{ steps.atomic_all.outcome == 'success' && 'SUCCESS' || 'FAILED' }}" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        
+        if [ "${{ steps.changes.outputs.has_changes }}" == "true" ]; then
+          echo "### Repository Updated" >> $GITHUB_STEP_SUMMARY
+          echo "Changes have been committed and pushed to the main branch." >> $GITHUB_STEP_SUMMARY
+        else
+          echo "### No Changes" >> $GITHUB_STEP_SUMMARY  
+          echo "No new procedures were added in this update cycle." >> $GITHUB_STEP_SUMMARY
+        fi 

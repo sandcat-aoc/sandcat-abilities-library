@@ -1,0 +1,45 @@
+- id: 212cfbcf-4770-4980-bc21-303e37abd0e3
+  name: Auditing Configuration Changes on Linux Host
+  description: Emulates modification of auditd configuration files
+  tactic: defense-evasion
+  technique:
+    attack_id: T1562.006
+    name: 'Impair Defenses: Indicator Blocking'
+  platforms:
+    linux:
+      sh:
+        command: 'sed -i ''$ a #art_test_1562_006_1'' /etc/audisp/audispd.conf; if
+          [ -f "/etc/auditd.conf" ];; then sed -i ''$ a #art_test_1562_006_1'' /etc/auditd.conf;
+          else sed -i ''$ a #art_test_1562_006_1'' /etc/audit/auditd.conf; fi; sed
+          -i ''$ a #art_test_1562_006_1'' /etc/libaudit.conf'
+        cleanup: sed -i '$ d' /etc/audisp/#{audisp_config_file_name}; if [ -f "/etc/#{auditd_config_file_name}"
+          ];; then sed -i '$ d' /etc/#{auditd_config_file_name}; else sed -i '$ d'
+          /etc/audit/#{auditd_config_file_name}; fi; sed -i '$ d' /etc/#{libaudit_config_file_name}
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1562.006
+  - atomic-red-team
+  - defense-evasion
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      audisp_config_file_name:
+        description: The name of the audispd configuration file to be changed
+        type: string
+        default: audispd.conf
+      auditd_config_file_name:
+        description: The name of the auditd configuration file to be changed
+        type: string
+        default: auditd.conf
+      libaudit_config_file_name:
+        description: The name of the libaudit configuration file to be changed
+        type: string
+        default: libaudit.conf
+    technique_created: '2020-03-19T19:09:30.329Z'
+    atomic_guid: 212cfbcf-4770-4980-bc21-303e37abd0e3
+    import_timestamp: '2025-06-24T11:15:55.643338Z'

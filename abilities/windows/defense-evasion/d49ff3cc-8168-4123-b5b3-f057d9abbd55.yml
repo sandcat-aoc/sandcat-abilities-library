@@ -1,0 +1,34 @@
+- id: d49ff3cc-8168-4123-b5b3-f057d9abbd55
+  name: Activate Windows NoRun Group Policy Feature
+  description: 'Modify the registry of the currently logged in user using reg.exe
+    via cmd console to Remove Run menu from Start Menu Group Policy.
+
+    Take note that some Group Policy changes might require a restart to take effect.
+
+    See how Trojan abuses this technique- https://www.sophos.com/de-de/threat-center/threat-analyses/viruses-and-spyware/Troj~Krotten-N/detailed-analysis'
+  tactic: defense-evasion
+  technique:
+    attack_id: T1112
+    name: Modify Registry
+  platforms:
+    windows:
+      sh:
+        command: reg add "HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer"
+          /v NoRun /t REG_DWORD /d 1 /f
+        cleanup: reg delete "HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer"
+          /v NoRun /f
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1112
+  - atomic-red-team
+  - defense-evasion
+  author: Atomic Red Team
+  additional_info:
+    technique_created: '2017-05-31T21:31:23.587Z'
+    atomic_guid: d49ff3cc-8168-4123-b5b3-f057d9abbd55
+    import_timestamp: '2025-06-24T11:15:00.489205Z'

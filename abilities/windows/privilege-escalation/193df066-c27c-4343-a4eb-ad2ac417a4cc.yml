@@ -1,0 +1,30 @@
+- id: 193df066-c27c-4343-a4eb-ad2ac417a4cc
+  name: 193df066-c27c-4343-a4eb-ad2ac417a4cc - Malicious Driver Deployment
+  description: 'Malicious driver: 193df066-c27c-4343-a4eb-ad2ac417a4cc
+
+    Category: vulnerable driver
+
+    Author: Michael Haag
+
+    Created: 2023-01-09
+
+    MITRE Technique: T1068'
+  tactic: privilege-escalation
+  technique:
+    attack_id: T1068
+    name: Rootkit
+  platforms:
+    windows:
+      cmd:
+        command: sc create MaliciousDriver binPath= "C:\Windows\System32\drivers\malicious_driver.sys"
+          type= kernel
+  singleton: true
+  privilege: Elevated
+  repeatable: false
+  buckets:
+  - privilege-escalation
+  version: '1.0'
+  author: Michael Haag
+  operating_system: Windows (Version Unspecified)
+  created: '2023-01-09'
+  modified: '2023-01-09'

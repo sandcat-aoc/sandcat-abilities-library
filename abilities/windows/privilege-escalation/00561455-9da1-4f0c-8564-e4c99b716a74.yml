@@ -1,0 +1,30 @@
+- id: 00561455-9da1-4f0c-8564-e4c99b716a74
+  name: 00561455-9da1-4f0c-8564-e4c99b716a74 - Malicious Driver Deployment
+  description: 'Malicious driver: 00561455-9da1-4f0c-8564-e4c99b716a74
+
+    Category: malicious
+
+    Author: Michael Haag
+
+    Created: 2024-09-10
+
+    MITRE Technique: T1068'
+  tactic: privilege-escalation
+  technique:
+    attack_id: T1068
+    name: Rootkit
+  platforms:
+    windows:
+      cmd:
+        command: sc create MaliciousDriver binPath= "C:\Windows\System32\drivers\malicious_driver.sys"
+          type= kernel
+  singleton: true
+  privilege: Elevated
+  repeatable: false
+  buckets:
+  - privilege-escalation
+  version: '1.0'
+  author: Michael Haag
+  operating_system: Windows (Version Unspecified)
+  created: '2024-09-10'
+  modified: '2024-09-10'

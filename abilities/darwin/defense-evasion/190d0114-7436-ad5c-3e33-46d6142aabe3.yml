@@ -1,0 +1,27 @@
+- id: 190d0114-7436-ad5c-3e33-46d6142aabe3
+  name: nscurl - Download file
+  description: Download file to a designated directory using -dir
+  tactic: defense-evasion
+  technique:
+    attack_id: T1105
+    name: Ingress Tool Transfer
+  platforms:
+    darwin:
+      sh:
+        command: nscurl https://google.com -dir /private/tmp/google
+  singleton: false
+  privilege: User
+  repeatable: true
+  delete_payload: true
+  buckets:
+  - loobins
+  - nscurl
+  - defense-evasion
+  version: '1.0'
+  author: LOOBins Project
+  additional_info:
+    loobins_tool: nscurl
+    use_case: Download file
+    source_file: nscurl.yml
+    source_repository: https://github.com/infosecB/LOOBins
+    import_timestamp: '2025-06-24T09:00:11.525433Z'

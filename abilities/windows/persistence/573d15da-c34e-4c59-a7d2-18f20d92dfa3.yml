@@ -1,0 +1,46 @@
+- id: 573d15da-c34e-4c59-a7d2-18f20d92dfa3
+  name: Adding custom paths for application execution
+  description: "As per Microsoft,the entries found under App Paths are used primarily\
+    \ to map an application\u2019s executable file name to that file\u2019s fully\
+    \ qualified path and to pre-pend information to the PATH environment variable\
+    \ on a per-application, per-process basis. \nThe path can be modified to load\
+    \ a custom application of choice. \nPost the registry changes of this test, when\
+    \ someone tries to manually run msedge.exe via StartMenu/Run window , notepad\
+    \ will be launched."
+  tactic: persistence
+  technique:
+    attack_id: T1112
+    name: Modify Registry
+  platforms:
+    windows:
+      sh:
+        command: reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\App
+          Paths\msedge.exe" /t REG_SZ /d C:\Windows\System32\notepad.exe /f
+        cleanup: reg delete "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\App
+          Paths\#{app_name}" /v (Default) /f; reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\App
+          Paths\#{app_name}" /t REG_SZ /d "C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe"
+          /f
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - persistence
+  - t1112
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      app_name:
+        description: path of application to be modified
+        type: string
+        default: msedge.exe
+      new_path:
+        description: New App Path Added
+        type: string
+        default: C:\Windows\System32\notepad.exe
+    technique_created: '2017-05-31T21:31:23.587Z'
+    atomic_guid: 573d15da-c34e-4c59-a7d2-18f20d92dfa3
+    import_timestamp: '2025-06-24T11:15:04.912768Z'

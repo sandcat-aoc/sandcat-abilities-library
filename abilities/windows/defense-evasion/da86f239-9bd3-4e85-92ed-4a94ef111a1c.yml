@@ -1,0 +1,32 @@
+- id: da86f239-9bd3-4e85-92ed-4a94ef111a1c
+  name: Disable EventLog-Application Auto Logger Session Via Registry - PowerShell
+  description: This atomic simulates an activity where an attacker disables the EventLog-Application
+    ETW Auto Logger session using the powershell.exe "New-ItemProperty" cmdlet to
+    update the Windows registry value "Start". This would effectivly disable the Event
+    log application channel. The changes would only take effect after a restart.
+  tactic: defense-evasion
+  technique:
+    attack_id: T1562.001
+    name: 'Impair Defenses: Disable or Modify Tools'
+  platforms:
+    windows:
+      psh:
+        command: New-ItemProperty -Path HKLM:\System\CurrentControlSet\Control\WMI\Autologger\EventLog-Application
+          -Name Start -Value 0 -PropertyType "DWord" -Force
+        cleanup: New-ItemProperty -Path HKLM:\System\CurrentControlSet\Control\WMI\Autologger\EventLog-Application
+          -Name Start -Value 1 -PropertyType "DWord" -Force
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1562.001
+  - atomic-red-team
+  - defense-evasion
+  author: Atomic Red Team
+  additional_info:
+    technique_created: '2020-02-21T20:32:20.810Z'
+    atomic_guid: da86f239-9bd3-4e85-92ed-4a94ef111a1c
+    import_timestamp: '2025-06-24T11:15:01.133279Z'

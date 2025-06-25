@@ -1,0 +1,27 @@
+- id: a0097f42-918b-ba19-127e-ffdb70ac8b46
+  name: mktemp - Generate payload directory (Shlayer)
+  description: The following command can be used to generate a random directory name for staging payloads
+  tactic: defense-evasion
+  technique:
+    attack_id: T1036
+    name: Masquerading
+  platforms:
+    darwin:
+      sh:
+        command: export tmpDir="$(mktemp -d /tmp/XXXXXXXXXXXX)"
+  singleton: false
+  privilege: User
+  repeatable: true
+  delete_payload: true
+  buckets:
+  - loobins
+  - mktemp
+  - defense-evasion
+  version: '1.0'
+  author: LOOBins Project
+  additional_info:
+    loobins_tool: mktemp
+    use_case: Generate payload directory (Shlayer)
+    source_file: mktemp.yml
+    source_repository: https://github.com/infosecB/LOOBins
+    import_timestamp: '2025-06-24T09:00:11.406424Z'

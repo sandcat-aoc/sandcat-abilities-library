@@ -1,0 +1,30 @@
+- id: de62baae-872d-4e9a-b6d9-b0ac99854c66
+  name: de62baae-872d-4e9a-b6d9-b0ac99854c66 - Malicious Driver Deployment
+  description: 'Malicious driver: de62baae-872d-4e9a-b6d9-b0ac99854c66
+
+    Category: vulnerable driver
+
+    Author: goosvorbook
+
+    Created: 2024-06-20
+
+    MITRE Technique: T1068'
+  tactic: privilege-escalation
+  technique:
+    attack_id: T1068
+    name: Rootkit
+  platforms:
+    windows:
+      cmd:
+        command: sc create MaliciousDriver binPath= "C:\Windows\System32\drivers\malicious_driver.sys"
+          type= kernel
+  singleton: true
+  privilege: Elevated
+  repeatable: false
+  buckets:
+  - privilege-escalation
+  version: '1.0'
+  author: goosvorbook
+  operating_system: Windows (Version Unspecified)
+  created: '2024-06-20'
+  modified: '2024-06-20'

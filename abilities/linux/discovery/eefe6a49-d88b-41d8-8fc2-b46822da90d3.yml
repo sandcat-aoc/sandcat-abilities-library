@@ -1,0 +1,25 @@
+- id: eefe6a49-d88b-41d8-8fc2-b46822da90d3
+  name: FreeBSD VM Check via Kernel Modules
+  description: Identify virtual machine host kernel modules.
+  tactic: discovery
+  technique:
+    attack_id: T1082
+    name: System Information Discovery
+  platforms:
+    linux:
+      sh:
+        command: kldstat | grep -i "vmm"; kldstat | grep -i "vbox"
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1082
+  - discovery
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    technique_created: '2017-05-31T21:31:04.307Z'
+    atomic_guid: eefe6a49-d88b-41d8-8fc2-b46822da90d3
+    import_timestamp: '2025-06-24T11:15:56.627416Z'

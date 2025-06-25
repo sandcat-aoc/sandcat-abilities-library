@@ -1,0 +1,27 @@
+- id: 55d89987-543d-3aeb-c845-efb5e8c8749c
+  name: sysadminctl - Enable AFP Guest Access
+  description: sysadminctl can enable AFP Guest Access
+  tactic: exfiltration
+  technique:
+    attack_id: T1136.001
+    name: 'Create Account: Local Account'
+  platforms:
+    darwin:
+      sh:
+        command: sudo sysadminctl -afpGuestAccess on
+  singleton: true
+  privilege: Elevated
+  repeatable: false
+  delete_payload: true
+  buckets:
+  - loobins
+  - sysadminctl
+  - exfiltration
+  version: '1.0'
+  author: LOOBins Project
+  additional_info:
+    loobins_tool: sysadminctl
+    use_case: Enable AFP Guest Access
+    source_file: sysadminctl.yml
+    source_repository: https://github.com/infosecB/LOOBins
+    import_timestamp: '2025-06-24T09:00:11.690802Z'

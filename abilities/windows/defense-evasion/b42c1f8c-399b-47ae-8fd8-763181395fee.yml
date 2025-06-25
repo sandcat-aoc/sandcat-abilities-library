@@ -1,0 +1,30 @@
+- id: b42c1f8c-399b-47ae-8fd8-763181395fee
+  name: Disable .NET Event Tracing for Windows Via Environment Variable HKCU Registry
+    - PowerShell
+  description: Disables ETW for the .NET Framework by setting the COMPlus_ETWEnabled
+    environment variable to 0 in the HKCU registry using PowerShell. In order for
+    changes to take effect a logout might be required.
+  tactic: defense-evasion
+  technique:
+    attack_id: T1562.006
+    name: 'Impair Defenses: Indicator Blocking'
+  platforms:
+    windows:
+      psh:
+        command: New-ItemProperty -Path HKCU:\Environment -Name COMPlus_ETWEnabled
+          -Value 0 -PropertyType "String" -Force
+        cleanup: Remove-ItemProperty -Path HKCU:\Environment -Name COMPlus_ETWEnabled
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1562.006
+  - atomic-red-team
+  - defense-evasion
+  author: Atomic Red Team
+  additional_info:
+    technique_created: '2020-03-19T19:09:30.329Z'
+    atomic_guid: b42c1f8c-399b-47ae-8fd8-763181395fee
+    import_timestamp: '2025-06-24T11:15:00.772672Z'

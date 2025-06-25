@@ -1,0 +1,42 @@
+- id: b5c9a9bc-dda3-4ea0-b16a-add8e81ab75f
+  name: HKLM - Policy Settings Explorer Run Key
+  description: "This test will create a HKEY_LOCAL_MACHINE\\Software\\Microsoft\\\
+    Windows\\CurrentVersion\\Policies\\Explorer\\Run key value to launch calc.exe\
+    \ on boot. \n*Requires reboot"
+  tactic: persistence
+  technique:
+    attack_id: T1547.001
+    name: 'Boot or Logon Autostart Execution: Registry Run Keys / Startup Folder'
+  platforms:
+    windows:
+      psh:
+        command: if (!(Test-Path -Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer\Run")){;
+          New-Item -ItemType Key -Path  "HKLM:\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer\Run";
+          }; Set-ItemProperty -Path  "HKLM:\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer\Run"
+          -Name "atomictest" -Value "C:\Windows\System32\calc.exe"
+        cleanup: Remove-ItemProperty -Path  "HKLM:\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer\Run"
+          -Name "#{target_key_value_name}"
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - persistence
+  - t1547.001
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      target_key_value_name:
+        description: registry value to crate on target key
+        type: string
+        default: atomictest
+      payload:
+        description: payload to execute
+        type: string
+        default: C:\Windows\System32\calc.exe
+    technique_created: '2020-01-23T22:02:48.566Z'
+    atomic_guid: b5c9a9bc-dda3-4ea0-b16a-add8e81ab75f
+    import_timestamp: '2025-06-24T11:15:05.192803Z'

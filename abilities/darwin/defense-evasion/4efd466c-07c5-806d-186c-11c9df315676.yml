@@ -1,0 +1,27 @@
+- id: 4efd466c-07c5-806d-186c-11c9df315676
+  name: mdls - Validate file download information
+  description: Use mdls to validate payload download sources and timestamps to guard against sandbox executions.
+  tactic: defense-evasion
+  technique:
+    attack_id: T1083
+    name: File and Directory Discovery
+  platforms:
+    darwin:
+      sh:
+        command: mdls -name "kMDItemWhereFroms" -name "kMDItemDownloadedDate"
+  singleton: false
+  privilege: User
+  repeatable: true
+  delete_payload: true
+  buckets:
+  - loobins
+  - mdls
+  - defense-evasion
+  version: '1.0'
+  author: LOOBins Project
+  additional_info:
+    loobins_tool: mdls
+    use_case: Validate file download information
+    source_file: mdls.yml
+    source_repository: https://github.com/infosecB/LOOBins
+    import_timestamp: '2025-06-24T09:00:11.693584Z'

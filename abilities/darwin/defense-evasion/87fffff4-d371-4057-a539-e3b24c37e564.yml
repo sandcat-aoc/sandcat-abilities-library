@@ -1,0 +1,51 @@
+- id: 87fffff4-d371-4057-a539-e3b24c37e564
+  name: MacOS - Timestomp Date Modified
+  description: Stomps on the modification timestamp of a file using MacOS's SetFile
+    utility
+  tactic: defense-evasion
+  technique:
+    attack_id: T1070.006
+    name: 'Indicator Removal on Host: Timestomp'
+  platforms:
+    darwin:
+      sh:
+        command: 'test -e /tmp/T1070.006-modified.txt && exit 0 || exit 1; then :
+          ; else echo ''T1070.006 MacOS file modified timestomp test'' > /tmp/T1070.006-modified.txt;
+          fi; SetFile -m 01/01/1970 /tmp/T1070.006-modified.txt'
+        cleanup: 'rm -f #{target_filename}'
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1070.006
+  - atomic-red-team
+  - defense-evasion
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      target_filename:
+        description: 'Path of file that we are going to stomp on last modified time
+
+          '
+        type: path
+        default: /tmp/T1070.006-modified.txt
+      target_date:
+        description: Date to replace original timestamps with
+        type: string
+        default: 01/01/1970
+    dependencies:
+    - description: 'The file must exist in order to be timestomped
+
+        '
+      prereq_command: 'test -e #{target_filename} && exit 0 || exit 1
+
+        '
+      get_prereq_command: 'echo ''T1070.006 MacOS file modified timestomp test'' >
+        #{target_filename}
+
+        '
+    technique_created: '2020-01-31T12:42:44.103Z'
+    atomic_guid: 87fffff4-d371-4057-a539-e3b24c37e564
+    import_timestamp: '2025-06-24T11:14:07.167823Z'

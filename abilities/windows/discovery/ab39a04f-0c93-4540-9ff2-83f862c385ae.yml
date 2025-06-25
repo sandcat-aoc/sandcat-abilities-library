@@ -1,0 +1,27 @@
+- id: ab39a04f-0c93-4540-9ff2-83f862c385ae
+  name: View available share drives
+  description: View information about all of the resources that are shared on the
+    local computer Upon execution, available share drives will be displayed in the
+    powershell session
+  tactic: discovery
+  technique:
+    attack_id: T1135
+    name: Network Share Discovery
+  platforms:
+    windows:
+      sh:
+        command: net share
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1135
+  - discovery
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    technique_created: '2017-12-14T16:46:06.044Z'
+    atomic_guid: ab39a04f-0c93-4540-9ff2-83f862c385ae
+    import_timestamp: '2025-06-24T11:15:07.212906Z'

@@ -1,0 +1,36 @@
+- id: ff1d8c25-2aa4-4f18-a425-fede4a41ee88
+  name: List macOS Firewall Rules
+  description: "\"This will test if the macOS firewall is enabled and/or show what\
+    \ rules are configured. Must be run with elevated privileges. Upon successful\
+    \ execution, these commands will output various information about the firewall\
+    \ configuration, including status and specific port/protocol blocks or allows.\
+    \ \n\nUsing `defaults`, additional arguments can be added to see filtered details,\
+    \ such as `globalstate` for global configuration (\\\"Is it on or off?\\\"), `firewall`\
+    \ for common application allow rules, and `explicitauths` for specific rules configured\
+    \ by the user. \n\nUsing `socketfilterfw`, flags such as --getglobalstate or --listapps\
+    \ can be used for similar filtering. At least one flag is required to send parseable\
+    \ output to standard out."
+  tactic: discovery
+  technique:
+    attack_id: T1016
+    name: System Network Configuration Discovery
+  platforms:
+    darwin:
+      sh:
+        command: sudo defaults read /Library/Preferences/com.apple.alf; sudo /usr/libexec/ApplicationFirewall/socketfilterfw
+          --getglobalstate
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - discovery
+  - atomic-red-team
+  - t1016
+  author: Atomic Red Team
+  additional_info:
+    technique_created: '2017-05-31T21:30:27.342Z'
+    atomic_guid: ff1d8c25-2aa4-4f18-a425-fede4a41ee88
+    import_timestamp: '2025-06-24T11:14:07.788478Z'

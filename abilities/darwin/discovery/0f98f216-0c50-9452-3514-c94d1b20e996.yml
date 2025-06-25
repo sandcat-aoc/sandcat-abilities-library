@@ -1,0 +1,32 @@
+- id: 0f98f216-0c50-9452-3514-c94d1b20e996
+  name: dscl - Local group information gathering
+  description: Gain useful local group information such as which users belong to that group, SMB SIDs
+    and group ID. Especially useful for the "admin" group.
+  tactic: discovery
+  technique:
+    attack_id: T1087.001
+    name: 'Account Discovery: Local Account'
+  platforms:
+    darwin:
+      sh:
+        command: 'dscl . -read /Groups/$GROUPNAME
+
+          dscl . read /Groups/$GROUPNAME
+
+          dscl . cat /Groups/$GROUPNAME'
+  singleton: false
+  privilege: User
+  repeatable: true
+  delete_payload: true
+  buckets:
+  - loobins
+  - dscl
+  - discovery
+  version: '1.0'
+  author: LOOBins Project
+  additional_info:
+    loobins_tool: dscl
+    use_case: Local group information gathering
+    source_file: dscl.yml
+    source_repository: https://github.com/infosecB/LOOBins
+    import_timestamp: '2025-06-24T09:00:11.612039Z'

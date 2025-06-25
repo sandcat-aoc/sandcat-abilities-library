@@ -1,0 +1,37 @@
+- id: f21a1d7d-a62f-442a-8c3a-2440d43b19e5
+  name: Delete User - Windows
+  description: Deletes a user account to prevent access. Upon execution, run the command
+    "net user" to verify that the new "AtomicUser" account was deleted.
+  tactic: impact
+  technique:
+    attack_id: T1531
+    name: Account Access Removal
+  platforms:
+    windows:
+      sh:
+        command: net user AtomicUser User2DeletePW! /add; net.exe user AtomicUser
+          /delete
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1531
+  - impact
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      new_user_password:
+        description: Password to use if user account must be created first
+        type: string
+        default: User2DeletePW!
+      user_account:
+        description: User account to be deleted.
+        type: string
+        default: AtomicUser
+    technique_created: '2019-10-09T18:48:31.906Z'
+    atomic_guid: f21a1d7d-a62f-442a-8c3a-2440d43b19e5
+    import_timestamp: '2025-06-24T11:15:07.739509Z'

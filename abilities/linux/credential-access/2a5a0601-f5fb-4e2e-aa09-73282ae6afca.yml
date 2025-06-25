@@ -1,0 +1,37 @@
+- id: 2a5a0601-f5fb-4e2e-aa09-73282ae6afca
+  name: Copy the users GnuPG directory with rsync
+  description: Copy the users GnuPG (.gnupg) directory on a Mac or Linux system to
+    a staging folder using the `rsync` command.
+  tactic: credential-access
+  technique:
+    attack_id: T1552.004
+    name: 'Unsecured Credentials: Private Keys'
+  platforms:
+    linux:
+      sh:
+        command: mkdir /tmp/GnuPG; find / -type d -name '.gnupg' 2>/dev/null -exec
+          rsync -Rr {} /tmp/GnuPG \;; exit 0
+        cleanup: 'rm -rf #{output_folder}'
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - credential-access
+  - t1552.004
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      search_path:
+        description: Path where to start searching from
+        type: path
+        default: /
+      output_folder:
+        description: Output folder containing a copy of the .gnupg directory
+        type: path
+        default: /tmp/GnuPG
+    technique_created: '2020-02-04T13:06:49.258Z'
+    atomic_guid: 2a5a0601-f5fb-4e2e-aa09-73282ae6afca
+    import_timestamp: '2025-06-24T11:15:56.488188Z'

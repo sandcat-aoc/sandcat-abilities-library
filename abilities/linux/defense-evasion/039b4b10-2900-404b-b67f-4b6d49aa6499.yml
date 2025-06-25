@@ -1,0 +1,42 @@
+- id: 039b4b10-2900-404b-b67f-4b6d49aa6499
+  name: Overwrite and delete a file with shred
+  description: Use the `shred` command to overwrite the temporary file and then delete
+    it
+  tactic: defense-evasion
+  technique:
+    attack_id: T1070.004
+    name: 'Indicator Removal on Host: File Deletion'
+  platforms:
+    linux:
+      sh:
+        command: shred -u /tmp/victim-shred.txt
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - defense-evasion
+  - atomic-red-team
+  - t1070.004
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      file_to_shred:
+        description: Path of file to shred
+        type: path
+        default: /tmp/victim-shred.txt
+    dependencies:
+    - description: 'Check if file already exists
+
+        '
+      prereq_command: 'if [ -f "#{file_to_shred}" ]; then echo "File already exists";
+        else echo "File does NOT exist yet"; exit 1; fi
+
+        '
+      get_prereq_command: 'touch #{file_to_shred}
+
+        '
+    technique_created: '2020-01-31T12:35:36.479Z'
+    atomic_guid: 039b4b10-2900-404b-b67f-4b6d49aa6499
+    import_timestamp: '2025-06-24T11:15:55.780879Z'

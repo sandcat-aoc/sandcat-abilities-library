@@ -1,0 +1,75 @@
+- id: 437b2003-a20d-4ed8-834c-4964f24eec63
+  name: Dump individual process memory with Python (Local)
+  description: 'Using `/proc/$PID/mem`, where $PID is the target process ID, use a
+    Python script to
+
+    copy a process''s heap memory to an external file so it can be searched or exfiltrated
+    later.
+
+    On FreeBSD procfs must be mounted.'
+  tactic: credential-access
+  technique:
+    attack_id: T1003.007
+    name: 'OS Credential Dumping: Proc Filesystem'
+  platforms:
+    linux:
+      sh:
+        command: sh /tmp/T1003.007.sh; PID=$(pgrep -n -f "T1003.007"); PYTHON=$(which
+          python || which python3 || which python2); $PYTHON dump_heap.py $PID /tmp/T1003.007.bin;
+          grep -i "PASS" "/tmp/T1003.007.bin"
+        cleanup: rm -f "#{output_file}"
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - credential-access
+  - atomic-red-team
+  - t1003.007
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      output_file:
+        description: Path where captured results will be placed
+        type: path
+        default: /tmp/T1003.007.bin
+      script_path:
+        description: Path to script generating the target process
+        type: path
+        default: /tmp/T1003.007.sh
+      python_script:
+        description: Path to script generating the target process
+        type: path
+        default: PathToAtomicsFolder/T1003.007/src/dump_heap.py
+      pid_term:
+        description: Unique string to use to identify target process
+        type: string
+        default: T1003.007
+    dependencies:
+    - description: 'Script to launch target process must exist
+
+        '
+      prereq_command: 'test -f #{script_path}
+
+        grep "#{pid_term}" #{script_path}
+
+        '
+      get_prereq_command: 'echo ''#!/bin/sh'' > #{script_path}
+
+        echo "sh -c ''echo \"The password is #{pid_term}\" && sleep 30'' &" >> #{script_path}
+
+        '
+    - description: 'Requires Python
+
+        '
+      prereq_command: '(which python || which python3 || which python2)
+
+        '
+      get_prereq_command: 'echo "Python 2.7+ or 3.4+ must be installed"
+
+        '
+    technique_created: '2020-02-11T18:46:24.434Z'
+    atomic_guid: 437b2003-a20d-4ed8-834c-4964f24eec63
+    import_timestamp: '2025-06-24T11:15:56.421923Z'

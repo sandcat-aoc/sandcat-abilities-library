@@ -1,0 +1,32 @@
+- id: 634bd9b9-dc83-4229-b19f-7f83ba9ad313
+  name: Automated Collection PowerShell
+  description: 'Automated Collection. Upon execution, check the users temp directory
+    (%temp%) for the folder T1119_powershell_collection
+
+    to see what was collected.'
+  tactic: collection
+  technique:
+    attack_id: T1119
+    name: Automated Collection
+  platforms:
+    windows:
+      psh:
+        command: New-Item -Path $env:TEMP\T1119_powershell_collection -ItemType Directory
+          -Force | Out-Null; Get-ChildItem -Recurse -Include *.doc | % {Copy-Item
+          $_.FullName -destination $env:TEMP\T1119_powershell_collection}
+        cleanup: Remove-Item $env:TEMP\T1119_powershell_collection -Force -ErrorAction
+          Ignore | Out-Null
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1119
+  - atomic-red-team
+  - collection
+  author: Atomic Red Team
+  additional_info:
+    technique_created: '2017-05-31T21:31:27.985Z'
+    atomic_guid: 634bd9b9-dc83-4229-b19f-7f83ba9ad313
+    import_timestamp: '2025-06-24T11:15:05.880127Z'

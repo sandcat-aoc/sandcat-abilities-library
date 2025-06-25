@@ -1,0 +1,32 @@
+- id: a768aaa2-2442-475c-8990-69cf33af0f4e
+  name: Disable ConsentPromptBehaviorAdmin via registry keys
+  description: This atomic regarding setting ConsentPromptBehaviorAdmin to 0 configures
+    the UAC so that it does not prompt for consent or credentials when actions requiring
+    elevated privileges are performed by users in the administrators group. This means
+    that any operation that would normally trigger a UAC prompt will proceed automatically
+    without user interaction.
+  tactic: privilege-escalation
+  technique:
+    attack_id: T1548.002
+    name: 'Abuse Elevation Control Mechanism: Bypass User Account Control'
+  platforms:
+    windows:
+      sh:
+        command: reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System"
+          /v ConsentPromptBehaviorAdmin /t REG_DWORD /d 0 /f
+        cleanup: reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System"
+          /v ConsentPromptBehaviorAdmin /t REG_DWORD /d 5 /f
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - privilege-escalation
+  - t1548.002
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    technique_created: '2020-01-30T14:24:34.977Z'
+    atomic_guid: a768aaa2-2442-475c-8990-69cf33af0f4e
+    import_timestamp: '2025-06-24T11:15:01.757982Z'

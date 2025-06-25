@@ -1,0 +1,41 @@
+- id: 282f929a-6bc5-42b8-bd93-960c3ba35afe
+  name: Modify Registry of Local Machine - cmd
+  description: 'Modify the Local Machine registry RUN key to change Windows Defender
+    executable that should be ran on startup.  This should only be possible when
+
+    CMD is ran as Administrative rights. Upon execution, the message "The operation
+    completed successfully."
+
+    will be displayed. Additionally, open Registry Editor to view the modified entry
+    in HKLM\Software\Microsoft\Windows\CurrentVersion\Run.'
+  tactic: persistence
+  technique:
+    attack_id: T1112
+    name: Modify Registry
+  platforms:
+    windows:
+      sh:
+        command: reg add HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Run
+          /t REG_EXPAND_SZ /v SecurityHealth /d calc.exe /f
+        cleanup: reg delete HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Run
+          /v SecurityHealth /f >nul 2>&1
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - persistence
+  - t1112
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      new_executable:
+        description: New executable to run on startup instead of Windows Defender
+        type: string
+        default: calc.exe
+    technique_created: '2017-05-31T21:31:23.587Z'
+    atomic_guid: 282f929a-6bc5-42b8-bd93-960c3ba35afe
+    import_timestamp: '2025-06-24T11:15:03.904270Z'

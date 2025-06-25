@@ -1,0 +1,33 @@
+- id: fec27f65-db86-4c2d-b66c-61945aee87c2
+  name: Scheduled Task Startup Script
+  description: 'Run an exe on user logon or system startup.  Upon execution, success
+    messages will be displayed for the two scheduled tasks. To view
+
+    the tasks, open the Task Scheduler and look in the Active Tasks pane.'
+  tactic: execution
+  technique:
+    attack_id: T1053.005
+    name: 'Scheduled Task/Job: Scheduled Task'
+  platforms:
+    windows:
+      sh:
+        command: schtasks /create /tn "T1053_005_OnLogon" /sc onlogon /tr "cmd.exe
+          /c calc.exe"; schtasks /create /tn "T1053_005_OnStartup" /sc onstart /ru
+          system /tr "cmd.exe /c calc.exe"
+        cleanup: schtasks /delete /tn "T1053_005_OnLogon" /f >nul 2>&1; schtasks /delete
+          /tn "T1053_005_OnStartup" /f >nul 2>&1
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - execution
+  - t1053.005
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    technique_created: '2019-11-27T14:58:00.429Z'
+    atomic_guid: fec27f65-db86-4c2d-b66c-61945aee87c2
+    import_timestamp: '2025-06-24T11:15:02.900837Z'

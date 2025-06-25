@@ -1,0 +1,32 @@
+- id: ac9d0fc3-8aa8-4ab5-b11f-682cd63b40aa
+  name: Masquerading - powershell.exe running as taskhostw.exe
+  description: 'Copies powershell.exe, renames it, and launches it to masquerade as
+    an instance of taskhostw.exe.
+
+
+    Upon successful execution, powershell.exe is renamed as taskhostw.exe and executed
+    from non-standard path.'
+  tactic: defense-evasion
+  technique:
+    attack_id: T1036.003
+    name: 'Masquerading: Rename System Utilities'
+  platforms:
+    windows:
+      sh:
+        command: copy %windir%\System32\windowspowershell\v1.0\powershell.exe %APPDATA%\taskhostw.exe
+          /Y; cmd.exe /K %APPDATA%\taskhostw.exe
+        cleanup: del /Q /F %APPDATA%\taskhostw.exe >nul 2>&1
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - defense-evasion
+  - atomic-red-team
+  - t1036.003
+  author: Atomic Red Team
+  additional_info:
+    technique_created: '2020-02-10T20:03:11.691Z'
+    atomic_guid: ac9d0fc3-8aa8-4ab5-b11f-682cd63b40aa
+    import_timestamp: '2025-06-24T11:15:01.238365Z'

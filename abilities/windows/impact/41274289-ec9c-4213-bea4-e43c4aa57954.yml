@@ -1,0 +1,38 @@
+- id: 41274289-ec9c-4213-bea4-e43c4aa57954
+  name: Windows - Stop service using net.exe
+  description: 'Stops a specified service using the net.exe command. Upon execution,
+    if the service was running "The Print Spooler service was stopped successfully."
+
+    will be displayed. If the service was not running, "The Print Spooler service
+    is not started." will be displayed and it can be
+
+    started by running the cleanup command.'
+  tactic: impact
+  technique:
+    attack_id: T1489
+    name: Service Stop
+  platforms:
+    windows:
+      sh:
+        command: net.exe stop spooler
+        cleanup: 'net.exe start #{service_name} >nul 2>&1'
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - impact
+  - t1489
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      service_name:
+        description: Name of a service to stop
+        type: string
+        default: spooler
+    technique_created: '2019-03-29T19:00:55.901Z'
+    atomic_guid: 41274289-ec9c-4213-bea4-e43c4aa57954
+    import_timestamp: '2025-06-24T11:15:07.713395Z'

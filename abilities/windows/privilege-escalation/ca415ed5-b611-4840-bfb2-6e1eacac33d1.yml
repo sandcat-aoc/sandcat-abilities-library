@@ -1,0 +1,30 @@
+- id: ca415ed5-b611-4840-bfb2-6e1eacac33d1
+  name: ca415ed5-b611-4840-bfb2-6e1eacac33d1 - Malicious Driver Deployment
+  description: 'Malicious driver: ca415ed5-b611-4840-bfb2-6e1eacac33d1
+
+    Category: vulnerable driver
+
+    Author: Michael Haag
+
+    Created: 2023-01-09
+
+    MITRE Technique: T1068'
+  tactic: privilege-escalation
+  technique:
+    attack_id: T1068
+    name: Rootkit
+  platforms:
+    windows:
+      cmd:
+        command: sc create MaliciousDriver binPath= "C:\Windows\System32\drivers\malicious_driver.sys"
+          type= kernel
+  singleton: true
+  privilege: Elevated
+  repeatable: false
+  buckets:
+  - privilege-escalation
+  version: '1.0'
+  author: Michael Haag
+  operating_system: Windows (Version Unspecified)
+  created: '2023-01-09'
+  modified: '2023-01-09'

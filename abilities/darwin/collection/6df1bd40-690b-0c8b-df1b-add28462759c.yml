@@ -1,0 +1,28 @@
+- id: 6df1bd40-690b-0c8b-df1b-add28462759c
+  name: tmutil - Restore a backup
+  description: The following command restore the specified backup. An attacker can use this to restore
+    a backup of a sensitive file that was deleted.
+  tactic: collection
+  technique:
+    attack_id: T1490
+    name: Inhibit System Recovery
+  platforms:
+    darwin:
+      sh:
+        command: tmutil restore /path/to/backup
+  singleton: false
+  privilege: Elevated
+  repeatable: true
+  delete_payload: true
+  buckets:
+  - loobins
+  - tmutil
+  - collection
+  version: '1.0'
+  author: LOOBins Project
+  additional_info:
+    loobins_tool: tmutil
+    use_case: Restore a backup
+    source_file: tmutil.yml
+    source_repository: https://github.com/infosecB/LOOBins
+    import_timestamp: '2025-06-24T09:00:11.566398Z'

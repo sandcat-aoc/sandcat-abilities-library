@@ -1,0 +1,30 @@
+- id: 3ea63674-2599-43b5-9390-4a929ec99f48
+  name: 3ea63674-2599-43b5-9390-4a929ec99f48 - Malicious Driver Deployment
+  description: 'Malicious driver: 3ea63674-2599-43b5-9390-4a929ec99f48
+
+    Category: malicious
+
+    Author: Guus Verbeek
+
+    Created: 2023-06-05
+
+    MITRE Technique: T1068'
+  tactic: privilege-escalation
+  technique:
+    attack_id: T1068
+    name: Rootkit
+  platforms:
+    windows:
+      cmd:
+        command: sc create MaliciousDriver binPath= "C:\Windows\System32\drivers\malicious_driver.sys"
+          type= kernel
+  singleton: true
+  privilege: Elevated
+  repeatable: false
+  buckets:
+  - privilege-escalation
+  version: '1.0'
+  author: Guus Verbeek
+  operating_system: Windows (Version Unspecified)
+  created: '2023-06-05'
+  modified: '2023-06-05'

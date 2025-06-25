@@ -1,0 +1,29 @@
+- id: 80887bec-5a9b-4efc-a81d-f83eb2eb32ab
+  name: Enumerate all accounts on Windows (Local)
+  description: 'Enumerate all accounts
+
+    Upon execution, multiple enumeration commands will be run and their output displayed
+    in the PowerShell session'
+  tactic: discovery
+  technique:
+    attack_id: T1087.001
+    name: 'Account Discovery: Local Account'
+  platforms:
+    windows:
+      sh:
+        command: net user; dir c:\Users\; cmdkey.exe /list; net localgroup "Users";
+          net localgroup
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - discovery
+  - t1087.001
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    technique_created: '2020-02-21T21:07:55.393Z'
+    atomic_guid: 80887bec-5a9b-4efc-a81d-f83eb2eb32ab
+    import_timestamp: '2025-06-24T11:15:07.104957Z'

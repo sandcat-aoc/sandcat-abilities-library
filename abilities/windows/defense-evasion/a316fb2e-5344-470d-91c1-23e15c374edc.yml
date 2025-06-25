@@ -1,0 +1,68 @@
+- id: a316fb2e-5344-470d-91c1-23e15c374edc
+  name: Uninstall Sysmon
+  description: Uninstall Sysinternals Sysmon for Defense Evasion
+  tactic: defense-evasion
+  technique:
+    attack_id: T1562.001
+    name: 'Impair Defenses: Disable or Modify Tools'
+  platforms:
+    windows:
+      sh:
+        command: 'if(cmd /c where sysmon) {exit 0} else {exit 1}; then : ; else $parentpath
+          = Split-Path "PathToAtomicsFolder\T1562.001\bin\sysmon.exe"; $zippath =
+          "$parentpath\Sysmon.zip"; New-Item -ItemType Directory $parentpath -Force
+          | Out-Null; Invoke-WebRequest "https://download.sysinternals.com/files/Sysmon.zip"
+          -OutFile "$zippath"; Expand-Archive $zippath $parentpath -Force; Remove-Item
+          $zippath; if(-not ($Env:Path).contains($parentpath)){$Env:Path += ";$parentpath"};
+          fi; if(cmd /c sc query sysmon) { exit 0} else { exit 1}; then : ; else cmd
+          /c sysmon -i -accepteula; fi; sysmon -u'
+        cleanup: sysmon -i -accepteula >nul 2>&1
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1562.001
+  - atomic-red-team
+  - defense-evasion
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      sysmon_exe:
+        description: The location of the Sysmon executable from Sysinternals (ignored
+          if sysmon.exe is found in your PATH)
+        type: path
+        default: PathToAtomicsFolder\T1562.001\bin\sysmon.exe
+    dependencies:
+    - description: 'Sysmon executable must be available
+
+        '
+      prereq_command: 'if(cmd /c where sysmon) {exit 0} else {exit 1}
+
+        '
+      get_prereq_command: '$parentpath = Split-Path "#{sysmon_exe}"; $zippath = "$parentpath\Sysmon.zip"
+
+        New-Item -ItemType Directory $parentpath -Force | Out-Null
+
+        Invoke-WebRequest "https://download.sysinternals.com/files/Sysmon.zip" -OutFile
+        "$zippath"
+
+        Expand-Archive $zippath $parentpath -Force; Remove-Item $zippath
+
+        if(-not ($Env:Path).contains($parentpath)){$Env:Path += ";$parentpath"}
+
+        '
+    - description: 'Sysmon must be installed
+
+        '
+      prereq_command: 'if(cmd /c sc query sysmon) { exit 0} else { exit 1}
+
+        '
+      get_prereq_command: 'cmd /c sysmon -i -accepteula
+
+        '
+    technique_created: '2020-02-21T20:32:20.810Z'
+    atomic_guid: a316fb2e-5344-470d-91c1-23e15c374edc
+    import_timestamp: '2025-06-24T11:15:01.008394Z'

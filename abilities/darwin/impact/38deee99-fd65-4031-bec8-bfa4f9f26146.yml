@@ -1,0 +1,37 @@
+- id: 38deee99-fd65-4031-bec8-bfa4f9f26146
+  name: FreeBSD/macOS/Linux - Overwrite file with DD
+  description: 'Overwrites and deletes a file using DD.
+
+    To stop the test, break the command with CTRL/CMD+C.'
+  tactic: impact
+  technique:
+    attack_id: T1485
+    name: Data Destruction
+  platforms:
+    darwin:
+      sh:
+        command: dd of=/var/log/syslog if=/dev/zero count=$(ls -l /var/log/syslog
+          | awk '{print $5}') iflag=count_bytes
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - impact
+  - t1485
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      overwrite_source:
+        description: Path of data source to overwrite with
+        type: path
+        default: /dev/zero
+      file_to_overwrite:
+        description: Path of file to overwrite and remove
+        type: path
+        default: /var/log/syslog
+    technique_created: '2019-03-14T18:47:17.701Z'
+    atomic_guid: 38deee99-fd65-4031-bec8-bfa4f9f26146
+    import_timestamp: '2025-06-24T11:14:07.858025Z'

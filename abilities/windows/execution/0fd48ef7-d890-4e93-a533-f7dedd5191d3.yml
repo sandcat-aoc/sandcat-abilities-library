@@ -1,0 +1,39 @@
+- id: 0fd48ef7-d890-4e93-a533-f7dedd5191d3
+  name: WMI Reconnaissance List Remote Services
+  description: "An adversary might use WMI to check if a certain Remote Service is\
+    \ running on a remote device. \nWhen the test completes, a service information\
+    \ will be displayed on the screen if it exists.\nA common feedback message is\
+    \ that \"No instance(s) Available\" if the service queried is not running.\nA\
+    \ common error message is \"Node - (provided IP or default)  ERROR Description\
+    \ =The RPC server is unavailable\" \nif the provided remote host is unreachable"
+  tactic: execution
+  technique:
+    attack_id: T1047
+    name: Windows Management Instrumentation
+  platforms:
+    windows:
+      sh:
+        command: wmic /node:"127.0.0.1" service where (caption like "%Spooler%")
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1047
+  - execution
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      node:
+        description: Ip Address
+        type: string
+        default: 127.0.0.1
+      service_search_string:
+        description: Name Of Service
+        type: string
+        default: Spooler
+    technique_created: '2017-05-31T21:30:44.329Z'
+    atomic_guid: 0fd48ef7-d890-4e93-a533-f7dedd5191d3
+    import_timestamp: '2025-06-24T11:15:03.005384Z'

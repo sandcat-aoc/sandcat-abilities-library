@@ -1,0 +1,27 @@
+- id: db9de996-441e-4ae0-947b-61b6871e2fdf
+  name: Disable syslog (freebsd)
+  description: Disables syslog collection
+  tactic: defense-evasion
+  technique:
+    attack_id: T1562.001
+    name: 'Impair Defenses: Disable or Modify Tools'
+  platforms:
+    linux:
+      sh:
+        command: service syslogd stop; sysrc syslogd_enable="NO"
+        cleanup: sysrc syslogd_enable="YES"; service syslogd start
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1562.001
+  - atomic-red-team
+  - defense-evasion
+  author: Atomic Red Team
+  additional_info:
+    technique_created: '2020-02-21T20:32:20.810Z'
+    atomic_guid: db9de996-441e-4ae0-947b-61b6871e2fdf
+    import_timestamp: '2025-06-24T11:15:55.697092Z'

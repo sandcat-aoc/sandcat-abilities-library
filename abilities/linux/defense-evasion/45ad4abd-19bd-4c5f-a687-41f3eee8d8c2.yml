@@ -1,0 +1,26 @@
+- id: 45ad4abd-19bd-4c5f-a687-41f3eee8d8c2
+  name: Delete system log files via unlink utility (freebsd)
+  description: This test deletes the messages log file using unlink utility
+  tactic: defense-evasion
+  technique:
+    attack_id: T1070.002
+    name: 'Indicator Removal on Host: Clear FreeBSD, Linux or Mac System Logs'
+  platforms:
+    linux:
+      sh:
+        command: unlink /var/log/messages
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1070.002
+  - atomic-red-team
+  - defense-evasion
+  author: Atomic Red Team
+  additional_info:
+    technique_created: '2020-01-28T17:11:54.034Z'
+    atomic_guid: 45ad4abd-19bd-4c5f-a687-41f3eee8d8c2
+    import_timestamp: '2025-06-24T11:15:55.457470Z'

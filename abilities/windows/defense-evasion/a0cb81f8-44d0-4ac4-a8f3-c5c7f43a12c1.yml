@@ -1,0 +1,40 @@
+- id: a0cb81f8-44d0-4ac4-a8f3-c5c7f43a12c1
+  name: Modify Event Log Access Permissions via Registry - PowerShell
+  description: 'This test simulates an adversary modifying access permissions for
+    a Windows Event Log channel by setting the "CustomSD" registry value. Specifically,
+    it changes the Security Descriptor Definition Language (SDDL) string. These modifications
+    can restrict or grant access to specific users or groups, potentially aiding in
+    defense evasion by controlling who can view or modify a event log channel.
+
+    Upon execution, the user shouldn''t be able to access the event log channel via
+    the event viewer or via utilities such as "Get-EventLog" or "wevtutil".'
+  tactic: defense-evasion
+  technique:
+    attack_id: T1562.002
+    name: 'Impair Defenses: Disable Windows Event Logging'
+  platforms:
+    windows:
+      psh:
+        command: Set-ItemProperty -Path HKLM:\SYSTEM\CurrentControlSet\Services\EventLog\System
+          -Name "CustomSD" -Value "O:SYG:SYD:(D;;0x1;;;WD)"
+        cleanup: 'Remove-ItemProperty -Path #{CustomSDPath} -Name "CustomSD"'
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1562.002
+  - atomic-red-team
+  - defense-evasion
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      CustomSDPath:
+        type: string
+        default: HKLM:\SYSTEM\CurrentControlSet\Services\EventLog\System
+        description: Path to the event log service channel to alter
+    technique_created: '2020-02-21T20:46:36.688Z'
+    atomic_guid: a0cb81f8-44d0-4ac4-a8f3-c5c7f43a12c1
+    import_timestamp: '2025-06-24T11:15:00.372909Z'

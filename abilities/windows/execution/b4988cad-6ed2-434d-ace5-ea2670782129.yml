@@ -1,0 +1,65 @@
+- id: b4988cad-6ed2-434d-ace5-ea2670782129
+  name: Radmin Viewer Utility
+  description: An adversary may use Radmin Viewer Utility to remotely control Windows
+    device, this will start the radmin console.
+  tactic: execution
+  technique:
+    attack_id: T1072
+    name: Software Deployment Tools
+  platforms:
+    windows:
+      sh:
+        command: 'if (Test-Path "${env:ProgramFiles(x86)}/Radmin Viewer 3/Radmin.exe")
+          {exit 0} else {exit 1}; then : ; else Write-Host Downloading radmin installer;
+          New-Item -Type Directory "PathToAtomicsFolder\..\ExternalPayloads\" -ErrorAction
+          Ignore -Force | Out-Null; Invoke-WebRequest "https://www.radmin.com/download/Radmin_Viewer_3.5.2.1_EN.msi"
+          -OutFile "PathToAtomicsFolder\..\ExternalPayloads\RadminViewer.msi"; Write-Host
+          Install Radmin; Start-Process msiexec  -Wait -ArgumentList /i , "PathToAtomicsFolder\..\ExternalPayloads\RadminViewer.msi",
+          /qn; fi; "%PROGRAMFILES(x86)%/Radmin Viewer 3/Radmin.exe"'
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1072
+  - execution
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      radmin_installer:
+        description: Radmin Viewer installer
+        type: path
+        default: RadminViewer.msi
+      radmin_exe:
+        description: The radmin.exe executable from RadminViewer.msi
+        type: path
+        default: Radmin Viewer 3/Radmin.exe
+    dependencies:
+    - description: 'Radmin Viewer Utility must be installed at specified location
+        (#{radmin_exe})
+
+        '
+      prereq_command: 'if (Test-Path "${env:ProgramFiles(x86)}/#{radmin_exe}") {exit
+        0} else {exit 1}
+
+        '
+      get_prereq_command: 'Write-Host Downloading radmin installer
+
+        New-Item -Type Directory "PathToAtomicsFolder\..\ExternalPayloads\" -ErrorAction
+        Ignore -Force | Out-Null
+
+        Invoke-WebRequest "https://www.radmin.com/download/Radmin_Viewer_3.5.2.1_EN.msi"
+        -OutFile "PathToAtomicsFolder\..\ExternalPayloads\#{radmin_installer}"
+
+        Write-Host Install Radmin
+
+        Start-Process msiexec  -Wait -ArgumentList /i , "PathToAtomicsFolder\..\ExternalPayloads\#{radmin_installer}",
+        /qn
+
+        '
+    technique_created: '2017-05-31T21:30:57.201Z'
+    atomic_guid: b4988cad-6ed2-434d-ace5-ea2670782129
+    import_timestamp: '2025-06-24T11:15:03.199891Z'

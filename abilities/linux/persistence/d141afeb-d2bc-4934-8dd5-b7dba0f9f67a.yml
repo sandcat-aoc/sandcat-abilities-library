@@ -1,0 +1,38 @@
+- id: d141afeb-d2bc-4934-8dd5-b7dba0f9f67a
+  name: Create a new user in FreeBSD with `root` GID.
+  description: Creates a new user in FreeBSD and adds the user to the `root` group.
+    This technique was used by adversaries during the Butter attack campaign.
+  tactic: persistence
+  technique:
+    attack_id: T1136.001
+    name: 'Create Account: Local Account'
+  platforms:
+    linux:
+      sh:
+        command: pw useradd butter -g 0 -d /root -s /bin/sh; echo "BetterWithButter"
+          | pw usermod butter -h 0
+        cleanup: 'pw userdel #{username}'
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - persistence
+  - t1136.001
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      username:
+        description: Username of the user to create
+        type: string
+        default: butter
+      password:
+        description: Password of the user to create
+        type: string
+        default: BetterWithButter
+    technique_created: '2020-01-28T13:50:22.506Z'
+    atomic_guid: d141afeb-d2bc-4934-8dd5-b7dba0f9f67a
+    import_timestamp: '2025-06-24T11:15:56.125651Z'

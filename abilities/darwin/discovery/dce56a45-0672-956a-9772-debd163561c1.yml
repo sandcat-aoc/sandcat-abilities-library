@@ -1,0 +1,28 @@
+- id: dce56a45-0672-956a-9772-debd163561c1
+  name: sysctl - Use sysctl to gather macOS hardware info.
+  description: sysctl can be used to gather interesting macOS host data, including hardware information,
+    memory size, logical cpu information, etc.
+  tactic: discovery
+  technique:
+    attack_id: T1082
+    name: System Information Discovery
+  platforms:
+    darwin:
+      sh:
+        command: sysctl -n hw.model
+  singleton: false
+  privilege: User
+  repeatable: true
+  delete_payload: true
+  buckets:
+  - loobins
+  - sysctl
+  - discovery
+  version: '1.0'
+  author: LOOBins Project
+  additional_info:
+    loobins_tool: sysctl
+    use_case: Use sysctl to gather macOS hardware info.
+    source_file: sysctl.yml
+    source_repository: https://github.com/infosecB/LOOBins
+    import_timestamp: '2025-06-24T09:00:11.672141Z'

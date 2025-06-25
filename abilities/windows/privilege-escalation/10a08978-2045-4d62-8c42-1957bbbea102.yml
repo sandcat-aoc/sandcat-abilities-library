@@ -1,0 +1,44 @@
+- id: 10a08978-2045-4d62-8c42-1957bbbea102
+  name: Change Default File Association
+  description: 'Change Default File Association From cmd.exe of hta to notepad.
+
+
+    Upon successful execution, cmd.exe will change the file association of .hta to
+    notepad.exe.'
+  tactic: privilege-escalation
+  technique:
+    attack_id: T1546.001
+    name: 'Event Triggered Execution: Change Default File Association'
+  platforms:
+    windows:
+      sh:
+        command: assoc .hta=txtfile
+        cleanup: 'assoc  #{extension_to_change}=#{original_extension_handler}'
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1546.001
+  - privilege-escalation
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      target_extension_handler:
+        description: txtfile maps to notepad.exe
+        type: path
+        default: txtfile
+      extension_to_change:
+        description: File Extension To Hijack
+        type: string
+        default: .hta
+      original_extension_handler:
+        description: File Extension To Revert
+        type: string
+        default: htafile
+    technique_created: '2020-01-24T13:40:47.282Z'
+    atomic_guid: 10a08978-2045-4d62-8c42-1957bbbea102
+    import_timestamp: '2025-06-24T11:15:02.428534Z'

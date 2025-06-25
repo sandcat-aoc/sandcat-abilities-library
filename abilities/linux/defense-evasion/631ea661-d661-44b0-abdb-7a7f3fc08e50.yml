@@ -1,0 +1,40 @@
+- id: 631ea661-d661-44b0-abdb-7a7f3fc08e50
+  name: Modify file timestamps using reference file
+  description: 'Modifies the `modify` and `access` timestamps using the timestamps
+    of a specified reference file.
+
+
+    This technique was used by the threat actor Rocke during the compromise of Linux
+    web servers.'
+  tactic: defense-evasion
+  technique:
+    attack_id: T1070.006
+    name: 'Indicator Removal on Host: Timestomp'
+  platforms:
+    linux:
+      sh:
+        command: touch /tmp/T1070.006-reference.txt; touch -acmr /bin/sh /tmp/T1070.006-reference.txt
+        cleanup: 'rm -f #{target_file_path}'
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1070.006
+  - atomic-red-team
+  - defense-evasion
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      target_file_path:
+        description: Path of file to modify timestamps of
+        type: path
+        default: /tmp/T1070.006-reference.txt
+      reference_file_path:
+        description: Path of reference file to read timestamps from
+        type: path
+        default: /bin/sh
+    technique_created: '2020-01-31T12:42:44.103Z'
+    atomic_guid: 631ea661-d661-44b0-abdb-7a7f3fc08e50
+    import_timestamp: '2025-06-24T11:15:55.548084Z'

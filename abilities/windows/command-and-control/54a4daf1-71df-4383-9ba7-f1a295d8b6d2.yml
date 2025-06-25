@@ -1,0 +1,36 @@
+- id: 54a4daf1-71df-4383-9ba7-f1a295d8b6d2
+  name: File Download via PowerShell
+  description: Use PowerShell to download and write an arbitrary file from the internet.
+    Example is from the 2021 Threat Detection Report by Red Canary.
+  tactic: command-and-control
+  technique:
+    attack_id: T1105
+    name: Ingress Tool Transfer
+  platforms:
+    windows:
+      psh:
+        command: (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/redcanaryco/atomic-red-team/4042cb3433bce024e304500dcfe3c5590571573a/LICENSE.txt')
+          | Out-File LICENSE.txt; Invoke-Item LICENSE.txt
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1105
+  - atomic-red-team
+  - command-and-control
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      target_remote_file:
+        description: File to download
+        type: url
+        default: https://raw.githubusercontent.com/redcanaryco/atomic-red-team/4042cb3433bce024e304500dcfe3c5590571573a/LICENSE.txt
+      output_file:
+        description: File to write to
+        type: string
+        default: LICENSE.txt
+    technique_created: '2017-05-31T21:31:16.408Z'
+    atomic_guid: 54a4daf1-71df-4383-9ba7-f1a295d8b6d2
+    import_timestamp: '2025-06-24T11:15:05.630846Z'

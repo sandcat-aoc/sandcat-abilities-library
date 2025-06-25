@@ -1,0 +1,42 @@
+- id: 14fdc3f1-6fc3-4556-8d36-aa89d9d42d02
+  name: secedit used to create a Run key in the HKLM Hive
+  description: 'secedit allows to manipulate the HKLM hive of the Windows registry.
+    This test creates a Run key with the keyname calc having calc.exe as the value
+    in the HKLM hive.
+
+    [Reference](https://blueteamops.medium.com/secedit-and-i-know-it-595056dee53d)'
+  tactic: persistence
+  technique:
+    attack_id: T1547.001
+    name: 'Boot or Logon Autostart Execution: Registry Run Keys / Startup Folder'
+  platforms:
+    windows:
+      sh:
+        command: secedit /import /db mytemplate.db /cfg "$PathToAtomicsFolder\T1547.001\src\regtemplate.ini";
+          secedit /configure /db mytemplate.db
+        cleanup: REG DELETE "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" /V
+          "calc" /f >nul 2>&1
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - persistence
+  - t1547.001
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      ini_file:
+        description: INI config template
+        type: string
+        default: $PathToAtomicsFolder\T1547.001\src\regtemplate.ini
+      secedit_db:
+        description: Custom secedit db
+        type: string
+        default: mytemplate.db
+    technique_created: '2020-01-23T22:02:48.566Z'
+    atomic_guid: 14fdc3f1-6fc3-4556-8d36-aa89d9d42d02
+    import_timestamp: '2025-06-24T11:15:05.205767Z'

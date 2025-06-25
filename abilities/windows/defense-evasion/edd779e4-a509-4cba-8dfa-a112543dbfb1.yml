@@ -1,0 +1,47 @@
+- id: edd779e4-a509-4cba-8dfa-a112543dbfb1
+  name: Delete an entire folder - Windows PowerShell
+  description: Recursively delete a folder in the temporary directory using Powershell.
+    Upon execution, no output will be displayed. Use File Explorer to verify the folder
+    was deleted.
+  tactic: defense-evasion
+  technique:
+    attack_id: T1070.004
+    name: 'Indicator Removal on Host: File Deletion'
+  platforms:
+    windows:
+      psh:
+        command: 'if (Test-Path $env:TEMP\deleteme_folder_T1551.004) {exit 0} else
+          {exit 1}; then : ; else New-Item -Path $env:TEMP\deleteme_folder_T1551.004
+          -Type Directory | Out-Null; fi; Remove-Item -Path $env:TEMP\deleteme_folder_T1551.004
+          -Recurse'
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - defense-evasion
+  - atomic-red-team
+  - t1070.004
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      folder_to_delete:
+        description: Folder to delete. Run the prereq command to create it if it does
+          not exist.
+        type: string
+        default: $env:TEMP\deleteme_folder_T1551.004
+    dependencies:
+    - description: 'The folder to delete must exist on disk at specified location
+        (#{folder_to_delete})
+
+        '
+      prereq_command: 'if (Test-Path #{folder_to_delete}) {exit 0} else {exit 1}
+
+        '
+      get_prereq_command: 'New-Item -Path #{folder_to_delete} -Type Directory | Out-Null
+
+        '
+    technique_created: '2020-01-31T12:35:36.479Z'
+    atomic_guid: edd779e4-a509-4cba-8dfa-a112543dbfb1
+    import_timestamp: '2025-06-24T11:15:01.332041Z'

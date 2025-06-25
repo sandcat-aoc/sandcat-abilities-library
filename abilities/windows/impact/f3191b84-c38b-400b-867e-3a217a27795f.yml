@@ -1,0 +1,38 @@
+- id: f3191b84-c38b-400b-867e-3a217a27795f
+  name: Windows - Stop service by killing process
+  description: 'Stops a specified service killng the service''s process.
+
+    This technique was used by WannaCry. Upon execution, if the spoolsv service was
+    running "SUCCESS: The process "spoolsv.exe" with PID 2316 has been terminated."
+
+    will be displayed. If the service was not running "ERROR: The process "spoolsv.exe"
+    not found." will be displayed and it can be
+
+    started by running the cleanup command.'
+  tactic: impact
+  technique:
+    attack_id: T1489
+    name: Service Stop
+  platforms:
+    windows:
+      sh:
+        command: taskkill.exe /f /im spoolsv.exe
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - impact
+  - t1489
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      process_name:
+        description: Name of a process to kill
+        type: string
+        default: spoolsv.exe
+    technique_created: '2019-03-29T19:00:55.901Z'
+    atomic_guid: f3191b84-c38b-400b-867e-3a217a27795f
+    import_timestamp: '2025-06-24T11:15:07.716156Z'

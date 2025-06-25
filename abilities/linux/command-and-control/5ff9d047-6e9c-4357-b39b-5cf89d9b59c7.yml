@@ -1,0 +1,45 @@
+- id: 5ff9d047-6e9c-4357-b39b-5cf89d9b59c7
+  name: Tor Proxy Usage - Debian/Ubuntu/FreeBSD
+  description: 'This test is designed to launch the tor proxy service, which is what
+    is utilized in the background by the Tor Browser and other applications with add-ons
+    in order to provide onion routing functionality.
+
+    Upon successful execution, the tor proxy service will be launched.'
+  tactic: command-and-control
+  technique:
+    attack_id: T1090.003
+    name: 'Proxy: Multi-hop Proxy'
+  platforms:
+    linux:
+      sh:
+        command: 'if [ -x "$(command -v tor --version)" ]; then : ; else (which apt
+          && sudo apt-get -y install tor) || (which pkg && pkg install -y tor); fi;
+          [ "$(uname)" = ''FreeBSD'' ] && sysrc tor_enable="YES" && service tor start
+          || sudo systemctl start tor'
+        cleanup: '[ "$(uname)" = ''FreeBSD'' ] && service tor stop && sysrc -x tor_enable
+          || sudo systemctl stop tor'
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1090.003
+  - atomic-red-team
+  - command-and-control
+  author: Atomic Red Team
+  additional_info:
+    dependencies:
+    - description: "Tor must be installed on the machine \n"
+      prereq_command: 'if [ -x "$(command -v tor --version)" ]; then exit 0; else
+        exit 1; fi
+
+        '
+      get_prereq_command: '(which apt && sudo apt-get -y install tor) || (which pkg
+        && pkg install -y tor)
+
+        '
+    technique_created: '2020-03-14T23:23:41.770Z'
+    atomic_guid: 5ff9d047-6e9c-4357-b39b-5cf89d9b59c7
+    import_timestamp: '2025-06-24T11:15:56.239174Z'

@@ -1,0 +1,49 @@
+- id: 037e9d8a-9e46-4255-8b33-2ae3b545ca6f
+  name: Control Panel Items
+  description: 'This test simulates an adversary leveraging control.exe
+
+    Upon execution calc.exe will be launched'
+  tactic: defense-evasion
+  technique:
+    attack_id: T1218.002
+    name: 'Signed Binary Proxy Execution: Control Panel'
+  platforms:
+    windows:
+      sh:
+        command: 'if (Test-Path "PathToAtomicsFolder\T1218.002\bin\calc.cpl") {exit
+          0} else {exit 1}; then : ; else New-Item -Type Directory (split-path "PathToAtomicsFolder\T1218.002\bin\calc.cpl")
+          -ErrorAction ignore | Out-Null; Invoke-WebRequest "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1218.002/bin/calc.cpl"
+          -OutFile "PathToAtomicsFolder\T1218.002\bin\calc.cpl"; fi; control.exe "PathToAtomicsFolder\T1218.002\bin\calc.cpl"'
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1218.002
+  - atomic-red-team
+  - defense-evasion
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      cpl_file_path:
+        description: path to cpl file
+        type: path
+        default: PathToAtomicsFolder\T1218.002\bin\calc.cpl
+    dependencies:
+    - description: 'Cpl file must exist on disk at specified location (#{cpl_file_path})
+
+        '
+      prereq_command: 'if (Test-Path "#{cpl_file_path}") {exit 0} else {exit 1}
+
+        '
+      get_prereq_command: 'New-Item -Type Directory (split-path "#{cpl_file_path}")
+        -ErrorAction ignore | Out-Null
+
+        Invoke-WebRequest "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1218.002/bin/calc.cpl"
+        -OutFile "#{cpl_file_path}"
+
+        '
+    technique_created: '2020-01-23T19:59:52.630Z'
+    atomic_guid: 037e9d8a-9e46-4255-8b33-2ae3b545ca6f
+    import_timestamp: '2025-06-24T11:15:00.376280Z'

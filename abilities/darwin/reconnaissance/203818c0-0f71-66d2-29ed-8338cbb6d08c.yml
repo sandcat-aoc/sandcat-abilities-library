@@ -1,0 +1,28 @@
+- id: 203818c0-0f71-66d2-29ed-8338cbb6d08c
+  name: mdfind - Use mdfind to provide live updates to the number of files matching the query
+  description: A bash or zsh oneliner can cause mdfind to provide an attacker with live updates to the
+    number of files on a system.
+  tactic: reconnaissance
+  technique:
+    attack_id: T1083
+    name: File and Directory Discovery
+  platforms:
+    darwin:
+      sh:
+        command: mdfind -live passw
+  singleton: false
+  privilege: User
+  repeatable: true
+  delete_payload: true
+  buckets:
+  - loobins
+  - mdfind
+  - reconnaissance
+  version: '1.0'
+  author: LOOBins Project
+  additional_info:
+    loobins_tool: mdfind
+    use_case: Use mdfind to provide live updates to the number of files matching the query
+    source_file: mdfind.yml
+    source_repository: https://github.com/infosecB/LOOBins
+    import_timestamp: '2025-06-24T09:00:11.552318Z'

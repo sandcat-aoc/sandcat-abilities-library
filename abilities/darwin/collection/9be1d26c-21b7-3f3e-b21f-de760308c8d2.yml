@@ -1,0 +1,28 @@
+- id: 9be1d26c-21b7-3f3e-b21f-de760308c8d2
+  name: ditto - Remove extended attributes from a file
+  description: ditto can be used to bypass Gatekeeper by removing the "com.apple.quarantine" extended
+    attribute.
+  tactic: collection
+  technique:
+    attack_id: T1005
+    name: Data from Local System
+  platforms:
+    darwin:
+      sh:
+        command: ditto -c -k unsigned.app app.zip ditto -x -k app.zip unsigned.app 2>/dev/null
+  singleton: false
+  privilege: User
+  repeatable: true
+  delete_payload: true
+  buckets:
+  - loobins
+  - ditto
+  - collection
+  version: '1.0'
+  author: LOOBins Project
+  additional_info:
+    loobins_tool: ditto
+    use_case: Remove extended attributes from a file
+    source_file: ditto.yml
+    source_repository: https://github.com/infosecB/LOOBins
+    import_timestamp: '2025-06-24T09:00:11.700942Z'

@@ -1,0 +1,37 @@
+- id: e55be3fd-3521-4610-9d1a-e210e42dcf05
+  name: Reg Key Run
+  description: 'Run Key Persistence
+
+
+    Upon successful execution, cmd.exe will modify the registry by adding \"Atomic
+    Red Team\" to the Run key. Output will be via stdout.'
+  tactic: persistence
+  technique:
+    attack_id: T1547.001
+    name: 'Boot or Logon Autostart Execution: Registry Run Keys / Startup Folder'
+  platforms:
+    windows:
+      sh:
+        command: REG ADD "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" /V "Atomic
+          Red Team" /t REG_SZ /F /D "C:\Path\AtomicRedTeam.exe"
+        cleanup: REG DELETE "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" /V
+          "Atomic Red Team" /f >nul 2>&1
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - persistence
+  - t1547.001
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      command_to_execute:
+        description: Thing to Run
+        type: path
+        default: C:\Path\AtomicRedTeam.exe
+    technique_created: '2020-01-23T22:02:48.566Z'
+    atomic_guid: e55be3fd-3521-4610-9d1a-e210e42dcf05
+    import_timestamp: '2025-06-24T11:15:05.140567Z'

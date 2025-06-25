@@ -1,0 +1,63 @@
+- id: 1ec1c269-d6bd-49e7-b71b-a461f7fa7bc8
+  name: Lolbin Jsc.exe compile javascript to exe
+  description: 'Use jsc.exe to compile javascript code stored in scriptfile.js and
+    output scriptfile.exe.
+
+    https://lolbas-project.github.io/lolbas/Binaries/Jsc/
+
+    https://www.phpied.com/make-your-javascript-a-windows-exe/'
+  tactic: defense-evasion
+  technique:
+    attack_id: T1127
+    name: Trusted Developer Utilities Proxy Execution
+  platforms:
+    windows:
+      sh:
+        command: 'if (Test-Path "PathToAtomicsFolder\T1127\src\hello.js") {exit 0}
+          else {exit 1}; then : ; else New-Item -Type Directory (split-path "PathToAtomicsFolder\T1127\src\hello.js")
+          -ErrorAction ignore | Out-Null; Invoke-WebRequest "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1127/src/hello.js"
+          -OutFile "PathToAtomicsFolder\T1127\src\hello.js"; fi; copy "PathToAtomicsFolder\T1127\src\hello.js"
+          %TEMP%\hello.js; C:\Windows\Microsoft.NET\Framework\v4.0.30319\jsc.exe %TEMP%\hello.js'
+        cleanup: del %TEMP%\hello.js; del %TEMP%\hello.exe
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1127
+  - atomic-red-team
+  - defense-evasion
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      filename:
+        description: Location of the project file
+        type: path
+        default: PathToAtomicsFolder\T1127\src\hello.js
+      jscpath:
+        description: Default location of jsc.exe
+        type: path
+        default: C:\Windows\Microsoft.NET\Framework\v4.0.30319
+      jscname:
+        description: Default name of jsc
+        type: path
+        default: jsc.exe
+    dependencies:
+    - description: 'JavaScript code file must exist on disk at specified location
+        (#{filename})
+
+        '
+      prereq_command: 'if (Test-Path "#{filename}") {exit 0} else {exit 1}
+
+        '
+      get_prereq_command: 'New-Item -Type Directory (split-path "#{filename}") -ErrorAction
+        ignore | Out-Null
+
+        Invoke-WebRequest "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1127/src/hello.js"
+        -OutFile "#{filename}"
+
+        '
+    technique_created: '2017-05-31T21:31:39.262Z'
+    atomic_guid: 1ec1c269-d6bd-49e7-b71b-a461f7fa7bc8
+    import_timestamp: '2025-06-24T11:15:01.509486Z'

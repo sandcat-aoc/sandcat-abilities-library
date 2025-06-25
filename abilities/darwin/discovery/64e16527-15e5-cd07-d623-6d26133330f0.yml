@@ -1,0 +1,27 @@
+- id: 64e16527-15e5-cd07-d623-6d26133330f0
+  name: defaults - Get Active Directory user info from Jamf Connect
+  description: Retrieve Active Directory user info from Jamf Connect defaults configuration.
+  tactic: discovery
+  technique:
+    attack_id: T1547.001
+    name: 'Boot or Logon Autostart Execution: Registry Run Keys / Startup Folder'
+  platforms:
+    darwin:
+      sh:
+        command: defaults read com.jamf.connect.state
+  singleton: false
+  privilege: Elevated
+  repeatable: true
+  delete_payload: true
+  buckets:
+  - loobins
+  - defaults
+  - discovery
+  version: '1.0'
+  author: LOOBins Project
+  additional_info:
+    loobins_tool: defaults
+    use_case: Get Active Directory user info from Jamf Connect
+    source_file: defaults.yml
+    source_repository: https://github.com/infosecB/LOOBins
+    import_timestamp: '2025-06-24T09:00:11.280435Z'

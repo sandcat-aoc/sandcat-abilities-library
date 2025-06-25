@@ -1,0 +1,33 @@
+- id: f1275566-1c26-4b66-83e3-7f9f7f964daa
+  name: Create local account with admin privileges - MacOS
+  description: After execution the new account will be active and added to the Administrators
+    group
+  tactic: persistence
+  technique:
+    attack_id: T1078.003
+    name: 'Valid Accounts: Local Accounts'
+  platforms:
+    darwin:
+      sh:
+        command: dscl . -create /Users/AtomicUser; dscl . -create /Users/AtomicUser
+          UserShell /bin/bash; dscl . -create /Users/AtomicUser RealName "Atomic User";
+          dscl . -create /Users/AtomicUser UniqueID 503; dscl . -create /Users/AtomicUser
+          PrimaryGroupID 503; dscl . -create /Users/AtomicUser NFSHomeDirectory /Local/Users/AtomicUser;
+          dscl . -passwd /Users/AtomicUser mySecretPassword; dscl . -append /Groups/admin
+          GroupMembership AtomicUser
+        cleanup: sudo dscl . -delete /Users/AtomicUser
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - persistence
+  - atomic-red-team
+  - t1078.003
+  author: Atomic Red Team
+  additional_info:
+    technique_created: '2020-03-13T20:26:46.695Z'
+    atomic_guid: f1275566-1c26-4b66-83e3-7f9f7f964daa
+    import_timestamp: '2025-06-24T11:14:07.505689Z'

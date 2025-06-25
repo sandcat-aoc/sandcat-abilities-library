@@ -1,0 +1,44 @@
+- id: 0b79c06f-c788-44a2-8630-d69051f1123d
+  name: BlackByte Ransomware Registry Changes - Powershell
+  description: "This task recreates the steps taken by BlackByte ransomware before\
+    \ it worms to other machines via Powershell.  See \"Preparing to Worm\" section:\
+    \ https://redcanary.com/blog/blackbyte-ransomware/\nThe steps are as follows:\n\
+    <ol>\n    <li>1. Elevate Local Privilege by disabling UAC Remote Restrictions</li>\n\
+    \    <li>2. Enable OS to share network connections between different privilege\
+    \ levels</li>\n    <li>3. Enable long path values for file paths, names, and namespaces\
+    \ to ensure encryption of all file names and paths</li>\n</ol>\nThe registry keys\
+    \ and their respective values will be created upon successful execution."
+  tactic: persistence
+  technique:
+    attack_id: T1112
+    name: Modify Registry
+  platforms:
+    windows:
+      psh:
+        command: New-ItemProperty "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System"
+          -Name LocalAccountTokenFilterPolicy -PropertyType DWord -Value 1 -Force;
+          New-ItemProperty "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System"
+          -Name EnableLinkedConnections -PropertyType DWord -Value 1 -Force; New-ItemProperty
+          "HKLM:\SYSTEM\CurrentControlSet\Control\FileSystem" -Name LongPathsEnabled
+          -PropertyType DWord -Value 1 -Force
+        cleanup: Remove-ItemProperty "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System"
+          -Name LocalAccountTokenFilterPolicy -Force -ErrorAction Ignore; Remove-ItemProperty
+          "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" -Name
+          EnableLinkedConnections -Force -ErrorAction Ignore; Remove-ItemProperty
+          "HKLM:\SYSTEM\CurrentControlSet\Control\FileSystem" -Name LongPathsEnabled
+          -Force -ErrorAction Ignore
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - persistence
+  - t1112
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    technique_created: '2017-05-31T21:31:23.587Z'
+    atomic_guid: 0b79c06f-c788-44a2-8630-d69051f1123d
+    import_timestamp: '2025-06-24T11:15:03.956988Z'

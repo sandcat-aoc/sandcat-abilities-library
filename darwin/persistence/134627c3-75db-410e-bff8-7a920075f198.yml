@@ -1,0 +1,29 @@
+- id: 134627c3-75db-410e-bff8-7a920075f198
+  name: Add file to Local Library StartupItems
+  description: 'Modify or create an file in /Library/StartupItems
+
+    [Reference](https://www.alienvault.com/blogs/labs-research/diversity-in-recent-mac-malware)'
+  tactic: persistence
+  technique:
+    attack_id: T1037.005
+    name: 'Boot or Logon Initialization Scripts: Startup Items'
+  platforms:
+    darwin:
+      sh:
+        command: sudo touch /Library/StartupItems/EvilStartup.plist
+        cleanup: sudo rm /Library/StartupItems/EvilStartup.plist
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - persistence
+  - t1037.005
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    technique_created: '2020-01-15T18:00:33.603Z'
+    atomic_guid: 134627c3-75db-410e-bff8-7a920075f198
+    import_timestamp: '2025-06-24T11:14:07.468703Z'

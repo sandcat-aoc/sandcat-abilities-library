@@ -1,0 +1,42 @@
+- id: 3de33f5b-62e5-4e63-a2a0-6fd8808c80ec
+  name: Create a user level transient systemd service and timer
+  description: Schedule a user level transient task (will not survive a reboot) without
+    having to create the .timer or .service files by using the systemd-run command.
+  tactic: persistence
+  technique:
+    attack_id: T1053.006
+    name: 'Scheduled Task/Job: Systemd Timers'
+  platforms:
+    linux:
+      sh:
+        command: 'if [ -x "$(command -v systemd-run)" ]; then : ; else echo "Install
+          systemd on the machine."; exit 1;; fi; systemd-run --user --unit=Atomic-Red-Team
+          --on-calendar ''*:0/1'' /bin/sh -c ''echo "$(date) $(whoami)" >>/tmp/log'''
+        cleanup: systemctl --user stop Atomic-Red-Team.service; systemctl --user stop
+          Atomic-Red-Team.timer; rm /tmp/log
+        elevation_required: false
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1053.006
+  - persistence
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    dependencies:
+    - description: 'Check if systemd-run exists on the machine
+
+        '
+      prereq_command: 'if [ -x "$(command -v systemd-run)" ]; then exit 0; else exit
+        1; fi;
+
+        '
+      get_prereq_command: 'echo "Install systemd on the machine."; exit 1;
+
+        '
+    technique_created: '2020-10-12T17:50:31.584Z'
+    atomic_guid: 3de33f5b-62e5-4e63-a2a0-6fd8808c80ec
+    import_timestamp: '2025-06-24T11:15:56.150518Z'

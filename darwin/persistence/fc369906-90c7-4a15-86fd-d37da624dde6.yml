@@ -1,0 +1,83 @@
+- id: fc369906-90c7-4a15-86fd-d37da624dde6
+  name: Add launch script to launch daemon
+  description: 'Add launch script to /Library/StartupItems to launch agent
+
+    [Example](https://cybersecurity.att.com/blogs/labs-research/diversity-in-recent-mac-malware)'
+  tactic: persistence
+  technique:
+    attack_id: T1037.005
+    name: 'Boot or Logon Initialization Scripts: Startup Items'
+  platforms:
+    darwin:
+      sh:
+        command: 'if [ -f T1037_005_daemon.plist ]; then : ; else echo "The plist
+          file doesn''t exist. Check the path and try again."; exit 1;; fi; if [ -f
+          T1037.005_daemon.sh ]; then : ; else echo "The startup script doesn''t exist.
+          Check the path and try again."; exit 1;; fi; sudo cp StartupParameters.plist
+          /Library/StartupItems/StartupParameters.plist; sudo cp T1037.005_daemon.sh
+          /Library/StartupItems/atomic.sh; sudo cp T1037_005_daemon.plist /tmp/T1037_005_daemon.plist;
+          sudo /Library/StartupItems/atomic.sh start'
+        cleanup: sudo launchctl unload /tmp/T1037_005_daemon.plist; sudo rm /tmp/T1037_005_daemon.plist;
+          sudo rm /Library/StartupItems/atomic.sh; sudo rm /Library/StartupItems/StartupParameters.plist;
+          sudo rm /tmp/T1037_005_daemon.txt
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - persistence
+  - t1037.005
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      path_malicious_script:
+        description: Name of script to store in cron folder
+        type: string
+        default: $PathToAtomicsFolder/T1037.005/src/T1037.005_daemon.sh
+      path_malicious_plist:
+        description: Name of file to store in /tmp
+        type: string
+        default: $PathToAtomicsFolder/T1037.005/src/T1037_005_daemon.plist
+      path_startup_params:
+        description: Name of plist with startup params
+        type: string
+        default: $PathToAtomicsFolder/T1037.005/src/StartupParameters.plist
+    dependencies:
+    - description: '/Library/StartupItems must exist
+
+        '
+      prereq_command: 'if [ ! -d /Library/StartupItems ]; then mkdir /Library/StartupItems;
+        exit 0; fi;
+
+        '
+      get_prereq_command: 'echo "Failed to create /Library/StartupItems"; exit 1;
+
+        '
+    - description: 'The shared library must exist on disk at specified location (#{path_malicious_plist})
+
+        '
+      prereq_command: 'if [ -f #{path_malicious_plist} ]; then exit 0; else exit 1;
+        fi;
+
+        '
+      get_prereq_command: 'echo "The plist file doesn''t exist. Check the path and
+        try again."; exit 1;
+
+        '
+    - description: 'The startup script must exist on disk at specified location (#{path_malicious_script})
+
+        '
+      prereq_command: 'if [ -f #{path_malicious_script} ]; then exit 0; else exit
+        1; fi;
+
+        '
+      get_prereq_command: 'echo "The startup script doesn''t exist. Check the path
+        and try again."; exit 1;
+
+        '
+    technique_created: '2020-01-15T18:00:33.603Z'
+    atomic_guid: fc369906-90c7-4a15-86fd-d37da624dde6
+    import_timestamp: '2025-06-24T11:14:07.470951Z'

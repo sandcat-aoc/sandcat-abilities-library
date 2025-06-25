@@ -1,0 +1,52 @@
+- id: 03ab8df5-3a6b-4417-b6bd-bb7a5cfd74cf
+  name: Launch Daemon
+  description: Utilize LaunchDaemon to launch `Hello World`
+  tactic: persistence
+  technique:
+    attack_id: T1543.004
+    name: 'Create or Modify System Process: Launch Daemon'
+  platforms:
+    darwin:
+      sh:
+        command: 'if [ -f atomicredteam_T1543_004.plist ]; then : ; else echo "The
+          plist file doesn''t exist. Check the path and try again."; exit 1;; fi;
+          sudo cp atomicredteam_T1543_004.plist /Library/LaunchDaemons/com.atomicredteam.plist;
+          sudo launchctl load -w /Library/LaunchDaemons/com.atomicredteam.plist'
+        cleanup: sudo launchctl unload /Library/LaunchDaemons/#{plist_filename}; sudo
+          rm /Library/LaunchDaemons/#{plist_filename}; sudo rm /tmp/T1543_004_atomicredteam.txt
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - persistence
+  - t1543.004
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      plist_filename:
+        description: filename
+        type: string
+        default: com.atomicredteam.plist
+      path_malicious_plist:
+        description: Name of file to store in cron folder
+        type: string
+        default: $PathToAtomicsFolder/T1543.004/src/atomicredteam_T1543_004.plist
+    dependencies:
+    - description: 'The shared library must exist on disk at specified location (#{path_malicious_plist})
+
+        '
+      prereq_command: 'if [ -f #{path_malicious_plist} ]; then exit 0; else exit 1;
+        fi;
+
+        '
+      get_prereq_command: 'echo "The plist file doesn''t exist. Check the path and
+        try again."; exit 1;
+
+        '
+    technique_created: '2020-01-17T19:23:15.227Z'
+    atomic_guid: 03ab8df5-3a6b-4417-b6bd-bb7a5cfd74cf
+    import_timestamp: '2025-06-24T11:14:07.428907Z'

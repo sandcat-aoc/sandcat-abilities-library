@@ -1,0 +1,27 @@
+- id: 9129f3c5-fbe4-f8c6-c78e-87ef3269ffa4
+  name: dscl - Local account creation
+  description: Create a local account
+  tactic: persistence
+  technique:
+    attack_id: T1087.001
+    name: 'Account Discovery: Local Account'
+  platforms:
+    darwin:
+      sh:
+        command: dscl -create
+  singleton: false
+  privilege: User
+  repeatable: true
+  delete_payload: true
+  buckets:
+  - loobins
+  - dscl
+  - persistence
+  version: '1.0'
+  author: LOOBins Project
+  additional_info:
+    loobins_tool: dscl
+    use_case: Local account creation
+    source_file: dscl.yml
+    source_repository: https://github.com/infosecB/LOOBins
+    import_timestamp: '2025-06-24T09:00:11.631192Z'

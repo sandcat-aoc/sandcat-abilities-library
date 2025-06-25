@@ -1,0 +1,58 @@
+- id: 7266d898-ac82-4ec0-97c7-436075d0d08e
+  name: At - Schedule a job
+  description: This test submits a command to be run in the future by the `at` daemon.
+  tactic: persistence
+  technique:
+    attack_id: T1053.002
+    name: 'Scheduled Task/Job: At'
+  platforms:
+    linux:
+      sh:
+        command: echo "echo Hello from Atomic Red Team" | at now + 1 minute
+        elevation_required: false
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - persistence
+  - atomic-red-team
+  - t1053.002
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      time_spec:
+        description: Time specification of when the command should run
+        type: string
+        default: now + 1 minute
+      at_command:
+        description: The command to be run
+        type: string
+        default: echo Hello from Atomic Red Team
+    dependencies:
+    - description: 'The `at` and `atd` executables must exist in the PATH
+
+        '
+      prereq_command: 'if [ "$(uname)" = ''FreeBSD'' ]; then which at; else which
+        at && which atd; fi;
+
+        '
+      get_prereq_command: 'echo ''Please install `at` and `atd`; they were not found
+        in the PATH (Package name: `at`)''
+
+        '
+    - description: 'The `atd` daemon must be running
+
+        '
+      prereq_command: 'if [ $(uname) = ''Linux'' ]; then systemctl status atd || service
+        atd status; fi;
+
+        '
+      get_prereq_command: 'echo ''Please start the `atd` daemon (sysv: `service atd
+        start` ; systemd: `systemctl start atd`)''
+
+        '
+    technique_created: '2019-11-27T13:52:45.853Z'
+    atomic_guid: 7266d898-ac82-4ec0-97c7-436075d0d08e
+    import_timestamp: '2025-06-24T11:15:56.199826Z'

@@ -1,0 +1,35 @@
+- id: b8a49f03-e3c4-40f2-b7bb-9e8f8fdddbf1
+  name: UEFI Persistence via Wpbbin.exe File Creation
+  description: 'Creates Wpbbin.exe in %systemroot%. This technique can be used for
+    UEFI-based pre-OS boot persistence mechanisms.
+
+    - https://grzegorztworek.medium.com/using-uefi-to-inject-executable-files-into-bitlocker-protected-drives-8ff4ca59c94c
+
+    - http://download.microsoft.com/download/8/a/2/8a2fb72d-9b96-4e2d-a559-4a27cf905a80/windows-platform-binary-table.docx
+
+    - https://github.com/tandasat/WPBT-Builder'
+  tactic: persistence
+  technique:
+    attack_id: T1542.001
+    name: 'Pre-OS Boot: System Firmware'
+  platforms:
+    windows:
+      psh:
+        command: echo "Creating %systemroot%\wpbbin.exe"; New-Item -ItemType File
+          -Path "$env:SystemRoot\System32\wpbbin.exe"
+        cleanup: echo "Removing %systemroot%\wpbbin.exe"; Remove-Item -Path "$env:SystemRoot\System32\wpbbin.exe"
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - persistence
+  - t1542.001
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    technique_created: '2019-12-19T19:43:34.507Z'
+    atomic_guid: b8a49f03-e3c4-40f2-b7bb-9e8f8fdddbf1
+    import_timestamp: '2025-06-24T11:15:03.601571Z'

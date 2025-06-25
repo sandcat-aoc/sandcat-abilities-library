@@ -1,0 +1,29 @@
+- id: 26fc7375-a551-4336-90d7-3f2817564304
+  name: Requires the BitLocker PIN for Pre-boot authentication
+  description: Requires the BitLocker PIN for Pre-boot authentication
+  tactic: persistence
+  technique:
+    attack_id: T1112
+    name: Modify Registry
+  platforms:
+    windows:
+      sh:
+        command: reg add "HKLM\SOFTWARE\Policies\Microsoft\FVE" /v UseAdvancedStartup
+          /t REG_DWORD /d 1 /f
+        cleanup: reg delete "HKLM\SOFTWARE\Policies\Microsoft\FVE" /v UseAdvancedStartup
+          /f
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - persistence
+  - t1112
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    technique_created: '2017-05-31T21:31:23.587Z'
+    atomic_guid: 26fc7375-a551-4336-90d7-3f2817564304
+    import_timestamp: '2025-06-24T11:15:04.281208Z'

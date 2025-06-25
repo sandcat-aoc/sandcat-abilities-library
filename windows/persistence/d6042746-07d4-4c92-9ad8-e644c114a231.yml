@@ -1,0 +1,43 @@
+- id: d6042746-07d4-4c92-9ad8-e644c114a231
+  name: Logon Scripts
+  description: 'Adds a registry value to run batch script created in the %temp% directory.
+    Upon execution, there will be a new environment variable in the HKCU\Environment
+    key
+
+    that can be viewed in the Registry Editor.'
+  tactic: persistence
+  technique:
+    attack_id: T1037.001
+    name: 'Boot or Logon Initialization Scripts: Logon Script (Windows)'
+  platforms:
+    windows:
+      sh:
+        command: echo "echo Art "Logon Script" atomic test was successful. >> %USERPROFILE%\desktop\T1037.001-log.txt"
+          > %temp%\art.bat; REG.exe ADD HKCU\Environment /v UserInitMprLogonScript
+          /t REG_SZ /d "%temp%\art.bat" /f
+        cleanup: 'REG.exe DELETE HKCU\Environment /v UserInitMprLogonScript /f >nul
+          2>&1; del #{script_path} >nul 2>&1; del "%USERPROFILE%\desktop\T1037.001-log.txt"
+          >nul 2>&1'
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1037.001
+  - persistence
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      script_path:
+        description: Path to .bat file
+        type: string
+        default: '%temp%\art.bat'
+      script_command:
+        description: Command To Execute
+        type: string
+        default: echo Art "Logon Script" atomic test was successful. >> %USERPROFILE%\desktop\T1037.001-log.txt
+    technique_created: '2020-01-10T03:43:37.211Z'
+    atomic_guid: d6042746-07d4-4c92-9ad8-e644c114a231
+    import_timestamp: '2025-06-24T11:15:05.398095Z'

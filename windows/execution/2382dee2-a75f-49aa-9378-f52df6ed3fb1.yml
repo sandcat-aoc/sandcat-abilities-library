@@ -1,0 +1,44 @@
+- id: 2382dee2-a75f-49aa-9378-f52df6ed3fb1
+  name: Execute a Command as a Service
+  description: "Creates a service specifying an arbitrary command and executes it.\
+    \ When executing commands such as PowerShell, the service will report that it\
+    \ did not start correctly even when code executes properly.\n\nUpon successful\
+    \ execution, cmd.exe creates a new service using sc.exe that will start powershell.exe\
+    \ to create a new file `art-marker.txt`\n\n[BlackCat Ransomware (ALPHV)](https://www.varonis.com/blog/blackcat-ransomware)\
+    \  \n[Cybereason vs. BlackCat Ransomware](https://www.cybereason.com/blog/cybereason-vs.-blackcat-ransomware)"
+  tactic: execution
+  technique:
+    attack_id: T1569.002
+    name: 'System Services: Service Execution'
+  platforms:
+    windows:
+      sh:
+        command: sc.exe create ARTService binPath= "%COMSPEC% /c powershell.exe -nop
+          -w hidden -command New-Item -ItemType File C:\art-marker.txt"; sc.exe start
+          ARTService; sc.exe delete ARTService
+        cleanup: del C:\art-marker.txt >nul 2>&1
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1569.002
+  - execution
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      service_name:
+        description: Name of service to create
+        type: string
+        default: ARTService
+      executable_command:
+        description: Command to execute as a service
+        type: string
+        default: '%COMSPEC% /c powershell.exe -nop -w hidden -command New-Item -ItemType
+          File C:\art-marker.txt'
+    technique_created: '2020-03-10T18:33:36.159Z'
+    atomic_guid: 2382dee2-a75f-49aa-9378-f52df6ed3fb1
+    import_timestamp: '2025-06-24T11:15:03.470517Z'

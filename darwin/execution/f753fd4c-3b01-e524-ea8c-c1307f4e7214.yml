@@ -1,0 +1,28 @@
+- id: f753fd4c-3b01-e524-ea8c-c1307f4e7214
+  name: ssh-keygen - Execute malicious dynamic library (.dylib) from standard input
+  description: An attacker can execute a malicious .dylib from stdin by echoing a load command and piping
+    to tclsh. This will bypass code signing requirements.
+  tactic: execution
+  technique:
+    attack_id: T1574.006
+    name: 'Hijack Execution Flow: Dynamic Linker Hijacking'
+  platforms:
+    darwin:
+      sh:
+        command: ssh-keygen -D /private/tmp/evil.dylib
+  singleton: false
+  privilege: User
+  repeatable: true
+  delete_payload: true
+  buckets:
+  - loobins
+  - ssh-keygen
+  - execution
+  version: '1.0'
+  author: LOOBins Project
+  additional_info:
+    loobins_tool: ssh-keygen
+    use_case: Execute malicious dynamic library (.dylib) from standard input
+    source_file: ssh-keygen.yml
+    source_repository: https://github.com/infosecB/LOOBins
+    import_timestamp: '2025-06-24T09:00:11.589042Z'

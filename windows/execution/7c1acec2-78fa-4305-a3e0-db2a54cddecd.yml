@@ -1,0 +1,49 @@
+- id: 7c1acec2-78fa-4305-a3e0-db2a54cddecd
+  name: PowerShell Session Creation and Use
+  description: 'Connect to a remote powershell session and interact with the host.
+
+    Upon execution, network test info and ''T1086 PowerShell Session Creation and
+    Use'' will be displayed.'
+  tactic: execution
+  technique:
+    attack_id: T1059.001
+    name: 'Command and Scripting Interpreter: PowerShell'
+  platforms:
+    windows:
+      psh:
+        command: 'Try {; New-PSSession -ComputerName $env:COMPUTERNAME -ErrorAction
+          Stop | Out-Null; exit 0; }; Catch {; exit 1; }; then : ; else Enable-PSRemoting;
+          fi; New-PSSession -ComputerName $env:COMPUTERNAME; Test-Connection $env:COMPUTERNAME;
+          Set-Content -Path $env:TEMP\T1086_PowerShell_Session_Creation_and_Use -Value
+          "T1086 PowerShell Session Creation and Use"; Get-Content -Path $env:TEMP\T1086_PowerShell_Session_Creation_and_Use;
+          Remove-Item -Force $env:TEMP\T1086_PowerShell_Session_Creation_and_Use'
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1059.001
+  - execution
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      hostname_to_connect:
+        description: The host to connect to, by default it will connect to the local
+          machine
+        type: string
+        default: $env:COMPUTERNAME
+    dependencies:
+    - description: 'PSRemoting must be enabled
+
+        '
+      prereq_command: "Try {\n    New-PSSession -ComputerName #{hostname_to_connect}\
+        \ -ErrorAction Stop | Out-Null\n    exit 0\n} \nCatch {\n    exit 1\n}\n"
+      get_prereq_command: 'Enable-PSRemoting
+
+        '
+    technique_created: '2020-03-09T13:48:55.078Z'
+    atomic_guid: 7c1acec2-78fa-4305-a3e0-db2a54cddecd
+    import_timestamp: '2025-06-24T11:15:03.312984Z'

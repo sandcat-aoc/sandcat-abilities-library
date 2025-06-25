@@ -1,0 +1,36 @@
+- id: af9fd58f-c4ac-4bf2-a9ba-224b71ff25fd
+  name: Powershell Cmdlet Scheduled Task
+  description: 'Create an atomic scheduled task that leverages native powershell cmdlets.
+
+
+    Upon successful execution, powershell.exe will create a scheduled task to spawn
+    cmd.exe at 20:10.'
+  tactic: execution
+  technique:
+    attack_id: T1053.005
+    name: 'Scheduled Task/Job: Scheduled Task'
+  platforms:
+    windows:
+      psh:
+        command: $Action = New-ScheduledTaskAction -Execute "calc.exe"; $Trigger =
+          New-ScheduledTaskTrigger -AtLogon; $User = New-ScheduledTaskPrincipal -GroupId
+          "BUILTIN\Administrators" -RunLevel Highest; $Set = New-ScheduledTaskSettingsSet;
+          $object = New-ScheduledTask -Action $Action -Principal $User -Trigger $Trigger
+          -Settings $Set; Register-ScheduledTask AtomicTask -InputObject $object
+        cleanup: Unregister-ScheduledTask -TaskName "AtomicTask" -confirm:$false >$null
+          2>&1
+        elevation_required: false
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - execution
+  - t1053.005
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    technique_created: '2019-11-27T14:58:00.429Z'
+    atomic_guid: af9fd58f-c4ac-4bf2-a9ba-224b71ff25fd
+    import_timestamp: '2025-06-24T11:15:02.916447Z'

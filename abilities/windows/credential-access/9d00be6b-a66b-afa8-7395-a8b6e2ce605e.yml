@@ -1,0 +1,22 @@
+- id: 9d00be6b-a66b-afa8-7395-a8b6e2ce605e
+  name: dsdbutil.exe - Deletes the mount of the snapshot
+  description: Deletes the mount of the snapshot
+  tactic: credential-access
+  technique:
+    attack_id: T1003.003
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: 'dsdbutil.exe "activate instance ntds" "snapshot" "delete #{host.guid.value}"
+          "quit" "quit"'
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - credential-access
+  version: '1.0'
+  author: Ekitji
+  created: '2023-05-31'
+  modified: '2023-05-31'
+  operating_system: Windows All Versions

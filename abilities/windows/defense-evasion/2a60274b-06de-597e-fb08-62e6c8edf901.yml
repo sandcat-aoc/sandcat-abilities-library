@@ -1,0 +1,23 @@
+- id: 2a60274b-06de-597e-fb08-62e6c8edf901
+  name: coregen.exe - Loads the coreclr.dll in the corgen.exe directory (e.g. C:\Program
+    Files\Microsoft Silverlight\5.1.50918.0).
+  description: Loads the coreclr.dll in the corgen.exe directory (e.g. C:\Program
+    Files\Microsoft Silverlight\5.1.50918.0).
+  tactic: defense-evasion
+  technique:
+    attack_id: T1055
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: coregen.exe dummy_assembly_name
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: Martin Sohn Christensen
+  created: '2020-10-09'
+  modified: '2020-10-09'
+  operating_system: Windows All Versions

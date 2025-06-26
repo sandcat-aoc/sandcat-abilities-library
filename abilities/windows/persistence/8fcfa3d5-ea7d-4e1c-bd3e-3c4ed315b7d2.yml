@@ -24,9 +24,9 @@
   delete_payload: false
   privilege: ''
   buckets:
+  - atomic-red-team
   - persistence
   - t1053.005
-  - atomic-red-team
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -40,4 +40,4 @@
         default: calc.exe
     technique_created: '2019-11-27T14:58:00.429Z'
     atomic_guid: 8fcfa3d5-ea7d-4e1c-bd3e-3c4ed315b7d2
-    import_timestamp: '2025-06-24T11:15:03.580573Z'
+    import_timestamp: '2025-06-26T03:18:48.710904Z'

@@ -1,0 +1,25 @@
+- id: 8321636a-d591-a8fc-f156-585bc9f500c9
+  name: Netsh.exe - Use Netsh in order to execute a .dll file and also gain persistence,
+    every time the netsh command is called
+  description: Use Netsh in order to execute a .dll file and also gain persistence,
+    every time the netsh command is called
+  tactic: privilege-escalation
+  technique:
+    attack_id: T1546.007
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: netsh.exe add helper payload.dll
+        payloads:
+        - payload.dll
+  singleton: true
+  privilege: User
+  repeatable: false
+  buckets:
+  - privilege-escalation
+  version: '1.0'
+  author: Freddie Barr-Smith
+  created: '2019-12-24'
+  modified: '2019-12-24'
+  operating_system: Windows All Versions

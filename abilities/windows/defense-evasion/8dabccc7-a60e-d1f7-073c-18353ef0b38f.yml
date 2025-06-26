@@ -1,0 +1,23 @@
+- id: 8dabccc7-a60e-d1f7-073c-18353ef0b38f
+  name: Jsc.exe - Use jsc.exe to compile JavaScript code stored in the .JS file and
+    generate a DLL file with the same name.
+  description: Use jsc.exe to compile JavaScript code stored in the .JS file and generate
+    a DLL file with the same name.
+  tactic: defense-evasion
+  technique:
+    attack_id: T1127
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: 'jsc.exe /t:library #{host.file.script}'
+  singleton: true
+  privilege: User
+  repeatable: false
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: Oddvar Moe
+  created: '2019-05-31'
+  modified: '2019-05-31'
+  operating_system: Windows All Versions

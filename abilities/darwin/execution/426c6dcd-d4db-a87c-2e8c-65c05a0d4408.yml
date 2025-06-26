@@ -12,7 +12,7 @@
   singleton: false
   privilege: User
   repeatable: true
-  delete_payload: true
+  delete_payload: false
   buckets:
   - loobins
   - hdiutil
@@ -24,4 +24,4 @@
     use_case: Mount a malicious iso file
     source_file: hdiutil.yml
     source_repository: https://github.com/infosecB/LOOBins
-    import_timestamp: '2025-06-24T09:00:11.638265Z'
+    import_timestamp: '2025-06-26T03:18:11.144829Z'

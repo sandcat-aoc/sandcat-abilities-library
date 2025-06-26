@@ -13,7 +13,7 @@
   singleton: true
   privilege: Elevated
   repeatable: false
-  delete_payload: true
+  delete_payload: false
   buckets:
   - loobins
   - defaults
@@ -25,4 +25,4 @@
     use_case: Disable Gatekeeper's auto rearm functionality
     source_file: defaults.yml
     source_repository: https://github.com/infosecB/LOOBins
-    import_timestamp: '2025-06-24T09:00:11.270523Z'
+    import_timestamp: '2025-06-26T03:18:11.082333Z'

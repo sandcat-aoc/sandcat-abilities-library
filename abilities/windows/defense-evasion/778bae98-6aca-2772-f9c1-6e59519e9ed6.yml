@@ -1,0 +1,25 @@
+- id: 778bae98-6aca-2772-f9c1-6e59519e9ed6
+  name: ssh.exe - Executes specified command on host machine. The prompt for password
+    can be eliminated by adding the host's public key in the user's authorized_keys
+    file. Adversaries can do the same for execution on remote machines.
+  description: Executes specified command on host machine. The prompt for password
+    can be eliminated by adding the host's public key in the user's authorized_keys
+    file. Adversaries can do the same for execution on remote machines.
+  tactic: defense-evasion
+  technique:
+    attack_id: T1202
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: ssh localhost "#{host.executable.name}"
+  singleton: true
+  privilege: User
+  repeatable: false
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: Akshat Pradhan
+  created: '2021-11-08'
+  modified: '2021-11-08'
+  operating_system: Windows All Versions

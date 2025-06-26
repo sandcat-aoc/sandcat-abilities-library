@@ -1,0 +1,23 @@
+- id: 29a22371-01da-2a86-3e3a-6d67614e14dc
+  name: te.exe - Run COM Scriptlets (e.g. VBScript) by calling a Windows Script Component
+    (WSC) file.
+  description: Run COM Scriptlets (e.g. VBScript) by calling a Windows Script Component
+    (WSC) file.
+  tactic: defense-evasion
+  technique:
+    attack_id: T1127
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: te.exe {PATH:.wsc}
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: Oddvar Moe
+  created: '2018-05-25'
+  modified: '2018-05-25'
+  operating_system: Windows All Versions

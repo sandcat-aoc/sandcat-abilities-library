@@ -1,0 +1,21 @@
+- id: 44af41a2-69d8-8caa-c5f1-0ad05cfa6e69
+  name: Ie4uinit.exe - Executes commands from a specially prepared ie4uinit.inf file.
+  description: Executes commands from a specially prepared ie4uinit.inf file.
+  tactic: defense-evasion
+  technique:
+    attack_id: T1218
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: ie4uinit.exe -BaseSettings
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: Oddvar Moe
+  created: '2018-05-25'
+  modified: '2018-05-25'
+  operating_system: Windows All Versions

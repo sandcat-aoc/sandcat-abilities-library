@@ -12,7 +12,7 @@
   singleton: false
   privilege: User
   repeatable: true
-  delete_payload: true
+  delete_payload: false
   buckets:
   - loobins
   - mdfind
@@ -24,4 +24,4 @@
     use_case: Use mdfind to search for apps to infect
     source_file: mdfind.yml
     source_repository: https://github.com/infosecB/LOOBins
-    import_timestamp: '2025-06-24T09:00:11.559106Z'
+    import_timestamp: '2025-06-26T03:18:11.063908Z'

@@ -13,7 +13,7 @@
   singleton: true
   privilege: User
   repeatable: false
-  delete_payload: true
+  delete_payload: false
   buckets:
   - loobins
   - lsregister
@@ -25,4 +25,4 @@
     use_case: Delete the Launch Services database
     source_file: lsregister.yml
     source_repository: https://github.com/infosecB/LOOBins
-    import_timestamp: '2025-06-24T09:00:11.669618Z'
+    import_timestamp: '2025-06-26T03:18:11.058869Z'

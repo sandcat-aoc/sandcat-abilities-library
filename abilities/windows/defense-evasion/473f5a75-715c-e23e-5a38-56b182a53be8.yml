@@ -1,0 +1,23 @@
+- id: 473f5a75-715c-e23e-5a38-56b182a53be8
+  name: Sc.exe - Creates a new service and executes the file stored in the ADS.
+  description: Creates a new service and executes the file stored in the ADS.
+  tactic: defense-evasion
+  technique:
+    attack_id: T1564.004
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: sc create evilservice binPath="\"c:\\ADS\\file.txt:cmd.exe\" /c echo
+          works > \"c:\ADS\works.txt\"" DisplayName= "evilservice" start= auto\ &
+          sc start evilservice
+  singleton: false
+  privilege: Elevated
+  repeatable: true
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: Oddvar Moe
+  created: '2018-05-25'
+  modified: '2018-05-25'
+  operating_system: Windows All Versions

@@ -13,7 +13,7 @@
   singleton: false
   privilege: User
   repeatable: true
-  delete_payload: true
+  delete_payload: false
   buckets:
   - loobins
   - system_profiler
@@ -25,4 +25,4 @@
     use_case: Print software information
     source_file: system_profiler.yml
     source_repository: https://github.com/infosecB/LOOBins
-    import_timestamp: '2025-06-24T09:00:11.499935Z'
+    import_timestamp: '2025-06-26T03:18:11.109205Z'

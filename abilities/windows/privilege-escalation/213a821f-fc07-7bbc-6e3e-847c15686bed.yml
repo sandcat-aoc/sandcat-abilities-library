@@ -1,0 +1,29 @@
+- id: 213a821f-fc07-7bbc-6e3e-847c15686bed
+  name: Eventvwr.exe - During startup, eventvwr.exe checks the registry value HKCU\Software\Classes\mscfile\shell\open\command
+    for the location of mmc.exe, which is used to open the eventvwr.msc saved console
+    file. If the location of another binary or script is added to this registry value,
+    it will be executed as a high-integrity process without a UAC prompt being displayed
+    to the user.
+  description: During startup, eventvwr.exe checks the registry value HKCU\Software\Classes\mscfile\shell\open\command
+    for the location of mmc.exe, which is used to open the eventvwr.msc saved console
+    file. If the location of another binary or script is added to this registry value,
+    it will be executed as a high-integrity process without a UAC prompt being displayed
+    to the user.
+  tactic: privilege-escalation
+  technique:
+    attack_id: T1548.002
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: eventvwr.exe
+  singleton: true
+  privilege: User
+  repeatable: false
+  buckets:
+  - privilege-escalation
+  version: '1.0'
+  author: Jacob Gajek
+  created: '2018-11-01'
+  modified: '2018-11-01'
+  operating_system: Windows All Versions

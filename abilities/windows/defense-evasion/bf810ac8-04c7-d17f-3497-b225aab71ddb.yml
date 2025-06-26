@@ -1,0 +1,23 @@
+- id: bf810ac8-04c7-d17f-3497-b225aab71ddb
+  name: Hh.exe - Executes specified executable with HTML Help.
+  description: Executes specified executable with HTML Help.
+  tactic: defense-evasion
+  technique:
+    attack_id: T1218.001
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: HH.exe payload.exe
+        payloads:
+        - payload.exe
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: Oddvar Moe
+  created: '2018-05-25'
+  modified: '2018-05-25'
+  operating_system: Windows All Versions

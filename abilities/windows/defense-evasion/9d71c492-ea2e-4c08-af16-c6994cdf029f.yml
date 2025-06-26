@@ -21,9 +21,9 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - t1218.010
-  - atomic-red-team
   - defense-evasion
+  - atomic-red-team
+  - t1218.010
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -51,4 +51,4 @@
         -OutFile "#{dll_name}"'
     technique_created: '2020-01-23T19:52:17.414Z'
     atomic_guid: 9d71c492-ea2e-4c08-af16-c6994cdf029f
-    import_timestamp: '2025-06-24T11:15:01.225449Z'
+    import_timestamp: '2025-06-26T03:18:47.700452Z'

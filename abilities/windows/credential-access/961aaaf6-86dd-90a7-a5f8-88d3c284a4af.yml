@@ -1,0 +1,22 @@
+- id: 961aaaf6-86dd-90a7-a5f8-88d3c284a4af
+  name: dsdbutil.exe - Mounting the snapshot with its GUID
+  description: Mounting the snapshot with its GUID
+  tactic: credential-access
+  technique:
+    attack_id: T1003.003
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: 'dsdbutil.exe "activate instance ntds" "snapshot" "mount #{host.guid.value}"
+          "quit" "quit"'
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - credential-access
+  version: '1.0'
+  author: Ekitji
+  created: '2023-05-31'
+  modified: '2023-05-31'
+  operating_system: Windows All Versions

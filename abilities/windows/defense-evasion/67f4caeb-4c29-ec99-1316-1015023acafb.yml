@@ -1,0 +1,22 @@
+- id: 67f4caeb-4c29-ec99-1316-1015023acafb
+  name: Presentationhost.exe - Executes the target XAML Browser Application (XBAP)
+    file
+  description: Executes the target XAML Browser Application (XBAP) file
+  tactic: defense-evasion
+  technique:
+    attack_id: T1218
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: 'Presentationhost.exe #{host.dir.temp}'
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: Oddvar Moe
+  created: '2018-05-25'
+  modified: '2018-05-25'
+  operating_system: Windows All Versions

@@ -1,0 +1,21 @@
+- id: acb779f8-b35a-a7bf-5377-9a155d78af56
+  name: fltMC.exe - Unloads a driver used by security agents
+  description: Unloads a driver used by security agents
+  tactic: defense-evasion
+  technique:
+    attack_id: T1562.001
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: fltMC.exe unload SysmonDrv
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: John Lambert
+  created: '2021-09-18'
+  modified: '2021-09-18'
+  operating_system: Windows All Versions

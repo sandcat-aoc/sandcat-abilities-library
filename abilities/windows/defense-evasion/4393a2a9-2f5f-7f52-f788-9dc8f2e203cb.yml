@@ -1,0 +1,23 @@
+- id: 4393a2a9-2f5f-7f52-f788-9dc8f2e203cb
+  name: Rundll32.exe - First part should be a DLL file (any extension accepted), EntryPoint
+    should be the name of the entry point in the DLL file to execute.
+  description: First part should be a DLL file (any extension accepted), EntryPoint
+    should be the name of the entry point in the DLL file to execute.
+  tactic: defense-evasion
+  technique:
+    attack_id: T1218.011
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: 'rundll32.exe #{host.dir.temp},EntryPoint'
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: Oddvar Moe
+  created: '2018-05-25'
+  modified: '2018-05-25'
+  operating_system: Windows All Versions

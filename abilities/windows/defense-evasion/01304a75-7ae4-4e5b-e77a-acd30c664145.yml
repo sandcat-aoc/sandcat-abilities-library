@@ -1,0 +1,25 @@
+- id: 01304a75-7ae4-4e5b-e77a-acd30c664145
+  name: Tttracer.exe - Execute specified executable from tttracer.exe. Requires administrator
+    privileges.
+  description: Execute specified executable from tttracer.exe. Requires administrator
+    privileges.
+  tactic: defense-evasion
+  technique:
+    attack_id: T1127
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: tttracer.exe payload.exe
+        payloads:
+        - payload.exe
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: Oddvar Moe
+  created: '2019-11-05'
+  modified: '2019-11-05'
+  operating_system: Windows All Versions

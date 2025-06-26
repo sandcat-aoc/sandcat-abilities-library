@@ -1,0 +1,21 @@
+- id: 43fa6b30-7ab3-e265-7b62-dc930ef5eb2c
+  name: Wsl.exe - Executes calc.exe from wsl.exe
+  description: Executes calc.exe from wsl.exe
+  tactic: defense-evasion
+  technique:
+    attack_id: T1202
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: wsl.exe -e /mnt/c/Windows/System32/calc.exe
+  singleton: false
+  privilege: Elevated
+  repeatable: true
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: Matthew Brown
+  created: '2019-06-27'
+  modified: '2019-06-27'
+  operating_system: Windows All Versions

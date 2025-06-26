@@ -15,7 +15,7 @@
   singleton: false
   privilege: Elevated
   repeatable: true
-  delete_payload: true
+  delete_payload: false
   buckets:
   - loobins
   - sqlite3
@@ -27,4 +27,4 @@
     use_case: Get apps with Full Disk access
     source_file: sqlite3.yml
     source_repository: https://github.com/infosecB/LOOBins
-    import_timestamp: '2025-06-24T09:00:11.427696Z'
+    import_timestamp: '2025-06-26T03:18:11.171544Z'

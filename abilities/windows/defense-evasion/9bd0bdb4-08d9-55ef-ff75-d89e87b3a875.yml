@@ -1,0 +1,23 @@
+- id: 9bd0bdb4-08d9-55ef-ff75-d89e87b3a875
+  name: 'Mshtml.dll - Invoke an HTML Application via mshta.exe (note: pops a security
+    warning and a print dialogue box).'
+  description: 'Invoke an HTML Application via mshta.exe (note: pops a security warning
+    and a print dialogue box).'
+  tactic: defense-evasion
+  technique:
+    attack_id: T1218.011
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: 'rundll32.exe Mshtml.dll,PrintHTML #{host.dir.temp}'
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: LOLBAS Team
+  created: '2018-05-25'
+  modified: '2018-05-25'
+  operating_system: Windows All Versions

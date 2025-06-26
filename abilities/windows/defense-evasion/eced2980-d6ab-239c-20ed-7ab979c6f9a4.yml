@@ -1,0 +1,24 @@
+- id: eced2980-d6ab-239c-20ed-7ab979c6f9a4
+  name: AgentExecutor.exe - If we place a binary named powershell.exe in the specified
+    folder path, agentexecutor.exe will execute it successfully
+  description: If we place a binary named powershell.exe in the specified folder path,
+    agentexecutor.exe will execute it successfully
+  tactic: defense-evasion
+  technique:
+    attack_id: T1218
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      psh:
+        command: AgentExecutor.exe -powershell "#{host.file.script}" "#{host.file.path}"
+          "#{host.file.path}" "#{host.file.path}" 60000 "#{host.dir.temp}" 0 1
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: Eleftherios Panos
+  created: '2020-07-23'
+  modified: '2020-07-23'
+  operating_system: Windows All Versions

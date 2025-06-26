@@ -1,0 +1,23 @@
+- id: c4cdc632-8609-c00c-9a1d-db8ad5a622f2
+  name: Replace.exe - Download/Copy executable to specified folder
+  description: Download/Copy executable to specified folder
+  tactic: command-and-control
+  technique:
+    attack_id: T1105
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: 'replace.exe payload.exe #{host.dir.temp} /A'
+        payloads:
+        - payload.exe
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - command-and-control
+  version: '1.0'
+  author: Oddvar Moe
+  created: '2018-05-25'
+  modified: '2018-05-25'
+  operating_system: Windows All Versions

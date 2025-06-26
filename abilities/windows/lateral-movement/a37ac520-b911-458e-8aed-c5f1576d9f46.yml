@@ -19,9 +19,9 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - t1563.002
   - lateral-movement
   - atomic-red-team
+  - t1563.002
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -35,4 +35,4 @@
         default: rdp-tcp#55
     technique_created: '2020-02-25T18:35:42.765Z'
     atomic_guid: a37ac520-b911-458e-8aed-c5f1576d9f46
-    import_timestamp: '2025-06-24T11:15:06.011910Z'
+    import_timestamp: '2025-06-26T03:18:49.652406Z'

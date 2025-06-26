@@ -1,0 +1,22 @@
+- id: 0bab6d95-b59e-5964-232e-6bfc6895d80e
+  name: CL_LoadAssembly.ps1 - Proxy execute Managed DLL with PowerShell
+  description: Proxy execute Managed DLL with PowerShell
+  tactic: defense-evasion
+  technique:
+    attack_id: T1216
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      psh:
+        command: powershell.exe -ep bypass -command "set-location -path C:\Windows\diagnostics\system\Audio;
+          import-module .\CL_LoadAssembly.ps1; LoadAssemblyFromPath ..\..\..\..\testing\fun.dll;[Program]::Fun()"
+  singleton: false
+  privilege: Elevated
+  repeatable: true
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: Jimmy (@bohops)
+  created: '2021-09-26'
+  modified: '2021-09-26'
+  operating_system: Windows All Versions

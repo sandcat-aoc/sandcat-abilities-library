@@ -1,0 +1,21 @@
+- id: be4e3a79-9cbb-98aa-dbae-0edc29a112bf
+  name: Certutil.exe - Command to decode a Base64 encoded file.
+  description: Command to decode a Base64 encoded file.
+  tactic: defense-evasion
+  technique:
+    attack_id: T1140
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: 'certutil -decode {PATH:.base64} #{host.dir.temp}'
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: Oddvar Moe
+  created: '2018-05-25'
+  modified: '2018-05-25'
+  operating_system: Windows All Versions

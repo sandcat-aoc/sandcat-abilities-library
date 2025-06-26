@@ -12,7 +12,7 @@
   singleton: true
   privilege: Elevated
   repeatable: false
-  delete_payload: true
+  delete_payload: false
   buckets:
   - loobins
   - sysadminctl
@@ -24,4 +24,4 @@
     use_case: Enable Guest Account
     source_file: sysadminctl.yml
     source_repository: https://github.com/infosecB/LOOBins
-    import_timestamp: '2025-06-24T09:00:11.674652Z'
+    import_timestamp: '2025-06-26T03:18:11.014359Z'

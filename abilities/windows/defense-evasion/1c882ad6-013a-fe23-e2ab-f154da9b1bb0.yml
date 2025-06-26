@@ -1,0 +1,21 @@
+- id: 1c882ad6-013a-fe23-e2ab-f154da9b1bb0
+  name: Wscript.exe - Execute script stored in an alternate data stream
+  description: Execute script stored in an alternate data stream
+  tactic: defense-evasion
+  technique:
+    attack_id: T1564.004
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: 'wscript //e:vbscript #{host.dir.temp}:script.vbs'
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: Oddvar Moe
+  created: '2018-05-25'
+  modified: '2018-05-25'
+  operating_system: Windows All Versions

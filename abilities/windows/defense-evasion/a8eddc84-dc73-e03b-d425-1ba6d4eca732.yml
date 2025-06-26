@@ -1,0 +1,23 @@
+- id: a8eddc84-dc73-e03b-d425-1ba6d4eca732
+  name: Pcwutl.dll - Launch executable by calling the LaunchApplication function.
+  description: Launch executable by calling the LaunchApplication function.
+  tactic: defense-evasion
+  technique:
+    attack_id: T1218.011
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: rundll32.exe pcwutl.dll,LaunchApplication payload.exe
+        payloads:
+        - payload.exe
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: LOLBAS Team
+  created: '2018-05-25'
+  modified: '2018-05-25'
+  operating_system: Windows All Versions

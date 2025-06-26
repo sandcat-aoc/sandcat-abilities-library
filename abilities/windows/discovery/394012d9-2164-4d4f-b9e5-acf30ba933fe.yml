@@ -19,8 +19,8 @@
   privilege: ''
   buckets:
   - t1087.002
-  - discovery
   - atomic-red-team
+  - discovery
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -30,4 +30,4 @@
         default: $env:computername
     technique_created: '2020-02-21T21:08:26.480Z'
     atomic_guid: 394012d9-2164-4d4f-b9e5-acf30ba933fe
-    import_timestamp: '2025-06-24T11:15:07.081327Z'
+    import_timestamp: '2025-06-26T03:18:50.120646Z'

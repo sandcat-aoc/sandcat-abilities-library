@@ -13,7 +13,7 @@
   singleton: false
   privilege: Elevated
   repeatable: true
-  delete_payload: true
+  delete_payload: false
   buckets:
   - loobins
   - log
@@ -25,4 +25,4 @@
     use_case: Search log messages for tokens
     source_file: log.yml
     source_repository: https://github.com/infosecB/LOOBins
-    import_timestamp: '2025-06-24T09:00:11.267470Z'
+    import_timestamp: '2025-06-26T03:18:11.094046Z'

@@ -1,0 +1,21 @@
+- id: a6a7fde3-7383-0281-f70b-6bf8fc483103
+  name: Colorcpl.exe - Copies the referenced file to C:\Windows\System32\spool\drivers\color\.
+  description: Copies the referenced file to C:\Windows\System32\spool\drivers\color\.
+  tactic: defense-evasion
+  technique:
+    attack_id: T1036.005
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: 'colorcpl #{host.dir.temp}'
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: Arjan Onwezen
+  created: '2023-06-26'
+  modified: '2023-06-26'
+  operating_system: Windows All Versions

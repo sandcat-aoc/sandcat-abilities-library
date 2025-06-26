@@ -13,7 +13,7 @@
   singleton: false
   privilege: Elevated
   repeatable: true
-  delete_payload: true
+  delete_payload: false
   buckets:
   - loobins
   - tmutil
@@ -25,4 +25,4 @@
     use_case: Restore a backup
     source_file: tmutil.yml
     source_repository: https://github.com/infosecB/LOOBins
-    import_timestamp: '2025-06-24T09:00:11.566398Z'
+    import_timestamp: '2025-06-26T03:18:11.040312Z'

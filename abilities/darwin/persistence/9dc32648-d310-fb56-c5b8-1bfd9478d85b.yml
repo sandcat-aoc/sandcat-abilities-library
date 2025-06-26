@@ -14,7 +14,7 @@
   singleton: false
   privilege: User
   repeatable: true
-  delete_payload: true
+  delete_payload: false
   buckets:
   - loobins
   - setfile
@@ -26,4 +26,4 @@
     use_case: Set a file or directory attribute to invisible
     source_file: SetFile.yml
     source_repository: https://github.com/infosecB/LOOBins
-    import_timestamp: '2025-06-24T09:00:11.547676Z'
+    import_timestamp: '2025-06-26T03:18:11.132007Z'

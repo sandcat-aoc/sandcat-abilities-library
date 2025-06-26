@@ -12,7 +12,7 @@
   singleton: true
   privilege: Elevated
   repeatable: false
-  delete_payload: true
+  delete_payload: false
   buckets:
   - loobins
   - systemsetup
@@ -24,4 +24,4 @@
     use_case: Enable Remote Login
     source_file: systemsetup.yml
     source_repository: https://github.com/infosecB/LOOBins
-    import_timestamp: '2025-06-24T09:00:11.288572Z'
+    import_timestamp: '2025-06-26T03:18:11.125523Z'

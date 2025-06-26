@@ -1,0 +1,24 @@
+- id: f5a7afd4-2b7e-4625-e831-4a88c82b03a8
+  name: Msdt.exe - Executes the Microsoft Diagnostics Tool and executes the malicious
+    .MSI referenced in the .xml file.
+  description: Executes the Microsoft Diagnostics Tool and executes the malicious
+    .MSI referenced in the .xml file.
+  tactic: defense-evasion
+  technique:
+    attack_id: T1218
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: 'msdt.exe -path C:\WINDOWS\diagnostics\index\PCWDiagnostic.xml -af
+          #{host.file.path} /skip TRUE'
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: Oddvar Moe
+  created: '2018-05-25'
+  modified: '2018-05-25'
+  operating_system: Windows All Versions

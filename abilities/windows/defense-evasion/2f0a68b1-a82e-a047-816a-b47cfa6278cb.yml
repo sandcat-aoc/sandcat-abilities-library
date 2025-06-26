@@ -1,0 +1,21 @@
+- id: 2f0a68b1-a82e-a047-816a-b47cfa6278cb
+  name: Url.dll - Launch an executable by calling FileProtocolHandler.
+  description: Launch an executable by calling FileProtocolHandler.
+  tactic: defense-evasion
+  technique:
+    attack_id: T1218.011
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: rundll32.exe url.dll,FileProtocolHandler file://^C^:^/^W^i^n^d^o^w^s^/^s^y^s^t^e^m^3^2^/^c^a^l^c^.^e^x^e
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: LOLBAS Team
+  created: '2018-05-25'
+  modified: '2018-05-25'
+  operating_system: Windows All Versions

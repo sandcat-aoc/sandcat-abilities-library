@@ -1,0 +1,23 @@
+- id: e10764c4-3b87-febc-fd75-835fc8d54090
+  name: Shell32.dll - Launch command line by calling the ShellExec_RunDLL function.
+  description: Launch command line by calling the ShellExec_RunDLL function.
+  tactic: defense-evasion
+  technique:
+    attack_id: T1218.011
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: rundll32 SHELL32.DLL,ShellExec_RunDLL payload.exe {CMD:args}
+        payloads:
+        - payload.exe
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: LOLBAS Team
+  created: '2018-05-25'
+  modified: '2018-05-25'
+  operating_system: Windows All Versions

@@ -1,0 +1,25 @@
+- id: 10eb05d7-a7c7-4dfb-931a-85470b6318dd
+  name: Procdump.exe - Loads the specified DLL where DLL is configured with a 'MiniDumpCallbackRoutine'
+    exported function. Valid process must be provided as dump still created.
+  description: Loads the specified DLL where DLL is configured with a 'MiniDumpCallbackRoutine'
+    exported function. Valid process must be provided as dump still created.
+  tactic: defense-evasion
+  technique:
+    attack_id: T1202
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: procdump.exe -md payload.dll explorer.exe
+        payloads:
+        - payload.dll
+  singleton: true
+  privilege: User
+  repeatable: false
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: Alfie Champion (@ajpc500)
+  created: '2020-10-14'
+  modified: '2020-10-14'
+  operating_system: Windows All Versions

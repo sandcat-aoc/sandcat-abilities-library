@@ -1,0 +1,25 @@
+- id: 15e7f899-633a-5a5b-adcf-1996d6ecda18
+  name: Diantz.exe - Download and compress a remote file and store it in a CAB file
+    on local machine.
+  description: Download and compress a remote file and store it in a CAB file on local
+    machine.
+  tactic: command-and-control
+  technique:
+    attack_id: T1105
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: 'diantz.exe payload.exe #{host.dir.temp}'
+        payloads:
+        - payload.exe
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - command-and-control
+  version: '1.0'
+  author: Tamir Yehuda
+  created: '2020-08-08'
+  modified: '2020-08-08'
+  operating_system: Windows All Versions

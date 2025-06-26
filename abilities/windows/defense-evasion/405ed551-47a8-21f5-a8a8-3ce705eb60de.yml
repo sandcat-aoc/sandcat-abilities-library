@@ -1,0 +1,25 @@
+- id: 405ed551-47a8-21f5-a8a8-3ce705eb60de
+  name: Procdump.exe - Loads the specified DLL where configured with DLL_PROCESS_ATTACH
+    execution, process argument can be arbitrary.
+  description: Loads the specified DLL where configured with DLL_PROCESS_ATTACH execution,
+    process argument can be arbitrary.
+  tactic: defense-evasion
+  technique:
+    attack_id: T1202
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: procdump.exe -md payload.dll foobar
+        payloads:
+        - payload.dll
+  singleton: true
+  privilege: User
+  repeatable: false
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: Alfie Champion (@ajpc500)
+  created: '2020-10-14'
+  modified: '2020-10-14'
+  operating_system: Windows All Versions

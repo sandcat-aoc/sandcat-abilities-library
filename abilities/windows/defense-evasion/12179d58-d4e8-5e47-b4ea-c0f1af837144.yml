@@ -1,0 +1,23 @@
+- id: 12179d58-d4e8-5e47-b4ea-c0f1af837144
+  name: Odbcconf.exe - Load DLL specified in target .RSP file. See the Code Sample
+    section for an example .RSP file.
+  description: Load DLL specified in target .RSP file. See the Code Sample section
+    for an example .RSP file.
+  tactic: defense-evasion
+  technique:
+    attack_id: T1218.008
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: odbcconf -f {PATH:.rsp}
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: Oddvar Moe
+  created: '2018-05-25'
+  modified: '2018-05-25'
+  operating_system: Windows All Versions

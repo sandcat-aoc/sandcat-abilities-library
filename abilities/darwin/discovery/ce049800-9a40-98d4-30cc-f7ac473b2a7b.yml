@@ -14,7 +14,7 @@
   singleton: false
   privilege: Elevated
   repeatable: true
-  delete_payload: true
+  delete_payload: false
   buckets:
   - loobins
   - lsregister
@@ -26,4 +26,4 @@
     use_case: Force an update of the Launch Services database
     source_file: lsregister.yml
     source_repository: https://github.com/infosecB/LOOBins
-    import_timestamp: '2025-06-24T09:00:11.662071Z'
+    import_timestamp: '2025-06-26T03:18:11.055252Z'

@@ -1,0 +1,21 @@
+- id: c4bf4706-f659-ae88-4642-006ff5ad0194
+  name: Cipher.exe - Zero out a file
+  description: Zero out a file
+  tactic: impact
+  technique:
+    attack_id: T1485
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: cipher /w:#{host.dir.temp}
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - impact
+  version: '1.0'
+  author: Adetutu Ogunsowo
+  created: '2024-11-22'
+  modified: '2024-11-22'
+  operating_system: Windows All Versions

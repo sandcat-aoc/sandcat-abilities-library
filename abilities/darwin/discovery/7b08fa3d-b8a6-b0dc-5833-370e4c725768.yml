@@ -12,7 +12,7 @@
   singleton: false
   privilege: User
   repeatable: true
-  delete_payload: true
+  delete_payload: false
   buckets:
   - loobins
   - last
@@ -24,4 +24,4 @@
     use_case: Enumerate the users who are currently logged into the system.
     source_file: last.yml
     source_repository: https://github.com/infosecB/LOOBins
-    import_timestamp: '2025-06-24T09:00:11.480861Z'
+    import_timestamp: '2025-06-26T03:18:10.915803Z'

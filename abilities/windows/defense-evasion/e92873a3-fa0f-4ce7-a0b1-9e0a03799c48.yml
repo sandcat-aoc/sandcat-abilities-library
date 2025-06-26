@@ -1,0 +1,23 @@
+- id: e92873a3-fa0f-4ce7-a0b1-9e0a03799c48
+  name: Dotnet.exe - dotnet.exe will execute any DLL.
+  description: dotnet.exe will execute any DLL.
+  tactic: defense-evasion
+  technique:
+    attack_id: T1218
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: dotnet.exe payload.dll
+        payloads:
+        - payload.dll
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: felamos
+  created: '2019-11-12'
+  modified: '2019-11-12'
+  operating_system: Windows All Versions

@@ -1,0 +1,22 @@
+- id: 1f52c56f-b644-58e9-6abd-1eebcf98e9c7
+  name: Diskshadow.exe - Execute commands using diskshadow.exe from a prepared diskshadow
+    script.
+  description: Execute commands using diskshadow.exe from a prepared diskshadow script.
+  tactic: credential-access
+  technique:
+    attack_id: T1003.003
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: 'diskshadow.exe /s #{host.file.path}'
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - credential-access
+  version: '1.0'
+  author: Oddvar Moe
+  created: '2018-05-25'
+  modified: '2018-05-25'
+  operating_system: Windows All Versions

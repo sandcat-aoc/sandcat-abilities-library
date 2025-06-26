@@ -1,0 +1,23 @@
+- id: 3979e3de-429f-c061-991f-9870d9d504dd
+  name: SettingSyncHost.exe - Execute file specified in %COMSPEC%
+  description: Execute file specified in %COMSPEC%
+  tactic: defense-evasion
+  technique:
+    attack_id: T1218
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: SettingSyncHost -LoadAndRunDiagScript payload.exe
+        payloads:
+        - payload.exe
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: Elliot Killick
+  created: '2021-08-26'
+  modified: '2021-08-26'
+  operating_system: Windows All Versions

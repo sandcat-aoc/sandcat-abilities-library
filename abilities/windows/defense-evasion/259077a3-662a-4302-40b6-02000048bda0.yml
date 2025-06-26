@@ -1,0 +1,23 @@
+- id: 259077a3-662a-4302-40b6-02000048bda0
+  name: Sftp.exe - Spawns ssh.exe which in turn spawns the specified command line.
+    See also this project's entry for ssh.exe.
+  description: Spawns ssh.exe which in turn spawns the specified command line. See
+    also this project's entry for ssh.exe.
+  tactic: defense-evasion
+  technique:
+    attack_id: T1202
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: sftp -o ProxyCommand="#{host.executable.name}" .
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: Swachchhanda Shrawan Poudel
+  created: '2025-05-13'
+  modified: '2025-05-13'
+  operating_system: Windows All Versions

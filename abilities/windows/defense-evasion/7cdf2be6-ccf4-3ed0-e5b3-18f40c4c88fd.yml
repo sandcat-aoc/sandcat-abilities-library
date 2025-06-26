@@ -1,0 +1,23 @@
+- id: 7cdf2be6-ccf4-3ed0-e5b3-18f40c4c88fd
+  name: Reg.exe - Export the target Registry key and save it to the specified .REG
+    file within an Alternate data stream.
+  description: Export the target Registry key and save it to the specified .REG file
+    within an Alternate data stream.
+  tactic: defense-evasion
+  technique:
+    attack_id: T1564.004
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: 'reg export HKLM\SOFTWARE\Microsoft\Evilreg #{host.dir.temp}:evilreg.reg'
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: Oddvar Moe
+  created: '2018-05-25'
+  modified: '2018-05-25'
+  operating_system: Windows All Versions

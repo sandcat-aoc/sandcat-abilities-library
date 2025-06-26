@@ -12,7 +12,7 @@
   singleton: false
   privilege: User
   repeatable: true
-  delete_payload: true
+  delete_payload: false
   buckets:
   - loobins
   - sw_vers
@@ -24,4 +24,4 @@
     use_case: Retrieving macOS Product Version
     source_file: sw_vers.yml
     source_repository: https://github.com/infosecB/LOOBins
-    import_timestamp: '2025-06-24T09:00:11.530143Z'
+    import_timestamp: '2025-06-26T03:18:11.075665Z'

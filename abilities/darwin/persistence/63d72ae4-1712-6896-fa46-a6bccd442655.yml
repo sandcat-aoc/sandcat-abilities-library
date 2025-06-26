@@ -12,7 +12,7 @@
   singleton: false
   privilege: Elevated
   repeatable: true
-  delete_payload: true
+  delete_payload: false
   buckets:
   - loobins
   - sysadminctl
@@ -24,4 +24,4 @@
     use_case: Create a Local Admin Account
     source_file: sysadminctl.yml
     source_repository: https://github.com/infosecB/LOOBins
-    import_timestamp: '2025-06-24T09:00:11.680970Z'
+    import_timestamp: '2025-06-26T03:18:11.017576Z'

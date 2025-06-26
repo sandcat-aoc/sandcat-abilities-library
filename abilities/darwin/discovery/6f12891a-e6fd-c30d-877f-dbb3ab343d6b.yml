@@ -12,7 +12,7 @@
   singleton: false
   privilege: User
   repeatable: true
-  delete_payload: true
+  delete_payload: false
   buckets:
   - loobins
   - softwareupdate
@@ -24,4 +24,4 @@
     use_case: Get OS and browser version information
     source_file: softwareupdate.yml
     source_repository: https://github.com/infosecB/LOOBins
-    import_timestamp: '2025-06-24T09:00:11.538825Z'
+    import_timestamp: '2025-06-26T03:18:10.921011Z'

@@ -1,0 +1,24 @@
+- id: 56e9b6ef-bc2f-32a8-c52f-018436c914a9
+  name: Setupapi.dll - Launch an executable file via the InstallHinfSection function
+    and .inf file section directive.
+  description: Launch an executable file via the InstallHinfSection function and .inf
+    file section directive.
+  tactic: defense-evasion
+  technique:
+    attack_id: T1218.011
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: 'rundll32.exe setupapi.dll,InstallHinfSection DefaultInstall 128
+          #{host.dir.temp}'
+  singleton: true
+  privilege: User
+  repeatable: false
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: LOLBAS Team
+  created: '2018-05-25'
+  modified: '2018-05-25'
+  operating_system: Windows All Versions

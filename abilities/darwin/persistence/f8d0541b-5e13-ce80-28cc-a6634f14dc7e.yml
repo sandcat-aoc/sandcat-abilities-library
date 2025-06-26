@@ -12,7 +12,7 @@
   singleton: false
   privilege: Elevated
   repeatable: true
-  delete_payload: true
+  delete_payload: false
   buckets:
   - loobins
   - launchctl
@@ -24,4 +24,4 @@
     use_case: Persistent launch agent
     source_file: launchctl.yml
     source_repository: https://github.com/infosecB/LOOBins
-    import_timestamp: '2025-06-24T09:00:11.384040Z'
+    import_timestamp: '2025-06-26T03:18:10.991307Z'

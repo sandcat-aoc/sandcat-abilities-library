@@ -1,0 +1,25 @@
+- id: e93e8e21-9914-b385-4dfc-aac4902b29dc
+  name: Aspnet_Compiler.exe - Execute C# code with the Build Provider and proper folder
+    structure in place.
+  description: Execute C# code with the Build Provider and proper folder structure
+    in place.
+  tactic: defense-evasion
+  technique:
+    attack_id: T1127
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: C:\Windows\Microsoft.NET\Framework64\v4.0.30319\aspnet_compiler.exe
+          -v none -p C:\users\cpl.internal\desktop\asptest\ -f C:\users\cpl.internal\desktop\asptest\none
+          -u
+  singleton: true
+  privilege: User
+  repeatable: false
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: Jimmy (@bohops)
+  created: '2021-09-26'
+  modified: '2021-09-26'
+  operating_system: Windows All Versions

@@ -1,0 +1,30 @@
+- id: 3e7e4997-4adb-3121-9fcf-77b6a0b8ffc7
+  name: 'winget.exe - Download and install any software from the Microsoft Store using
+    its name or Store ID, even if the Microsoft Store App itself is blocked on the
+    machine, and even if AppLocker is active on the machine. For example, use "Sysinternals
+    Suite" or `9p7knl5rwt25` for obtaining ProcDump, PsExec via the Sysinternals Suite.
+    Note: a Microsoft account is required for this.'
+  description: 'Download and install any software from the Microsoft Store using its
+    name or Store ID, even if the Microsoft Store App itself is blocked on the machine,
+    and even if AppLocker is active on the machine. For example, use "Sysinternals
+    Suite" or `9p7knl5rwt25` for obtaining ProcDump, PsExec via the Sysinternals Suite.
+    Note: a Microsoft account is required for this.'
+  tactic: command-and-control
+  technique:
+    attack_id: T1105
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: winget.exe install --accept-package-agreements -s msstore {name or
+          ID}
+  singleton: true
+  privilege: User
+  repeatable: false
+  buckets:
+  - command-and-control
+  version: '1.0'
+  author: Paul Sanders
+  created: '2022-01-03'
+  modified: '2022-01-03'
+  operating_system: Windows All Versions

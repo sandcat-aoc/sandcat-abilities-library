@@ -13,7 +13,7 @@
   singleton: false
   privilege: User
   repeatable: true
-  delete_payload: true
+  delete_payload: false
   buckets:
   - loobins
   - plutil
@@ -25,4 +25,4 @@
     use_case: Set app to run with dock icon hidden
     source_file: plutil.yml
     source_repository: https://github.com/infosecB/LOOBins
-    import_timestamp: '2025-06-24T09:00:11.379414Z'
+    import_timestamp: '2025-06-26T03:18:11.115701Z'

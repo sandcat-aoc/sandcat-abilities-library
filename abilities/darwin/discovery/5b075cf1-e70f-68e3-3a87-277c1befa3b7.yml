@@ -12,7 +12,7 @@
   singleton: false
   privilege: User
   repeatable: true
-  delete_payload: true
+  delete_payload: false
   buckets:
   - loobins
   - odutil
@@ -24,4 +24,4 @@
     use_case: Retrieves "Default search policy"
     source_file: odutil.yml
     source_repository: https://github.com/infosecB/LOOBins
-    import_timestamp: '2025-06-24T09:00:11.392780Z'
+    import_timestamp: '2025-06-26T03:18:11.138536Z'

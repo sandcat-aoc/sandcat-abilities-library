@@ -1,0 +1,29 @@
+- id: 80eb2bdb-5169-2d38-4b49-8d77fdedbf60
+  name: wbemtest.exe - Execute arbitary commands through WMI through a GUI managment
+    interface for Web Based Enterprise Management testing (WBEM). Uses WMI to Create
+    and instance of a Win32_Process WMI class with a commandline argument of the target
+    command to spawn. Spawns a GUI so it requires interactive access. For a demo,
+    see link to blog in resources.
+  description: Execute arbitary commands through WMI through a GUI managment interface
+    for Web Based Enterprise Management testing (WBEM). Uses WMI to Create and instance
+    of a Win32_Process WMI class with a commandline argument of the target command
+    to spawn. Spawns a GUI so it requires interactive access. For a demo, see link
+    to blog in resources.
+  tactic: execution
+  technique:
+    attack_id: T1047
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: wbemtest.exe
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - execution
+  version: '1.0'
+  author: saulpanders
+  created: '2025-04-22'
+  modified: '2025-04-22'
+  operating_system: Windows All Versions

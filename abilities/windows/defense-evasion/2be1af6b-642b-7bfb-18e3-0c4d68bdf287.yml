@@ -1,0 +1,21 @@
+- id: 2be1af6b-642b-7bfb-18e3-0c4d68bdf287
+  name: Regedit.exe - Import the target .REG file into the Registry.
+  description: Import the target .REG file into the Registry.
+  tactic: defense-evasion
+  technique:
+    attack_id: T1564.004
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: 'regedit #{host.dir.temp}:regfile.reg'
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: Oddvar Moe
+  created: '2018-05-25'
+  modified: '2018-05-25'
+  operating_system: Windows All Versions

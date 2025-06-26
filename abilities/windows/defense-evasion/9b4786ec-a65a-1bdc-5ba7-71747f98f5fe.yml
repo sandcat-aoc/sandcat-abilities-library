@@ -1,0 +1,23 @@
+- id: 9b4786ec-a65a-1bdc-5ba7-71747f98f5fe
+  name: Cdb.exe - Execute arbitrary commands and binaries using a debugging script
+    (see Resources section for a sample file).
+  description: Execute arbitrary commands and binaries using a debugging script (see
+    Resources section for a sample file).
+  tactic: defense-evasion
+  technique:
+    attack_id: T1127
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: 'cdb.exe -c #{host.file.path} "#{host.executable.name}"'
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: Oddvar Moe
+  created: '2018-05-25'
+  modified: '2018-05-25'
+  operating_system: Windows All Versions

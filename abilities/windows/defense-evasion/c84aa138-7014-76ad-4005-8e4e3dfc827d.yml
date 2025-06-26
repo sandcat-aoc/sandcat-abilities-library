@@ -1,0 +1,21 @@
+- id: c84aa138-7014-76ad-4005-8e4e3dfc827d
+  name: Tar.exe - Decompress a compressed file from an alternate data stream (ADS).
+  description: Decompress a compressed file from an alternate data stream (ADS).
+  tactic: defense-evasion
+  technique:
+    attack_id: T1564.004
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: 'tar -xf #{host.dir.temp}:ads'
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: Brian Lucero
+  created: '2023-01-30'
+  modified: '2023-01-30'
+  operating_system: Windows All Versions

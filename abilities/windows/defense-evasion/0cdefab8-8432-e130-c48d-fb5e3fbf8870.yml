@@ -1,0 +1,21 @@
+- id: 0cdefab8-8432-e130-c48d-fb5e3fbf8870
+  name: Pcalua.exe - Open the target .CPL file with the Program Compatibility Assistant.
+  description: Open the target .CPL file with the Program Compatibility Assistant.
+  tactic: defense-evasion
+  technique:
+    attack_id: T1202
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: 'pcalua.exe -a #{host.dir.temp} -c Java'
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: Oddvar Moe
+  created: '2018-05-25'
+  modified: '2018-05-25'
+  operating_system: Windows All Versions

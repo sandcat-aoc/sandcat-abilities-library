@@ -1,0 +1,27 @@
+- id: b479214b-53e7-1a09-35c0-1ab2da4e4392
+  name: Findstr.exe - Searches for the string W3AllLov3LolBas, since it does not exist
+    (/V) the specified .exe file is written to an Alternate Data Stream (ADS) of the
+    specified target file.
+  description: Searches for the string W3AllLov3LolBas, since it does not exist (/V)
+    the specified .exe file is written to an Alternate Data Stream (ADS) of the specified
+    target file.
+  tactic: defense-evasion
+  technique:
+    attack_id: T1564.004
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: 'findstr /V /L W3AllLov3LolBas payload.exe > #{host.dir.temp}:file.exe'
+        payloads:
+        - payload.exe
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: Oddvar Moe
+  created: '2018-05-25'
+  modified: '2018-05-25'
+  operating_system: Windows All Versions

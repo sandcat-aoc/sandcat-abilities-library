@@ -1,0 +1,24 @@
+- id: 20c1f5a1-28ef-a12b-f30c-e23cee9c17dc
+  name: Syssetup.dll - Launch an executable file via the SetupInfObjectInstallAction
+    function and .inf file section directive.
+  description: Launch an executable file via the SetupInfObjectInstallAction function
+    and .inf file section directive.
+  tactic: defense-evasion
+  technique:
+    attack_id: T1218.011
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: 'rundll32 syssetup.dll,SetupInfObjectInstallAction DefaultInstall
+          128 #{host.dir.temp}'
+  singleton: true
+  privilege: User
+  repeatable: false
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: LOLBAS Team
+  created: '2018-05-25'
+  modified: '2018-05-25'
+  operating_system: Windows All Versions

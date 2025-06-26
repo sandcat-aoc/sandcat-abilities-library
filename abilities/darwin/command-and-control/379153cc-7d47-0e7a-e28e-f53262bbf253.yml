@@ -13,7 +13,7 @@
   singleton: true
   privilege: Elevated
   repeatable: false
-  delete_payload: true
+  delete_payload: false
   buckets:
   - loobins
   - safaridriver
@@ -25,4 +25,4 @@
     use_case: Enable safaridriver
     source_file: safaridriver.yml
     source_repository: https://github.com/infosecB/LOOBins
-    import_timestamp: '2025-06-24T09:00:11.544397Z'
+    import_timestamp: '2025-06-26T03:18:10.942405Z'

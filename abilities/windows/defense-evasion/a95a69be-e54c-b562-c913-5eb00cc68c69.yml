@@ -1,0 +1,23 @@
+- id: a95a69be-e54c-b562-c913-5eb00cc68c69
+  name: Setres.exe - Sets the resolution and then launches 'choice' command from the
+    working directory.
+  description: Sets the resolution and then launches 'choice' command from the working
+    directory.
+  tactic: defense-evasion
+  technique:
+    attack_id: T1218
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: setres.exe -w 800 -h 600
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: Grzegorz Tworek
+  created: '2022-10-21'
+  modified: '2022-10-21'
+  operating_system: Windows All Versions

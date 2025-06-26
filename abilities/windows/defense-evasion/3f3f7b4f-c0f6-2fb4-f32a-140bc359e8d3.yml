@@ -1,0 +1,22 @@
+- id: 3f3f7b4f-c0f6-2fb4-f32a-140bc359e8d3
+  name: Xwizard.exe - Xwizard.exe running a custom class that has been added to the
+    registry.
+  description: Xwizard.exe running a custom class that has been added to the registry.
+  tactic: defense-evasion
+  technique:
+    attack_id: T1218
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: xwizard RunWizard {00000001-0000-0000-0000-0000FEEDACDC}
+  singleton: true
+  privilege: User
+  repeatable: false
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: Oddvar Moe
+  created: '2018-05-25'
+  modified: '2018-05-25'
+  operating_system: Windows All Versions

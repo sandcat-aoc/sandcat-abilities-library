@@ -17,7 +17,7 @@
   singleton: false
   privilege: User
   repeatable: true
-  delete_payload: true
+  delete_payload: false
   buckets:
   - loobins
   - swift
@@ -29,4 +29,4 @@
     use_case: Execute Swift one-liner with swift 5.8 / Xcode 14.3 Beta 1 or greater
     source_file: swift.yml
     source_repository: https://github.com/infosecB/LOOBins
-    import_timestamp: '2025-06-24T09:00:11.441507Z'
+    import_timestamp: '2025-06-26T03:18:11.167663Z'

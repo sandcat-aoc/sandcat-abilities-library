@@ -1,0 +1,22 @@
+- id: 72f6ebf3-0829-94e1-71ff-e1497aa9a063
+  name: dsdbutil.exe - dsdbutil supports VSS snapshot creation
+  description: dsdbutil supports VSS snapshot creation
+  tactic: credential-access
+  technique:
+    attack_id: T1003.003
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: dsdbutil.exe "activate instance ntds" "snapshot" "create" "quit"
+          "quit"
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - credential-access
+  version: '1.0'
+  author: Ekitji
+  created: '2023-05-31'
+  modified: '2023-05-31'
+  operating_system: Windows All Versions

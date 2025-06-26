@@ -13,7 +13,7 @@
   singleton: false
   privilege: Elevated
   repeatable: true
-  delete_payload: true
+  delete_payload: false
   buckets:
   - loobins
   - defaults
@@ -25,4 +25,4 @@
     use_case: Add a login item to the current user
     source_file: defaults.yml
     source_repository: https://github.com/infosecB/LOOBins
-    import_timestamp: '2025-06-24T09:00:11.275974Z'
+    import_timestamp: '2025-06-26T03:18:11.085666Z'

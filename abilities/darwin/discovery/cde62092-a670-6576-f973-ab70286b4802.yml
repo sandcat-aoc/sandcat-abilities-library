@@ -12,7 +12,7 @@
   singleton: true
   privilege: User
   repeatable: false
-  delete_payload: true
+  delete_payload: false
   buckets:
   - loobins
   - networksetup
@@ -24,4 +24,4 @@
     use_case: Enumerate configured web proxy URL for an interface
     source_file: networksetup.yml
     source_repository: https://github.com/infosecB/LOOBins
-    import_timestamp: '2025-06-24T09:00:11.460632Z'
+    import_timestamp: '2025-06-26T03:18:10.956416Z'

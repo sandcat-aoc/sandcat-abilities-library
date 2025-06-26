@@ -1,0 +1,23 @@
+- id: 020bf155-b28d-829c-d1ce-a523f7ad47cd
+  name: Mavinject.exe - Inject evil.dll into a process with PID 3110.
+  description: Inject evil.dll into a process with PID 3110.
+  tactic: defense-evasion
+  technique:
+    attack_id: T1218.013
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: MavInject.exe 3110 /INJECTRUNNING payload.dll
+        payloads:
+        - payload.dll
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: Oddvar Moe
+  created: '2018-05-25'
+  modified: '2018-05-25'
+  operating_system: Windows All Versions

@@ -12,7 +12,7 @@
   singleton: false
   privilege: User
   repeatable: true
-  delete_payload: true
+  delete_payload: false
   buckets:
   - loobins
   - networksetup
@@ -24,4 +24,4 @@
     use_case: Set the https web proxy for an interface
     source_file: networksetup.yml
     source_repository: https://github.com/infosecB/LOOBins
-    import_timestamp: '2025-06-24T09:00:11.465561Z'
+    import_timestamp: '2025-06-26T03:18:10.959707Z'

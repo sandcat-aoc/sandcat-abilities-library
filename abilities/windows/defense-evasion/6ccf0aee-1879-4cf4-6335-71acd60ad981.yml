@@ -1,0 +1,23 @@
+- id: 6ccf0aee-1879-4cf4-6335-71acd60ad981
+  name: Esentutl.exe - Copies the source EXE to the destination EXE file
+  description: Copies the source EXE to the destination EXE file
+  tactic: defense-evasion
+  technique:
+    attack_id: T1564.004
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: esentutl.exe /y payload.exe /d payload.exe /o
+        payloads:
+        - payload.exe
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: Oddvar Moe
+  created: '2018-05-25'
+  modified: '2018-05-25'
+  operating_system: Windows All Versions

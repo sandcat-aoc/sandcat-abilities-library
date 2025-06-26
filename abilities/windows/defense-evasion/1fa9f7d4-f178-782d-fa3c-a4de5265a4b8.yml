@@ -1,0 +1,23 @@
+- id: 1fa9f7d4-f178-782d-fa3c-a4de5265a4b8
+  name: Update.exe - The above binary will go to url and look for RELEASES file, download
+    and install the nuget package via SAMBA.
+  description: The above binary will go to url and look for RELEASES file, download
+    and install the nuget package via SAMBA.
+  tactic: defense-evasion
+  technique:
+    attack_id: T1218
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: Update.exe --update=#{host.dir.temp}
+  singleton: true
+  privilege: User
+  repeatable: false
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: Oddvar Moe
+  created: '2019-06-26'
+  modified: '2019-06-26'
+  operating_system: Windows All Versions

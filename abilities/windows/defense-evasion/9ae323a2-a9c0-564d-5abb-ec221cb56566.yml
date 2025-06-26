@@ -1,0 +1,23 @@
+- id: 9ae323a2-a9c0-564d-5abb-ec221cb56566
+  name: Mshta.exe - Opens the target .HTA and executes embedded JavaScript, JScript,
+    or VBScript.
+  description: Opens the target .HTA and executes embedded JavaScript, JScript, or
+    VBScript.
+  tactic: defense-evasion
+  technique:
+    attack_id: T1218.005
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: mshta.exe {PATH:.hta}
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: Oddvar Moe
+  created: '2018-05-25'
+  modified: '2018-05-25'
+  operating_system: Windows All Versions

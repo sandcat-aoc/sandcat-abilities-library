@@ -1,0 +1,21 @@
+- id: 72cbb7d3-3d9b-7483-3230-7e4827970dd0
+  name: Msbuild.exe - Build and execute a C# project stored in the target XML file.
+  description: Build and execute a C# project stored in the target XML file.
+  tactic: defense-evasion
+  technique:
+    attack_id: T1127.001
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: 'msbuild.exe #{host.file.path}'
+  singleton: true
+  privilege: User
+  repeatable: false
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: Oddvar Moe
+  created: '2018-05-25'
+  modified: '2018-05-25'
+  operating_system: Windows All Versions

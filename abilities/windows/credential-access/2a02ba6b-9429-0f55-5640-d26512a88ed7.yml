@@ -1,0 +1,21 @@
+- id: 2a02ba6b-9429-0f55-5640-d26512a88ed7
+  name: Findstr.exe - Search for stored password in Group Policy files stored on SYSVOL.
+  description: Search for stored password in Group Policy files stored on SYSVOL.
+  tactic: credential-access
+  technique:
+    attack_id: T1552.001
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: findstr /S /I cpassword \\sysvol\policies\*.xml
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - credential-access
+  version: '1.0'
+  author: Oddvar Moe
+  created: '2018-05-25'
+  modified: '2018-05-25'
+  operating_system: Windows All Versions

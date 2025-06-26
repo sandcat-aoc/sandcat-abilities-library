@@ -1,0 +1,27 @@
+- id: 64a70c36-9af1-f1ed-1305-4b1a184ecb55
+  name: 'Runexehelper.exe - Launches the specified exe. Prerequisites: (1) diagtrack_action_output
+    environment variable must be set to an existing, writable folder; (2) runexewithargs_output.txt
+    file cannot exist in the folder indicated by the variable.'
+  description: 'Launches the specified exe. Prerequisites: (1) diagtrack_action_output
+    environment variable must be set to an existing, writable folder; (2) runexewithargs_output.txt
+    file cannot exist in the folder indicated by the variable.'
+  tactic: defense-evasion
+  technique:
+    attack_id: T1218
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: runexehelper.exe payload.exe
+        payloads:
+        - payload.exe
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: Grzegorz Tworek
+  created: '2022-12-13'
+  modified: '2022-12-13'
+  operating_system: Windows All Versions

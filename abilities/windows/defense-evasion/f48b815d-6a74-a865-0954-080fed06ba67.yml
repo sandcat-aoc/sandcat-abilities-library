@@ -1,0 +1,22 @@
+- id: f48b815d-6a74-a865-0954-080fed06ba67
+  name: VSLaunchBrowser.exe - Execute payload from WebDAV server via VSLaunchBrowser
+    as parent process
+  description: Execute payload from WebDAV server via VSLaunchBrowser as parent process
+  tactic: defense-evasion
+  technique:
+    attack_id: T1127
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: 'VSLaunchBrowser.exe .exe #{host.dir.temp}'
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: Avihay Eldad
+  created: '2024-04-12'
+  modified: '2024-04-12'
+  operating_system: Windows All Versions

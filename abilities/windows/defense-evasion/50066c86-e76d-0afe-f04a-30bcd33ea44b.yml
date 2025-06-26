@@ -1,0 +1,24 @@
+- id: 50066c86-e76d-0afe-f04a-30bcd33ea44b
+  name: winrm.vbs - Lateral movement/Remote Command Execution via WMI Win32_Process
+    class over the WinRM protocol
+  description: Lateral movement/Remote Command Execution via WMI Win32_Process class
+    over the WinRM protocol
+  tactic: defense-evasion
+  technique:
+    attack_id: T1216
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: winrm invoke Create wmicimv2/Win32_Process @{CommandLine="#{host.executable.name}"}
+          -r:http://target:5985
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: Oddvar Moe
+  created: '2018-05-25'
+  modified: '2018-05-25'
+  operating_system: Windows All Versions

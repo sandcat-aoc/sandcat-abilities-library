@@ -35,9 +35,9 @@
   delete_payload: false
   privilege: ''
   buckets:
+  - t1548.002
   - atomic-red-team
   - privilege-escalation
-  - t1548.002
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -47,4 +47,4 @@
         default: PathToAtomicsFolder\T1548.002\src\T1548.002.bat
     technique_created: '2020-01-30T14:24:34.977Z'
     atomic_guid: 28104f8a-4ff1-4582-bcf6-699dce156608
-    import_timestamp: '2025-06-26T03:18:47.940362Z'
+    import_timestamp: '2025-06-27T03:20:39.108800Z'

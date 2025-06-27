@@ -19,9 +19,9 @@
   delete_payload: false
   privilege: ''
   buckets:
+  - t1053.003
   - atomic-red-team
   - privilege-escalation
-  - t1053.003
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -36,4 +36,4 @@
         default: persistevil
     technique_created: '2019-12-03T14:25:00.538Z'
     atomic_guid: 078e69eb-d9fb-450e-b9d0-2e118217c846
-    import_timestamp: '2025-06-26T03:19:04.231873Z'
+    import_timestamp: '2025-06-27T03:20:56.950841Z'

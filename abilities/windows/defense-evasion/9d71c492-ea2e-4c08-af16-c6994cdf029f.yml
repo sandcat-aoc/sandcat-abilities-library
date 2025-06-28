@@ -22,8 +22,8 @@
   privilege: ''
   buckets:
   - defense-evasion
-  - t1218.010
   - atomic-red-team
+  - t1218.010
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -51,4 +51,4 @@
         -OutFile "#{dll_name}"'
     technique_created: '2020-01-23T19:52:17.414Z'
     atomic_guid: 9d71c492-ea2e-4c08-af16-c6994cdf029f
-    import_timestamp: '2025-06-27T03:20:38.872678Z'
+    import_timestamp: '2025-06-28T03:14:48.150029Z'

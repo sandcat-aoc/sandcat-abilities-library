@@ -15,9 +15,9 @@
   delete_payload: false
   privilege: ''
   buckets:
+  - privilege-escalation
   - atomic-red-team
   - t1547
-  - privilege-escalation
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -27,4 +27,4 @@
         default: C:\Windows\INF\usbstor.inf
     technique_created: '2020-01-23T17:46:59.535Z'
     atomic_guid: cb01b3da-b0e7-4e24-bf6d-de5223526785
-    import_timestamp: '2025-06-28T03:14:48.446932Z'
+    import_timestamp: '2025-06-29T03:29:47.452989Z'

@@ -49,8 +49,8 @@
   privilege: ''
   buckets:
   - t1555.003
-  - credential-access
   - atomic-red-team
+  - credential-access
   author: Atomic Red Team
   additional_info:
     dependencies:
@@ -99,4 +99,4 @@
         -Outfile: "PathToAtomicsFolder\T1555.003\src\logins.json" '
     technique_created: '2020-02-12T18:57:36.041Z'
     atomic_guid: 6f2c5c87-a4d5-4898-9bd1-47a55ecaf1dd
-    import_timestamp: '2025-06-28T03:14:50.363721Z'
+    import_timestamp: '2025-06-29T03:29:49.295961Z'

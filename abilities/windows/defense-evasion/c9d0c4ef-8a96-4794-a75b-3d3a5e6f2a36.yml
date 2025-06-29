@@ -20,8 +20,8 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - defense-evasion
   - atomic-red-team
+  - defense-evasion
   - t1218.010
   author: Atomic Red Team
   additional_info:
@@ -40,4 +40,4 @@
         default: regsvr32.exe
     technique_created: '2020-01-23T19:52:17.414Z'
     atomic_guid: c9d0c4ef-8a96-4794-a75b-3d3a5e6f2a36
-    import_timestamp: '2025-06-28T03:14:48.141426Z'
+    import_timestamp: '2025-06-29T03:29:47.147631Z'

@@ -22,8 +22,8 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - persistence
   - atomic-red-team
+  - persistence
   - t1197
   author: Atomic Red Team
   additional_info:
@@ -38,4 +38,4 @@
         default: $env:TEMP\bitsadmin2_flag.ps1
     technique_created: '2018-04-18T17:59:24.739Z'
     atomic_guid: f63b8bc4-07e5-4112-acba-56f646f3f0bc
-    import_timestamp: '2025-06-28T03:14:49.727795Z'
+    import_timestamp: '2025-06-29T03:29:48.722173Z'

@@ -40,9 +40,9 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - t1137.006
   - atomic-red-team
   - persistence
+  - t1137.006
   author: Atomic Red Team
   additional_info:
     dependencies:
@@ -71,4 +71,4 @@
         -UseBasicParsing -OutFile "PathToAtomicsFolder\T1137.006\bin\Addins\wordwll_x86.wll"'
     technique_created: '2019-11-07T19:52:52.801Z'
     atomic_guid: 95408a99-4fa7-4cd6-a7ef-cb65f86351cf
-    import_timestamp: '2025-06-29T03:29:48.247923Z'
+    import_timestamp: '2025-06-30T03:26:24.572564Z'

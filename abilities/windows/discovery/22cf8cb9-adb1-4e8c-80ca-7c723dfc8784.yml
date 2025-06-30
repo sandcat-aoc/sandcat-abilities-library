@@ -26,8 +26,8 @@
   privilege: ''
   buckets:
   - atomic-red-team
-  - discovery
   - t1069.002
+  - discovery
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -51,4 +51,4 @@
         }\n"
     technique_created: '2020-02-21T21:15:06.561Z'
     atomic_guid: 22cf8cb9-adb1-4e8c-80ca-7c723dfc8784
-    import_timestamp: '2025-06-29T03:29:49.624838Z'
+    import_timestamp: '2025-06-30T03:26:25.953886Z'

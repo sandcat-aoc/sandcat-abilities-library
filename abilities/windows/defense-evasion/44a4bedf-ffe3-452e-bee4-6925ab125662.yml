@@ -33,4 +33,4 @@
         default: c:\windows\system32\msiexec.exe
     technique_created: '2020-01-24T14:38:49.266Z'
     atomic_guid: 44a4bedf-ffe3-452e-bee4-6925ab125662
-    import_timestamp: '2025-06-29T03:29:46.398217Z'
+    import_timestamp: '2025-06-30T03:26:22.702138Z'

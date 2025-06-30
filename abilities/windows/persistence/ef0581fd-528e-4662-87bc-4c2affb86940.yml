@@ -31,8 +31,8 @@
   privilege: ''
   buckets:
   - atomic-red-team
-  - persistence
   - t1543.003
+  - persistence
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -42,4 +42,4 @@
         default: $PathToAtomicsFolder\T1543.003\bin\w64time.dll
     technique_created: '2020-01-17T19:13:50.402Z'
     atomic_guid: ef0581fd-528e-4662-87bc-4c2affb86940
-    import_timestamp: '2025-06-29T03:29:48.208494Z'
+    import_timestamp: '2025-06-30T03:26:24.533242Z'

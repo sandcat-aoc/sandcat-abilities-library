@@ -18,8 +18,8 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - t1485
   - atomic-red-team
+  - t1485
   - impact
   author: Atomic Red Team
   additional_info:
@@ -34,4 +34,4 @@
         default: /var/log/syslog
     technique_created: '2019-03-14T18:47:17.701Z'
     atomic_guid: 38deee99-fd65-4031-bec8-bfa4f9f26146
-    import_timestamp: '2025-06-29T03:29:28.888991Z'
+    import_timestamp: '2025-06-30T03:26:05.739674Z'

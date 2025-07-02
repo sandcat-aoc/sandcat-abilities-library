@@ -21,8 +21,8 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - t1074.001
   - collection
+  - t1074.001
   - atomic-red-team
   author: Atomic Red Team
   additional_info:
@@ -37,4 +37,4 @@
         default: PathToAtomicsFolder\T1074.001\bin\Folder_to_zip
     technique_created: '2020-03-13T21:13:10.467Z'
     atomic_guid: a57fbe4b-3440-452a-88a7-943531ac872a
-    import_timestamp: '2025-07-01T03:30:23.064044Z'
+    import_timestamp: '2025-07-02T03:20:06.308531Z'

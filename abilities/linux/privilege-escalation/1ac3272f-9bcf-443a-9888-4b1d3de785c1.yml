@@ -18,8 +18,8 @@
   privilege: ''
   buckets:
   - t1548.001
-  - privilege-escalation
   - atomic-red-team
+  - privilege-escalation
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -29,4 +29,4 @@
         default: /tmp/evilBinary
     technique_created: '2020-01-30T14:11:41.212Z'
     atomic_guid: 1ac3272f-9bcf-443a-9888-4b1d3de785c1
-    import_timestamp: '2025-07-02T03:20:21.337308Z'
+    import_timestamp: '2025-07-03T03:21:49.674237Z'

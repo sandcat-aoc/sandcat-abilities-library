@@ -27,8 +27,8 @@
   privilege: ''
   buckets:
   - atomic-red-team
-  - defense-evasion
   - t1548.002
+  - defense-evasion
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -38,4 +38,4 @@
         default: cmd.exe /c notepad.exe
     technique_created: '2020-01-30T14:24:34.977Z'
     atomic_guid: 3be891eb-4608-4173-87e8-78b494c029b7
-    import_timestamp: '2025-07-03T03:21:31.707754Z'
+    import_timestamp: '2025-07-04T03:18:47.659282Z'

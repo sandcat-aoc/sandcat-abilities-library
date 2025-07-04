@@ -19,8 +19,8 @@
   privilege: ''
   buckets:
   - atomic-red-team
-  - t1552.004
   - credential-access
+  - t1552.004
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -34,4 +34,4 @@
         default: /tmp/GnuPG
     technique_created: '2020-02-04T13:06:49.258Z'
     atomic_guid: 2a5a0601-f5fb-4e2e-aa09-73282ae6afca
-    import_timestamp: '2025-07-03T03:21:14.688701Z'
+    import_timestamp: '2025-07-04T03:18:31.439594Z'

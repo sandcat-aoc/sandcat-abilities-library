@@ -21,8 +21,8 @@
   privilege: ''
   buckets:
   - atomic-red-team
-  - t1030
   - exfiltration
+  - t1030
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -47,4 +47,4 @@
         '
     technique_created: '2017-05-31T21:30:34.523Z'
     atomic_guid: ab936c51-10f4-46ce-9144-e02137b2016a
-    import_timestamp: '2025-07-04T03:18:31.600816Z'
+    import_timestamp: '2025-07-05T03:14:52.634544Z'

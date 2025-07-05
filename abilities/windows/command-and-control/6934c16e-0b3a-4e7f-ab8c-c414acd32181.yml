@@ -24,8 +24,8 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - atomic-red-team
   - t1105
+  - atomic-red-team
   - command-and-control
   author: Atomic Red Team
   additional_info:
@@ -46,4 +46,4 @@
       get_prereq_command: winget install Microsoft.Sqlcmd --silent 2>$null | Out-Null
     technique_created: '2017-05-31T21:31:16.408Z'
     atomic_guid: 6934c16e-0b3a-4e7f-ab8c-c414acd32181
-    import_timestamp: '2025-07-04T03:18:50.348429Z'
+    import_timestamp: '2025-07-05T03:15:11.755726Z'

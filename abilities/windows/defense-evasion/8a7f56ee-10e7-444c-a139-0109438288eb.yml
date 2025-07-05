@@ -32,4 +32,4 @@
         default: '''%windir%\System32\calc.exe'''
     technique_created: '2020-01-23T18:03:46.248Z'
     atomic_guid: 8a7f56ee-10e7-444c-a139-0109438288eb
-    import_timestamp: '2025-07-04T03:18:47.633717Z'
+    import_timestamp: '2025-07-05T03:15:09.029765Z'

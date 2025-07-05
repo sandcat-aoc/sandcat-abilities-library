@@ -18,9 +18,9 @@
   delete_payload: false
   privilege: ''
   buckets:
+  - t1048.002
   - atomic-red-team
   - exfiltration
-  - t1048.002
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -30,4 +30,4 @@
         default: https://example.com/
     technique_created: '2020-03-15T15:34:30.767Z'
     atomic_guid: 8bec51da-7a6d-4346-b941-51eca448c4b0
-    import_timestamp: '2025-07-04T03:19:06.060653Z'
+    import_timestamp: '2025-07-05T03:15:27.767955Z'

@@ -24,8 +24,8 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - atomic-red-team
   - t1037.001
+  - atomic-red-team
   - persistence
   author: Atomic Red Team
   additional_info:
@@ -40,4 +40,4 @@
         default: echo Art "Logon Script" atomic test was successful. >> %USERPROFILE%\desktop\T1037.001-log.txt
     technique_created: '2020-01-10T03:43:37.211Z'
     atomic_guid: d6042746-07d4-4c92-9ad8-e644c114a231
-    import_timestamp: '2025-07-04T03:18:50.156418Z'
+    import_timestamp: '2025-07-05T03:15:11.561961Z'

@@ -30,4 +30,4 @@
         default: powershell.exe -WindowStyle hidden calc.exe
     technique_created: '2020-03-13T20:26:49.433Z'
     atomic_guid: f151ee37-9e2b-47e6-80e4-550b9f999b7a
-    import_timestamp: '2025-07-05T03:15:10.052204Z'
+    import_timestamp: '2025-07-06T03:27:52.299890Z'

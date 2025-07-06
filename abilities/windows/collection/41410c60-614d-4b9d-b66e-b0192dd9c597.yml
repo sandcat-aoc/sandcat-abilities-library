@@ -23,8 +23,8 @@
   privilege: ''
   buckets:
   - atomic-red-team
-  - t1560
   - collection
+  - t1560
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -38,4 +38,4 @@
         default: $env:USERPROFILE\T1560-data-ps.zip
     technique_created: '2020-02-20T20:53:45.725Z'
     atomic_guid: 41410c60-614d-4b9d-b66e-b0192dd9c597
-    import_timestamp: '2025-07-05T03:15:11.858624Z'
+    import_timestamp: '2025-07-06T03:27:54.140655Z'

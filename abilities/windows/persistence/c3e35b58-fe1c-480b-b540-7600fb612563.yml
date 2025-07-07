@@ -36,9 +36,9 @@
   delete_payload: false
   privilege: ''
   buckets:
+  - t1137.002
   - persistence
   - atomic-red-team
-  - t1137.002
   author: Atomic Red Team
   additional_info:
     dependencies:
@@ -67,4 +67,4 @@
         -UseBasicParsing -OutFile "PathToAtomicsFolder\T1137.002\bin\officetest_x86.dll"'
     technique_created: '2019-11-07T19:44:04.475Z'
     atomic_guid: c3e35b58-fe1c-480b-b540-7600fb612563
-    import_timestamp: '2025-07-06T03:27:53.843393Z'
+    import_timestamp: '2025-07-07T03:25:32.867959Z'

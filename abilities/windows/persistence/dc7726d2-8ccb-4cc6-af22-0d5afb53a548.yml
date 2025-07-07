@@ -18,8 +18,8 @@
   privilege: ''
   buckets:
   - t1136.002
-  - persistence
   - atomic-red-team
+  - persistence
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -33,4 +33,4 @@
         default: T1136_pass123!
     technique_created: '2020-01-28T14:05:17.825Z'
     atomic_guid: dc7726d2-8ccb-4cc6-af22-0d5afb53a548
-    import_timestamp: '2025-07-06T03:27:53.644937Z'
+    import_timestamp: '2025-07-07T03:25:32.671849Z'

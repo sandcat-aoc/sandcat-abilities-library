@@ -18,9 +18,9 @@
   delete_payload: false
   privilege: ''
   buckets:
+  - atomic-red-team
   - t1003
   - credential-access
-  - atomic-red-team
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -35,4 +35,4 @@
         default: 127.0.0.1
     technique_created: '2017-05-31T21:30:19.735Z'
     atomic_guid: 0b207037-813c-4444-ac3f-b597cf280a67
-    import_timestamp: '2025-07-07T03:25:33.291323Z'
+    import_timestamp: '2025-07-08T03:21:13.201213Z'

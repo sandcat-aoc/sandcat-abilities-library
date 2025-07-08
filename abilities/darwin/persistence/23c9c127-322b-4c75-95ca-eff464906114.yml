@@ -20,8 +20,8 @@
   privilege: ''
   buckets:
   - t1546.014
-  - persistence
   - atomic-red-team
+  - persistence
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -31,4 +31,4 @@
         default: PathToAtomicsFolder/T1546.014/src/T1546.014_emond.plist
     technique_created: '2020-01-24T15:15:13.426Z'
     atomic_guid: 23c9c127-322b-4c75-95ca-eff464906114
-    import_timestamp: '2025-07-07T03:25:13.576281Z'
+    import_timestamp: '2025-07-08T03:20:52.489633Z'

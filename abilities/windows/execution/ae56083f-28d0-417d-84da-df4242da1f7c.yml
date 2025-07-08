@@ -33,10 +33,10 @@
   privilege: ''
   buckets:
   - t1106
-  - atomic-red-team
   - execution
+  - atomic-red-team
   author: Atomic Red Team
   additional_info:
     technique_created: '2017-05-31T21:31:17.472Z'
     atomic_guid: ae56083f-28d0-417d-84da-df4242da1f7c
-    import_timestamp: '2025-07-07T03:25:32.125658Z'
+    import_timestamp: '2025-07-08T03:21:12.018851Z'

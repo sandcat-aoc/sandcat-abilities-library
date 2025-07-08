@@ -23,8 +23,8 @@
   privilege: ''
   buckets:
   - t1110.004
-  - credential-access
   - atomic-red-team
+  - credential-access
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -47,4 +47,4 @@
         '
     technique_created: '2020-02-11T18:39:59.959Z'
     atomic_guid: d546a3d9-0be5-40c7-ad82-5a7d79e1b66b
-    import_timestamp: '2025-07-07T03:25:13.764450Z'
+    import_timestamp: '2025-07-08T03:20:52.678885Z'

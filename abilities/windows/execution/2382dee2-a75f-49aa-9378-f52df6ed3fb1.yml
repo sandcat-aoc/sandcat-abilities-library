@@ -24,8 +24,8 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - execution
   - t1569.002
+  - execution
   - atomic-red-team
   author: Atomic Red Team
   additional_info:
@@ -41,4 +41,4 @@
           File C:\art-marker.txt'
     technique_created: '2020-03-10T18:33:36.159Z'
     atomic_guid: 2382dee2-a75f-49aa-9378-f52df6ed3fb1
-    import_timestamp: '2025-07-08T03:21:12.136084Z'
+    import_timestamp: '2025-07-09T03:22:48.920677Z'

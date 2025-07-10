@@ -29,8 +29,8 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - t1003.007
   - atomic-red-team
+  - t1003.007
   - credential-access
   author: Atomic Red Team
   additional_info:
@@ -86,4 +86,4 @@
       get_prereq_command: "sudo apt-get -y install libc-bin        \n"
     technique_created: '2020-02-11T18:46:24.434Z'
     atomic_guid: a27418de-bdce-4ebd-b655-38f04842bf0c
-    import_timestamp: '2025-07-09T03:23:04.950336Z'
+    import_timestamp: '2025-07-10T03:22:29.118001Z'

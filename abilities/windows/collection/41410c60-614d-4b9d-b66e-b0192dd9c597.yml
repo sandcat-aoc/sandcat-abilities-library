@@ -22,8 +22,8 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - t1560
   - atomic-red-team
+  - t1560
   - collection
   author: Atomic Red Team
   additional_info:
@@ -38,4 +38,4 @@
         default: $env:USERPROFILE\T1560-data-ps.zip
     technique_created: '2020-02-20T20:53:45.725Z'
     atomic_guid: 41410c60-614d-4b9d-b66e-b0192dd9c597
-    import_timestamp: '2025-07-09T03:22:49.832563Z'
+    import_timestamp: '2025-07-10T03:22:14.214806Z'

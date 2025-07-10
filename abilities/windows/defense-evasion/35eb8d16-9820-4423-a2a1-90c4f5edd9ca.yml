@@ -19,8 +19,8 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - t1036.005
   - atomic-red-team
+  - t1036.005
   - defense-evasion
   author: Atomic Red Team
   additional_info:
@@ -32,4 +32,4 @@
         default: $Env:windir\Temp\svchost.exe
     technique_created: '2020-02-10T20:43:10.239Z'
     atomic_guid: 35eb8d16-9820-4423-a2a1-90c4f5edd9ca
-    import_timestamp: '2025-07-09T03:22:46.914165Z'
+    import_timestamp: '2025-07-10T03:22:11.382027Z'

@@ -19,9 +19,9 @@
   delete_payload: false
   privilege: ''
   buckets:
+  - atomic-red-team
   - defense-evasion
   - t1197
-  - atomic-red-team
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -35,4 +35,4 @@
         default: '%temp%\bitsadmin1_flag.ps1'
     technique_created: '2018-04-18T17:59:24.739Z'
     atomic_guid: 3c73d728-75fb-4180-a12f-6712864d7421
-    import_timestamp: '2025-07-09T03:22:48.005855Z'
+    import_timestamp: '2025-07-10T03:22:12.305901Z'

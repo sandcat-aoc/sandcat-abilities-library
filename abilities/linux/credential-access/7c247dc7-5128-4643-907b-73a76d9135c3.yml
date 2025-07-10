@@ -18,8 +18,8 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - t1552.004
   - atomic-red-team
+  - t1552.004
   - credential-access
   author: Atomic Red Team
   additional_info:
@@ -34,4 +34,4 @@
         default: /tmp/art-staging
     technique_created: '2020-02-04T13:06:49.258Z'
     atomic_guid: 7c247dc7-5128-4643-907b-73a76d9135c3
-    import_timestamp: '2025-07-09T03:23:04.985515Z'
+    import_timestamp: '2025-07-10T03:22:29.153014Z'

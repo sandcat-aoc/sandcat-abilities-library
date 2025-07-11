@@ -21,8 +21,8 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - atomic-red-team
   - t1547.010
+  - atomic-red-team
   - persistence
   author: Atomic Red Team
   additional_info:
@@ -35,4 +35,4 @@
         default: $PathToAtomicsFolder\T1547.010\bin\PortMonitor.dll
     technique_created: '2020-01-24T19:46:27.750Z'
     atomic_guid: d34ef297-f178-4462-871e-9ce618d44e50
-    import_timestamp: '2025-07-10T03:22:13.396459Z'
+    import_timestamp: '2025-07-11T03:27:56.351653Z'

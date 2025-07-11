@@ -21,9 +21,9 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - atomic-red-team
-  - discovery
   - t1007
+  - discovery
+  - atomic-red-team
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -33,4 +33,4 @@
         default: '%temp%\service-list.txt'
     technique_created: '2017-05-31T21:30:21.315Z'
     atomic_guid: 5f864a3f-8ce9-45c0-812c-bdf7d8aeacc3
-    import_timestamp: '2025-07-10T03:22:14.806744Z'
+    import_timestamp: '2025-07-11T03:27:57.817728Z'

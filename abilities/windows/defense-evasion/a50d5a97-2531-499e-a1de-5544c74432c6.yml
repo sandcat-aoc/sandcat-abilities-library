@@ -22,9 +22,9 @@
   delete_payload: false
   privilege: ''
   buckets:
+  - t1027
   - atomic-red-team
   - defense-evasion
-  - t1027
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -34,4 +34,4 @@
         default: Write-Host "Hey, Atomic!"
     technique_created: '2017-05-31T21:30:32.662Z'
     atomic_guid: a50d5a97-2531-499e-a1de-5544c74432c6
-    import_timestamp: '2025-07-10T03:22:12.213403Z'
+    import_timestamp: '2025-07-11T03:27:55.083588Z'

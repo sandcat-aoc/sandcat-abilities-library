@@ -20,8 +20,8 @@
   privilege: ''
   buckets:
   - atomic-red-team
-  - persistence
   - t1053.003
+  - persistence
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -35,4 +35,4 @@
         default: /tmp/persistevil
     technique_created: '2019-12-03T14:25:00.538Z'
     atomic_guid: 435057fb-74b1-410e-9403-d81baf194f75
-    import_timestamp: '2025-07-10T03:21:55.107459Z'
+    import_timestamp: '2025-07-11T03:27:37.716489Z'

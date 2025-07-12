@@ -23,8 +23,8 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - t1033
   - discovery
+  - t1033
   - atomic-red-team
   author: Atomic Red Team
   additional_info:
@@ -35,4 +35,4 @@
         default: $env:temp
     technique_created: '2017-05-31T21:30:35.733Z'
     atomic_guid: 3d257a03-eb80-41c5-b744-bb37ac7f65c7
-    import_timestamp: '2025-07-11T03:27:57.630145Z'
+    import_timestamp: '2025-07-12T03:25:47.096454Z'

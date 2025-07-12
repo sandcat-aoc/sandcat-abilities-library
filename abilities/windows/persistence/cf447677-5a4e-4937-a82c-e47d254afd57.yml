@@ -31,9 +31,9 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - atomic-red-team
-  - persistence
   - t1112
+  - persistence
+  - atomic-red-team
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -43,4 +43,4 @@
         default: bad-domain.com
     technique_created: '2017-05-31T21:31:23.587Z'
     atomic_guid: cf447677-5a4e-4937-a82c-e47d254afd57
-    import_timestamp: '2025-07-11T03:27:56.371904Z'
+    import_timestamp: '2025-07-12T03:25:45.888462Z'

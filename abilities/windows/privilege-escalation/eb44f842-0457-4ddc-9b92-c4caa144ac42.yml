@@ -24,8 +24,8 @@
   privilege: ''
   buckets:
   - privilege-escalation
-  - t1547.001
   - atomic-red-team
+  - t1547.001
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -39,4 +39,4 @@
         default: HKLM:\Software\Microsoft\Windows\CurrentVersion\RunOnce
     technique_created: '2020-01-23T22:02:48.566Z'
     atomic_guid: eb44f842-0457-4ddc-9b92-c4caa144ac42
-    import_timestamp: '2025-07-11T03:27:55.697719Z'
+    import_timestamp: '2025-07-12T03:25:45.273128Z'

@@ -24,9 +24,9 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - privilege-escalation
   - t1543.003
   - atomic-red-team
+  - privilege-escalation
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -40,4 +40,4 @@
         default: C:\WINDOWS\system32\fxssvc.exe
     technique_created: '2020-01-17T19:13:50.402Z'
     atomic_guid: ed366cde-7d12-49df-a833-671904770b9f
-    import_timestamp: '2025-07-12T03:25:45.041873Z'
+    import_timestamp: '2025-07-13T03:40:34.773580Z'

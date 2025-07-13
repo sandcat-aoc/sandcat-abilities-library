@@ -27,8 +27,8 @@
   privilege: ''
   buckets:
   - persistence
-  - t1574.009
   - atomic-red-team
+  - t1574.009
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -39,4 +39,4 @@
         default: PathToAtomicsFolder\T1574.009\bin\WindowsServiceExample.exe
     technique_created: '2020-03-13T13:51:58.519Z'
     atomic_guid: 2770dea7-c50f-457b-84c4-c40a47460d9f
-    import_timestamp: '2025-07-12T03:25:46.297906Z'
+    import_timestamp: '2025-07-13T03:40:36.022342Z'

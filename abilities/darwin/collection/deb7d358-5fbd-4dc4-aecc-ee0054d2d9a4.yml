@@ -17,8 +17,8 @@
   privilege: ''
   buckets:
   - t1113
-  - atomic-red-team
   - collection
+  - atomic-red-team
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -28,4 +28,4 @@
         default: /tmp/T1113_desktop.png
     technique_created: '2017-05-31T21:31:25.060Z'
     atomic_guid: deb7d358-5fbd-4dc4-aecc-ee0054d2d9a4
-    import_timestamp: '2025-07-12T03:25:27.661536Z'
+    import_timestamp: '2025-07-13T03:40:17.493166Z'

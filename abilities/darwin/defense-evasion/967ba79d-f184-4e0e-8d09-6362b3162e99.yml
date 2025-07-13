@@ -32,4 +32,4 @@
         default: /tmp/AtomicRedTeam/atomics/T1222.002/T1222.002.yaml
     technique_created: '2020-02-04T19:24:27.774Z'
     atomic_guid: 967ba79d-f184-4e0e-8d09-6362b3162e99
-    import_timestamp: '2025-07-12T03:25:27.249781Z'
+    import_timestamp: '2025-07-13T03:40:17.044739Z'

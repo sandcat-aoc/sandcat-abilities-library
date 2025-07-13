@@ -29,8 +29,8 @@
   privilege: ''
   buckets:
   - t1036.003
-  - atomic-red-team
   - defense-evasion
+  - atomic-red-team
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -58,4 +58,4 @@
         '
     technique_created: '2020-02-10T20:03:11.691Z'
     atomic_guid: bc15c13f-d121-4b1f-8c7d-28d95854d086
-    import_timestamp: '2025-07-12T03:25:44.741283Z'
+    import_timestamp: '2025-07-13T03:40:34.474645Z'

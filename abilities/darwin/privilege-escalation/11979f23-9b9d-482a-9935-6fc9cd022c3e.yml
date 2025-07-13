@@ -20,8 +20,8 @@
   privilege: ''
   buckets:
   - t1543.001
-  - privilege-escalation
   - atomic-red-team
+  - privilege-escalation
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -39,4 +39,4 @@
         default: randomflag
     technique_created: '2020-01-17T16:10:58.592Z'
     atomic_guid: 11979f23-9b9d-482a-9935-6fc9cd022c3e
-    import_timestamp: '2025-07-12T03:25:27.488072Z'
+    import_timestamp: '2025-07-13T03:40:17.318301Z'

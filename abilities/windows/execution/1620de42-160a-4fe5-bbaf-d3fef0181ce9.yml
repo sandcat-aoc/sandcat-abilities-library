@@ -24,8 +24,8 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - t1059.005
   - execution
+  - t1059.005
   - atomic-red-team
   author: Atomic Red Team
   additional_info:
@@ -46,4 +46,4 @@
         -OutFile "#{vbscript}"'
     technique_created: '2020-03-09T14:29:51.508Z'
     atomic_guid: 1620de42-160a-4fe5-bbaf-d3fef0181ce9
-    import_timestamp: '2025-07-12T03:25:45.685778Z'
+    import_timestamp: '2025-07-13T03:40:35.416499Z'

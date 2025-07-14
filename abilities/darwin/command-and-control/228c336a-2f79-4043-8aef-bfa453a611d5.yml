@@ -34,8 +34,8 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - t1572
   - atomic-red-team
+  - t1572
   - command-and-control
   author: Atomic Red Team
   additional_info:
@@ -74,4 +74,4 @@
         \ -o \"#{binary_path}\"\n  chmod +x \"#{binary_path}\"\nfi\n"
     technique_created: '2020-03-15T16:03:39.082Z'
     atomic_guid: 228c336a-2f79-4043-8aef-bfa453a611d5
-    import_timestamp: '2025-07-13T03:40:17.438402Z'
+    import_timestamp: '2025-07-14T03:32:26.895197Z'

@@ -27,8 +27,8 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - defense-evasion
   - atomic-red-team
+  - defense-evasion
   - t1562.006
   author: Atomic Red Team
   additional_info:
@@ -58,4 +58,4 @@
         -destinationpath "PathToAtomicsFolder\..\ExternalPayloads\pstools" -force'
     technique_created: '2020-03-19T19:09:30.329Z'
     atomic_guid: 6f118276-121d-4c09-bb58-a8fb4a72ee84
-    import_timestamp: '2025-07-14T03:32:44.152849Z'
+    import_timestamp: '2025-07-15T03:30:15.240893Z'

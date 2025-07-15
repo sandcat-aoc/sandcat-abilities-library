@@ -22,8 +22,8 @@
   privilege: ''
   buckets:
   - atomic-red-team
-  - t1074.001
   - collection
+  - t1074.001
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -33,4 +33,4 @@
         default: $env:TEMP\discovery.bat
     technique_created: '2020-03-13T21:13:10.467Z'
     atomic_guid: 107706a5-6f9f-451a-adae-bab8c667829f
-    import_timestamp: '2025-07-14T03:32:46.324280Z'
+    import_timestamp: '2025-07-15T03:30:17.564619Z'

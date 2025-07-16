@@ -22,9 +22,9 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - atomic-red-team
   - privilege-escalation
   - t1547.001
+  - atomic-red-team
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -34,4 +34,4 @@
         default: C:\Path\AtomicRedTeam.exe
     technique_created: '2020-01-23T22:02:48.566Z'
     atomic_guid: e55be3fd-3521-4610-9d1a-e210e42dcf05
-    import_timestamp: '2025-07-15T03:30:16.231110Z'
+    import_timestamp: '2025-07-16T03:28:53.334360Z'

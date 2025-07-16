@@ -26,9 +26,9 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - atomic-red-team
-  - t1071.004
   - command-and-control
+  - t1071.004
+  - atomic-red-team
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -43,4 +43,4 @@
         default: 127.0.0.1
     technique_created: '2020-03-15T16:27:31.768Z'
     atomic_guid: e7bf9802-2e78-4db9-93b5-181b7bcd37d7
-    import_timestamp: '2025-07-15T03:30:17.334001Z'
+    import_timestamp: '2025-07-16T03:28:54.429274Z'

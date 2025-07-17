@@ -26,8 +26,8 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - privilege-escalation
   - t1055.004
+  - privilege-escalation
   - atomic-red-team
   author: Atomic Red Team
   additional_info:
@@ -42,4 +42,4 @@
         default: werfault
     technique_created: '2020-01-14T01:29:43.786Z'
     atomic_guid: 73785dd2-323b-4205-ab16-bb6f06677e14
-    import_timestamp: '2025-07-16T03:28:53.251466Z'
+    import_timestamp: '2025-07-17T03:27:39.079539Z'

@@ -18,9 +18,9 @@
   delete_payload: false
   privilege: ''
   buckets:
+  - t1548.001
   - privilege-escalation
   - atomic-red-team
-  - t1548.001
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -30,4 +30,4 @@
         default: PathToAtomicsFolder/T1548.001/src/hello.c
     technique_created: '2020-01-30T14:11:41.212Z'
     atomic_guid: 896dfe97-ae43-4101-8e96-9a7996555d80
-    import_timestamp: '2025-07-16T03:28:35.390732Z'
+    import_timestamp: '2025-07-17T03:27:21.310987Z'

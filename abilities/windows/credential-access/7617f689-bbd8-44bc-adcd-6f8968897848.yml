@@ -28,8 +28,8 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - t1552.004
   - credential-access
+  - t1552.004
   - atomic-red-team
   author: Atomic Red Team
   additional_info:
@@ -40,4 +40,4 @@
         default: $env:Temp\atomicredteam.pfx
     technique_created: '2020-02-04T13:06:49.258Z'
     atomic_guid: 7617f689-bbd8-44bc-adcd-6f8968897848
-    import_timestamp: '2025-07-16T03:28:54.964648Z'
+    import_timestamp: '2025-07-17T03:27:41.010116Z'

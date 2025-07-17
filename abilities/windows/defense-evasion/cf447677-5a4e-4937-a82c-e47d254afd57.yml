@@ -31,8 +31,8 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - defense-evasion
   - t1112
+  - defense-evasion
   - atomic-red-team
   author: Atomic Red Team
   additional_info:
@@ -43,4 +43,4 @@
         default: bad-domain.com
     technique_created: '2017-05-31T21:31:23.587Z'
     atomic_guid: cf447677-5a4e-4937-a82c-e47d254afd57
-    import_timestamp: '2025-07-16T03:28:52.156212Z'
+    import_timestamp: '2025-07-17T03:27:38.033463Z'

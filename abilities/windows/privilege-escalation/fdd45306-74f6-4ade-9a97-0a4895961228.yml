@@ -24,8 +24,8 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - t1547
   - privilege-escalation
+  - t1547
   - atomic-red-team
   author: Atomic Red Team
   additional_info:
@@ -40,4 +40,4 @@
         default: C:\Windows\System32\amsi.dll
     technique_created: '2020-01-23T17:46:59.535Z'
     atomic_guid: fdd45306-74f6-4ade-9a97-0a4895961228
-    import_timestamp: '2025-07-16T03:28:53.025316Z'
+    import_timestamp: '2025-07-17T03:27:38.900947Z'

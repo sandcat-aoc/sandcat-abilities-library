@@ -28,8 +28,8 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - privilege-escalation
   - t1547.001
+  - privilege-escalation
   - atomic-red-team
   author: Atomic Red Team
   additional_info:
@@ -40,4 +40,4 @@
         default: autocheck autoche *
     technique_created: '2020-01-23T22:02:48.566Z'
     atomic_guid: befc2b40-d487-4a5a-8813-c11085fb5672
-    import_timestamp: '2025-07-16T03:28:53.372388Z'
+    import_timestamp: '2025-07-17T03:27:39.183606Z'

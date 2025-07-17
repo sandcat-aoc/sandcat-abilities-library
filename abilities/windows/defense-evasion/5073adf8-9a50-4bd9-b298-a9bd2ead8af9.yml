@@ -20,8 +20,8 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - defense-evasion
   - t1548.002
+  - defense-evasion
   - atomic-red-team
   author: Atomic Red Team
   additional_info:
@@ -32,4 +32,4 @@
         default: C:\Windows\System32\cmd.exe
     technique_created: '2020-01-30T14:24:34.977Z'
     atomic_guid: 5073adf8-9a50-4bd9-b298-a9bd2ead8af9
-    import_timestamp: '2025-07-16T03:28:51.736047Z'
+    import_timestamp: '2025-07-17T03:27:37.595814Z'

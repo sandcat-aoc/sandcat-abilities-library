@@ -24,8 +24,8 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - command-and-control
   - t1219
+  - command-and-control
   - atomic-red-team
   author: Atomic Red Team
   additional_info:
@@ -51,4 +51,4 @@
         \ \"PathToAtomicsFolder\\..\\ExternalPayloads\\msp360connect.exe\" /S    \n"
     technique_created: '2018-04-18T17:59:24.739Z'
     atomic_guid: b1b8128b-c5d4-4de9-bf70-e60419274562
-    import_timestamp: '2025-07-16T03:28:54.460410Z'
+    import_timestamp: '2025-07-17T03:27:40.490381Z'

@@ -20,11 +20,11 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - execution
   - t1059.004
   - atomic-red-team
+  - execution
   author: Atomic Red Team
   additional_info:
     technique_created: '2020-03-09T14:15:05.330Z'
     atomic_guid: 8cd1947b-4a54-41fb-b5ea-07d0ace04f81
-    import_timestamp: '2025-07-17T03:27:55.478176Z'
+    import_timestamp: '2025-07-18T03:30:44.695858Z'

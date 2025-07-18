@@ -16,8 +16,8 @@
   privilege: ''
   buckets:
   - credential-access
-  - t1552.003
   - atomic-red-team
+  - t1552.003
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -35,4 +35,4 @@
         default: ~/.bash_history
     technique_created: '2020-02-04T13:02:11.685Z'
     atomic_guid: 3cfde62b-7c33-4b26-a61e-755d6131c8ce
-    import_timestamp: '2025-07-17T03:27:21.580273Z'
+    import_timestamp: '2025-07-18T03:30:10.231405Z'

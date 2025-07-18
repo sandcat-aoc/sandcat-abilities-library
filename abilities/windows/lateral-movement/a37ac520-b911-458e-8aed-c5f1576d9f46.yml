@@ -20,8 +20,8 @@
   privilege: ''
   buckets:
   - t1563.002
-  - lateral-movement
   - atomic-red-team
+  - lateral-movement
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -35,4 +35,4 @@
         default: rdp-tcp#55
     technique_created: '2020-02-25T18:35:42.765Z'
     atomic_guid: a37ac520-b911-458e-8aed-c5f1576d9f46
-    import_timestamp: '2025-07-17T03:27:40.791328Z'
+    import_timestamp: '2025-07-18T03:30:29.784488Z'

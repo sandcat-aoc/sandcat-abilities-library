@@ -23,8 +23,8 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - t1027.002
   - defense-evasion
+  - t1027.002
   - atomic-red-team
   author: Atomic Red Team
   additional_info:
@@ -35,4 +35,4 @@
         default: PathToAtomicsFolder/T1027.002/bin/linux/test_upx_header_changed
     technique_created: '2020-02-05T14:17:46.686Z'
     atomic_guid: f06197f8-ff46-48c2-a0c6-afc1b50665e1
-    import_timestamp: '2025-07-17T03:27:55.323459Z'
+    import_timestamp: '2025-07-18T03:30:44.545668Z'

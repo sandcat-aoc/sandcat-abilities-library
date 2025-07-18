@@ -10,7 +10,9 @@
   platforms:
     windows:
       psh:
-        command: if (!(Test-Path -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer\Run")){;
+        command: if (!(Test-Path -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer")){;
+          New-Item -ItemType Key -Path  "HKCU:\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer";
+          }; if (!(Test-Path -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer\Run")){;
           New-Item -ItemType Key -Path  "HKCU:\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer\Run";
           }; Set-ItemProperty -Path  "HKCU:\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer\Run"
           -Name "atomictest" -Value "C:\Windows\System32\calc.exe"
@@ -23,9 +25,9 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - t1547.001
   - persistence
   - atomic-red-team
+  - t1547.001
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -39,4 +41,4 @@
         default: C:\Windows\System32\calc.exe
     technique_created: '2020-01-23T22:02:48.566Z'
     atomic_guid: a70faea1-e206-4f6f-8d9a-67379be8f6f1
-    import_timestamp: '2025-07-17T03:27:40.268320Z'
+    import_timestamp: '2025-07-18T03:30:29.288316Z'

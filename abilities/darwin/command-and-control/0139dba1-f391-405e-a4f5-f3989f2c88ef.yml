@@ -15,9 +15,9 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - t1105
   - command-and-control
   - atomic-red-team
+  - t1105
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -39,4 +39,4 @@
         default: adversary
     technique_created: '2017-05-31T21:31:16.408Z'
     atomic_guid: 0139dba1-f391-405e-a4f5-f3989f2c88ef
-    import_timestamp: '2025-07-17T03:27:21.492164Z'
+    import_timestamp: '2025-07-18T03:30:10.143694Z'

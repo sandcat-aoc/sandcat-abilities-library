@@ -1,0 +1,31 @@
+- id: 7693ccaa-8d64-4043-92a5-a2eb70359535
+  name: T1027.013 Encrypted/Encoded File
+  description: Decode the eicar value, and write it to file, for AV/EDR to try to
+    catch.
+  tactic: defense-evasion
+  technique:
+    attack_id: T1027.013
+    name: 'Obfuscated Files or Information: Encrypted/Encoded File'
+  platforms:
+    linux:
+      psh:
+        command: '$encodedString = "WDVPIVAlQEFQWzRcUFpYNTQoUF4pN0NDKTd9JEVJQ0FSLVNUQU5EQVJELUFOVElWSVJVUy1URVNULUZJTEUhJEgrSCo=";
+          $bytes = [System.Convert]::FromBase64String($encodedString); $decodedString
+          = [System.Text.Encoding]::UTF8.GetString($bytes); #write the decoded eicar
+          string to file; $decodedString | Out-File T1027.013_decodedEicar.txt'
+        cleanup: Just delete the resulting T1027.013_decodedEicar.txt file.
+        elevation_required: false
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - defense-evasion
+  - atomic-red-team
+  - t1027.013
+  author: Atomic Red Team
+  additional_info:
+    technique_created: '2024-03-29T12:38:17.135Z'
+    atomic_guid: 7693ccaa-8d64-4043-92a5-a2eb70359535
+    import_timestamp: '2025-07-18T03:30:44.274627Z'

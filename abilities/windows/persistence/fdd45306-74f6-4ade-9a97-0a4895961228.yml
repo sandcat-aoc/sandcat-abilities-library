@@ -24,9 +24,9 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - persistence
-  - t1547
   - atomic-red-team
+  - t1547
+  - persistence
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -40,4 +40,4 @@
         default: C:\Windows\System32\amsi.dll
     technique_created: '2020-01-23T17:46:59.535Z'
     atomic_guid: fdd45306-74f6-4ade-9a97-0a4895961228
-    import_timestamp: '2025-07-18T03:30:28.878179Z'
+    import_timestamp: '2025-07-19T03:23:08.848803Z'

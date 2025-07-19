@@ -18,8 +18,8 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - discovery
   - atomic-red-team
+  - discovery
   - t1217
   author: Atomic Red Team
   additional_info:
@@ -30,4 +30,4 @@
         default: /tmp/T1217-Safari.txt
     technique_created: '2018-04-18T17:59:24.739Z'
     atomic_guid: 5fc528dd-79de-47f5-8188-25572b7fafe0
-    import_timestamp: '2025-07-18T03:30:10.302796Z'
+    import_timestamp: '2025-07-19T03:22:50.911512Z'

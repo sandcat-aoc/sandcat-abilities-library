@@ -66,4 +66,4 @@
         \ -Path #{script_path} -Force)\n} catch {\n  Write-Error $_\n  Exit 1\n}\n"
     technique_created: '2020-01-14T17:21:54.470Z'
     atomic_guid: 562427b4-39ef-4e8c-af88-463a78e70b9c
-    import_timestamp: '2025-07-19T03:23:07.556114Z'
+    import_timestamp: '2025-07-20T03:46:43.841441Z'

@@ -38,8 +38,8 @@
   privilege: ''
   buckets:
   - atomic-red-team
-  - t1110.003
   - credential-access
+  - t1110.003
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -58,4 +58,4 @@
         default: NTLM
     technique_created: '2020-02-11T18:39:25.122Z'
     atomic_guid: f14d956a-5b6e-4a93-847f-0c415142f07d
-    import_timestamp: '2025-07-19T03:23:10.044528Z'
+    import_timestamp: '2025-07-20T03:46:46.134439Z'

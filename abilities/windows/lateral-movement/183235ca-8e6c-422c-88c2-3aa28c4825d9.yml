@@ -20,8 +20,8 @@
   privilege: ''
   buckets:
   - atomic-red-team
-  - t1570
   - lateral-movement
+  - t1570
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -35,4 +35,4 @@
         default: C:\path\to\file.txt
     technique_created: '2020-03-11T21:01:00.959Z'
     atomic_guid: 183235ca-8e6c-422c-88c2-3aa28c4825d9
-    import_timestamp: '2025-07-19T03:23:09.771699Z'
+    import_timestamp: '2025-07-20T03:46:45.863380Z'

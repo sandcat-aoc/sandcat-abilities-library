@@ -23,8 +23,8 @@
   privilege: ''
   buckets:
   - atomic-red-team
-  - t1071.001
   - command-and-control
+  - t1071.001
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -34,4 +34,4 @@
         default: www.google.com
     technique_created: '2020-03-15T16:13:46.151Z'
     atomic_guid: 81c13829-f6c9-45b8-85a6-053366d55297
-    import_timestamp: '2025-07-19T03:23:09.527766Z'
+    import_timestamp: '2025-07-20T03:46:45.620074Z'

@@ -24,8 +24,8 @@
   privilege: ''
   buckets:
   - atomic-red-team
-  - command-and-control
   - t1105
+  - command-and-control
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -35,4 +35,4 @@
         default: localhost
     technique_created: '2017-05-31T21:31:16.408Z'
     atomic_guid: 5f507e45-8411-4f99-84e7-e38530c45d01
-    import_timestamp: '2025-07-19T03:23:09.552698Z'
+    import_timestamp: '2025-07-20T03:46:45.644835Z'

@@ -24,8 +24,8 @@
   privilege: ''
   buckets:
   - atomic-red-team
-  - t1014
   - defense-evasion
+  - t1014
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -52,4 +52,4 @@
         \ ] && rm -rf /tmp/T1014\nsudo depmod -a\n"
     technique_created: '2017-05-31T21:30:26.496Z'
     atomic_guid: 75483ef8-f10f-444a-bf02-62eb0e48db6f
-    import_timestamp: '2025-07-19T03:23:23.815071Z'
+    import_timestamp: '2025-07-20T03:47:00.311099Z'

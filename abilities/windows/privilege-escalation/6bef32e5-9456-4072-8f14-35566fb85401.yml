@@ -29,8 +29,8 @@
   privilege: ''
   buckets:
   - atomic-red-team
-  - t1134.005
   - privilege-escalation
+  - t1134.005
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -66,4 +66,4 @@
         \ \"x64/mimikatz.exe\" $basePath\n"
     technique_created: '2020-02-18T18:34:49.414Z'
     atomic_guid: 6bef32e5-9456-4072-8f14-35566fb85401
-    import_timestamp: '2025-07-19T03:23:08.474161Z'
+    import_timestamp: '2025-07-20T03:46:44.569166Z'

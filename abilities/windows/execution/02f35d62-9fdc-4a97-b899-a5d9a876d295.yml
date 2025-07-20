@@ -41,4 +41,4 @@
         default: $env:TEMP/PotentiallyUnwanted.exe
     technique_created: '2020-03-11T14:49:36.954Z'
     atomic_guid: 02f35d62-9fdc-4a97-b899-a5d9a876d295
-    import_timestamp: '2025-07-19T03:23:08.638346Z'
+    import_timestamp: '2025-07-20T03:46:44.734875Z'

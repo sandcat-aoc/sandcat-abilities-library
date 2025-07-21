@@ -29,9 +29,9 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - atomic-red-team
   - persistence
   - t1547.015
+  - atomic-red-team
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -45,4 +45,4 @@
         default: PathToAtomicsFolder/T1547.015/src/remove_login_item.osa
     technique_created: '2021-10-05T21:26:15.081Z'
     atomic_guid: 716e756a-607b-41f3-8204-b214baf37c1d
-    import_timestamp: '2025-07-20T03:46:26.470912Z'
+    import_timestamp: '2025-07-21T03:44:28.679778Z'

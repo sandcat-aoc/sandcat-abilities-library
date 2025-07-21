@@ -18,10 +18,10 @@
   privilege: ''
   buckets:
   - t1555.003
-  - atomic-red-team
   - credential-access
+  - atomic-red-team
   author: Atomic Red Team
   additional_info:
     technique_created: '2020-02-12T18:57:36.041Z'
     atomic_guid: ec1d0b37-f659-4186-869f-31a554891611
-    import_timestamp: '2025-07-20T03:46:46.049952Z'
+    import_timestamp: '2025-07-21T03:44:48.207994Z'

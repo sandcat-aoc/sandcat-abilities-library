@@ -26,8 +26,8 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - credential-access
   - t1552.004
+  - credential-access
   - atomic-red-team
   author: Atomic Red Team
   additional_info:
@@ -38,4 +38,4 @@
         default: $env:Temp\AtomicRedTeam.cer
     technique_created: '2020-02-04T13:06:49.258Z'
     atomic_guid: 78b274f8-acb0-428b-b1f7-7b0d0e73330a
-    import_timestamp: '2025-07-21T03:44:48.237448Z'
+    import_timestamp: '2025-07-22T03:29:22.777503Z'

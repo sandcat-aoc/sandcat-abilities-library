@@ -24,8 +24,8 @@
   privilege: ''
   buckets:
   - persistence
-  - t1546
   - atomic-red-team
+  - t1546
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -35,4 +35,4 @@
         default: notepad.exe
     technique_created: '2020-01-22T21:04:23.285Z'
     atomic_guid: 36b8dbf9-59b1-4e9b-a3bb-36e80563ef01
-    import_timestamp: '2025-07-21T03:44:47.603627Z'
+    import_timestamp: '2025-07-22T03:29:22.149365Z'

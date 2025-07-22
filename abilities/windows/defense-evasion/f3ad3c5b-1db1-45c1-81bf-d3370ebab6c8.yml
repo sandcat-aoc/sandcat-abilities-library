@@ -20,8 +20,8 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - defense-evasion
   - t1218.011
+  - defense-evasion
   - atomic-red-team
   author: Atomic Red Team
   additional_info:
@@ -32,4 +32,4 @@
         default: calc.exe
     technique_created: '2020-01-23T18:03:46.248Z'
     atomic_guid: f3ad3c5b-1db1-45c1-81bf-d3370ebab6c8
-    import_timestamp: '2025-07-21T03:44:45.095605Z'
+    import_timestamp: '2025-07-22T03:29:19.533657Z'

@@ -1,5 +1,5 @@
 - id: 7693ccaa-8d64-4043-92a5-a2eb70359535
-  name: T1027.013 Encrypted/Encoded File
+  name: Decode Eicar File and Write to File
   description: Decode the eicar value, and write it to file, for AV/EDR to try to
     catch.
   tactic: defense-evasion
@@ -28,4 +28,4 @@
   additional_info:
     technique_created: '2024-03-29T12:38:17.135Z'
     atomic_guid: 7693ccaa-8d64-4043-92a5-a2eb70359535
-    import_timestamp: '2025-07-21T03:44:45.104374Z'
+    import_timestamp: '2025-07-22T03:29:19.542295Z'

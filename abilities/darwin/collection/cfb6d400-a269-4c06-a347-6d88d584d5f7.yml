@@ -25,8 +25,8 @@
   privilege: ''
   buckets:
   - t1005
-  - collection
   - atomic-red-team
+  - collection
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -36,4 +36,4 @@
         default: /private/tmp
     technique_created: '2017-05-31T21:30:20.537Z'
     atomic_guid: cfb6d400-a269-4c06-a347-6d88d584d5f7
-    import_timestamp: '2025-07-21T03:44:28.803830Z'
+    import_timestamp: '2025-07-22T03:29:03.387877Z'

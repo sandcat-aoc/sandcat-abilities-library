@@ -22,10 +22,10 @@
   privilege: ''
   buckets:
   - discovery
-  - t1518.001
   - atomic-red-team
+  - t1518.001
   author: Atomic Red Team
   additional_info:
     technique_created: '2020-02-21T21:16:18.066Z'
     atomic_guid: fe613cf3-8009-4446-9a0f-bc78a15b66c9
-    import_timestamp: '2025-07-21T03:44:48.781496Z'
+    import_timestamp: '2025-07-22T03:29:23.315493Z'

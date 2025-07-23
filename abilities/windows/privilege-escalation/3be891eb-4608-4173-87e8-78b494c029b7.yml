@@ -26,9 +26,9 @@
   delete_payload: false
   privilege: ''
   buckets:
+  - atomic-red-team
   - privilege-escalation
   - t1548.002
-  - atomic-red-team
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -38,4 +38,4 @@
         default: cmd.exe /c notepad.exe
     technique_created: '2020-01-30T14:24:34.977Z'
     atomic_guid: 3be891eb-4608-4173-87e8-78b494c029b7
-    import_timestamp: '2025-07-22T03:29:20.735836Z'
+    import_timestamp: '2025-07-23T03:31:55.889768Z'

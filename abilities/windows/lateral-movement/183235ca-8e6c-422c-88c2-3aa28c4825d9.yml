@@ -19,9 +19,9 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - t1570
   - lateral-movement
   - atomic-red-team
+  - t1570
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -35,4 +35,4 @@
         default: C:\path\to\file.txt
     technique_created: '2020-03-11T21:01:00.959Z'
     atomic_guid: 183235ca-8e6c-422c-88c2-3aa28c4825d9
-    import_timestamp: '2025-07-22T03:29:22.567039Z'
+    import_timestamp: '2025-07-23T03:31:57.585647Z'

@@ -86,4 +86,4 @@
       get_prereq_command: "sudo apt-get -y install libc-bin        \n"
     technique_created: '2020-02-11T18:46:24.434Z'
     atomic_guid: a27418de-bdce-4ebd-b655-38f04842bf0c
-    import_timestamp: '2025-07-22T03:29:37.337507Z'
+    import_timestamp: '2025-07-23T03:32:12.831333Z'

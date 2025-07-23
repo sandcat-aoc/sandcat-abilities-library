@@ -18,9 +18,9 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - t1217
   - discovery
   - atomic-red-team
+  - t1217
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -30,4 +30,4 @@
         default: /tmp/T1217-Chrome.txt
     technique_created: '2018-04-18T17:59:24.739Z'
     atomic_guid: b789d341-154b-4a42-a071-9111588be9bc
-    import_timestamp: '2025-07-22T03:29:03.503742Z'
+    import_timestamp: '2025-07-23T03:31:38.539137Z'

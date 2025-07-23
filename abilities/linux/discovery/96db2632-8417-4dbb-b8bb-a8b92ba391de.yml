@@ -21,8 +21,8 @@
   privilege: ''
   buckets:
   - discovery
-  - t1018
   - atomic-red-team
+  - t1018
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -40,4 +40,4 @@
         default: 192.168.1
     technique_created: '2017-05-31T21:30:28.187Z'
     atomic_guid: 96db2632-8417-4dbb-b8bb-a8b92ba391de
-    import_timestamp: '2025-07-22T03:29:37.536949Z'
+    import_timestamp: '2025-07-23T03:32:13.031581Z'

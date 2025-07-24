@@ -19,8 +19,8 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - atomic-red-team
   - execution
+  - atomic-red-team
   - t1059.001
   author: Atomic Red Team
   additional_info:
@@ -51,4 +51,4 @@
         default: PathToAtomicsFolder\T1059.001\bin\SOAPHound.exe
     technique_created: '2020-03-09T13:48:55.078Z'
     atomic_guid: 4099086c-1470-4223-8085-8186e1ed5948
-    import_timestamp: '2025-07-23T03:31:56.564179Z'
+    import_timestamp: '2025-07-24T03:30:23.658333Z'

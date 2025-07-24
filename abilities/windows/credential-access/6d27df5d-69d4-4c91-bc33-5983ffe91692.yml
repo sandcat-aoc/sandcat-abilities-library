@@ -36,9 +36,9 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - credential-access
   - atomic-red-team
   - t1110.002
+  - credential-access
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -80,4 +80,4 @@
         $(cmd /c echo #{hashcat_exe}\..) -Force -ErrorAction Ignore'
     technique_created: '2020-02-11T18:38:56.197Z'
     atomic_guid: 6d27df5d-69d4-4c91-bc33-5983ffe91692
-    import_timestamp: '2025-07-23T03:31:57.676322Z'
+    import_timestamp: '2025-07-24T03:30:24.815634Z'

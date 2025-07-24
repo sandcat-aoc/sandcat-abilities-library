@@ -37,9 +37,9 @@
   delete_payload: false
   privilege: ''
   buckets:
+  - t1546
   - atomic-red-team
   - persistence
-  - t1546
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -61,4 +61,4 @@
         default: calc.exe
     technique_created: '2020-01-22T21:04:23.285Z'
     atomic_guid: adae83d3-0df6-45e7-b2c3-575f91584577
-    import_timestamp: '2025-07-23T03:31:57.170462Z'
+    import_timestamp: '2025-07-24T03:30:24.290409Z'

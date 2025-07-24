@@ -25,8 +25,8 @@
   privilege: ''
   buckets:
   - atomic-red-team
-  - persistence
   - t1547.015
+  - persistence
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -60,4 +60,4 @@
         '
     technique_created: '2021-10-05T21:26:15.081Z'
     atomic_guid: ec5d76ef-82fe-48da-b931-bdb25a62bc65
-    import_timestamp: '2025-07-23T03:31:57.048537Z'
+    import_timestamp: '2025-07-24T03:30:24.163832Z'

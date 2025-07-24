@@ -42,4 +42,4 @@
         default: $PathToAtomicsFolder\T1543.003\bin\w64time.dll
     technique_created: '2020-01-17T19:13:50.402Z'
     atomic_guid: ef0581fd-528e-4662-87bc-4c2affb86940
-    import_timestamp: '2025-07-23T03:31:56.703094Z'
+    import_timestamp: '2025-07-24T03:30:23.802955Z'

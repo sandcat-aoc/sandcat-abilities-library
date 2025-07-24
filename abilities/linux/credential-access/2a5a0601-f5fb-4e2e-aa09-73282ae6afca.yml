@@ -18,9 +18,9 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - credential-access
   - atomic-red-team
   - t1552.004
+  - credential-access
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -34,4 +34,4 @@
         default: /tmp/GnuPG
     technique_created: '2020-02-04T13:06:49.258Z'
     atomic_guid: 2a5a0601-f5fb-4e2e-aa09-73282ae6afca
-    import_timestamp: '2025-07-23T03:32:12.875741Z'
+    import_timestamp: '2025-07-24T03:30:42.374812Z'

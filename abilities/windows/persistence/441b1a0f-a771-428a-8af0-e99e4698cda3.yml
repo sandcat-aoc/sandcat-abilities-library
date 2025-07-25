@@ -34,8 +34,8 @@
   privilege: ''
   buckets:
   - t1137.006
-  - atomic-red-team
   - persistence
+  - atomic-red-team
   author: Atomic Red Team
   additional_info:
     dependencies:
@@ -64,4 +64,4 @@
         -UseBasicParsing -OutFile "PathToAtomicsFolder\T1137.006\bin\Addins\excelxll_x86.xll"'
     technique_created: '2019-11-07T19:52:52.801Z'
     atomic_guid: 441b1a0f-a771-428a-8af0-e99e4698cda3
-    import_timestamp: '2025-07-24T03:30:23.834396Z'
+    import_timestamp: '2025-07-25T03:29:26.455186Z'

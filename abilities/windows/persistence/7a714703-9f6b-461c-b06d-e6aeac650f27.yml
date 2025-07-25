@@ -38,8 +38,8 @@
   privilege: ''
   buckets:
   - t1176
-  - atomic-red-team
   - persistence
+  - atomic-red-team
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -49,4 +49,4 @@
         default: $env:TEMP
     technique_created: '2018-01-16T16:13:52.465Z'
     atomic_guid: 7a714703-9f6b-461c-b06d-e6aeac650f27
-    import_timestamp: '2025-07-24T03:30:23.871649Z'
+    import_timestamp: '2025-07-25T03:29:26.491704Z'

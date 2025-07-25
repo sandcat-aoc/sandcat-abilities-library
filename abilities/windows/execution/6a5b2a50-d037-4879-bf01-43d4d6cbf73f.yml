@@ -21,8 +21,8 @@
   privilege: ''
   buckets:
   - execution
-  - atomic-red-team
   - t1059.001
+  - atomic-red-team
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -56,4 +56,4 @@
         default: PathToAtomicsFolder\T1059.001\bin\SOAPHound.exe
     technique_created: '2020-03-09T13:48:55.078Z'
     atomic_guid: 6a5b2a50-d037-4879-bf01-43d4d6cbf73f
-    import_timestamp: '2025-07-24T03:30:23.655086Z'
+    import_timestamp: '2025-07-25T03:29:26.280358Z'

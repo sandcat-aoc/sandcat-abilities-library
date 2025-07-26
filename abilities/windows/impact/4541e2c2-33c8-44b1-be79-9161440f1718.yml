@@ -32,9 +32,9 @@
   delete_payload: false
   privilege: ''
   buckets:
+  - atomic-red-team
   - impact
   - t1486
-  - atomic-red-team
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -68,4 +68,4 @@
         '
     technique_created: '2019-03-15T13:59:30.390Z'
     atomic_guid: 4541e2c2-33c8-44b1-be79-9161440f1718
-    import_timestamp: '2025-07-25T03:29:28.218772Z'
+    import_timestamp: '2025-07-26T03:27:17.451974Z'

@@ -24,9 +24,9 @@
   delete_payload: false
   privilege: ''
   buckets:
+  - atomic-red-team
   - privilege-escalation
   - t1055.012
-  - atomic-red-team
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -66,4 +66,4 @@
         \ -Path #{script_path} -Force)\n} catch {\n  Write-Error $_\n  Exit 1\n}\n"
     technique_created: '2020-01-14T17:21:54.470Z'
     atomic_guid: 562427b4-39ef-4e8c-af88-463a78e70b9c
-    import_timestamp: '2025-07-25T03:29:25.990973Z'
+    import_timestamp: '2025-07-26T03:27:15.277143Z'

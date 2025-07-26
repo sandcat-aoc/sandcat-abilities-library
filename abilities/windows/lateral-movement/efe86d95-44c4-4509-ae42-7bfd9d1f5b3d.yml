@@ -24,9 +24,9 @@
   delete_payload: false
   privilege: ''
   buckets:
+  - atomic-red-team
   - t1021.006
   - lateral-movement
-  - atomic-red-team
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -60,4 +60,4 @@
       get_prereq_command: gem install evil-winrm
     technique_created: '2020-02-11T18:29:47.757Z'
     atomic_guid: efe86d95-44c4-4509-ae42-7bfd9d1f5b3d
-    import_timestamp: '2025-07-25T03:29:27.300305Z'
+    import_timestamp: '2025-07-26T03:27:16.554899Z'

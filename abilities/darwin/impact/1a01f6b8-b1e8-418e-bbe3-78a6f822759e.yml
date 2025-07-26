@@ -17,9 +17,9 @@
   delete_payload: false
   privilege: ''
   buckets:
+  - atomic-red-team
   - impact
   - t1486
-  - atomic-red-team
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -37,4 +37,4 @@
         default: ARTFile
     technique_created: '2019-03-15T13:59:30.390Z'
     atomic_guid: 1a01f6b8-b1e8-418e-bbe3-78a6f822759e
-    import_timestamp: '2025-07-25T03:29:08.621055Z'
+    import_timestamp: '2025-07-26T03:26:57.247059Z'

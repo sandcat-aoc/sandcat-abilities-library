@@ -26,9 +26,9 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - atomic-red-team
   - privilege-escalation
   - t1546
+  - atomic-red-team
   author: Atomic Red Team
   additional_info:
     dependencies:
@@ -44,4 +44,4 @@
         \ -OutFile \"PathToAtomicsFolder\\T1546\\src\\ErrorHandler.cmd\"      \n"
     technique_created: '2020-01-22T21:04:23.285Z'
     atomic_guid: 547a4736-dd1c-4b48-b4fe-e916190bb2e7
-    import_timestamp: '2025-07-26T03:27:15.305620Z'
+    import_timestamp: '2025-07-27T03:47:02.808984Z'

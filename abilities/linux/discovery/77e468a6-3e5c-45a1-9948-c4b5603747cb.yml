@@ -17,8 +17,8 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - atomic-red-team
   - discovery
+  - atomic-red-team
   - t1135
   author: Atomic Red Team
   additional_info:
@@ -42,4 +42,4 @@
       get_prereq_command: "#{package_installer} \n"
     technique_created: '2017-12-14T16:46:06.044Z'
     atomic_guid: 77e468a6-3e5c-45a1-9948-c4b5603747cb
-    import_timestamp: '2025-07-26T03:27:32.352993Z'
+    import_timestamp: '2025-07-27T03:47:18.779437Z'

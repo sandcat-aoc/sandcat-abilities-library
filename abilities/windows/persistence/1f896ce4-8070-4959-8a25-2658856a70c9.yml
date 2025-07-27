@@ -25,9 +25,9 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - atomic-red-team
   - t1543.003
   - persistence
+  - atomic-red-team
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -45,4 +45,4 @@
         default: $env:windir\system32\fxssvc.exe
     technique_created: '2020-01-17T19:13:50.402Z'
     atomic_guid: 1f896ce4-8070-4959-8a25-2658856a70c9
-    import_timestamp: '2025-07-26T03:27:15.707662Z'
+    import_timestamp: '2025-07-27T03:47:03.209700Z'

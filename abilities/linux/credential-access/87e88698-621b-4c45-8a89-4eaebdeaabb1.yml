@@ -18,9 +18,9 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - credential-access
-  - t1555.003
   - atomic-red-team
+  - t1555.003
+  - credential-access
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -48,4 +48,4 @@
         pyasn1 psutil Crypto
     technique_created: '2020-02-12T18:57:36.041Z'
     atomic_guid: 87e88698-621b-4c45-8a89-4eaebdeaabb1
-    import_timestamp: '2025-07-27T03:47:18.674944Z'
+    import_timestamp: '2025-07-28T03:46:44.113325Z'

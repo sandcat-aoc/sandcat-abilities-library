@@ -22,9 +22,9 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - credential-access
-  - t1539
   - atomic-red-team
+  - t1539
+  - credential-access
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -34,4 +34,4 @@
         default: /private/tmp
     technique_created: '2019-10-08T20:04:35.508Z'
     atomic_guid: e57ba07b-3a33-40cd-a892-748273b9b49a
-    import_timestamp: '2025-07-27T03:46:45.442168Z'
+    import_timestamp: '2025-07-28T03:46:10.452246Z'

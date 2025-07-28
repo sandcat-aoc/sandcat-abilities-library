@@ -20,8 +20,8 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - persistence
   - atomic-red-team
+  - persistence
   - t1547.007
   author: Atomic Red Team
   additional_info:
@@ -32,4 +32,4 @@
         default: /path/to/script
     technique_created: '2020-01-24T18:15:06.641Z'
     atomic_guid: 5f5b71da-e03f-42e7-ac98-d63f9e0465cb
-    import_timestamp: '2025-07-27T03:46:45.340661Z'
+    import_timestamp: '2025-07-28T03:46:10.352256Z'

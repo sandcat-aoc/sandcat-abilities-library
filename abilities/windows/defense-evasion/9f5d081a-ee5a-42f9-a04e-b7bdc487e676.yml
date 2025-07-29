@@ -16,8 +16,8 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - atomic-red-team
   - t1218.011
+  - atomic-red-team
   - defense-evasion
   author: Atomic Red Team
   additional_info:
@@ -28,4 +28,4 @@
         default: '%windir%\System32\notepad.exe'
     technique_created: '2020-01-23T18:03:46.248Z'
     atomic_guid: 9f5d081a-ee5a-42f9-a04e-b7bdc487e676
-    import_timestamp: '2025-07-28T03:46:26.397824Z'
+    import_timestamp: '2025-07-29T03:49:31.731402Z'

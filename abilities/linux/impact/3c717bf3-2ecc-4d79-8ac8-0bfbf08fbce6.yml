@@ -19,8 +19,8 @@
   privilege: ''
   buckets:
   - atomic-red-team
-  - impact
   - t1531
+  - impact
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -30,4 +30,4 @@
         default: ARTUser
     technique_created: '2019-10-09T18:48:31.906Z'
     atomic_guid: 3c717bf3-2ecc-4d79-8ac8-0bfbf08fbce6
-    import_timestamp: '2025-07-28T03:46:44.314395Z'
+    import_timestamp: '2025-07-29T03:49:48.070759Z'

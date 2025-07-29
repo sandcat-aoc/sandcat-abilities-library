@@ -29,8 +29,8 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - atomic-red-team
   - privilege-escalation
+  - atomic-red-team
   - t1547.015
   author: Atomic Red Team
   additional_info:
@@ -45,4 +45,4 @@
         default: PathToAtomicsFolder/T1547.015/src/remove_login_item.osa
     technique_created: '2021-10-05T21:26:15.081Z'
     atomic_guid: 716e756a-607b-41f3-8204-b214baf37c1d
-    import_timestamp: '2025-07-28T03:46:10.228060Z'
+    import_timestamp: '2025-07-29T03:49:15.691565Z'

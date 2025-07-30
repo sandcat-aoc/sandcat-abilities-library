@@ -25,8 +25,8 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - atomic-red-team
   - t1059.006
+  - atomic-red-team
   - execution
   author: Atomic Red Team
   additional_info:
@@ -66,4 +66,4 @@
       get_prereq_command: "pip install requests    \n"
     technique_created: '2020-03-09T14:38:24.334Z'
     atomic_guid: 6c4d1dcb-33c7-4c36-a8df-c6cfd0408be8
-    import_timestamp: '2025-07-29T03:49:47.570895Z'
+    import_timestamp: '2025-07-30T03:43:31.304894Z'

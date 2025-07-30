@@ -80,4 +80,4 @@
         $(cmd /c echo #{hashcat_exe}\..) -Force -ErrorAction Ignore'
     technique_created: '2020-02-11T18:38:56.197Z'
     atomic_guid: 6d27df5d-69d4-4c91-bc33-5983ffe91692
-    import_timestamp: '2025-07-29T03:49:34.768681Z'
+    import_timestamp: '2025-07-30T03:43:16.389173Z'

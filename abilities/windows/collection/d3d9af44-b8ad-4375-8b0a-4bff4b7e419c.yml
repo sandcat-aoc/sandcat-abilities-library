@@ -27,8 +27,8 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - t1005
   - atomic-red-team
+  - t1005
   - collection
   author: Atomic Red Team
   additional_info:
@@ -48,4 +48,4 @@
         default: .doc, .docx, .txt
     technique_created: '2017-05-31T21:30:20.537Z'
     atomic_guid: d3d9af44-b8ad-4375-8b0a-4bff4b7e419c
-    import_timestamp: '2025-07-29T03:49:34.602047Z'
+    import_timestamp: '2025-07-30T03:43:16.225546Z'

@@ -27,8 +27,8 @@
   privilege: ''
   buckets:
   - impact
-  - atomic-red-team
   - t1489
+  - atomic-red-team
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -42,4 +42,4 @@
         default: cron
     technique_created: '2019-03-29T19:00:55.901Z'
     atomic_guid: e5d95be6-02ee-4ff1-aebe-cf86013b6189
-    import_timestamp: '2025-07-30T03:43:31.806835Z'
+    import_timestamp: '2025-07-31T03:42:51.199787Z'

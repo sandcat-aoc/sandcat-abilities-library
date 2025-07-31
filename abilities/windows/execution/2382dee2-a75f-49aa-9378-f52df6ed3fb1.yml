@@ -25,8 +25,8 @@
   privilege: ''
   buckets:
   - t1569.002
-  - atomic-red-team
   - execution
+  - atomic-red-team
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -41,4 +41,4 @@
           File C:\art-marker.txt'
     technique_created: '2020-03-10T18:33:36.159Z'
     atomic_guid: 2382dee2-a75f-49aa-9378-f52df6ed3fb1
-    import_timestamp: '2025-07-30T03:43:15.318923Z'
+    import_timestamp: '2025-07-31T03:42:34.507621Z'

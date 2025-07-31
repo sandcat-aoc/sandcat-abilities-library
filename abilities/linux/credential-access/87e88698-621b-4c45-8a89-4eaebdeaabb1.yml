@@ -19,8 +19,8 @@
   privilege: ''
   buckets:
   - credential-access
-  - atomic-red-team
   - t1555.003
+  - atomic-red-team
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -48,4 +48,4 @@
         pyasn1 psutil Crypto
     technique_created: '2020-02-12T18:57:36.041Z'
     atomic_guid: 87e88698-621b-4c45-8a89-4eaebdeaabb1
-    import_timestamp: '2025-07-30T03:43:31.611513Z'
+    import_timestamp: '2025-07-31T03:42:51.008779Z'

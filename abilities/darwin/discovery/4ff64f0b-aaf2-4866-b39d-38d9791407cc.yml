@@ -20,8 +20,8 @@
   privilege: ''
   buckets:
   - t1057
-  - atomic-red-team
   - discovery
+  - atomic-red-team
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -31,4 +31,4 @@
         default: /tmp/loot.txt
     technique_created: '2017-05-31T21:30:48.728Z'
     atomic_guid: 4ff64f0b-aaf2-4866-b39d-38d9791407cc
-    import_timestamp: '2025-07-30T03:42:57.117990Z'
+    import_timestamp: '2025-07-31T03:42:16.215972Z'

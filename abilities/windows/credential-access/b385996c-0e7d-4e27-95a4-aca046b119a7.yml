@@ -19,9 +19,9 @@
   delete_payload: false
   privilege: ''
   buckets:
+  - t1003.003
   - credential-access
   - atomic-red-team
-  - t1003.003
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -31,4 +31,4 @@
         default: PathToAtomicsFolder\T1003.003\src\diskshadow.txt
     technique_created: '2020-02-11T18:42:35.572Z'
     atomic_guid: b385996c-0e7d-4e27-95a4-aca046b119a7
-    import_timestamp: '2025-07-30T03:43:16.786557Z'
+    import_timestamp: '2025-07-31T03:42:35.851675Z'

@@ -41,8 +41,8 @@
   privilege: ''
   buckets:
   - impact
-  - atomic-red-team
   - t1491.001
+  - atomic-red-team
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -58,4 +58,4 @@
           data contact us:xxxx@onionmail.org
     technique_created: '2020-02-20T14:31:34.778Z'
     atomic_guid: ffcbfaab-c9ff-470b-928c-f086b326089b
-    import_timestamp: '2025-07-30T03:43:17.282118Z'
+    import_timestamp: '2025-07-31T03:42:36.342101Z'

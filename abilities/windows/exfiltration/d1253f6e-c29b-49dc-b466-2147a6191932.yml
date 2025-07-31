@@ -19,9 +19,9 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - atomic-red-team
   - t1041
   - exfiltration
+  - atomic-red-team
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -35,4 +35,4 @@
         default: $env:TEMP\LineNumbers.txt
     technique_created: '2017-05-31T21:30:41.804Z'
     atomic_guid: d1253f6e-c29b-49dc-b466-2147a6191932
-    import_timestamp: '2025-07-30T03:43:17.398080Z'
+    import_timestamp: '2025-07-31T03:42:36.458247Z'

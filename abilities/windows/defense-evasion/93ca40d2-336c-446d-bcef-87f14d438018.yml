@@ -58,4 +58,4 @@
         -OutFile "#{payload_file}" -UseBasicParsing'
     technique_created: '2020-01-14T17:18:32.126Z'
     atomic_guid: 93ca40d2-336c-446d-bcef-87f14d438018
-    import_timestamp: '2025-07-31T03:42:32.434686Z'
+    import_timestamp: '2025-08-01T03:56:37.344202Z'

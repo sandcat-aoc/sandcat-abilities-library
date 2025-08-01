@@ -18,8 +18,8 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - execution
   - t1059.003
+  - execution
   - atomic-red-team
   author: Atomic Red Team
   additional_info:
@@ -34,4 +34,4 @@
         default: Hello from the Windows Command Prompt!
     technique_created: '2020-03-09T14:12:31.196Z'
     atomic_guid: 127b4afe-2346-4192-815c-69042bec570e
-    import_timestamp: '2025-07-31T03:42:34.486258Z'
+    import_timestamp: '2025-08-01T03:56:39.309580Z'

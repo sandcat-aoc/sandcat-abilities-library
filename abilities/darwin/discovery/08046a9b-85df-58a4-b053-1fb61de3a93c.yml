@@ -24,4 +24,4 @@
     use_case: Retrieving macOS Build Version
     source_file: sw_vers.yml
     source_repository: https://github.com/infosecB/LOOBins
-    import_timestamp: '2025-07-31T03:41:56.720590Z'
+    import_timestamp: '2025-08-01T03:56:01.282244Z'

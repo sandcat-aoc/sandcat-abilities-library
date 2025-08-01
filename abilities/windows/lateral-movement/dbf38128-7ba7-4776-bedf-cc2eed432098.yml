@@ -25,8 +25,8 @@
   privilege: ''
   buckets:
   - lateral-movement
-  - t1550.003
   - atomic-red-team
+  - t1550.003
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -55,4 +55,4 @@
         \ | Split-Path\nInvoke-FetchFromZip $zipUrl \"x64/mimikatz.exe\" $basePath\n"
     technique_created: '2020-01-30T17:03:43.072Z'
     atomic_guid: dbf38128-7ba7-4776-bedf-cc2eed432098
-    import_timestamp: '2025-07-31T03:42:35.467429Z'
+    import_timestamp: '2025-08-01T03:56:40.289211Z'

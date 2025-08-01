@@ -15,9 +15,9 @@
   delete_payload: false
   privilege: ''
   buckets:
+  - atomic-red-team
   - command-and-control
   - t1132.001
-  - atomic-red-team
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -31,4 +31,4 @@
         default: MTExLTExLTExMTE=
     technique_created: '2020-03-14T23:36:52.095Z'
     atomic_guid: 1164f70f-9a88-4dff-b9ff-dc70e7bf0c25
-    import_timestamp: '2025-07-31T03:42:50.830047Z'
+    import_timestamp: '2025-08-01T03:56:55.367188Z'

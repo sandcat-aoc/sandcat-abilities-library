@@ -18,8 +18,8 @@
   privilege: ''
   buckets:
   - persistence
-  - t1546.004
   - atomic-red-team
+  - t1546.004
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -29,4 +29,4 @@
         default: echo "Hello from Atomic Red Team T1546.004" > /tmp/T1546.004
     technique_created: '2020-01-24T14:13:45.936Z'
     atomic_guid: 41502021-591a-4649-8b6e-83c9192aff53
-    import_timestamp: '2025-07-31T03:42:50.791476Z'
+    import_timestamp: '2025-08-01T03:56:55.328541Z'

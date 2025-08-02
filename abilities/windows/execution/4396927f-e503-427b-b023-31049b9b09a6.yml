@@ -21,8 +21,8 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - t1059.001
   - execution
+  - t1059.001
   - atomic-red-team
   author: Atomic Red Team
   additional_info:
@@ -33,4 +33,4 @@
         default: https://raw.githubusercontent.com/redcanaryco/atomic-red-team/master/atomics/T1059.001/src/test.xml
     technique_created: '2020-03-09T13:48:55.078Z'
     atomic_guid: 4396927f-e503-427b-b023-31049b9b09a6
-    import_timestamp: '2025-08-01T03:56:39.248379Z'
+    import_timestamp: '2025-08-02T03:26:11.894618Z'

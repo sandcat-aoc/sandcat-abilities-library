@@ -26,9 +26,9 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - defense-evasion
   - t1070.004
   - atomic-red-team
+  - defense-evasion
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -38,4 +38,4 @@
         default: $env:TEMP\TeamViewer_54.log
     technique_created: '2020-01-31T12:35:36.479Z'
     atomic_guid: 69f50a5f-967c-4327-a5bb-e1a9a9983785
-    import_timestamp: '2025-08-01T03:56:38.451493Z'
+    import_timestamp: '2025-08-02T03:26:11.099905Z'

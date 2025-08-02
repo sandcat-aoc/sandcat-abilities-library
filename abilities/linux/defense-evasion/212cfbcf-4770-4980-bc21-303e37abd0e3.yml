@@ -22,9 +22,9 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - defense-evasion
-  - atomic-red-team
   - t1562.006
+  - atomic-red-team
+  - defense-evasion
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -42,4 +42,4 @@
         default: libaudit.conf
     technique_created: '2020-03-19T19:09:30.329Z'
     atomic_guid: 212cfbcf-4770-4980-bc21-303e37abd0e3
-    import_timestamp: '2025-08-01T03:56:54.967108Z'
+    import_timestamp: '2025-08-02T03:26:27.028217Z'

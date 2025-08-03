@@ -18,8 +18,8 @@
   privilege: ''
   buckets:
   - t1486
-  - atomic-red-team
   - impact
+  - atomic-red-team
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -37,4 +37,4 @@
         default: ARTFile
     technique_created: '2019-03-15T13:59:30.390Z'
     atomic_guid: 1a01f6b8-b1e8-418e-bbe3-78a6f822759e
-    import_timestamp: '2025-08-02T03:25:54.234964Z'
+    import_timestamp: '2025-08-03T03:50:40.706326Z'

@@ -19,8 +19,8 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - defense-evasion
   - atomic-red-team
+  - defense-evasion
   - t1036.003
   author: Atomic Red Team
   additional_info:
@@ -35,4 +35,4 @@
         default: $env:ComSpec
     technique_created: '2020-02-10T20:03:11.691Z'
     atomic_guid: c3d24a39-2bfe-4c6a-b064-90cd73896cb0
-    import_timestamp: '2025-08-03T03:50:57.478634Z'
+    import_timestamp: '2025-08-04T03:55:54.921088Z'

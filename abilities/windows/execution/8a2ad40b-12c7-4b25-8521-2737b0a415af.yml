@@ -19,9 +19,9 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - execution
-  - t1059.001
   - atomic-red-team
+  - t1059.001
+  - execution
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -31,4 +31,4 @@
         default: https://raw.githubusercontent.com/redcanaryco/atomic-red-team/master/atomics/T1059.001/src/mshta.sct
     technique_created: '2020-03-09T13:48:55.078Z'
     atomic_guid: 8a2ad40b-12c7-4b25-8521-2737b0a415af
-    import_timestamp: '2025-08-03T03:50:58.450408Z'
+    import_timestamp: '2025-08-04T03:55:55.817570Z'

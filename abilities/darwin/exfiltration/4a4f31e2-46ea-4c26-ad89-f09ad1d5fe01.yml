@@ -18,9 +18,9 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - t1048.002
-  - exfiltration
   - atomic-red-team
+  - exfiltration
+  - t1048.002
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -30,4 +30,4 @@
         default: PathToAtomicsFolder/T1048.002/src/artifact
     technique_created: '2020-03-15T15:34:30.767Z'
     atomic_guid: 4a4f31e2-46ea-4c26-ad89-f09ad1d5fe01
-    import_timestamp: '2025-08-03T03:50:40.727895Z'
+    import_timestamp: '2025-08-04T03:55:37.880420Z'

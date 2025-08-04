@@ -23,8 +23,8 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - t1547.001
   - atomic-red-team
+  - t1547.001
   - persistence
   author: Atomic Red Team
   additional_info:
@@ -35,4 +35,4 @@
         default: C:\Path\AtomicRedTeam.dll
     technique_created: '2020-01-23T22:02:48.566Z'
     atomic_guid: 554cbd88-cde1-4b56-8168-0be552eed9eb
-    import_timestamp: '2025-08-03T03:50:58.996444Z'
+    import_timestamp: '2025-08-04T03:55:56.383753Z'

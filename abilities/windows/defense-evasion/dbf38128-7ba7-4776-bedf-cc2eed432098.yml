@@ -24,9 +24,9 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - defense-evasion
-  - t1550.003
   - atomic-red-team
+  - t1550.003
+  - defense-evasion
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -55,4 +55,4 @@
         \ | Split-Path\nInvoke-FetchFromZip $zipUrl \"x64/mimikatz.exe\" $basePath\n"
     technique_created: '2020-01-30T17:03:43.072Z'
     atomic_guid: dbf38128-7ba7-4776-bedf-cc2eed432098
-    import_timestamp: '2025-08-03T03:50:57.164689Z'
+    import_timestamp: '2025-08-04T03:55:54.473381Z'

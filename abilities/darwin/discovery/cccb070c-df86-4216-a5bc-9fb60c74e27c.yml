@@ -21,8 +21,8 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - t1082
   - atomic-red-team
+  - t1082
   - discovery
   author: Atomic Red Team
   additional_info:
@@ -33,4 +33,4 @@
         default: /tmp/T1082.txt
     technique_created: '2017-05-31T21:31:04.307Z'
     atomic_guid: cccb070c-df86-4216-a5bc-9fb60c74e27c
-    import_timestamp: '2025-08-03T03:50:40.636757Z'
+    import_timestamp: '2025-08-04T03:55:37.787716Z'

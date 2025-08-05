@@ -24,8 +24,8 @@
   privilege: ''
   buckets:
   - atomic-red-team
-  - privilege-escalation
   - t1055
+  - privilege-escalation
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -35,4 +35,4 @@
         default: (Start-Process calc.exe -PassThru).Id
     technique_created: '2017-05-31T21:30:47.843Z'
     atomic_guid: 49543237-25db-497b-90df-d0a0a6e8fe2c
-    import_timestamp: '2025-08-04T03:55:55.289449Z'
+    import_timestamp: '2025-08-05T03:47:13.821964Z'

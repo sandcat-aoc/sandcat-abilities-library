@@ -22,8 +22,8 @@
   privilege: ''
   buckets:
   - atomic-red-team
-  - execution
   - t1059.006
+  - execution
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -59,4 +59,4 @@
         '
     technique_created: '2020-03-09T14:38:24.334Z'
     atomic_guid: 3a95cdb2-c6ea-4761-b24e-02b71889b8bb
-    import_timestamp: '2025-08-04T03:56:11.580056Z'
+    import_timestamp: '2025-08-05T03:47:29.736988Z'

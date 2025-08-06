@@ -31,8 +31,8 @@
   privilege: ''
   buckets:
   - atomic-red-team
-  - execution
   - t1559
+  - execution
   author: Atomic Red Team
   additional_info:
     dependencies:
@@ -60,4 +60,4 @@
         '
     technique_created: '2020-02-12T14:08:48.689Z'
     atomic_guid: 830c8b6c-7a70-4f40-b975-8bbe74558acd
-    import_timestamp: '2025-08-05T03:47:14.371244Z'
+    import_timestamp: '2025-08-06T03:44:20.510811Z'

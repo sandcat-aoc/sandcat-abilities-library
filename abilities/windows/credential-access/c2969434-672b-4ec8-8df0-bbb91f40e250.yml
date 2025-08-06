@@ -30,8 +30,8 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - credential-access
   - atomic-red-team
+  - credential-access
   - t1110.001
   author: Atomic Red Team
   additional_info:
@@ -54,4 +54,4 @@
         default: NTLM
     technique_created: '2020-02-11T18:38:22.617Z'
     atomic_guid: c2969434-672b-4ec8-8df0-bbb91f40e250
-    import_timestamp: '2025-08-05T03:47:15.428039Z'
+    import_timestamp: '2025-08-06T03:44:21.691560Z'

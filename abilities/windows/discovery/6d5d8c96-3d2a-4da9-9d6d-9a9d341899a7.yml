@@ -18,8 +18,8 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - t1069.002
   - atomic-red-team
+  - t1069.002
   - discovery
   author: Atomic Red Team
   additional_info:
@@ -30,4 +30,4 @@
         default: $env:USERNAME
     technique_created: '2020-02-21T21:15:06.561Z'
     atomic_guid: 6d5d8c96-3d2a-4da9-9d6d-9a9d341899a7
-    import_timestamp: '2025-08-05T03:47:15.893867Z'
+    import_timestamp: '2025-08-06T03:44:22.149272Z'

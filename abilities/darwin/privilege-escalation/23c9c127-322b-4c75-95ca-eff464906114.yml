@@ -20,8 +20,8 @@
   privilege: ''
   buckets:
   - atomic-red-team
-  - t1546.014
   - privilege-escalation
+  - t1546.014
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -31,4 +31,4 @@
         default: PathToAtomicsFolder/T1546.014/src/T1546.014_emond.plist
     technique_created: '2020-01-24T15:15:13.426Z'
     atomic_guid: 23c9c127-322b-4c75-95ca-eff464906114
-    import_timestamp: '2025-08-05T03:46:56.409136Z'
+    import_timestamp: '2025-08-06T03:44:02.615743Z'

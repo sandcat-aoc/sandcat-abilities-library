@@ -36,9 +36,9 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - command-and-control
   - atomic-red-team
   - t1573
+  - command-and-control
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -52,4 +52,4 @@
         default: '443'
     technique_created: '2020-03-16T15:33:01.739Z'
     atomic_guid: 21caf58e-87ad-440c-a6b8-3ac259964003
-    import_timestamp: '2025-08-05T03:47:15.145631Z'
+    import_timestamp: '2025-08-06T03:44:21.413482Z'

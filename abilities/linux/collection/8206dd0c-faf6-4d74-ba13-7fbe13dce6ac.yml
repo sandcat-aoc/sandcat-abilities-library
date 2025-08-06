@@ -18,8 +18,8 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - collection
   - atomic-red-team
+  - collection
   - t1113
   author: Atomic Red Team
   additional_info:
@@ -49,4 +49,4 @@
       get_prereq_command: "sudo #{package_installer} \n"
     technique_created: '2017-05-31T21:31:25.060Z'
     atomic_guid: 8206dd0c-faf6-4d74-ba13-7fbe13dce6ac
-    import_timestamp: '2025-08-05T03:47:29.923421Z'
+    import_timestamp: '2025-08-06T03:44:36.228581Z'

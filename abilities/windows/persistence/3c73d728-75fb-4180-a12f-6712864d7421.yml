@@ -19,8 +19,8 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - atomic-red-team
   - t1197
+  - atomic-red-team
   - persistence
   author: Atomic Red Team
   additional_info:
@@ -35,4 +35,4 @@
         default: '%temp%\bitsadmin1_flag.ps1'
     technique_created: '2018-04-18T17:59:24.739Z'
     atomic_guid: 3c73d728-75fb-4180-a12f-6712864d7421
-    import_timestamp: '2025-08-06T03:44:21.283196Z'
+    import_timestamp: '2025-08-07T03:44:27.952971Z'

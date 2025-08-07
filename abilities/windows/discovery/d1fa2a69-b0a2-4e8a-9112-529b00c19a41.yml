@@ -25,8 +25,8 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - atomic-red-team
   - discovery
+  - atomic-red-team
   - t1135
   author: Atomic Red Team
   additional_info:
@@ -50,4 +50,4 @@
         -OutFile "PathToAtomicsFolder\..\ExternalPayloads\SharpShares.exe"'
     technique_created: '2017-12-14T16:46:06.044Z'
     atomic_guid: d1fa2a69-b0a2-4e8a-9112-529b00c19a41
-    import_timestamp: '2025-08-06T03:44:22.207239Z'
+    import_timestamp: '2025-08-07T03:44:28.914342Z'

@@ -18,8 +18,8 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - credential-access
   - t1555.001
+  - credential-access
   - atomic-red-team
   author: Atomic Red Team
   additional_info:
@@ -30,4 +30,4 @@
         default: /tmp/keychain
     technique_created: '2020-02-12T18:55:24.728Z'
     atomic_guid: 5c32102a-c508-49d3-978f-288f8a9f6617
-    import_timestamp: '2025-08-07T03:44:08.981129Z'
+    import_timestamp: '2025-08-08T03:43:34.570508Z'

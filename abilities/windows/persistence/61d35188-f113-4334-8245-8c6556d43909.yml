@@ -19,11 +19,11 @@
   delete_payload: false
   privilege: ''
   buckets:
+  - persistence
   - t1112
   - atomic-red-team
-  - persistence
   author: Atomic Red Team
   additional_info:
     technique_created: '2017-05-31T21:31:23.587Z'
     atomic_guid: 61d35188-f113-4334-8245-8c6556d43909
-    import_timestamp: '2025-08-07T03:44:27.657780Z'
+    import_timestamp: '2025-08-08T03:43:52.695678Z'

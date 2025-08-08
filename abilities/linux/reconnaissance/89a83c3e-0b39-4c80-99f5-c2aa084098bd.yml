@@ -43,4 +43,4 @@
         default: $env:TMPDIR/wordlist_scan.txt
     technique_created: '2022-03-04T18:56:38.844Z'
     atomic_guid: 89a83c3e-0b39-4c80-99f5-c2aa084098bd
-    import_timestamp: '2025-08-07T03:44:43.410686Z'
+    import_timestamp: '2025-08-08T03:44:08.300712Z'

@@ -25,8 +25,8 @@
   privilege: ''
   buckets:
   - t1547.009
-  - atomic-red-team
   - persistence
+  - atomic-red-team
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -36,4 +36,4 @@
         default: '%temp%\T1547.009_modified_shortcut.url'
     technique_created: '2020-01-24T19:00:32.917Z'
     atomic_guid: ce4fc678-364f-4282-af16-2fb4c78005ce
-    import_timestamp: '2025-08-07T03:44:27.515549Z'
+    import_timestamp: '2025-08-08T03:43:52.558624Z'

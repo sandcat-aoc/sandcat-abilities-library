@@ -23,8 +23,8 @@
   privilege: ''
   buckets:
   - command-and-control
-  - t1071.004
   - atomic-red-team
+  - t1071.004
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -43,4 +43,4 @@
         default: 127.0.0.1.nip.io
     technique_created: '2020-03-15T16:27:31.768Z'
     atomic_guid: fef31710-223a-40ee-8462-a396d6b66978
-    import_timestamp: '2025-08-08T03:43:53.044233Z'
+    import_timestamp: '2025-08-09T03:20:17.923529Z'

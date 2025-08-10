@@ -27,8 +27,8 @@
   privilege: ''
   buckets:
   - t1574.009
-  - privilege-escalation
   - atomic-red-team
+  - privilege-escalation
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -39,4 +39,4 @@
         default: PathToAtomicsFolder\T1574.009\bin\WindowsServiceExample.exe
     technique_created: '2020-03-13T13:51:58.519Z'
     atomic_guid: 2770dea7-c50f-457b-84c4-c40a47460d9f
-    import_timestamp: '2025-08-09T03:20:16.963870Z'
+    import_timestamp: '2025-08-10T03:44:40.983572Z'

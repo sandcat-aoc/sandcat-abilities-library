@@ -22,9 +22,9 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - t1562.004
   - atomic-red-team
   - defense-evasion
+  - t1562.004
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -34,4 +34,4 @@
         default: PathToAtomicsFolder\T1562.004\bin\AtomicTest.exe
     technique_created: '2020-02-21T21:00:48.814Z'
     atomic_guid: 6f5822d2-d38d-4f48-9bfc-916607ff6b8c
-    import_timestamp: '2025-08-09T03:20:15.688597Z'
+    import_timestamp: '2025-08-10T03:44:39.706173Z'

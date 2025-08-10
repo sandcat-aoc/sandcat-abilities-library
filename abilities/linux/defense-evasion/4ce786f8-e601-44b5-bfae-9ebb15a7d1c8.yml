@@ -20,9 +20,9 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - t1562.001
   - atomic-red-team
   - defense-evasion
+  - t1562.001
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -56,4 +56,4 @@
       get_prereq_command: "sudo #{package_installer} \n"
     technique_created: '2020-02-21T20:32:20.810Z'
     atomic_guid: 4ce786f8-e601-44b5-bfae-9ebb15a7d1c8
-    import_timestamp: '2025-08-09T03:20:32.314163Z'
+    import_timestamp: '2025-08-10T03:44:56.281994Z'

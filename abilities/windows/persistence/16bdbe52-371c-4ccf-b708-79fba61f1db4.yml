@@ -21,8 +21,8 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - persistence
   - atomic-red-team
+  - persistence
   - t1112
   author: Atomic Red Team
   additional_info:
@@ -33,4 +33,4 @@
         default: '0'
     technique_created: '2017-05-31T21:31:23.587Z'
     atomic_guid: 16bdbe52-371c-4ccf-b708-79fba61f1db4
-    import_timestamp: '2025-08-10T03:44:41.600690Z'
+    import_timestamp: '2025-08-11T03:43:31.693227Z'

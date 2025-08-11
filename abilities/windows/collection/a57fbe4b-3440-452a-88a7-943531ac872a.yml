@@ -22,8 +22,8 @@
   privilege: ''
   buckets:
   - atomic-red-team
-  - collection
   - t1074.001
+  - collection
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -37,4 +37,4 @@
         default: PathToAtomicsFolder\T1074.001\bin\Folder_to_zip
     technique_created: '2020-03-13T21:13:10.467Z'
     atomic_guid: a57fbe4b-3440-452a-88a7-943531ac872a
-    import_timestamp: '2025-08-10T03:44:42.183030Z'
+    import_timestamp: '2025-08-11T03:43:32.274345Z'

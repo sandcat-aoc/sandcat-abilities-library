@@ -24,8 +24,8 @@
   privilege: ''
   buckets:
   - atomic-red-team
-  - t1033
   - discovery
+  - t1033
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -35,4 +35,4 @@
         default: $env:temp
     technique_created: '2017-05-31T21:30:35.733Z'
     atomic_guid: 3d257a03-eb80-41c5-b744-bb37ac7f65c7
-    import_timestamp: '2025-08-10T03:44:42.726101Z'
+    import_timestamp: '2025-08-11T03:43:32.779755Z'

@@ -20,8 +20,8 @@
   privilege: ''
   buckets:
   - credential-access
-  - t1003.003
   - atomic-red-team
+  - t1003.003
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -31,4 +31,4 @@
         default: PathToAtomicsFolder\T1003.003\src\diskshadow.txt
     technique_created: '2020-02-11T18:42:35.572Z'
     atomic_guid: b385996c-0e7d-4e27-95a4-aca046b119a7
-    import_timestamp: '2025-08-10T03:44:42.689028Z'
+    import_timestamp: '2025-08-11T03:43:32.742007Z'

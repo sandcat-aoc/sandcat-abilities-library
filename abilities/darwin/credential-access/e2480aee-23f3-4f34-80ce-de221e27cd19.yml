@@ -18,8 +18,8 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - credential-access
   - atomic-red-team
+  - credential-access
   - t1040
   author: Atomic Red Team
   additional_info:
@@ -48,4 +48,4 @@
         '
     technique_created: '2017-05-31T21:30:41.399Z'
     atomic_guid: e2480aee-23f3-4f34-80ce-de221e27cd19
-    import_timestamp: '2025-08-10T03:44:22.586959Z'
+    import_timestamp: '2025-08-11T03:43:13.200113Z'

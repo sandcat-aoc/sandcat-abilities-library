@@ -18,8 +18,8 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - atomic-red-team
   - impact
+  - atomic-red-team
   - t1531
   author: Atomic Red Team
   additional_info:
@@ -38,4 +38,4 @@
         default: ARTPassword
     technique_created: '2019-10-09T18:48:31.906Z'
     atomic_guid: d3812c4e-30ee-466a-a0aa-07e355b561d6
-    import_timestamp: '2025-08-10T03:44:22.722718Z'
+    import_timestamp: '2025-08-11T03:43:13.336161Z'

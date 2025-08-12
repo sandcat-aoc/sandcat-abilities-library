@@ -18,8 +18,8 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - atomic-red-team
   - persistence
+  - atomic-red-team
   - t1136.001
   author: Atomic Red Team
   additional_info:
@@ -34,4 +34,4 @@
         default: T1136_pass
     technique_created: '2020-01-28T13:50:22.506Z'
     atomic_guid: fda74566-a604-4581-a4cc-fbbe21d66559
-    import_timestamp: '2025-08-11T03:43:31.755389Z'
+    import_timestamp: '2025-08-12T03:17:53.372044Z'

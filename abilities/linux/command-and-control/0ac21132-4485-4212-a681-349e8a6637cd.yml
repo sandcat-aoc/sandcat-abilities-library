@@ -26,9 +26,9 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - t1090.001
-  - atomic-red-team
   - command-and-control
+  - atomic-red-team
+  - t1090.001
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -70,4 +70,4 @@
         echo "Value #{run_squid} for variable "run_squid" is not valid" && exit 1'
     technique_created: '2020-03-14T23:08:20.244Z'
     atomic_guid: 0ac21132-4485-4212-a681-349e8a6637cd
-    import_timestamp: '2025-08-11T03:43:47.105631Z'
+    import_timestamp: '2025-08-12T03:18:09.028415Z'

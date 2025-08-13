@@ -19,8 +19,8 @@
   privilege: ''
   buckets:
   - collection
-  - t1560.002
   - atomic-red-team
+  - t1560.002
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -44,4 +44,4 @@
         '
     technique_created: '2020-02-20T21:08:52.529Z'
     atomic_guid: 001a042b-859f-44d9-bf81-fd1c4e2200b0
-    import_timestamp: '2025-08-12T03:18:09.082873Z'
+    import_timestamp: '2025-08-13T03:20:47.565944Z'

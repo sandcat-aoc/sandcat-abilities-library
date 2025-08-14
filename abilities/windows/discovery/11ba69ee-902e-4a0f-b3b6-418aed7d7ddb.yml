@@ -18,8 +18,8 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - atomic-red-team
   - discovery
+  - atomic-red-team
   - t1057
   author: Atomic Red Team
   additional_info:
@@ -30,4 +30,4 @@
         default: lsass
     technique_created: '2017-05-31T21:30:48.728Z'
     atomic_guid: 11ba69ee-902e-4a0f-b3b6-418aed7d7ddb
-    import_timestamp: '2025-08-13T03:20:32.970512Z'
+    import_timestamp: '2025-08-14T03:21:44.360575Z'

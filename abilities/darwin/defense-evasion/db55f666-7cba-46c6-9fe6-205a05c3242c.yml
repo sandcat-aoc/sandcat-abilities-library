@@ -18,8 +18,8 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - defense-evasion
   - atomic-red-team
+  - defense-evasion
   - t1548.001
   author: Atomic Red Team
   additional_info:
@@ -30,4 +30,4 @@
         default: /tmp/evilBinary
     technique_created: '2020-01-30T14:11:41.212Z'
     atomic_guid: db55f666-7cba-46c6-9fe6-205a05c3242c
-    import_timestamp: '2025-08-13T03:20:12.506678Z'
+    import_timestamp: '2025-08-14T03:21:25.119258Z'

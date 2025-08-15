@@ -18,8 +18,8 @@
   privilege: ''
   buckets:
   - atomic-red-team
-  - command-and-control
   - t1105
+  - command-and-control
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -33,4 +33,4 @@
         default: atomic.sh
     technique_created: '2017-05-31T21:31:16.408Z'
     atomic_guid: bdc373c5-e9cf-4563-8a7b-a9ba720a90f3
-    import_timestamp: '2025-08-14T03:21:57.785607Z'
+    import_timestamp: '2025-08-15T03:23:01.502529Z'

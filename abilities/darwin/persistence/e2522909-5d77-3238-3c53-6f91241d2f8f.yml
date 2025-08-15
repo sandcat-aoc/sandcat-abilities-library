@@ -25,4 +25,4 @@
     use_case: Start a process and remove it from the jobs table.
     source_file: disown.yml
     source_repository: https://github.com/infosecB/LOOBins
-    import_timestamp: '2025-08-14T03:21:06.508943Z'
+    import_timestamp: '2025-08-15T03:22:05.656649Z'

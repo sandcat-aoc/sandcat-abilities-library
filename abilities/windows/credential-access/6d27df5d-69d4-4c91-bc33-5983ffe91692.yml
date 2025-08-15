@@ -37,8 +37,8 @@
   privilege: ''
   buckets:
   - atomic-red-team
-  - credential-access
   - t1110.002
+  - credential-access
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -80,4 +80,4 @@
         $(cmd /c echo #{hashcat_exe}\..) -Force -ErrorAction Ignore'
     technique_created: '2020-02-11T18:38:56.197Z'
     atomic_guid: 6d27df5d-69d4-4c91-bc33-5983ffe91692
-    import_timestamp: '2025-08-14T03:21:43.753884Z'
+    import_timestamp: '2025-08-15T03:22:47.928158Z'

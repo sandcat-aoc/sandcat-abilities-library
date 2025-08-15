@@ -24,8 +24,8 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - discovery
   - atomic-red-team
+  - discovery
   - t1033
   author: Atomic Red Team
   additional_info:
@@ -36,4 +36,4 @@
         default: localhost
     technique_created: '2017-05-31T21:30:35.733Z'
     atomic_guid: 4c4959bf-addf-4b4a-be86-8d09cc1857aa
-    import_timestamp: '2025-08-14T03:21:44.057892Z'
+    import_timestamp: '2025-08-15T03:22:48.231879Z'

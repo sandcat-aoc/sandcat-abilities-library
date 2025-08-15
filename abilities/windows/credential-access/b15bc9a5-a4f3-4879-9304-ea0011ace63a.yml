@@ -38,8 +38,8 @@
   privilege: ''
   buckets:
   - atomic-red-team
-  - credential-access
   - t1110.003
+  - credential-access
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -70,4 +70,4 @@
         \ to $env:Temp\\usersdpsLight.txt\"\n"
     technique_created: '2020-02-11T18:39:25.122Z'
     atomic_guid: b15bc9a5-a4f3-4879-9304-ea0011ace63a
-    import_timestamp: '2025-08-14T03:21:43.935628Z'
+    import_timestamp: '2025-08-15T03:22:48.109354Z'

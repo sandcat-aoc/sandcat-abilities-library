@@ -21,9 +21,9 @@
   delete_payload: false
   privilege: ''
   buckets:
+  - discovery
   - atomic-red-team
   - t1217
-  - discovery
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -37,4 +37,4 @@
         default: $Env:USERPROFILE\Downloads\edgebrowsinghistory.txt
     technique_created: '2018-04-18T17:59:24.739Z'
     atomic_guid: 74094120-e1f5-47c9-b162-a418a0f624d5
-    import_timestamp: '2025-08-15T03:22:48.463148Z'
+    import_timestamp: '2025-08-16T03:15:26.417201Z'

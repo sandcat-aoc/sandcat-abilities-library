@@ -32,8 +32,8 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - atomic-red-team
   - privilege-escalation
+  - atomic-red-team
   - t1543.002
   author: Atomic Red Team
   additional_info:
@@ -72,4 +72,4 @@
         default: /bin/touch /tmp/art-systemd-execstartpost-marker
     technique_created: '2020-01-17T16:15:19.870Z'
     atomic_guid: d9e4f24f-aa67-4c6e-bcbf-85622b697a7c
-    import_timestamp: '2025-08-15T03:23:01.261514Z'
+    import_timestamp: '2025-08-16T03:15:40.494141Z'

@@ -26,8 +26,8 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - t1574.009
   - atomic-red-team
+  - t1574.009
   - defense-evasion
   author: Atomic Red Team
   additional_info:
@@ -39,4 +39,4 @@
         default: PathToAtomicsFolder\T1574.009\bin\WindowsServiceExample.exe
     technique_created: '2020-03-13T13:51:58.519Z'
     atomic_guid: 2770dea7-c50f-457b-84c4-c40a47460d9f
-    import_timestamp: '2025-08-16T03:15:23.723485Z'
+    import_timestamp: '2025-08-17T03:26:14.110466Z'

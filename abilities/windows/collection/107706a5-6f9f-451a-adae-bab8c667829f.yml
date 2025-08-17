@@ -21,8 +21,8 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - collection
   - atomic-red-team
+  - collection
   - t1074.001
   author: Atomic Red Team
   additional_info:
@@ -33,4 +33,4 @@
         default: $env:TEMP\discovery.bat
     technique_created: '2020-03-13T21:13:10.467Z'
     atomic_guid: 107706a5-6f9f-451a-adae-bab8c667829f
-    import_timestamp: '2025-08-16T03:15:25.682669Z'
+    import_timestamp: '2025-08-17T03:26:15.935278Z'

@@ -32,9 +32,9 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - atomic-red-team
   - t1547.014
   - persistence
+  - atomic-red-team
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -44,4 +44,4 @@
         default: C:\Windows\System32\calc.exe
     technique_created: '2020-12-18T16:33:13.098Z'
     atomic_guid: deff4586-0517-49c2-981d-bbea24d48d71
-    import_timestamp: '2025-08-17T03:26:15.121685Z'
+    import_timestamp: '2025-08-18T03:30:14.798063Z'

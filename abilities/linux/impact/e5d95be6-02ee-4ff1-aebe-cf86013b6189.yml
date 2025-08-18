@@ -26,8 +26,8 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - atomic-red-team
   - t1489
+  - atomic-red-team
   - impact
   author: Atomic Red Team
   additional_info:
@@ -42,4 +42,4 @@
         default: cron
     technique_created: '2019-03-29T19:00:55.901Z'
     atomic_guid: e5d95be6-02ee-4ff1-aebe-cf86013b6189
-    import_timestamp: '2025-08-17T03:26:31.233781Z'
+    import_timestamp: '2025-08-18T03:30:31.151490Z'

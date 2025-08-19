@@ -19,9 +19,9 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - persistence
   - atomic-red-team
   - t1136.001
+  - persistence
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -35,4 +35,4 @@
         default: BetterWithButter
     technique_created: '2020-01-28T13:50:22.506Z'
     atomic_guid: d141afeb-d2bc-4934-8dd5-b7dba0f9f67a
-    import_timestamp: '2025-08-18T03:30:30.705500Z'
+    import_timestamp: '2025-08-19T03:12:20.563800Z'

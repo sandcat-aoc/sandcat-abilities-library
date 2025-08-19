@@ -19,9 +19,9 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - t1053.003
   - atomic-red-team
   - execution
+  - t1053.003
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -36,4 +36,4 @@
         default: persistevil
     technique_created: '2019-12-03T14:25:00.538Z'
     atomic_guid: 078e69eb-d9fb-450e-b9d0-2e118217c846
-    import_timestamp: '2025-08-18T03:30:30.600979Z'
+    import_timestamp: '2025-08-19T03:12:20.461075Z'

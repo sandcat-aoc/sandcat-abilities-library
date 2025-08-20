@@ -22,8 +22,8 @@
   privilege: ''
   buckets:
   - atomic-red-team
-  - exfiltration
   - t1048.003
+  - exfiltration
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -37,4 +37,4 @@
         default: http://127.0.0.1
     technique_created: '2020-03-15T15:37:47.583Z'
     atomic_guid: 6aa58451-1121-4490-a8e9-1dada3f1c68c
-    import_timestamp: '2025-08-19T03:12:06.357449Z'
+    import_timestamp: '2025-08-20T03:08:56.969278Z'

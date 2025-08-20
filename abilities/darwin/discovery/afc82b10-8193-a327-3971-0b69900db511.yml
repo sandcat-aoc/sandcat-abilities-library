@@ -25,4 +25,4 @@
     use_case: Use ioreg to check whether the remote macOS screen is locked.
     source_file: ioreg.yml
     source_repository: https://github.com/infosecB/LOOBins
-    import_timestamp: '2025-08-19T03:11:22.055284Z'
+    import_timestamp: '2025-08-20T03:08:18.211911Z'

@@ -35,8 +35,8 @@
   privilege: ''
   buckets:
   - atomic-red-team
-  - command-and-control
   - t1572
+  - command-and-control
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -74,4 +74,4 @@
         \ -o \"#{binary_path}\"\n  chmod +x \"#{binary_path}\"\nfi\n"
     technique_created: '2020-03-15T16:03:39.082Z'
     atomic_guid: 228c336a-2f79-4043-8aef-bfa453a611d5
-    import_timestamp: '2025-08-19T03:11:45.546011Z'
+    import_timestamp: '2025-08-20T03:08:36.908403Z'

@@ -19,8 +19,8 @@
   privilege: ''
   buckets:
   - atomic-red-team
-  - t1552.004
   - credential-access
+  - t1552.004
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -34,4 +34,4 @@
         default: /tmp/art-staging
     technique_created: '2020-02-04T13:06:49.258Z'
     atomic_guid: 7c247dc7-5128-4643-907b-73a76d9135c3
-    import_timestamp: '2025-08-19T03:12:20.813396Z'
+    import_timestamp: '2025-08-20T03:09:10.953777Z'

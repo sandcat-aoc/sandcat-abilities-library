@@ -51,4 +51,4 @@
         default: PathToAtomicsFolder\T1059.001\bin\SOAPHound.exe
     technique_created: '2020-03-09T13:48:55.078Z'
     atomic_guid: 4099086c-1470-4223-8085-8186e1ed5948
-    import_timestamp: '2025-08-20T03:08:54.916788Z'
+    import_timestamp: '2025-08-21T03:08:12.988024Z'

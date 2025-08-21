@@ -27,9 +27,9 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - t1105
   - atomic-red-team
   - command-and-control
+  - t1105
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -60,4 +60,4 @@
         -OutFile "#{gup_executable}"'
     technique_created: '2017-05-31T21:31:16.408Z'
     atomic_guid: 66ee226e-64cb-4dae-80e3-5bf5763e4a51
-    import_timestamp: '2025-08-20T03:08:55.780075Z'
+    import_timestamp: '2025-08-21T03:08:13.846704Z'

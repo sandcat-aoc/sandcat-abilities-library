@@ -1,0 +1,87 @@
+- id: 03ae82a6-9fa0-465b-91df-124d8ca5c4e8
+  name: Masquerading cmd.exe as VEDetector.exe
+  description: 'This test simulates an adversary renaming cmd.exe to VEDetector.exe
+    to masquerade as a legitimate application.
+
+    The test copies cmd.exe, renames it to VEDetector.exe, adds a registry run key
+    for persistence, and executes the renamed binary.
+
+    This technique may be used to evade detection by mimicking legitimate software
+    names or locations.
+
+
+    **Expected Output:**
+
+    - A new process named VEDetector.exe appears in the process list, but its behavior
+    matches cmd.exe.
+
+    - SIEM/EDR systems may detect this as suspicious process activity (e.g., Sysmon
+    Event ID 1 for process creation, or Event ID 13 for registry modifications).
+
+    - Registry modification in HKLM:\Software\Microsoft\Windows\CurrentVersion\Run
+    may trigger persistence alerts in XDR platforms.
+
+
+    **References:**
+
+    - [MITRE ATT&CK T1036.005](https://attack.mitre.org/techniques/T1036/005/)
+
+    - [Sysmon Process Creation](https://docs.microsoft.com/en-us/sysinternals/downloads/sysmon)'
+  tactic: defense-evasion
+  technique:
+    attack_id: T1036.005
+    name: 'Masquerading: Match Legitimate Name or Location'
+  platforms:
+    windows:
+      psh:
+        command: 'if (Test-Path "$env:SystemRoot\System32\cmd.exe") { exit 0 } else
+          { exit 1 }; then : ; else Write-Host "[-] Source file not found: $env:SystemRoot\System32\cmd.exe.
+          Ensure cmd.exe exists in the specified path."; exit 1; fi; # Copy and rename
+          cmd.exe to VEDetector.exe; Copy-Item -Path "$env:SystemRoot\System32\cmd.exe"
+          -Destination "$env:TEMP\VEDetector.exe" -Force; # Create registry run key
+          for persistence; New-ItemProperty -Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Run"
+          -Name "VEDetector" -Value "$env:TEMP\VEDetector.exe" -PropertyType String
+          -Force; # Start the renamed process; Start-Process -FilePath "$env:TEMP\VEDetector.exe";
+          Start-Sleep -Seconds 5'
+        cleanup: '# Remove registry key; Remove-ItemProperty -Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Run"
+          -Name "VEDetector" -ErrorAction SilentlyContinue; # Stop the process; Stop-Process
+          -Name "VEDetector" -Force -ErrorAction SilentlyContinue; # Remove the file;
+          Remove-Item -Path "#{ved_path}\VEDetector.exe" -Force -ErrorAction SilentlyContinue;
+          Write-Host "[+] Cleaned up VEDetector artifacts"'
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - atomic-red-team
+  - defense-evasion
+  - t1036.005
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      ved_path:
+        description: Directory path where VEDetector.exe will be created
+        type: Path
+        default: $env:TEMP
+      source_file:
+        description: Path to the source cmd.exe file
+        type: Path
+        default: $env:SystemRoot\System32\cmd.exe
+    dependencies:
+    - description: 'The source cmd.exe file must exist on the system.
+
+        '
+      prereq_command: 'if (Test-Path "#{source_file}") { exit 0 } else { exit 1 }
+
+        '
+      get_prereq_command: 'Write-Host "[-] Source file not found: #{source_file}.
+        Ensure cmd.exe exists in the specified path."
+
+        exit 1
+
+        '
+    technique_created: '2020-02-10T20:43:10.239Z'
+    atomic_guid: 03ae82a6-9fa0-465b-91df-124d8ca5c4e8
+    import_timestamp: '2025-08-21T03:08:11.170516Z'

@@ -34,4 +34,4 @@
         default: https://raw.githubusercontent.com/redcanaryco/atomic-red-team/master/atomics/T1059.001/src/test.ps1
     technique_created: '2020-03-09T13:48:55.078Z'
     atomic_guid: 388a7340-dbc1-4c9d-8e59-b75ad8c6d5da
-    import_timestamp: '2025-08-20T03:08:54.877986Z'
+    import_timestamp: '2025-08-21T03:08:12.949655Z'

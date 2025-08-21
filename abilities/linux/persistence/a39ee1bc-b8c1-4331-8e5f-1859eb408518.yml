@@ -18,8 +18,8 @@
   privilege: ''
   buckets:
   - atomic-red-team
-  - persistence
   - t1136.001
+  - persistence
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -29,4 +29,4 @@
         default: evil_user
     technique_created: '2020-01-28T13:50:22.506Z'
     atomic_guid: a39ee1bc-b8c1-4331-8e5f-1859eb408518
-    import_timestamp: '2025-08-20T03:09:10.695858Z'
+    import_timestamp: '2025-08-21T03:08:29.587736Z'

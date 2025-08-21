@@ -1,5 +1,5 @@
 - id: 812c3ab8-94b0-4698-a9bf-9420af23ce24
-  name: Execute a process from a directory masquerading as the current parent directory.
+  name: Execute a process from a directory masquerading as the current parent directory
   description: Create and execute a process from a directory masquerading as the current
     parent directory (`...` instead of normal `..`)
   tactic: defense-evasion
@@ -31,4 +31,4 @@
         default: Hello from the Atomic Red Team test T1036.005#1
     technique_created: '2020-02-10T20:43:10.239Z'
     atomic_guid: 812c3ab8-94b0-4698-a9bf-9420af23ce24
-    import_timestamp: '2025-08-20T03:08:36.568398Z'
+    import_timestamp: '2025-08-21T03:07:53.905726Z'

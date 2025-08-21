@@ -25,8 +25,8 @@
   privilege: ''
   buckets:
   - atomic-red-team
-  - t1040
   - credential-access
+  - t1040
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -48,4 +48,4 @@
         '
     technique_created: '2017-05-31T21:30:41.399Z'
     atomic_guid: 7fe741f7-b265-4951-a7c7-320889083b3e
-    import_timestamp: '2025-08-20T03:09:10.923049Z'
+    import_timestamp: '2025-08-21T03:08:29.818107Z'

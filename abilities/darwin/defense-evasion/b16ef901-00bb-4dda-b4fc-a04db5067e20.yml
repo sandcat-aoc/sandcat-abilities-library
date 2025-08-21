@@ -20,8 +20,8 @@
   privilege: ''
   buckets:
   - atomic-red-team
-  - defense-evasion
   - t1027.002
+  - defense-evasion
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -31,4 +31,4 @@
         default: PathToAtomicsFolder/T1027.002/bin/darwin/test_upx
     technique_created: '2020-02-05T14:17:46.686Z'
     atomic_guid: b16ef901-00bb-4dda-b4fc-a04db5067e20
-    import_timestamp: '2025-08-20T03:08:36.713498Z'
+    import_timestamp: '2025-08-21T03:07:54.053952Z'

@@ -1,6 +1,9 @@
 - id: 9c3ad250-b185-4444-b5a9-d69218a10c95
   name: using device audio capture commandlet
-  description: '[AudioDeviceCmdlets](https://github.com/cdhunt/WindowsAudioDevice-Powershell-Cmdlet)'
+  description: 'Uses AudioDeviceCmdlets to set the default recording device and simulate
+    audio capture.
+
+    Module repo: [AudioDeviceCmdlets](https://github.com/frgnca/AudioDeviceCmdlets)'
   tactic: collection
   technique:
     attack_id: T1123
@@ -8,7 +11,10 @@
   platforms:
     windows:
       psh:
-        command: powershell.exe -Command WindowsAudioDevice-Powershell-Cmdlet
+        command: 'if (Get-Module -ListAvailable -Name AudioDeviceCmdlets) { exit 0
+          } else { exit 1 }; then : ; else Install with: Install-Module -Name AudioDeviceCmdlets
+          -Force"; fi; $mic = Get-AudioDevice -Recording; Set-AudioDevice -ID $mic.ID;
+          Start-Sleep -Seconds 5'
   plugin: atomic
   singleton: false
   repeatable: true
@@ -16,10 +22,16 @@
   privilege: ''
   buckets:
   - atomic-red-team
-  - collection
   - t1123
+  - collection
   author: Atomic Red Team
   additional_info:
+    dependencies:
+    - description: AudioDeviceCmdlets module must be installed
+      prereq_command: "if (Get-Module -ListAvailable -Name AudioDeviceCmdlets) { exit\
+        \ 0 } else { exit 1 } \n"
+      get_prereq_command: "Install with: Install-Module -Name AudioDeviceCmdlets -Force\"\
+        \ \n"
     technique_created: '2017-05-31T21:31:34.528Z'
     atomic_guid: 9c3ad250-b185-4444-b5a9-d69218a10c95
-    import_timestamp: '2025-08-20T03:08:55.859858Z'
+    import_timestamp: '2025-08-21T03:08:13.926714Z'

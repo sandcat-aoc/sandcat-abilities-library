@@ -31,8 +31,8 @@
   privilege: ''
   buckets:
   - atomic-red-team
-  - privilege-escalation
   - t1055
+  - privilege-escalation
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -46,4 +46,4 @@
         default: werfault
     technique_created: '2017-05-31T21:30:47.843Z'
     atomic_guid: 69534efc-d5f5-4550-89e6-12c6457b9edd
-    import_timestamp: '2025-08-20T03:08:54.383428Z'
+    import_timestamp: '2025-08-21T03:08:12.453653Z'

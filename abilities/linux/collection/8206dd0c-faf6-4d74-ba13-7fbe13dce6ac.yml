@@ -49,4 +49,4 @@
       get_prereq_command: "sudo #{package_installer} \n"
     technique_created: '2017-05-31T21:31:25.060Z'
     atomic_guid: 8206dd0c-faf6-4d74-ba13-7fbe13dce6ac
-    import_timestamp: '2025-08-20T03:09:10.831009Z'
+    import_timestamp: '2025-08-21T03:08:29.724932Z'

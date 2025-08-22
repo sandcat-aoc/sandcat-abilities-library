@@ -22,8 +22,8 @@
   privilege: ''
   buckets:
   - atomic-red-team
-  - persistence
   - t1546.001
+  - persistence
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -41,4 +41,4 @@
         default: htafile
     technique_created: '2020-01-24T13:40:47.282Z'
     atomic_guid: 10a08978-2045-4d62-8c42-1957bbbea102
-    import_timestamp: '2025-08-21T03:08:13.494237Z'
+    import_timestamp: '2025-08-22T03:08:47.683782Z'

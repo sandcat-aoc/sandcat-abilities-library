@@ -28,8 +28,8 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - atomic-red-team
   - discovery
+  - atomic-red-team
   - t1083
   author: Atomic Red Team
   additional_info:
@@ -40,4 +40,4 @@
         default: $env:temp\T1083Test5.txt
     technique_created: '2017-05-31T21:31:04.710Z'
     atomic_guid: c6c34f61-1c3e-40fb-8a58-d017d88286d8
-    import_timestamp: '2025-08-21T03:08:14.697340Z'
+    import_timestamp: '2025-08-22T03:08:48.902013Z'

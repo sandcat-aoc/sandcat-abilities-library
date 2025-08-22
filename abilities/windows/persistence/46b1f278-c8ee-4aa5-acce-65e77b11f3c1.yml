@@ -27,8 +27,8 @@
   privilege: ''
   buckets:
   - atomic-red-team
-  - persistence
   - t1546.012
+  - persistence
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -42,4 +42,4 @@
         default: C:\Windows\System32\cmd.exe
     technique_created: '2020-01-24T15:05:58.384Z'
     atomic_guid: 46b1f278-c8ee-4aa5-acce-65e77b11f3c1
-    import_timestamp: '2025-08-21T03:08:13.435764Z'
+    import_timestamp: '2025-08-22T03:08:47.560286Z'

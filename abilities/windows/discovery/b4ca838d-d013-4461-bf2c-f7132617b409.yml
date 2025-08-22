@@ -26,9 +26,9 @@
   delete_payload: false
   privilege: ''
   buckets:
+  - discovery
   - atomic-red-team
   - t1057
-  - discovery
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -56,4 +56,4 @@
         Write-Host Unzipping Installing Process Hunter'
     technique_created: '2017-05-31T21:30:48.728Z'
     atomic_guid: b4ca838d-d013-4461-bf2c-f7132617b409
-    import_timestamp: '2025-08-21T03:08:14.729634Z'
+    import_timestamp: '2025-08-22T03:08:48.934541Z'

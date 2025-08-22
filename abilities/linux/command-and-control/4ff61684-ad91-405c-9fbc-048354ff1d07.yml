@@ -22,8 +22,8 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - atomic-red-team
   - t1001.002
+  - atomic-red-team
   - command-and-control
   author: Atomic Red Team
   additional_info:
@@ -42,4 +42,4 @@
         default: PathToAtomicsFolder/image.jpg
     technique_created: '2020-03-15T00:37:58.963Z'
     atomic_guid: 4ff61684-ad91-405c-9fbc-048354ff1d07
-    import_timestamp: '2025-08-21T03:08:29.703868Z'
+    import_timestamp: '2025-08-22T03:09:03.303705Z'

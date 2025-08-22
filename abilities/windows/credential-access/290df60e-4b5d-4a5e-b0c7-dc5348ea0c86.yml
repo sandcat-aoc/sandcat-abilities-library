@@ -30,8 +30,8 @@
   privilege: ''
   buckets:
   - atomic-red-team
-  - credential-access
   - t1552.004
+  - credential-access
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -54,4 +54,4 @@
         \ | Split-Path\nInvoke-FetchFromZip $zipUrl \"x64/mimikatz.exe\" $basePath\n"
     technique_created: '2020-02-04T13:06:49.258Z'
     atomic_guid: 290df60e-4b5d-4a5e-b0c7-dc5348ea0c86
-    import_timestamp: '2025-08-21T03:08:14.244785Z'
+    import_timestamp: '2025-08-22T03:08:48.442255Z'

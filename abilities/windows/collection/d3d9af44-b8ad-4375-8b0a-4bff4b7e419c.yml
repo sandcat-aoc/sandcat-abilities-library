@@ -28,8 +28,8 @@
   privilege: ''
   buckets:
   - atomic-red-team
-  - collection
   - t1005
+  - collection
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -48,4 +48,4 @@
         default: .doc, .docx, .txt
     technique_created: '2017-05-31T21:30:20.537Z'
     atomic_guid: d3d9af44-b8ad-4375-8b0a-4bff4b7e419c
-    import_timestamp: '2025-08-22T03:08:48.149318Z'
+    import_timestamp: '2025-08-23T03:03:30.241387Z'

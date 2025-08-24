@@ -22,8 +22,8 @@
   privilege: ''
   buckets:
   - t1547.010
-  - atomic-red-team
   - privilege-escalation
+  - atomic-red-team
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -35,4 +35,4 @@
         default: $PathToAtomicsFolder\T1547.010\bin\PortMonitor.dll
     technique_created: '2020-01-24T19:46:27.750Z'
     atomic_guid: d34ef297-f178-4462-871e-9ce618d44e50
-    import_timestamp: '2025-08-23T03:03:28.710531Z'
+    import_timestamp: '2025-08-24T03:19:31.209806Z'

@@ -1,0 +1,28 @@
+- id: d2a1f4bc-a064-4223-8281-a086dce5423c
+  name: abuse of linux magic system request key for reboot
+  description: adversaries with root or sufficient privileges to silently manipulate
+    or destabilize a system. By writing to /proc/sysrq-trigger, they can forced to
+    reboot.
+  tactic: impact
+  technique:
+    attack_id: T1529
+    name: System Shutdown/Reboot
+  platforms:
+    linux:
+      sh:
+        command: echo "b" > /proc/sysrq-trigger
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - impact
+  - t1529
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    technique_created: '2019-10-04T20:42:28.541Z'
+    atomic_guid: d2a1f4bc-a064-4223-8281-a086dce5423c
+    import_timestamp: '2025-08-24T03:19:48.080178Z'

@@ -19,9 +19,9 @@
   delete_payload: false
   privilege: ''
   buckets:
+  - t1552.004
   - credential-access
   - atomic-red-team
-  - t1552.004
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -46,4 +46,4 @@
         '
     technique_created: '2020-02-04T13:06:49.258Z'
     atomic_guid: 12e4a260-a7fd-4ed8-bf18-1a28c1395775
-    import_timestamp: '2025-08-23T03:03:46.464890Z'
+    import_timestamp: '2025-08-24T03:19:47.856590Z'

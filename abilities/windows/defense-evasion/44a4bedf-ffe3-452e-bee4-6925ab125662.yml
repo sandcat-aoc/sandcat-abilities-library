@@ -17,9 +17,9 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - atomic-red-team
-  - t1218.007
   - defense-evasion
+  - t1218.007
+  - atomic-red-team
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -33,4 +33,4 @@
         default: c:\windows\system32\msiexec.exe
     technique_created: '2020-01-24T14:38:49.266Z'
     atomic_guid: 44a4bedf-ffe3-452e-bee4-6925ab125662
-    import_timestamp: '2025-08-23T03:03:27.584261Z'
+    import_timestamp: '2025-08-24T03:19:30.014300Z'

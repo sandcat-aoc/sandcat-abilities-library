@@ -23,8 +23,8 @@
   privilege: ''
   buckets:
   - credential-access
-  - atomic-red-team
   - t1539
+  - atomic-red-team
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -34,4 +34,4 @@
         default: /private/tmp
     technique_created: '2019-10-08T20:04:35.508Z'
     atomic_guid: e57ba07b-3a33-40cd-a892-748273b9b49a
-    import_timestamp: '2025-08-23T03:03:10.421904Z'
+    import_timestamp: '2025-08-24T03:19:13.557781Z'

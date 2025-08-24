@@ -20,8 +20,8 @@
   privilege: ''
   buckets:
   - credential-access
-  - atomic-red-team
   - t1003.008
+  - atomic-red-team
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -31,4 +31,4 @@
         default: /tmp/T1003.008.txt
     technique_created: '2020-02-11T18:46:56.263Z'
     atomic_guid: f5aa6543-6cb2-4fae-b9c2-b96e14721713
-    import_timestamp: '2025-08-23T03:03:46.504574Z'
+    import_timestamp: '2025-08-24T03:19:47.896884Z'

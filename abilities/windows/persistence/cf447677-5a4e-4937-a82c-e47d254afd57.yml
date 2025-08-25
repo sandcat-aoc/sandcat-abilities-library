@@ -32,8 +32,8 @@
   privilege: ''
   buckets:
   - persistence
-  - t1112
   - atomic-red-team
+  - t1112
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -43,4 +43,4 @@
         default: bad-domain.com
     technique_created: '2017-05-31T21:31:23.587Z'
     atomic_guid: cf447677-5a4e-4937-a82c-e47d254afd57
-    import_timestamp: '2025-08-24T03:19:32.007940Z'
+    import_timestamp: '2025-08-25T03:16:01.528786Z'

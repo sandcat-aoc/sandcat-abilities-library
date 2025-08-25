@@ -16,9 +16,9 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - credential-access
   - t1555.001
   - atomic-red-team
+  - credential-access
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -28,4 +28,4 @@
         default: /tmp/certs.pem
     technique_created: '2020-02-12T18:55:24.728Z'
     atomic_guid: e544bbcb-c4e0-4bd0-b614-b92131635f59
-    import_timestamp: '2025-08-24T03:19:13.563721Z'
+    import_timestamp: '2025-08-25T03:15:43.006803Z'

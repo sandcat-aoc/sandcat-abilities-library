@@ -30,10 +30,10 @@
   privilege: ''
   buckets:
   - t1505.005
-  - persistence
   - atomic-red-team
+  - persistence
   author: Atomic Red Team
   additional_info:
     technique_created: '2022-03-28T15:34:44.590Z'
     atomic_guid: 0b2eadeb-4a64-4449-9d43-3d999f4a317b
-    import_timestamp: '2025-08-24T03:19:31.971787Z'
+    import_timestamp: '2025-08-25T03:16:01.492985Z'

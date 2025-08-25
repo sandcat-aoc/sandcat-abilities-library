@@ -22,9 +22,9 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - credential-access
   - t1003.001
   - atomic-red-team
+  - credential-access
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -34,4 +34,4 @@
         default: https://raw.githubusercontent.com/PowerShellMafia/PowerSploit/f650520c4b1004daf8b3ec08007a0b945b91253a/Exfiltration/Invoke-Mimikatz.ps1
     technique_created: '2020-02-11T18:41:44.783Z'
     atomic_guid: 66fb0bc1-3c3f-47e9-a298-550ecfefacbc
-    import_timestamp: '2025-08-24T03:19:33.052926Z'
+    import_timestamp: '2025-08-25T03:16:02.567858Z'

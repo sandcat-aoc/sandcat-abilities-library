@@ -24,8 +24,8 @@
   privilege: ''
   buckets:
   - t1546
-  - privilege-escalation
   - atomic-red-team
+  - privilege-escalation
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -35,4 +35,4 @@
         default: notepad.exe
     technique_created: '2020-01-22T21:04:23.285Z'
     atomic_guid: a574dafe-a903-4cce-9701-14040f4f3532
-    import_timestamp: '2025-08-24T03:19:31.496439Z'
+    import_timestamp: '2025-08-25T03:16:01.023290Z'

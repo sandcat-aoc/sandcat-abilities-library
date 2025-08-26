@@ -28,9 +28,9 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - t1562.002
   - atomic-red-team
   - defense-evasion
+  - t1562.002
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -40,4 +40,4 @@
         description: Path to the event log service channel to alter
     technique_created: '2020-02-21T20:46:36.688Z'
     atomic_guid: 8e81d090-0cd6-4d46-863c-eec11311298f
-    import_timestamp: '2025-08-25T03:15:59.695545Z'
+    import_timestamp: '2025-08-26T03:10:30.275143Z'

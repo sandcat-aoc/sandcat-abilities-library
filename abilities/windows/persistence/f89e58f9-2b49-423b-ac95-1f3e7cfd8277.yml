@@ -36,8 +36,8 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - t1137.006
   - atomic-red-team
+  - t1137.006
   - persistence
   author: Atomic Red Team
   additional_info:
@@ -64,4 +64,4 @@
         -UseBasicParsing -OutFile "PathToAtomicsFolder\T1137.006\bin\Addins\PptVBAaddin.ppam"'
     technique_created: '2019-11-07T19:52:52.801Z'
     atomic_guid: f89e58f9-2b49-423b-ac95-1f3e7cfd8277
-    import_timestamp: '2025-08-25T03:16:01.478046Z'
+    import_timestamp: '2025-08-26T03:10:31.998913Z'

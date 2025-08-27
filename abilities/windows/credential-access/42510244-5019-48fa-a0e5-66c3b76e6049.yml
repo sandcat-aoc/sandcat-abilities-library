@@ -24,9 +24,9 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - atomic-red-team
-  - credential-access
   - t1003
+  - credential-access
+  - atomic-red-team
   author: Atomic Red Team
   additional_info:
     dependencies:
@@ -36,4 +36,4 @@
       get_prereq_command: Install-WindowsFeature -name Web-Server -IncludeManagementTools
     technique_created: '2017-05-31T21:30:19.735Z'
     atomic_guid: 42510244-5019-48fa-a0e5-66c3b76e6049
-    import_timestamp: '2025-08-26T03:10:32.915863Z'
+    import_timestamp: '2025-08-27T03:04:29.030046Z'

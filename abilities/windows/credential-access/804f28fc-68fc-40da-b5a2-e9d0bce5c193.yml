@@ -22,9 +22,9 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - atomic-red-team
-  - credential-access
   - t1003.002
+  - credential-access
+  - atomic-red-team
   author: Atomic Red Team
   additional_info:
     dependencies:
@@ -38,4 +38,4 @@
         -UseBasicParsing -OutFile "PathToAtomicsFolder\..\ExternalPayloads\PowerDump.ps1"'
     technique_created: '2020-02-11T18:42:07.281Z'
     atomic_guid: 804f28fc-68fc-40da-b5a2-e9d0bce5c193
-    import_timestamp: '2025-08-26T03:10:32.942663Z'
+    import_timestamp: '2025-08-27T03:04:29.056269Z'

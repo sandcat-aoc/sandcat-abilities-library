@@ -27,8 +27,8 @@
   privilege: ''
   buckets:
   - command-and-control
-  - t1095
   - atomic-red-team
+  - t1095
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -66,4 +66,4 @@
         \ \"vcredist_x86.exe\")\n}\n"
     technique_created: '2017-05-31T21:31:10.728Z'
     atomic_guid: bcf0d1c1-3f6a-4847-b1c9-7ed4ea321f37
-    import_timestamp: '2025-08-27T03:04:28.725035Z'
+    import_timestamp: '2025-08-28T03:03:43.872507Z'

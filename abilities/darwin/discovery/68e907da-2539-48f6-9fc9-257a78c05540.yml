@@ -22,8 +22,8 @@
   privilege: ''
   buckets:
   - discovery
-  - t1046
   - atomic-red-team
+  - t1046
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -33,4 +33,4 @@
         default: 192.168.1.1
     technique_created: '2017-05-31T21:30:43.915Z'
     atomic_guid: 68e907da-2539-48f6-9fc9-257a78c05540
-    import_timestamp: '2025-08-27T03:04:10.717361Z'
+    import_timestamp: '2025-08-28T03:03:23.329760Z'

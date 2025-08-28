@@ -15,9 +15,9 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - persistence
-  - t1547
   - atomic-red-team
+  - t1547
+  - persistence
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -27,4 +27,4 @@
         default: C:\Windows\INF\usbstor.inf
     technique_created: '2020-01-23T17:46:59.535Z'
     atomic_guid: cb01b3da-b0e7-4e24-bf6d-de5223526785
-    import_timestamp: '2025-08-27T03:04:27.858183Z'
+    import_timestamp: '2025-08-28T03:03:43.199395Z'

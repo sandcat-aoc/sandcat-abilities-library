@@ -17,9 +17,9 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - execution
   - t1059.001
   - atomic-red-team
+  - execution
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -29,4 +29,4 @@
         default: JgAgACgAZwBjAG0AIAAoACcAaQBlAHsAMAB9ACcAIAAtAGYAIAAnAHgAJwApACkAIAAoACIAVwByACIAKwAiAGkAdAAiACsAIgBlAC0ASAAiACsAIgBvAHMAdAAgACcASAAiACsAIgBlAGwAIgArACIAbABvACwAIABmAHIAIgArACIAbwBtACAAUAAiACsAIgBvAHcAIgArACIAZQByAFMAIgArACIAaAAiACsAIgBlAGwAbAAhACcAIgApAA==
     technique_created: '2020-03-09T13:48:55.078Z'
     atomic_guid: a538de64-1c74-46ed-aa60-b995ed302598
-    import_timestamp: '2025-08-27T03:04:27.731031Z'
+    import_timestamp: '2025-08-28T03:03:43.062533Z'

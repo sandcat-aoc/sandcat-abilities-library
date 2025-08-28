@@ -36,9 +36,9 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - t1491.001
-  - impact
   - atomic-red-team
+  - impact
+  - t1491.001
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -57,4 +57,4 @@
         default: $env:TEMP\T1491.001-newWallpaper.png
     technique_created: '2020-02-20T14:31:34.778Z'
     atomic_guid: 30558d53-9d76-41c4-9267-a7bd5184bed3
-    import_timestamp: '2025-08-27T03:04:29.827528Z'
+    import_timestamp: '2025-08-28T03:03:45.171274Z'

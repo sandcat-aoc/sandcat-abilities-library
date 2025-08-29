@@ -19,8 +19,8 @@
   privilege: ''
   buckets:
   - discovery
-  - atomic-red-team
   - t1057
+  - atomic-red-team
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -30,4 +30,4 @@
         default: lsass
     technique_created: '2017-05-31T21:30:48.728Z'
     atomic_guid: 11ba69ee-902e-4a0f-b3b6-418aed7d7ddb
-    import_timestamp: '2025-08-28T03:03:45.012575Z'
+    import_timestamp: '2025-08-29T03:03:01.386043Z'

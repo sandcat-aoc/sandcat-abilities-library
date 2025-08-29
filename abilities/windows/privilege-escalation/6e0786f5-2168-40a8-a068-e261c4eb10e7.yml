@@ -1,0 +1,30 @@
+- id: 6e0786f5-2168-40a8-a068-e261c4eb10e7
+  name: 6e0786f5-2168-40a8-a068-e261c4eb10e7 - Malicious Driver Deployment
+  description: 'Malicious driver: 6e0786f5-2168-40a8-a068-e261c4eb10e7
+
+    Category: vulnerable driver
+
+    Author: Cristian Souza
+
+    Created: 2025-05-29
+
+    MITRE Technique: T1068'
+  tactic: privilege-escalation
+  technique:
+    attack_id: T1068
+    name: Rootkit
+  platforms:
+    windows:
+      cmd:
+        command: sc create MaliciousDriver binPath= "C:\Windows\System32\drivers\malicious_driver.sys"
+          type= kernel
+  singleton: true
+  privilege: Elevated
+  repeatable: false
+  buckets:
+  - privilege-escalation
+  version: '1.0'
+  author: Cristian Souza
+  operating_system: Windows (Version Unspecified)
+  created: '2025-05-29'
+  modified: '2025-05-29'

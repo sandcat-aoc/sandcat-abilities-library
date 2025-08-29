@@ -19,8 +19,8 @@
   privilege: ''
   buckets:
   - t1531
-  - atomic-red-team
   - impact
+  - atomic-red-team
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -38,4 +38,4 @@
         default: ARTPassword
     technique_created: '2019-10-09T18:48:31.906Z'
     atomic_guid: d3812c4e-30ee-466a-a0aa-07e355b561d6
-    import_timestamp: '2025-08-28T03:03:23.348877Z'
+    import_timestamp: '2025-08-29T03:02:41.389765Z'

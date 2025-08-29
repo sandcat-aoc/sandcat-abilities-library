@@ -20,8 +20,8 @@
   privilege: ''
   buckets:
   - t1047
-  - atomic-red-team
   - execution
+  - atomic-red-team
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -31,4 +31,4 @@
         default: notepad.exe
     technique_created: '2017-05-31T21:30:44.329Z'
     atomic_guid: b3bdfc91-b33e-4c6d-a5c8-d64bee0276b3
-    import_timestamp: '2025-08-28T03:03:42.931706Z'
+    import_timestamp: '2025-08-29T03:02:59.517104Z'

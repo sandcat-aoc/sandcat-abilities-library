@@ -25,8 +25,8 @@
   privilege: ''
   buckets:
   - privilege-escalation
-  - t1053.003
   - atomic-red-team
+  - t1053.003
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -40,4 +40,4 @@
         default: persistevil
     technique_created: '2019-12-03T14:25:00.538Z'
     atomic_guid: b7d42afa-9086-4c8a-b7b0-8ea3faa6ebb0
-    import_timestamp: '2025-08-29T03:02:40.994793Z'
+    import_timestamp: '2025-08-30T02:56:25.889718Z'

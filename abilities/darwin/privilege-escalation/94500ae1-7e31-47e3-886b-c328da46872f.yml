@@ -30,4 +30,4 @@
         default: echo "Hello from Atomic Red Team T1546.004" > /tmp/T1546.004
     technique_created: '2020-01-24T14:13:45.936Z'
     atomic_guid: 94500ae1-7e31-47e3-886b-c328da46872f
-    import_timestamp: '2025-08-29T03:02:41.025824Z'
+    import_timestamp: '2025-08-30T02:56:25.920460Z'

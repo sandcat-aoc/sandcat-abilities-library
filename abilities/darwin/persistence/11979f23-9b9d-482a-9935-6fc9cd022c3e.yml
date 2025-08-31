@@ -20,8 +20,8 @@
   privilege: ''
   buckets:
   - t1543.001
-  - persistence
   - atomic-red-team
+  - persistence
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -39,4 +39,4 @@
         default: randomflag
     technique_created: '2020-01-17T16:10:58.592Z'
     atomic_guid: 11979f23-9b9d-482a-9935-6fc9cd022c3e
-    import_timestamp: '2025-08-30T02:56:26.023920Z'
+    import_timestamp: '2025-08-31T03:07:05.368267Z'

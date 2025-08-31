@@ -25,9 +25,9 @@
   delete_payload: false
   privilege: ''
   buckets:
+  - atomic-red-team
   - discovery
   - t1135
-  - atomic-red-team
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -50,4 +50,4 @@
         -OutFile "PathToAtomicsFolder\..\ExternalPayloads\Snaffler.exe"'
     technique_created: '2017-12-14T16:46:06.044Z'
     atomic_guid: b19d74b7-5e72-450a-8499-82e49e379d1a
-    import_timestamp: '2025-08-30T02:56:45.901412Z'
+    import_timestamp: '2025-08-31T03:07:25.337753Z'

@@ -24,9 +24,9 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - collection
-  - atomic-red-team
   - t1005
+  - atomic-red-team
+  - collection
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -36,4 +36,4 @@
         default: /private/tmp
     technique_created: '2017-05-31T21:30:20.537Z'
     atomic_guid: cfb6d400-a269-4c06-a347-6d88d584d5f7
-    import_timestamp: '2025-08-30T02:56:26.119086Z'
+    import_timestamp: '2025-08-31T03:07:05.464682Z'

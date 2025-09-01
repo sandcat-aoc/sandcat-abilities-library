@@ -26,8 +26,8 @@
   privilege: ''
   buckets:
   - t1003
-  - atomic-red-team
   - credential-access
+  - atomic-red-team
   author: Atomic Red Team
   additional_info:
     dependencies:
@@ -37,4 +37,4 @@
       get_prereq_command: Install-WindowsFeature -name Web-Server -IncludeManagementTools
     technique_created: '2017-05-31T21:30:19.735Z'
     atomic_guid: 6c7a4fd3-5b0b-4b30-a93e-39411b25d889
-    import_timestamp: '2025-08-31T03:07:24.828422Z'
+    import_timestamp: '2025-09-01T03:22:03.066809Z'

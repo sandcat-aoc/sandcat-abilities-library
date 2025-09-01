@@ -1,0 +1,25 @@
+- id: 528d770f-d22a-528a-e7bb-cbc5ae702860
+  name: iscsicpl.exe - Both `c:\windows\system32\iscsicpl.exe` and `c:\windows\system64\iscsicpl.exe`
+    have UAC bypass through launching iscicpl.exe, then navigating into the Configuration
+    tab, clicking Report, then launching your custom command.
+  description: Both `c:\windows\system32\iscsicpl.exe` and `c:\windows\system64\iscsicpl.exe`
+    have UAC bypass through launching iscicpl.exe, then navigating into the Configuration
+    tab, clicking Report, then launching your custom command.
+  tactic: privilege-escalation
+  technique:
+    attack_id: T1548.002
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: iscsicpl.exe
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - privilege-escalation
+  version: '1.0'
+  author: Ekitji
+  created: '2025-08-17'
+  modified: '2025-08-17'
+  operating_system: Windows All Versions

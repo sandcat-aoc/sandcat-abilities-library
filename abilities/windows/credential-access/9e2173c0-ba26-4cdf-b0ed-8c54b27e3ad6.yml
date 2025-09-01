@@ -47,8 +47,8 @@
   privilege: ''
   buckets:
   - t1003
-  - atomic-red-team
   - credential-access
+  - atomic-red-team
   author: Atomic Red Team
   additional_info:
     dependencies:
@@ -64,4 +64,4 @@
         -OutFile "PathToAtomicsFolder\..\ExternalPayloads\NPPSPY.dll"'
     technique_created: '2017-05-31T21:30:19.735Z'
     atomic_guid: 9e2173c0-ba26-4cdf-b0ed-8c54b27e3ad6
-    import_timestamp: '2025-08-31T03:07:24.822221Z'
+    import_timestamp: '2025-09-01T03:22:03.060688Z'

@@ -1,0 +1,26 @@
+- id: a380891a-8b6e-ed67-2c7e-ee9c198a3fe8
+  name: XBootMgr.exe - Executes an executable after the trace is complete using the
+    callBack parameter.
+  description: Executes an executable after the trace is complete using the callBack
+    parameter.
+  tactic: defense-evasion
+  technique:
+    attack_id: T1202
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: xbootmgr.exe -trace "{boot|hibernate|standby|shutdown|rebootCycle}"
+          -callBack payload.exe
+        payloads:
+        - payload.exe
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: Avihay Eldad
+  created: '2025-07-10'
+  modified: '2025-07-10'
+  operating_system: Windows All Versions

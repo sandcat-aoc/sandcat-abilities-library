@@ -1,0 +1,23 @@
+- id: 9061c57a-bdbf-db69-9c9e-fface100c9e2
+  name: WinDbg.exe - Launches a command line through the debugging process; optionally
+    add `-G` to exit the debugger automatically.
+  description: Launches a command line through the debugging process; optionally add
+    `-G` to exit the debugger automatically.
+  tactic: defense-evasion
+  technique:
+    attack_id: T1127
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: 'windbg.exe -g #{host.executable.name}'
+  singleton: true
+  privilege: User
+  repeatable: false
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: Avihay Eldad
+  created: '2025-07-16'
+  modified: '2025-07-16'
+  operating_system: Windows All Versions

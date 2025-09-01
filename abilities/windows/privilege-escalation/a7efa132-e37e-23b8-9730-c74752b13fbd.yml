@@ -1,0 +1,24 @@
+- id: a7efa132-e37e-23b8-9730-c74752b13fbd
+  name: iscsicpl.exe - c:\windows\syswow64\iscsicpl.exe has a DLL injection through
+    `C:\Users\<username>\AppData\Local\Microsoft\WindowsApps\ISCSIEXE.dll`, resulting
+    in UAC bypass.
+  description: c:\windows\syswow64\iscsicpl.exe has a DLL injection through `C:\Users\<username>\AppData\Local\Microsoft\WindowsApps\ISCSIEXE.dll`,
+    resulting in UAC bypass.
+  tactic: privilege-escalation
+  technique:
+    attack_id: T1548.002
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: c:\windows\syswow64\iscsicpl.exe
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - privilege-escalation
+  version: '1.0'
+  author: Ekitji
+  created: '2025-08-17'
+  modified: '2025-08-17'
+  operating_system: Windows All Versions

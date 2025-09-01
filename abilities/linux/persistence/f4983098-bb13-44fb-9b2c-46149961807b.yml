@@ -33,8 +33,8 @@
   privilege: ''
   buckets:
   - t1053.006
-  - persistence
   - atomic-red-team
+  - persistence
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -56,4 +56,4 @@
         default: art-timer.timer
     technique_created: '2020-10-12T17:50:31.584Z'
     atomic_guid: f4983098-bb13-44fb-9b2c-46149961807b
-    import_timestamp: '2025-08-31T03:07:39.798523Z'
+    import_timestamp: '2025-09-01T03:22:18.046819Z'

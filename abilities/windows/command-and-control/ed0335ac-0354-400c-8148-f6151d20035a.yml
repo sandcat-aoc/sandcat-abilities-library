@@ -19,9 +19,9 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - command-and-control
-  - t1105
   - atomic-red-team
+  - t1105
+  - command-and-control
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -35,4 +35,4 @@
         default: C:\Windows\System32\replace.exe
     technique_created: '2017-05-31T21:31:16.408Z'
     atomic_guid: ed0335ac-0354-400c-8148-f6151d20035a
-    import_timestamp: '2025-09-01T03:22:02.824637Z'
+    import_timestamp: '2025-09-02T03:07:41.286684Z'

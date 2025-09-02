@@ -18,9 +18,9 @@
   delete_payload: false
   privilege: ''
   buckets:
+  - atomic-red-team
   - collection
   - t1113
-  - atomic-red-team
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -40,4 +40,4 @@
       get_prereq_command: "pkg install -y xwd xwud \n"
     technique_created: '2017-05-31T21:31:25.060Z'
     atomic_guid: 562f3bc2-74e8-46c5-95c7-0e01f9ccc65c
-    import_timestamp: '2025-09-01T03:22:18.163254Z'
+    import_timestamp: '2025-09-02T03:07:56.917511Z'

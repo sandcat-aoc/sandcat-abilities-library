@@ -23,9 +23,9 @@
   delete_payload: false
   privilege: ''
   buckets:
+  - atomic-red-team
   - defense-evasion
   - t1112
-  - atomic-red-team
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -35,4 +35,4 @@
         default: C:\windows\system32\notepad.exe
     technique_created: '2017-05-31T21:31:23.587Z'
     atomic_guid: 81483501-b8a5-4225-8b32-52128e2f69db
-    import_timestamp: '2025-09-01T03:22:00.564412Z'
+    import_timestamp: '2025-09-02T03:07:39.000678Z'

@@ -20,8 +20,8 @@
   privilege: ''
   buckets:
   - atomic-red-team
-  - t1095
   - command-and-control
+  - t1095
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -31,4 +31,4 @@
         default: 127.0.0.1
     technique_created: '2017-05-31T21:31:10.728Z'
     atomic_guid: 0268e63c-e244-42db-bef7-72a9e59fc1fc
-    import_timestamp: '2025-09-02T03:07:41.226553Z'
+    import_timestamp: '2025-09-03T02:56:13.838464Z'

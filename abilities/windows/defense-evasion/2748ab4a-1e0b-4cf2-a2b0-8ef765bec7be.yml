@@ -28,8 +28,8 @@
   privilege: ''
   buckets:
   - atomic-red-team
-  - t1564
   - defense-evasion
+  - t1564
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -59,4 +59,4 @@
         \ \"PathToAtomicsFolder\\..\\ExternalPayloads\\\"\n"
     technique_created: '2020-02-26T17:41:25.933Z'
     atomic_guid: 2748ab4a-1e0b-4cf2-a2b0-8ef765bec7be
-    import_timestamp: '2025-09-02T03:07:38.557666Z'
+    import_timestamp: '2025-09-03T02:56:11.100786Z'

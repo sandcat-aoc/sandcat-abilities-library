@@ -40,8 +40,8 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - atomic-red-team
   - impact
+  - atomic-red-team
   - t1491.001
   author: Atomic Red Team
   additional_info:
@@ -58,4 +58,4 @@
           data contact us:xxxx@onionmail.org
     technique_created: '2020-02-20T14:31:34.778Z'
     atomic_guid: ffcbfaab-c9ff-470b-928c-f086b326089b
-    import_timestamp: '2025-09-02T03:07:42.342550Z'
+    import_timestamp: '2025-09-03T02:56:14.955900Z'

@@ -25,9 +25,9 @@
   delete_payload: false
   privilege: ''
   buckets:
+  - t1562.001
   - atomic-red-team
   - defense-evasion
-  - t1562.001
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -37,4 +37,4 @@
         default: McAfeeDLPAgentService
     technique_created: '2020-02-21T20:32:20.810Z'
     atomic_guid: a1230893-56ac-4c81-b644-2108e982f8f5
-    import_timestamp: '2025-09-02T03:07:39.386929Z'
+    import_timestamp: '2025-09-03T02:56:11.826442Z'

@@ -22,8 +22,8 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - atomic-red-team
   - t1112
+  - atomic-red-team
   - persistence
   author: Atomic Red Team
   additional_info:
@@ -38,4 +38,4 @@
         default: C:\Windows\System32\notepad.exe
     technique_created: '2017-05-31T21:31:23.587Z'
     atomic_guid: 4469192c-2d2d-4a3a-9758-1f31d937a92b
-    import_timestamp: '2025-09-02T03:07:40.838584Z'
+    import_timestamp: '2025-09-03T02:56:13.447339Z'

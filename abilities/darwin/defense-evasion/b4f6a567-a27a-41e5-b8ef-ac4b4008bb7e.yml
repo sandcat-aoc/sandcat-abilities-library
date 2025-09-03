@@ -24,8 +24,8 @@
   privilege: ''
   buckets:
   - atomic-red-team
-  - t1140
   - defense-evasion
+  - t1140
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -39,4 +39,4 @@
         default: /tmp/T1140.encoded
     technique_created: '2017-12-14T16:46:06.044Z'
     atomic_guid: b4f6a567-a27a-41e5-b8ef-ac4b4008bb7e
-    import_timestamp: '2025-09-02T03:07:21.295254Z'
+    import_timestamp: '2025-09-03T02:55:54.363339Z'

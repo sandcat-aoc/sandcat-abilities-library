@@ -23,9 +23,9 @@
   delete_payload: false
   privilege: ''
   buckets:
+  - t1489
   - impact
   - atomic-red-team
-  - t1489
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -35,4 +35,4 @@
         default: spooler
     technique_created: '2019-03-29T19:00:55.901Z'
     atomic_guid: 21dfb440-830d-4c86-a3e5-2a491d5a8d04
-    import_timestamp: '2025-09-03T02:56:14.945783Z'
+    import_timestamp: '2025-09-04T02:57:26.531503Z'

@@ -20,8 +20,8 @@
   privilege: ''
   buckets:
   - atomic-red-team
-  - defense-evasion
   - t1036.003
+  - defense-evasion
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -35,4 +35,4 @@
         default: $env:ComSpec
     technique_created: '2020-02-10T20:03:11.691Z'
     atomic_guid: c3d24a39-2bfe-4c6a-b064-90cd73896cb0
-    import_timestamp: '2025-09-03T02:56:11.988802Z'
+    import_timestamp: '2025-09-04T02:57:23.654719Z'

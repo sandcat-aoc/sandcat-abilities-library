@@ -18,9 +18,9 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - t1217
   - atomic-red-team
   - discovery
+  - t1217
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -30,4 +30,4 @@
         default: /tmp/T1217_Firefox.txt
     technique_created: '2018-04-18T17:59:24.739Z'
     atomic_guid: 1ca1f9c7-44bc-46bb-8c85-c50e2e94267b
-    import_timestamp: '2025-09-03T02:55:54.833783Z'
+    import_timestamp: '2025-09-04T02:57:02.363828Z'

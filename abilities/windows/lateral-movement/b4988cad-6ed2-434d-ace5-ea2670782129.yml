@@ -24,8 +24,8 @@
   privilege: ''
   buckets:
   - atomic-red-team
-  - lateral-movement
   - t1072
+  - lateral-movement
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -62,4 +62,4 @@
         '
     technique_created: '2017-05-31T21:30:57.201Z'
     atomic_guid: b4988cad-6ed2-434d-ace5-ea2670782129
-    import_timestamp: '2025-09-03T02:56:14.079645Z'
+    import_timestamp: '2025-09-04T02:57:25.659073Z'

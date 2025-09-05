@@ -22,8 +22,8 @@
   privilege: ''
   buckets:
   - persistence
-  - atomic-red-team
   - t1136.001
+  - atomic-red-team
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -33,4 +33,4 @@
         default: T1136.001_PowerShell
     technique_created: '2020-01-28T13:50:22.506Z'
     atomic_guid: bc8be0ac-475c-4fbf-9b1d-9fffd77afbde
-    import_timestamp: '2025-09-04T02:57:25.057296Z'
+    import_timestamp: '2025-09-05T03:00:14.669137Z'

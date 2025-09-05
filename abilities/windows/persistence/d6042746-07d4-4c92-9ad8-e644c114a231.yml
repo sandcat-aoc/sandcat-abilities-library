@@ -40,4 +40,4 @@
         default: echo Art "Logon Script" atomic test was successful. >> %USERPROFILE%\desktop\T1037.001-log.txt
     technique_created: '2020-01-10T03:43:37.211Z'
     atomic_guid: d6042746-07d4-4c92-9ad8-e644c114a231
-    import_timestamp: '2025-09-04T02:57:25.299530Z'
+    import_timestamp: '2025-09-05T03:00:14.914620Z'

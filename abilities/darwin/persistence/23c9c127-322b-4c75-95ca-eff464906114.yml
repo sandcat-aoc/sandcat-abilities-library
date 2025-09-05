@@ -19,9 +19,9 @@
   delete_payload: false
   privilege: ''
   buckets:
+  - t1546.014
   - persistence
   - atomic-red-team
-  - t1546.014
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -31,4 +31,4 @@
         default: PathToAtomicsFolder/T1546.014/src/T1546.014_emond.plist
     technique_created: '2020-01-24T15:15:13.426Z'
     atomic_guid: 23c9c127-322b-4c75-95ca-eff464906114
-    import_timestamp: '2025-09-04T02:57:02.127680Z'
+    import_timestamp: '2025-09-05T02:59:55.509738Z'

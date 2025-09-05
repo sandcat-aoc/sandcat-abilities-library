@@ -25,8 +25,8 @@
   privilege: ''
   buckets:
   - persistence
-  - t1543.003
   - atomic-red-team
+  - t1543.003
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -40,4 +40,4 @@
         default: C:\WINDOWS\system32\fxssvc.exe
     technique_created: '2020-01-17T19:13:50.402Z'
     atomic_guid: ed366cde-7d12-49df-a833-671904770b9f
-    import_timestamp: '2025-09-04T02:57:24.755778Z'
+    import_timestamp: '2025-09-05T03:00:14.361275Z'

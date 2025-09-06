@@ -50,4 +50,4 @@
         -OutFile "PathToAtomicsFolder\..\ExternalPayloads\SharpShares.exe"'
     technique_created: '2017-12-14T16:46:06.044Z'
     atomic_guid: d1fa2a69-b0a2-4e8a-9112-529b00c19a41
-    import_timestamp: '2025-09-05T03:00:15.860857Z'
+    import_timestamp: '2025-09-06T02:55:13.531906Z'

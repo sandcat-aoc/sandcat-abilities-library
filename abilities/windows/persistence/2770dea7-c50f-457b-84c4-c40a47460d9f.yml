@@ -26,8 +26,8 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - persistence
   - atomic-red-team
+  - persistence
   - t1574.009
   author: Atomic Red Team
   additional_info:
@@ -39,4 +39,4 @@
         default: PathToAtomicsFolder\T1574.009\bin\WindowsServiceExample.exe
     technique_created: '2020-03-13T13:51:58.519Z'
     atomic_guid: 2770dea7-c50f-457b-84c4-c40a47460d9f
-    import_timestamp: '2025-09-05T03:00:14.893064Z'
+    import_timestamp: '2025-09-06T02:55:12.567657Z'

@@ -18,9 +18,9 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - persistence
-  - t1136.002
   - atomic-red-team
+  - t1136.002
+  - persistence
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -38,4 +38,4 @@
         default: Domain Admins
     technique_created: '2020-01-28T14:05:17.825Z'
     atomic_guid: fcec2963-9951-4173-9bfa-98d8b7834e62
-    import_timestamp: '2025-09-05T03:00:14.714746Z'
+    import_timestamp: '2025-09-06T02:55:12.391756Z'

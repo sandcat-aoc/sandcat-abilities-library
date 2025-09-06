@@ -1,5 +1,5 @@
 - id: d2a1f4bc-a064-4223-8281-a086dce5423c
-  name: abuse of linux magic system request key for reboot
+  name: Abuse of Linux Magic System Request Key for Reboot
   description: adversaries with root or sufficient privileges to silently manipulate
     or destabilize a system. By writing to /proc/sysrq-trigger, they can forced to
     reboot.
@@ -18,11 +18,11 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - t1529
   - atomic-red-team
   - impact
+  - t1529
   author: Atomic Red Team
   additional_info:
     technique_created: '2019-10-04T20:42:28.541Z'
     atomic_guid: d2a1f4bc-a064-4223-8281-a086dce5423c
-    import_timestamp: '2025-09-05T03:00:31.601080Z'
+    import_timestamp: '2025-09-06T02:55:28.524022Z'

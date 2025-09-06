@@ -20,9 +20,9 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - credential-access
   - atomic-red-team
   - t1003.003
+  - credential-access
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -36,4 +36,4 @@
         default: C:\Temp\vssstore
     technique_created: '2020-02-11T18:42:35.572Z'
     atomic_guid: 21748c28-2793-4284-9e07-d6d028b66702
-    import_timestamp: '2025-09-05T03:00:15.672303Z'
+    import_timestamp: '2025-09-06T02:55:13.339062Z'

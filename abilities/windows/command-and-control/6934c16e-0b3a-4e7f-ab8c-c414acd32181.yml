@@ -46,4 +46,4 @@
       get_prereq_command: winget install Microsoft.Sqlcmd --silent 2>$null | Out-Null
     technique_created: '2017-05-31T21:31:16.408Z'
     atomic_guid: 6934c16e-0b3a-4e7f-ab8c-c414acd32181
-    import_timestamp: '2025-09-06T02:55:12.786113Z'
+    import_timestamp: '2025-09-07T03:03:35.766922Z'

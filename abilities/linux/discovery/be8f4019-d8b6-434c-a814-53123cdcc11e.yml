@@ -18,8 +18,8 @@
   privilege: ''
   buckets:
   - atomic-red-team
-  - t1016.001
   - discovery
+  - t1016.001
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -29,4 +29,4 @@
         default: 8.8.8.8
     technique_created: '2021-03-17T15:28:10.689Z'
     atomic_guid: be8f4019-d8b6-434c-a814-53123cdcc11e
-    import_timestamp: '2025-09-06T02:55:28.342299Z'
+    import_timestamp: '2025-09-07T03:03:51.529846Z'

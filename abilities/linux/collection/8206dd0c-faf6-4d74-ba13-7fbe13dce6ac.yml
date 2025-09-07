@@ -19,8 +19,8 @@
   privilege: ''
   buckets:
   - atomic-red-team
-  - collection
   - t1113
+  - collection
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -49,4 +49,4 @@
       get_prereq_command: "sudo #{package_installer} \n"
     technique_created: '2017-05-31T21:31:25.060Z'
     atomic_guid: 8206dd0c-faf6-4d74-ba13-7fbe13dce6ac
-    import_timestamp: '2025-09-06T02:55:28.167054Z'
+    import_timestamp: '2025-09-07T03:03:51.358387Z'

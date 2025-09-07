@@ -26,8 +26,8 @@
   privilege: ''
   buckets:
   - atomic-red-team
-  - privilege-escalation
   - t1547.001
+  - privilege-escalation
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -41,4 +41,4 @@
         default: C:\Windows\System32\calc.exe
     technique_created: '2020-01-23T22:02:48.566Z'
     atomic_guid: a70faea1-e206-4f6f-8d9a-67379be8f6f1
-    import_timestamp: '2025-09-06T02:55:11.408893Z'
+    import_timestamp: '2025-09-07T03:03:34.556432Z'

@@ -15,9 +15,9 @@
   delete_payload: false
   privilege: ''
   buckets:
+  - command-and-control
   - atomic-red-team
   - t1571
-  - command-and-control
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -41,4 +41,4 @@
         '
     technique_created: '2020-03-14T18:18:32.443Z'
     atomic_guid: 5db21e1d-dd9c-4a50-b885-b1e748912767
-    import_timestamp: '2025-09-07T03:03:51.313544Z'
+    import_timestamp: '2025-09-08T03:07:58.274004Z'

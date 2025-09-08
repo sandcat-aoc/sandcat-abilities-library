@@ -24,9 +24,9 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - atomic-red-team
   - t1547.001
   - privilege-escalation
+  - atomic-red-team
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -36,4 +36,4 @@
         default: C:\Program Files\Internet Explorer\iexplore.exe
     technique_created: '2020-01-23T22:02:48.566Z'
     atomic_guid: 6e1666d5-3f2b-4b9a-80aa-f011322380d4
-    import_timestamp: '2025-09-07T03:03:34.574600Z'
+    import_timestamp: '2025-09-08T03:07:41.208453Z'

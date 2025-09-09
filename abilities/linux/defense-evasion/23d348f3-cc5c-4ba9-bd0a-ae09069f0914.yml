@@ -15,8 +15,8 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - defense-evasion
   - atomic-red-team
+  - defense-evasion
   - t1070.003
   author: Atomic Red Team
   additional_info:
@@ -27,4 +27,4 @@
         default: ~/.bash_history
     technique_created: '2020-01-31T12:32:08.228Z'
     atomic_guid: 23d348f3-cc5c-4ba9-bd0a-ae09069f0914
-    import_timestamp: '2025-09-08T03:07:57.739408Z'
+    import_timestamp: '2025-09-09T03:03:00.045076Z'

@@ -20,8 +20,8 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - atomic-red-team
   - collection
+  - atomic-red-team
   - t1560.001
   author: Atomic Red Team
   additional_info:
@@ -37,4 +37,4 @@
         default: 'confidential! SSN: 078-05-1120 - CCN: 4000 1234 5678 9101'
     technique_created: '2020-02-20T21:01:25.428Z'
     atomic_guid: cde3c2af-3485-49eb-9c1f-0ed60e9cc0af
-    import_timestamp: '2025-09-08T03:07:22.813770Z'
+    import_timestamp: '2025-09-09T03:02:24.483225Z'

@@ -21,9 +21,9 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - defense-evasion
   - atomic-red-team
   - t1140
+  - defense-evasion
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -41,4 +41,4 @@
       get_prereq_command: echo "Install Python3"
     technique_created: '2017-12-14T16:46:06.044Z'
     atomic_guid: c3b65cd5-ee51-4e98-b6a3-6cbdec138efc
-    import_timestamp: '2025-09-08T03:07:22.490338Z'
+    import_timestamp: '2025-09-09T03:02:24.155503Z'

@@ -24,4 +24,4 @@
     use_case: Discover SSH hosts
     source_file: dns-sd.yml
     source_repository: https://github.com/infosecB/LOOBins
-    import_timestamp: '2025-09-08T03:07:02.267980Z'
+    import_timestamp: '2025-09-09T03:02:03.515393Z'

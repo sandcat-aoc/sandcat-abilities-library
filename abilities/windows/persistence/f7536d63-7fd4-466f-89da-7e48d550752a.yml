@@ -21,8 +21,8 @@
   privilege: ''
   buckets:
   - atomic-red-team
-  - persistence
   - t1574.011
+  - persistence
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -32,4 +32,4 @@
         default: weakservicename
     technique_created: '2020-03-13T11:42:14.444Z'
     atomic_guid: f7536d63-7fd4-466f-89da-7e48d550752a
-    import_timestamp: '2025-09-09T03:02:44.100426Z'
+    import_timestamp: '2025-09-10T02:56:30.077588Z'

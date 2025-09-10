@@ -26,8 +26,8 @@
   privilege: ''
   buckets:
   - atomic-red-team
-  - t1036
   - defense-evasion
+  - t1036
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -46,4 +46,4 @@
         \ \"PathToAtomicsFolder\\..\\ExternalPayloads\\T1036.zip\" \n"
     technique_created: '2017-05-31T21:30:38.511Z'
     atomic_guid: 4449c89b-ec82-43a4-89c1-91e2f1abeecc
-    import_timestamp: '2025-09-09T03:02:42.245693Z'
+    import_timestamp: '2025-09-10T02:56:28.313712Z'

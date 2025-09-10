@@ -23,8 +23,8 @@
   privilege: ''
   buckets:
   - atomic-red-team
-  - t1547.001
   - privilege-escalation
+  - t1547.001
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -34,4 +34,4 @@
         default: C:\Path\AtomicRedTeam.exe
     technique_created: '2020-01-23T22:02:48.566Z'
     atomic_guid: e55be3fd-3521-4610-9d1a-e210e42dcf05
-    import_timestamp: '2025-09-09T03:02:43.600224Z'
+    import_timestamp: '2025-09-10T02:56:29.574384Z'

@@ -18,8 +18,8 @@
   privilege: ''
   buckets:
   - atomic-red-team
-  - execution
   - t1059.003
+  - execution
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -33,4 +33,4 @@
         default: Hello, from CMD!
     technique_created: '2020-03-09T14:12:31.196Z'
     atomic_guid: d0eb3597-a1b3-4d65-b33b-2cda8d397f20
-    import_timestamp: '2025-09-10T02:56:29.990979Z'
+    import_timestamp: '2025-09-11T03:01:50.511506Z'

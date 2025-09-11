@@ -1,0 +1,27 @@
+- id: 371d48fa-b966-00d0-0046-1f3a18e2bd98
+  name: Query.exe - Once executed, `query.exe` will execute `quser.exe` in the same
+    folder. Thus, if `query.exe` is copied to a folder and an arbitrary executable
+    is renamed to `quser.exe`, `query.exe` will spawn it. Instead of `user`, it is
+    also possible to use `session`, `termsession` or `process` as command-line option.
+  description: Once executed, `query.exe` will execute `quser.exe` in the same folder.
+    Thus, if `query.exe` is copied to a folder and an arbitrary executable is renamed
+    to `quser.exe`, `query.exe` will spawn it. Instead of `user`, it is also possible
+    to use `session`, `termsession` or `process` as command-line option.
+  tactic: defense-evasion
+  technique:
+    attack_id: T1218
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: query.exe user
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: Idan Lerman
+  created: '2025-07-31'
+  modified: '2025-07-31'
+  operating_system: Windows All Versions

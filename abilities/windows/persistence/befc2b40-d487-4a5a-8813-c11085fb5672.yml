@@ -29,8 +29,8 @@
   privilege: ''
   buckets:
   - atomic-red-team
-  - persistence
   - t1547.001
+  - persistence
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -40,4 +40,4 @@
         default: autocheck autoche *
     technique_created: '2020-01-23T22:02:48.566Z'
     atomic_guid: befc2b40-d487-4a5a-8813-c11085fb5672
-    import_timestamp: '2025-09-10T02:56:30.524092Z'
+    import_timestamp: '2025-09-11T03:01:51.025040Z'

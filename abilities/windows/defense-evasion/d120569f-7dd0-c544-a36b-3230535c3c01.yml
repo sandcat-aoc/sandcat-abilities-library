@@ -1,0 +1,25 @@
+- id: d120569f-7dd0-c544-a36b-3230535c3c01
+  name: Reset.exe - Once executed, `reset.exe` will execute `rwinsta.exe` in the same
+    folder. Thus, if `reset.exe` is copied to a folder and an arbitrary executable
+    is renamed to `rwinsta.exe`, `reset.exe` will spawn it.
+  description: Once executed, `reset.exe` will execute `rwinsta.exe` in the same folder.
+    Thus, if `reset.exe` is copied to a folder and an arbitrary executable is renamed
+    to `rwinsta.exe`, `reset.exe` will spawn it.
+  tactic: defense-evasion
+  technique:
+    attack_id: T1218
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: reset.exe session
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: Matan Bahar
+  created: '2025-07-31'
+  modified: '2025-07-31'
+  operating_system: Windows All Versions

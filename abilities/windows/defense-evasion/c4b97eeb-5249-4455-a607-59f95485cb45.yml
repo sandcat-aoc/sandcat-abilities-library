@@ -36,4 +36,4 @@
         default: https://raw.githubusercontent.com/redcanaryco/atomic-red-team/master/atomics/T1218.005/src/T1218.005.hta
     technique_created: '2020-01-23T19:32:49.557Z'
     atomic_guid: c4b97eeb-5249-4455-a607-59f95485cb45
-    import_timestamp: '2025-09-10T02:56:28.780386Z'
+    import_timestamp: '2025-09-11T03:01:49.322297Z'

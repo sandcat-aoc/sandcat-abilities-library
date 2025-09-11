@@ -1,0 +1,27 @@
+- id: 77a47f3c-6075-98ec-6342-dc397574693c
+  name: Eudcedit.exe - Once executed, the Private Charecter Editor will be opened
+    -  click OK, then click File -> Font Links. In the next window choose the option
+    "Link with Selected Fonts" and click on Save As, then in the opened enter the
+    command you want to execute.
+  description: Once executed, the Private Charecter Editor will be opened -  click
+    OK, then click File -> Font Links. In the next window choose the option "Link
+    with Selected Fonts" and click on Save As, then in the opened enter the command
+    you want to execute.
+  tactic: privilege-escalation
+  technique:
+    attack_id: T1548.002
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: eudcedit
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - privilege-escalation
+  version: '1.0'
+  author: Matan Bahar
+  created: '2025-08-07'
+  modified: '2025-08-07'
+  operating_system: Windows All Versions

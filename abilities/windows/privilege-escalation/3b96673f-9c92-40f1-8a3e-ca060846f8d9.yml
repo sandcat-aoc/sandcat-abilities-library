@@ -28,8 +28,8 @@
   privilege: ''
   buckets:
   - atomic-red-team
-  - t1548.002
   - privilege-escalation
+  - t1548.002
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -43,4 +43,4 @@
         default: C:\Windows\System32\cmd.exe /c start cmd.exe
     technique_created: '2020-01-30T14:24:34.977Z'
     atomic_guid: 3b96673f-9c92-40f1-8a3e-ca060846f8d9
-    import_timestamp: '2025-09-11T03:01:49.854005Z'
+    import_timestamp: '2025-09-12T02:56:03.036491Z'

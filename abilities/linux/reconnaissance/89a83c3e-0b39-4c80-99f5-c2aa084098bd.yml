@@ -19,8 +19,8 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - atomic-red-team
   - reconnaissance
+  - atomic-red-team
   - t1595.003
   author: Atomic Red Team
   additional_info:
@@ -43,4 +43,4 @@
         default: $env:TMPDIR/wordlist_scan.txt
     technique_created: '2022-03-04T18:56:38.844Z'
     atomic_guid: 89a83c3e-0b39-4c80-99f5-c2aa084098bd
-    import_timestamp: '2025-09-11T03:02:07.298163Z'
+    import_timestamp: '2025-09-12T02:56:20.152442Z'

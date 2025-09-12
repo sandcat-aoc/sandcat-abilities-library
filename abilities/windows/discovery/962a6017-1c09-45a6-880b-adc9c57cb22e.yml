@@ -28,8 +28,8 @@
   privilege: ''
   buckets:
   - atomic-red-team
-  - t1018
   - discovery
+  - t1018
   author: Atomic Red Team
   additional_info:
     dependencies:
@@ -39,4 +39,4 @@
       get_prereq_command: 'write-host "This PC must be manually added to a domain." '
     technique_created: '2017-05-31T21:30:28.187Z'
     atomic_guid: 962a6017-1c09-45a6-880b-adc9c57cb22e
-    import_timestamp: '2025-09-11T03:01:52.454045Z'
+    import_timestamp: '2025-09-12T02:56:05.505608Z'

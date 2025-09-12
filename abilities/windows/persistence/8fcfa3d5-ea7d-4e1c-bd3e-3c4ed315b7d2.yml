@@ -25,8 +25,8 @@
   privilege: ''
   buckets:
   - atomic-red-team
-  - persistence
   - t1053.005
+  - persistence
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -40,4 +40,4 @@
         default: calc.exe
     technique_created: '2019-11-27T14:58:00.429Z'
     atomic_guid: 8fcfa3d5-ea7d-4e1c-bd3e-3c4ed315b7d2
-    import_timestamp: '2025-09-11T03:01:50.580715Z'
+    import_timestamp: '2025-09-12T02:56:03.770874Z'

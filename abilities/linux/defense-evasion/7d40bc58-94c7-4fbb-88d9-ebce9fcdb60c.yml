@@ -24,9 +24,9 @@
   delete_payload: false
   privilege: ''
   buckets:
+  - t1562.006
   - atomic-red-team
   - defense-evasion
-  - t1562.006
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -44,4 +44,4 @@
         default: syslog-ng.conf
     technique_created: '2020-03-19T19:09:30.329Z'
     atomic_guid: 7d40bc58-94c7-4fbb-88d9-ebce9fcdb60c
-    import_timestamp: '2025-09-12T02:56:19.378177Z'
+    import_timestamp: '2025-09-13T02:47:21.750017Z'

@@ -16,9 +16,9 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - t1113
-  - collection
   - atomic-red-team
+  - collection
+  - t1113
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -28,4 +28,4 @@
         default: /tmp/T1113_desktop.png
     technique_created: '2017-05-31T21:31:25.060Z'
     atomic_guid: deb7d358-5fbd-4dc4-aecc-ee0054d2d9a4
-    import_timestamp: '2025-09-13T02:46:46.508756Z'
+    import_timestamp: '2025-09-14T03:02:39.252753Z'

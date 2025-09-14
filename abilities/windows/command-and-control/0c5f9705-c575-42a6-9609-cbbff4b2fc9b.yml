@@ -25,8 +25,8 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - t1572
   - atomic-red-team
+  - t1572
   - command-and-control
   author: Atomic Red Team
   additional_info:
@@ -62,4 +62,4 @@
         default: 20
     technique_created: '2020-03-15T16:03:39.082Z'
     atomic_guid: 0c5f9705-c575-42a6-9609-cbbff4b2fc9b
-    import_timestamp: '2025-09-13T02:47:06.438920Z'
+    import_timestamp: '2025-09-14T03:02:58.554393Z'

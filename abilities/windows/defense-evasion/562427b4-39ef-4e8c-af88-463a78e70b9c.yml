@@ -24,8 +24,8 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - t1055.012
   - atomic-red-team
+  - t1055.012
   - defense-evasion
   author: Atomic Red Team
   additional_info:
@@ -66,4 +66,4 @@
         \ -Path #{script_path} -Force)\n} catch {\n  Write-Error $_\n  Exit 1\n}\n"
     technique_created: '2020-01-14T17:21:54.470Z'
     atomic_guid: 562427b4-39ef-4e8c-af88-463a78e70b9c
-    import_timestamp: '2025-09-13T02:47:04.570993Z'
+    import_timestamp: '2025-09-14T03:02:56.822136Z'

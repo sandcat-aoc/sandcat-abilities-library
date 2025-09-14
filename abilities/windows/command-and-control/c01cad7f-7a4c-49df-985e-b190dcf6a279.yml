@@ -19,9 +19,9 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - t1105
   - atomic-red-team
   - command-and-control
+  - t1105
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -35,4 +35,4 @@
         default: '%temp%\Atomic-license.txt'
     technique_created: '2017-05-31T21:31:16.408Z'
     atomic_guid: c01cad7f-7a4c-49df-985e-b190dcf6a279
-    import_timestamp: '2025-09-13T02:47:06.532292Z'
+    import_timestamp: '2025-09-14T03:02:58.647035Z'

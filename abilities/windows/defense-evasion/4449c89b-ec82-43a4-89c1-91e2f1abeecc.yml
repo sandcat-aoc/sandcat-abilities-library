@@ -25,8 +25,8 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - t1036
   - atomic-red-team
+  - t1036
   - defense-evasion
   author: Atomic Red Team
   additional_info:
@@ -46,4 +46,4 @@
         \ \"PathToAtomicsFolder\\..\\ExternalPayloads\\T1036.zip\" \n"
     technique_created: '2017-05-31T21:30:38.511Z'
     atomic_guid: 4449c89b-ec82-43a4-89c1-91e2f1abeecc
-    import_timestamp: '2025-09-13T02:47:03.904412Z'
+    import_timestamp: '2025-09-14T03:02:56.165449Z'

@@ -23,9 +23,9 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - atomic-red-team
   - t1546
   - persistence
+  - atomic-red-team
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -35,4 +35,4 @@
         default: notepad.exe
     technique_created: '2020-01-22T21:04:23.285Z'
     atomic_guid: a574dafe-a903-4cce-9701-14040f4f3532
-    import_timestamp: '2025-09-14T03:02:58.402458Z'
+    import_timestamp: '2025-09-15T03:08:34.884909Z'

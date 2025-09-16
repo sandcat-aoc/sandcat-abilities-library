@@ -25,10 +25,10 @@
   privilege: ''
   buckets:
   - command-and-control
-  - atomic-red-team
   - t1219
+  - atomic-red-team
   author: Atomic Red Team
   additional_info:
     technique_created: '2018-04-18T17:59:24.739Z'
     atomic_guid: d03683ec-aae0-42f9-9b4c-534780e0f8e1
-    import_timestamp: '2025-09-15T03:08:34.997802Z'
+    import_timestamp: '2025-09-16T02:56:47.459624Z'

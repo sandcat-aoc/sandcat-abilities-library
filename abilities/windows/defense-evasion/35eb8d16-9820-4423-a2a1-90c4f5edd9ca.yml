@@ -32,4 +32,4 @@
         default: $Env:windir\Temp\svchost.exe
     technique_created: '2020-02-10T20:43:10.239Z'
     atomic_guid: 35eb8d16-9820-4423-a2a1-90c4f5edd9ca
-    import_timestamp: '2025-09-15T03:08:32.485673Z'
+    import_timestamp: '2025-09-16T02:56:44.788351Z'

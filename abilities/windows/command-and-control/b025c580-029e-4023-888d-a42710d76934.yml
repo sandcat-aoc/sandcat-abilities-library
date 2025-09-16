@@ -28,8 +28,8 @@
   privilege: ''
   buckets:
   - command-and-control
-  - atomic-red-team
   - t1219
+  - atomic-red-team
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -51,4 +51,4 @@
         splashtop_install.exe\" /S  \nstart-sleep 30      \n"
     technique_created: '2018-04-18T17:59:24.739Z'
     atomic_guid: b025c580-029e-4023-888d-a42710d76934
-    import_timestamp: '2025-09-15T03:08:35.023741Z'
+    import_timestamp: '2025-09-16T02:56:47.486248Z'

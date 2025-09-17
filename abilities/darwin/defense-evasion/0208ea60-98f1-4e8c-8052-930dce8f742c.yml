@@ -18,8 +18,8 @@
   privilege: ''
   buckets:
   - t1070.002
-  - atomic-red-team
   - defense-evasion
+  - atomic-red-team
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -29,4 +29,4 @@
         default: /var/log/system.log
     technique_created: '2020-01-28T17:11:54.034Z'
     atomic_guid: 0208ea60-98f1-4e8c-8052-930dce8f742c
-    import_timestamp: '2025-09-16T02:56:28.030228Z'
+    import_timestamp: '2025-09-17T02:56:27.602821Z'

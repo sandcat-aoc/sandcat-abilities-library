@@ -17,9 +17,9 @@
   delete_payload: false
   privilege: ''
   buckets:
+  - t1216
   - defense-evasion
   - atomic-red-team
-  - t1216
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -29,4 +29,4 @@
         default: '%windir%\System32\calc.exe'
     technique_created: '2018-04-18T17:59:24.739Z'
     atomic_guid: 2a8f2d3c-3dec-4262-99dd-150cb2a4d63a
-    import_timestamp: '2025-09-16T02:56:45.965226Z'
+    import_timestamp: '2025-09-17T02:56:45.883093Z'

@@ -16,9 +16,9 @@
   delete_payload: false
   privilege: ''
   buckets:
+  - atomic-red-team
   - t1547.007
   - persistence
-  - atomic-red-team
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -28,4 +28,4 @@
         default: PathToAtomicsFolder/T1547.007/src/reopen_loginwindow_calc.plist
     technique_created: '2020-01-24T18:15:06.641Z'
     atomic_guid: 5fefd767-ef54-4ac6-84d3-751ab85e8aba
-    import_timestamp: '2025-09-17T02:56:27.897179Z'
+    import_timestamp: '2025-09-18T02:58:25.484942Z'

@@ -22,9 +22,9 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - t1059.001
-  - execution
   - atomic-red-team
+  - execution
+  - t1059.001
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -34,4 +34,4 @@
         default: https://raw.githubusercontent.com/redcanaryco/atomic-red-team/master/atomics/T1059.001/src/test.ps1
     technique_created: '2020-03-09T13:48:55.078Z'
     atomic_guid: 388a7340-dbc1-4c9d-8e59-b75ad8c6d5da
-    import_timestamp: '2025-09-17T02:56:46.606234Z'
+    import_timestamp: '2025-09-18T02:58:44.347932Z'

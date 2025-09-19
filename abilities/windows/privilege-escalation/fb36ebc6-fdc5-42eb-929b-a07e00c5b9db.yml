@@ -1,0 +1,30 @@
+- id: fb36ebc6-fdc5-42eb-929b-a07e00c5b9db
+  name: a7681a49d1ac6efb31409f17a7011a8b - Malicious Driver Deployment
+  description: 'Malicious driver: a7681a49d1ac6efb31409f17a7011a8b
+
+    Category: vulnerable driver
+
+    Author: Michael Haag
+
+    Created: 2025-09-18
+
+    MITRE Technique: T1068'
+  tactic: privilege-escalation
+  technique:
+    attack_id: T1068
+    name: Rootkit
+  platforms:
+    windows:
+      cmd:
+        command: sc create MaliciousDriver binPath= "C:\Windows\System32\drivers\malicious_driver.sys"
+          type= kernel
+  singleton: true
+  privilege: Elevated
+  repeatable: false
+  buckets:
+  - privilege-escalation
+  version: '1.0'
+  author: Michael Haag
+  operating_system: Windows (Version Unspecified)
+  created: '2025-09-18'
+  modified: '2025-09-18'

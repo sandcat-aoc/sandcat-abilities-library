@@ -25,8 +25,8 @@
   privilege: ''
   buckets:
   - atomic-red-team
-  - t1548.002
   - defense-evasion
+  - t1548.002
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -36,4 +36,4 @@
         default: C:\Windows\System32\cmd.exe
     technique_created: '2020-01-30T14:24:34.977Z'
     atomic_guid: 3c51abf2-44bf-42d8-9111-dc96ff66750f
-    import_timestamp: '2025-09-18T02:58:42.519786Z'
+    import_timestamp: '2025-09-19T03:02:28.681514Z'

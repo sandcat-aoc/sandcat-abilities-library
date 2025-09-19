@@ -20,8 +20,8 @@
   privilege: ''
   buckets:
   - atomic-red-team
-  - command-and-control
   - t1105
+  - command-and-control
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -35,4 +35,4 @@
         default: $env:TEMP\Atomic-license.txt
     technique_created: '2017-05-31T21:31:16.408Z'
     atomic_guid: 42dc4460-9aa6-45d3-b1a6-3955d34e1fe8
-    import_timestamp: '2025-09-18T02:58:45.318652Z'
+    import_timestamp: '2025-09-19T03:02:31.579514Z'

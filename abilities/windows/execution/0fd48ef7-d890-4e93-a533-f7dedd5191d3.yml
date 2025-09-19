@@ -20,8 +20,8 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - atomic-red-team
   - execution
+  - atomic-red-team
   - t1047
   author: Atomic Red Team
   additional_info:
@@ -36,4 +36,4 @@
         default: Spooler
     technique_created: '2017-05-31T21:30:44.329Z'
     atomic_guid: 0fd48ef7-d890-4e93-a533-f7dedd5191d3
-    import_timestamp: '2025-09-18T02:58:44.241781Z'
+    import_timestamp: '2025-09-19T03:02:30.617664Z'

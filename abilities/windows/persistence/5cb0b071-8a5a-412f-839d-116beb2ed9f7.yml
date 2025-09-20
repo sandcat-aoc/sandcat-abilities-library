@@ -16,8 +16,8 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - t1547
   - atomic-red-team
+  - t1547
   - persistence
   author: Atomic Red Team
   additional_info:
@@ -29,4 +29,4 @@
         default: C:\Windows\INF\acpipmi.inf
     technique_created: '2020-01-23T17:46:59.535Z'
     atomic_guid: 5cb0b071-8a5a-412f-839d-116beb2ed9f7
-    import_timestamp: '2025-09-19T03:02:30.881563Z'
+    import_timestamp: '2025-09-20T02:55:19.442785Z'

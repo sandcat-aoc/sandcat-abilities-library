@@ -16,8 +16,8 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - privilege-escalation
   - atomic-red-team
+  - privilege-escalation
   - t1547.007
   author: Atomic Red Team
   additional_info:
@@ -28,4 +28,4 @@
         default: PathToAtomicsFolder/T1547.007/src/reopen_loginwindow_calc.plist
     technique_created: '2020-01-24T18:15:06.641Z'
     atomic_guid: 5fefd767-ef54-4ac6-84d3-751ab85e8aba
-    import_timestamp: '2025-09-19T03:02:11.345473Z'
+    import_timestamp: '2025-09-20T02:55:00.571601Z'

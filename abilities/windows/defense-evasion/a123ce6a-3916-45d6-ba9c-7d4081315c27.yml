@@ -21,8 +21,8 @@
   privilege: ''
   buckets:
   - atomic-red-team
-  - defense-evasion
   - t1562.001
+  - defense-evasion
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -32,4 +32,4 @@
         default: outlook.exe
     technique_created: '2020-02-21T20:32:20.810Z'
     atomic_guid: a123ce6a-3916-45d6-ba9c-7d4081315c27
-    import_timestamp: '2025-09-19T03:02:29.712194Z'
+    import_timestamp: '2025-09-20T02:55:18.103947Z'

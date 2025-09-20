@@ -16,8 +16,8 @@
   privilege: ''
   buckets:
   - atomic-red-team
-  - command-and-control
   - t1132.001
+  - command-and-control
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -31,4 +31,4 @@
         default: MTExLTExLTExMTE=
     technique_created: '2020-03-14T23:36:52.095Z'
     atomic_guid: 1164f70f-9a88-4dff-b9ff-dc70e7bf0c25
-    import_timestamp: '2025-09-19T03:02:47.405362Z'
+    import_timestamp: '2025-09-20T02:55:35.652738Z'

@@ -57,4 +57,4 @@
         -UseBasicParsing -OutFile "PathToAtomicsFolder\T1137.006\bin\Addins\ExcelVBAaddin.xlam"'
     technique_created: '2019-11-07T19:52:52.801Z'
     atomic_guid: 082141ed-b048-4c86-99c7-2b8da5b5bf48
-    import_timestamp: '2025-09-21T03:08:07.734910Z'
+    import_timestamp: '2025-09-22T03:08:21.207393Z'

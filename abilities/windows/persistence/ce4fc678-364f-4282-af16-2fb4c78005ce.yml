@@ -24,9 +24,9 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - t1547.009
   - persistence
   - atomic-red-team
+  - t1547.009
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -36,4 +36,4 @@
         default: '%temp%\T1547.009_modified_shortcut.url'
     technique_created: '2020-01-24T19:00:32.917Z'
     atomic_guid: ce4fc678-364f-4282-af16-2fb4c78005ce
-    import_timestamp: '2025-09-21T03:08:07.772132Z'
+    import_timestamp: '2025-09-22T03:08:21.244967Z'

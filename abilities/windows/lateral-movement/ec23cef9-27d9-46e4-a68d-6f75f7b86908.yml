@@ -25,9 +25,9 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - lateral-movement
-  - t1550.002
   - atomic-red-team
+  - t1550.002
+  - lateral-movement
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -66,4 +66,4 @@
         \ \"x64/mimikatz.exe\" $basePath\n"
     technique_created: '2020-01-30T16:36:51.184Z'
     atomic_guid: ec23cef9-27d9-46e4-a68d-6f75f7b86908
-    import_timestamp: '2025-09-21T03:08:08.696415Z'
+    import_timestamp: '2025-09-22T03:08:22.164846Z'

@@ -23,8 +23,8 @@
   privilege: ''
   buckets:
   - t1053.005
-  - privilege-escalation
   - atomic-red-team
+  - privilege-escalation
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -50,4 +50,4 @@
         default: At0micStrong
     technique_created: '2019-11-27T14:58:00.429Z'
     atomic_guid: 2e5eac3e-327b-4a88-a0c0-c4057039a8dd
-    import_timestamp: '2025-09-21T03:08:06.823590Z'
+    import_timestamp: '2025-09-22T03:08:20.283308Z'

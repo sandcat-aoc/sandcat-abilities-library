@@ -19,8 +19,8 @@
   privilege: ''
   buckets:
   - persistence
-  - t1136.002
   - atomic-red-team
+  - t1136.002
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -38,4 +38,4 @@
         default: Domain Admins
     technique_created: '2020-01-28T14:05:17.825Z'
     atomic_guid: fcec2963-9951-4173-9bfa-98d8b7834e62
-    import_timestamp: '2025-09-21T03:08:08.028131Z'
+    import_timestamp: '2025-09-22T03:08:21.498724Z'

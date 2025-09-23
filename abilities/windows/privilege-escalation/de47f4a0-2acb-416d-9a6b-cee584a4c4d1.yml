@@ -24,10 +24,10 @@
   privilege: ''
   buckets:
   - atomic-red-team
-  - t1547.001
   - privilege-escalation
+  - t1547.001
   author: Atomic Red Team
   additional_info:
     technique_created: '2020-01-23T22:02:48.566Z'
     atomic_guid: de47f4a0-2acb-416d-9a6b-cee584a4c4d1
-    import_timestamp: '2025-09-22T03:08:20.682404Z'
+    import_timestamp: '2025-09-23T02:58:44.245818Z'

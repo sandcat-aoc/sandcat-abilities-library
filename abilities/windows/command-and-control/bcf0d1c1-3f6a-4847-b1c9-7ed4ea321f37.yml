@@ -26,8 +26,8 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - t1095
   - atomic-red-team
+  - t1095
   - command-and-control
   author: Atomic Red Team
   additional_info:
@@ -66,4 +66,4 @@
         \ \"vcredist_x86.exe\")\n}\n"
     technique_created: '2017-05-31T21:31:10.728Z'
     atomic_guid: bcf0d1c1-3f6a-4847-b1c9-7ed4ea321f37
-    import_timestamp: '2025-09-22T03:08:21.815894Z'
+    import_timestamp: '2025-09-23T02:58:45.446890Z'

@@ -20,8 +20,8 @@
   privilege: ''
   buckets:
   - atomic-red-team
-  - exfiltration
   - t1041
+  - exfiltration
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -35,4 +35,4 @@
         default: $env:TEMP\LineNumbers.txt
     technique_created: '2017-05-31T21:30:41.804Z'
     atomic_guid: d1253f6e-c29b-49dc-b466-2147a6191932
-    import_timestamp: '2025-09-22T03:08:23.174454Z'
+    import_timestamp: '2025-09-23T02:58:46.778866Z'

@@ -16,8 +16,8 @@
   privilege: ''
   buckets:
   - defense-evasion
-  - atomic-red-team
   - t1564.001
+  - atomic-red-team
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -27,4 +27,4 @@
         default: /tmp/evil
     technique_created: '2020-02-26T17:46:13.128Z'
     atomic_guid: 3b7015f2-3144-4205-b799-b05580621379
-    import_timestamp: '2025-09-24T03:00:36.495221Z'
+    import_timestamp: '2025-09-25T03:02:47.711985Z'

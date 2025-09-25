@@ -17,9 +17,9 @@
   delete_payload: false
   privilege: ''
   buckets:
+  - t1562.002
   - defense-evasion
   - atomic-red-team
-  - t1562.002
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -29,4 +29,4 @@
         default: Microsoft-Windows-IKE/Operational
     technique_created: '2020-02-21T20:46:36.688Z'
     atomic_guid: b26a3340-dad7-4360-9176-706269c74103
-    import_timestamp: '2025-09-24T03:00:54.118708Z'
+    import_timestamp: '2025-09-25T03:03:05.922548Z'

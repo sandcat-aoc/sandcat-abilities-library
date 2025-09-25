@@ -24,8 +24,8 @@
   privilege: ''
   buckets:
   - t1489
-  - atomic-red-team
   - impact
+  - atomic-red-team
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -35,4 +35,4 @@
         default: spoolsv.exe
     technique_created: '2019-03-29T19:00:55.901Z'
     atomic_guid: f3191b84-c38b-400b-867e-3a217a27795f
-    import_timestamp: '2025-09-24T03:00:57.710191Z'
+    import_timestamp: '2025-09-25T03:03:09.364285Z'

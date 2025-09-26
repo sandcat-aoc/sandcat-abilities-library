@@ -26,8 +26,8 @@
   privilege: ''
   buckets:
   - t1059.006
-  - execution
   - atomic-red-team
+  - execution
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -66,4 +66,4 @@
       get_prereq_command: "pip install requests    \n"
     technique_created: '2020-03-09T14:38:24.334Z'
     atomic_guid: 6c4d1dcb-33c7-4c36-a8df-c6cfd0408be8
-    import_timestamp: '2025-09-25T03:03:23.735647Z'
+    import_timestamp: '2025-09-26T03:01:14.074167Z'

@@ -1,0 +1,43 @@
+- id: 9f8b1c54-cb76-4d5e-bb1f-2f5c0e8f5a11
+  name: Expand CAB with expand.exe
+  description: 'Uses expand.exe to extract a file from a CAB created locally. This
+    simulates adversarial use of expand on cabinet archives.
+
+    Upon success, art-expand-source.txt is extracted next to the CAB.'
+  tactic: defense-evasion
+  technique:
+    attack_id: T1140
+    name: Deobfuscate/Decode Files or Information
+  platforms:
+    windows:
+      sh:
+        command: mkdir "%TEMP%\art-expand-out" >nul 2>&1; echo hello from atomic red
+          team > "PathToAtomicsFolder\T1140\src\art-expand-source.txt"; makecab "PathToAtomicsFolder\T1140\src\art-expand-source.txt"
+          "%TEMP%\art-expand-test.cab"; pushd "%TEMP%\art-expand-out"; expand "%TEMP%\art-expand-test.cab"
+          -F:* .; popd
+        cleanup: del "PathToAtomicsFolder\T1140\src\art-expand-source.txt" >nul 2>&1;
+          del "#{cab_path}" >nul 2>&1; rmdir "#{output_dir}" /s /q >nul 2>&1
+        elevation_required: false
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - atomic-red-team
+  - t1140
+  - defense-evasion
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      cab_path:
+        description: Path to the CAB to expand (created if missing)
+        type: path
+        default: '%TEMP%\art-expand-test.cab'
+      output_dir:
+        description: Destination directory
+        type: path
+        default: '%TEMP%\art-expand-out'
+    technique_created: '2017-12-14T16:46:06.044Z'
+    atomic_guid: 9f8b1c54-cb76-4d5e-bb1f-2f5c0e8f5a11
+    import_timestamp: '2025-09-27T02:54:51.998928Z'

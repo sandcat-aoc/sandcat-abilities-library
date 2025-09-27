@@ -25,9 +25,9 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - defense-evasion
   - atomic-red-team
   - t1222.001
+  - defense-evasion
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -51,4 +51,4 @@
         msiexec.exe /i "C:\Users\Public\SubInAcl\SubInAcl.msi" /qn'
     technique_created: '2020-02-04T19:17:41.767Z'
     atomic_guid: a8568b10-9ab9-4140-a523-1c72e0176924
-    import_timestamp: '2025-09-26T03:00:55.935956Z'
+    import_timestamp: '2025-09-27T02:54:51.886907Z'

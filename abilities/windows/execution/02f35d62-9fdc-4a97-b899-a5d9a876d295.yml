@@ -25,9 +25,9 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - t1204.002
-  - atomic-red-team
   - execution
+  - atomic-red-team
+  - t1204.002
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -41,4 +41,4 @@
         default: $env:TEMP/PotentiallyUnwanted.exe
     technique_created: '2020-03-11T14:49:36.954Z'
     atomic_guid: 02f35d62-9fdc-4a97-b899-a5d9a876d295
-    import_timestamp: '2025-09-26T03:00:57.568341Z'
+    import_timestamp: '2025-09-27T02:54:53.567058Z'

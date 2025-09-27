@@ -17,8 +17,8 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - atomic-red-team
   - t1548.001
+  - atomic-red-team
   - privilege-escalation
   author: Atomic Red Team
   additional_info:
@@ -29,4 +29,4 @@
         default: /tmp/evilBinary
     technique_created: '2020-01-30T14:11:41.212Z'
     atomic_guid: 1f73af33-62a8-4bf1-bd10-3bea931f2c0d
-    import_timestamp: '2025-09-26T03:01:13.952466Z'
+    import_timestamp: '2025-09-27T02:55:09.397279Z'

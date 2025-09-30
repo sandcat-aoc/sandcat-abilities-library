@@ -1,0 +1,21 @@
+- id: 6cef685c-cb1c-1e25-3831-6976e586b1fb
+  name: Mpiexec.exe - Executes a command via MPI command-line tool.
+  description: Executes a command via MPI command-line tool.
+  tactic: defense-evasion
+  technique:
+    attack_id: T1127
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: 'mpiexec.exe #{host.executable.name}'
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: Avihay Eldad
+  created: '2025-09-25'
+  modified: '2025-09-25'
+  operating_system: Windows All Versions

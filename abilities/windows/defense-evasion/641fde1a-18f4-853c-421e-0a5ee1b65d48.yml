@@ -1,0 +1,25 @@
+- id: 641fde1a-18f4-853c-421e-0a5ee1b65d48
+  name: Regsvr32.exe - Execute code in a DLL. The code must be inside the exported
+    function `DllUnRegisterServer`.
+  description: Execute code in a DLL. The code must be inside the exported function
+    `DllUnRegisterServer`.
+  tactic: defense-evasion
+  technique:
+    attack_id: T1218.010
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: regsvr32.exe /u /s payload.dll
+        payloads:
+        - payload.dll
+  singleton: true
+  privilege: User
+  repeatable: false
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: Oddvar Moe
+  created: '2018-05-25'
+  modified: '2018-05-25'
+  operating_system: Windows All Versions

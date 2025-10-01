@@ -30,8 +30,8 @@
   privilege: ''
   buckets:
   - persistence
-  - atomic-red-team
   - t1547.001
+  - atomic-red-team
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -41,4 +41,4 @@
         default: C:\Windows\System32\calc.exe
     technique_created: '2020-01-23T22:02:48.566Z'
     atomic_guid: f7fab6cc-8ece-4ca7-a0f1-30a22fccd374
-    import_timestamp: '2025-09-30T02:58:59.963763Z'
+    import_timestamp: '2025-10-01T03:12:30.360181Z'

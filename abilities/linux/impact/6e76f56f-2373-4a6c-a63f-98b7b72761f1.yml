@@ -1,0 +1,28 @@
+- id: 6e76f56f-2373-4a6c-a63f-98b7b72761f1
+  name: Abuse of linux magic system request key for Send a SIGTERM to all processes
+  description: Adversaries with root or sufficient privileges Send a SIGTERM to all
+    processes, except for init. By writing 'e' to /proc/sysrq-trigger, they can forced
+    kill all processes, except for init.
+  tactic: impact
+  technique:
+    attack_id: T1489
+    name: Service Stop
+  platforms:
+    linux:
+      sh:
+        command: echo "e" > /proc/sysrq-trigger
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1489
+  - impact
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    technique_created: '2019-03-29T19:00:55.901Z'
+    atomic_guid: 6e76f56f-2373-4a6c-a63f-98b7b72761f1
+    import_timestamp: '2025-10-05T03:09:06.884056Z'

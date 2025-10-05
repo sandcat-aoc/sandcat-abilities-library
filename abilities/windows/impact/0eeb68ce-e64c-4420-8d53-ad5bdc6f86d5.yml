@@ -68,9 +68,8 @@
           \ test.\n"
     dependencies:
     - description: Notepad must be present on the system
-      dependency_executor_name: command_prompt
       prereq_command: where notepad
       get_prereq_command: ''
     technique_created: '2020-02-20T14:31:34.778Z'
     atomic_guid: 0eeb68ce-e64c-4420-8d53-ad5bdc6f86d5
-    import_timestamp: '2025-10-04T02:50:50.510596Z'
+    import_timestamp: '2025-10-05T03:08:52.153995Z'

@@ -24,4 +24,4 @@
     use_case: Dump credentials, keys, certificates, and other senstive information from Keychain
     source_file: security.yml
     source_repository: https://github.com/infosecB/LOOBins
-    import_timestamp: '2025-10-06T03:01:08.591804Z'
+    import_timestamp: '2025-10-07T02:57:38.253983Z'

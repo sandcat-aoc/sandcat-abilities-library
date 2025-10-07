@@ -1,0 +1,51 @@
+- id: a9604672-cd46-493b-b58f-fd4124c22dd3
+  name: Simulate npm package installation on a Linux system
+  description: "Launches a short\u2011lived Kubernetes pod using the Node 18 image,\
+    \ initializes a minimal npm project in /tmp/test, and installs the specified npm\
+    \ package without audit/fund/package\u2011lock options, simulating potentially\
+    \ suspicious package retrieval (e.g., typosquatting/dependency confusion) from\
+    \ within a container. The pod is deleted after execution."
+  tactic: initial-access
+  technique:
+    attack_id: T1195.002
+    name: Compromise Software Supply Chain
+  platforms:
+    linux:
+      sh:
+        command: kubectl run atomic-npm-install --image=node:18 --restart=Never --attach
+          --rm -i -- bash -lc "mkdir -p /tmp/test && cd /tmp/test && npm init -y >/dev/null
+          2>&1 && echo '--- package.json before install ---' && cat package.json &&
+          npm install tinycolor --no-audit --no-fund --no-package-lock && echo '---
+          package.json after install ---' && cat package.json"
+        elevation_required: false
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1195.002
+  - atomic-red-team
+  - initial-access
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      image_name:
+        description: Name of the image
+        type: string
+        default: node:18
+      pod_name:
+        description: Name of the pod
+        type: string
+        default: atomic-npm-install
+      package_name:
+        description: NPM package to install
+        type: string
+        default: tinycolor
+    dependencies:
+    - description: kubectl must be installed and configured
+      get_prereq_command: echo "kubectl must be installed"
+      prereq_command: which kubectl
+    technique_created: '2020-03-11T14:17:21.153Z'
+    atomic_guid: a9604672-cd46-493b-b58f-fd4124c22dd3
+    import_timestamp: '2025-10-07T02:58:28.296278Z'

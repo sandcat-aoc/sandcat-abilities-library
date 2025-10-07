@@ -8,8 +8,7 @@
   platforms:
     darwin:
       sh:
-        command: sudo xattr -d com.apple.quarantine myapp.app
-        elevation_required: true
+        command: xattr -d com.apple.quarantine myapp.app
   plugin: atomic
   singleton: false
   repeatable: true
@@ -28,4 +27,4 @@
         default: myapp.app
     technique_created: '2020-02-05T16:16:08.471Z'
     atomic_guid: fb3d46c6-9480-4803-8d7d-ce676e1f1a9b
-    import_timestamp: '2025-10-06T03:01:27.143572Z'
+    import_timestamp: '2025-10-07T02:57:55.170387Z'

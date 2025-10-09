@@ -23,8 +23,8 @@
   privilege: ''
   buckets:
   - atomic-red-team
-  - collection
   - t1113
+  - collection
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -38,4 +38,4 @@
         default: 5
     technique_created: '2017-05-31T21:31:25.060Z'
     atomic_guid: 3c898f62-626c-47d5-aad2-6de873d69153
-    import_timestamp: '2025-10-08T02:59:19.087752Z'
+    import_timestamp: '2025-10-09T03:00:51.379790Z'

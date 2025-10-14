@@ -36,4 +36,4 @@
         default: /Library/LaunchDaemons/com.crowdstrike.userdaemon.plist
     technique_created: '2020-02-21T20:32:20.810Z'
     atomic_guid: b3e7510c-2d4c-4249-a33f-591a2bc83eef
-    import_timestamp: '2025-10-13T03:09:40.424440Z'
+    import_timestamp: '2025-10-14T03:01:49.536515Z'

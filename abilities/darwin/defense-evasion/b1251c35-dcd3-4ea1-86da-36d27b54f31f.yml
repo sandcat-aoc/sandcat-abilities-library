@@ -16,8 +16,8 @@
   privilege: ''
   buckets:
   - defense-evasion
-  - t1070.003
   - atomic-red-team
+  - t1070.003
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -27,4 +27,4 @@
         default: ~/.bash_history
     technique_created: '2020-01-31T12:32:08.228Z'
     atomic_guid: b1251c35-dcd3-4ea1-86da-36d27b54f31f
-    import_timestamp: '2025-10-16T03:03:35.067658Z'
+    import_timestamp: '2025-10-17T03:01:42.803557Z'

@@ -25,4 +25,4 @@
     use_case: Disable authenticated-root
     source_file: csrutil.yml
     source_repository: https://github.com/infosecB/LOOBins
-    import_timestamp: '2025-10-20T03:15:05.902560Z'
+    import_timestamp: '2025-10-21T03:05:36.462310Z'

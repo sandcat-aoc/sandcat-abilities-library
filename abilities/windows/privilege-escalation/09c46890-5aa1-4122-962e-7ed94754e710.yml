@@ -1,0 +1,30 @@
+- id: 09c46890-5aa1-4122-962e-7ed94754e710
+  name: 09c46890-5aa1-4122-962e-7ed94754e710 - Malicious Driver Deployment
+  description: 'Malicious driver: 09c46890-5aa1-4122-962e-7ed94754e710
+
+    Category: vulnerable driver
+
+    Author: valium
+
+    Created: 2025-05-28
+
+    MITRE Technique: T1068'
+  tactic: privilege-escalation
+  technique:
+    attack_id: T1068
+    name: Rootkit
+  platforms:
+    windows:
+      cmd:
+        command: sc create MaliciousDriver binPath= "C:\Windows\System32\drivers\malicious_driver.sys"
+          type= kernel
+  singleton: true
+  privilege: Elevated
+  repeatable: false
+  buckets:
+  - privilege-escalation
+  version: '1.0'
+  author: valium
+  operating_system: Windows (Version Unspecified)
+  created: '2025-05-28'
+  modified: '2025-05-28'

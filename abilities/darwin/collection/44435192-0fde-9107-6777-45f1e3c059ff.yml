@@ -25,4 +25,4 @@
     use_case: Exfiltrate data in encrypted dmg file
     source_file: hdiutil.yml
     source_repository: https://github.com/infosecB/LOOBins
-    import_timestamp: '2025-10-26T03:09:38.233728Z'
+    import_timestamp: '2025-10-27T03:19:43.578267Z'

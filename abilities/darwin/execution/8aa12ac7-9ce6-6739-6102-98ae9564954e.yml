@@ -25,4 +25,4 @@
     use_case: Execute malicious dynamic library (.dylib) from standard input
     source_file: tclsh.yml
     source_repository: https://github.com/infosecB/LOOBins
-    import_timestamp: '2025-10-27T03:19:43.439312Z'
+    import_timestamp: '2025-10-28T03:07:59.905856Z'

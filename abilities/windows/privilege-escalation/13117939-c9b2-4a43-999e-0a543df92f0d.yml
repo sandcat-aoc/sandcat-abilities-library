@@ -55,4 +55,4 @@
         default: cmd.exe /c calc.exe
     technique_created: '2020-01-24T15:05:58.384Z'
     atomic_guid: 13117939-c9b2-4a43-999e-0a543df92f0d
-    import_timestamp: '2025-11-02T03:15:30.438579Z'
+    import_timestamp: '2025-11-03T03:17:53.907491Z'

@@ -60,4 +60,4 @@
       get_prereq_command: gem install evil-winrm
     technique_created: '2020-02-11T18:29:47.757Z'
     atomic_guid: efe86d95-44c4-4509-ae42-7bfd9d1f5b3d
-    import_timestamp: '2025-11-10T03:20:30.007337Z'
+    import_timestamp: '2025-11-11T03:14:43.391171Z'

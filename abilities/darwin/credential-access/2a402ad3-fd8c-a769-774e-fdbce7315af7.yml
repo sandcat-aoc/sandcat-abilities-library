@@ -24,4 +24,4 @@
     use_case: Retrieve Chrome's "Chrome Safe Storage" password manager secret
     source_file: security.yml
     source_repository: https://github.com/infosecB/LOOBins
-    import_timestamp: '2025-11-11T03:14:07.150896Z'
+    import_timestamp: '2025-11-12T03:12:45.926733Z'

@@ -24,11 +24,11 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - atomic-red-team
   - t1134.002
   - defense-evasion
+  - atomic-red-team
   author: Atomic Red Team
   additional_info:
     technique_created: '2020-02-18T16:48:56.582Z'
     atomic_guid: dbf4f5a9-b8e0-46a3-9841-9ad71247239e
-    import_timestamp: '2025-11-14T03:14:06.439285Z'
+    import_timestamp: '2025-11-15T03:08:13.312001Z'

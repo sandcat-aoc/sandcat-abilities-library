@@ -99,8 +99,8 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - defense-evasion
   - atomic-red-team
+  - defense-evasion
   - t1562.001
   author: Atomic Red Team
   additional_info:
@@ -111,4 +111,4 @@
         description: PPL-protected process name to target
     technique_created: '2020-02-21T20:32:20.810Z'
     atomic_guid: cbb2573a-a6ad-4c87-aef8-6e175598559b
-    import_timestamp: '2025-11-18T03:13:18.750804Z'
+    import_timestamp: '2025-11-19T03:12:21.154354Z'

@@ -1,0 +1,27 @@
+- id: d1150649-7dce-8b2a-80cc-cfe58f2720e2
+  name: tccutil - Use the tccutil to reset specific permissions for an application
+  description: Attackers use tccutil to reset permissions for services like Camera, Microphone, or AppleEvents.
+  tactic: defense-evasion
+  technique:
+    attack_id: T1562.001
+    name: 'Impair Defenses: Disable or Modify Tools'
+  platforms:
+    darwin:
+      sh:
+        command: tccutil reset AppleEvents com.apple.Terminal
+  singleton: true
+  privilege: User
+  repeatable: false
+  delete_payload: false
+  buckets:
+  - loobins
+  - tccutil
+  - defense-evasion
+  version: '1.0'
+  author: LOOBins Project
+  additional_info:
+    loobins_tool: tccutil
+    use_case: Use the tccutil to reset specific permissions for an application
+    source_file: tccutil.yml
+    source_repository: https://github.com/infosecB/LOOBins
+    import_timestamp: '2025-11-20T03:09:31.657681Z'

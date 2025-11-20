@@ -1,0 +1,27 @@
+- id: 399732ab-d0d2-ef83-042c-fc4b335433f1
+  name: pkill - Kill logging and monitoring daemons
+  description: Terminate system logging and monitoring processes to evade detection.
+  tactic: defense-evasion
+  technique:
+    attack_id: T1562.001
+    name: 'Impair Defenses: Disable or Modify Tools'
+  platforms:
+    darwin:
+      sh:
+        command: pkill -f "syslog|auditd|osqueryd|esensor|nessusd"
+  singleton: false
+  privilege: User
+  repeatable: true
+  delete_payload: false
+  buckets:
+  - loobins
+  - pkill
+  - defense-evasion
+  version: '1.0'
+  author: LOOBins Project
+  additional_info:
+    loobins_tool: pkill
+    use_case: Kill logging and monitoring daemons
+    source_file: pkill.yml
+    source_repository: https://github.com/infosecB/LOOBins
+    import_timestamp: '2025-11-20T03:09:31.580405Z'

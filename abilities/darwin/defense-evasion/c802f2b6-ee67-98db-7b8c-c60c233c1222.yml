@@ -1,0 +1,27 @@
+- id: c802f2b6-ee67-98db-7b8c-c60c233c1222
+  name: pkill - Kill process by exact name match
+  description: Use exact matching with -x flag to kill specific process by exact name rather than pattern.
+  tactic: defense-evasion
+  technique:
+    attack_id: T1562.001
+    name: 'Impair Defenses: Disable or Modify Tools'
+  platforms:
+    darwin:
+      sh:
+        command: pkill -x com.apple.Safari
+  singleton: false
+  privilege: User
+  repeatable: true
+  delete_payload: false
+  buckets:
+  - loobins
+  - pkill
+  - defense-evasion
+  version: '1.0'
+  author: LOOBins Project
+  additional_info:
+    loobins_tool: pkill
+    use_case: Kill process by exact name match
+    source_file: pkill.yml
+    source_repository: https://github.com/infosecB/LOOBins
+    import_timestamp: '2025-11-20T03:09:31.581984Z'

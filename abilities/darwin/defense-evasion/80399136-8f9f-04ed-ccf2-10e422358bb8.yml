@@ -1,0 +1,28 @@
+- id: 80399136-8f9f-04ed-ccf2-10e422358bb8
+  name: pkill - Kill all processes for a user
+  description: Terminate all processes belonging to a specific user, potentially ending user sessions
+    or disrupting monitoring.
+  tactic: defense-evasion
+  technique:
+    attack_id: T1562.001
+    name: 'Impair Defenses: Disable or Modify Tools'
+  platforms:
+    darwin:
+      sh:
+        command: pkill -u username
+  singleton: false
+  privilege: User
+  repeatable: true
+  delete_payload: false
+  buckets:
+  - loobins
+  - pkill
+  - defense-evasion
+  version: '1.0'
+  author: LOOBins Project
+  additional_info:
+    loobins_tool: pkill
+    use_case: Kill all processes for a user
+    source_file: pkill.yml
+    source_repository: https://github.com/infosecB/LOOBins
+    import_timestamp: '2025-11-20T03:09:31.578832Z'

@@ -25,4 +25,4 @@
     use_case: Retrieving macOS Version Information
     source_file: sw_vers.yml
     source_repository: https://github.com/infosecB/LOOBins
-    import_timestamp: '2025-11-20T03:09:31.760480Z'
+    import_timestamp: '2025-11-21T03:10:31.000544Z'

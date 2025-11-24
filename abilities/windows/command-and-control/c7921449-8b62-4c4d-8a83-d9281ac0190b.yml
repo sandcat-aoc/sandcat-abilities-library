@@ -48,8 +48,8 @@
   privilege: ''
   buckets:
   - atomic-red-team
-  - command-and-control
   - t1001.002
+  - command-and-control
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -122,4 +122,4 @@
         '
     technique_created: '2020-03-15T00:37:58.963Z'
     atomic_guid: c7921449-8b62-4c4d-8a83-d9281ac0190b
-    import_timestamp: '2025-11-23T03:27:07.561499Z'
+    import_timestamp: '2025-11-24T03:23:50.692191Z'

@@ -1,0 +1,25 @@
+- id: 7cd7eaa3-9ccc-460d-96d2-c6fb13e6d58a
+  name: System Service Discovery - Windows Scheduled Tasks (schtasks)
+  description: Enumerates scheduled tasks on Windows using schtasks.exe.
+  tactic: discovery
+  technique:
+    attack_id: T1007
+    name: System Service Discovery
+  platforms:
+    windows:
+      sh:
+        command: schtasks /query /fo LIST /v
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1007
+  - discovery
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    technique_created: '2017-05-31T21:30:21.315Z'
+    atomic_guid: 7cd7eaa3-9ccc-460d-96d2-c6fb13e6d58a
+    import_timestamp: '2025-11-30T03:27:17.593798Z'

@@ -4,7 +4,10 @@
 
 
     Upon successful execution, cmd.exe will execute `netstat`, `net use` and `net
-    sessions`. Results will output via stdout.'
+    sessions`. `net sessions` requires
+
+    elevated privileges; on standard user accounts this command may not return results.
+    Results will output via stdout.'
   tactic: discovery
   technique:
     attack_id: T1049
@@ -12,18 +15,18 @@
   platforms:
     windows:
       sh:
-        command: netstat; net use; net sessions
+        command: netstat -ano; net use; net sessions 2>nul
   plugin: atomic
   singleton: false
   repeatable: true
   delete_payload: false
   privilege: ''
   buckets:
-  - t1049
   - discovery
+  - t1049
   - atomic-red-team
   author: Atomic Red Team
   additional_info:
     technique_created: '2017-05-31T21:30:45.139Z'
     atomic_guid: 0940a971-809a-48f1-9c4d-b1d785e96ee5
-    import_timestamp: '2025-11-29T03:12:02.701614Z'
+    import_timestamp: '2025-11-30T03:27:17.732895Z'

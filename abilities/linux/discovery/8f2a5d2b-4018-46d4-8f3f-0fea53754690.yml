@@ -1,0 +1,30 @@
+- id: 8f2a5d2b-4018-46d4-8f3f-0fea53754690
+  name: System Service Discovery - Linux init scripts
+  description: 'Enumerates system services by listing SysV init scripts and runlevel
+
+    symlinks under /etc/init.d and /etc/rc*.d.'
+  tactic: discovery
+  technique:
+    attack_id: T1007
+    name: System Service Discovery
+  platforms:
+    linux:
+      sh:
+        command: echo "[*] Listing SysV init scripts (/etc/init.d):"; if [ -d /etc/init.d
+          ]; then ls -l /etc/init.d; else echo "/etc/init.d not present on this system";
+          fi; echo; echo "[*] Listing runlevel directories (/etc/rc*.d):"; ls -ld
+          /etc/rc*.d 2>/dev/null || echo "No /etc/rc*.d directories found"
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1007
+  - discovery
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    technique_created: '2017-05-31T21:30:21.315Z'
+    atomic_guid: 8f2a5d2b-4018-46d4-8f3f-0fea53754690
+    import_timestamp: '2025-11-30T03:27:31.278900Z'

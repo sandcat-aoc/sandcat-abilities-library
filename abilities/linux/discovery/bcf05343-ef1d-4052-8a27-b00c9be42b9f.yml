@@ -1,0 +1,29 @@
+- id: bcf05343-ef1d-4052-8a27-b00c9be42b9f
+  name: System Network Connections Discovery via ss or lsof (Linux/MacOS)
+  description: 'List active TCP/UDP network connections using ss, with lsof as a fallback
+
+    when ss is unavailable. Serves as an alternative to the netstat-based test.'
+  tactic: discovery
+  technique:
+    attack_id: T1049
+    name: System Network Connections Discovery
+  platforms:
+    linux:
+      sh:
+        command: if command -v ss >/dev/null 2>&1; then ss -antp 2>/dev/null || ss
+          -ant; ss -aunp 2>/dev/null || true; else lsof -i -nP 2>/dev/null || true;
+          fi
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - discovery
+  - t1049
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    technique_created: '2017-05-31T21:30:45.139Z'
+    atomic_guid: bcf05343-ef1d-4052-8a27-b00c9be42b9f
+    import_timestamp: '2025-11-30T03:27:31.331145Z'

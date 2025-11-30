@@ -1,0 +1,28 @@
+- id: 9b378962-a75e-4856-b117-2503d6dcebba
+  name: System Service Discovery - macOS launchctl
+  description: 'Enumerates services on macOS using launchctl. Used by adversaries
+    for
+
+    identifying daemons, background services, and persistence mechanisms.'
+  tactic: discovery
+  technique:
+    attack_id: T1007
+    name: System Service Discovery
+  platforms:
+    darwin:
+      sh:
+        command: launchctl list
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1007
+  - discovery
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    technique_created: '2017-05-31T21:30:21.315Z'
+    atomic_guid: 9b378962-a75e-4856-b117-2503d6dcebba
+    import_timestamp: '2025-11-30T03:26:59.217278Z'

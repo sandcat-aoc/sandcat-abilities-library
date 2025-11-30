@@ -12,7 +12,7 @@
   platforms:
     windows:
       sh:
-        command: tasklist.exe; sc query; sc query state= all
+        command: tasklist.exe /svc; sc query; sc query state= all
         elevation_required: true
   plugin: atomic
   singleton: false
@@ -27,4 +27,4 @@
   additional_info:
     technique_created: '2017-05-31T21:30:21.315Z'
     atomic_guid: 89676ba1-b1f8-47ee-b940-2e1a113ebc71
-    import_timestamp: '2025-11-29T03:12:02.537489Z'
+    import_timestamp: '2025-11-30T03:27:17.589361Z'

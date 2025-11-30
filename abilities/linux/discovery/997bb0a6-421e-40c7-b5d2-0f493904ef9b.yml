@@ -1,0 +1,26 @@
+- id: 997bb0a6-421e-40c7-b5d2-0f493904ef9b
+  name: System Network Connections Discovery via sockstat (Linux, FreeBSD)
+  description: Enumerate IPv4/IPv6 network endpoints on FreeBSD using sockstat.
+  tactic: discovery
+  technique:
+    attack_id: T1049
+    name: System Network Connections Discovery
+  platforms:
+    linux:
+      sh:
+        command: sockstat -4; sockstat -6 2>/dev/null || true; sockstat -l 2>/dev/null
+          || true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - discovery
+  - t1049
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    technique_created: '2017-05-31T21:30:45.139Z'
+    atomic_guid: 997bb0a6-421e-40c7-b5d2-0f493904ef9b
+    import_timestamp: '2025-11-30T03:27:31.334325Z'

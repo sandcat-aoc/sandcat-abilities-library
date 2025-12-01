@@ -1,0 +1,29 @@
+- id: 794e34f7-88ed-7995-89f3-6904ab0eb38f
+  name: notifyutil - Monitor login/logout events for privilege escalation timing
+  description: By monitoring authentication-related notification keys, an attacker can detect login and
+    logout events to time privilege escalation attempts or other malicious activities when defenses may
+    be weakened during authentication transitions.
+  tactic: discovery
+  technique:
+    attack_id: T1082
+    name: System Information Discovery
+  platforms:
+    darwin:
+      sh:
+        command: notifyutil -w com.apple.loginwindow.logout -w com.apple.springboard.attemptactivationend
+  singleton: false
+  privilege: User
+  repeatable: true
+  delete_payload: false
+  buckets:
+  - loobins
+  - notifyutil
+  - discovery
+  version: '1.0'
+  author: LOOBins Project
+  additional_info:
+    loobins_tool: notifyutil
+    use_case: Monitor login/logout events for privilege escalation timing
+    source_file: notifyutil.yml
+    source_repository: https://github.com/infosecB/LOOBins
+    import_timestamp: '2025-12-01T03:50:05.688286Z'

@@ -1,0 +1,29 @@
+- id: 99992f6d-3408-650e-3502-fb7a3399a43d
+  name: notifyutil - Monitor network state changes for data exfiltration timing
+  description: An attacker can monitor for network configuration changes to determine optimal timing for
+    data exfiltration. This allows malware to detect when the system connects to networks and adjust behavior
+    accordingly.
+  tactic: discovery
+  technique:
+    attack_id: T1082
+    name: System Information Discovery
+  platforms:
+    darwin:
+      sh:
+        command: notifyutil -w com.apple.system.config.network_change
+  singleton: false
+  privilege: User
+  repeatable: true
+  delete_payload: false
+  buckets:
+  - loobins
+  - notifyutil
+  - discovery
+  version: '1.0'
+  author: LOOBins Project
+  additional_info:
+    loobins_tool: notifyutil
+    use_case: Monitor network state changes for data exfiltration timing
+    source_file: notifyutil.yml
+    source_repository: https://github.com/infosecB/LOOBins
+    import_timestamp: '2025-12-01T03:50:05.684866Z'

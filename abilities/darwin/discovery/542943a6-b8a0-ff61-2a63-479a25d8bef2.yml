@@ -1,0 +1,32 @@
+- id: 542943a6-b8a0-ff61-2a63-479a25d8bef2
+  name: notifyutil - Query system notification state values for reconnaissance
+  description: Threat actors can query state values of system notification keys to gather information
+    about the current system configuration without executing more suspicious commands.
+  tactic: discovery
+  technique:
+    attack_id: T1082
+    name: System Information Discovery
+  platforms:
+    darwin:
+      sh:
+        command: 'notifyutil -g com.apple.system.timezone
+
+          notifyutil -g com.apple.loginwindow.logout
+
+          notifyutil -g com.apple.screenIsLocked'
+  singleton: false
+  privilege: User
+  repeatable: true
+  delete_payload: false
+  buckets:
+  - loobins
+  - notifyutil
+  - discovery
+  version: '1.0'
+  author: LOOBins Project
+  additional_info:
+    loobins_tool: notifyutil
+    use_case: Query system notification state values for reconnaissance
+    source_file: notifyutil.yml
+    source_repository: https://github.com/infosecB/LOOBins
+    import_timestamp: '2025-12-01T03:50:05.690038Z'

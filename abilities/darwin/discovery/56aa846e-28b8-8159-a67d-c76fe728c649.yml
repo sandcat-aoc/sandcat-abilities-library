@@ -1,0 +1,29 @@
+- id: 56aa846e-28b8-8159-a67d-c76fe728c649
+  name: notifyutil - Monitor system events for reconnaissance
+  description: An attacker can register for system notification keys to detect when the user locks their
+    screen, changes network state, or other system events without using more easily detected APIs. The
+    following example monitors for screen lock events.
+  tactic: discovery
+  technique:
+    attack_id: T1082
+    name: System Information Discovery
+  platforms:
+    darwin:
+      sh:
+        command: notifyutil -w com.apple.screenIsLocked
+  singleton: false
+  privilege: User
+  repeatable: true
+  delete_payload: false
+  buckets:
+  - loobins
+  - notifyutil
+  - discovery
+  version: '1.0'
+  author: LOOBins Project
+  additional_info:
+    loobins_tool: notifyutil
+    use_case: Monitor system events for reconnaissance
+    source_file: notifyutil.yml
+    source_repository: https://github.com/infosecB/LOOBins
+    import_timestamp: '2025-12-01T03:50:05.681158Z'

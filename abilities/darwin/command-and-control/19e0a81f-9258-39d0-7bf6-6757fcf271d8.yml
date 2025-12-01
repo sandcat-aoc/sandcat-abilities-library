@@ -1,0 +1,37 @@
+- id: 19e0a81f-9258-39d0-7bf6-6757fcf271d8
+  name: notifyutil - Establish covert inter-process communication channel
+  description: Threat actors can use Darwin notifications as a covert IPC mechanism to coordinate between
+    malicious processes. By posting and monitoring custom notification keys with associated state values,
+    malware components can exchange commands and data without using traditional IPC methods that may be
+    monitored.
+  tactic: command-and-control
+  technique:
+    attack_id: T1071.001
+    name: 'Application Layer Protocol: Web Protocols'
+  platforms:
+    darwin:
+      sh:
+        command: '# Sender process
+
+          notifyutil -p com.example.hidden.channel -s com.example.hidden.channel 1337
+
+
+          # Receiver process in another terminal/process
+
+          notifyutil -1 com.example.hidden.channel -g com.example.hidden.channel'
+  singleton: false
+  privilege: User
+  repeatable: true
+  delete_payload: false
+  buckets:
+  - loobins
+  - notifyutil
+  - command-and-control
+  version: '1.0'
+  author: LOOBins Project
+  additional_info:
+    loobins_tool: notifyutil
+    use_case: Establish covert inter-process communication channel
+    source_file: notifyutil.yml
+    source_repository: https://github.com/infosecB/LOOBins
+    import_timestamp: '2025-12-01T03:50:05.682890Z'

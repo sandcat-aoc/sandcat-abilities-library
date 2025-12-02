@@ -42,4 +42,4 @@
       get_prereq_command: "#{package_installer} \n"
     technique_created: '2017-12-14T16:46:06.044Z'
     atomic_guid: 77e468a6-3e5c-45a1-9948-c4b5603747cb
-    import_timestamp: '2025-12-01T03:50:58.070690Z'
+    import_timestamp: '2025-12-02T03:19:57.887549Z'

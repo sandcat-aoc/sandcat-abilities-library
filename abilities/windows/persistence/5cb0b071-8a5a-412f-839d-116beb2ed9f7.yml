@@ -17,8 +17,8 @@
   privilege: ''
   buckets:
   - atomic-red-team
-  - persistence
   - t1547
+  - persistence
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -29,4 +29,4 @@
         default: C:\Windows\INF\acpipmi.inf
     technique_created: '2020-01-23T17:46:59.535Z'
     atomic_guid: 5cb0b071-8a5a-412f-839d-116beb2ed9f7
-    import_timestamp: '2025-12-01T03:50:42.223446Z'
+    import_timestamp: '2025-12-02T03:19:41.724949Z'

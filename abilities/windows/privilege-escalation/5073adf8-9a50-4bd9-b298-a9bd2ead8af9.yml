@@ -20,9 +20,9 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - privilege-escalation
   - atomic-red-team
   - t1548.002
+  - privilege-escalation
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -32,4 +32,4 @@
         default: C:\Windows\System32\cmd.exe
     technique_created: '2020-01-30T14:24:34.977Z'
     atomic_guid: 5073adf8-9a50-4bd9-b298-a9bd2ead8af9
-    import_timestamp: '2025-12-04T03:19:39.624760Z'
+    import_timestamp: '2025-12-05T03:19:56.645999Z'

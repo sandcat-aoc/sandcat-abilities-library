@@ -24,4 +24,4 @@
     use_case: Add an arbitrary trusted certificate to aid a MITM attack
     source_file: security.yml
     source_repository: https://github.com/infosecB/LOOBins
-    import_timestamp: '2025-12-06T03:09:38.908758Z'
+    import_timestamp: '2025-12-07T03:27:09.763056Z'

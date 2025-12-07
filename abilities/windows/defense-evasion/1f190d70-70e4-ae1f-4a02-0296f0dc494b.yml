@@ -1,0 +1,27 @@
+- id: 1f190d70-70e4-ae1f-4a02-0296f0dc494b
+  name: Wsl.exe - When executed, `wsl.exe` queries the registry value of `HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Lxss\MSI\InstallLocation`,
+    which contains a folder path (`c:\program files\wsl` by default). If the value
+    points to another folder containing a file named `wsl.exe`, it will be executed
+    instead of the legitimate `wsl.exe` in the program files folder.
+  description: When executed, `wsl.exe` queries the registry value of `HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Lxss\MSI\InstallLocation`,
+    which contains a folder path (`c:\program files\wsl` by default). If the value
+    points to another folder containing a file named `wsl.exe`, it will be executed
+    instead of the legitimate `wsl.exe` in the program files folder.
+  tactic: defense-evasion
+  technique:
+    attack_id: T1218
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: wsl.exe
+  singleton: true
+  privilege: User
+  repeatable: false
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: Matthew Brown
+  created: '2019-06-27'
+  modified: '2019-06-27'
+  operating_system: Windows All Versions

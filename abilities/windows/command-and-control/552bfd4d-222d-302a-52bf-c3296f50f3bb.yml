@@ -1,0 +1,24 @@
+- id: 552bfd4d-222d-302a-52bf-c3296f50f3bb
+  name: Bcp.exe - Export binary payload stored in SQL Server database to file system.
+  description: Export binary payload stored in SQL Server database to file system.
+  tactic: command-and-control
+  technique:
+    attack_id: T1105
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: bcp "SELECT payload_data FROM database.dbo.payloads WHERE id=1" queryout
+          "C:\Windows\Temp\payload.exe" -S localhost -T -c
+        payloads:
+        - payload.exe
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - command-and-control
+  version: '1.0'
+  author: Mahir Ali Khan
+  created: '2025-11-13'
+  modified: '2025-11-13'
+  operating_system: Windows All Versions

@@ -1,0 +1,22 @@
+- id: ef92611e-8031-044a-970d-f82eee436d29
+  name: IntelliTrace.exe - Launches an executable via Visual Studio command line utility.
+  description: Launches an executable via Visual Studio command line utility.
+  tactic: defense-evasion
+  technique:
+    attack_id: T1127
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: IntelliTrace.exe launch /cp:"collectionplan.xml" /f:"c:\users\public\log"
+          "C:\Windows\System32\calc.exe"
+  singleton: false
+  privilege: Elevated
+  repeatable: true
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: Avihay Eldad
+  created: '2025-09-21'
+  modified: '2025-09-21'
+  operating_system: Windows All Versions

@@ -24,4 +24,4 @@
     use_case: Use mdfind to search for apps to infect
     source_file: mdfind.yml
     source_repository: https://github.com/infosecB/LOOBins
-    import_timestamp: '2025-12-09T03:19:08.513215Z'
+    import_timestamp: '2025-12-10T03:22:36.022837Z'

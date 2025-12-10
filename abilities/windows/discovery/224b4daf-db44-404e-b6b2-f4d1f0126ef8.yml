@@ -17,10 +17,10 @@
   privilege: ''
   buckets:
   - atomic-red-team
-  - discovery
   - t1082
+  - discovery
   author: Atomic Red Team
   additional_info:
     technique_created: '2017-05-31T21:31:04.307Z'
     atomic_guid: 224b4daf-db44-404e-b6b2-f4d1f0126ef8
-    import_timestamp: '2025-12-09T03:19:48.706321Z'
+    import_timestamp: '2025-12-10T03:23:14.453419Z'

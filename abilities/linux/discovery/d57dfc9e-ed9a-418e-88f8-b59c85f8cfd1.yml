@@ -1,0 +1,27 @@
+- id: d57dfc9e-ed9a-418e-88f8-b59c85f8cfd1
+  name: Device Driver Discovery (Linux)
+  description: Displays a list of loaded kernel modules on a Linux system, which is
+    used to enumerate drivers.
+  tactic: discovery
+  technique:
+    attack_id: T1652
+    name: Device Driver Discovery
+  platforms:
+    linux:
+      sh:
+        command: lsmod
+        elevation_required: false
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1652
+  - atomic-red-team
+  - discovery
+  author: Atomic Red Team
+  additional_info:
+    technique_created: '2023-03-28T20:14:49.087Z'
+    atomic_guid: d57dfc9e-ed9a-418e-88f8-b59c85f8cfd1
+    import_timestamp: '2025-12-14T03:29:58.466707Z'

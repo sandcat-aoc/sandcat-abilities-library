@@ -1,0 +1,26 @@
+- id: 71eab73d-5d7d-4681-9a72-7873489a5b85
+  name: List loaded kernel extensions (macOS)
+  description: Displays a list of loaded kernel extensions (kexts) on a macOS system.
+  tactic: discovery
+  technique:
+    attack_id: T1652
+    name: Device Driver Discovery
+  platforms:
+    darwin:
+      sh:
+        command: kextstat
+        elevation_required: false
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1652
+  - atomic-red-team
+  - discovery
+  author: Atomic Red Team
+  additional_info:
+    technique_created: '2023-03-28T20:14:49.087Z'
+    atomic_guid: 71eab73d-5d7d-4681-9a72-7873489a5b85
+    import_timestamp: '2025-12-14T03:29:24.029299Z'

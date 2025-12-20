@@ -1,6 +1,6 @@
 - id: 5a3484f2-d263-c116-b325-760e8de1acef
   name: hdiutil - Mount a malicious dmg file
-  description: Uses hdiutil to mount a malicious dmg file to
+  description: Uses hdiutil to mount a malicious dmg file to the system.
   tactic: execution
   technique:
     attack_id: T1140
@@ -24,4 +24,4 @@
     use_case: Mount a malicious dmg file
     source_file: hdiutil.yml
     source_repository: https://github.com/infosecB/LOOBins
-    import_timestamp: '2025-12-19T03:23:15.316201Z'
+    import_timestamp: '2025-12-20T03:15:23.280147Z'

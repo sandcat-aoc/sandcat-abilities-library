@@ -1,0 +1,31 @@
+- id: 704d58ae-c841-0c07-ae04-1b0596fcac15
+  name: dscl - Computer enumeration
+  description: Enumerate all computers in an Active Directory.
+  tactic: discovery
+  technique:
+    attack_id: T1087.001
+    name: 'Account Discovery: Local Account'
+  platforms:
+    darwin:
+      sh:
+        command: 'dscl  "/Active Directory/TEST/All Domains" -list /Computers
+
+          dscl  "/Active Directory/TEST/All Domains" list /Computers
+
+          dscl  "/Active Directory/TEST/All Domains" ls /Computers'
+  singleton: false
+  privilege: User
+  repeatable: true
+  delete_payload: false
+  buckets:
+  - loobins
+  - dscl
+  - discovery
+  version: '1.0'
+  author: LOOBins Project
+  additional_info:
+    loobins_tool: dscl
+    use_case: Computer enumeration
+    source_file: dscl.yml
+    source_repository: https://github.com/infosecB/LOOBins
+    import_timestamp: '2025-12-20T03:15:23.405612Z'

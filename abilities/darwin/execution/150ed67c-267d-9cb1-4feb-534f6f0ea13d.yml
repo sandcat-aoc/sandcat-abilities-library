@@ -1,6 +1,6 @@
 - id: 150ed67c-267d-9cb1-4feb-534f6f0ea13d
   name: xattr - Bypass Gatekeeper via xattr
-  description: Use xattr to remove quaratine extended attribute from a file.
+  description: Use xattr to remove quarantine extended attribute from a file.
   tactic: execution
   technique:
     attack_id: T1562.001
@@ -24,4 +24,4 @@
     use_case: Bypass Gatekeeper via xattr
     source_file: xattr.yml
     source_repository: https://github.com/infosecB/LOOBins
-    import_timestamp: '2025-12-19T03:23:15.244526Z'
+    import_timestamp: '2025-12-20T03:15:23.211624Z'

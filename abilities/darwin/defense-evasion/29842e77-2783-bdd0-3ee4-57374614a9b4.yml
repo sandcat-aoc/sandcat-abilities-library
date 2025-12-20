@@ -1,0 +1,28 @@
+- id: 29842e77-2783-bdd0-3ee4-57374614a9b4
+  name: codesign - Ad-hoc codesigning an app bundle
+  description: This command forcefully re-signs the MyApp.app application with an ad-hoc signature, applying
+    the signature deeply to all nested code within the app
+  tactic: defense-evasion
+  technique:
+    attack_id: T1553.002
+    name: 'Subvert Trust Controls: Code Signing'
+  platforms:
+    darwin:
+      sh:
+        command: codesign --force --deep -s - MyApp.app
+  singleton: false
+  privilege: User
+  repeatable: true
+  delete_payload: false
+  buckets:
+  - loobins
+  - codesign
+  - defense-evasion
+  version: '1.0'
+  author: LOOBins Project
+  additional_info:
+    loobins_tool: codesign
+    use_case: Ad-hoc codesigning an app bundle
+    source_file: codesign.yml
+    source_repository: https://github.com/infosecB/LOOBins
+    import_timestamp: '2025-12-20T03:15:23.341471Z'

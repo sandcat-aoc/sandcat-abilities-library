@@ -1,6 +1,6 @@
 - id: 4b942875-c78f-5d00-69fe-fc6b030a38c9
   name: odutil - Retrieves active session
-  description: Retrieves the all active sessions
+  description: Retrieves all active sessions
   tactic: discovery
   technique:
     attack_id: T1087.001
@@ -24,4 +24,4 @@
     use_case: Retrieves active session
     source_file: odutil.yml
     source_repository: https://github.com/infosecB/LOOBins
-    import_timestamp: '2025-12-19T03:23:15.229305Z'
+    import_timestamp: '2025-12-20T03:15:23.196080Z'

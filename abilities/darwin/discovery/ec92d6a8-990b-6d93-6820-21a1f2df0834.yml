@@ -1,6 +1,6 @@
 - id: ec92d6a8-990b-6d93-6820-21a1f2df0834
   name: dscacheutil - Lookup all users
-  description: List the all users information
+  description: List all user information
   tactic: discovery
   technique:
     attack_id: T1087.001
@@ -24,4 +24,4 @@
     use_case: Lookup all users
     source_file: dscacheutil.yml
     source_repository: https://github.com/infosecB/LOOBins
-    import_timestamp: '2025-12-19T03:23:15.218137Z'
+    import_timestamp: '2025-12-20T03:15:23.184371Z'

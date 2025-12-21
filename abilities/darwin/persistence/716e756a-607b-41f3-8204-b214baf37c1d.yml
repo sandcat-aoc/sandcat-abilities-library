@@ -45,4 +45,4 @@
         default: PathToAtomicsFolder/T1547.015/src/remove_login_item.osa
     technique_created: '2021-10-05T21:26:15.081Z'
     atomic_guid: 716e756a-607b-41f3-8204-b214baf37c1d
-    import_timestamp: '2025-12-20T03:15:41.981048Z'
+    import_timestamp: '2025-12-21T03:29:20.707183Z'

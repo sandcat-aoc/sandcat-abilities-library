@@ -40,4 +40,4 @@
         default: $env:Temp\atomicredteam.pfx
     technique_created: '2020-02-04T13:06:49.258Z'
     atomic_guid: 7617f689-bbd8-44bc-adcd-6f8968897848
-    import_timestamp: '2025-12-23T03:27:09.995045Z'
+    import_timestamp: '2025-12-24T03:24:07.501676Z'

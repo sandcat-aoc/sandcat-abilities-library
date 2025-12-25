@@ -24,4 +24,4 @@
     use_case: Export local host groups
     source_file: dsexport.yml
     source_repository: https://github.com/infosecB/LOOBins
-    import_timestamp: '2025-12-24T03:23:32.288194Z'
+    import_timestamp: '2025-12-25T03:27:05.496001Z'

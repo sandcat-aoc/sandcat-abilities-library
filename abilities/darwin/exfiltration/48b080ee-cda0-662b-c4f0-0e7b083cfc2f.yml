@@ -24,4 +24,4 @@
     use_case: Enable SMB Guest Access
     source_file: sysadminctl.yml
     source_repository: https://github.com/infosecB/LOOBins
-    import_timestamp: '2025-12-29T03:48:03.926832Z'
+    import_timestamp: '2025-12-30T03:27:26.817607Z'

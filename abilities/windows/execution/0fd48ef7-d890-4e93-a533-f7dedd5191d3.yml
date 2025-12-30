@@ -21,8 +21,8 @@
   privilege: ''
   buckets:
   - t1047
-  - atomic-red-team
   - execution
+  - atomic-red-team
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -36,4 +36,4 @@
         default: Spooler
     technique_created: '2017-05-31T21:30:44.329Z'
     atomic_guid: 0fd48ef7-d890-4e93-a533-f7dedd5191d3
-    import_timestamp: '2025-12-29T03:48:40.907195Z'
+    import_timestamp: '2025-12-30T03:28:03.449560Z'

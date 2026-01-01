@@ -39,4 +39,4 @@
       get_prereq_command: 'write-host "This PC must be manually added to a domain." '
     technique_created: '2017-05-31T21:30:28.187Z'
     atomic_guid: 962a6017-1c09-45a6-880b-adc9c57cb22e
-    import_timestamp: '2025-12-31T03:27:41.705982Z'
+    import_timestamp: '2026-01-01T03:50:58.948944Z'

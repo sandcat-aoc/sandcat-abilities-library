@@ -35,4 +35,4 @@
         default: PathToAtomicsFolder/T1027.002/bin/darwin/test_upx_header_changed
     technique_created: '2020-02-05T14:17:46.686Z'
     atomic_guid: 4d46e16b-5765-4046-9f25-a600d3e65e4d
-    import_timestamp: '2026-01-01T03:50:37.658848Z'
+    import_timestamp: '2026-01-02T03:31:06.095984Z'

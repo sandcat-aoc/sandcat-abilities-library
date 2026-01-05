@@ -17,9 +17,9 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - credential-access
-  - atomic-red-team
   - t1552.004
+  - atomic-red-team
+  - credential-access
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -33,4 +33,4 @@
         default: /tmp/keyfile_locations.txt
     technique_created: '2020-02-04T13:06:49.258Z'
     atomic_guid: 46959285-906d-40fa-9437-5a439accd878
-    import_timestamp: '2026-01-04T03:51:19.951854Z'
+    import_timestamp: '2026-01-05T03:55:30.356312Z'

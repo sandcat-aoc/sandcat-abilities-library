@@ -24,8 +24,8 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - persistence
   - atomic-red-team
+  - persistence
   - t1547.001
   author: Atomic Red Team
   additional_info:
@@ -36,4 +36,4 @@
         default: C:\Program Files\Internet Explorer\iexplore.exe
     technique_created: '2020-01-23T22:02:48.566Z'
     atomic_guid: 6e1666d5-3f2b-4b9a-80aa-f011322380d4
-    import_timestamp: '2026-01-06T03:29:33.040114Z'
+    import_timestamp: '2026-01-07T03:29:30.860744Z'

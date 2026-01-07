@@ -24,4 +24,4 @@
     use_case: Bypass Gatekeeper via xattr
     source_file: xattr.yml
     source_repository: https://github.com/infosecB/LOOBins
-    import_timestamp: '2026-01-06T03:28:55.796930Z'
+    import_timestamp: '2026-01-07T03:28:53.017070Z'

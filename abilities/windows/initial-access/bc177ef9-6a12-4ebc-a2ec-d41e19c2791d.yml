@@ -36,8 +36,8 @@
   privilege: ''
   buckets:
   - t1566.002
-  - atomic-red-team
   - initial-access
+  - atomic-red-team
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -47,4 +47,4 @@
         default: calc.exe
     technique_created: '2020-03-02T19:15:44.182Z'
     atomic_guid: bc177ef9-6a12-4ebc-a2ec-d41e19c2791d
-    import_timestamp: '2026-01-07T03:29:32.409613Z'
+    import_timestamp: '2026-01-08T03:30:33.033016Z'

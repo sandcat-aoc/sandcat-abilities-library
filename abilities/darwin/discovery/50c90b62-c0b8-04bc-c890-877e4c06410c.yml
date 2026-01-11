@@ -24,4 +24,4 @@
     use_case: Retrieves the Active Directory name
     source_file: dsconfigad.yml
     source_repository: https://github.com/infosecB/LOOBins
-    import_timestamp: '2026-01-10T03:24:42.278534Z'
+    import_timestamp: '2026-01-11T03:49:35.709263Z'

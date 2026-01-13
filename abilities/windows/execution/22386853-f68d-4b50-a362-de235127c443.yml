@@ -25,9 +25,9 @@
   delete_payload: false
   privilege: ''
   buckets:
+  - t1204.002
   - execution
   - atomic-red-team
-  - t1204.002
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -41,4 +41,4 @@
         default: $env:TEMP\click-fix.bat
     technique_created: '2020-03-11T14:49:36.954Z'
     atomic_guid: 22386853-f68d-4b50-a362-de235127c443
-    import_timestamp: '2026-01-12T03:49:02.962443Z'
+    import_timestamp: '2026-01-13T03:28:00.124573Z'

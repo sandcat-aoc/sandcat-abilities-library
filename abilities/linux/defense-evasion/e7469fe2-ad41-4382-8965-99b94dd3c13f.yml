@@ -19,8 +19,8 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - atomic-red-team
   - defense-evasion
+  - atomic-red-team
   - t1222.002
   author: Atomic Red Team
   additional_info:
@@ -31,4 +31,4 @@
         default: /var/spool/cron/root
     technique_created: '2020-02-04T19:24:27.774Z'
     atomic_guid: e7469fe2-ad41-4382-8965-99b94dd3c13f
-    import_timestamp: '2026-01-15T03:31:45.339880Z'
+    import_timestamp: '2026-01-16T03:30:16.077153Z'

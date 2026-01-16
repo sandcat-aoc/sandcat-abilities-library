@@ -39,4 +39,4 @@
         default: HKLM:\Software\Microsoft\Windows\CurrentVersion\RunOnce
     technique_created: '2020-01-23T22:02:48.566Z'
     atomic_guid: eb44f842-0457-4ddc-9b92-c4caa144ac42
-    import_timestamp: '2026-01-15T03:31:30.865636Z'
+    import_timestamp: '2026-01-16T03:30:00.803183Z'

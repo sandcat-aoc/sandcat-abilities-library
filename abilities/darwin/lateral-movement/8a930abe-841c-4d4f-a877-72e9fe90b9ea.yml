@@ -22,11 +22,11 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - lateral-movement
-  - atomic-red-team
   - t1021.005
+  - atomic-red-team
+  - lateral-movement
   author: Atomic Red Team
   additional_info:
     technique_created: '2020-02-11T18:28:44.950Z'
     atomic_guid: 8a930abe-841c-4d4f-a877-72e9fe90b9ea
-    import_timestamp: '2026-01-15T03:31:14.568696Z'
+    import_timestamp: '2026-01-16T03:29:43.612015Z'

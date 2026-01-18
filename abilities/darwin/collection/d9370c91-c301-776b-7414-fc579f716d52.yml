@@ -26,4 +26,4 @@
     use_case: Copy, compress, and transfer sensitive data to a remote macOS host
     source_file: ditto.yml
     source_repository: https://github.com/infosecB/LOOBins
-    import_timestamp: '2026-01-17T03:22:27.564804Z'
+    import_timestamp: '2026-01-18T03:45:21.258530Z'

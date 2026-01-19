@@ -24,4 +24,4 @@
     use_case: Discover hosts serving remote screen sharing
     source_file: dns-sd.yml
     source_repository: https://github.com/infosecB/LOOBins
-    import_timestamp: '2026-01-18T03:45:21.341752Z'
+    import_timestamp: '2026-01-19T03:49:58.697747Z'

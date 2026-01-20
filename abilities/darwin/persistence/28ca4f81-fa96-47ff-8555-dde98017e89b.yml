@@ -1,0 +1,62 @@
+- id: 28ca4f81-fa96-47ff-8555-dde98017e89b
+  name: Python Startup Hook - atomic_hook.pth (macOS)
+  description: Creates a Python startup hook using a .pth file inside a virtual environment
+    on macOS.
+  tactic: persistence
+  technique:
+    attack_id: T1546.018
+    name: 'Event Triggered Execution: Python Startup Hooks'
+  platforms:
+    darwin:
+      sh:
+        command: PYTHON_EXE=$(command -v python3 || command -v python); TEMPDIR=$(mktemp
+          -d /tmp/atomic_python_hook_XX); echo "$TEMPDIR" > /tmp/atomic_python_hook_path.txt;
+          $PYTHON_EXE -m venv "$TEMPDIR/env"; SITE_PACKAGES=$("$TEMPDIR/env/bin/python3"
+          -c "import site; print(site.getsitepackages()[0])"); echo "import subprocess;
+          subprocess.Popen(['open', '-a', 'Calculator'])" > "$SITE_PACKAGES/atomic_hook.pth";
+          "$TEMPDIR/env/bin/python" -c "print('Triggering Hook via atomic_hook...')"
+        cleanup: "if [ ! -f /tmp/atomic_python_hook_path.txt ] || [ ! -d $(cat /tmp/atomic_python_hook_path.txt)\
+          \ ]; then echo \"[!] Artifact missing: /tmp/atomic_python_hook_path.txt\
+          \ \u2014 [-] Please Run : Invoke-AtomicTest T1546.018\"; exit 0; fi; pkill\
+          \ \"#{exe_name}\" || true; [ -f /tmp/atomic_python_hook_path.txt ] && rm\
+          \ -rf $(cat /tmp/atomic_python_hook_path.txt) && rm -f /tmp/atomic_python_hook_path.txt;\
+          \ echo \"[+] Successful Removed atomic_hook.pth and terminated #{exe_name}\""
+        elevation_required: false
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - atomic-red-team
+  - persistence
+  - t1546.018
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      exe_name:
+        description: App to launch
+        type: string
+        default: Calculator
+      python_exe:
+        description: The python binary name to test
+        type: string
+        default: python3
+    dependencies:
+    - description: Python must be installed and the specified binary (#{python_exe})
+        must be in the PATH.
+      prereq_command: 'PYTHON_CMD=$(command -v python || command -v #{python_exe})
+
+        if [ -z "$PYTHON_CMD" ]; then exit 1; fi
+
+        $PYTHON_CMD -m venv --help >/dev/null 2>&1
+
+        '
+      get_prereq_command: 'echo "Python3 not found. Please install it using Homebrew
+        (''brew install python'' or ''brew install python3 or brew install python@3.X'')
+        or the macOS developer tools (''xcode-select --install'')."
+
+        '
+    technique_created: '2025-05-22T19:20:46.740Z'
+    atomic_guid: 28ca4f81-fa96-47ff-8555-dde98017e89b
+    import_timestamp: '2026-01-20T03:44:04.809750Z'

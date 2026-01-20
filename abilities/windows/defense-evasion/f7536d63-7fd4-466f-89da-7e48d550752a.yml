@@ -21,8 +21,8 @@
   privilege: ''
   buckets:
   - t1574.011
-  - defense-evasion
   - atomic-red-team
+  - defense-evasion
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -32,4 +32,4 @@
         default: weakservicename
     technique_created: '2020-03-13T11:42:14.444Z'
     atomic_guid: f7536d63-7fd4-466f-89da-7e48d550752a
-    import_timestamp: '2026-01-19T03:50:34.379665Z'
+    import_timestamp: '2026-01-20T03:44:21.074443Z'

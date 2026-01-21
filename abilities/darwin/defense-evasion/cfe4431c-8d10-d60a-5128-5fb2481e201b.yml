@@ -25,4 +25,4 @@
     use_case: Disable Gatekeeper
     source_file: spctl.yml
     source_repository: https://github.com/infosecB/LOOBins
-    import_timestamp: '2026-01-20T03:43:45.849820Z'
+    import_timestamp: '2026-01-21T03:43:39.736108Z'

@@ -64,4 +64,4 @@
         -UseBasicParsing -OutFile "PathToAtomicsFolder\T1137.006\bin\Addins\PptVBAaddin.ppam"'
     technique_created: '2019-11-07T19:52:52.801Z'
     atomic_guid: f89e58f9-2b49-423b-ac95-1f3e7cfd8277
-    import_timestamp: '2026-01-21T03:44:18.771806Z'
+    import_timestamp: '2026-01-22T03:47:38.629767Z'

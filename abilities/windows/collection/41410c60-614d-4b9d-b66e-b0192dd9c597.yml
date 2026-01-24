@@ -38,4 +38,4 @@
         default: $env:USERPROFILE\T1560-data-ps.zip
     technique_created: '2020-02-20T20:53:45.725Z'
     atomic_guid: 41410c60-614d-4b9d-b66e-b0192dd9c597
-    import_timestamp: '2026-01-23T03:42:30.657177Z'
+    import_timestamp: '2026-01-24T03:27:54.097216Z'

@@ -23,8 +23,8 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - atomic-red-team
   - impact
+  - atomic-red-team
   - t1489
   author: Atomic Red Team
   additional_info:
@@ -35,4 +35,4 @@
         default: spoolsv.exe
     technique_created: '2019-03-29T19:00:55.901Z'
     atomic_guid: f3191b84-c38b-400b-867e-3a217a27795f
-    import_timestamp: '2026-01-26T03:56:37.539644Z'
+    import_timestamp: '2026-01-27T03:47:37.126126Z'

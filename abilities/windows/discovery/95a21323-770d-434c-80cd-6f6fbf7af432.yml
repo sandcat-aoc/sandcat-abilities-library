@@ -51,4 +51,4 @@
         default: $env:TEMP\T1083-Enumerate-net.txt
     technique_created: '2017-05-31T21:31:04.710Z'
     atomic_guid: 95a21323-770d-434c-80cd-6f6fbf7af432
-    import_timestamp: '2026-01-31T04:05:41.917276Z'
+    import_timestamp: '2026-02-01T04:30:27.515377Z'

@@ -23,8 +23,8 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - t1055
   - privilege-escalation
+  - t1055
   - atomic-red-team
   author: Atomic Red Team
   additional_info:
@@ -35,4 +35,4 @@
         default: (Start-Process calc.exe -PassThru).Id
     technique_created: '2017-05-31T21:30:47.843Z'
     atomic_guid: 49543237-25db-497b-90df-d0a0a6e8fe2c
-    import_timestamp: '2026-01-31T04:05:39.466176Z'
+    import_timestamp: '2026-02-01T04:30:25.246789Z'

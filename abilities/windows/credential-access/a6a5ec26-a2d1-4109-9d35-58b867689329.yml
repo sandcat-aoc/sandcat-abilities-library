@@ -28,8 +28,8 @@
   privilege: ''
   buckets:
   - credential-access
-  - atomic-red-team
   - t1555.003
+  - atomic-red-team
   author: Atomic Red Team
   additional_info:
     dependencies:
@@ -51,4 +51,4 @@
         \ msedge\n"
     technique_created: '2020-02-12T18:57:36.041Z'
     atomic_guid: a6a5ec26-a2d1-4109-9d35-58b867689329
-    import_timestamp: '2026-01-31T04:05:41.389727Z'
+    import_timestamp: '2026-02-01T04:30:27.001435Z'

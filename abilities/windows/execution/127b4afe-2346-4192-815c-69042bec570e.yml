@@ -19,8 +19,8 @@
   privilege: ''
   buckets:
   - t1059.003
-  - execution
   - atomic-red-team
+  - execution
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -34,4 +34,4 @@
         default: Hello from the Windows Command Prompt!
     technique_created: '2020-03-09T14:12:31.196Z'
     atomic_guid: 127b4afe-2346-4192-815c-69042bec570e
-    import_timestamp: '2026-02-01T04:30:25.820014Z'
+    import_timestamp: '2026-02-02T04:25:28.088070Z'

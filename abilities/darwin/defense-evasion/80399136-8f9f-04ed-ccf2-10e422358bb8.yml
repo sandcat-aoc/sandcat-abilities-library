@@ -25,4 +25,4 @@
     use_case: Kill all processes for a user
     source_file: pkill.yml
     source_repository: https://github.com/infosecB/LOOBins
-    import_timestamp: '2026-02-08T04:33:52.854384Z'
+    import_timestamp: '2026-02-09T04:26:45.429486Z'

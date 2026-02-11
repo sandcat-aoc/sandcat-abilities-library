@@ -38,4 +38,4 @@
         default: HKCU:\Software\Microsoft\Windows\CurrentVersion\Run
     technique_created: '2020-01-23T22:02:48.566Z'
     atomic_guid: 9dc7767b-30c1-4cc4-b999-50cab5e27891
-    import_timestamp: '2026-02-10T04:32:16.464409Z'
+    import_timestamp: '2026-02-11T04:30:39.569687Z'

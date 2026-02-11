@@ -26,8 +26,8 @@
   privilege: ''
   buckets:
   - t1090.001
-  - atomic-red-team
   - command-and-control
+  - atomic-red-team
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -45,4 +45,4 @@
         default: Wi-Fi
     technique_created: '2020-03-14T23:08:20.244Z'
     atomic_guid: 648d68c1-8bcd-4486-9abe-71c6655b6a2c
-    import_timestamp: '2026-02-10T04:31:57.972874Z'
+    import_timestamp: '2026-02-11T04:30:21.390473Z'

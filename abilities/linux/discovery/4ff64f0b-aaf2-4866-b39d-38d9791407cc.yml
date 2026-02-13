@@ -19,8 +19,8 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - t1057
   - atomic-red-team
+  - t1057
   - discovery
   author: Atomic Red Team
   additional_info:
@@ -31,4 +31,4 @@
         default: /tmp/loot.txt
     technique_created: '2017-05-31T21:30:48.728Z'
     atomic_guid: 4ff64f0b-aaf2-4866-b39d-38d9791407cc
-    import_timestamp: '2026-02-12T04:25:58.850906Z'
+    import_timestamp: '2026-02-13T04:22:58.325523Z'

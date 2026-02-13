@@ -1,0 +1,30 @@
+- id: 87d5ec39-482e-4e78-a003-be4b662f85fc
+  name: 87d5ec39-482e-4e78-a003-be4b662f85fc - Malicious Driver Deployment
+  description: 'Malicious driver: 87d5ec39-482e-4e78-a003-be4b662f85fc
+
+    Category: vulnerable driver
+
+    Author: Kyaw Pyiyt Htet
+
+    Created: 2025-03-22
+
+    MITRE Technique: T1068'
+  tactic: privilege-escalation
+  technique:
+    attack_id: T1068
+    name: Rootkit
+  platforms:
+    windows:
+      cmd:
+        command: sc create MaliciousDriver binPath= "C:\Windows\System32\drivers\malicious_driver.sys"
+          type= kernel
+  singleton: true
+  privilege: Elevated
+  repeatable: false
+  buckets:
+  - privilege-escalation
+  version: '1.0'
+  author: Kyaw Pyiyt Htet
+  operating_system: Windows (Version Unspecified)
+  created: '2025-03-22'
+  modified: '2025-03-22'

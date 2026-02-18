@@ -50,4 +50,4 @@
         -OutFile "PathToAtomicsFolder\..\ExternalPayloads\Snaffler.exe"'
     technique_created: '2017-12-14T16:46:06.044Z'
     atomic_guid: b19d74b7-5e72-450a-8499-82e49e379d1a
-    import_timestamp: '2026-02-17T04:19:54.228692Z'
+    import_timestamp: '2026-02-18T04:22:46.899489Z'

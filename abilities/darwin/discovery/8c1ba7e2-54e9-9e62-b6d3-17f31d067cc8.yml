@@ -24,4 +24,4 @@
     use_case: Get OS update policy
     source_file: softwareupdate.yml
     source_repository: https://github.com/infosecB/LOOBins
-    import_timestamp: '2026-02-20T04:15:23.048928Z'
+    import_timestamp: '2026-02-21T04:05:35.780319Z'

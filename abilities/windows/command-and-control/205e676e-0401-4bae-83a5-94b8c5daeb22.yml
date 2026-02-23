@@ -33,8 +33,8 @@
   privilege: ''
   buckets:
   - atomic-red-team
-  - t1105
   - command-and-control
+  - t1105
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -74,4 +74,4 @@
         \ OpenSSH Client: $_\" -ForegroundColor Red\n}\n"
     technique_created: '2017-05-31T21:31:16.408Z'
     atomic_guid: 205e676e-0401-4bae-83a5-94b8c5daeb22
-    import_timestamp: '2026-02-22T04:17:39.300771Z'
+    import_timestamp: '2026-02-23T04:25:58.273282Z'

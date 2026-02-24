@@ -26,4 +26,4 @@
     use_case: Monitor network state changes for data exfiltration timing
     source_file: notifyutil.yml
     source_repository: https://github.com/infosecB/LOOBins
-    import_timestamp: '2026-02-23T04:25:18.987395Z'
+    import_timestamp: '2026-02-24T04:18:27.880999Z'

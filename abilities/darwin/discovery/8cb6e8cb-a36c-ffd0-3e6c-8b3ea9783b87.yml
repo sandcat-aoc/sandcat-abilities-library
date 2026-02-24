@@ -25,4 +25,4 @@
     use_case: Use ioreg to check whether the host is on a physical machine or a VM
     source_file: ioreg.yml
     source_repository: https://github.com/infosecB/LOOBins
-    import_timestamp: '2026-02-23T04:25:18.900611Z'
+    import_timestamp: '2026-02-24T04:18:27.788971Z'

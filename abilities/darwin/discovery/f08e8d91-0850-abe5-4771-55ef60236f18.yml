@@ -25,4 +25,4 @@
     use_case: Detect connected network hardware
     source_file: networksetup.yml
     source_repository: https://github.com/infosecB/LOOBins
-    import_timestamp: '2026-02-24T04:18:27.805263Z'
+    import_timestamp: '2026-02-25T04:20:00.280356Z'

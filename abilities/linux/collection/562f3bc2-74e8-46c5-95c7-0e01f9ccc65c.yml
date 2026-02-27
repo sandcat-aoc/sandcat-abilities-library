@@ -40,4 +40,4 @@
       get_prereq_command: "pkg install -y xwd xwud \n"
     technique_created: '2017-05-31T21:31:25.060Z'
     atomic_guid: 562f3bc2-74e8-46c5-95c7-0e01f9ccc65c
-    import_timestamp: '2026-02-26T04:17:01.054140Z'
+    import_timestamp: '2026-02-27T04:13:59.435535Z'

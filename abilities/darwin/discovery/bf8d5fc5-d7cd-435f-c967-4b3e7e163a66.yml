@@ -24,4 +24,4 @@
     use_case: Discover hosts serving SMB
     source_file: dns-sd.yml
     source_repository: https://github.com/infosecB/LOOBins
-    import_timestamp: '2026-02-26T04:16:07.416627Z'
+    import_timestamp: '2026-02-27T04:13:07.926654Z'

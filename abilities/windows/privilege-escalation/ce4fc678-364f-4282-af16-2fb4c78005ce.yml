@@ -25,8 +25,8 @@
   privilege: ''
   buckets:
   - t1547.009
-  - privilege-escalation
   - atomic-red-team
+  - privilege-escalation
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -36,4 +36,4 @@
         default: '%temp%\T1547.009_modified_shortcut.url'
     technique_created: '2020-01-24T19:00:32.917Z'
     atomic_guid: ce4fc678-364f-4282-af16-2fb4c78005ce
-    import_timestamp: '2026-02-28T03:52:19.206426Z'
+    import_timestamp: '2026-03-01T04:24:30.630375Z'

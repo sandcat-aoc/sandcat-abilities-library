@@ -38,4 +38,4 @@
         -UseBasicParsing -OutFile "PathToAtomicsFolder\..\ExternalPayloads\PowerDump.ps1"'
     technique_created: '2020-02-11T18:42:07.281Z'
     atomic_guid: 804f28fc-68fc-40da-b5a2-e9d0bce5c193
-    import_timestamp: '2026-02-28T03:52:20.901517Z'
+    import_timestamp: '2026-03-01T04:24:32.255753Z'

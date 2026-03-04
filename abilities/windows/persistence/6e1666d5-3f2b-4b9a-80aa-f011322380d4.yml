@@ -25,8 +25,8 @@
   privilege: ''
   buckets:
   - persistence
-  - t1547.001
   - atomic-red-team
+  - t1547.001
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -36,4 +36,4 @@
         default: C:\Program Files\Internet Explorer\iexplore.exe
     technique_created: '2020-01-23T22:02:48.566Z'
     atomic_guid: 6e1666d5-3f2b-4b9a-80aa-f011322380d4
-    import_timestamp: '2026-03-03T04:15:14.319376Z'
+    import_timestamp: '2026-03-04T04:09:36.338883Z'

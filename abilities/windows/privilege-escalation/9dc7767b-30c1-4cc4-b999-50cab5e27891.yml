@@ -22,8 +22,8 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - t1547.001
   - atomic-red-team
+  - t1547.001
   - privilege-escalation
   author: Atomic Red Team
   additional_info:
@@ -38,4 +38,4 @@
         default: HKCU:\Software\Microsoft\Windows\CurrentVersion\Run
     technique_created: '2020-01-23T22:02:48.566Z'
     atomic_guid: 9dc7767b-30c1-4cc4-b999-50cab5e27891
-    import_timestamp: '2026-03-08T04:12:18.572109Z'
+    import_timestamp: '2026-03-09T04:16:41.269153Z'

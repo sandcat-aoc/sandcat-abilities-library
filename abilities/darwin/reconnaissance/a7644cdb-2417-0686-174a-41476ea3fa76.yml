@@ -25,4 +25,4 @@
     use_case: Use mdfind to search for AWS Keys
     source_file: mdfind.yml
     source_repository: https://github.com/infosecB/LOOBins
-    import_timestamp: '2026-03-09T04:16:04.683478Z'
+    import_timestamp: '2026-03-10T04:08:23.203194Z'

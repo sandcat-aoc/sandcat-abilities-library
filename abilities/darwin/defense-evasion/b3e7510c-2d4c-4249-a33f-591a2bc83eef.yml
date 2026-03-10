@@ -20,9 +20,9 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - atomic-red-team
-  - defense-evasion
   - t1562.001
+  - defense-evasion
+  - atomic-red-team
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -36,4 +36,4 @@
         default: /Library/LaunchDaemons/com.crowdstrike.userdaemon.plist
     technique_created: '2020-02-21T20:32:20.810Z'
     atomic_guid: b3e7510c-2d4c-4249-a33f-591a2bc83eef
-    import_timestamp: '2026-03-09T04:16:23.163253Z'
+    import_timestamp: '2026-03-10T04:08:41.856338Z'

@@ -22,8 +22,8 @@
   privilege: ''
   buckets:
   - t1007
-  - discovery
   - atomic-red-team
+  - discovery
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -33,4 +33,4 @@
         default: '%temp%\service-list.txt'
     technique_created: '2017-05-31T21:30:21.315Z'
     atomic_guid: 5f864a3f-8ce9-45c0-812c-bdf7d8aeacc3
-    import_timestamp: '2026-03-10T04:09:01.692236Z'
+    import_timestamp: '2026-03-11T04:09:59.622877Z'

@@ -20,8 +20,8 @@
   privilege: ''
   buckets:
   - t1614
-  - atomic-red-team
   - discovery
+  - atomic-red-team
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -31,4 +31,4 @@
         default: https://ipinfo.io/
     technique_created: '2021-04-01T16:42:08.735Z'
     atomic_guid: 552b4db3-8850-412c-abce-ab5cc8a86604
-    import_timestamp: '2026-03-11T04:09:39.665703Z'
+    import_timestamp: '2026-03-12T04:13:19.858115Z'

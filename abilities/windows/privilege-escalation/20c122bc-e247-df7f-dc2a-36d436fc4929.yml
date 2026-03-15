@@ -1,0 +1,23 @@
+- id: 20c122bc-e247-df7f-dc2a-36d436fc4929
+  name: odbcad32.exe - Launch odbcad32.exe GUI, click 'Tracing' tab, click 'Browsing'
+    button, enter abitrary command in the File Dialog's path, press enter.
+  description: Launch odbcad32.exe GUI, click 'Tracing' tab, click 'Browsing' button,
+    enter abitrary command in the File Dialog's path, press enter.
+  tactic: privilege-escalation
+  technique:
+    attack_id: T1548.002
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: odbcad32.exe
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - privilege-escalation
+  version: '1.0'
+  author: Ekitji
+  created: '2025-09-04'
+  modified: '2025-09-04'
+  operating_system: Windows All Versions

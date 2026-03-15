@@ -1,0 +1,23 @@
+- id: 9c10f74c-7f71-193e-9687-3461c90d6037
+  name: Sigverif.exe - Launch sigverif.exe GUI, click 'Advanced', specify arbitrary
+    executable path as 'log file name', then click 'View Log' to execute the binary.
+  description: Launch sigverif.exe GUI, click 'Advanced', specify arbitrary executable
+    path as 'log file name', then click 'View Log' to execute the binary.
+  tactic: defense-evasion
+  technique:
+    attack_id: T1218
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: sigverif.exe
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: Moshe Kaplan
+  created: '2021-11-08'
+  modified: '2021-11-08'
+  operating_system: Windows All Versions

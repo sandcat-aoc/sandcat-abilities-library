@@ -1,0 +1,25 @@
+- id: 60382408-43bc-e13f-6bb5-d3f0c5ef0416
+  name: WorkFolders.exe - `WorkFolders` attempts to execute `control.exe`. By modifying
+    the default value of the App Paths registry key for `control.exe` in `HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\App
+    Paths\control.exe`, an attacker can achieve proxy execution.
+  description: '`WorkFolders` attempts to execute `control.exe`. By modifying the
+    default value of the App Paths registry key for `control.exe` in `HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\App
+    Paths\control.exe`, an attacker can achieve proxy execution.'
+  tactic: defense-evasion
+  technique:
+    attack_id: T1218
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: WorkFolders
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: Elliot Killick
+  created: '2021-08-16'
+  modified: '2021-08-16'
+  operating_system: Windows All Versions

@@ -1,0 +1,23 @@
+- id: ad9a4ebd-5130-140d-70c9-0a218d4d4759
+  name: write.exe - Executes a binary provided in default value of `HKCU\Software\Microsoft\Windows\CurrentVersion\App
+    Paths\wordpad.exe`.
+  description: Executes a binary provided in default value of `HKCU\Software\Microsoft\Windows\CurrentVersion\App
+    Paths\wordpad.exe`.
+  tactic: defense-evasion
+  technique:
+    attack_id: T1218
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: write.exe
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: Michal Belzak
+  created: '2025-06-17'
+  modified: '2025-06-17'
+  operating_system: Windows All Versions

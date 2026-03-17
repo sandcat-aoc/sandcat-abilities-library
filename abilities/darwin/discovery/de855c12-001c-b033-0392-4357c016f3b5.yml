@@ -24,4 +24,4 @@
     use_case: Discover web hosts
     source_file: dns-sd.yml
     source_repository: https://github.com/infosecB/LOOBins
-    import_timestamp: '2026-03-16T04:39:45.979359Z'
+    import_timestamp: '2026-03-17T04:17:24.871260Z'

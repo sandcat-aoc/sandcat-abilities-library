@@ -1,0 +1,21 @@
+- id: d12207ad-eaa0-9d38-e397-374ee0f2f989
+  name: Cipher.exe - Encrypt a file
+  description: Encrypt a file
+  tactic: defense-evasion
+  technique:
+    attack_id: T1562
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: 'cipher.exe /e #{host.dir.temp}'
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: Adetutu Ogunsowo
+  created: '2024-11-22'
+  modified: '2024-11-22'
+  operating_system: Windows All Versions

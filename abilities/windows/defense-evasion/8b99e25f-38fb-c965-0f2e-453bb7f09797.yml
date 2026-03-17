@@ -1,0 +1,25 @@
+- id: 8b99e25f-38fb-c965-0f2e-453bb7f09797
+  name: Dxcap.exe - Once executed, `dxcap.exe` will execute `xperf.exe` in the same
+    folder. Thus, if `dxcap.exe` is copied to a folder and an arbitrary executable
+    is renamed to `xperf.exe`, `dxcap.exe` will spawn it.
+  description: Once executed, `dxcap.exe` will execute `xperf.exe` in the same folder.
+    Thus, if `dxcap.exe` is copied to a folder and an arbitrary executable is renamed
+    to `xperf.exe`, `dxcap.exe` will spawn it.
+  tactic: defense-evasion
+  technique:
+    attack_id: T1127
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: dxcap.exe -usage
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: Oddvar Moe
+  created: '2018-05-25'
+  modified: '2018-05-25'
+  operating_system: Windows All Versions

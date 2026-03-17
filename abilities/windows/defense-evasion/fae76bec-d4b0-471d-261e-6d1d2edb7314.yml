@@ -1,0 +1,23 @@
+- id: fae76bec-d4b0-471d-261e-6d1d2edb7314
+  name: Logger.exe - Executes the command specified after the `RUNW` parameter as
+    a child of `logger.exe`.
+  description: Executes the command specified after the `RUNW` parameter as a child
+    of `logger.exe`.
+  tactic: defense-evasion
+  technique:
+    attack_id: T1202
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: logger.exe RUNW "#{host.executable.name}"
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: Avihay Eldad
+  created: '2025-07-13'
+  modified: '2025-07-13'
+  operating_system: Windows All Versions

@@ -1,0 +1,21 @@
+- id: da49907c-0082-04b5-0296-715f9b0407cf
+  name: WorkFolders.exe - Execute `control.exe` in the current working directory
+  description: Execute `control.exe` in the current working directory
+  tactic: defense-evasion
+  technique:
+    attack_id: T1218
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: WorkFolders
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: Elliot Killick
+  created: '2021-08-16'
+  modified: '2021-08-16'
+  operating_system: Windows All Versions

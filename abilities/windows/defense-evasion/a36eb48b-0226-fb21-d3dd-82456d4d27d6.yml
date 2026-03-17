@@ -1,0 +1,21 @@
+- id: a36eb48b-0226-fb21-d3dd-82456d4d27d6
+  name: Logger.exe - Executes the command specified as a child of `logger.exe`.
+  description: Executes the command specified as a child of `logger.exe`.
+  tactic: defense-evasion
+  technique:
+    attack_id: T1202
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: logger.exe "#{host.executable.name}"
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: Avihay Eldad
+  created: '2025-07-13'
+  modified: '2025-07-13'
+  operating_system: Windows All Versions

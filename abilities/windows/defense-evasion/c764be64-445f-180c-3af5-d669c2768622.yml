@@ -1,0 +1,27 @@
+- id: c764be64-445f-180c-3af5-d669c2768622
+  name: Cmstp.exe - cmstp.exe reads the `HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\App
+    Paths\cmmgr32.exe\CmstpExtensionDll` registry value and passes its data directly
+    to `LoadLibrary`. By modifying this registry key and setting it to an attack-controlled
+    DLL, this will sideload the DLL via `cmstp.exe`.
+  description: cmstp.exe reads the `HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\App
+    Paths\cmmgr32.exe\CmstpExtensionDll` registry value and passes its data directly
+    to `LoadLibrary`. By modifying this registry key and setting it to an attack-controlled
+    DLL, this will sideload the DLL via `cmstp.exe`.
+  tactic: defense-evasion
+  technique:
+    attack_id: T1218.003
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: cmstp.exe /nf
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: Oddvar Moe
+  created: '2018-05-25'
+  modified: '2018-05-25'
+  operating_system: Windows All Versions

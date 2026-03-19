@@ -1,0 +1,30 @@
+- id: 6683baf0-6e77-4f58-b114-814184ea8150
+  name: Obfuscated PowerShell Command via Character Array
+  description: "Spawns a child PowerShell process using character array obfuscation.\
+    \ \nBoth the PowerShell binary name and executed command are constructed \nfrom\
+    \ ASCII values at runtime to evade string-based detection."
+  tactic: defense-evasion
+  technique:
+    attack_id: T1027
+    name: Obfuscated Files or Information
+  platforms:
+    windows:
+      psh:
+        command: $ps = [char[]](112,111,119,101,114,115,104,101,108,108); $cmd = [char[]](83,116,97,114,116,45,80,114,111,99,101,115,115,32,99,97,108,99,46,101,120,101);
+          & (-join $ps) "-Command" (-join $cmd)
+        cleanup: taskkill /f /im calculator.exe >nul 2>nul; taskkill /f /im CalculatorApp.exe
+          >nul 2>nul
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1027
+  - atomic-red-team
+  - defense-evasion
+  author: Atomic Red Team
+  additional_info:
+    technique_created: '2017-05-31T21:30:32.662Z'
+    atomic_guid: 6683baf0-6e77-4f58-b114-814184ea8150
+    import_timestamp: '2026-03-19T04:24:42.123564Z'

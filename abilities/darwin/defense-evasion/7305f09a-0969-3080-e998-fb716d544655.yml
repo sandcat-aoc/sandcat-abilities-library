@@ -25,4 +25,4 @@
     use_case: Disable Gatekeeper's auto rearm functionality
     source_file: defaults.yml
     source_repository: https://github.com/infosecB/LOOBins
-    import_timestamp: '2026-03-21T04:05:45.932564Z'
+    import_timestamp: '2026-03-22T04:20:32.692338Z'

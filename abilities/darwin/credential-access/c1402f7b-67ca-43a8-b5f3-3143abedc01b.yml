@@ -21,8 +21,8 @@
   privilege: ''
   buckets:
   - t1555.003
-  - credential-access
   - atomic-red-team
+  - credential-access
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -32,4 +32,4 @@
         default: coinbase
     technique_created: '2020-02-12T18:57:36.041Z'
     atomic_guid: c1402f7b-67ca-43a8-b5f3-3143abedc01b
-    import_timestamp: '2026-03-23T04:29:50.840164Z'
+    import_timestamp: '2026-03-24T04:18:08.542804Z'

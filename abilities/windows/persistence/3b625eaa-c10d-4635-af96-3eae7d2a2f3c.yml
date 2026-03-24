@@ -24,10 +24,10 @@
   privilege: ''
   buckets:
   - t1112
-  - persistence
   - atomic-red-team
+  - persistence
   author: Atomic Red Team
   additional_info:
     technique_created: '2017-05-31T21:31:23.587Z'
     atomic_guid: 3b625eaa-c10d-4635-af96-3eae7d2a2f3c
-    import_timestamp: '2026-03-23T04:30:09.602175Z'
+    import_timestamp: '2026-03-24T04:18:26.437930Z'

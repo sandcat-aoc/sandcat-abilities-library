@@ -23,8 +23,8 @@
   privilege: ''
   buckets:
   - t1547.001
-  - persistence
   - atomic-red-team
+  - persistence
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -38,4 +38,4 @@
         default: HKCU:\Software\Microsoft\Windows\CurrentVersion\Run
     technique_created: '2020-01-23T22:02:48.566Z'
     atomic_guid: 9dc7767b-30c1-4cc4-b999-50cab5e27891
-    import_timestamp: '2026-03-23T04:30:09.786521Z'
+    import_timestamp: '2026-03-24T04:18:26.621918Z'

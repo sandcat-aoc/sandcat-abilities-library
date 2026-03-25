@@ -24,4 +24,4 @@
     use_case: Mount a malicious iso file
     source_file: hdiutil.yml
     source_repository: https://github.com/infosecB/LOOBins
-    import_timestamp: '2026-03-24T04:17:49.721081Z'
+    import_timestamp: '2026-03-25T04:21:07.473448Z'

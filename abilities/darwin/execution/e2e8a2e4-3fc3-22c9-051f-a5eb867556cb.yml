@@ -29,4 +29,4 @@
     use_case: Use the osascript binary to execute a JXA (JavaScript for Automation) file.
     source_file: osascript.yml
     source_repository: https://github.com/infosecB/LOOBins
-    import_timestamp: '2026-03-24T04:17:49.794768Z'
+    import_timestamp: '2026-03-25T04:21:07.535260Z'

@@ -20,9 +20,9 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - defense-evasion
   - atomic-red-team
   - t1562.001
+  - defense-evasion
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -32,4 +32,4 @@
         default: outlook.exe
     technique_created: '2020-02-21T20:32:20.810Z'
     atomic_guid: a123ce6a-3916-45d6-ba9c-7d4081315c27
-    import_timestamp: '2026-03-26T04:34:15.985195Z'
+    import_timestamp: '2026-03-27T04:34:43.386370Z'

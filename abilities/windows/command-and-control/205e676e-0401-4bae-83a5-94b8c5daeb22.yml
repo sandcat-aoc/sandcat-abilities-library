@@ -32,8 +32,8 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - command-and-control
   - t1105
+  - command-and-control
   - atomic-red-team
   author: Atomic Red Team
   additional_info:
@@ -74,4 +74,4 @@
         \ OpenSSH Client: $_\" -ForegroundColor Red\n}\n"
     technique_created: '2017-05-31T21:31:16.408Z'
     atomic_guid: 205e676e-0401-4bae-83a5-94b8c5daeb22
-    import_timestamp: '2026-03-29T04:38:12.632922Z'
+    import_timestamp: '2026-03-30T04:45:48.187803Z'

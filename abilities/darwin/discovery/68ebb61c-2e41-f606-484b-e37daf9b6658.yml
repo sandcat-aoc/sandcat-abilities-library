@@ -25,4 +25,4 @@
     use_case: Check all ioreg properties for hypervisor names.
     source_file: ioreg.yml
     source_repository: https://github.com/infosecB/LOOBins
-    import_timestamp: '2026-03-31T04:36:37.618891Z'
+    import_timestamp: '2026-04-01T04:48:39.535653Z'

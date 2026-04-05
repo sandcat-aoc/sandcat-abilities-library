@@ -26,4 +26,4 @@
     use_case: extracts a ZIP or gzip file directly to output from archives or other piped input
     source_file: funzip.yml
     source_repository: https://github.com/infosecB/LOOBins
-    import_timestamp: '2026-04-04T04:18:18.583217Z'
+    import_timestamp: '2026-04-05T04:38:29.150541Z'

@@ -26,8 +26,8 @@
   privilege: ''
   buckets:
   - atomic-red-team
-  - impact
   - t1529
+  - impact
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -67,4 +67,4 @@
         '
     technique_created: '2019-10-04T20:42:28.541Z'
     atomic_guid: 987c9b4d-a637-42db-b1cb-e9e242c3991b
-    import_timestamp: '2026-04-04T04:18:59.980083Z'
+    import_timestamp: '2026-04-05T04:39:10.263653Z'

@@ -1,0 +1,30 @@
+- id: f4e00816-97a8-4c2d-b990-9812f16fe3d3
+  name: f4e00816-97a8-4c2d-b990-9812f16fe3d3 - Malicious Driver Deployment
+  description: 'Malicious driver: f4e00816-97a8-4c2d-b990-9812f16fe3d3
+
+    Category: vulnerable driver
+
+    Author: Michael Haag
+
+    Created: 2026-03-20
+
+    MITRE Technique: T1068'
+  tactic: privilege-escalation
+  technique:
+    attack_id: T1068
+    name: Rootkit
+  platforms:
+    windows:
+      cmd:
+        command: sc create MaliciousDriver binPath= "C:\Windows\System32\drivers\malicious_driver.sys"
+          type= kernel
+  singleton: true
+  privilege: Elevated
+  repeatable: false
+  buckets:
+  - privilege-escalation
+  version: '1.0'
+  author: Michael Haag
+  operating_system: Windows (Version Unspecified)
+  created: '2026-03-20'
+  modified: '2026-03-20'

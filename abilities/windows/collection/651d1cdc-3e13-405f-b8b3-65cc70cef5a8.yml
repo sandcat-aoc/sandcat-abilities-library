@@ -1,0 +1,30 @@
+- id: 651d1cdc-3e13-405f-b8b3-65cc70cef5a8
+  name: 651d1cdc-3e13-405f-b8b3-65cc70cef5a8 - Malicious Driver Deployment
+  description: 'Malicious driver: 651d1cdc-3e13-405f-b8b3-65cc70cef5a8
+
+    Category: vulnerable driver
+
+    Author: Michael Haag
+
+    Created: 2026-03-20
+
+    MITRE Technique: T1056.001'
+  tactic: collection
+  technique:
+    attack_id: T1056.001
+    name: Rootkit
+  platforms:
+    windows:
+      cmd:
+        command: sc create MaliciousDriver binPath= "C:\Windows\System32\drivers\malicious_driver.sys"
+          type= kernel
+  singleton: true
+  privilege: Elevated
+  repeatable: false
+  buckets:
+  - collection
+  version: '1.0'
+  author: Michael Haag
+  operating_system: Windows (Version Unspecified)
+  created: '2026-03-20'
+  modified: '2026-03-20'

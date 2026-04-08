@@ -24,8 +24,8 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - atomic-red-team
   - initial-access
+  - atomic-red-team
   - t1195.002
   author: Atomic Red Team
   additional_info:
@@ -48,4 +48,4 @@
       prereq_command: which kubectl
     technique_created: '2020-03-11T14:17:21.153Z'
     atomic_guid: a9604672-cd46-493b-b58f-fd4124c22dd3
-    import_timestamp: '2026-04-07T04:34:22.356464Z'
+    import_timestamp: '2026-04-08T04:38:25.400488Z'

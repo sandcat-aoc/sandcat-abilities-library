@@ -31,9 +31,9 @@
   delete_payload: false
   privilege: ''
   buckets:
+  - t1539
   - credential-access
   - atomic-red-team
-  - t1539
   author: Atomic Red Team
   additional_info:
     dependencies:
@@ -54,4 +54,4 @@
         go build'
     technique_created: '2019-10-08T20:04:35.508Z'
     atomic_guid: e43cfdaf-3fb8-4a45-8de0-7eee8741d072
-    import_timestamp: '2026-04-08T04:37:51.557723Z'
+    import_timestamp: '2026-04-09T04:35:24.108070Z'

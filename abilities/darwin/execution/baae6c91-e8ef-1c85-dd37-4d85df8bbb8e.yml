@@ -25,4 +25,4 @@
     use_case: Use launchctl to execute an application
     source_file: launchctl.yml
     source_repository: https://github.com/infosecB/LOOBins
-    import_timestamp: '2026-04-08T04:37:32.446805Z'
+    import_timestamp: '2026-04-09T04:35:03.111076Z'

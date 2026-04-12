@@ -25,4 +25,4 @@
     use_case: Enumerate all hosts that have remotely logged into the system before.
     source_file: last.yml
     source_repository: https://github.com/infosecB/LOOBins
-    import_timestamp: '2026-04-11T04:22:51.013254Z'
+    import_timestamp: '2026-04-12T04:47:44.948494Z'

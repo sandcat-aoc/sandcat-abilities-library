@@ -26,4 +26,4 @@
     use_case: Get Firefox cookie data
     source_file: sqlite3.yml
     source_repository: https://github.com/infosecB/LOOBins
-    import_timestamp: '2026-04-14T04:46:40.600300Z'
+    import_timestamp: '2026-04-15T04:46:10.228558Z'

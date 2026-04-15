@@ -24,4 +24,4 @@
     use_case: Retrieving macOS Product Name
     source_file: sw_vers.yml
     source_repository: https://github.com/infosecB/LOOBins
-    import_timestamp: '2026-04-14T04:46:40.383349Z'
+    import_timestamp: '2026-04-15T04:46:10.011637Z'

@@ -12,8 +12,9 @@
         command: '$encodedString = "WDVPIVAlQEFQWzRcUFpYNTQoUF4pN0NDKTd9JEVJQ0FSLVNUQU5EQVJELUFOVElWSVJVUy1URVNULUZJTEUhJEgrSCo=";
           $bytes = [System.Convert]::FromBase64String($encodedString); $decodedString
           = [System.Text.Encoding]::UTF8.GetString($bytes); #write the decoded eicar
-          string to file; $decodedString | Out-File T1027.013_decodedEicar.txt'
-        cleanup: Just delete the resulting T1027.013_decodedEicar.txt file.
+          string to file; $decodedString | Out-File $env:temp\T1027.013_decodedEicar.txt'
+        cleanup: Remove-Item $env:temp\T1027.013_decodedEicar.txt -Force -ErrorAction
+          Ignore
         elevation_required: false
   plugin: atomic
   singleton: false
@@ -21,11 +22,11 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - atomic-red-team
   - t1027.013
+  - atomic-red-team
   - defense-evasion
   author: Atomic Red Team
   additional_info:
     technique_created: '2024-03-29T12:38:17.135Z'
     atomic_guid: 7693ccaa-8d64-4043-92a5-a2eb70359535
-    import_timestamp: '2026-04-15T04:46:44.575173Z'
+    import_timestamp: '2026-04-16T04:52:30.338854Z'

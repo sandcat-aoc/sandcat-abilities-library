@@ -25,4 +25,4 @@
     use_case: Get nvram variables
     source_file: nvram.yml
     source_repository: https://github.com/infosecB/LOOBins
-    import_timestamp: '2026-04-16T04:51:54.843167Z'
+    import_timestamp: '2026-04-17T04:49:19.783472Z'

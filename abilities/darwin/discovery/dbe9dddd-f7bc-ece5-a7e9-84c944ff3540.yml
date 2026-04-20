@@ -29,4 +29,4 @@
     use_case: Active Directory user information gathering
     source_file: dscl.yml
     source_repository: https://github.com/infosecB/LOOBins
-    import_timestamp: '2026-04-19T04:51:56.294458Z'
+    import_timestamp: '2026-04-20T04:58:28.410262Z'

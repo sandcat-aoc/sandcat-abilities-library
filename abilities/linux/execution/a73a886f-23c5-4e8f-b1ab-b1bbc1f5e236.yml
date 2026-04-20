@@ -1,0 +1,77 @@
+- id: a73a886f-23c5-4e8f-b1ab-b1bbc1f5e236
+  name: Execute Command via Transient systemd Service (systemd-run)
+  description: 'Uses systemd-run to execute a command as a transient systemd service
+    without creating
+
+    a persistent unit file on disk. Adversaries may use systemd-run to execute arbitrary
+
+    commands under the context of systemd while bypassing controls that monitor for
+    new
+
+    unit file creation, since transient services exist only in memory for their lifetime.
+
+
+    This is a particularly stealthy technique as it leaves minimal on-disk artefacts
+    and
+
+    the service disappears from systemctl list-units once execution completes.'
+  tactic: execution
+  technique:
+    attack_id: T1569.003
+    name: 'System Services: Systemctl'
+  platforms:
+    linux:
+      sh:
+        command: 'if [ -x "$(command -v systemd-run)" ]; then : ; else echo "systemd-run
+          is not available. Ensure systemd is installed and up to date."; fi; if [
+          "$(id -u)" -eq 0 ]; then : ; else echo "This test requires root privileges.
+          Run as root or use sudo."; fi; systemd-run --unit=atomic-transient --wait
+          /bin/bash -c "id > /tmp/atomic_transient_output.txt"; systemctl status atomic-transient.service
+          2>/dev/null || echo "Transient service has already completed and exited."'
+        cleanup: 'systemctl stop #{unit_name}.service 2>/dev/null || true; rm -f /tmp/atomic_transient_output.txt'
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - atomic-red-team
+  - t1569.003
+  - execution
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      unit_name:
+        description: Name of the transient systemd unit to create
+        type: string
+        default: atomic-transient
+      command_to_run:
+        description: Command to execute as a transient service
+        type: string
+        default: /bin/bash -c "id > /tmp/atomic_transient_output.txt"
+    dependencies:
+    - description: 'systemd-run must be available on the system
+
+        '
+      prereq_command: 'if [ -x "$(command -v systemd-run)" ]; then exit 0; else exit
+        1; fi
+
+        '
+      get_prereq_command: 'echo "systemd-run is not available. Ensure systemd is installed
+        and up to date."
+
+        '
+    - description: 'The test must be run as root or with sudo privileges
+
+        '
+      prereq_command: 'if [ "$(id -u)" -eq 0 ]; then exit 0; else exit 1; fi
+
+        '
+      get_prereq_command: 'echo "This test requires root privileges. Run as root or
+        use sudo."
+
+        '
+    technique_created: '2025-03-18T13:44:12.618Z'
+    atomic_guid: a73a886f-23c5-4e8f-b1ab-b1bbc1f5e236
+    import_timestamp: '2026-04-20T04:59:21.731113Z'

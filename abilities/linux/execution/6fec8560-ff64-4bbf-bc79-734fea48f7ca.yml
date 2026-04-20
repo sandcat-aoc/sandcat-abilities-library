@@ -1,0 +1,118 @@
+- id: 6fec8560-ff64-4bbf-bc79-734fea48f7ca
+  name: Masquerade Malicious Service as Legitimate System Service
+  description: 'Creates a systemd service with a name and description closely resembling
+    a legitimate
+
+    system service to blend in with normal service activity. Adversaries may deliberately
+
+    choose service names similar to well-known system services such as systemd-networkd,
+
+    cron, or ssh to evade detection from analysts reviewing service lists or automated
+
+    alerting on service names.
+
+
+    This masquerading technique is particularly effective in environments where detection
+
+    relies on service name allowlists or manual review of systemctl list-units output
+
+    rather than behavioural analysis of service unit file contents and ExecStart paths.'
+  tactic: execution
+  technique:
+    attack_id: T1569.003
+    name: 'System Services: Systemctl'
+  platforms:
+    linux:
+      sh:
+        command: 'if [ -x "$(command -v systemctl)" ]; then : ; else echo "systemctl
+          is not available. Ensure systemd is running on this system."; fi; if [ "$(id
+          -u)" -eq 0 ]; then : ; else echo "This test requires root privileges. Run
+          as root or use sudo."; fi; if [ -d "/etc/systemd/system" ] && [ -w "/etc/systemd/system"
+          ]; then : ; else echo "/etc/systemd/system/ does not exist or is not writable.";
+          fi; if ! systemctl list-unit-files --type=service | grep -q "^systemd-network-helper.service";
+          then : ; else echo "A service named systemd-network-helper already exists.
+          Change the masquerade_name input argument to avoid conflicts."; fi; echo
+          "[Unit]" > /etc/systemd/system/systemd-network-helper.service; echo "Description=Network
+          connectivity helper service" >> /etc/systemd/system/systemd-network-helper.service;
+          echo "After=network.target" >> /etc/systemd/system/systemd-network-helper.service;
+          echo "Before=network-online.target" >> /etc/systemd/system/systemd-network-helper.service;
+          echo "" >> /etc/systemd/system/systemd-network-helper.service; echo "[Service]"
+          >> /etc/systemd/system/systemd-network-helper.service; echo "ExecStart=/bin/bash
+          -c "echo masquerade > /tmp/atomic_masquerade_output.txt"" >> /etc/systemd/system/systemd-network-helper.service;
+          echo "Restart=on-failure" >> /etc/systemd/system/systemd-network-helper.service;
+          echo "RestartSec=5" >> /etc/systemd/system/systemd-network-helper.service;
+          echo "" >> /etc/systemd/system/systemd-network-helper.service; echo "[Install]"
+          >> /etc/systemd/system/systemd-network-helper.service; echo "WantedBy=multi-user.target"
+          >> /etc/systemd/system/systemd-network-helper.service; systemctl daemon-reload;
+          systemctl start systemd-network-helper.service; systemctl status systemd-network-helper.service'
+        cleanup: 'systemctl stop #{masquerade_name}.service 2>/dev/null || true; systemctl
+          disable #{masquerade_name}.service 2>/dev/null || true; rm -f /etc/systemd/system/#{masquerade_name}.service;
+          systemctl daemon-reload; rm -f /tmp/atomic_masquerade_output.txt'
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - atomic-red-team
+  - t1569.003
+  - execution
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      masquerade_name:
+        description: Service name designed to closely mimic a legitimate system service
+        type: string
+        default: systemd-network-helper
+      command_to_run:
+        description: Command the masquerading service will execute
+        type: string
+        default: /bin/bash -c "echo masquerade > /tmp/atomic_masquerade_output.txt"
+    dependencies:
+    - description: 'systemctl must be available on the system
+
+        '
+      prereq_command: 'if [ -x "$(command -v systemctl)" ]; then exit 0; else exit
+        1; fi
+
+        '
+      get_prereq_command: 'echo "systemctl is not available. Ensure systemd is running
+        on this system."
+
+        '
+    - description: 'The test must be run as root or with sudo privileges
+
+        '
+      prereq_command: 'if [ "$(id -u)" -eq 0 ]; then exit 0; else exit 1; fi
+
+        '
+      get_prereq_command: 'echo "This test requires root privileges. Run as root or
+        use sudo."
+
+        '
+    - description: '/etc/systemd/system/ directory must exist and be writable
+
+        '
+      prereq_command: 'if [ -d "/etc/systemd/system" ] && [ -w "/etc/systemd/system"
+        ]; then exit 0; else exit 1; fi
+
+        '
+      get_prereq_command: 'echo "/etc/systemd/system/ does not exist or is not writable."
+
+        '
+    - description: 'Chosen masquerade service name must not already exist as a real
+        service
+
+        '
+      prereq_command: 'if ! systemctl list-unit-files --type=service | grep -q "^#{masquerade_name}.service";
+        then exit 0; else exit 1; fi
+
+        '
+      get_prereq_command: 'echo "A service named #{masquerade_name} already exists.
+        Change the masquerade_name input argument to avoid conflicts."
+
+        '
+    technique_created: '2025-03-18T13:44:12.618Z'
+    atomic_guid: 6fec8560-ff64-4bbf-bc79-734fea48f7ca
+    import_timestamp: '2026-04-20T04:59:21.742702Z'

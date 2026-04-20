@@ -1,0 +1,57 @@
+- id: 1e5be8d4-605a-4acb-8709-2f80b2d8ea95
+  name: Enumerate All systemd Services Using systemctl
+  description: 'Enumerates all systemd services and their current states using systemctl
+    list-units
+
+    and systemctl list-unit-files. Adversaries may enumerate running and enabled services
+
+    to identify targets for hijacking, understand the host environment, map installed
+
+    security tooling, or identify gaps in monitoring coverage.
+
+
+    Service enumeration is a common reconnaissance step during post-exploitation and
+    may
+
+    precede service hijacking or masquerading activity. This test does not require
+
+    elevation as service listing is available to unprivileged users on most Linux
+    systems.'
+  tactic: execution
+  technique:
+    attack_id: T1569.003
+    name: 'System Services: Systemctl'
+  platforms:
+    linux:
+      sh:
+        command: 'if [ -x "$(command -v systemctl)" ]; then : ; else echo "systemctl
+          is not available. Ensure systemd is running on this system."; fi; systemctl
+          list-units --type=service --all; systemctl list-unit-files --type=service'
+        cleanup: echo "No cleanup required"
+        elevation_required: false
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - atomic-red-team
+  - t1569.003
+  - execution
+  author: Atomic Red Team
+  additional_info:
+    dependencies:
+    - description: 'systemctl must be available on the system
+
+        '
+      prereq_command: 'if [ -x "$(command -v systemctl)" ]; then exit 0; else exit
+        1; fi
+
+        '
+      get_prereq_command: 'echo "systemctl is not available. Ensure systemd is running
+        on this system."
+
+        '
+    technique_created: '2025-03-18T13:44:12.618Z'
+    atomic_guid: 1e5be8d4-605a-4acb-8709-2f80b2d8ea95
+    import_timestamp: '2026-04-20T04:59:21.734811Z'

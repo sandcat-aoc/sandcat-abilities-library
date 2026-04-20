@@ -25,8 +25,8 @@
   privilege: ''
   buckets:
   - t1195.002
-  - atomic-red-team
   - initial-access
+  - atomic-red-team
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -48,4 +48,4 @@
       prereq_command: which kubectl
     technique_created: '2020-03-11T14:17:21.153Z'
     atomic_guid: a9604672-cd46-493b-b58f-fd4124c22dd3
-    import_timestamp: '2026-04-19T04:52:52.760419Z'
+    import_timestamp: '2026-04-20T04:59:22.355147Z'

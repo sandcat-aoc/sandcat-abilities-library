@@ -1,0 +1,94 @@
+- id: dce49381-a26b-4d95-bdfa-c607ffe8bee5
+  name: Create systemd Service Unit from /dev/shm (Unusual Location)
+  description: 'Creates a systemd service unit file in /dev/shm and loads it using
+    systemctl.
+
+    /dev/shm is a memory-backed filesystem that is world-writable on most Linux systems
+
+    and does not persist across reboots, making it particularly attractive to adversaries
+
+    seeking to execute transient payloads while evading file-based forensic detection.
+
+
+    This technique has been observed in post-exploitation scenarios where attackers
+
+    deliberately avoid writing to disk-backed locations to limit forensic artefacts.'
+  tactic: execution
+  technique:
+    attack_id: T1569.003
+    name: 'System Services: Systemctl'
+  platforms:
+    linux:
+      sh:
+        command: 'if [ -x "$(command -v systemctl)" ]; then : ; else echo "systemctl
+          is not available. Ensure systemd is running on this system."; fi; if [ -d
+          "/dev/shm" ] && [ -w "/dev/shm" ]; then : ; else echo "/dev/shm does not
+          exist or is not writable on this system."; fi; if [ "$(id -u)" -eq 0 ];
+          then : ; else echo "This test requires root privileges. Run as root or use
+          sudo."; fi; echo "[Unit]" > /dev/shm/atomic_shm.service; echo "Description=Atomic
+          SHM Service" >> /dev/shm/atomic_shm.service; echo "" >> /dev/shm/atomic_shm.service;
+          echo "[Service]" >> /dev/shm/atomic_shm.service; echo "ExecStart=/bin/bash
+          -c "whoami > /tmp/atomic_shm_output.txt"" >> /dev/shm/atomic_shm.service;
+          echo "" >> /dev/shm/atomic_shm.service; echo "[Install]" >> /dev/shm/atomic_shm.service;
+          echo "WantedBy=multi-user.target" >> /dev/shm/atomic_shm.service; systemctl
+          link /dev/shm/atomic_shm.service; systemctl start $(basename /dev/shm/atomic_shm.service);
+          systemctl status $(basename /dev/shm/atomic_shm.service)'
+        cleanup: 'systemctl stop $(basename #{service_path}) 2>/dev/null || true;
+          rm -f #{service_path}; rm -f /tmp/atomic_shm_output.txt'
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - atomic-red-team
+  - t1569.003
+  - execution
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      service_path:
+        description: Full path to the service file to be written in /dev/shm
+        type: path
+        default: /dev/shm/atomic_shm.service
+      command_to_run:
+        description: Command the service will execute
+        type: string
+        default: /bin/bash -c "whoami > /tmp/atomic_shm_output.txt"
+    dependencies:
+    - description: 'systemctl must be available on the system
+
+        '
+      prereq_command: 'if [ -x "$(command -v systemctl)" ]; then exit 0; else exit
+        1; fi
+
+        '
+      get_prereq_command: 'echo "systemctl is not available. Ensure systemd is running
+        on this system."
+
+        '
+    - description: '/dev/shm must exist and be writable
+
+        '
+      prereq_command: 'if [ -d "/dev/shm" ] && [ -w "/dev/shm" ]; then exit 0; else
+        exit 1; fi
+
+        '
+      get_prereq_command: 'echo "/dev/shm does not exist or is not writable on this
+        system."
+
+        '
+    - description: 'The test must be run as root or with sudo privileges
+
+        '
+      prereq_command: 'if [ "$(id -u)" -eq 0 ]; then exit 0; else exit 1; fi
+
+        '
+      get_prereq_command: 'echo "This test requires root privileges. Run as root or
+        use sudo."
+
+        '
+    technique_created: '2025-03-18T13:44:12.618Z'
+    atomic_guid: dce49381-a26b-4d95-bdfa-c607ffe8bee5
+    import_timestamp: '2026-04-20T04:59:21.721456Z'

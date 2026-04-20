@@ -19,8 +19,8 @@
   privilege: ''
   buckets:
   - t1485
-  - atomic-red-team
   - impact
+  - atomic-red-team
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -34,4 +34,4 @@
         default: /var/log/syslog
     technique_created: '2019-03-14T18:47:17.701Z'
     atomic_guid: 38deee99-fd65-4031-bec8-bfa4f9f26146
-    import_timestamp: '2026-04-19T04:52:52.742936Z'
+    import_timestamp: '2026-04-20T04:59:22.333305Z'

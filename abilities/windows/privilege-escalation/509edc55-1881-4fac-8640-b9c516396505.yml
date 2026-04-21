@@ -1,0 +1,30 @@
+- id: 509edc55-1881-4fac-8640-b9c516396505
+  name: 509edc55-1881-4fac-8640-b9c516396505 - Malicious Driver Deployment
+  description: 'Malicious driver: 509edc55-1881-4fac-8640-b9c516396505
+
+    Category: vulnerable driver
+
+    Author: Michael Haag
+
+    Created: 2026-04-17
+
+    MITRE Technique: T1068'
+  tactic: privilege-escalation
+  technique:
+    attack_id: T1068
+    name: Rootkit
+  platforms:
+    windows:
+      cmd:
+        command: sc create MaliciousDriver binPath= "C:\Windows\System32\drivers\malicious_driver.sys"
+          type= kernel
+  singleton: true
+  privilege: Elevated
+  repeatable: false
+  buckets:
+  - privilege-escalation
+  version: '1.0'
+  author: Michael Haag
+  operating_system: Windows (Version Unspecified)
+  created: '2026-04-17'
+  modified: '2026-04-17'

@@ -1,0 +1,30 @@
+- id: f1dd9c41-2608-48e5-bb3e-191d56b34591
+  name: f1dd9c41-2608-48e5-bb3e-191d56b34591 - Malicious Driver Deployment
+  description: 'Malicious driver: f1dd9c41-2608-48e5-bb3e-191d56b34591
+
+    Category: vulnerable driver
+
+    Author: Michael Haag
+
+    Created: 2026-04-17
+
+    MITRE Technique: T1068'
+  tactic: privilege-escalation
+  technique:
+    attack_id: T1068
+    name: Rootkit
+  platforms:
+    windows:
+      cmd:
+        command: sc create MaliciousDriver binPath= "C:\Windows\System32\drivers\malicious_driver.sys"
+          type= kernel
+  singleton: true
+  privilege: Elevated
+  repeatable: false
+  buckets:
+  - privilege-escalation
+  version: '1.0'
+  author: Michael Haag
+  operating_system: Windows (Version Unspecified)
+  created: '2026-04-17'
+  modified: '2026-04-17'

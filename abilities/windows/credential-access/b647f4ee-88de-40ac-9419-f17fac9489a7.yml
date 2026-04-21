@@ -44,10 +44,10 @@
   privilege: ''
   buckets:
   - credential-access
-  - atomic-red-team
   - t1539
+  - atomic-red-team
   author: Atomic Red Team
   additional_info:
     technique_created: '2019-10-08T20:04:35.508Z'
     atomic_guid: b647f4ee-88de-40ac-9419-f17fac9489a7
-    import_timestamp: '2026-04-20T04:59:07.139048Z'
+    import_timestamp: '2026-04-21T04:50:21.836570Z'

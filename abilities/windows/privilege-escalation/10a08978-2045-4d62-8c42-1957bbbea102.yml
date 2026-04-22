@@ -22,8 +22,8 @@
   privilege: ''
   buckets:
   - t1546.001
-  - privilege-escalation
   - atomic-red-team
+  - privilege-escalation
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -41,4 +41,4 @@
         default: htafile
     technique_created: '2020-01-24T13:40:47.282Z'
     atomic_guid: 10a08978-2045-4d62-8c42-1957bbbea102
-    import_timestamp: '2026-04-21T04:50:20.311621Z'
+    import_timestamp: '2026-04-22T04:48:19.870672Z'

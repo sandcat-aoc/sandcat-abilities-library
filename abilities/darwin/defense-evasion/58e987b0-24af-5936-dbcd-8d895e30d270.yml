@@ -24,4 +24,4 @@
     use_case: Kill security tools
     source_file: pkill.yml
     source_repository: https://github.com/infosecB/LOOBins
-    import_timestamp: '2026-04-21T04:49:44.652179Z'
+    import_timestamp: '2026-04-22T04:47:45.517163Z'

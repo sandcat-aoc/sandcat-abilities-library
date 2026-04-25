@@ -1,0 +1,58 @@
+- id: cc367493-3a00-4c4a-a685-16b73339167c
+  name: DGA Simulation (Python)
+  description: "Simulates Domain Generation Algorithm (DGA) traffic by generating\
+    \ pseudo-random domains based on the current date and querying them using dig.\
+    \ \nThis is designed to trigger DNS analytics and NGIDS."
+  tactic: command-and-control
+  technique:
+    attack_id: T1568.002
+    name: 'Dynamic Resolution: Domain Generation Algorithms'
+  platforms:
+    linux:
+      sh:
+        command: 'if [ -f "T1568.002.py" ]; then : ; else mkdir -p "$(dirname "T1568.002.py")";
+          curl -sL "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1568.002/src/T1568.002.py"
+          -o "T1568.002.py"; fi; python3 "T1568.002.py"'
+        elevation_required: false
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1568.002
+  - command-and-control
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      python_script_path:
+        description: Full path to the DGA python script
+        type: string
+        default: PathToAtomicsFolder/T1568.002/src/T1568.002.py
+    dependencies:
+    - description: '#{python_script_path} must exist on system.
+
+        '
+      prereq_command: 'if [ -f "#{python_script_path}" ]; then exit 0; else exit 1;
+        fi
+
+        '
+      get_prereq_command: 'mkdir -p "$(dirname "#{python_script_path}")"
+
+        curl -sL "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1568.002/src/T1568.002.py"
+        -o "#{python_script_path}"
+
+        '
+    - description: 'Python 3 must be installed to run the script.
+
+        '
+      prereq_command: 'which python3
+
+        '
+      get_prereq_command: 'sudo apt-get update && sudo apt-get install -y python3
+
+        '
+    technique_created: '2020-03-10T17:44:59.787Z'
+    atomic_guid: cc367493-3a00-4c4a-a685-16b73339167c
+    import_timestamp: '2026-04-25T04:38:20.077309Z'

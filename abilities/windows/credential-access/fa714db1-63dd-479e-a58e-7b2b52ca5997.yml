@@ -16,11 +16,11 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - atomic-red-team
-  - t1555.004
   - credential-access
+  - t1555.004
+  - atomic-red-team
   author: Atomic Red Team
   additional_info:
     technique_created: '2020-11-23T15:35:53.793Z'
     atomic_guid: fa714db1-63dd-479e-a58e-7b2b52ca5997
-    import_timestamp: '2026-04-24T04:55:32.767008Z'
+    import_timestamp: '2026-04-25T04:38:05.490976Z'

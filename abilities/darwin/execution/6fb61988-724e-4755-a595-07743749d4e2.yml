@@ -17,8 +17,8 @@
   privilege: ''
   buckets:
   - t1569.001
-  - execution
   - atomic-red-team
+  - execution
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -32,4 +32,4 @@
         default: evil
     technique_created: '2020-03-10T18:26:56.187Z'
     atomic_guid: 6fb61988-724e-4755-a595-07743749d4e2
-    import_timestamp: '2026-04-25T04:37:45.505652Z'
+    import_timestamp: '2026-04-26T05:01:03.360718Z'

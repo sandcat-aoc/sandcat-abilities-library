@@ -45,8 +45,8 @@
   privilege: ''
   buckets:
   - t1659
-  - command-and-control
   - atomic-red-team
+  - command-and-control
   author: Atomic Red Team
   additional_info:
     dependencies:
@@ -99,4 +99,4 @@
         '
     technique_created: '2023-09-01T21:03:13.406Z'
     atomic_guid: dcc2ca85-a21c-43a4-acc7-7314d4e5891c
-    import_timestamp: '2026-04-27T05:24:48.228002Z'
+    import_timestamp: '2026-04-28T05:32:39.589451Z'

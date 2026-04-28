@@ -23,8 +23,8 @@
   privilege: ''
   buckets:
   - t1003.002
-  - credential-access
   - atomic-red-team
+  - credential-access
   author: Atomic Red Team
   additional_info:
     dependencies:
@@ -38,4 +38,4 @@
         -UseBasicParsing -OutFile "PathToAtomicsFolder\..\ExternalPayloads\PowerDump.ps1"'
     technique_created: '2020-02-11T18:42:07.281Z'
     atomic_guid: 804f28fc-68fc-40da-b5a2-e9d0bce5c193
-    import_timestamp: '2026-04-27T05:24:48.598667Z'
+    import_timestamp: '2026-04-28T05:32:39.958334Z'

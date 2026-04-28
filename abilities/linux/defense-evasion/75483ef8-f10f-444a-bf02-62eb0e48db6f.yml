@@ -52,4 +52,4 @@
         \ ] && rm -rf /tmp/T1014\nsudo depmod -a\n"
     technique_created: '2017-05-31T21:30:26.496Z'
     atomic_guid: 75483ef8-f10f-444a-bf02-62eb0e48db6f
-    import_timestamp: '2026-04-27T05:25:03.471357Z'
+    import_timestamp: '2026-04-28T05:32:55.289093Z'

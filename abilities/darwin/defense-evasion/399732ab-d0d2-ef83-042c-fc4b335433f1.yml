@@ -24,4 +24,4 @@
     use_case: Kill logging and monitoring daemons
     source_file: pkill.yml
     source_repository: https://github.com/infosecB/LOOBins
-    import_timestamp: '2026-04-29T05:26:55.181849Z'
+    import_timestamp: '2026-04-30T05:30:35.627983Z'

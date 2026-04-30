@@ -28,4 +28,4 @@
     use_case: Active Directory group enumeration
     source_file: dscl.yml
     source_repository: https://github.com/infosecB/LOOBins
-    import_timestamp: '2026-04-29T05:26:55.084601Z'
+    import_timestamp: '2026-04-30T05:30:35.557201Z'

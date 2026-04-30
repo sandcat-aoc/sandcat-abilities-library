@@ -37,8 +37,8 @@
   privilege: ''
   buckets:
   - command-and-control
-  - atomic-red-team
   - t1573
+  - atomic-red-team
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -52,4 +52,4 @@
         default: '443'
     technique_created: '2020-03-16T15:33:01.739Z'
     atomic_guid: 21caf58e-87ad-440c-a6b8-3ac259964003
-    import_timestamp: '2026-04-29T05:27:31.095951Z'
+    import_timestamp: '2026-04-30T05:31:09.308970Z'

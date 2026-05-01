@@ -1,0 +1,35 @@
+- id: 5c439a14-fbeb-b77a-197a-69a43c8e3304
+  name: tftp - Activate the built-in TFTP server via launchctl
+  description: macOS ships with a launchd plist for tftpd at /System/Library/LaunchDaemons/tftp.plist.
+    Loading it with launchctl starts the TFTP server on UDP port 69, serving /private/tftpboot. Requires
+    root. A placeholder file must be created for each file to be transferred, as the default configuration
+    does not allow tftpd to create new files.
+  tactic: lateral-movement
+  technique:
+    attack_id: T1021.004
+    name: 'Remote Services: SSH'
+  platforms:
+    darwin:
+      sh:
+        command: 'sudo launchctl load -w /System/Library/LaunchDaemons/tftp.plist
+
+
+          # Create placeholder for each file to be received
+
+          sudo touch /private/tftpboot/payload.sh && sudo chmod 666 /private/tftpboot/payload.sh'
+  singleton: false
+  privilege: Elevated
+  repeatable: true
+  delete_payload: false
+  buckets:
+  - loobins
+  - tftp
+  - lateral-movement
+  version: '1.0'
+  author: LOOBins Project
+  additional_info:
+    loobins_tool: tftp
+    use_case: Activate the built-in TFTP server via launchctl
+    source_file: tftp.yml
+    source_repository: https://github.com/infosecB/LOOBins
+    import_timestamp: '2026-05-01T05:41:42.598007Z'

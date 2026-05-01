@@ -1,0 +1,30 @@
+- id: fee5369b-5ad4-8891-5463-4cca7cbba0dd
+  name: osascript - Mount SMB volume without GUI using osascript mount volume
+  description: osascript can mount an SMB share on the local machine using the 'mount volume' command.
+    This approach bypasses the macOS GUI requirement for enabling Windows File Sharing password storage
+    on the target, which is required when using the mount command directly. The share is mounted to /Volumes/<sharename>
+    and its contents are immediately accessible as local files.
+  tactic: lateral-movement
+  technique:
+    attack_id: T1059.002
+    name: 'Command and Scripting Interpreter: AppleScript'
+  platforms:
+    darwin:
+      sh:
+        command: osascript -e 'mount volume "smb://user:<PASSWORD>@<TARGET_IP>/share"'
+  singleton: false
+  privilege: User
+  repeatable: true
+  delete_payload: false
+  buckets:
+  - loobins
+  - osascript
+  - lateral-movement
+  version: '1.0'
+  author: LOOBins Project
+  additional_info:
+    loobins_tool: osascript
+    use_case: Mount SMB volume without GUI using osascript mount volume
+    source_file: osascript.yml
+    source_repository: https://github.com/infosecB/LOOBins
+    import_timestamp: '2026-05-01T05:41:42.714217Z'

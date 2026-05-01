@@ -1,0 +1,32 @@
+- id: bc45aff9-b21b-4703-fafb-c9520a981bcb
+  name: osascript - Remote volume enumeration via Finder over Remote Apple Events
+  description: The Finder application is scriptable over Remote Apple Events (RAE) via the eppc:// URI
+    scheme. osascript can address a remote Finder instance to query mounted volumes on the target machine,
+    providing an adversary with immediate insight into available network shares and external storage.
+    These actions are performed via Apple Events IPC rather than shell commands, bypassing security telemetry
+    focused on process execution.
+  tactic: discovery
+  technique:
+    attack_id: T1059.002
+    name: 'Command and Scripting Interpreter: AppleScript'
+  platforms:
+    darwin:
+      sh:
+        command: osascript -e 'tell application "Finder" of machine "eppc://user:password@<TARGET_IP>"
+          to get name of every disk'
+  singleton: false
+  privilege: User
+  repeatable: true
+  delete_payload: false
+  buckets:
+  - loobins
+  - osascript
+  - discovery
+  version: '1.0'
+  author: LOOBins Project
+  additional_info:
+    loobins_tool: osascript
+    use_case: Remote volume enumeration via Finder over Remote Apple Events
+    source_file: osascript.yml
+    source_repository: https://github.com/infosecB/LOOBins
+    import_timestamp: '2026-05-01T05:41:42.718697Z'

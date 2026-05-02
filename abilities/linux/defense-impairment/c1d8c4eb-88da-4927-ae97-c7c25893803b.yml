@@ -1,0 +1,40 @@
+- id: c1d8c4eb-88da-4927-ae97-c7c25893803b
+  name: Edit UFW firewall ufw.conf file
+  description: "Edit the Uncomplicated Firewall (UFW) configuration file /etc/ufw/ufw.conf\
+    \ \nwhich controls if the firewall starts on boot and its logging level."
+  tactic: defense-impairment
+  technique:
+    attack_id: T1686
+    name: Disable or Modify System Firewall
+  platforms:
+    linux:
+      sh:
+        command: echo "# THIS IS A COMMENT" >> /etc/ufw/ufw.conf; grep "# THIS IS
+          A COMMENT" /etc/ufw/ufw.conf
+        cleanup: sed -i 's/# THIS IS A COMMENT//g' /etc/ufw/ufw.conf; cat /etc/ufw/ufw.conf
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - atomic-red-team
+  - t1686
+  - defense-impairment
+  author: Atomic Red Team
+  additional_info:
+    dependencies:
+    - description: 'Check if /etc/ufw/ufw.conf exists.
+
+        '
+      prereq_command: 'if [ ! -f "/etc/ufw/ufw.conf" ]; then echo -e "\n***** ufw
+        NOT installed *****\n"; exit 1; fi
+
+        '
+      get_prereq_command: 'echo ""
+
+        '
+    technique_created: '2026-04-14T22:53:27.275Z'
+    atomic_guid: c1d8c4eb-88da-4927-ae97-c7c25893803b
+    import_timestamp: '2026-05-02T05:00:56.863145Z'

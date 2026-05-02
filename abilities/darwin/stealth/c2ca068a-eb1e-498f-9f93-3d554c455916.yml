@@ -1,0 +1,58 @@
+- id: c2ca068a-eb1e-498f-9f93-3d554c455916
+  name: Password-Protected ZIP Payload Extraction and Execution
+  description: 'Extracts and executes a script from a password-protected ZIP archive.
+
+    This technique is commonly used by malware families like Emotet and QBot to deliver
+    payloads
+
+    via email attachments where the password is provided in the message body.
+
+    The encrypted ZIP evades static file analysis until extracted at runtime.
+
+    Upon successful execution, displays confirmation and system information.'
+  tactic: stealth
+  technique:
+    attack_id: T1027.013
+    name: 'Obfuscated Files or Information: Encrypted/Encoded File'
+  platforms:
+    darwin:
+      sh:
+        command: 'echo ''#!/bin/bash'' > /tmp/art_payload.sh; echo ''echo "T1027.013:
+          Payload extracted from encrypted ZIP"'' >> /tmp/art_payload.sh; echo ''echo
+          "Hostname: $(hostname)"'' >> /tmp/art_payload.sh; echo ''echo "User: $(whoami)"''
+          >> /tmp/art_payload.sh; echo ''uname -a'' >> /tmp/art_payload.sh; cd /tmp
+          && zip -P "infected" art_encrypted.zip art_payload.sh; rm /tmp/art_payload.sh;
+          echo "Encrypted ZIP created. Extracting with password..."; unzip -P "infected"
+          -o /tmp/art_encrypted.zip -d /tmp/; echo "Executing extracted payload:";
+          bash /tmp/art_payload.sh'
+        cleanup: rm -f /tmp/art_payload.sh; rm -f /tmp/art_encrypted.zip
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1027.013
+  - atomic-red-team
+  - stealth
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      zip_password:
+        description: Password used to protect the ZIP archive
+        type: String
+        default: infected
+    dependencies:
+    - description: 'zip and unzip must be installed
+
+        '
+      prereq_command: 'which zip && which unzip
+
+        '
+      get_prereq_command: 'echo "Install zip and unzip using your package manager
+        (apt-get, yum, or brew)"
+
+        '
+    technique_created: '2024-03-29T12:38:17.135Z'
+    atomic_guid: c2ca068a-eb1e-498f-9f93-3d554c455916
+    import_timestamp: '2026-05-02T05:00:22.463230Z'

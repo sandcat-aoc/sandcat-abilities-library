@@ -1,0 +1,27 @@
+- id: 07f43b33-1e15-4e99-be70-bc094157c849
+  name: Disable OpenDNS Umbrella
+  description: Disables OpenDNS Umbrella
+  tactic: defense-impairment
+  technique:
+    attack_id: T1685
+    name: Disable or Modify Tools
+  platforms:
+    darwin:
+      sh:
+        command: sudo launchctl unload /Library/LaunchDaemons/com.opendns.osx.RoamingClientConfigUpdater.plist
+        cleanup: sudo launchctl load -w /Library/LaunchDaemons/com.opendns.osx.RoamingClientConfigUpdater.plist
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - atomic-red-team
+  - t1685
+  - defense-impairment
+  author: Atomic Red Team
+  additional_info:
+    technique_created: '2026-04-14T22:53:26.949Z'
+    atomic_guid: 07f43b33-1e15-4e99-be70-bc094157c849
+    import_timestamp: '2026-05-02T05:00:22.898505Z'

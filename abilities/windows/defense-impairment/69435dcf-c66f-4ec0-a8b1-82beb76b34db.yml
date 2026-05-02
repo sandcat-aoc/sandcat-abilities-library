@@ -1,0 +1,41 @@
+- id: 69435dcf-c66f-4ec0-a8b1-82beb76b34db
+  name: Disable Windows IIS HTTP Logging
+  description: 'Disables HTTP logging on a Windows IIS web server as seen by Threat
+    Group 3390 (Bronze Union).
+
+    This action requires HTTP logging configurations in IIS to be unlocked.
+
+
+    Use the cleanup commands to restore some default auditpol settings (your original
+    settings will be lost)'
+  tactic: defense-impairment
+  technique:
+    attack_id: T1685.001
+    name: 'Disable or Modify Tools: Disable or Modify Windows Event Log'
+  platforms:
+    windows:
+      psh:
+        command: C:\Windows\System32\inetsrv\appcmd.exe set config "Default Web Site"
+          /section:httplogging /dontLog:true
+        cleanup: if(Test-Path "C:\Windows\System32\inetsrv\appcmd.exe"){; C:\Windows\System32\inetsrv\appcmd.exe
+          set config "#{website_name}" /section:httplogging /dontLog:false *>$null;
+          }
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - atomic-red-team
+  - t1685.001
+  - defense-impairment
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      website_name:
+        description: The name of the website on a server
+        type: string
+        default: Default Web Site
+    technique_created: '2026-04-14T22:54:01.982Z'
+    atomic_guid: 69435dcf-c66f-4ec0-a8b1-82beb76b34db
+    import_timestamp: '2026-05-02T05:00:41.264721Z'

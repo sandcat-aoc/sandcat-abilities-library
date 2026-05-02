@@ -1,0 +1,27 @@
+- id: 94f6a1c9-aae7-46a4-9083-2bb1f5768ec4
+  name: Suspend History
+  description: suspend Shell History seen in Awfulshred wiper- https://unix.stackexchange.com/questions/10922/temporarily-suspend-bash-history-on-a-given-shell
+  tactic: defense-impairment
+  technique:
+    attack_id: T1685
+    name: Disable or Modify Tools
+  platforms:
+    linux:
+      sh:
+        command: set +o history
+        cleanup: set -o history
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - atomic-red-team
+  - t1685
+  - defense-impairment
+  author: Atomic Red Team
+  additional_info:
+    technique_created: '2026-04-14T22:53:26.949Z'
+    atomic_guid: 94f6a1c9-aae7-46a4-9083-2bb1f5768ec4
+    import_timestamp: '2026-05-02T05:00:56.819513Z'

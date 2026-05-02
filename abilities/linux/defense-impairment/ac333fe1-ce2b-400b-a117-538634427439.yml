@@ -1,0 +1,28 @@
+- id: ac333fe1-ce2b-400b-a117-538634427439
+  name: Disable ASLR Via sysctl parameters - Linux
+  description: Detects Execution of the `sysctl` command to set `kernel.randomize_va_space=0`
+    which disables Address Space Layout Randomization (ASLR) in Linux.
+  tactic: defense-impairment
+  technique:
+    attack_id: T1685
+    name: Disable or Modify Tools
+  platforms:
+    linux:
+      sh:
+        command: sysctl -w kernel.randomize_va_space=0
+        cleanup: sysctl -w kernel.randomize_va_space=2
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - atomic-red-team
+  - t1685
+  - defense-impairment
+  author: Atomic Red Team
+  additional_info:
+    technique_created: '2026-04-14T22:53:26.949Z'
+    atomic_guid: ac333fe1-ce2b-400b-a117-538634427439
+    import_timestamp: '2026-05-02T05:00:56.831074Z'

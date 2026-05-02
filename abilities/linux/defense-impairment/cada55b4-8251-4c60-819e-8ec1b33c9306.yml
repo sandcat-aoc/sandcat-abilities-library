@@ -1,0 +1,30 @@
+- id: cada55b4-8251-4c60-819e-8ec1b33c9306
+  name: Disable history collection (freebsd)
+  description: Disables history collection in shells
+  tactic: defense-impairment
+  technique:
+    attack_id: T1690
+    name: Prevent Command History Logging
+  platforms:
+    linux:
+      sh:
+        command: export HISTSIZE=0; whoami
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1690
+  - atomic-red-team
+  - defense-impairment
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      evil_command:
+        description: Command to run after shell history collection is disabled
+        type: string
+        default: whoami
+    technique_created: '2026-04-14T22:53:28.653Z'
+    atomic_guid: cada55b4-8251-4c60-819e-8ec1b33c9306
+    import_timestamp: '2026-05-02T05:00:56.788260Z'

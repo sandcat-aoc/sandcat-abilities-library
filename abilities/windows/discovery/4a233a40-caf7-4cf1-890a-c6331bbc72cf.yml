@@ -23,8 +23,8 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - t1083
   - atomic-red-team
+  - t1083
   - discovery
   author: Atomic Red Team
   additional_info:
@@ -65,4 +65,4 @@
         '
     technique_created: '2017-05-31T21:31:04.710Z'
     atomic_guid: 4a233a40-caf7-4cf1-890a-c6331bbc72cf
-    import_timestamp: '2026-05-01T05:42:20.764895Z'
+    import_timestamp: '2026-05-02T05:00:42.418023Z'

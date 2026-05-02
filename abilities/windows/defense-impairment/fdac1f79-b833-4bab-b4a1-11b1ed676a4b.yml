@@ -1,0 +1,29 @@
+- id: fdac1f79-b833-4bab-b4a1-11b1ed676a4b
+  name: Disable .NET Event Tracing for Windows Via Environment Variable HKCU Registry
+    - Cmd
+  description: Disables ETW for the .NET Framework by setting the COMPlus_ETWEnabled
+    environment variable to 0 in the HKCU registry using the reg.exe utility. In order
+    for changes to take effect a logout might be required.
+  tactic: defense-impairment
+  technique:
+    attack_id: T1685
+    name: Disable or Modify Tools
+  platforms:
+    windows:
+      sh:
+        command: REG ADD HKCU\Environment /v COMPlus_ETWEnabled /t REG_SZ /d 0 /f
+        cleanup: REG DELETE HKCU\Environment /v COMPlus_ETWEnabled /f > nul 2>&1
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - atomic-red-team
+  - t1685
+  - defense-impairment
+  author: Atomic Red Team
+  additional_info:
+    technique_created: '2026-04-14T22:53:26.949Z'
+    atomic_guid: fdac1f79-b833-4bab-b4a1-11b1ed676a4b
+    import_timestamp: '2026-05-02T05:00:41.656518Z'

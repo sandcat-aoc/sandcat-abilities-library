@@ -1,0 +1,55 @@
+- id: bc8eeb4a-cc3e-45ec-aa6e-41e973da2558
+  name: System log file deletion via find utility
+  description: This test finds and deletes the system log files within /var/log/ directory
+    using various executions(rm, shred, unlink)
+  tactic: defense-impairment
+  technique:
+    attack_id: T1685.006
+    name: 'Disable or Modify Tools: Clear Linux or Mac System Logs'
+  platforms:
+    darwin:
+      sh:
+        command: 'sudo find /var/log -name ''system.log*'' -exec rm {} \; #using "rm"
+          execution; sudo find /var/log -name "system.log.97.gz*" -exec shred -u -z
+          -n 3 {} \; #using "shred" execution; sudo find /var/log -name "system.log.98.gz*"
+          -exec unlink {} \; #using "unlink" execution'
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - atomic-red-team
+  - t1685.006
+  - defense-impairment
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      system_log_name1:
+        description: name or prefix of system log to delete.
+        type: string
+        default: system.log
+      system_log_name2:
+        description: name or prefix of system log to delete.
+        type: string
+        default: system.log.97.gz
+      system_log_name3:
+        description: name or prefix of system log to delete.
+        type: string
+        default: system.log.98.gz
+    dependencies:
+    - description: 'target files must exist
+
+        '
+      prereq_command: 'stat /var/log/#{system_log_name1} /var/log/#{system_log_name2}
+        /var/log/#{system_log_name3}
+
+        '
+      get_prereq_command: 'touch /var/log/#{system_log_name1} /var/log/#{system_log_name2}
+        /var/log/#{system_log_name3}
+
+        '
+    technique_created: '2026-04-14T22:54:04.240Z'
+    atomic_guid: bc8eeb4a-cc3e-45ec-aa6e-41e973da2558
+    import_timestamp: '2026-05-02T05:00:22.875894Z'

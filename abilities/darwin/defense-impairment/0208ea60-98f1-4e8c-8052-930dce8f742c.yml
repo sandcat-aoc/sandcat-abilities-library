@@ -1,0 +1,32 @@
+- id: 0208ea60-98f1-4e8c-8052-930dce8f742c
+  name: Overwrite macOS system log via echo utility
+  description: This test overwrites the contents of system log file with an empty
+    string using echo utility
+  tactic: defense-impairment
+  technique:
+    attack_id: T1685.006
+    name: 'Disable or Modify Tools: Clear Linux or Mac System Logs'
+  platforms:
+    darwin:
+      sh:
+        command: sudo echo '' > /var/log/system.log
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - atomic-red-team
+  - t1685.006
+  - defense-impairment
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      system_log_path:
+        description: path to system.log
+        type: string
+        default: /var/log/system.log
+    technique_created: '2026-04-14T22:54:04.240Z'
+    atomic_guid: 0208ea60-98f1-4e8c-8052-930dce8f742c
+    import_timestamp: '2026-05-02T05:00:22.878773Z'

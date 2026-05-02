@@ -1,0 +1,29 @@
+- id: d6d22332-d07d-498f-aea0-6139ecb7850e
+  name: LockBit Black - Disable Privacy Settings Experience Using Registry -cmd
+  description: LockBit Black - Disable Privacy Settings Experience Using Registry
+  tactic: defense-impairment
+  technique:
+    attack_id: T1685
+    name: Disable or Modify Tools
+  platforms:
+    windows:
+      sh:
+        command: reg add "HKCU\Software\Policies\Microsoft\Windows\OOBE" /v DisablePrivacyExperience
+          /t REG_DWORD /d 1 /f
+        cleanup: reg delete "HKCU\Software\Policies\Microsoft\Windows\OOBE" /v DisablePrivacyExperience
+          /f >nul 2>&1
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - atomic-red-team
+  - t1685
+  - defense-impairment
+  author: Atomic Red Team
+  additional_info:
+    technique_created: '2026-04-14T22:53:26.949Z'
+    atomic_guid: d6d22332-d07d-498f-aea0-6139ecb7850e
+    import_timestamp: '2026-05-02T05:00:41.589661Z'

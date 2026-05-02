@@ -1,0 +1,35 @@
+- id: 83a95136-a496-423c-81d3-1c6750133917
+  name: Rundll32 with desk.cpl
+  description: "Rundll32.exe loading an executable renamed as .scr using desk.cpl\
+    \ \nReference: \n  - [LOLBAS - Libraries/Desk](https://lolbas-project.github.io/lolbas/Libraries/Desk/)\n\
+    SIGMA rules:\n  - [SCR File Write Event](https://github.com/SigmaHQ/sigma/blob/b53f08b081e0a50099be9b9e8eced82097fdbaf2/rules/windows/file_event/file_event_win_new_src_file.yml)\n\
+    \  - [Rundll32 InstallScreenSaver Execution](https://github.com/SigmaHQ/sigma/blob/b53f08b081e0a50099be9b9e8eced82097fdbaf2/rules/windows/process_creation/proc_creation_win_lolbin_rundll32_installscreensaver.yml)"
+  tactic: stealth
+  technique:
+    attack_id: T1218.011
+    name: 'Signed Binary Proxy Execution: Rundll32'
+  platforms:
+    windows:
+      sh:
+        command: copy %windir%\System32\calc.exe not_an_scr.scr; rundll32.exe desk.cpl,InstallScreenSaver
+          not_an_scr.scr
+        cleanup: del not_an_scr.scr
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - atomic-red-team
+  - stealth
+  - t1218.011
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      exe_to_launch:
+        description: Path of the executable to launch
+        type: path
+        default: '%windir%\System32\calc.exe'
+    technique_created: '2020-01-23T18:03:46.248Z'
+    atomic_guid: 83a95136-a496-423c-81d3-1c6750133917
+    import_timestamp: '2026-05-02T05:00:38.818467Z'

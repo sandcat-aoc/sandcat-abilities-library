@@ -1,0 +1,45 @@
+- id: ca50dd85-81ff-48ca-92e1-61f119cb1dcf
+  name: Delete system journal logs via rm and journalctl utilities
+  description: The first sub-test deletes the journal files using rm utility in the
+    "/var/log/journal/" directory and the second sub-test clears the journal by modifiying
+    time period of logs that should be retained to zero.
+  tactic: defense-impairment
+  technique:
+    attack_id: T1685.006
+    name: 'Disable or Modify Tools: Clear Linux or Mac System Logs'
+  platforms:
+    linux:
+      sh:
+        command: 'sudo rm /var/log/journal/* #physically deletes the journal files,
+          and not just their content; sudo journalctl --vacuum-time=0 #clears the
+          journal while still keeping the journal files in place'
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - atomic-red-team
+  - t1685.006
+  - defense-impairment
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      journal_folder:
+        description: path to journal logs
+        type: string
+        default: /var/log/journal
+    dependencies:
+    - description: 'target files must exist
+
+        '
+      prereq_command: 'stat #{journal_folder}
+
+        '
+      get_prereq_command: 'mkdir -p #{journal_folder} && touch #{journal_folder}/T1685_006.journal
+
+        '
+    technique_created: '2026-04-14T22:54:04.240Z'
+    atomic_guid: ca50dd85-81ff-48ca-92e1-61f119cb1dcf
+    import_timestamp: '2026-05-02T05:00:56.780239Z'

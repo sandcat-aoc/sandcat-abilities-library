@@ -1,0 +1,26 @@
+- id: 23b88394-091b-4968-a42d-fb8076992443
+  name: Clear History
+  description: Clear Shell History. This technique only affect the bash shell application.
+  tactic: defense-impairment
+  technique:
+    attack_id: T1685
+    name: Disable or Modify Tools
+  platforms:
+    linux:
+      sh:
+        command: history -c
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - atomic-red-team
+  - t1685
+  - defense-impairment
+  author: Atomic Red Team
+  additional_info:
+    technique_created: '2026-04-14T22:53:26.949Z'
+    atomic_guid: 23b88394-091b-4968-a42d-fb8076992443
+    import_timestamp: '2026-05-02T05:00:56.818053Z'

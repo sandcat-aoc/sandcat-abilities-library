@@ -1,0 +1,30 @@
+- id: 8a4c33be-a0d3-434a-bee6-315405edbd5b
+  name: Disable .NET Event Tracing for Windows Via Registry (cmd)
+  description: Disables ETW for the .NET Framework using the reg.exe utility to update
+    the Windows registry
+  tactic: defense-impairment
+  technique:
+    attack_id: T1685
+    name: Disable or Modify Tools
+  platforms:
+    windows:
+      sh:
+        command: REG ADD HKLM\Software\Microsoft\.NETFramework /v ETWEnabled /t REG_DWORD
+          /d 0
+        cleanup: REG DELETE HKLM\Software\Microsoft\.NETFramework /v ETWEnabled /f
+          > nul 2>&1
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - atomic-red-team
+  - t1685
+  - defense-impairment
+  author: Atomic Red Team
+  additional_info:
+    technique_created: '2026-04-14T22:53:26.949Z'
+    atomic_guid: 8a4c33be-a0d3-434a-bee6-315405edbd5b
+    import_timestamp: '2026-05-02T05:00:41.649120Z'

@@ -1,0 +1,43 @@
+- id: 1602ff76-ed7f-4c94-b550-2f727b4782d4
+  name: Overwrite Linux Mail Spool
+  description: This test overwrites the Linux mail spool of a specified user. This
+    technique was used by threat actor Rocke during the exploitation of Linux web
+    servers.
+  tactic: defense-impairment
+  technique:
+    attack_id: T1685.006
+    name: 'Disable or Modify Tools: Clear Linux or Mac System Logs'
+  platforms:
+    linux:
+      sh:
+        command: echo 0> /var/spool/mail/root
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - atomic-red-team
+  - t1685.006
+  - defense-impairment
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      username:
+        description: Username of mail spool
+        type: string
+        default: root
+    dependencies:
+    - description: 'target files must exist
+
+        '
+      prereq_command: 'stat /var/spool/mail/#{username}
+
+        '
+      get_prereq_command: 'touch /var/spool/mail/#{username}
+
+        '
+    technique_created: '2026-04-14T22:54:04.240Z'
+    atomic_guid: 1602ff76-ed7f-4c94-b550-2f727b4782d4
+    import_timestamp: '2026-05-02T05:00:56.782552Z'

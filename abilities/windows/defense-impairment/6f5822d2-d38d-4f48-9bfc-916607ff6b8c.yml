@@ -1,0 +1,37 @@
+- id: 6f5822d2-d38d-4f48-9bfc-916607ff6b8c
+  name: Allow Executable Through Firewall Located in Non-Standard Location
+  description: This test will attempt to allow an executable through the system firewall
+    located in the Users directory
+  tactic: defense-impairment
+  technique:
+    attack_id: T1686
+    name: Disable or Modify System Firewall
+  platforms:
+    windows:
+      psh:
+        command: Copy-Item "PathToAtomicsFolder\T1686\bin\AtomicTest.exe" -Destination
+          "C:\Users\$env:UserName" -Force; netsh advfirewall firewall add rule name="Atomic
+          Test" dir=in action=allow program="C:\Users\$env:UserName\AtomicTest.exe"
+          enable=yes
+        cleanup: netsh advfirewall firewall delete rule name="Atomic Test" | Out-Null;
+          Remove-Item C:\Users\$env:UserName\AtomicTest.exe -ErrorAction Ignore
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - atomic-red-team
+  - t1686
+  - defense-impairment
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      exe_file_path:
+        description: path to exe file
+        type: path
+        default: PathToAtomicsFolder\T1686\bin\AtomicTest.exe
+    technique_created: '2026-04-14T22:53:27.275Z'
+    atomic_guid: 6f5822d2-d38d-4f48-9bfc-916607ff6b8c
+    import_timestamp: '2026-05-02T05:00:41.688829Z'

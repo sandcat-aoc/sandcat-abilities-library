@@ -1,0 +1,40 @@
+- id: 7b697ece-8270-46b5-bbc7-6b9e27081831
+  name: Edit UFW firewall main configuration file
+  description: "Edit the Uncomplicated Firewall (UFW) main configuration file for\
+    \ setting \ndefault policies /etc/default/ufw."
+  tactic: defense-impairment
+  technique:
+    attack_id: T1686
+    name: Disable or Modify System Firewall
+  platforms:
+    linux:
+      sh:
+        command: echo "# THIS IS A COMMENT" >> /etc/default/ufw; grep "# THIS IS A
+          COMMENT" /etc/default/ufw
+        cleanup: sed -i 's/# THIS IS A COMMENT//g' /etc/default/ufw
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - atomic-red-team
+  - t1686
+  - defense-impairment
+  author: Atomic Red Team
+  additional_info:
+    dependencies:
+    - description: 'Check if /etc/default/ufw exists.
+
+        '
+      prereq_command: 'if [ ! -f "/etc/default/ufw" ]; then echo -e "\n***** ufw NOT
+        installed *****\n"; exit 1; fi
+
+        '
+      get_prereq_command: 'echo ""
+
+        '
+    technique_created: '2026-04-14T22:53:27.275Z'
+    atomic_guid: 7b697ece-8270-46b5-bbc7-6b9e27081831
+    import_timestamp: '2026-05-02T05:00:56.867183Z'

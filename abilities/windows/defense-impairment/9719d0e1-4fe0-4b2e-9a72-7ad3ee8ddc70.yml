@@ -1,0 +1,37 @@
+- id: 9719d0e1-4fe0-4b2e-9a72-7ad3ee8ddc70
+  name: LockBit Black - Use Registry Editor to turn on automatic logon -cmd
+  description: LockBit Black - Use Registry Editor to turn on automatic logon
+  tactic: defense-impairment
+  technique:
+    attack_id: T1685
+    name: Disable or Modify Tools
+  platforms:
+    windows:
+      sh:
+        command: reg add "HKLM\Software\Policies\Microsoft\Windows NT\CurrentVersion\Winlogon"
+          /v AutoAdminLogon /t REG_DWORD /d 1 /f; reg add "HKLM\Software\Policies\Microsoft\Windows
+          NT\CurrentVersion\Winlogon" /v DefaultUserName /t REG_SZ /d Administrator
+          /f; reg add "HKLM\Software\Policies\Microsoft\Windows NT\CurrentVersion\Winlogon"
+          /v DefaultDomainName /t REG_SZ /d contoso.com /f; reg add "HKLM\Software\Policies\Microsoft\Windows
+          NT\CurrentVersion\Winlogon" /v DefaultPassword /t REG_SZ /d password1 /f
+        cleanup: reg delete "HKLM\Software\Policies\Microsoft\Windows NT\CurrentVersion\Winlogon"
+          /v AutoAdminLogon /f >nul 2>&1; reg delete "HKLM\Software\Policies\Microsoft\Windows
+          NT\CurrentVersion\Winlogon" /v DefaultUserName /f >nul 2>&1; reg delete
+          "HKLM\Software\Policies\Microsoft\Windows NT\CurrentVersion\Winlogon" /v
+          DefaultDomainName /f >nul 2>&1; reg delete "HKLM\Software\Policies\Microsoft\Windows
+          NT\CurrentVersion\Winlogon" /v DefaultPassword /f >nul 2>&1
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - atomic-red-team
+  - t1685
+  - defense-impairment
+  author: Atomic Red Team
+  additional_info:
+    technique_created: '2026-04-14T22:53:26.949Z'
+    atomic_guid: 9719d0e1-4fe0-4b2e-9a72-7ad3ee8ddc70
+    import_timestamp: '2026-05-02T05:00:41.591355Z'

@@ -1,0 +1,26 @@
+- id: 7e6721df-5f08-4370-9255-f06d8a77af4c
+  name: Clear history of a bunch of shells
+  description: Clears the history of a bunch of different shell types by setting the
+    history size to zero
+  tactic: stealth
+  technique:
+    attack_id: T1070.003
+    name: 'Indicator Removal on Host: Clear Command History'
+  platforms:
+    linux:
+      sh:
+        command: unset HISTFILE; export HISTFILESIZE=0; history -c
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - atomic-red-team
+  - t1070.003
+  - stealth
+  author: Atomic Red Team
+  additional_info:
+    technique_created: '2020-01-31T12:32:08.228Z'
+    atomic_guid: 7e6721df-5f08-4370-9255-f06d8a77af4c
+    import_timestamp: '2026-05-02T05:00:56.134708Z'

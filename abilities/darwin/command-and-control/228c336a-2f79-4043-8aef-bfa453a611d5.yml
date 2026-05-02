@@ -74,4 +74,4 @@
         \ -o \"#{binary_path}\"\n  chmod +x \"#{binary_path}\"\nfi\n"
     technique_created: '2020-03-15T16:03:39.082Z'
     atomic_guid: 228c336a-2f79-4043-8aef-bfa453a611d5
-    import_timestamp: '2026-05-01T05:42:01.202142Z'
+    import_timestamp: '2026-05-02T05:00:22.755940Z'

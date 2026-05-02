@@ -1,0 +1,28 @@
+- id: 653d39cd-bae7-499a-898c-9fb96b8b5cd1
+  name: Delete log files using built-in log utility
+  description: This test deletes main log datastore, inflight log data, time-to-live
+    data(TTL), fault and error content
+  tactic: defense-impairment
+  technique:
+    attack_id: T1685.006
+    name: 'Disable or Modify Tools: Clear Linux or Mac System Logs'
+  platforms:
+    darwin:
+      sh:
+        command: 'sudo log erase --all; sudo log erase --ttl #Deletes only time-to-live
+          log content'
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - atomic-red-team
+  - t1685.006
+  - defense-impairment
+  author: Atomic Red Team
+  additional_info:
+    technique_created: '2026-04-14T22:54:04.240Z'
+    atomic_guid: 653d39cd-bae7-499a-898c-9fb96b8b5cd1
+    import_timestamp: '2026-05-02T05:00:22.869835Z'

@@ -1,0 +1,27 @@
+- id: 848e43b3-4c0a-4e4c-b4c9-d1e8cea9651c
+  name: Real-time system log clearance/deletion
+  description: This test reads real-time system log file and writes empty string to
+    it, thus clearing the log file without tampering with the logging process
+  tactic: defense-impairment
+  technique:
+    attack_id: T1685.006
+    name: 'Disable or Modify Tools: Clear Linux or Mac System Logs'
+  platforms:
+    darwin:
+      sh:
+        command: 'sudo log -f /var/log/system.log | : > /var/log/system.log'
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - atomic-red-team
+  - t1685.006
+  - defense-impairment
+  author: Atomic Red Team
+  additional_info:
+    technique_created: '2026-04-14T22:54:04.240Z'
+    atomic_guid: 848e43b3-4c0a-4e4c-b4c9-d1e8cea9651c
+    import_timestamp: '2026-05-02T05:00:22.880603Z'

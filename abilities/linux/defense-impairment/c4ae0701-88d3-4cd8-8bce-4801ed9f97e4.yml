@@ -1,0 +1,40 @@
+- id: c4ae0701-88d3-4cd8-8bce-4801ed9f97e4
+  name: Edit UFW firewall sysctl.conf file
+  description: "Edit the Uncomplicated Firewall (UFW) configuration file for setting\
+    \ network \nvariables /etc/ufw/sysctl.conf."
+  tactic: defense-impairment
+  technique:
+    attack_id: T1686
+    name: Disable or Modify System Firewall
+  platforms:
+    linux:
+      sh:
+        command: echo "# THIS IS A COMMENT" >> /etc/ufw/sysctl.conf; grep "# THIS
+          IS A COMMENT" /etc/ufw/sysctl.conf
+        cleanup: sed -i 's/# THIS IS A COMMENT//g' /etc/ufw/sysctl.conf; cat /etc/ufw/sysctl.conf
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - atomic-red-team
+  - t1686
+  - defense-impairment
+  author: Atomic Red Team
+  additional_info:
+    dependencies:
+    - description: 'Check if /etc/ufw/sysctl.conf exists.
+
+        '
+      prereq_command: 'if [ ! -f "/etc/ufw/sysctl.conf" ]; then echo -e "\n***** ufw
+        NOT installed *****\n"; exit 1; fi
+
+        '
+      get_prereq_command: 'echo ""
+
+        '
+    technique_created: '2026-04-14T22:53:27.275Z'
+    atomic_guid: c4ae0701-88d3-4cd8-8bce-4801ed9f97e4
+    import_timestamp: '2026-05-02T05:00:56.865186Z'

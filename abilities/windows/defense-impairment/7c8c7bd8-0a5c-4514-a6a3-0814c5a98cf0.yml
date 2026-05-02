@@ -1,0 +1,28 @@
+- id: 7c8c7bd8-0a5c-4514-a6a3-0814c5a98cf0
+  name: Modify UseTPM Registry entry
+  description: Use Trusted Platform Module (TPM) for Bitlocker tool
+  tactic: defense-impairment
+  technique:
+    attack_id: T1112
+    name: Modify Registry
+  platforms:
+    windows:
+      sh:
+        command: reg add "HKLM\SOFTWARE\Policies\Microsoft\FVE" /v UseTPM /t REG_DWORD
+          /d 2 /f
+        cleanup: reg delete ""HKLM\SOFTWARE\Policies\Microsoft\FVE"" /v UseTPM /f
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - atomic-red-team
+  - t1112
+  - defense-impairment
+  author: Atomic Red Team
+  additional_info:
+    technique_created: '2017-05-31T21:31:23.587Z'
+    atomic_guid: 7c8c7bd8-0a5c-4514-a6a3-0814c5a98cf0
+    import_timestamp: '2026-05-02T05:00:41.481073Z'

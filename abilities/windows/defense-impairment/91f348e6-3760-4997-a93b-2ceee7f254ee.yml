@@ -1,0 +1,28 @@
+- id: 91f348e6-3760-4997-a93b-2ceee7f254ee
+  name: Blackbit - Disable Windows Firewall using netsh firewall
+  description: An adversary tries to modify the windows firewall configuration using
+    the deprecated netsh firewall command (command still works).
+  tactic: defense-impairment
+  technique:
+    attack_id: T1686
+    name: Disable or Modify System Firewall
+  platforms:
+    windows:
+      sh:
+        command: netsh firewall set opmode mode=disable
+        cleanup: netsh firewall set opmode mode=enable >nul 2>&1
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - atomic-red-team
+  - t1686
+  - defense-impairment
+  author: Atomic Red Team
+  additional_info:
+    technique_created: '2026-04-14T22:53:27.275Z'
+    atomic_guid: 91f348e6-3760-4997-a93b-2ceee7f254ee
+    import_timestamp: '2026-05-02T05:00:41.694800Z'

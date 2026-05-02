@@ -1,0 +1,26 @@
+- id: 6d6d3154-1a52-4d1a-9d51-92ab8148b32e
+  name: Reboot Linux Host via Kernel System Request
+  description: reboot system via system request seen in Awfulshred wiper.
+  tactic: defense-impairment
+  technique:
+    attack_id: T1685
+    name: Disable or Modify Tools
+  platforms:
+    linux:
+      sh:
+        command: echo 1> /proc/sys/kernel/sysrq; echo b> /proc/sysrq-trigger
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - atomic-red-team
+  - t1685
+  - defense-impairment
+  author: Atomic Red Team
+  additional_info:
+    technique_created: '2026-04-14T22:53:26.949Z'
+    atomic_guid: 6d6d3154-1a52-4d1a-9d51-92ab8148b32e
+    import_timestamp: '2026-05-02T05:00:56.821056Z'

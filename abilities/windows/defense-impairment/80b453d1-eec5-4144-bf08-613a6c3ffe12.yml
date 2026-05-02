@@ -1,0 +1,32 @@
+- id: 80b453d1-eec5-4144-bf08-613a6c3ffe12
+  name: LockBit Black - Unusual Windows firewall registry modification -Powershell
+  description: An adversary tries to modify the windows firewall registry.
+  tactic: defense-impairment
+  technique:
+    attack_id: T1686
+    name: Disable or Modify System Firewall
+  platforms:
+    windows:
+      psh:
+        command: New-ItemProperty "HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile"
+          -Name EnableFirewall -PropertyType DWORD -Value 0 -Force; New-ItemProperty
+          "HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\StandardProfile" -Name
+          EnableFirewall -PropertyType DWORD -Value 0 -Force
+        cleanup: Remove-ItemProperty "HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile"  -Name
+          EnableFirewall -Force -ErrorAction Ignore; Remove-ItemProperty "HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\StandardProfile"
+          -Name EnableFirewall -Force -ErrorAction Ignore
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - atomic-red-team
+  - t1686
+  - defense-impairment
+  author: Atomic Red Team
+  additional_info:
+    technique_created: '2026-04-14T22:53:27.275Z'
+    atomic_guid: 80b453d1-eec5-4144-bf08-613a6c3ffe12
+    import_timestamp: '2026-05-02T05:00:41.692819Z'

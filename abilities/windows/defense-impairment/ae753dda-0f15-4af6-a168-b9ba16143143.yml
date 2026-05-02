@@ -1,0 +1,34 @@
+- id: ae753dda-0f15-4af6-a168-b9ba16143143
+  name: Stop and Remove Arbitrary Security Windows Service
+  description: Beginning with Powershell 6.0, the Stop-Service cmdlet sends a stop
+    message to the Windows Service Controller for each of the specified services.
+    The Remove-Service cmdlet removes a Windows service in the registry and in the
+    service database.
+  tactic: defense-impairment
+  technique:
+    attack_id: T1685
+    name: Disable or Modify Tools
+  platforms:
+    windows:
+      psh:
+        command: Stop-Service -Name McAfeeDLPAgentService; Remove-Service -Name McAfeeDLPAgentService
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - atomic-red-team
+  - t1685
+  - defense-impairment
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      service_name:
+        description: The name of the service to remove
+        type: string
+        default: McAfeeDLPAgentService
+    technique_created: '2026-04-14T22:53:26.949Z'
+    atomic_guid: ae753dda-0f15-4af6-a168-b9ba16143143
+    import_timestamp: '2026-05-02T05:00:41.567095Z'

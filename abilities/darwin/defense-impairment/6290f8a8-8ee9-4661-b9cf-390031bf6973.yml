@@ -1,0 +1,42 @@
+- id: 6290f8a8-8ee9-4661-b9cf-390031bf6973
+  name: Truncate system log files via truncate utility
+  description: This test truncates the system log files using the truncate utility
+    with (-s 0) parameter which sets file size to zero, thus emptying the file content
+  tactic: defense-impairment
+  technique:
+    attack_id: T1685.006
+    name: 'Disable or Modify Tools: Clear Linux or Mac System Logs'
+  platforms:
+    darwin:
+      sh:
+        command: 'sudo truncate -s 0 /var/log/system.log #size parameter shorthand'
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - atomic-red-team
+  - t1685.006
+  - defense-impairment
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      system_log_path:
+        description: path of system log to delete.
+        type: string
+        default: /var/log/system.log
+    dependencies:
+    - description: 'target files must exist
+
+        '
+      prereq_command: 'stat #{system_log_path}
+
+        '
+      get_prereq_command: 'touch #{system_log_path}
+
+        '
+    technique_created: '2026-04-14T22:54:04.240Z'
+    atomic_guid: 6290f8a8-8ee9-4661-b9cf-390031bf6973
+    import_timestamp: '2026-05-02T05:00:22.871461Z'

@@ -1,0 +1,30 @@
+- id: fb3d46c6-9480-4803-8d7d-ce676e1f1a9b
+  name: Gatekeeper Bypass
+  description: Gatekeeper Bypass via command line
+  tactic: defense-impairment
+  technique:
+    attack_id: T1553.001
+    name: 'Subvert Trust Controls: Gatekeeper Bypass'
+  platforms:
+    darwin:
+      sh:
+        command: xattr -d com.apple.quarantine myapp.app
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - atomic-red-team
+  - t1553.001
+  - defense-impairment
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      app_path:
+        description: Path to app to be used
+        type: path
+        default: myapp.app
+    technique_created: '2020-02-05T16:16:08.471Z'
+    atomic_guid: fb3d46c6-9480-4803-8d7d-ce676e1f1a9b
+    import_timestamp: '2026-05-02T05:00:22.851741Z'

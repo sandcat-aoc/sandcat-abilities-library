@@ -1,0 +1,32 @@
+- id: e6abb60e-26b8-41da-8aae-0c35174b0967
+  name: Clear Logs
+  description: Upon execution this test will clear Windows Event Logs. Open the System.evtx
+    logs at C:\Windows\System32\winevt\Logs and verify that it is now empty.
+  tactic: defense-impairment
+  technique:
+    attack_id: T1685.005
+    name: 'Disable or Modify Tools: Clear Windows Event Logs'
+  platforms:
+    windows:
+      sh:
+        command: wevtutil cl System
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - defense-impairment
+  - atomic-red-team
+  - t1685.005
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      log_name:
+        description: Windows Log Name, ex System
+        type: string
+        default: System
+    technique_created: '2026-04-14T22:54:03.796Z'
+    atomic_guid: e6abb60e-26b8-41da-8aae-0c35174b0967
+    import_timestamp: '2026-05-02T05:00:41.516457Z'

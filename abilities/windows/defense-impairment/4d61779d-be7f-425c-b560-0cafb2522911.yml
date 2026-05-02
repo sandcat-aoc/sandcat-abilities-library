@@ -1,0 +1,33 @@
+- id: 4d61779d-be7f-425c-b560-0cafb2522911
+  name: Disable .NET Event Tracing for Windows Via Environment Variable HKLM Registry
+    - PowerShell
+  description: Disables ETW for the .NET Framework by setting the COMPlus_ETWEnabled
+    environment variable to 0 in the HKLM registry using PowerShell. In order for
+    changes to take effect a reboot might be required.
+  tactic: defense-impairment
+  technique:
+    attack_id: T1685
+    name: Disable or Modify Tools
+  platforms:
+    windows:
+      psh:
+        command: New-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Session
+          Manager\Environment" -Name COMPlus_ETWEnabled -Value 0 -PropertyType "String"
+          -Force
+        cleanup: Remove-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Session
+          Manager\Environment" -Name COMPlus_ETWEnabled
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - atomic-red-team
+  - t1685
+  - defense-impairment
+  author: Atomic Red Team
+  additional_info:
+    technique_created: '2026-04-14T22:53:26.949Z'
+    atomic_guid: 4d61779d-be7f-425c-b560-0cafb2522911
+    import_timestamp: '2026-05-02T05:00:41.661817Z'

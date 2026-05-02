@@ -1,0 +1,26 @@
+- id: bd8ccc45-d632-481e-b7cf-c467627d68f9
+  name: rm -rf
+  description: Delete messages and security logs
+  tactic: defense-impairment
+  technique:
+    attack_id: T1685.006
+    name: 'Disable or Modify Tools: Clear Linux or Mac System Logs'
+  platforms:
+    linux:
+      sh:
+        command: rm -rf /var/log/messages; rm -rf /var/log/security
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - atomic-red-team
+  - t1685.006
+  - defense-impairment
+  author: Atomic Red Team
+  additional_info:
+    technique_created: '2026-04-14T22:54:04.240Z'
+    atomic_guid: bd8ccc45-d632-481e-b7cf-c467627d68f9
+    import_timestamp: '2026-05-02T05:00:56.772248Z'

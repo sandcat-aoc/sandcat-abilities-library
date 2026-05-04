@@ -25,8 +25,8 @@
   privilege: ''
   buckets:
   - atomic-red-team
-  - defense-impairment
   - t1685
+  - defense-impairment
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -44,4 +44,4 @@
         default: syslog-ng.conf
     technique_created: '2026-04-14T22:53:26.949Z'
     atomic_guid: 7d40bc58-94c7-4fbb-88d9-ebce9fcdb60c
-    import_timestamp: '2026-05-03T05:32:57.043716Z'
+    import_timestamp: '2026-05-04T05:35:18.953646Z'

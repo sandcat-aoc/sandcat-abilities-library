@@ -28,4 +28,4 @@
         default: '%windir%\System32\notepad.exe'
     technique_created: '2020-01-23T18:03:46.248Z'
     atomic_guid: 9f5d081a-ee5a-42f9-a04e-b7bdc487e676
-    import_timestamp: '2026-05-04T05:35:01.992481Z'
+    import_timestamp: '2026-05-05T05:01:35.506846Z'

@@ -1,0 +1,30 @@
+- id: 83b78b88-3b43-41cc-a60f-cab1a7b96978
+  name: 83b78b88-3b43-41cc-a60f-cab1a7b96978 - Malicious Driver Deployment
+  description: 'Malicious driver: 83b78b88-3b43-41cc-a60f-cab1a7b96978
+
+    Category: vulnerable driver
+
+    Author: Michael Haag
+
+    Created: 2026-04-22
+
+    MITRE Technique: T1068'
+  tactic: privilege-escalation
+  technique:
+    attack_id: T1068
+    name: Rootkit
+  platforms:
+    windows:
+      cmd:
+        command: sc create MaliciousDriver binPath= "C:\Windows\System32\drivers\malicious_driver.sys"
+          type= kernel
+  singleton: true
+  privilege: Elevated
+  repeatable: false
+  buckets:
+  - privilege-escalation
+  version: '1.0'
+  author: Michael Haag
+  operating_system: Windows (Version Unspecified)
+  created: '2026-04-22'
+  modified: '2026-04-22'

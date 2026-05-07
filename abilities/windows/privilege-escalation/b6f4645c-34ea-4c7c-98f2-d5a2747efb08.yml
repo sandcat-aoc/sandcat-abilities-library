@@ -22,11 +22,11 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - privilege-escalation
   - atomic-red-team
   - t1548.002
+  - privilege-escalation
   author: Atomic Red Team
   additional_info:
     technique_created: '2020-01-30T14:24:34.977Z'
     atomic_guid: b6f4645c-34ea-4c7c-98f2-d5a2747efb08
-    import_timestamp: '2026-05-06T05:29:35.087703Z'
+    import_timestamp: '2026-05-07T05:32:39.322265Z'

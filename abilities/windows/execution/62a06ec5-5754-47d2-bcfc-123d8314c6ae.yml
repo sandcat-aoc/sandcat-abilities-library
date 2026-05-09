@@ -55,4 +55,4 @@
         default: https://raw.githubusercontent.com/redcanaryco/atomic-red-team/master/atomics/T1197/T1197.md
     technique_created: '2018-04-18T17:59:24.739Z'
     atomic_guid: 62a06ec5-5754-47d2-bcfc-123d8314c6ae
-    import_timestamp: '2026-05-08T04:55:25.128197Z'
+    import_timestamp: '2026-05-09T05:23:21.551398Z'

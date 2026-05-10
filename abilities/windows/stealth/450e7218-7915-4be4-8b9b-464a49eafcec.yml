@@ -27,8 +27,8 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - t1027
   - atomic-red-team
+  - t1027
   - stealth
   author: Atomic Red Team
   additional_info:
@@ -47,4 +47,4 @@
         default: Debug
     technique_created: '2017-05-31T21:30:32.662Z'
     atomic_guid: 450e7218-7915-4be4-8b9b-464a49eafcec
-    import_timestamp: '2026-05-09T05:23:20.574772Z'
+    import_timestamp: '2026-05-10T05:39:01.889721Z'

@@ -20,8 +20,8 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - t1685
   - atomic-red-team
+  - t1685
   - defense-impairment
   author: Atomic Red Team
   additional_info:
@@ -36,4 +36,4 @@
         default: /Library/LaunchDaemons/com.crowdstrike.userdaemon.plist
     technique_created: '2026-04-14T22:53:26.949Z'
     atomic_guid: b3e7510c-2d4c-4249-a33f-591a2bc83eef
-    import_timestamp: '2026-05-09T05:23:05.079829Z'
+    import_timestamp: '2026-05-10T05:38:47.517489Z'

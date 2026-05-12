@@ -24,8 +24,8 @@
   privilege: ''
   buckets:
   - persistence
-  - atomic-red-team
   - t1547.001
+  - atomic-red-team
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -35,4 +35,4 @@
         default: C:\Path\AtomicRedTeam.dll
     technique_created: '2020-01-23T22:02:48.566Z'
     atomic_guid: 554cbd88-cde1-4b56-8168-0be552eed9eb
-    import_timestamp: '2026-05-11T05:59:37.701537Z'
+    import_timestamp: '2026-05-12T05:38:49.305966Z'

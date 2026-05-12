@@ -1,0 +1,31 @@
+- id: 5917f0fd-c6d4-4af8-b89d-f3db06349c49
+  name: File Masquerading with Zero-Width Space
+  description: "Creates a file named 'secret.txt' but inserts a Zero-Width Space (U+200B)\
+    \ before the extension. \nThis emulates how adversaries hide malicious files in\
+    \ plain sight, as they appear identical to legitimate files in File Explorer."
+  tactic: stealth
+  technique:
+    attack_id: T1027.018
+    name: 'Obfuscated Files or Information: Invisible Unicode'
+  platforms:
+    windows:
+      psh:
+        command: '$fileName = "secret" + [char]0x200B + ".txt"; New-Item -Path "$env:TEMP\$fileName"
+          -ItemType "file" -Value "Hidden Unicode Content" -Force; Write-Host "Created
+          file: $env:TEMP\$fileName"'
+        cleanup: $fileName = "secret" + [char]0x200B + ".txt"; Remove-Item -Path "$env:TEMP\$fileName"
+          -ErrorAction Ignore
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1027.018
+  - stealth
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    technique_created: '2026-04-22T19:18:41.169Z'
+    atomic_guid: 5917f0fd-c6d4-4af8-b89d-f3db06349c49
+    import_timestamp: '2026-05-12T05:38:47.940861Z'

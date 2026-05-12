@@ -1,0 +1,31 @@
+- id: 125b1b41-bcef-42c3-acaa-a44303e3ffc1
+  name: Invisible Unicode in Environment Variables
+  description: "Sets an environment variable that includes a Zero-Width Non-Joiner\
+    \ (U+200C). \nThis emulates techniques used to hide configuration data or persistence\
+    \ paths from administrators performing manual audits."
+  tactic: stealth
+  technique:
+    attack_id: T1027.018
+    name: 'Obfuscated Files or Information: Invisible Unicode'
+  platforms:
+    windows:
+      psh:
+        command: $varName = "PATH" + [char]0x200C; [Environment]::SetEnvironmentVariable($varName,
+          "C:\Users\Public\Malicious", "User"); Write-Host "Hidden environment variable
+          '$varName' set."
+        cleanup: $varName = "PATH" + [char]0x200C; [Environment]::SetEnvironmentVariable($varName,
+          $null, "User")
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1027.018
+  - stealth
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    technique_created: '2026-04-22T19:18:41.169Z'
+    atomic_guid: 125b1b41-bcef-42c3-acaa-a44303e3ffc1
+    import_timestamp: '2026-05-12T05:38:47.942761Z'

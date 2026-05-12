@@ -1,0 +1,34 @@
+- id: 28e30460-ce18-4974-8e6a-5a2bb74e5c07
+  name: Binary Masquerading via Invisible Unicode
+  description: 'Copies a system binary (calc.exe) to a new name containing an invisible
+    character (U+200D) and executes it.
+
+    This tests the ability of EDRs to handle non-normalized file paths in process
+    execution events.'
+  tactic: stealth
+  technique:
+    attack_id: T1027.018
+    name: 'Obfuscated Files or Information: Invisible Unicode'
+  platforms:
+    windows:
+      psh:
+        command: $hiddentarget = "$env:TEMP\calc" + [char]0x200D + ".exe"; Copy-Item
+          "C:\Windows\System32\calc.exe" -Destination $hiddentarget; Start-Process
+          $hiddentarget
+        cleanup: $hiddentarget = "$env:TEMP\calc" + [char]0x200D + ".exe"; Stop-Process
+          -Name "calc*" -ErrorAction Ignore; Remove-Item $hiddentarget -ErrorAction
+          Ignore
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1027.018
+  - stealth
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    technique_created: '2026-04-22T19:18:41.169Z'
+    atomic_guid: 28e30460-ce18-4974-8e6a-5a2bb74e5c07
+    import_timestamp: '2026-05-12T05:38:47.944562Z'

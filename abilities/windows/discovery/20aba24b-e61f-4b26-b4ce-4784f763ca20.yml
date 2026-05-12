@@ -17,8 +17,8 @@
   privilege: ''
   buckets:
   - t1124
-  - atomic-red-team
   - discovery
+  - atomic-red-team
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -28,4 +28,4 @@
         default: localhost
     technique_created: '2017-05-31T21:31:37.450Z'
     atomic_guid: 20aba24b-e61f-4b26-b4ce-4784f763ca20
-    import_timestamp: '2026-05-11T05:59:39.552437Z'
+    import_timestamp: '2026-05-12T05:38:51.150286Z'

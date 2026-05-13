@@ -15,8 +15,8 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - credential-access
   - t1552.003
+  - credential-access
   - atomic-red-team
   author: Atomic Red Team
   additional_info:
@@ -35,4 +35,4 @@
         default: ~/.bash_history
     technique_created: '2020-02-04T13:02:11.685Z'
     atomic_guid: 3cfde62b-7c33-4b26-a61e-755d6131c8ce
-    import_timestamp: '2026-05-12T05:38:33.153130Z'
+    import_timestamp: '2026-05-13T05:48:25.032797Z'

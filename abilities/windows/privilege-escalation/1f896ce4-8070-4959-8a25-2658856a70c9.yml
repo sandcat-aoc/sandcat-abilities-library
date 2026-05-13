@@ -45,4 +45,4 @@
         default: $env:windir\system32\fxssvc.exe
     technique_created: '2020-01-17T19:13:50.402Z'
     atomic_guid: 1f896ce4-8070-4959-8a25-2658856a70c9
-    import_timestamp: '2026-05-12T05:38:48.166738Z'
+    import_timestamp: '2026-05-13T05:48:39.701872Z'

@@ -23,8 +23,8 @@
   privilege: ''
   buckets:
   - t1659
-  - initial-access
   - atomic-red-team
+  - initial-access
   author: Atomic Red Team
   additional_info:
     dependencies:
@@ -77,4 +77,4 @@
         '
     technique_created: '2023-09-01T21:03:13.406Z'
     atomic_guid: 9b360eaf-c778-4f07-a6e7-895c4f01ac1c
-    import_timestamp: '2026-05-12T05:38:33.293789Z'
+    import_timestamp: '2026-05-13T05:48:25.172012Z'

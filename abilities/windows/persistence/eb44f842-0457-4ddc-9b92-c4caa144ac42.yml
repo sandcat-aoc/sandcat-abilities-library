@@ -23,8 +23,8 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - persistence
   - t1547.001
+  - persistence
   - atomic-red-team
   author: Atomic Red Team
   additional_info:
@@ -39,4 +39,4 @@
         default: HKLM:\Software\Microsoft\Windows\CurrentVersion\RunOnce
     technique_created: '2020-01-23T22:02:48.566Z'
     atomic_guid: eb44f842-0457-4ddc-9b92-c4caa144ac42
-    import_timestamp: '2026-05-12T05:38:49.308045Z'
+    import_timestamp: '2026-05-13T05:48:40.828708Z'

@@ -24,4 +24,4 @@
     use_case: Kill process by exact name match
     source_file: pkill.yml
     source_repository: https://github.com/infosecB/LOOBins
-    import_timestamp: '2026-05-14T05:47:45.093559Z'
+    import_timestamp: '2026-05-15T05:54:52.864232Z'

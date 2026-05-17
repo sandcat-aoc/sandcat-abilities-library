@@ -19,9 +19,9 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - atomic-red-team
-  - t1036.005
   - stealth
+  - t1036.005
+  - atomic-red-team
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -32,4 +32,4 @@
         default: $Env:windir\Temp\svchost.exe
     technique_created: '2020-02-10T20:43:10.239Z'
     atomic_guid: 35eb8d16-9820-4423-a2a1-90c4f5edd9ca
-    import_timestamp: '2026-05-16T05:28:14.613163Z'
+    import_timestamp: '2026-05-17T05:48:24.110325Z'

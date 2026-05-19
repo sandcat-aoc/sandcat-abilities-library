@@ -26,4 +26,4 @@
     use_case: Monitor login/logout events for privilege escalation timing
     source_file: notifyutil.yml
     source_repository: https://github.com/infosecB/LOOBins
-    import_timestamp: '2026-05-18T06:13:34.827897Z'
+    import_timestamp: '2026-05-19T06:07:53.944512Z'

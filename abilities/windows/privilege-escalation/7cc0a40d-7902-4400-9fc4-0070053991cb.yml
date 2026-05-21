@@ -1,0 +1,30 @@
+- id: 7cc0a40d-7902-4400-9fc4-0070053991cb
+  name: 7cc0a40d-7902-4400-9fc4-0070053991cb - Malicious Driver Deployment
+  description: 'Malicious driver: 7cc0a40d-7902-4400-9fc4-0070053991cb
+
+    Category: vulnerable driver
+
+    Author: Michael Haag
+
+    Created: 2026-05-19
+
+    MITRE Technique: T1068'
+  tactic: privilege-escalation
+  technique:
+    attack_id: T1068
+    name: Rootkit
+  platforms:
+    windows:
+      cmd:
+        command: sc create MaliciousDriver binPath= "C:\Windows\System32\drivers\malicious_driver.sys"
+          type= kernel
+  singleton: true
+  privilege: Elevated
+  repeatable: false
+  buckets:
+  - privilege-escalation
+  version: '1.0'
+  author: Michael Haag
+  operating_system: Windows (Version Unspecified)
+  created: '2026-05-19'
+  modified: '2026-05-19'

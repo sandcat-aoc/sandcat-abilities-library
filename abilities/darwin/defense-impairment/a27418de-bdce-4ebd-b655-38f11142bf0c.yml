@@ -34,8 +34,8 @@
   privilege: ''
   buckets:
   - t1685.002
-  - atomic-red-team
   - defense-impairment
+  - atomic-red-team
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -78,4 +78,4 @@
         '
     technique_created: '2026-04-14T22:54:02.368Z'
     atomic_guid: a27418de-bdce-4ebd-b655-38f11142bf0c
-    import_timestamp: '2026-05-21T06:09:39.674289Z'
+    import_timestamp: '2026-05-22T06:06:48.639778Z'

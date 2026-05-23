@@ -21,8 +21,8 @@
   privilege: ''
   buckets:
   - t1685
-  - defense-impairment
   - atomic-red-team
+  - defense-impairment
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -32,4 +32,4 @@
         default: outlook.exe
     technique_created: '2026-04-14T22:53:26.949Z'
     atomic_guid: a123ce6a-3916-45d6-ba9c-7d4081315c27
-    import_timestamp: '2026-05-22T06:07:04.437717Z'
+    import_timestamp: '2026-05-23T05:41:02.911692Z'

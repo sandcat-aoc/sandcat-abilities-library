@@ -38,4 +38,4 @@
     use_case: Run unprivileged TFTP server on a non-standard port
     source_file: tftp.yml
     source_repository: https://github.com/infosecB/LOOBins
-    import_timestamp: '2026-05-22T06:06:32.666049Z'
+    import_timestamp: '2026-05-23T05:40:29.419214Z'

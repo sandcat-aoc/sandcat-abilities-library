@@ -25,4 +25,4 @@
     use_case: Use mdfind to provide live updates to the number of files matching the query
     source_file: mdfind.yml
     source_repository: https://github.com/infosecB/LOOBins
-    import_timestamp: '2026-05-22T06:06:32.757492Z'
+    import_timestamp: '2026-05-23T05:40:29.530611Z'

@@ -1,0 +1,30 @@
+- id: 14bd90b1-c3f3-4115-9861-cf0519a59654
+  name: Trap DEBUG - Log All Shell Commands
+  description: 'Launch bash shell with command arg to create TRAP on DEBUG.
+
+    The trap logs executed commands to /tmp/art-fish.txt, simulating persistent command
+    interception.'
+  tactic: privilege-escalation
+  technique:
+    attack_id: T1546.005
+    name: 'Event Triggered Execution: Trap'
+  platforms:
+    darwin:
+      sh:
+        command: trap 'echo "$BASH_COMMAND" >> /tmp/art-fish.txt' DEBUG; whoami; id;
+          hostname; cat /tmp/art-fish.txt
+        cleanup: rm -f /tmp/art-fish.txt
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1546.005
+  - atomic-red-team
+  - privilege-escalation
+  author: Atomic Red Team
+  additional_info:
+    technique_created: '2020-01-24T14:17:43.906Z'
+    atomic_guid: 14bd90b1-c3f3-4115-9861-cf0519a59654
+    import_timestamp: '2026-05-25T06:27:34.280184Z'

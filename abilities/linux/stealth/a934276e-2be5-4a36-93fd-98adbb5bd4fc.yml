@@ -16,8 +16,8 @@
   privilege: ''
   buckets:
   - atomic-red-team
-  - stealth
   - t1070.003
+  - stealth
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -27,4 +27,4 @@
         default: ~/.bash_history
     technique_created: '2020-01-31T12:32:08.228Z'
     atomic_guid: a934276e-2be5-4a36-93fd-98adbb5bd4fc
-    import_timestamp: '2026-05-26T06:07:52.948090Z'
+    import_timestamp: '2026-05-27T06:21:06.335848Z'

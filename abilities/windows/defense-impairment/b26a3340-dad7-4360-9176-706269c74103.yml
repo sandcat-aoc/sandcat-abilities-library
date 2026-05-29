@@ -17,8 +17,8 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - atomic-red-team
   - defense-impairment
+  - atomic-red-team
   - t1685.001
   author: Atomic Red Team
   additional_info:
@@ -29,4 +29,4 @@
         default: Microsoft-Windows-IKE/Operational
     technique_created: '2026-04-14T22:54:01.982Z'
     atomic_guid: b26a3340-dad7-4360-9176-706269c74103
-    import_timestamp: '2026-05-28T06:12:00.221176Z'
+    import_timestamp: '2026-05-29T06:12:40.794533Z'

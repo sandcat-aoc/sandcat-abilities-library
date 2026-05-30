@@ -16,8 +16,8 @@
   privilege: ''
   buckets:
   - t1564.001
-  - stealth
   - atomic-red-team
+  - stealth
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -27,4 +27,4 @@
         default: /tmp/evil
     technique_created: '2020-02-26T17:46:13.128Z'
     atomic_guid: 3b7015f2-3144-4205-b799-b05580621379
-    import_timestamp: '2026-05-29T06:12:24.355221Z'
+    import_timestamp: '2026-05-30T05:47:52.816814Z'

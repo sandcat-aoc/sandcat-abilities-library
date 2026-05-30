@@ -23,10 +23,10 @@
   privilege: ''
   buckets:
   - t1685
-  - defense-impairment
   - atomic-red-team
+  - defense-impairment
   author: Atomic Red Team
   additional_info:
     technique_created: '2026-04-14T22:53:26.949Z'
     atomic_guid: da86f239-9bd3-4e85-92ed-4a94ef111a1c
-    import_timestamp: '2026-05-29T06:12:41.136160Z'
+    import_timestamp: '2026-05-30T05:48:10.557335Z'

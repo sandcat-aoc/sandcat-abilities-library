@@ -38,4 +38,4 @@
         default: $env:Temp\AtomicRedTeam.cer
     technique_created: '2020-02-04T13:06:49.258Z'
     atomic_guid: 78b274f8-acb0-428b-b1f7-7b0d0e73330a
-    import_timestamp: '2026-05-30T05:48:10.818321Z'
+    import_timestamp: '2026-05-31T06:18:32.387660Z'

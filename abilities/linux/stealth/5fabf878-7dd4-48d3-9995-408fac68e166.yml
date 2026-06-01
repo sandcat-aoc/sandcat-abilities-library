@@ -1,0 +1,72 @@
+- id: 5fabf878-7dd4-48d3-9995-408fac68e166
+  name: Return Address Overwrite
+  description: 'This technique performs control-flow hijacking via Return Address
+    Overwriting.
+
+    It first identifies a code cave by scanning /proc/<pid>/maps
+
+    and writes the shellcode into it through /proc/<pid>/mem.
+
+    It then inspects the process stack (from the RSP register) and overwrite
+
+    every possibile candidate for return address with the location with the address
+    of the code cave,
+
+    the execution is redirected to the payload the moment the CPU executes the next
+    RET instruction.
+
+
+    Note: this test forks a child process to use as the injection target.
+
+    This allows the test to run on systems where ptrace_scope=1 (default on most Linux
+    distributions),
+
+    where a process can only modify the memory of its own descendants.
+
+    This may differ from a real-world scenario where the attacker targets an arbitrary
+    process,
+
+    but for the purpose of this test it preserves the detection-relevant behavior:
+    the same syscalls and /proc/<pid>/mem
+
+    access patterns are generated regardless of the relationship between injector
+    and target.'
+  tactic: stealth
+  technique:
+    attack_id: T1055.009
+    name: 'Process Injection: Proc Memory'
+  platforms:
+    linux:
+      sh:
+        command: return_address_overwrite
+        cleanup: rm -f /tmp/pwned
+        elevation_required: false
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - stealth
+  - t1055.009
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      bin_path:
+        type: path
+        default: PathToAtomicsFolder/T1055.009/bin/return_address_overwrite
+        description: path to return_address_overwrite
+    dependencies:
+    - description: gcc must be installed
+      prereq_command: which gcc
+      get_prereq_command: apt-get install -y gcc
+    - description: return_address_overwrite must be compiled
+      prereq_command: test -f PathToAtomicsFolder/T1055.009/bin/return_address_overwrite
+      get_prereq_command: make -C PathToAtomicsFolder/T1055.009/src
+    - description: /tmp/pwned must not exist before the test
+      prereq_command: test ! -f /tmp/pwned
+      get_prereq_command: rm -f /tmp/pwned
+    technique_created: '2020-01-14T01:34:10.588Z'
+    atomic_guid: 5fabf878-7dd4-48d3-9995-408fac68e166
+    import_timestamp: '2026-06-01T06:54:59.715950Z'

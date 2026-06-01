@@ -1,0 +1,62 @@
+- id: 4383bbd3-aa6c-49fd-a1a9-cf112c95982c
+  name: GOT Injection
+  description: "This technique identifies a code cave by scanning /proc/<pid>/maps\n\
+    and writes the shellcode into it through /proc/<pid>/mem.\nTo redirect the execution\
+    \ flow, it parses the target's ELF structure through /proc/<pid>/exe\nto locate\
+    \ the Global Offset Table (.got.plt) and calculates the absolute addresses for\
+    \ PIE-enabled binaries.\nBy overwriting these GOT entries with the shellcode's\
+    \ address,\nthe injector ensures that the next time the victim calls a dynamic\
+    \ library function,\nit will inadvertently execute the injected payload instead.\n\
+    \nget_got:\nLocates the Global Offset Table (.got.plt or .got), which is an array\
+    \ of pointers \nthe program uses to dynamically find external library functions.\n\
+    - Finds the string table (shstrtab) containing the names of all sections.\n- Searches\
+    \ for the section named \".got.plt\", extracting its address and size.\n- PIE\
+    \ Handling: If the executable is dynamic (ET_DYN / PIE), the found \naddress is\
+    \ just a relative offset. It must be added to the base_address \n(found before)\
+    \ to get the absolute RAM address.\n\nNote: this test forks a child process to\
+    \ use as the injection target.\nThis allows the test to run on systems where ptrace_scope=1\
+    \ (default on most Linux distributions),\nwhere a process can only modify the\
+    \ memory of its own descendants.\nThis may differ from a real-world scenario where\
+    \ the attacker targets an arbitrary process,\nbut for the purpose of this test\
+    \ it preserves the detection-relevant behavior: the same syscalls and /proc/<pid>/mem\n\
+    access patterns are generated regardless of the relationship between injector\
+    \ and target."
+  tactic: privilege-escalation
+  technique:
+    attack_id: T1055.009
+    name: 'Process Injection: Proc Memory'
+  platforms:
+    linux:
+      sh:
+        command: got_injection
+        cleanup: rm -f /tmp/pwned
+        elevation_required: false
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - privilege-escalation
+  - t1055.009
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      bin_path:
+        type: path
+        default: PathToAtomicsFolder/T1055.009/bin/got_injection
+        description: path to got_injection
+    dependencies:
+    - description: gcc must be installed
+      prereq_command: which gcc
+      get_prereq_command: apt-get install -y gcc
+    - description: got_injection must be compiled
+      prereq_command: test -f PathToAtomicsFolder/T1055.009/bin/got_injection
+      get_prereq_command: make -C PathToAtomicsFolder/T1055.009/src
+    - description: /tmp/pwned must not exist before the test
+      prereq_command: test ! -f /tmp/pwned
+      get_prereq_command: rm -f /tmp/pwned
+    technique_created: '2020-01-14T01:34:10.588Z'
+    atomic_guid: 4383bbd3-aa6c-49fd-a1a9-cf112c95982c
+    import_timestamp: '2026-06-01T06:54:59.826647Z'

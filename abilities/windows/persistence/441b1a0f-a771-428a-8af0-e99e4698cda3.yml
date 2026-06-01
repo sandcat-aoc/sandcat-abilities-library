@@ -64,4 +64,4 @@
         -UseBasicParsing -OutFile "PathToAtomicsFolder\T1137.006\bin\Addins\excelxll_x86.xll"'
     technique_created: '2019-11-07T19:52:52.801Z'
     atomic_guid: 441b1a0f-a771-428a-8af0-e99e4698cda3
-    import_timestamp: '2026-05-31T06:18:30.916414Z'
+    import_timestamp: '2026-06-01T06:54:46.604586Z'

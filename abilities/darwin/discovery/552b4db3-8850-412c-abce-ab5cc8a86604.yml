@@ -19,8 +19,8 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - discovery
   - t1614
+  - discovery
   - atomic-red-team
   author: Atomic Red Team
   additional_info:
@@ -31,4 +31,4 @@
         default: https://ipinfo.io/
     technique_created: '2021-04-01T16:42:08.735Z'
     atomic_guid: 552b4db3-8850-412c-abce-ab5cc8a86604
-    import_timestamp: '2026-05-31T06:18:14.939530Z'
+    import_timestamp: '2026-06-01T06:54:31.934380Z'

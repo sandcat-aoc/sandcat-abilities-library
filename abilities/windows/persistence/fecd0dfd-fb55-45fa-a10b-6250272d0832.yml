@@ -46,10 +46,10 @@
   privilege: ''
   buckets:
   - atomic-red-team
-  - persistence
   - t1546.003
+  - persistence
   author: Atomic Red Team
   additional_info:
     technique_created: '2020-01-24T14:07:56.276Z'
     atomic_guid: fecd0dfd-fb55-45fa-a10b-6250272d0832
-    import_timestamp: '2026-06-02T06:41:53.946180Z'
+    import_timestamp: '2026-06-03T06:53:08.216819Z'

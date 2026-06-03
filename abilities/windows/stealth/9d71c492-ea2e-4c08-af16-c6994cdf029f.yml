@@ -22,8 +22,8 @@
   privilege: ''
   buckets:
   - atomic-red-team
-  - stealth
   - t1218.010
+  - stealth
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -51,4 +51,4 @@
         -OutFile "#{dll_name}"'
     technique_created: '2020-01-23T19:52:17.414Z'
     atomic_guid: 9d71c492-ea2e-4c08-af16-c6994cdf029f
-    import_timestamp: '2026-06-02T06:41:52.576210Z'
+    import_timestamp: '2026-06-03T06:53:06.779764Z'

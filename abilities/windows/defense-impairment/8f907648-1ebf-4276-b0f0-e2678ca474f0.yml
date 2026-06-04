@@ -23,8 +23,8 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - atomic-red-team
   - defense-impairment
+  - atomic-red-team
   - t1685
   author: Atomic Red Team
   additional_info:
@@ -35,4 +35,4 @@
         description: Microsoft-Windows-SenseIR ETW Provider GUID
     technique_created: '2026-04-14T22:53:26.949Z'
     atomic_guid: 8f907648-1ebf-4276-b0f0-e2678ca474f0
-    import_timestamp: '2026-06-03T06:53:09.168896Z'
+    import_timestamp: '2026-06-04T06:42:53.818861Z'

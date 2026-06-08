@@ -27,9 +27,9 @@
   delete_payload: false
   privilege: ''
   buckets:
+  - atomic-red-team
   - t1036.002
   - stealth
-  - atomic-red-team
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -39,4 +39,4 @@
         description: Input the file location. Default is the desktop.
     technique_created: '2020-02-10T19:55:29.385Z'
     atomic_guid: d7c03c7e-31cd-43c7-859a-ec053f73b23a
-    import_timestamp: '2026-06-07T06:24:33.957163Z'
+    import_timestamp: '2026-06-08T06:43:46.968078Z'

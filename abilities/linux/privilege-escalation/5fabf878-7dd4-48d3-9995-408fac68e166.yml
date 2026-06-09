@@ -69,4 +69,4 @@
       get_prereq_command: rm -f /tmp/pwned
     technique_created: '2020-01-14T01:34:10.588Z'
     atomic_guid: 5fabf878-7dd4-48d3-9995-408fac68e166
-    import_timestamp: '2026-06-08T06:44:03.210453Z'
+    import_timestamp: '2026-06-09T06:09:19.787911Z'

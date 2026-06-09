@@ -38,4 +38,4 @@
     use_case: Create an SMB share on a target over SSH for lateral tool transfer
     source_file: sharing.yml
     source_repository: https://github.com/infosecB/LOOBins
-    import_timestamp: '2026-06-08T06:43:14.123322Z'
+    import_timestamp: '2026-06-09T06:08:36.750257Z'

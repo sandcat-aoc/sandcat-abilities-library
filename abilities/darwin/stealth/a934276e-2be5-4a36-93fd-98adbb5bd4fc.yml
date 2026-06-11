@@ -15,9 +15,9 @@
   delete_payload: false
   privilege: ''
   buckets:
+  - stealth
   - t1070.003
   - atomic-red-team
-  - stealth
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -27,4 +27,4 @@
         default: ~/.bash_history
     technique_created: '2020-01-31T12:32:08.228Z'
     atomic_guid: a934276e-2be5-4a36-93fd-98adbb5bd4fc
-    import_timestamp: '2026-06-10T06:23:47.114796Z'
+    import_timestamp: '2026-06-11T06:49:00.697268Z'

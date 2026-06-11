@@ -20,11 +20,11 @@
   delete_payload: false
   privilege: ''
   buckets:
+  - defense-impairment
   - t1685
   - atomic-red-team
-  - defense-impairment
   author: Atomic Red Team
   additional_info:
     technique_created: '2026-04-14T22:53:26.949Z'
     atomic_guid: 19c07a45-452d-4620-90ed-4c34fffbe758
-    import_timestamp: '2026-06-10T06:24:03.751589Z'
+    import_timestamp: '2026-06-11T06:49:16.275046Z'

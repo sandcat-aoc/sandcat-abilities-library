@@ -20,8 +20,8 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - t1202
   - stealth
+  - t1202
   - atomic-red-team
   author: Atomic Red Team
   additional_info:
@@ -32,4 +32,4 @@
         default: notepad.exe
     technique_created: '2018-04-18T17:59:24.739Z'
     atomic_guid: cf3391e0-b482-4b02-87fc-ca8362269b29
-    import_timestamp: '2026-06-12T06:41:56.981877Z'
+    import_timestamp: '2026-06-13T06:17:16.268707Z'

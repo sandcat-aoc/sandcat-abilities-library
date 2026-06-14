@@ -45,9 +45,9 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - atomic-red-team
-  - t1055.009
   - privilege-escalation
+  - t1055.009
+  - atomic-red-team
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -67,4 +67,4 @@
       get_prereq_command: rm -f /tmp/pwned
     technique_created: '2020-01-14T01:34:10.588Z'
     atomic_guid: 3d9e332e-60c9-407a-af4c-a9ae43c4f1d0
-    import_timestamp: '2026-06-13T06:17:32.634800Z'
+    import_timestamp: '2026-06-14T06:40:30.099395Z'

@@ -17,8 +17,8 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - persistence
   - t1136.002
+  - persistence
   - atomic-red-team
   author: Atomic Red Team
   additional_info:
@@ -33,4 +33,4 @@
         default: T1136_pass123!
     technique_created: '2020-01-28T14:05:17.825Z'
     atomic_guid: dc7726d2-8ccb-4cc6-af22-0d5afb53a548
-    import_timestamp: '2026-06-14T06:40:16.353107Z'
+    import_timestamp: '2026-06-15T07:18:07.409219Z'

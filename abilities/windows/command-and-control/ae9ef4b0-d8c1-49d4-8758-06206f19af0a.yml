@@ -25,8 +25,8 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - command-and-control
   - t1572
+  - command-and-control
   - atomic-red-team
   author: Atomic Red Team
   additional_info:
@@ -53,4 +53,4 @@
         default: 127.0.0.1.xip.io
     technique_created: '2020-03-15T16:03:39.082Z'
     atomic_guid: ae9ef4b0-d8c1-49d4-8758-06206f19af0a
-    import_timestamp: '2026-06-14T06:40:16.622344Z'
+    import_timestamp: '2026-06-15T07:18:07.651656Z'

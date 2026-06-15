@@ -36,4 +36,4 @@
       get_prereq_command: Install-WindowsFeature -name Web-Server -IncludeManagementTools
     technique_created: '2017-05-31T21:30:19.735Z'
     atomic_guid: 42510244-5019-48fa-a0e5-66c3b76e6049
-    import_timestamp: '2026-06-14T06:40:17.359071Z'
+    import_timestamp: '2026-06-15T07:18:08.312059Z'

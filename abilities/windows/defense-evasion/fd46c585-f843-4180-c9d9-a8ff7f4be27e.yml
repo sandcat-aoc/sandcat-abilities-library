@@ -1,0 +1,32 @@
+- id: fd46c585-f843-4180-c9d9-a8ff7f4be27e
+  name: wsb.exe - Allows the specified folder to be accessible from within the Windows
+    Sandbox, mounted under `C:\users\WDAGUtilityAccount\Desktop` with the same folder
+    name as the source folder. This allows, for example, for copying payloads from
+    the host system into the sandbox (seen here), copying payloads from the sandbox
+    back to the host system, or for accessing arbitrary host system files by the sandbox.
+  description: Allows the specified folder to be accessible from within the Windows
+    Sandbox, mounted under `C:\users\WDAGUtilityAccount\Desktop` with the same folder
+    name as the source folder. This allows, for example, for copying payloads from
+    the host system into the sandbox (seen here), copying payloads from the sandbox
+    back to the host system, or for accessing arbitrary host system files by the sandbox.
+  tactic: defense-evasion
+  technique:
+    attack_id: T1564.006
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: 'wsb start --config "<Configuration><MappedFolders><MappedFolder><HostFolder>#{host.dir.temp}</HostFolder><ReadOnly>false</ReadOnly></MappedFolder></MappedFolders></Configuration>"
+
+          wsb exec -r System --id YOUR_ID -c "cmd.exe /c copy C:\users\WDAGUtilityAccount\Desktop\Temp\#{host.dir.temp}
+          #{host.dir.temp}"'
+  singleton: false
+  privilege: Elevated
+  repeatable: true
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: Konrad 'unrooted' Klawikowski
+  created: '2026-05-28'
+  modified: '2026-05-28'
+  operating_system: Windows All Versions

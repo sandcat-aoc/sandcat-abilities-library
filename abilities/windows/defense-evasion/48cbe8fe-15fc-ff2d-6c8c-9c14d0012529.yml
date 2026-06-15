@@ -1,0 +1,31 @@
+- id: 48cbe8fe-15fc-ff2d-6c8c-9c14d0012529
+  name: 'wsb.exe - Executes the given command in a Windows Sandbox from an inline
+    XML configuration with an embedded `<LogonCommand>`, leaving no `.wsb` file on
+    disk. Note: `<LogonCommand>` only fires once `WDAGUtilityAccount` actually logs
+    in, which only happens after an RDP session is established via `wsb connect`,
+    so this pattern opens a visible Sandbox window.'
+  description: 'Executes the given command in a Windows Sandbox from an inline XML
+    configuration with an embedded `<LogonCommand>`, leaving no `.wsb` file on disk.
+    Note: `<LogonCommand>` only fires once `WDAGUtilityAccount` actually logs in,
+    which only happens after an RDP session is established via `wsb connect`, so this
+    pattern opens a visible Sandbox window.'
+  tactic: defense-evasion
+  technique:
+    attack_id: T1564.006
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: 'wsb start --config "<Configuration><LogonCommand><Command>#{host.executable.name}</Command></LogonCommand></Configuration>"
+
+          wsb exec -r System --id YOUR_ID'
+  singleton: false
+  privilege: Elevated
+  repeatable: true
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: Konrad 'unrooted' Klawikowski
+  created: '2026-05-28'
+  modified: '2026-05-28'
+  operating_system: Windows All Versions

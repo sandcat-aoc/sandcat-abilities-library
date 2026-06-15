@@ -22,8 +22,8 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - stealth
   - t1027
+  - stealth
   - atomic-red-team
   author: Atomic Red Team
   additional_info:
@@ -34,4 +34,4 @@
         default: Write-Host "Hey, Atomic!"
     technique_created: '2017-05-31T21:30:32.662Z'
     atomic_guid: a50d5a97-2531-499e-a1de-5544c74432c6
-    import_timestamp: '2026-06-14T06:40:14.969834Z'
+    import_timestamp: '2026-06-15T07:18:06.175808Z'

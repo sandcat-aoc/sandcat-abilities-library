@@ -1,0 +1,22 @@
+- id: 125dff72-1aa1-fe00-0628-3e957f25b679
+  name: setupugc.exe - Same technique as above, but using the `auditUser` command-line
+    option.
+  description: Same technique as above, but using the `auditUser` command-line option.
+  tactic: defense-evasion
+  technique:
+    attack_id: T1218
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: setupugc.exe auditUser
+  singleton: true
+  privilege: User
+  repeatable: false
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: Ang Kar Min
+  created: '2026-04-20'
+  modified: '2026-04-20'
+  operating_system: Windows All Versions

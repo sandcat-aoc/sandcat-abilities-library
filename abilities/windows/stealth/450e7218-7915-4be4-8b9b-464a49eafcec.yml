@@ -28,8 +28,8 @@
   privilege: ''
   buckets:
   - t1027
-  - stealth
   - atomic-red-team
+  - stealth
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -47,4 +47,4 @@
         default: Debug
     technique_created: '2017-05-31T21:30:32.662Z'
     atomic_guid: 450e7218-7915-4be4-8b9b-464a49eafcec
-    import_timestamp: '2026-06-15T07:18:06.177529Z'
+    import_timestamp: '2026-06-16T07:27:16.582331Z'

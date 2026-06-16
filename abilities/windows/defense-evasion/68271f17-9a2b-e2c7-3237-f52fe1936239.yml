@@ -1,0 +1,23 @@
+- id: 68271f17-9a2b-e2c7-3237-f52fe1936239
+  name: scp.exe - Spawns specified command from `scp.exe` -> `ssh.exe`, even if no
+    SSH server is running on localhost (or any other address specified).
+  description: Spawns specified command from `scp.exe` -> `ssh.exe`, even if no SSH
+    server is running on localhost (or any other address specified).
+  tactic: defense-evasion
+  technique:
+    attack_id: T1202
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: scp.exe -o ProxyCommand="#{host.executable.name}" . localhost:.
+  singleton: true
+  privilege: User
+  repeatable: false
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: BinFault
+  created: '2026-06-03'
+  modified: '2026-06-03'
+  operating_system: Windows All Versions

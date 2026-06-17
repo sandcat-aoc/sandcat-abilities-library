@@ -1,0 +1,30 @@
+- id: 5b9a202c-0695-532e-9d92-662cedefee07
+  name: 5b9a202c-0695-532e-9d92-662cedefee07 - Malicious Driver Deployment
+  description: 'Malicious driver: 5b9a202c-0695-532e-9d92-662cedefee07
+
+    Category: vulnerable driver
+
+    Author: @BohraDJayesh
+
+    Created: 2026-06-01
+
+    MITRE Technique: T1068'
+  tactic: privilege-escalation
+  technique:
+    attack_id: T1068
+    name: Rootkit
+  platforms:
+    windows:
+      cmd:
+        command: sc create MaliciousDriver binPath= "C:\Windows\System32\drivers\malicious_driver.sys"
+          type= kernel
+  singleton: true
+  privilege: Elevated
+  repeatable: false
+  buckets:
+  - privilege-escalation
+  version: '1.0'
+  author: '@BohraDJayesh'
+  operating_system: Windows (Version Unspecified)
+  created: '2026-06-01'
+  modified: '2026-06-01'

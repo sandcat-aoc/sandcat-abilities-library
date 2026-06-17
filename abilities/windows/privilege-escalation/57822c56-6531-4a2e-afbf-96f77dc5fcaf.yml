@@ -1,0 +1,30 @@
+- id: 57822c56-6531-4a2e-afbf-96f77dc5fcaf
+  name: 57822c56-6531-4a2e-afbf-96f77dc5fcaf - Malicious Driver Deployment
+  description: 'Malicious driver: 57822c56-6531-4a2e-afbf-96f77dc5fcaf
+
+    Category: vulnerable driver
+
+    Author: Noam Pomerantz
+
+    Created: 2026-03-26
+
+    MITRE Technique: T1068'
+  tactic: privilege-escalation
+  technique:
+    attack_id: T1068
+    name: Rootkit
+  platforms:
+    windows:
+      cmd:
+        command: sc create MaliciousDriver binPath= "C:\Windows\System32\drivers\malicious_driver.sys"
+          type= kernel
+  singleton: true
+  privilege: Elevated
+  repeatable: false
+  buckets:
+  - privilege-escalation
+  version: '1.0'
+  author: Noam Pomerantz
+  operating_system: Windows (Version Unspecified)
+  created: '2026-03-26'
+  modified: '2026-03-26'

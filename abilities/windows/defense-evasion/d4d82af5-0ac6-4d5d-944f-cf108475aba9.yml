@@ -1,0 +1,30 @@
+- id: d4d82af5-0ac6-4d5d-944f-cf108475aba9
+  name: d4d82af5-0ac6-4d5d-944f-cf108475aba9 - Malicious Driver Deployment
+  description: 'Malicious driver: d4d82af5-0ac6-4d5d-944f-cf108475aba9
+
+    Category: vulnerable driver
+
+    Author: @cyb3rh0und, @reiterjr
+
+    Created: 2026-04-30
+
+    MITRE Technique: T1562.001'
+  tactic: defense-evasion
+  technique:
+    attack_id: T1562.001
+    name: Rootkit
+  platforms:
+    windows:
+      cmd:
+        command: sc create MaliciousDriver binPath= "C:\Windows\System32\drivers\malicious_driver.sys"
+          type= kernel
+  singleton: true
+  privilege: Elevated
+  repeatable: false
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: '@cyb3rh0und, @reiterjr'
+  operating_system: Windows (Version Unspecified)
+  created: '2026-04-30'
+  modified: '2026-04-30'

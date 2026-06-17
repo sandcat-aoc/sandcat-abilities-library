@@ -1,0 +1,30 @@
+- id: 82eee73e-156e-4344-b975-babbf0bc131f
+  name: 82eee73e-156e-4344-b975-babbf0bc131f - Malicious Driver Deployment
+  description: 'Malicious driver: 82eee73e-156e-4344-b975-babbf0bc131f
+
+    Category: vulnerable driver
+
+    Author: rhaym
+
+    Created: 2026-06-06
+
+    MITRE Technique: T1068'
+  tactic: privilege-escalation
+  technique:
+    attack_id: T1068
+    name: Rootkit
+  platforms:
+    windows:
+      cmd:
+        command: sc create MaliciousDriver binPath= "C:\Windows\System32\drivers\malicious_driver.sys"
+          type= kernel
+  singleton: true
+  privilege: Elevated
+  repeatable: false
+  buckets:
+  - privilege-escalation
+  version: '1.0'
+  author: rhaym
+  operating_system: Windows (Version Unspecified)
+  created: '2026-06-06'
+  modified: '2026-06-06'

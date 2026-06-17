@@ -1,0 +1,30 @@
+- id: dbd78de7-f5ab-4fb7-a246-39cbcca4678c
+  name: dbd78de7-f5ab-4fb7-a246-39cbcca4678c - Malicious Driver Deployment
+  description: 'Malicious driver: dbd78de7-f5ab-4fb7-a246-39cbcca4678c
+
+    Category: vulnerable driver
+
+    Author: Pierre-Henri Pezier
+
+    Created: 2026-05-05
+
+    MITRE Technique: T1562.001'
+  tactic: defense-evasion
+  technique:
+    attack_id: T1562.001
+    name: Rootkit
+  platforms:
+    windows:
+      cmd:
+        command: sc create MaliciousDriver binPath= "C:\Windows\System32\drivers\malicious_driver.sys"
+          type= kernel
+  singleton: true
+  privilege: Elevated
+  repeatable: false
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: Pierre-Henri Pezier
+  operating_system: Windows (Version Unspecified)
+  created: '2026-05-05'
+  modified: '2026-05-05'

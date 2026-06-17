@@ -1,0 +1,30 @@
+- id: 5d658b45-81f0-442e-ac43-7c249ce1d54f
+  name: 5d658b45-81f0-442e-ac43-7c249ce1d54f - Malicious Driver Deployment
+  description: 'Malicious driver: 5d658b45-81f0-442e-ac43-7c249ce1d54f
+
+    Category: vulnerable driver
+
+    Author: Element2023H
+
+    Created: 2026-06-09
+
+    MITRE Technique: T1068'
+  tactic: privilege-escalation
+  technique:
+    attack_id: T1068
+    name: Rootkit
+  platforms:
+    windows:
+      cmd:
+        command: sc create MaliciousDriver binPath= "C:\Windows\System32\drivers\malicious_driver.sys"
+          type= kernel
+  singleton: true
+  privilege: Elevated
+  repeatable: false
+  buckets:
+  - privilege-escalation
+  version: '1.0'
+  author: Element2023H
+  operating_system: Windows (Version Unspecified)
+  created: '2026-06-09'
+  modified: '2026-06-09'

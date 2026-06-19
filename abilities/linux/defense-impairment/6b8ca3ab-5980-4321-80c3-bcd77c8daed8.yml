@@ -19,9 +19,9 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - t1685
-  - defense-impairment
   - atomic-red-team
+  - defense-impairment
+  - t1685
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -31,4 +31,4 @@
         default: syslog.conf
     technique_created: '2026-04-14T22:53:26.949Z'
     atomic_guid: 6b8ca3ab-5980-4321-80c3-bcd77c8daed8
-    import_timestamp: '2026-06-18T06:52:01.679462Z'
+    import_timestamp: '2026-06-19T07:07:29.998046Z'

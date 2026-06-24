@@ -27,8 +27,8 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - t1685
   - defense-impairment
+  - t1685
   - atomic-red-team
   author: Atomic Red Team
   additional_info:
@@ -58,4 +58,4 @@
         -destinationpath "PathToAtomicsFolder\..\ExternalPayloads\pstools" -force'
     technique_created: '2026-04-14T22:53:26.949Z'
     atomic_guid: 6f118276-121d-4c09-bb58-a8fb4a72ee84
-    import_timestamp: '2026-06-23T06:06:46.513291Z'
+    import_timestamp: '2026-06-24T06:04:07.531746Z'

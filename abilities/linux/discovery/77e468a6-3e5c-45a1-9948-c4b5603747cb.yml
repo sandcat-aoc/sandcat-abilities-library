@@ -18,8 +18,8 @@
   privilege: ''
   buckets:
   - discovery
-  - atomic-red-team
   - t1135
+  - atomic-red-team
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -42,4 +42,4 @@
       get_prereq_command: "#{package_installer} \n"
     technique_created: '2017-12-14T16:46:06.044Z'
     atomic_guid: 77e468a6-3e5c-45a1-9948-c4b5603747cb
-    import_timestamp: '2026-06-25T06:06:36.374046Z'
+    import_timestamp: '2026-06-26T06:10:33.311521Z'

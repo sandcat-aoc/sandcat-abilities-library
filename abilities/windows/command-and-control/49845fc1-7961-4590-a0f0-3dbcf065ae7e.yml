@@ -18,9 +18,9 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - atomic-red-team
-  - t1105
   - command-and-control
+  - t1105
+  - atomic-red-team
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -34,4 +34,4 @@
         default: C:\Windows\System32\spool\tools\PrintBrm.exe
     technique_created: '2017-05-31T21:31:16.408Z'
     atomic_guid: 49845fc1-7961-4590-a0f0-3dbcf065ae7e
-    import_timestamp: '2026-06-27T05:54:15.461777Z'
+    import_timestamp: '2026-06-28T06:18:11.272921Z'

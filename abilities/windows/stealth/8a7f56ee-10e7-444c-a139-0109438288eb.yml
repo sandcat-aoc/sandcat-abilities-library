@@ -20,9 +20,9 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - stealth
   - t1218.011
   - atomic-red-team
+  - stealth
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -32,4 +32,4 @@
         default: '''%windir%\System32\calc.exe'''
     technique_created: '2020-01-23T18:03:46.248Z'
     atomic_guid: 8a7f56ee-10e7-444c-a139-0109438288eb
-    import_timestamp: '2026-06-28T06:18:09.032823Z'
+    import_timestamp: '2026-06-29T06:45:46.915779Z'

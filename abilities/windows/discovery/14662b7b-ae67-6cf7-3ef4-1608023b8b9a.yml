@@ -1,0 +1,24 @@
+- id: 14662b7b-ae67-6cf7-3ef4-1608023b8b9a
+  name: Wmic.exe - Executes WMIC to gather the existing Antivirus or EDR solution
+    installed on the machine.
+  description: Executes WMIC to gather the existing Antivirus or EDR solution installed
+    on the machine.
+  tactic: discovery
+  technique:
+    attack_id: T1518.001
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: WMIC.exe /Namespace:\\\\root\\SecurityCenter2 Path AntiVirusProduct
+          Get displayName,productState
+  singleton: true
+  privilege: User
+  repeatable: false
+  buckets:
+  - discovery
+  version: '1.0'
+  author: Oddvar Moe
+  created: '2018-05-25'
+  modified: '2018-05-25'
+  operating_system: Windows All Versions

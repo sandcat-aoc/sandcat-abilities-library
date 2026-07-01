@@ -33,4 +33,4 @@
     use_case: Transfer a file to a target using the tftp client
     source_file: tftp.yml
     source_repository: https://github.com/infosecB/LOOBins
-    import_timestamp: '2026-06-30T06:11:52.520739Z'
+    import_timestamp: '2026-07-01T06:24:58.335773Z'

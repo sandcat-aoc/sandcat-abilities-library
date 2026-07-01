@@ -24,8 +24,8 @@
   privilege: ''
   buckets:
   - t1489
-  - atomic-red-team
   - impact
+  - atomic-red-team
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -35,4 +35,4 @@
         default: spooler
     technique_created: '2019-03-29T19:00:55.901Z'
     atomic_guid: 41274289-ec9c-4213-bea4-e43c4aa57954
-    import_timestamp: '2026-06-30T06:12:34.152898Z'
+    import_timestamp: '2026-07-01T06:25:30.848457Z'

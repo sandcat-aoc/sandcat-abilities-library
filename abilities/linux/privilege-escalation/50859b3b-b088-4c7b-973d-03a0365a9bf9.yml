@@ -69,8 +69,8 @@
   privilege: ''
   buckets:
   - privilege-escalation
-  - t1055.009
   - atomic-red-team
+  - t1055.009
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -90,4 +90,4 @@
       get_prereq_command: rm -f /tmp/pwned
     technique_created: '2020-01-14T01:34:10.588Z'
     atomic_guid: 50859b3b-b088-4c7b-973d-03a0365a9bf9
-    import_timestamp: '2026-07-04T05:46:31.267085Z'
+    import_timestamp: '2026-07-05T06:06:04.724269Z'

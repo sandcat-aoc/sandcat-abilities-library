@@ -24,4 +24,4 @@
     use_case: Disable Firewall
     source_file: defaults.yml
     source_repository: https://github.com/infosecB/LOOBins
-    import_timestamp: '2026-07-07T06:06:52.213019Z'
+    import_timestamp: '2026-07-08T05:22:02.261887Z'

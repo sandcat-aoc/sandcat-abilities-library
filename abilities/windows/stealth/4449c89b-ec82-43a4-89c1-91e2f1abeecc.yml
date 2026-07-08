@@ -26,8 +26,8 @@
   privilege: ''
   buckets:
   - t1036
-  - stealth
   - atomic-red-team
+  - stealth
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -46,4 +46,4 @@
         \ \"PathToAtomicsFolder\\..\\ExternalPayloads\\T1036.zip\" \n"
     technique_created: '2017-05-31T21:30:38.511Z'
     atomic_guid: 4449c89b-ec82-43a4-89c1-91e2f1abeecc
-    import_timestamp: '2026-07-07T06:07:23.886124Z'
+    import_timestamp: '2026-07-08T05:22:36.675160Z'

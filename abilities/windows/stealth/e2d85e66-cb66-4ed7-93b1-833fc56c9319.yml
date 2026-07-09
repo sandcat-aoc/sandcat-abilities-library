@@ -20,8 +20,8 @@
   privilege: ''
   buckets:
   - t1027
-  - atomic-red-team
   - stealth
+  - atomic-red-team
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -35,4 +35,4 @@
         default: 127.0.0.1
     technique_created: '2017-05-31T21:30:32.662Z'
     atomic_guid: e2d85e66-cb66-4ed7-93b1-833fc56c9319
-    import_timestamp: '2026-07-08T05:22:36.950786Z'
+    import_timestamp: '2026-07-09T06:07:48.141032Z'

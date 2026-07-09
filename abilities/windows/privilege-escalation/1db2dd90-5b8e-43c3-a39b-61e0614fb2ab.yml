@@ -1,0 +1,30 @@
+- id: 1db2dd90-5b8e-43c3-a39b-61e0614fb2ab
+  name: 1db2dd90-5b8e-43c3-a39b-61e0614fb2ab - Malicious Driver Deployment
+  description: 'Malicious driver: 1db2dd90-5b8e-43c3-a39b-61e0614fb2ab
+
+    Category: vulnerable driver
+
+    Author: Aryu-RU
+
+    Created: 2026-06-25
+
+    MITRE Technique: T1068'
+  tactic: privilege-escalation
+  technique:
+    attack_id: T1068
+    name: Rootkit
+  platforms:
+    windows:
+      cmd:
+        command: sc create MaliciousDriver binPath= "C:\Windows\System32\drivers\malicious_driver.sys"
+          type= kernel
+  singleton: true
+  privilege: Elevated
+  repeatable: false
+  buckets:
+  - privilege-escalation
+  version: '1.0'
+  author: Aryu-RU
+  operating_system: Windows (Version Unspecified)
+  created: '2026-06-25'
+  modified: '2026-06-25'

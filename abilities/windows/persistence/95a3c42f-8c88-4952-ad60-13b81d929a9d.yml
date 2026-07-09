@@ -23,9 +23,9 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - atomic-red-team
   - persistence
   - t1547.004
+  - atomic-red-team
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -35,4 +35,4 @@
         default: C:\Windows\System32\cmd.exe
     technique_created: '2020-01-24T16:59:59.688Z'
     atomic_guid: 95a3c42f-8c88-4952-ad60-13b81d929a9d
-    import_timestamp: '2026-07-08T05:22:38.389726Z'
+    import_timestamp: '2026-07-09T06:07:49.243747Z'

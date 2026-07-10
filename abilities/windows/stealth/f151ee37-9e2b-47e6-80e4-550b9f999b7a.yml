@@ -18,8 +18,8 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - stealth
   - t1564.003
+  - stealth
   - atomic-red-team
   author: Atomic Red Team
   additional_info:
@@ -30,4 +30,4 @@
         default: powershell.exe -WindowStyle hidden calc.exe
     technique_created: '2020-03-13T20:26:49.433Z'
     atomic_guid: f151ee37-9e2b-47e6-80e4-550b9f999b7a
-    import_timestamp: '2026-07-09T06:07:48.211936Z'
+    import_timestamp: '2026-07-10T06:03:25.452489Z'

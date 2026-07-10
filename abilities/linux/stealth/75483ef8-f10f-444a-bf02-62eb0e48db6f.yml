@@ -23,8 +23,8 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - stealth
   - t1014
+  - stealth
   - atomic-red-team
   author: Atomic Red Team
   additional_info:
@@ -52,4 +52,4 @@
         \ ] && rm -rf /tmp/T1014\nsudo depmod -a\n"
     technique_created: '2017-05-31T21:30:26.496Z'
     atomic_guid: 75483ef8-f10f-444a-bf02-62eb0e48db6f
-    import_timestamp: '2026-07-09T06:08:03.311035Z'
+    import_timestamp: '2026-07-10T06:03:41.122463Z'

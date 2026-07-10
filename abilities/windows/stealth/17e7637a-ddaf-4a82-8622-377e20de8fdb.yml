@@ -22,8 +22,8 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - stealth
   - t1564.004
+  - stealth
   - atomic-red-team
   author: Atomic Red Team
   additional_info:
@@ -38,4 +38,4 @@
         default: adstest.txt
     technique_created: '2020-03-13T20:33:00.009Z'
     atomic_guid: 17e7637a-ddaf-4a82-8622-377e20de8fdb
-    import_timestamp: '2026-07-09T06:07:48.266867Z'
+    import_timestamp: '2026-07-10T06:03:25.518787Z'

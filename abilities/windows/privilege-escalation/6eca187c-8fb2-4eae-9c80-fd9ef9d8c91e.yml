@@ -1,0 +1,30 @@
+- id: 6eca187c-8fb2-4eae-9c80-fd9ef9d8c91e
+  name: 6eca187c-8fb2-4eae-9c80-fd9ef9d8c91e - Malicious Driver Deployment
+  description: 'Malicious driver: 6eca187c-8fb2-4eae-9c80-fd9ef9d8c91e
+
+    Category: vulnerable driver
+
+    Author: valium
+
+    Created: 2026-07-10
+
+    MITRE Technique: T1068'
+  tactic: privilege-escalation
+  technique:
+    attack_id: T1068
+    name: Rootkit
+  platforms:
+    windows:
+      cmd:
+        command: sc create MaliciousDriver binPath= "C:\Windows\System32\drivers\malicious_driver.sys"
+          type= kernel
+  singleton: true
+  privilege: Elevated
+  repeatable: false
+  buckets:
+  - privilege-escalation
+  version: '1.0'
+  author: valium
+  operating_system: Windows (Version Unspecified)
+  created: '2026-07-10'
+  modified: '2026-07-10'

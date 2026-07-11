@@ -21,8 +21,8 @@
   privilege: ''
   buckets:
   - t1136.001
-  - persistence
   - atomic-red-team
+  - persistence
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -36,4 +36,4 @@
         default: Evil Account
     technique_created: '2020-01-28T13:50:22.506Z'
     atomic_guid: 01993ba5-1da3-4e15-a719-b690d4f0f0b2
-    import_timestamp: '2026-07-10T06:03:09.571011Z'
+    import_timestamp: '2026-07-11T05:13:25.148698Z'

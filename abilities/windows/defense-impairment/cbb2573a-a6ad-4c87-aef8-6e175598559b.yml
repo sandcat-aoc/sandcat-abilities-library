@@ -99,9 +99,9 @@
   delete_payload: false
   privilege: ''
   buckets:
+  - defense-impairment
   - atomic-red-team
   - t1685
-  - defense-impairment
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -111,4 +111,4 @@
         description: PPL-protected process name to target
     technique_created: '2026-04-14T22:53:26.949Z'
     atomic_guid: cbb2573a-a6ad-4c87-aef8-6e175598559b
-    import_timestamp: '2026-07-12T05:28:18.665168Z'
+    import_timestamp: '2026-07-13T05:37:02.410893Z'

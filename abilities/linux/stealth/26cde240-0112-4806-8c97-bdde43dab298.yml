@@ -1,0 +1,29 @@
+- id: 26cde240-0112-4806-8c97-bdde43dab298
+  name: Linux File Extension Masquerading
+  description: Creates and executes a shell script masquerading as a PDF document
+    using a double extension (.pdf.sh).
+  tactic: stealth
+  technique:
+    attack_id: T1036.007
+    name: 'Masquerading: Double File Extension'
+  platforms:
+    linux:
+      sh:
+        command: echo '#!/bin/sh' > /tmp/report.pdf.sh; echo 'echo "Simulating malicious
+          double extension execution"' >> /tmp/report.pdf.sh; chmod +x /tmp/report.pdf.sh;
+          /tmp/report.pdf.sh
+        cleanup: rm -f /tmp/report.pdf.sh
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - stealth
+  - t1036.007
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    technique_created: '2021-08-04T20:54:03.066Z'
+    atomic_guid: 26cde240-0112-4806-8c97-bdde43dab298
+    import_timestamp: '2026-07-14T04:53:17.501936Z'

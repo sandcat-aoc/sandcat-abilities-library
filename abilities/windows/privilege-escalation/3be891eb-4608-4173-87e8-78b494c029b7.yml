@@ -38,4 +38,4 @@
         default: cmd.exe /c notepad.exe
     technique_created: '2020-01-30T14:24:34.977Z'
     atomic_guid: 3be891eb-4608-4173-87e8-78b494c029b7
-    import_timestamp: '2026-07-13T05:37:00.364186Z'
+    import_timestamp: '2026-07-14T04:53:00.667000Z'

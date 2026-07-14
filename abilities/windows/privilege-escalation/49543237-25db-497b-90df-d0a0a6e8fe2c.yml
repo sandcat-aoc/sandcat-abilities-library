@@ -35,4 +35,4 @@
         default: (Start-Process calc.exe -PassThru).Id
     technique_created: '2017-05-31T21:30:47.843Z'
     atomic_guid: 49543237-25db-497b-90df-d0a0a6e8fe2c
-    import_timestamp: '2026-07-13T05:37:00.475952Z'
+    import_timestamp: '2026-07-14T04:53:00.784409Z'

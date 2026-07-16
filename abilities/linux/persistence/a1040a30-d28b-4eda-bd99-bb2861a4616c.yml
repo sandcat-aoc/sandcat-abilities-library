@@ -21,8 +21,8 @@
   privilege: ''
   buckets:
   - t1136.001
-  - atomic-red-team
   - persistence
+  - atomic-red-team
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -36,4 +36,4 @@
         default: BetterWithButter
     technique_created: '2020-01-28T13:50:22.506Z'
     atomic_guid: a1040a30-d28b-4eda-bd99-bb2861a4616c
-    import_timestamp: '2026-07-15T04:53:21.193216Z'
+    import_timestamp: '2026-07-16T05:01:32.719052Z'

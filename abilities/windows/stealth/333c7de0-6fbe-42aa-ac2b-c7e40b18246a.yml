@@ -29,8 +29,8 @@
   privilege: ''
   buckets:
   - t1564
-  - stealth
   - atomic-red-team
+  - stealth
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -44,4 +44,4 @@
         default: C:\Windows\System32\calc.exe
     technique_created: '2020-02-26T17:41:25.933Z'
     atomic_guid: 333c7de0-6fbe-42aa-ac2b-c7e40b18246a
-    import_timestamp: '2026-07-16T05:01:14.837764Z'
+    import_timestamp: '2026-07-17T05:15:04.283379Z'

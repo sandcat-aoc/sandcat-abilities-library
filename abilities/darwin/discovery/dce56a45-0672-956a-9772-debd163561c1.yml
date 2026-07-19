@@ -25,4 +25,4 @@
     use_case: Use sysctl to gather macOS hardware info.
     source_file: sysctl.yml
     source_repository: https://github.com/infosecB/LOOBins
-    import_timestamp: '2026-07-18T04:48:57.778572Z'
+    import_timestamp: '2026-07-19T05:21:10.100356Z'

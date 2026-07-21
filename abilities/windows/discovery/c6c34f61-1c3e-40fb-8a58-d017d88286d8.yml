@@ -32,8 +32,8 @@
   privilege: ''
   buckets:
   - discovery
-  - t1083
   - atomic-red-team
+  - t1083
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -43,4 +43,4 @@
         default: $env:temp\T1083Test5.txt
     technique_created: '2017-05-31T21:31:04.710Z'
     atomic_guid: c6c34f61-1c3e-40fb-8a58-d017d88286d8
-    import_timestamp: '2026-07-20T05:40:16.054913Z'
+    import_timestamp: '2026-07-21T05:20:40.131131Z'

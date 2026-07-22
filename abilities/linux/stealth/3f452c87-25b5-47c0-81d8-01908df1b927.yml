@@ -72,9 +72,9 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - stealth
   - atomic-red-team
   - t1055.009
+  - stealth
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -94,4 +94,4 @@
       get_prereq_command: rm -f /tmp/pwned
     technique_created: '2020-01-14T01:34:10.588Z'
     atomic_guid: 3f452c87-25b5-47c0-81d8-01908df1b927
-    import_timestamp: '2026-07-21T05:20:53.165016Z'
+    import_timestamp: '2026-07-22T05:20:42.462354Z'

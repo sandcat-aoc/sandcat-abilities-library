@@ -32,9 +32,9 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - credential-access
   - atomic-red-team
   - t1003.006
+  - credential-access
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -69,4 +69,4 @@
         \ \"x64/mimikatz.exe\" $basePath\n"
     technique_created: '2020-02-11T18:45:34.293Z'
     atomic_guid: 129efd28-8497-4c87-a1b0-73b9a870ca3e
-    import_timestamp: '2026-07-21T05:20:39.846297Z'
+    import_timestamp: '2026-07-22T05:20:32.452477Z'

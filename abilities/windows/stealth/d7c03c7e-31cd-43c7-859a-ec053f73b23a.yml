@@ -28,8 +28,8 @@
   privilege: ''
   buckets:
   - stealth
-  - t1036.002
   - atomic-red-team
+  - t1036.002
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -39,4 +39,4 @@
         description: Input the file location. Default is the desktop.
     technique_created: '2020-02-10T19:55:29.385Z'
     atomic_guid: d7c03c7e-31cd-43c7-859a-ec053f73b23a
-    import_timestamp: '2026-07-23T05:26:03.111817Z'
+    import_timestamp: '2026-07-24T05:21:34.035560Z'

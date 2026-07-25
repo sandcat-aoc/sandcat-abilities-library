@@ -33,4 +33,4 @@
     use_case: Remote command execution over SSH using osascript do shell script
     source_file: osascript.yml
     source_repository: https://github.com/infosecB/LOOBins
-    import_timestamp: '2026-07-24T05:20:59.369141Z'
+    import_timestamp: '2026-07-25T05:15:23.502202Z'

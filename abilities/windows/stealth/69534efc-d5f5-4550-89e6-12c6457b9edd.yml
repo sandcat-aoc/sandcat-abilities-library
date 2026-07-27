@@ -30,8 +30,8 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - t1055
   - atomic-red-team
+  - t1055
   - stealth
   author: Atomic Red Team
   additional_info:
@@ -46,4 +46,4 @@
         default: werfault
     technique_created: '2017-05-31T21:30:47.843Z'
     atomic_guid: 69534efc-d5f5-4550-89e6-12c6457b9edd
-    import_timestamp: '2026-07-26T05:31:08.444527Z'
+    import_timestamp: '2026-07-27T05:48:17.326113Z'

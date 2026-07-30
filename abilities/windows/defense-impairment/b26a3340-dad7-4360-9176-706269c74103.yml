@@ -18,8 +18,8 @@
   privilege: ''
   buckets:
   - t1685.001
-  - atomic-red-team
   - defense-impairment
+  - atomic-red-team
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -29,4 +29,4 @@
         default: Microsoft-Windows-IKE/Operational
     technique_created: '2026-04-14T22:54:01.982Z'
     atomic_guid: b26a3340-dad7-4360-9176-706269c74103
-    import_timestamp: '2026-07-29T05:21:57.300621Z'
+    import_timestamp: '2026-07-30T04:58:31.401025Z'

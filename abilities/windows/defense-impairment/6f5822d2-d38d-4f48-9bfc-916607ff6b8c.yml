@@ -23,8 +23,8 @@
   privilege: ''
   buckets:
   - defense-impairment
-  - t1686
   - atomic-red-team
+  - t1686
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -34,4 +34,4 @@
         default: PathToAtomicsFolder\T1686\bin\AtomicTest.exe
     technique_created: '2026-04-14T22:53:27.275Z'
     atomic_guid: 6f5822d2-d38d-4f48-9bfc-916607ff6b8c
-    import_timestamp: '2026-07-30T04:58:31.826224Z'
+    import_timestamp: '2026-07-31T05:35:19.885391Z'

@@ -1,0 +1,23 @@
+- id: 93b2d4fd-ef86-bf29-d67c-5bb479c56f1a
+  name: Mofcomp.exe - Abuse of mofcomp.exe to parse a file which contains MOF statements
+    in order create new classes as part of the WMI repository
+  description: Abuse of mofcomp.exe to parse a file which contains MOF statements
+    in order create new classes as part of the WMI repository
+  tactic: execution
+  technique:
+    attack_id: T1047
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: 'mofcomp.exe #{host.dir.temp}'
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - execution
+  version: '1.0'
+  author: Daniel Gott
+  created: '2022-07-19'
+  modified: '2022-07-19'
+  operating_system: Windows All Versions

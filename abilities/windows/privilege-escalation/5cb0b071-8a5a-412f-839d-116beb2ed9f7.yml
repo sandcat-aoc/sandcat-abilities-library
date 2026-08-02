@@ -16,8 +16,8 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - privilege-escalation
   - atomic-red-team
+  - privilege-escalation
   - t1547
   author: Atomic Red Team
   additional_info:
@@ -29,4 +29,4 @@
         default: C:\Windows\INF\acpipmi.inf
     technique_created: '2020-01-23T17:46:59.535Z'
     atomic_guid: 5cb0b071-8a5a-412f-839d-116beb2ed9f7
-    import_timestamp: '2026-08-01T05:28:00.396498Z'
+    import_timestamp: '2026-08-02T05:26:36.225016Z'

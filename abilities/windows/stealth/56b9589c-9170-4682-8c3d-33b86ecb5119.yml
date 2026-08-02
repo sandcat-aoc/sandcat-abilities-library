@@ -16,11 +16,11 @@
   delete_payload: false
   privilege: ''
   buckets:
+  - atomic-red-team
   - t1620
   - stealth
-  - atomic-red-team
   author: Atomic Red Team
   additional_info:
     technique_created: '2021-10-05T01:15:06.293Z'
     atomic_guid: 56b9589c-9170-4682-8c3d-33b86ecb5119
-    import_timestamp: '2026-08-01T05:27:59.913848Z'
+    import_timestamp: '2026-08-02T05:26:35.913508Z'

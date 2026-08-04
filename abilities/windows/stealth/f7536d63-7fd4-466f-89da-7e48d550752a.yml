@@ -21,8 +21,8 @@
   privilege: ''
   buckets:
   - t1574.011
-  - atomic-red-team
   - stealth
+  - atomic-red-team
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -32,4 +32,4 @@
         default: weakservicename
     technique_created: '2020-03-13T11:42:14.444Z'
     atomic_guid: f7536d63-7fd4-466f-89da-7e48d550752a
-    import_timestamp: '2026-08-03T05:42:31.180450Z'
+    import_timestamp: '2026-08-04T05:16:01.425430Z'

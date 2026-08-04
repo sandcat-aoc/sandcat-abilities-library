@@ -19,9 +19,9 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - atomic-red-team
   - stealth
   - t1218.011
+  - atomic-red-team
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -45,4 +45,4 @@
         '
     technique_created: '2020-01-23T18:03:46.248Z'
     atomic_guid: e4c04b6f-c492-4782-82c7-3bf75eb8077e
-    import_timestamp: '2026-08-03T05:42:31.151760Z'
+    import_timestamp: '2026-08-04T05:16:01.398687Z'

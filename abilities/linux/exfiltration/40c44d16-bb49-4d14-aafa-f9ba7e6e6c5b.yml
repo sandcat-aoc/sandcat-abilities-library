@@ -29,8 +29,8 @@
   privilege: ''
   buckets:
   - t1567.004
-  - atomic-red-team
   - exfiltration
+  - atomic-red-team
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -44,4 +44,4 @@
         default: /tmp/T1567.004_loot.txt
     technique_created: '2023-07-20T15:30:55.763Z'
     atomic_guid: 40c44d16-bb49-4d14-aafa-f9ba7e6e6c5b
-    import_timestamp: '2026-08-03T05:42:50.062994Z'
+    import_timestamp: '2026-08-04T05:16:19.567444Z'

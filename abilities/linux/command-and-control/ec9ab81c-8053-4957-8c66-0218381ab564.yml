@@ -22,9 +22,9 @@
   delete_payload: false
   privilege: ''
   buckets:
+  - t1102.002
   - command-and-control
   - atomic-red-team
-  - t1102.002
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -38,4 +38,4 @@
         default: https://paste.rs
     technique_created: '2020-03-14T22:34:03.024Z'
     atomic_guid: ec9ab81c-8053-4957-8c66-0218381ab564
-    import_timestamp: '2026-08-05T05:15:04.114445Z'
+    import_timestamp: '2026-08-06T05:17:07.720046Z'

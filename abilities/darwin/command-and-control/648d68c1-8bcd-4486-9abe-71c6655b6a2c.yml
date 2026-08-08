@@ -25,8 +25,8 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - command-and-control
   - t1090.001
+  - command-and-control
   - atomic-red-team
   author: Atomic Red Team
   additional_info:
@@ -45,4 +45,4 @@
         default: Wi-Fi
     technique_created: '2020-03-14T23:08:20.244Z'
     atomic_guid: 648d68c1-8bcd-4486-9abe-71c6655b6a2c
-    import_timestamp: '2026-08-07T04:26:18.256674Z'
+    import_timestamp: '2026-08-08T03:24:30.662075Z'

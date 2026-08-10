@@ -32,4 +32,4 @@
     use_case: Activate the built-in TFTP server via launchctl
     source_file: tftp.yml
     source_repository: https://github.com/infosecB/LOOBins
-    import_timestamp: '2026-08-09T03:33:10.482145Z'
+    import_timestamp: '2026-08-10T03:52:47.622647Z'

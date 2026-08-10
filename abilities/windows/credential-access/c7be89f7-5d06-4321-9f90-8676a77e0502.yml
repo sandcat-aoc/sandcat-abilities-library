@@ -27,9 +27,9 @@
   delete_payload: false
   privilege: ''
   buckets:
+  - t1003.003
   - credential-access
   - atomic-red-team
-  - t1003.003
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -43,4 +43,4 @@
         default: https://raw.githubusercontent.com/kfallahi/UnderlayCopy/37f2e9b76b724bc1211437b14deaf1e76b21791e/UnderlayCopy.ps1
     technique_created: '2020-02-11T18:42:35.572Z'
     atomic_guid: c7be89f7-5d06-4321-9f90-8676a77e0502
-    import_timestamp: '2026-08-09T03:33:50.024748Z'
+    import_timestamp: '2026-08-10T03:53:27.043457Z'

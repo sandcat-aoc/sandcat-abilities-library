@@ -32,9 +32,9 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - atomic-red-team
   - t1574.001
   - execution
+  - atomic-red-team
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -54,4 +54,4 @@
         -OutFile "#{ntprint_dll_file}"'
     technique_created: '2020-03-13T18:11:08.357Z'
     atomic_guid: e96b8105-d7f7-484e-8d81-2d0c7086971b
-    import_timestamp: '2026-08-09T03:33:48.019869Z'
+    import_timestamp: '2026-08-10T03:53:25.066841Z'

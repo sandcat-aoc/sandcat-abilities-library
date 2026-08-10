@@ -19,9 +19,9 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - atomic-red-team
-  - defense-impairment
   - t1685
+  - defense-impairment
+  - atomic-red-team
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -31,4 +31,4 @@
         default: McAfeeDLPAgentService
     technique_created: '2026-04-14T22:53:26.949Z'
     atomic_guid: ae753dda-0f15-4af6-a168-b9ba16143143
-    import_timestamp: '2026-08-09T03:33:49.530380Z'
+    import_timestamp: '2026-08-10T03:53:26.555646Z'

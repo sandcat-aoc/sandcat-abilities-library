@@ -20,8 +20,8 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - collection
   - t1560.001
+  - collection
   - atomic-red-team
   author: Atomic Red Team
   additional_info:
@@ -53,4 +53,4 @@
         \  cmd /c \"PathToAtomicsFolder\\..\\ExternalPayloads\\winzip.exe\"\n}\n"
     technique_created: '2020-02-20T21:01:25.428Z'
     atomic_guid: 01df0353-d531-408d-a0c5-3161bf822134
-    import_timestamp: '2026-08-10T03:53:26.095152Z'
+    import_timestamp: '2026-08-11T03:43:18.718590Z'

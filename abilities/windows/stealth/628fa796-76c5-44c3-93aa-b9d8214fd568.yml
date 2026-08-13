@@ -21,8 +21,8 @@
   privilege: ''
   buckets:
   - stealth
-  - t1218.007
   - atomic-red-team
+  - t1218.007
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -58,4 +58,4 @@
         '
     technique_created: '2020-01-24T14:38:49.266Z'
     atomic_guid: 628fa796-76c5-44c3-93aa-b9d8214fd568
-    import_timestamp: '2026-08-12T04:06:31.151288Z'
+    import_timestamp: '2026-08-13T04:11:32.533434Z'

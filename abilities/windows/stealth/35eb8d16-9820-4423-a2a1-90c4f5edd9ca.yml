@@ -20,8 +20,8 @@
   privilege: ''
   buckets:
   - t1036.005
-  - stealth
   - atomic-red-team
+  - stealth
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -32,4 +32,4 @@
         default: $Env:windir\Temp\svchost.exe
     technique_created: '2020-02-10T20:43:10.239Z'
     atomic_guid: 35eb8d16-9820-4423-a2a1-90c4f5edd9ca
-    import_timestamp: '2026-08-13T04:11:32.452242Z'
+    import_timestamp: '2026-08-14T04:06:33.188580Z'

@@ -12,18 +12,33 @@
   platforms:
     windows:
       sh:
-        command: wmic process get caption,executablepath,commandline /format:csv
+        command: 'if (Test-Path "$env:SystemRoot\System32\wbem\wmic.exe") {exit 0}
+          else {exit 1}; then : ; else DISM /Online /Add-Capability /CapabilityName:WMIC~~~~;
+          fi; wmic process get caption,executablepath,commandline /format:csv'
   plugin: atomic
   singleton: false
   repeatable: true
   delete_payload: false
   privilege: ''
   buckets:
-  - t1047
-  - execution
   - atomic-red-team
+  - execution
+  - t1047
   author: Atomic Red Team
   additional_info:
+    dependencies:
+    - description: 'wmic.exe must be present on the system. It is disabled by default
+        on Windows 11, version 24H2 and later, and removed when upgrading to version
+        25H2.
+
+        '
+      prereq_command: 'if (Test-Path "$env:SystemRoot\System32\wbem\wmic.exe") {exit
+        0} else {exit 1}
+
+        '
+      get_prereq_command: 'DISM /Online /Add-Capability /CapabilityName:WMIC~~~~
+
+        '
     technique_created: '2017-05-31T21:30:44.329Z'
     atomic_guid: 5750aa16-0e59-4410-8b9a-8a47ca2788e2
-    import_timestamp: '2026-08-16T02:59:51.580892Z'
+    import_timestamp: '2026-08-17T02:58:42.803485Z'

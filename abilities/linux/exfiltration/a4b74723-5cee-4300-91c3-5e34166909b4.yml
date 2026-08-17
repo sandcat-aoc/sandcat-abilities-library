@@ -65,9 +65,9 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - t1567.002
-  - exfiltration
   - atomic-red-team
+  - exfiltration
+  - t1567.002
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -142,4 +142,4 @@
         \ \"This is a test file\"\n}\n"
     technique_created: '2020-03-09T15:04:32.767Z'
     atomic_guid: a4b74723-5cee-4300-91c3-5e34166909b4
-    import_timestamp: '2026-08-16T03:00:05.775885Z'
+    import_timestamp: '2026-08-17T02:58:57.263499Z'

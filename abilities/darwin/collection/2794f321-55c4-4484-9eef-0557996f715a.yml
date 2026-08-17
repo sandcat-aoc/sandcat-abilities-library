@@ -1,0 +1,84 @@
+- id: 2794f321-55c4-4484-9eef-0557996f715a
+  name: Data Compressed - macOS - ditto Archive of a Sensitive Directory
+  description: 'Uses `ditto`, Apple''s own copy and archive utility, to compress a
+    directory holding sensitive data into a
+
+    single zip archive, which is the staging step that normally precedes exfiltration.
+
+
+    `ditto` is the tool macOS infostealers reach for rather than `zip` or `tar`, because
+    it preserves resource
+
+    forks and extended attributes, so the archive survives a round trip with macOS
+    metadata intact. CyberProof''s
+
+    AMOS analysis describes the malware aggregating Keychain files, browser credentials
+    and wallet data and
+
+    compressing them "into a single archive named `osalogging.zip` within the `/tmp`
+    directory using native macOS
+
+    utilities like `ditto`". [LOOBins](https://www.loobins.io/binaries/ditto/) lists
+    the same
+
+    `ditto -c -k --sequesterRsrc --keepParent` form under Collection and Exfiltration,
+    and notes there was no
+
+    detection content for the binary at the time of writing.
+
+
+    The default source is the user''s Keychains directory, which exists on every macOS
+    install and is the highest
+
+    value target of the real technique. Both the source and the destination are input
+    arguments, so the test can
+
+    be pointed at a directory of your choosing instead.
+
+
+    Upon successful execution, a zip archive is created at the output path and its
+    size is printed.'
+  tactic: collection
+  technique:
+    attack_id: T1560.001
+    name: 'Archive Collected Data: Archive via Utility'
+  platforms:
+    darwin:
+      sh:
+        command: 'if [ -d "$HOME/Library/Keychains" ]; then : ; else mkdir -p $HOME/Library/Keychains;
+          fi; ditto -c -k --sequesterRsrc --keepParent "$HOME/Library/Keychains" "/tmp/T1560.001_ditto_archive.zip"'
+        cleanup: rm -f "#{output_file}"
+        elevation_required: false
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - collection
+  - atomic-red-team
+  - t1560.001
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      source_path:
+        description: Directory that gets archived
+        type: path
+        default: $HOME/Library/Keychains
+      output_file:
+        description: Path of the archive that is created
+        type: path
+        default: /tmp/T1560.001_ditto_archive.zip
+    dependencies:
+    - description: 'The source directory #{source_path} must exist
+
+        '
+      prereq_command: 'if [ -d "#{source_path}" ]; then exit 0; else exit 1; fi
+
+        '
+      get_prereq_command: 'mkdir -p #{source_path}
+
+        '
+    technique_created: '2020-02-20T21:01:25.428Z'
+    atomic_guid: 2794f321-55c4-4484-9eef-0557996f715a
+    import_timestamp: '2026-08-17T02:58:28.225936Z'

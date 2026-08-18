@@ -6,8 +6,8 @@
     Upon execution, calc.exe will be launched.'
   tactic: stealth
   technique:
-    attack_id: T1216
-    name: Signed Script Proxy Execution
+    attack_id: T1216.002
+    name: 'System Script Proxy Execution: SyncAppvPublishingServer'
   platforms:
     windows:
       sh:
@@ -19,9 +19,9 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - atomic-red-team
   - stealth
-  - t1216
+  - atomic-red-team
+  - t1216.002
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -29,6 +29,6 @@
         description: A PowerShell command to execute.
         type: string
         default: Start-Process calc
-    technique_created: '2018-04-18T17:59:24.739Z'
+    technique_created: '2024-02-06T16:20:41.647Z'
     atomic_guid: 275d963d-3f36-476c-8bef-a2a3960ee6eb
-    import_timestamp: '2026-08-17T02:58:42.332796Z'
+    import_timestamp: '2026-08-18T02:56:40.522521Z'

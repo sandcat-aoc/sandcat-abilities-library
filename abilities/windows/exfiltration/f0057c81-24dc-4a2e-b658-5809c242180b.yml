@@ -32,9 +32,9 @@
   delete_payload: false
   privilege: ''
   buckets:
+  - atomic-red-team
   - t1567.004
   - exfiltration
-  - atomic-red-team
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -48,4 +48,4 @@
         default: $env:TEMP\T1567.004_loot.txt
     technique_created: '2023-07-20T15:30:55.763Z'
     atomic_guid: f0057c81-24dc-4a2e-b658-5809c242180b
-    import_timestamp: '2026-08-18T02:56:43.971983Z'
+    import_timestamp: '2026-08-19T02:57:40.567685Z'

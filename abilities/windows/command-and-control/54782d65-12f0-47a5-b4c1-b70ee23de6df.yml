@@ -23,8 +23,8 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - atomic-red-team
   - t1105
+  - atomic-red-team
   - command-and-control
   author: Atomic Red Team
   additional_info:
@@ -53,4 +53,4 @@
         '
     technique_created: '2017-05-31T21:31:16.408Z'
     atomic_guid: 54782d65-12f0-47a5-b4c1-b70ee23de6df
-    import_timestamp: '2026-08-21T03:02:46.131202Z'
+    import_timestamp: '2026-08-22T02:54:29.409686Z'

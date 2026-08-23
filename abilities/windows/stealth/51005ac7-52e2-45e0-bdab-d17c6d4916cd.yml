@@ -20,10 +20,10 @@
   privilege: ''
   buckets:
   - t1036
-  - atomic-red-team
   - stealth
+  - atomic-red-team
   author: Atomic Red Team
   additional_info:
     technique_created: '2017-05-31T21:30:38.511Z'
     atomic_guid: 51005ac7-52e2-45e0-bdab-d17c6d4916cd
-    import_timestamp: '2026-08-22T02:54:27.872958Z'
+    import_timestamp: '2026-08-23T03:01:14.676747Z'

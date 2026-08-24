@@ -20,8 +20,8 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - defense-impairment
   - atomic-red-team
+  - defense-impairment
   - t1685
   author: Atomic Red Team
   additional_info:
@@ -32,4 +32,4 @@
         default: outlook.exe
     technique_created: '2026-04-14T22:53:26.949Z'
     atomic_guid: a123ce6a-3916-45d6-ba9c-7d4081315c27
-    import_timestamp: '2026-08-23T03:01:17.170611Z'
+    import_timestamp: '2026-08-24T03:02:58.495240Z'

@@ -23,11 +23,11 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - t1018
   - atomic-red-team
   - discovery
+  - t1018
   author: Atomic Red Team
   additional_info:
     technique_created: '2017-05-31T21:30:28.187Z'
     atomic_guid: e3cf5123-f6c9-4375-bdf2-1bb3ba43a1ad
-    import_timestamp: '2026-08-23T03:01:18.044809Z'
+    import_timestamp: '2026-08-24T03:02:59.429273Z'

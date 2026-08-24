@@ -25,4 +25,4 @@
     use_case: Force kill processes with SIGKILL
     source_file: pkill.yml
     source_repository: https://github.com/infosecB/LOOBins
-    import_timestamp: '2026-08-23T03:00:45.512691Z'
+    import_timestamp: '2026-08-24T03:02:25.999449Z'

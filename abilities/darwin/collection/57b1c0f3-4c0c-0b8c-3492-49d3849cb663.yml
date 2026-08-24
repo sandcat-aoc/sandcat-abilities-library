@@ -25,4 +25,4 @@
     use_case: Use the osascript binary to gather system information
     source_file: osascript.yml
     source_repository: https://github.com/infosecB/LOOBins
-    import_timestamp: '2026-08-23T03:00:45.542779Z'
+    import_timestamp: '2026-08-24T03:02:26.032882Z'

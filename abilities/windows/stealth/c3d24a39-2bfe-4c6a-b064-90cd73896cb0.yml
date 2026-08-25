@@ -19,8 +19,8 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - t1036.003
   - atomic-red-team
+  - t1036.003
   - stealth
   author: Atomic Red Team
   additional_info:
@@ -35,4 +35,4 @@
         default: $env:ComSpec
     technique_created: '2020-02-10T20:03:11.691Z'
     atomic_guid: c3d24a39-2bfe-4c6a-b064-90cd73896cb0
-    import_timestamp: '2026-08-24T03:02:56.183925Z'
+    import_timestamp: '2026-08-25T02:57:38.893909Z'

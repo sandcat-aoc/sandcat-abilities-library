@@ -17,10 +17,10 @@
   privilege: ''
   buckets:
   - t1055.001
-  - privilege-escalation
   - atomic-red-team
+  - privilege-escalation
   author: Atomic Red Team
   additional_info:
     technique_created: '2020-01-14T01:26:08.145Z'
     atomic_guid: 8b56f787-73d9-4f1d-87e8-d07e89cbc7f5
-    import_timestamp: '2026-08-24T03:02:56.839278Z'
+    import_timestamp: '2026-08-25T02:57:39.514286Z'

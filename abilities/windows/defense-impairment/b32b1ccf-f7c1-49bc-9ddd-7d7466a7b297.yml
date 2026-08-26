@@ -24,9 +24,9 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - atomic-red-team
-  - defense-impairment
   - t1685
+  - defense-impairment
+  - atomic-red-team
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -36,4 +36,4 @@
         default: C:\ProgramData\Package Cache\{7489ba93-b668-447f-8401-7e57a6fe538d}\WindowsSensor.exe
     technique_created: '2026-04-14T22:53:26.949Z'
     atomic_guid: b32b1ccf-f7c1-49bc-9ddd-7d7466a7b297
-    import_timestamp: '2026-08-25T02:57:41.051303Z'
+    import_timestamp: '2026-08-26T03:03:28.644597Z'

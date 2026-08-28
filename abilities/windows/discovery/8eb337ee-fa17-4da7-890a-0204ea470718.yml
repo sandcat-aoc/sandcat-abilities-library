@@ -1,0 +1,80 @@
+- id: 8eb337ee-fa17-4da7-890a-0204ea470718
+  name: Enumerate Windows Defender exclusion paths via MpCmdRun.exe
+  description: 'Determines whether one or more paths are excluded from Microsoft Defender
+    scanning by invoking
+
+    the signed Microsoft binary MpCmdRun.exe with a custom scan (-ScanType 3) against
+    a
+
+    deliberately invalid path containing a pipe character. Because Defender evaluates
+    its
+
+    exclusion list before attempting to scan, an excluded directory reports that scanning
+
+    "was skipped".
+
+
+    This does not require administrative privileges, unlike Get-MpPreference, which
+    returns
+
+    "N/A: Must be an administrator to view exclusions" for unprivileged users. An
+    adversary can
+
+    therefore map Defender''s blind spots as a low-privileged user in order to select
+    a location in
+
+    which to stage file-based payloads.
+
+
+    Upon successful execution, excluded paths return "was skipped".
+
+
+    Reference: https://blog.fndsec.net/2024/10/04/uncovering-exclusion-paths-in-microsoft-defender-a-security-research-insight/'
+  tactic: discovery
+  technique:
+    attack_id: T1518.001
+    name: 'Software Discovery: Security Software Discovery'
+  platforms:
+    windows:
+      psh:
+        command: 'if (Test-Path "C:\Program Files\Windows Defender\MpCmdRun.exe")
+          {exit 0} else {exit 1}; then : ; else Write-Host (; "MpCmdRun.exe is a native
+          Microsoft Defender component and cannot be installed. " +; "It is not present
+          at C:\Program Files\Windows Defender\MpCmdRun.exe."; ); fi; "C:\Temp\ARTExclusionTest".Split(",")
+          | ForEach-Object {; $path = $_.Trim(); if ($path) {; & "C:\Program Files\Windows
+          Defender\MpCmdRun.exe" -Scan -ScanType 3 -File "$path\|*"; }; }'
+        elevation_required: false
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - atomic-red-team
+  - discovery
+  - t1518.001
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      exclusion_paths:
+        description: Comma-separated directories to check against the Defender exclusion
+          list.
+        type: string
+        default: C:\Temp\ARTExclusionTest
+      mpcmdrun_path:
+        description: Path to the Microsoft Defender command line utility.
+        type: path
+        default: C:\Program Files\Windows Defender\MpCmdRun.exe
+    dependencies:
+    - description: 'MpCmdRun.exe must be present on the system.
+
+        '
+      prereq_command: 'if (Test-Path "#{mpcmdrun_path}") {exit 0} else {exit 1}
+
+        '
+      get_prereq_command: "Write-Host (\n  \"MpCmdRun.exe is a native Microsoft Defender\
+        \ component and cannot be installed. \" +\n  \"It is not present at #{mpcmdrun_path}.\"\
+        \n)\n"
+    technique_created: '2020-02-21T21:16:18.066Z'
+    atomic_guid: 8eb337ee-fa17-4da7-890a-0204ea470718
+    import_timestamp: '2026-08-28T13:46:35.955986Z'

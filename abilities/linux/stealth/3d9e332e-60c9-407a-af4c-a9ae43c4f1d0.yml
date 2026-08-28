@@ -46,8 +46,8 @@
   privilege: ''
   buckets:
   - atomic-red-team
-  - t1055.009
   - stealth
+  - t1055.009
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -67,4 +67,4 @@
       get_prereq_command: rm -f /tmp/pwned
     technique_created: '2020-01-14T01:34:10.588Z'
     atomic_guid: 3d9e332e-60c9-407a-af4c-a9ae43c4f1d0
-    import_timestamp: '2026-08-27T12:21:17.566208Z'
+    import_timestamp: '2026-08-28T13:46:47.553484Z'

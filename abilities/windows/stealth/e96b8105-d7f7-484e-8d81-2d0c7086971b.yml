@@ -33,8 +33,8 @@
   privilege: ''
   buckets:
   - atomic-red-team
-  - stealth
   - t1574.001
+  - stealth
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -54,4 +54,4 @@
         -OutFile "#{ntprint_dll_file}"'
     technique_created: '2020-03-13T18:11:08.357Z'
     atomic_guid: e96b8105-d7f7-484e-8d81-2d0c7086971b
-    import_timestamp: '2026-08-28T13:46:32.533132Z'
+    import_timestamp: '2026-08-29T08:38:52.263932Z'

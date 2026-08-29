@@ -22,8 +22,8 @@
   privilege: ''
   buckets:
   - atomic-red-team
-  - stealth
   - t1140
+  - stealth
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -41,4 +41,4 @@
       get_prereq_command: echo "Install Python3"
     technique_created: '2017-12-14T16:46:06.044Z'
     atomic_guid: c3b65cd5-ee51-4e98-b6a3-6cbdec138efc
-    import_timestamp: '2026-08-28T13:46:18.106401Z'
+    import_timestamp: '2026-08-29T08:38:36.933888Z'

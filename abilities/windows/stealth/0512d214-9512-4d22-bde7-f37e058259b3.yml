@@ -15,8 +15,8 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - t1070.005
   - atomic-red-team
+  - t1070.005
   - stealth
   author: Atomic Red Team
   additional_info:
@@ -27,4 +27,4 @@
         default: \\test\share
     technique_created: '2020-01-31T12:39:18.816Z'
     atomic_guid: 0512d214-9512-4d22-bde7-f37e058259b3
-    import_timestamp: '2026-08-28T13:46:32.819905Z'
+    import_timestamp: '2026-08-29T08:38:52.568779Z'

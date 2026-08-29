@@ -24,8 +24,8 @@
   privilege: ''
   buckets:
   - atomic-red-team
-  - stealth
   - t1027.002
+  - stealth
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -35,4 +35,4 @@
         default: PathToAtomicsFolder/T1027.002/bin/darwin/test_upx_header_changed
     technique_created: '2020-02-05T14:17:46.686Z'
     atomic_guid: 4d46e16b-5765-4046-9f25-a600d3e65e4d
-    import_timestamp: '2026-08-28T13:46:18.151995Z'
+    import_timestamp: '2026-08-29T08:38:36.983973Z'

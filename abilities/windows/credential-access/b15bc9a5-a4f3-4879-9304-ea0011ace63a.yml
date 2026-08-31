@@ -37,8 +37,8 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - t1110.003
   - credential-access
+  - t1110.003
   - atomic-red-team
   author: Atomic Red Team
   additional_info:
@@ -70,4 +70,4 @@
         \ to $env:Temp\\usersdpsLight.txt\"\n"
     technique_created: '2020-02-11T18:39:25.122Z'
     atomic_guid: b15bc9a5-a4f3-4879-9304-ea0011ace63a
-    import_timestamp: '2026-08-30T07:50:54.165756Z'
+    import_timestamp: '2026-08-31T08:05:48.713286Z'

@@ -1,0 +1,30 @@
+- id: 3207f14b-a66c-4d5e-a5d5-2467ffd58265
+  name: 3207f14b-a66c-4d5e-a5d5-2467ffd58265 - Malicious Driver Deployment
+  description: 'Malicious driver: 3207f14b-a66c-4d5e-a5d5-2467ffd58265
+
+    Category: malicious
+
+    Author: wwwab
+
+    Created: 2026-08-29
+
+    MITRE Technique: T1547.006'
+  tactic: persistence
+  technique:
+    attack_id: T1547.006
+    name: Rootkit
+  platforms:
+    windows:
+      cmd:
+        command: sc create MaliciousDriver binPath= "C:\Windows\System32\drivers\malicious_driver.sys"
+          type= kernel
+  singleton: true
+  privilege: Elevated
+  repeatable: false
+  buckets:
+  - persistence
+  version: '1.0'
+  author: wwwab
+  operating_system: Windows (Version Unspecified)
+  created: '2026-08-29'
+  modified: '2026-08-29'

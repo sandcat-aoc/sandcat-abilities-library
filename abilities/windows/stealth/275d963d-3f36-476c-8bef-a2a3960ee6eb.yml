@@ -19,9 +19,9 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - t1216.002
-  - stealth
   - atomic-red-team
+  - stealth
+  - t1216.002
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -31,4 +31,4 @@
         default: Start-Process calc
     technique_created: '2024-02-06T16:20:41.647Z'
     atomic_guid: 275d963d-3f36-476c-8bef-a2a3960ee6eb
-    import_timestamp: '2026-08-31T08:05:46.075980Z'
+    import_timestamp: '2026-09-01T07:13:00.261166Z'

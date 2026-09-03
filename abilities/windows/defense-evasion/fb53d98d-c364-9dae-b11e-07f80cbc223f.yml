@@ -1,0 +1,25 @@
+- id: fb53d98d-c364-9dae-b11e-07f80cbc223f
+  name: dotnet-counters.exe - Launches the specified executable as a child process
+    while collecting performance counter data for 1 second.
+  description: Launches the specified executable as a child process while collecting
+    performance counter data for 1 second.
+  tactic: defense-evasion
+  technique:
+    attack_id: T1127
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: dotnet-counters.exe collect --duration 1 -- payload.exe
+        payloads:
+        - payload.exe
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: "Iv\xE1n Cabrera"
+  created: '2026-08-27'
+  modified: '2026-08-27'
+  operating_system: Windows All Versions

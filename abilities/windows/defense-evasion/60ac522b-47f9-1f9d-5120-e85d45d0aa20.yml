@@ -1,0 +1,25 @@
+- id: 60ac522b-47f9-1f9d-5120-e85d45d0aa20
+  name: dotnet-trace.exe - Launches the specified executable as a child process while
+    collecting runtime trace data for 1 second during execution.
+  description: Launches the specified executable as a child process while collecting
+    runtime trace data for 1 second during execution.
+  tactic: defense-evasion
+  technique:
+    attack_id: T1127
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: dotnet-trace.exe collect --duration 00:00:01 -- payload.exe
+        payloads:
+        - payload.exe
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: "Iv\xE1n Cabrera"
+  created: '2026-08-27'
+  modified: '2026-08-27'
+  operating_system: Windows All Versions

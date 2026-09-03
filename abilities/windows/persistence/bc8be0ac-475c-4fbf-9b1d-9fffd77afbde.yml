@@ -21,8 +21,8 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - persistence
   - atomic-red-team
+  - persistence
   - t1136.001
   author: Atomic Red Team
   additional_info:
@@ -33,4 +33,4 @@
         default: T1136.001_PowerShell
     technique_created: '2020-01-28T13:50:22.506Z'
     atomic_guid: bc8be0ac-475c-4fbf-9b1d-9fffd77afbde
-    import_timestamp: '2026-09-02T06:49:40.781836Z'
+    import_timestamp: '2026-09-03T06:51:40.381006Z'

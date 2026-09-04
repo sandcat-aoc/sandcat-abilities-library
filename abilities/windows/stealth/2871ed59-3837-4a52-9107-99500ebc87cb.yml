@@ -38,10 +38,10 @@
   privilege: ''
   buckets:
   - atomic-red-team
-  - stealth
   - t1055
+  - stealth
   author: Atomic Red Team
   additional_info:
     technique_created: '2017-05-31T21:30:47.843Z'
     atomic_guid: 2871ed59-3837-4a52-9107-99500ebc87cb
-    import_timestamp: '2026-09-03T06:51:39.384373Z'
+    import_timestamp: '2026-09-04T06:56:09.910441Z'

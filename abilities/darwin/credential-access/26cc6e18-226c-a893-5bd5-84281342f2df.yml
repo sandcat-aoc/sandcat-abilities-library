@@ -28,4 +28,4 @@
     use_case: Use the osascript binary to prompt the user for credentials
     source_file: osascript.yml
     source_repository: https://github.com/infosecB/LOOBins
-    import_timestamp: '2026-09-03T06:51:13.576617Z'
+    import_timestamp: '2026-09-04T06:55:40.525595Z'

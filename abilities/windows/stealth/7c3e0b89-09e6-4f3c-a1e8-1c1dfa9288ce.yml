@@ -1,0 +1,63 @@
+- id: 7c3e0b89-09e6-4f3c-a1e8-1c1dfa9288ce
+  name: Turla Mosquito (CommanderDLL.dll) Dynamic Export Address Table (EAT) Patching
+  description: 'Emulates the behavior of Turla''s Mosquito main backdoor. Loads a
+    benign DLL that has no export for "StartRoutine" on disk. During
+
+    DllMain, the DLL constructs an IMAGE_EXPORT_DIRECTORY in memory at the tail of
+    its mapped image (past .reloc), then patches its own PE header''s
+
+    data-directory entry so the export RVA points to the fabricated table. Effectively
+    hides the DLL''s real entry point from static analysis and export-name-based detection.'
+  tactic: stealth
+  technique:
+    attack_id: T1620
+    name: Reflective Code Loading
+  platforms:
+    windows:
+      psh:
+        command: 'if (Test-Path "PathToAtomicsFolder\T1620\bin\CommanderDLL.dll")
+          { exit 0 } else { exit 1 }; then : ; else New-Item -Type Directory (Split-Path
+          "PathToAtomicsFolder\T1620\bin\CommanderDLL.dll") -ErrorAction Ignore -Force
+          | Out-Null; Invoke-WebRequest "https://github.com/redcanaryco/atomic-red-team/atomics/T1620/bin/CommanderDLL.dll?raw=true"
+          -OutFile "PathToAtomicsFolder\T1620\bin\CommanderDLL.dll"; New-Item -Type
+          File $env:TEMP\EAT_dll_downloaded -ErrorAction Ignore -Force | Out-Null;
+          fi; Add-Type -MemberDefinition @''; [DllImport("kernel32.dll", SetLastError=true)];
+          public static extern IntPtr LoadLibraryA(string lpFileName);; ''@ -Name
+          "Win32" -Namespace "EATTest" -PassThru | Out-Null; [EATTest.Win32]::LoadLibraryA("PathToAtomicsFolder\T1620\bin\CommanderDLL.dll")'
+        cleanup: if(Test-Path -Path $env:TEMP\EAT_dll_downloaded){; Remove-Item "#{dll_path}"
+          -Force -ErrorAction Ignore; }
+        elevation_required: false
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1620
+  - atomic-red-team
+  - stealth
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      dll_path:
+        description: Path to the compiled EAT-patching DLL
+        type: path
+        default: PathToAtomicsFolder\T1620\bin\CommanderDLL.dll
+    dependencies:
+    - description: The EAT-patching DLL must be present on disk
+      prereq_command: 'if (Test-Path "#{dll_path}") { exit 0 } else { exit 1 }
+
+        '
+      get_prereq_command: 'New-Item -Type Directory (Split-Path "#{dll_path}") -ErrorAction
+        Ignore -Force | Out-Null
+
+        Invoke-WebRequest "https://github.com/redcanaryco/atomic-red-team/atomics/T1620/bin/CommanderDLL.dll?raw=true"
+        -OutFile "#{dll_path}"
+
+        New-Item -Type File $env:TEMP\EAT_dll_downloaded -ErrorAction Ignore -Force
+        | Out-Null
+
+        '
+    technique_created: '2021-10-05T01:15:06.293Z'
+    atomic_guid: 7c3e0b89-09e6-4f3c-a1e8-1c1dfa9288ce
+    import_timestamp: '2026-09-05T06:41:04.011484Z'

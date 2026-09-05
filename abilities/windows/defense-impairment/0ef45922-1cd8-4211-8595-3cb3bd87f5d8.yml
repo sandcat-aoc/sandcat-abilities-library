@@ -1,0 +1,59 @@
+- id: 0ef45922-1cd8-4211-8595-3cb3bd87f5d8
+  name: Enable Firewall Rule Group via COM Object (HNetCfg.FwPolicy2)
+  description: 'Uses the HNetCfg.FwPolicy2 COM object to enable the File and Printer
+    Sharing and
+
+    Network Discovery firewall rule groups on the Private profile. This mirrors behavior
+
+    observed in ApolloShadow malware, which enables these rule groups to facilitate
+
+    lateral movement by making the host discoverable and enabling file sharing.
+
+
+    Reference: https://www.microsoft.com/en-us/security/blog/2025/07/31/frozen-in-transit-secret-blizzards-aitm-campaign-against-diplomats/'
+  tactic: defense-impairment
+  technique:
+    attack_id: T1686.003
+    name: 'Disable or Modify System Firewall: Windows Host Firewall'
+  platforms:
+    windows:
+      psh:
+        command: 'if (Test-Path "$env:TEMP\T1686.003_firewall_backup.txt") {exit 0}
+          else {exit 1}; then : ; else $fw = New-Object -ComObject HNetCfg.FwPolicy2;
+          $groups = @("File and Printer Sharing", "Network Discovery"); $groups |
+          ForEach-Object {; "$_=$($fw.IsRuleGroupEnabled(2, $_))" | Out-File -Append
+          "$env:TEMP\T1686.003_firewall_backup.txt"; }; fi; $fw = New-Object -ComObject
+          HNetCfg.FwPolicy2; $fw.EnableRuleGroup(2, "File and Printer Sharing", $true);
+          $fw.EnableRuleGroup(2, "Network Discovery", $true)'
+        cleanup: $backupFile = "$env:TEMP\T1686.003_firewall_backup.txt"; if (Test-Path
+          $backupFile) {; Get-Content $backupFile | ForEach-Object {; $parts = $_
+          -split '='; $group = $parts[0]; $wasEnabled = [System.Convert]::ToBoolean($parts[1]);
+          $fw = New-Object -ComObject HNetCfg.FwPolicy2; $fw.EnableRuleGroup(2, $group,
+          $wasEnabled); }; Remove-Item $backupFile; }
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1686.003
+  - atomic-red-team
+  - defense-impairment
+  author: Atomic Red Team
+  additional_info:
+    dependencies:
+    - description: 'Back up current firewall rule group state for cleanup
+
+        '
+      prereq_command: 'if (Test-Path "$env:TEMP\T1686.003_firewall_backup.txt") {exit
+        0} else {exit 1}
+
+        '
+      get_prereq_command: "$fw = New-Object -ComObject HNetCfg.FwPolicy2\n$groups\
+        \ = @(\"File and Printer Sharing\", \"Network Discovery\")\n$groups | ForEach-Object\
+        \ {\n    \"$_=$($fw.IsRuleGroupEnabled(2, $_))\" | Out-File -Append \"$env:TEMP\\\
+        T1686.003_firewall_backup.txt\"\n}\n"
+    technique_created: '2026-04-14T22:54:05.494Z'
+    atomic_guid: 0ef45922-1cd8-4211-8595-3cb3bd87f5d8
+    import_timestamp: '2026-09-05T06:41:06.412582Z'

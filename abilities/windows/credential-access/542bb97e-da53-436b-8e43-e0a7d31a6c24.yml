@@ -12,7 +12,12 @@
   platforms:
     windows:
       psh:
-        command: (gwmi -list win32_shadowcopy).Create('C:\','ClientAccessible')
+        command: $r = (gwmi -list win32_shadowcopy).Create('C:\','ClientAccessible');
+          $Shadow_Id =  $r.ShadowId; Set-Content -Path "$env:TEMP/shadow_id.txt" -Value
+          "$Shadow_Id"
+        cleanup: $Shadow_Id = Get-Content -Path "$env:TEMP/shadow_id.txt"; vssadmin
+          delete shadows /shadow=$Shadow_Id /quiet; Remove-Item "$env:TEMP/shadow_id.txt"
+          -Force -ErrorAction SilentlyContinue
         elevation_required: true
   plugin: atomic
   singleton: false
@@ -20,9 +25,9 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - credential-access
   - t1003.003
   - atomic-red-team
+  - credential-access
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -32,4 +37,4 @@
         default: C:\
     technique_created: '2020-02-11T18:42:35.572Z'
     atomic_guid: 542bb97e-da53-436b-8e43-e0a7d31a6c24
-    import_timestamp: '2026-09-04T06:56:12.946464Z'
+    import_timestamp: '2026-09-05T06:41:07.223946Z'

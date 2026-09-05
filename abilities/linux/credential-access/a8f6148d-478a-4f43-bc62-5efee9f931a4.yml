@@ -9,17 +9,19 @@
   platforms:
     linux:
       sh:
-        command: find //.azure -name "msal_token_cache.json" -o -name "accessTokens.json"
-          -type f 2>/dev/null
+        command: find / -path '*/.azure/msal_token_cache.json' -type f -exec sh -c
+          'echo "=== $1 ===" >> /tmp/creds.txt; cat "$1" >> /tmp/creds.txt' _ {} \;
+          2>/dev/null
+        cleanup: rm -f /tmp/creds.txt
   plugin: atomic
   singleton: false
   repeatable: true
   delete_payload: false
   privilege: ''
   buckets:
-  - credential-access
   - atomic-red-team
   - t1552.001
+  - credential-access
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -27,6 +29,15 @@
         description: Path to search
         type: string
         default: /
+      filename:
+        description: Credential file to search for
+        type: string
+        default: msal_token_cache.json
+      optional_flags:
+        description: optional flags passed into find that should be ran
+        type: string
+        default: -exec sh -c 'echo "=== $1 ===" >> /tmp/creds.txt; cat "$1" >> /tmp/creds.txt'
+          _ {} \;
     technique_created: '2020-02-04T12:52:13.006Z'
     atomic_guid: a8f6148d-478a-4f43-bc62-5efee9f931a4
-    import_timestamp: '2026-09-04T06:56:25.620495Z'
+    import_timestamp: '2026-09-05T06:41:20.057128Z'

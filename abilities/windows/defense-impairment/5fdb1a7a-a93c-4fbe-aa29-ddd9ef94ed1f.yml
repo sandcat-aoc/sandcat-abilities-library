@@ -1,6 +1,9 @@
 - id: 5fdb1a7a-a93c-4fbe-aa29-ddd9ef94ed1f
   name: Install root CA on Windows with certutil
-  description: Creates a root CA with certutil
+  description: 'Installs a root CA certificate into the machine-wide Trusted Root
+    Certification
+
+    Authorities store using certutil -f -addstore root.'
   tactic: defense-impairment
   technique:
     attack_id: T1553.004
@@ -8,16 +11,18 @@
   platforms:
     windows:
       psh:
-        command: 'if (Test-Path $env:Temp\rootCA2.cer) { exit 0 } else { exit 1 };
-          then : ; else $cert = New-SelfSignedCertificate -DnsName atomicredteam.com
-          -CertStoreLocation cert:\LocalMachine\My; Export-Certificate -Type CERT
-          -Cert  Cert:\LocalMachine\My\$($cert.Thumbprint) -FilePath $env:Temp\rootCA2.cer;
-          Get-ChildItem Cert:\LocalMachine\My\$($cert.Thumbprint) | Remove-Item; fi;
-          certutil -addstore my $env:Temp\rootCA2.cer'
-        cleanup: 'try {; $cert = Import-Certificate -FilePath #{pfx_path} -CertStoreLocation
-          Cert:\LocalMachine\My; Get-ChildItem Cert:\LocalMachine\My\$($cert.Thumbprint)
-          -ErrorAction Ignore | Remove-Item -ErrorAction Ignore; Get-ChildItem Cert:\LocalMachine\Root\$($cert.Thumbprint)
-          -ErrorAction Ignore | Remove-Item -ErrorAction Ignore; } catch { }'
+        command: 'if (Test-Path "$env:TEMP\atomic_rootCA.cer") {exit 0} else {exit
+          1}; then : ; else $root = New-SelfSignedCertificate -Subject "CN=Atomic
+          Root CA" -CertStoreLocation Cert:\CurrentUser\My -KeyUsage CertSign -TextExtension
+          @("2.5.29.19={critical}{text}ca=TRUE"); Export-Certificate -Cert $root -FilePath
+          "$env:TEMP\atomic_rootCA.cer" -Type CERT; $root.Thumbprint | Out-File "$env:TEMP\T1553.004_rootCA_thumbprint.txt";
+          Remove-Item "Cert:\CurrentUser\My\$($root.Thumbprint)"; fi; certutil.exe
+          -f -addstore root "$env:TEMP\atomic_rootCA.cer"'
+        cleanup: $rootThumb = Get-Content "$env:TEMP\T1553.004_rootCA_thumbprint.txt"
+          -ErrorAction SilentlyContinue; if ($rootThumb) { Get-ChildItem "Cert:\LocalMachine\Root\$rootThumb"
+          -ErrorAction SilentlyContinue | Remove-Item }; Remove-Item "#{root_cert_path}"
+          -ErrorAction SilentlyContinue; Remove-Item "$env:TEMP\T1553.004_rootCA_thumbprint.txt"
+          -ErrorAction SilentlyContinue
         elevation_required: true
   plugin: atomic
   singleton: false
@@ -25,32 +30,34 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - defense-impairment
   - t1553.004
   - atomic-red-team
+  - defense-impairment
   author: Atomic Red Team
   additional_info:
     input_arguments:
-      pfx_path:
-        description: Path of the certificate
+      root_cert_path:
+        description: Path to the root CA certificate file
         type: path
-        default: $env:Temp\rootCA2.cer
+        default: $env:TEMP\atomic_rootCA.cer
     dependencies:
-    - description: 'Certificate must exist at specified location (#{pfx_path})
+    - description: 'Root CA certificate must be generated
 
         '
-      prereq_command: 'if (Test-Path #{pfx_path}) { exit 0 } else { exit 1 }
+      prereq_command: 'if (Test-Path "#{root_cert_path}") {exit 0} else {exit 1}
 
         '
-      get_prereq_command: '$cert = New-SelfSignedCertificate -DnsName atomicredteam.com
-        -CertStoreLocation cert:\LocalMachine\My
+      get_prereq_command: '$root = New-SelfSignedCertificate -Subject "CN=Atomic Root
+        CA" -CertStoreLocation Cert:\CurrentUser\My -KeyUsage CertSign -TextExtension
+        @("2.5.29.19={critical}{text}ca=TRUE")
 
-        Export-Certificate -Type CERT -Cert  Cert:\LocalMachine\My\$($cert.Thumbprint)
-        -FilePath #{pfx_path}
+        Export-Certificate -Cert $root -FilePath "#{root_cert_path}" -Type CERT
 
-        Get-ChildItem Cert:\LocalMachine\My\$($cert.Thumbprint) | Remove-Item
+        $root.Thumbprint | Out-File "$env:TEMP\T1553.004_rootCA_thumbprint.txt"
+
+        Remove-Item "Cert:\CurrentUser\My\$($root.Thumbprint)"
 
         '
     technique_created: '2020-02-21T21:05:32.844Z'
     atomic_guid: 5fdb1a7a-a93c-4fbe-aa29-ddd9ef94ed1f
-    import_timestamp: '2026-09-04T06:56:12.573169Z'
+    import_timestamp: '2026-09-05T06:41:06.833512Z'

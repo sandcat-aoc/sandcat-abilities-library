@@ -55,4 +55,4 @@
         \ | Split-Path\nInvoke-FetchFromZip $zipUrl \"x64/mimikatz.exe\" $basePath\n"
     technique_created: '2020-01-30T17:03:43.072Z'
     atomic_guid: dbf38128-7ba7-4776-bedf-cc2eed432098
-    import_timestamp: '2026-09-04T06:56:12.115908Z'
+    import_timestamp: '2026-09-05T06:41:06.342517Z'

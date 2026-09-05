@@ -1,0 +1,35 @@
+- id: aab580c7-cc30-4a7c-b5a9-46a29066b022
+  name: User Discovery - whoami
+  description: 'Identify the current user account and security context using whoami.
+    Adversaries use this command during initial
+
+    reconnaissance after gaining access to a system to determine the user and privilege
+    level they are operating under.'
+  tactic: discovery
+  technique:
+    attack_id: T1033
+    name: System Owner/User Discovery
+  platforms:
+    windows:
+      sh:
+        command: whoami /all
+        elevation_required: false
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1033
+  - atomic-red-team
+  - discovery
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      whoami_args:
+        description: Arguments to pass to whoami (e.g. /all, /priv, /groups, /user)
+        type: string
+        default: /all
+    technique_created: '2017-05-31T21:30:35.733Z'
+    atomic_guid: aab580c7-cc30-4a7c-b5a9-46a29066b022
+    import_timestamp: '2026-09-05T06:41:07.276050Z'

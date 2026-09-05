@@ -1,0 +1,61 @@
+- id: 02428cbe-c230-4353-b31d-61c9d328b153
+  name: Turla KopiLuwak RC4 Decryption Stager
+  description: 'Emulates KopiLuwak''s next-stage JavaScript loader named Chkdsk.js.
+    The script accepts an
+
+    RC4 decryption key via the -scan parameter and decrypts hardcoded ciphertext bytes,
+    which are then run as script.
+
+    In this atomic, the decrypted bytes generate and display a random number instead
+    of performing malicious behavior.
+
+    In the real attack chain, a scheduled task (ProactiveScan) invokes this script
+    with the key every 30 minutes.
+
+
+    Reference: https://securelist.com/turla-renews-its-arsenal-with-topinambour/91687/'
+  tactic: execution
+  technique:
+    attack_id: T1059.007
+    name: 'Command and Scripting Interpreter: JavaScript'
+  platforms:
+    windows:
+      sh:
+        command: 'if (Test-Path "PathToAtomicsFolder\T1059.007\src\Chkdsk.js") {exit
+          0} else {exit 1}; then : ; else New-Item -ItemType Directory (Split-Path
+          "PathToAtomicsFolder\T1059.007\src\Chkdsk.js") -Force | Out-Null; Invoke-WebRequest
+          "https://raw.githubusercontent.com/redcanaryco/atomic-red-team/master/atomics/T1059.007/src/Chkdsk.js"
+          -OutFile "PathToAtomicsFolder\T1059.007\src\Chkdsk.js"; fi; wscript.exe
+          /b "PathToAtomicsFolder\T1059.007\src\Chkdsk.js" -scan Kdw6gG7cpOSZsBeH'
+        elevation_required: false
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1059.007
+  - atomic-red-team
+  - execution
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      chkdsk_path:
+        description: Path to the KopiLuwak Chkdsk.js stager script
+        type: path
+        default: PathToAtomicsFolder\T1059.007\src\Chkdsk.js
+    dependencies:
+    - description: Chkdsk.js must exist on disk
+      prereq_command: 'if (Test-Path "#{chkdsk_path}") {exit 0} else {exit 1}
+
+        '
+      get_prereq_command: 'New-Item -ItemType Directory (Split-Path "#{chkdsk_path}")
+        -Force | Out-Null
+
+        Invoke-WebRequest "https://raw.githubusercontent.com/redcanaryco/atomic-red-team/master/atomics/T1059.007/src/Chkdsk.js"
+        -OutFile "#{chkdsk_path}"
+
+        '
+    technique_created: '2020-06-23T19:12:24.924Z'
+    atomic_guid: 02428cbe-c230-4353-b31d-61c9d328b153
+    import_timestamp: '2026-09-05T06:41:05.045719Z'

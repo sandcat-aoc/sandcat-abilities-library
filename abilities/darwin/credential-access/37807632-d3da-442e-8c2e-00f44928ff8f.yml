@@ -9,16 +9,16 @@
   platforms:
     darwin:
       sh:
-        command: find //.aws -name "credentials" -type f 2>/dev/null
+        command: find / -path '*/.aws/credentials' -type f 2>/dev/null
   plugin: atomic
   singleton: false
   repeatable: true
   delete_payload: false
   privilege: ''
   buckets:
-  - credential-access
   - atomic-red-team
   - t1552.001
+  - credential-access
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -26,6 +26,10 @@
         description: Path to search
         type: string
         default: /
+      filename:
+        description: Name of the AWS credential file to search for
+        type: string
+        default: credentials
     technique_created: '2020-02-04T12:52:13.006Z'
     atomic_guid: 37807632-d3da-442e-8c2e-00f44928ff8f
-    import_timestamp: '2026-09-04T06:55:55.826572Z'
+    import_timestamp: '2026-09-05T06:40:49.871230Z'

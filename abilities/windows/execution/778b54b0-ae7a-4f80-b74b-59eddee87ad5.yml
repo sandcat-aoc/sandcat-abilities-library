@@ -1,0 +1,89 @@
+- id: 778b54b0-ae7a-4f80-b74b-59eddee87ad5
+  name: AveMaria/Warzone program.bat WMIC Process Creation
+  description: 'Emulates the evasive behavior of the Ave Maria/Warzone RAT, which
+    follows these steps:
+
+    1. Creates a batch script (program_path) that runs commands found in its own ADS
+    named start (program_path:start)
+
+    2. Writes to program_path:start a wmiexec command that starts a process from an
+    ADS named ApplicationData of a specified file (ads_host:ApplicationData)
+
+    3. Writes to the ADS ads_host:ApplicationData the contents of an executable (normally
+    would be the ransomware)
+
+    4. Runs the batch script, which runs everything that was set up
+
+
+    Reference: https://www.splunk.com/en_us/blog/security/defending-the-gates-understanding-and-detecting-ave-maria-warzone-rat.html'
+  tactic: execution
+  technique:
+    attack_id: T1047
+    name: Windows Management Instrumentation
+  platforms:
+    windows:
+      psh:
+        command: 'if (Test-Path -Path "$env:TEMP\ads") { exit 0 } else { exit 1 };
+          then : ; else $parent = Split-Path "$env:TEMP\ads"; New-Item -ItemType Directory
+          -Path "$parent" -Force; New-Item -ItemType File -Path "$env:TEMP\ads" -Force;
+          New-Item -ItemType File -Path "$env:TEMP\ads_created" -Force; fi; $parent
+          = Split-Path "$env:TEMP\program.bat"; New-Item -ItemType Directory -Path
+          "$parent" -Force; New-Item -ItemType File -Path "$env:TEMP\program.bat"
+          -Force; Set-Content -Path "$env:TEMP\program.bat" -Value "for /F `"usebackq
+          tokens=*`" %%A in (`"$env:TEMP\program.bat:start`") do %%A"; Set-Content
+          -Path "$env:TEMP\program.bat" -Stream start -Value "wmic process call create
+          `"$env:TEMP\ads:ApplicationData`""; Get-Content "C:\Windows\System32\calc.exe"
+          -Encoding Byte -Raw | Set-Content -Path "$env:TEMP\ads" -Stream ApplicationData
+          -Encoding Byte; Start-Process "$env:TEMP\program.bat"'
+        cleanup: Get-Process | Where-Object { $_.Path -eq "#{payload_binary}" } |
+          Stop-Process -Force -ErrorAction SilentlyContinue; Remove-Item "#{program_path}"
+          -Force -ErrorAction Ignore; if (Test-Path -Path "$env:TEMP\ads_created"){Remove-Item
+          -Path "#{ads_host}" -ErrorAction Ignore} else {Remove-Item -Path "#{ads_host}"
+          -Stream "ApplicationData" -ErrorAction Ignore}; Remove-Item -Path "$env:TEMP\ads_created"
+          -Force -ErrorAction Ignore
+        elevation_required: false
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - execution
+  - atomic-red-team
+  - t1047
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      payload_binary:
+        description: Benign executable to persist (stand-in for the malware payload)
+        type: path
+        default: C:\Windows\System32\calc.exe
+      program_path:
+        description: Full filepath (including filename) that the batch script is created
+          to
+        type: path
+        default: $env:TEMP\program.bat
+      ads_host:
+        description: File the Alternate Data Stream ApplicationData is attached to
+        type: path
+        default: $env:TEMP\ads
+    dependencies:
+    - description: 'ads_host must exist
+
+        '
+      prereq_command: 'if (Test-Path -Path "#{ads_host}") { exit 0 } else { exit 1
+        }
+
+        '
+      get_prereq_command: '$parent = Split-Path "#{ads_host}"
+
+        New-Item -ItemType Directory -Path "$parent" -Force
+
+        New-Item -ItemType File -Path "#{ads_host}" -Force
+
+        New-Item -ItemType File -Path "$env:TEMP\ads_created" -Force
+
+        '
+    technique_created: '2017-05-31T21:30:44.329Z'
+    atomic_guid: 778b54b0-ae7a-4f80-b74b-59eddee87ad5
+    import_timestamp: '2026-09-05T06:41:05.027720Z'

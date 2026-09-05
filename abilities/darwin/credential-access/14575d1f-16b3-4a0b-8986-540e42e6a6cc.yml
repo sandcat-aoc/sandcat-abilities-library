@@ -1,0 +1,39 @@
+- id: 14575d1f-16b3-4a0b-8986-540e42e6a6cc
+  name: Find Kubernetes user configuration files
+  description: Find Kubernetes user configuration files (~/.kube/config), which contain
+    API server addresses, client certificates, and bearer tokens that grant access
+    to the Kubernetes cluster. Defaults to using / as the search path.
+  tactic: credential-access
+  technique:
+    attack_id: T1552.001
+    name: 'Unsecured Credentials: Credentials In Files'
+  platforms:
+    darwin:
+      sh:
+        command: find / -path '*/.kube/config' -type f -exec sh -c 'echo "=== $1 ==="
+          >> /tmp/creds.txt; cat "$1" >> /tmp/creds.txt' _ {} \; 2>/dev/null
+        cleanup: rm -f /tmp/creds.txt
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - atomic-red-team
+  - t1552.001
+  - credential-access
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      file_path:
+        description: Path to search
+        type: string
+        default: /
+      optional_flags:
+        description: optional flags passed into find that should be ran
+        type: string
+        default: -exec sh -c 'echo "=== $1 ===" >> /tmp/creds.txt; cat "$1" >> /tmp/creds.txt'
+          _ {} \;
+    technique_created: '2020-02-04T12:52:13.006Z'
+    atomic_guid: 14575d1f-16b3-4a0b-8986-540e42e6a6cc
+    import_timestamp: '2026-09-05T06:40:49.913102Z'

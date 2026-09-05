@@ -1,0 +1,44 @@
+- id: c3372ae9-b9bf-427a-b330-cb04fecb9c1d
+  name: Find Terraform credential files
+  description: Find Terraform credential files which may contain sensitive values
+    such as API keys, passwords, and infrastructure secrets. Searches for both terraform.tfvars
+    and terraform.tfstate.
+  tactic: credential-access
+  technique:
+    attack_id: T1552.001
+    name: 'Unsecured Credentials: Credentials In Files'
+  platforms:
+    linux:
+      sh:
+        command: for filename in terraform.tfvars terraform.tfstate; do find / -name
+          "$filename" -type f -exec sh -c 'echo "=== $1 ===" >> /tmp/creds.txt; cat
+          "$1" >> /tmp/creds.txt' _ {} \; 2>/dev/null; done
+        cleanup: rm -f /tmp/creds.txt
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - atomic-red-team
+  - t1552.001
+  - credential-access
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      file_path:
+        description: Path to search
+        type: string
+        default: /
+      filenames:
+        description: Space-separated Terraform credential filenames to search for
+        type: string
+        default: terraform.tfvars terraform.tfstate
+      optional_flags:
+        description: optional flags passed into find that should be ran
+        type: string
+        default: -exec sh -c 'echo "=== $1 ===" >> /tmp/creds.txt; cat "$1" >> /tmp/creds.txt'
+          _ {} \;
+    technique_created: '2020-02-04T12:52:13.006Z'
+    atomic_guid: c3372ae9-b9bf-427a-b330-cb04fecb9c1d
+    import_timestamp: '2026-09-05T06:41:20.068672Z'

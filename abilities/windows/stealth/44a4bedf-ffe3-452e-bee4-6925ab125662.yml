@@ -18,8 +18,8 @@
   privilege: ''
   buckets:
   - atomic-red-team
-  - stealth
   - t1218.007
+  - stealth
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -33,4 +33,4 @@
         default: c:\windows\system32\msiexec.exe
     technique_created: '2020-01-24T14:38:49.266Z'
     atomic_guid: 44a4bedf-ffe3-452e-bee4-6925ab125662
-    import_timestamp: '2026-09-04T06:56:09.843029Z'
+    import_timestamp: '2026-09-05T06:41:03.869286Z'

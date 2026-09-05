@@ -1,0 +1,74 @@
+- id: a29738b0-0e14-488c-984f-6a851fcdbcfe
+  name: TeamPCP Aqua Trivy Persistence
+  description: 'Simulates the persistence mechanism used by TeamPCP malware distributed
+    via a hijacked
+
+    Aqua Trivy binary. Installs a user-level systemd service (sysmon) that drops a
+
+    Python script to ~/.config/systemd/user/sysmon.py. The script writes a second-stage
+
+    payload to #{pglog_path} and executes it in a new session. In the wild, the dropper
+    polls
+
+    an ICP-hosted C2 canister for a download URL; this test creates the payload unconditionally
+
+    to avoid external network contact. Filepaths and names match observed IOCs.
+
+
+    Reference: https://www.aquasec.com/blog/trivy-supply-chain-attack-what-you-need-to-know/'
+  tactic: persistence
+  technique:
+    attack_id: T1543.002
+    name: 'Create or Modify System Process: SysV/Systemd Service'
+  platforms:
+    linux:
+      sh:
+        command: mkdir -p $HOME/.config/systemd/user; cp "sysmon.py" "$HOME/.config/systemd/user/sysmon.py";
+          echo "[Unit]" > $HOME/.config/systemd/user/sysmon.service; echo "Description=System
+          Monitor Service" >> $HOME/.config/systemd/user/sysmon.service; echo "" >>
+          $HOME/.config/systemd/user/sysmon.service; echo "[Service]" >> $HOME/.config/systemd/user/sysmon.service;
+          echo "Type=simple" >> $HOME/.config/systemd/user/sysmon.service; echo "ExecStart=/usr/bin/python3
+          $HOME/.config/systemd/user/sysmon.py \"/tmp/pglog\"" >> $HOME/.config/systemd/user/sysmon.service;
+          echo "Restart=always" >> $HOME/.config/systemd/user/sysmon.service; echo
+          "" >> $HOME/.config/systemd/user/sysmon.service; echo "[Install]" >> $HOME/.config/systemd/user/sysmon.service;
+          echo "WantedBy=default.target" >> $HOME/.config/systemd/user/sysmon.service;
+          systemctl --user daemon-reload; systemctl --user enable sysmon.service;
+          systemctl --user start sysmon.service; loginctl enable-linger $USER
+        cleanup: 'systemctl --user stop sysmon.service; systemctl --user disable sysmon.service;
+          rm -f $HOME/.config/systemd/user/sysmon.service; rm -f $HOME/.config/systemd/user/sysmon.py;
+          rm -f #{pglog_path}; systemctl --user daemon-reload; loginctl disable-linger
+          $USER'
+        elevation_required: false
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1543.002
+  - atomic-red-team
+  - persistence
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      pglog_path:
+        description: Path where the dropper writes and executes the second-stage payload
+        type: path
+        default: /tmp/pglog
+      sysmon_script_path:
+        description: Path to the sysmon Python script copied into the user systemd
+          directory
+        type: path
+        default: $PathToAtomicsFolder/T1543.002/src/sysmon.py
+    dependencies:
+    - description: python3 must be installed
+      prereq_command: 'which python3 > /dev/null 2>&1
+
+        '
+      get_prereq_command: 'apt-get install -y python3 2>/dev/null || yum install -y
+        python3 2>/dev/null
+
+        '
+    technique_created: '2020-01-17T16:15:19.870Z'
+    atomic_guid: a29738b0-0e14-488c-984f-6a851fcdbcfe
+    import_timestamp: '2026-09-05T06:41:19.611206Z'

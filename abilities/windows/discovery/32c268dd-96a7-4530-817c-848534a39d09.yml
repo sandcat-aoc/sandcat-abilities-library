@@ -1,0 +1,105 @@
+- id: 32c268dd-96a7-4530-817c-848534a39d09
+  name: Windows - Port Scan using RustScan (Port list)
+  description: Scan ports on a target host using RustScan. Downloads the portable
+    RustScan release binary and scans 127.0.0.1 by default. Uses --greppable so that
+    nmap is not a dependency.
+  tactic: discovery
+  technique:
+    attack_id: T1046
+    name: Network Service Discovery
+  platforms:
+    windows:
+      psh:
+        command: 'if (Test-Path -Path "PathToAtomicsFolder\..\ExternalPayloads\rustscan.exe")
+          { exit 0 } else { exit 1 }; then : ; else $parent_path = Split-Path "PathToAtomicsFolder\..\ExternalPayloads\rustscan.exe";
+          New-Item -Type Directory "$parent_path" -ErrorAction Ignore -Force | Out-Null;
+          (New-Object Net.WebClient).DownloadFile("https://github.com/bee-san/RustScan/releases/download/2.4.1/x86_64-windows-rustscan.exe.zip","$parent_path\rustscan.zip");
+          Expand-Archive -Path "$parent_path\rustscan.zip" -DestinationPath "$parent_path"
+          -Force; fi; if (Test-Path -Path "$env:SystemRoot\System32\vcruntime140.dll")
+          { exit 0 } else { exit 1 }; then : ; else $parent_path = Split-Path "PathToAtomicsFolder\..\ExternalPayloads\vc_redist.x64.exe";
+          New-Item -Type Directory "$parent_path" -ErrorAction Ignore -Force | Out-Null;
+          (New-Object Net.WebClient).DownloadFile("https://aka.ms/vc14/vc_redist.x64.exe","PathToAtomicsFolder\..\ExternalPayloads\vc_redist.x64.exe");
+          Start-Process "PathToAtomicsFolder\..\ExternalPayloads\vc_redist.x64.exe"
+          -ArgumentList "/install","/quiet","/norestart" -Wait; fi; & "PathToAtomicsFolder\..\ExternalPayloads\rustscan.exe"
+          -a 127.0.0.1 --greppable -p 22,80,443,3389'
+        cleanup: $parent_path_rust = Split-Path "#{rustscan_path}"; Remove-Item "#{rustscan_path}"
+          -Force -ErrorAction Ignore; Remove-Item "$parent_path_rust\rustscan.zip"
+          -Force -ErrorAction Ignore; Remove-Item "#{MVC_path}" -Force -ErrorAction
+          Ignore
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - atomic-red-team
+  - t1046
+  - discovery
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      rustscan_url:
+        description: RustScan Windows release zip download URL
+        type: url
+        default: https://github.com/bee-san/RustScan/releases/download/2.4.1/x86_64-windows-rustscan.exe.zip
+      host_to_scan:
+        description: The host to scan with RustScan
+        type: string
+        default: 127.0.0.1
+      port_list:
+        description: Comma-separated list of ports to scan (RustScan -p)
+        type: string
+        default: 22,80,443,3389
+      rustscan_path:
+        description: Where the RustScan binary will be downloaded to or already is
+          located
+        type: path
+        default: PathToAtomicsFolder\..\ExternalPayloads\rustscan.exe
+      MVC_url:
+        description: Microsoft Visual C++ Redistributable download URL
+        type: url
+        default: https://aka.ms/vc14/vc_redist.x64.exe
+      MVC_path:
+        description: Where the Microsoft Visual C++ Redistributable installer will
+          be downloaded to or already is located
+        type: path
+        default: PathToAtomicsFolder\..\ExternalPayloads\vc_redist.x64.exe
+    dependencies:
+    - description: 'RustScan must be available
+
+        '
+      prereq_command: 'if (Test-Path -Path "#{rustscan_path}") { exit 0 } else { exit
+        1 }
+
+        '
+      get_prereq_command: '$parent_path = Split-Path "#{rustscan_path}"
+
+        New-Item -Type Directory "$parent_path" -ErrorAction Ignore -Force | Out-Null
+
+        (New-Object Net.WebClient).DownloadFile("#{rustscan_url}","$parent_path\rustscan.zip")
+
+        Expand-Archive -Path "$parent_path\rustscan.zip" -DestinationPath "$parent_path"
+        -Force
+
+        '
+    - description: 'Microsoft Visual C++ Redistributable must be installed (RustScan
+        needs VCRUNTIME140.dll)
+
+        '
+      prereq_command: 'if (Test-Path -Path "$env:SystemRoot\System32\vcruntime140.dll")
+        { exit 0 } else { exit 1 }
+
+        '
+      get_prereq_command: '$parent_path = Split-Path "#{MVC_path}"
+
+        New-Item -Type Directory "$parent_path" -ErrorAction Ignore -Force | Out-Null
+
+        (New-Object Net.WebClient).DownloadFile("#{MVC_url}","#{MVC_path}")
+
+        Start-Process "#{MVC_path}" -ArgumentList "/install","/quiet","/norestart"
+        -Wait
+
+        '
+    technique_created: '2017-05-31T21:30:43.915Z'
+    atomic_guid: 32c268dd-96a7-4530-817c-848534a39d09
+    import_timestamp: '2026-09-05T06:41:07.726653Z'

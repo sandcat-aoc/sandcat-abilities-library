@@ -11,63 +11,59 @@
   platforms:
     windows:
       psh:
-        command: 'if ((Test-Path "C:\Program Files\Mozilla Firefox\firefox.exe") -Or
-          (Test-Path "C:\Program Files (x86)\Mozilla Firefox\firefox.exe")) {exit
-          0} else {exit 1}; then : ; else New-Item -Type Directory "PathToAtomicsFolder\..\ExternalPayloads\"
-          -ErrorAction Ignore -Force | Out-Null; if ($env:PROCESSOR_ARCHITECTURE -eq
-          ''AMD64'') {$url="https://download.mozilla.org/?product=firefox-latest-ssl&os=win64&lang=en-US"}else
-          {$url="https://download.mozilla.org/?product=firefox-latest-ssl&os=win&lang=en-US"};
-          $installer = "PathToAtomicsFolder\..\ExternalPayloads\firefoxsetup.exe";
-          (New-Object Net.WebClient).DownloadFile($url,$installer); Start-Process
-          $installer -ArgumentList ''/S'' -Wait; fi; if (Test-Path "$env:APPDATA\Mozilla\Firefox\Profiles\")
-          {exit 0} else {exit 1}; then : ; else if ($env:PROCESSOR_ARCHITECTURE -eq
-          ''AMD64'') {$firefox="C:\Program Files\Mozilla Firefox\firefox.exe"}else
-          {$firefox="C:\Program Files (x86)\Mozilla Firefox\firefox.exe"}; Start-Process
-          $firefox -ArgumentList ''-CreateProfile Atomic'' -Wait; Start-Process $firefox
-          -NoNewWindow; Start-Sleep -s 20; Stop-Process -Name firefox; fi; Copy-Item
-          "$env:APPDATA\Mozilla\Firefox\Profiles\" -Destination "PathToAtomicsFolder\..\ExternalPayloads"
-          -Force -Recurse'
+        command: 'if ((Test-Path "C:\Program Files\Mozilla Firefox\firefox.exe"))
+          {exit 0} else {exit 1}; then : ; else if (!(Test-Path "PathToAtomicsFolder\..\ExternalPayloads\firefoxsetup.exe")){;
+          $parentpath = Split-Path "PathToAtomicsFolder\..\ExternalPayloads\firefoxsetup.exe";
+          New-Item -Type Directory "$parentpath" -ErrorAction Ignore -Force | Out-Null;
+          (New-Object Net.WebClient).DownloadFile("https://download.mozilla.org/?product=firefox-latest-ssl&os=win64&lang=en-US","PathToAtomicsFolder\..\ExternalPayloads\firefoxsetup.exe");
+          }; Start-Process "PathToAtomicsFolder\..\ExternalPayloads\firefoxsetup.exe"
+          -ArgumentList ''/silent'' -Wait; fi; if (Test-Path "$env:APPDATA\Mozilla\Firefox\Profiles\")
+          {exit 0} else {exit 1}; then : ; else $firefox="C:\Program Files\Mozilla
+          Firefox\firefox.exe"; Start-Process $firefox -ArgumentList ''-CreateProfile
+          Atomic'' -Wait; Start-Process $firefox -NoNewWindow; Start-Sleep -s 20;
+          Stop-Process -Name firefox; fi; Copy-Item "$env:APPDATA\Mozilla\Firefox\Profiles\"
+          -Destination "PathToAtomicsFolder\..\ExternalPayloads" -Force -Recurse'
         cleanup: Remove-Item -Path "PathToAtomicsFolder\..\ExternalPayloads\Profiles"
-          -Force -ErrorAction Ignore -Recurse
+          -Force -ErrorAction Ignore -Recurse; Start-Process -FilePath "C:\Program
+          Files\Mozilla Firefox\uninstall\helper.exe" -ArgumentList "/S" -Wait; Remove-Item
+          -Path "#{installer_path}" -Force -ErrorAction Ignore -Recurse
   plugin: atomic
   singleton: false
   repeatable: true
   delete_payload: false
   privilege: ''
   buckets:
-  - credential-access
   - atomic-red-team
   - t1555.003
+  - credential-access
   author: Atomic Red Team
   additional_info:
+    input_arguments:
+      installer_path:
+        description: where the installer will be downloaded to or already is located
+        type: path
+        default: PathToAtomicsFolder\..\ExternalPayloads\firefoxsetup.exe
+      download_url:
+        description: url to install Firefox from
+        type: url
+        default: https://download.mozilla.org/?product=firefox-latest-ssl&os=win64&lang=en-US
     dependencies:
     - description: 'Firefox must be installed
 
         '
-      prereq_command: if ((Test-Path "C:\Program Files\Mozilla Firefox\firefox.exe")
-        -Or (Test-Path "C:\Program Files (x86)\Mozilla Firefox\firefox.exe")) {exit
-        0} else {exit 1}
-      get_prereq_command: 'New-Item -Type Directory "PathToAtomicsFolder\..\ExternalPayloads\"
-        -ErrorAction Ignore -Force | Out-Null
-
-        if ($env:PROCESSOR_ARCHITECTURE -eq ''AMD64'') {$url="https://download.mozilla.org/?product=firefox-latest-ssl&os=win64&lang=en-US"}else
-        {$url="https://download.mozilla.org/?product=firefox-latest-ssl&os=win&lang=en-US"}
-
-        $installer = "PathToAtomicsFolder\..\ExternalPayloads\firefoxsetup.exe"
-
-        (New-Object Net.WebClient).DownloadFile($url,$installer)
-
-        Start-Process $installer -ArgumentList ''/S'' -Wait
-
-        '
+      prereq_command: if ((Test-Path "C:\Program Files\Mozilla Firefox\firefox.exe"))
+        {exit 0} else {exit 1}
+      get_prereq_command: "if (!(Test-Path \"#{installer_path}\")){\n    $parentpath\
+        \ = Split-Path \"#{installer_path}\"\n    New-Item -Type Directory \"$parentpath\"\
+        \ -ErrorAction Ignore -Force | Out-Null\n    (New-Object Net.WebClient).DownloadFile(\"\
+        #{download_url}\",\"#{installer_path}\")\n  }\nStart-Process \"#{installer_path}\"\
+        \ -ArgumentList '/silent' -Wait\n"
     - description: 'Firefox login data file must exist
 
         '
       prereq_command: if (Test-Path "$env:APPDATA\Mozilla\Firefox\Profiles\") {exit
         0} else {exit 1}
-      get_prereq_command: 'if ($env:PROCESSOR_ARCHITECTURE -eq ''AMD64'') {$firefox="C:\Program
-        Files\Mozilla Firefox\firefox.exe"}else {$firefox="C:\Program Files (x86)\Mozilla
-        Firefox\firefox.exe"}
+      get_prereq_command: '$firefox="C:\Program Files\Mozilla Firefox\firefox.exe"
 
         Start-Process $firefox -ArgumentList ''-CreateProfile Atomic'' -Wait
 
@@ -80,4 +76,4 @@
         '
     technique_created: '2020-02-12T18:57:36.041Z'
     atomic_guid: eb8da98a-2e16-4551-b3dd-83de49baa14c
-    import_timestamp: '2026-09-04T06:56:12.744686Z'
+    import_timestamp: '2026-09-05T06:41:07.016538Z'

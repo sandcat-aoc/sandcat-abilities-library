@@ -9,7 +9,9 @@
   platforms:
     windows:
       sh:
-        command: 'if(!(vssadmin.exe list shadows | findstr "No items found that satisfy
+        command: 'if (Get-Command wmic.exe -ErrorAction SilentlyContinue) { exit 0
+          } else { exit 1 }; then : ; else DISM /Online /Add-Capability /CapabilityName:WMIC~~~~;
+          fi; if(!(vssadmin.exe list shadows | findstr "No items found that satisfy
           the query.")) { exit 0 } else { exit 1 }; then : ; else wmic shadowcopy
           call create Volume=''C:\''; fi; wmic.exe shadowcopy delete'
         elevation_required: true
@@ -19,12 +21,23 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - t1490
-  - atomic-red-team
   - impact
+  - atomic-red-team
+  - t1490
   author: Atomic Red Team
   additional_info:
     dependencies:
+    - description: 'WMIC must be installed (deprecated and removed by default in Windows
+        11 22H2+)
+
+        '
+      prereq_command: 'if (Get-Command wmic.exe -ErrorAction SilentlyContinue) { exit
+        0 } else { exit 1 }
+
+        '
+      get_prereq_command: 'DISM /Online /Add-Capability /CapabilityName:WMIC~~~~
+
+        '
     - description: 'Create volume shadow copy of C:\ .
 
         '
@@ -37,4 +50,4 @@
         '
     technique_created: '2019-04-02T13:54:43.136Z'
     atomic_guid: 6a3ff8dd-f49c-4272-a658-11c2fe58bd88
-    import_timestamp: '2026-09-04T06:56:13.504632Z'
+    import_timestamp: '2026-09-05T06:41:07.819544Z'

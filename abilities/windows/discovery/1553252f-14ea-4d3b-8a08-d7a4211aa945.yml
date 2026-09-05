@@ -11,8 +11,10 @@
   platforms:
     windows:
       sh:
-        command: wmic.exe /Namespace:\\root\SecurityCenter2 Path AntiVirusProduct
-          Get displayName /Format:List
+        command: 'if (Get-Command wmic.exe -ErrorAction SilentlyContinue) { exit 0
+          } else { exit 1 }; then : ; else DISM /Online /Add-Capability /CapabilityName:WMIC~~~~;
+          fi; wmic.exe /Namespace:\\root\SecurityCenter2 Path AntiVirusProduct Get
+          displayName /Format:List'
         elevation_required: true
   plugin: atomic
   singleton: false
@@ -25,6 +27,17 @@
   - discovery
   author: Atomic Red Team
   additional_info:
+    dependencies:
+    - description: 'wmic.exe must be available on the system
+
+        '
+      prereq_command: 'if (Get-Command wmic.exe -ErrorAction SilentlyContinue) { exit
+        0 } else { exit 1 }
+
+        '
+      get_prereq_command: 'DISM /Online /Add-Capability /CapabilityName:WMIC~~~~
+
+        '
     technique_created: '2020-02-21T21:16:18.066Z'
     atomic_guid: 1553252f-14ea-4d3b-8a08-d7a4211aa945
-    import_timestamp: '2026-09-04T06:56:13.355648Z'
+    import_timestamp: '2026-09-05T06:41:07.657776Z'

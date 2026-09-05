@@ -1,0 +1,37 @@
+- id: d1665562-c389-49fc-9cbe-92236816a105
+  name: Find system database configuration files
+  description: Find system-level database configuration files (/etc/mysql/my.cnf,
+    /etc/redis/redis.conf) which may contain credentials. Requires root privileges.
+  tactic: credential-access
+  technique:
+    attack_id: T1552.001
+    name: 'Unsecured Credentials: Credentials In Files'
+  platforms:
+    linux:
+      sh:
+        command: find /etc/mysql -name 'my.cnf' -type f -exec sh -c 'echo "=== $1
+          ===" >> /tmp/creds.txt; cat "$1" >> /tmp/creds.txt' _ {} \; 2>/dev/null;
+          find /etc/redis -name 'redis.conf' -type f -exec sh -c 'echo "=== $1 ==="
+          >> /tmp/creds.txt; cat "$1" >> /tmp/creds.txt' _ {} \; 2>/dev/null
+        cleanup: rm -f /tmp/creds.txt
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - atomic-red-team
+  - t1552.001
+  - credential-access
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      optional_flags:
+        description: optional flags passed into find that should be ran
+        type: string
+        default: -exec sh -c 'echo "=== $1 ===" >> /tmp/creds.txt; cat "$1" >> /tmp/creds.txt'
+          _ {} \;
+    technique_created: '2020-02-04T12:52:13.006Z'
+    atomic_guid: d1665562-c389-49fc-9cbe-92236816a105
+    import_timestamp: '2026-09-05T06:41:20.088428Z'

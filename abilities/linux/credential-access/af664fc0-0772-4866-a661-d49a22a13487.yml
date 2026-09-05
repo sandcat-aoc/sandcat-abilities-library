@@ -1,0 +1,39 @@
+- id: af664fc0-0772-4866-a661-d49a22a13487
+  name: Find Kubernetes cluster configuration files
+  description: Find Kubernetes configuration files requiring root privileges, including
+    the root user kubeconfig (~/.kube/config) and cluster-level configuration files
+    in /etc/kubernetes/. These files contain API server addresses, client certificates,
+    and bearer tokens that grant access to the Kubernetes cluster.
+  tactic: credential-access
+  technique:
+    attack_id: T1552.001
+    name: 'Unsecured Credentials: Credentials In Files'
+  platforms:
+    linux:
+      sh:
+        command: find /root -path '*/.kube/config' -type f -exec sh -c 'echo "===
+          $1 ===" >> /tmp/creds.txt; cat "$1" >> /tmp/creds.txt' _ {} \; 2>/dev/null;
+          find /etc/kubernetes -name '*.conf' -type f -exec sh -c 'echo "=== $1 ==="
+          >> /tmp/creds.txt; cat "$1" >> /tmp/creds.txt' _ {} \; 2>/dev/null
+        cleanup: rm -f /tmp/creds.txt
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - atomic-red-team
+  - t1552.001
+  - credential-access
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      optional_flags:
+        description: optional flags passed into find that should be ran
+        type: string
+        default: -exec sh -c 'echo "=== $1 ===" >> /tmp/creds.txt; cat "$1" >> /tmp/creds.txt'
+          _ {} \;
+    technique_created: '2020-02-04T12:52:13.006Z'
+    atomic_guid: af664fc0-0772-4866-a661-d49a22a13487
+    import_timestamp: '2026-09-05T06:41:20.097748Z'

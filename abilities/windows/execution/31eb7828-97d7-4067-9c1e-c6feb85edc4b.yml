@@ -10,7 +10,9 @@
   platforms:
     windows:
       psh:
-        command: "if (Test-Path \"PathToAtomicsFolder\\..\\ExternalPayloads\\PsExec.exe\"\
+        command: "if (Get-Command wmic.exe -ErrorAction SilentlyContinue) { exit 0\
+          \ } else { exit 1 }; then : ; else DISM /Online /Add-Capability /CapabilityName:WMIC~~~~;\
+          \ fi; if (Test-Path \"PathToAtomicsFolder\\..\\ExternalPayloads\\PsExec.exe\"\
           ) {exit 0} else {exit 1}; then : ; else Invoke-WebRequest \"https://download.sysinternals.com/files/PSTools.zip\"\
           \ -OutFile \"PathToAtomicsFolder\\..\\ExternalPayloads\\PsTools.zip\"; Expand-Archive\
           \ \"PathToAtomicsFolder\\..\\ExternalPayloads\\PsTools.zip\" \"PathToAtomicsFolder\\\
@@ -27,7 +29,11 @@
           \ cmd.exe  /c echo \"--access-token\"\""
         cleanup: reg delete HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\LanmanServer\Parameters
           /v MaxMpxCt /f; cmd.exe /c "fsutil behavior set SymlinkEvaluation R2L:0";
-          cmd.exe /c "fsutil behavior set SymlinkEvaluation R2R:0"; rm $env:temp\psexec.exe
+          cmd.exe /c "fsutil behavior set SymlinkEvaluation R2R:0"; rm $env:temp\psexec.exe;
+          Remove-Item "PathToAtomicsFolder\..\ExternalPayloads\PsExec.exe" -Force;
+          Remove-Item "PathToAtomicsFolder\..\ExternalPayloads\PsTools" -Force -Recurse
+          -ErrorAction SilentlyContinue; Remove-Item "PathToAtomicsFolder\..\ExternalPayloads\PsTools.zip"
+          -Force -Recurse -ErrorAction SilentlyContinue
         elevation_required: true
   plugin: atomic
   singleton: false
@@ -47,6 +53,17 @@
         type: string
         default: $ENV:COMPUTERNAME
     dependencies:
+    - description: 'WMIC must be installed (deprecated and removed by default in Windows
+        11 22H2+)
+
+        '
+      prereq_command: 'if (Get-Command wmic.exe -ErrorAction SilentlyContinue) { exit
+        0 } else { exit 1 }
+
+        '
+      get_prereq_command: 'DISM /Online /Add-Capability /CapabilityName:WMIC~~~~
+
+        '
     - description: 'PsExec must exist on disk at "PathToAtomicsFolder\..\ExternalPayloads\PsExec.exe"
 
         '
@@ -69,4 +86,4 @@
         '
     technique_created: '2020-03-10T18:33:36.159Z'
     atomic_guid: 31eb7828-97d7-4067-9c1e-c6feb85edc4b
-    import_timestamp: '2026-09-04T06:56:11.138666Z'
+    import_timestamp: '2026-09-05T06:41:05.282985Z'

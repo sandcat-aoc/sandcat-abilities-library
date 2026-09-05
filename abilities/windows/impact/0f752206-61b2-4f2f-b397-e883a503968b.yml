@@ -1,0 +1,42 @@
+- id: 0f752206-61b2-4f2f-b397-e883a503968b
+  name: Windows - iisreset.exe to stop Internet services
+  description: Stops Internet services upon running. Used by BlackCat ransomware to
+    release/prevent locks on files to be encrypted.
+  tactic: impact
+  technique:
+    attack_id: T1489
+    name: Service Stop
+  platforms:
+    windows:
+      psh:
+        command: 'if((Get-WindowsOptionalFeature -Online -FeatureName IIS-WebServerRole).State
+          -eq "Enabled"){exit 0} else {exit 1}; then : ; else Enable-WindowsOptionalFeature
+          -Online -FeatureName IIS-WebServerRole -NoRestart; New-Item -Path "$env:TEMP\T1489_enabled"
+          -ItemType File; fi; iisreset.exe /stop'
+        cleanup: iisreset.exe /start; if(Test-Path -Path "$env:TEMP\T1489_enabled"){;
+          Disable-WindowsOptionalFeature -Online -FeatureName IIS-WebServerRole -NoRestart;
+          Remove-Item "$env:TEMP\T1489_enabled" -Force; }
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - impact
+  - atomic-red-team
+  - t1489
+  author: Atomic Red Team
+  additional_info:
+    dependencies:
+    - description: iireset.exe will not be found if the IIS Windows feature is disabled,
+        which it is by default.
+      prereq_command: if((Get-WindowsOptionalFeature -Online -FeatureName IIS-WebServerRole).State
+        -eq "Enabled"){exit 0} else {exit 1}
+      get_prereq_command: 'Enable-WindowsOptionalFeature -Online -FeatureName IIS-WebServerRole
+        -NoRestart
+
+        New-Item -Path "$env:TEMP\T1489_enabled" -ItemType File'
+    technique_created: '2019-03-29T19:00:55.901Z'
+    atomic_guid: 0f752206-61b2-4f2f-b397-e883a503968b
+    import_timestamp: '2026-09-05T06:41:07.765412Z'

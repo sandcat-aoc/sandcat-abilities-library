@@ -1,0 +1,110 @@
+- id: a3ddaf15-d1a1-4bc3-8683-84c7c67120fe
+  name: Impacket wmiexec.py
+  description: wmiexec.py is tool included in the Impacket toolkit that allows to
+    execute commands remotely on a Windows System using WMI (Windows management Instrumentation).
+  tactic: execution
+  technique:
+    attack_id: T1047
+    name: Windows Management Instrumentation
+  platforms:
+    windows:
+      psh:
+        command: 'if (Test-Path "$env:TEMP\uv\uv.exe") { exit 0 } else { exit 1 };
+          then : ; else $env:UV_INSTALL_DIR = "$env:TEMP\uv"; irm https://astral.sh/uv/install.ps1
+          | iex; New-Item -ItemType File -Path "$env:TEMP\uv_installed_by_atomic"
+          -Force | Out-Null; fi; if (Test-Path "$env:TEMP\uv\tools\bin\wmiexec.py")
+          { exit 0 } else { exit 1 }; then : ; else $env:PATH = "$env:TEMP\uv;$env:TEMP\uv\tools\bin;$env:PATH";
+          $env:UV_TOOL_DIR = "$env:TEMP\uv\tools"; $env:UV_TOOL_BIN_DIR = "$env:TEMP\uv\tools\bin";
+          uv tool install impacket; fi; cd $env:TEMP\uv\tools\bin; $optionalArgs =
+          "#{optional_args}"; $argList = @("ipconfig"); if (-not [string]::IsNullOrWhiteSpace($optionalArgs))
+          { $argList += $optionalArgs.Split(" ") }; .\wmiexec.py $env:USERDNSDOMAIN/$env:USERNAME:1234@$env:COMPUTERNAME
+          @argList'
+        cleanup: $env:PATH = "#{uv_install_dir};#{uv_tool_bin_dir};$env:PATH"; $env:UV_TOOL_DIR
+          = "#{uv_tool_dir}"; $env:UV_TOOL_BIN_DIR = "#{uv_tool_bin_dir}"; uv tool
+          uninstall impacket 2>$null; Remove-Item "#{uv_tool_dir}" -Recurse -Force
+          -ErrorAction SilentlyContinue; if (Test-Path "$env:TEMP\uv_installed_by_atomic")
+          {; Remove-Item "$env:TEMP\uv_installed_by_atomic" -Force -ErrorAction SilentlyContinue;
+          uv self uninstall 2>$null; }
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - execution
+  - atomic-red-team
+  - t1047
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      target_domain:
+        description: Domain of the Target machine.
+        type: string
+        default: $env:USERDNSDOMAIN
+      user_name:
+        description: username on the target machine.
+        type: string
+        default: $env:USERNAME
+      password:
+        description: password for the target machine
+        type: string
+        default: '1234'
+      target_host:
+        description: IP address or hostname of the target machine.
+        type: string
+        default: $env:COMPUTERNAME
+      command:
+        description: Command to execute on the target machine.
+        type: string
+        default: ipconfig
+      optional_args:
+        description: Additional arguments to use (like -k -no-pass)
+        type: string
+        default: null
+      uv_install_dir:
+        description: Directory where the uv binary is installed
+        type: path
+        default: $env:TEMP\uv
+      uv_tool_dir:
+        description: Directory where uv installs tool virtualenvs
+        type: path
+        default: $env:TEMP\uv\tools
+      uv_tool_bin_dir:
+        description: Directory where uv places tool executable shims
+        type: path
+        default: $env:TEMP\uv\tools\bin
+    dependencies:
+    - description: 'uv must be installed
+
+        '
+      prereq_command: 'if (Test-Path "#{uv_install_dir}\uv.exe") { exit 0 } else {
+        exit 1 }
+
+        '
+      get_prereq_command: '$env:UV_INSTALL_DIR = "#{uv_install_dir}"
+
+        irm https://astral.sh/uv/install.ps1 | iex
+
+        New-Item -ItemType File -Path "$env:TEMP\uv_installed_by_atomic" -Force |
+        Out-Null
+
+        '
+    - description: 'Impacket must be installed via uv
+
+        '
+      prereq_command: 'if (Test-Path "#{uv_tool_bin_dir}\wmiexec.py") { exit 0 } else
+        { exit 1 }
+
+        '
+      get_prereq_command: '$env:PATH = "#{uv_install_dir};#{uv_tool_bin_dir};$env:PATH"
+
+        $env:UV_TOOL_DIR = "#{uv_tool_dir}"
+
+        $env:UV_TOOL_BIN_DIR = "#{uv_tool_bin_dir}"
+
+        uv tool install impacket
+
+        '
+    technique_created: '2017-05-31T21:30:44.329Z'
+    atomic_guid: a3ddaf15-d1a1-4bc3-8683-84c7c67120fe
+    import_timestamp: '2026-09-05T06:41:05.022386Z'

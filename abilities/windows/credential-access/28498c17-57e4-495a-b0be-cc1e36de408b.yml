@@ -9,54 +9,62 @@
   platforms:
     windows:
       psh:
-        command: 'if (((Test-Path "$env:LOCALAPPDATA\Programs\Opera\launcher.exe")
-          -Or (Test-Path "C:\Program Files\Opera\launcher.exe") -Or (Test-Path "C:\Program
-          Files (x86)\Opera\launcher.exe"))) {exit 0} else {exit 1}; then : ; else
-          New-Item -Type Directory "PathToAtomicsFolder\..\ExternalPayloads\" -ErrorAction
-          Ignore -Force | Out-Null; $installer = "PathToAtomicsFolder\..\ExternalPayloads\OperaStandaloneInstaller.exe";
-          Invoke-WebRequest -OutFile "PathToAtomicsFolder\..\ExternalPayloads\OperaStandaloneInstaller.exe"
-          https://get.geo.opera.com/pub/opera/desktop/82.0.4227.43/win/Opera_82.0.4227.43_Setup.exe;
-          Start-Process $installer -ArgumentList ''/install /silent /launchopera=1
-          /setdefaultbrowser=0''; Start-Sleep -s 180; Stop-Process -Name "opera";
-          fi; if (Test-Path "$env:APPDATA\Opera Software\Opera Stable\Login Data")
-          {exit 0} else {exit 1}; then : ; else New-Item -Path "$env:APPDATA\Opera
-          Software\Opera Stable\Login Data" -ItemType File; fi; Copy-Item "$env:APPDATA\Opera
-          Software\Opera Stable\Login Data" -Destination "PathToAtomicsFolder\..\ExternalPayloads"'
+        command: 'if (Test-Path "PathToAtomicsFolder\..\ExternalPayloads\OperaStandaloneInstaller.exe/../opera.exe")  {exit
+          0} else {exit 1}; then : ; else if (!(Test-Path "PathToAtomicsFolder\..\ExternalPayloads\OperaStandaloneInstaller.exe")){;
+          $parentpath = Split-Path "PathToAtomicsFolder\..\ExternalPayloads\OperaStandaloneInstaller.exe";
+          New-Item -Type Directory "$parentpath" -ErrorAction Ignore -Force | Out-Null;
+          (New-Object Net.WebClient).DownloadFile("https://get.geo.opera.com/pub/opera/desktop/82.0.4227.43/win/Opera_82.0.4227.43_Setup.exe","PathToAtomicsFolder\..\ExternalPayloads\OperaStandaloneInstaller.exe");
+          }; $path = Convert-Path -LiteralPath "PathToAtomicsFolder\..\ExternalPayloads\OperaStandaloneInstaller.exe";
+          Start-Process $path -ArgumentList ''/install /silent /launchopera=1 /setdefaultbrowser=0'';
+          Start-Sleep -s 120; Stop-Process -Name "opera"; fi; if (Test-Path "$env:APPDATA\Opera
+          Software\Opera Stable\Login Data") {exit 0} else {exit 1}; then : ; else
+          New-Item -Path "$env:APPDATA\Opera Software\Opera Stable\Login Data" -ItemType
+          File; fi; Copy-Item "$env:APPDATA\Opera Software\Opera Stable\Login Data"
+          -Destination "PathToAtomicsFolder\..\ExternalPayloads"'
         cleanup: Remove-Item -Path "PathToAtomicsFolder\..\ExternalPayloads\Login
-          Data" -Force -ErrorAction Ignore
+          Data" -Force -ErrorAction SilentlyContinue; $parent_dir = Split-Path "#{installer_path}";
+          Start-Process -FilePath "$parent_dir/opera.exe" -ArgumentList "--uninstall
+          --runimmediately --deleteuserprofile=1" -Wait; Remove-Item -Path "$parent_dir/82.0.4227.43"
+          -Recurse -Force -ErrorAction SilentlyContinue; Remove-Item -Path "$parent_dir/assistant"
+          -Recurse -Force -ErrorAction SilentlyContinue; Remove-Item -Path "$parent_dir/installer_prefs*"
+          -Recurse -Force -ErrorAction SilentlyContinue; Remove-Item -Path "$parent_dir/server_tracking_data"
+          -Recurse -Force -ErrorAction SilentlyContinue; Remove-Item -Path "$parent_dir/launcher.exe"
+          -Recurse -Force -ErrorAction SilentlyContinue; Remove-Item -Path "#{installer_path}"
+          -Recurse -Force -ErrorAction SilentlyContinue; Remove-Item -Path "C:\Program
+          Files (x86)\Opera" -Recurse -Force -ErrorAction SilentlyContinue
   plugin: atomic
   singleton: false
   repeatable: true
   delete_payload: false
   privilege: ''
   buckets:
-  - credential-access
   - atomic-red-team
   - t1555.003
+  - credential-access
   author: Atomic Red Team
   additional_info:
+    input_arguments:
+      installer_path:
+        description: where the installer will be downloaded to or already is located
+        type: path
+        default: PathToAtomicsFolder\..\ExternalPayloads\OperaStandaloneInstaller.exe
+      download_url:
+        description: url to install Opera from
+        type: url
+        default: https://get.geo.opera.com/pub/opera/desktop/82.0.4227.43/win/Opera_82.0.4227.43_Setup.exe
     dependencies:
     - description: 'Opera must be installed
 
         '
-      prereq_command: if (((Test-Path "$env:LOCALAPPDATA\Programs\Opera\launcher.exe")
-        -Or (Test-Path "C:\Program Files\Opera\launcher.exe") -Or (Test-Path "C:\Program
-        Files (x86)\Opera\launcher.exe"))) {exit 0} else {exit 1}
-      get_prereq_command: 'New-Item -Type Directory "PathToAtomicsFolder\..\ExternalPayloads\"
-        -ErrorAction Ignore -Force | Out-Null
-
-        $installer = "PathToAtomicsFolder\..\ExternalPayloads\OperaStandaloneInstaller.exe"
-
-        Invoke-WebRequest -OutFile "PathToAtomicsFolder\..\ExternalPayloads\OperaStandaloneInstaller.exe"
-        https://get.geo.opera.com/pub/opera/desktop/82.0.4227.43/win/Opera_82.0.4227.43_Setup.exe
-
-        Start-Process $installer -ArgumentList ''/install /silent /launchopera=1 /setdefaultbrowser=0''
-
-        Start-Sleep -s 180
-
-        Stop-Process -Name "opera"
-
-        '
+      prereq_command: if (Test-Path "#{installer_path}/../opera.exe")  {exit 0} else
+        {exit 1}
+      get_prereq_command: "if (!(Test-Path \"#{installer_path}\")){\n  $parentpath\
+        \ = Split-Path \"#{installer_path}\"\n  New-Item -Type Directory \"$parentpath\"\
+        \ -ErrorAction Ignore -Force | Out-Null\n  (New-Object Net.WebClient).DownloadFile(\"\
+        #{download_url}\",\"#{installer_path}\")\n}\n$path = Convert-Path -LiteralPath\
+        \ \"#{installer_path}\"\nStart-Process $path -ArgumentList '/install /silent\
+        \ /launchopera=1 /setdefaultbrowser=0'\nStart-Sleep -s 120\nStop-Process -Name\
+        \ \"opera\"\n"
     - description: 'Opera login data file must exist
 
         '
@@ -68,4 +76,4 @@
         '
     technique_created: '2020-02-12T18:57:36.041Z'
     atomic_guid: 28498c17-57e4-495a-b0be-cc1e36de408b
-    import_timestamp: '2026-09-04T06:56:12.741024Z'
+    import_timestamp: '2026-09-05T06:41:07.011496Z'

@@ -1,0 +1,46 @@
+- id: 6731e8a0-5aeb-4180-8a90-4f8852e56de6
+  name: Turla KopiLuwak Scheduled Task for JavaScript Stager
+  description: 'Emulates the KopiLuwak dropper''s scheduled task creation stage. Creates
+    a logon-triggered
+
+    scheduled task named ProactiveScan with description "NTFS Volume Health Scan"
+    that runs
+
+    Chkdsk.js from the current user''s AppData\Roaming\Microsoft directory with an
+    RC4 decryption
+
+    key passed via the -scan parameter. The task is created using schtasks.exe matching
+    the
+
+    malware''s use of CreateScheduledTaskLogon. Chkdsk.js does not need to exist for
+    the
+
+    scheduled task to be created.
+
+
+    Reference: https://securelist.com/turla-renews-its-arsenal-with-topinambour/91687/'
+  tactic: privilege-escalation
+  technique:
+    attack_id: T1053.005
+    name: 'Scheduled Task/Job: Scheduled Task'
+  platforms:
+    windows:
+      sh:
+        command: schtasks /create /TN "ProactiveScan" /TR "wscript.exe \"%APPDATA%\Microsoft\Chkdsk.js\"
+          -scan Kdw6gG7cpOSZsBeH" /SC ONLOGON /F
+        cleanup: schtasks /Delete /TN "ProactiveScan" /F >nul 2>&1
+        elevation_required: false
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - privilege-escalation
+  - t1053.005
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    technique_created: '2019-11-27T14:58:00.429Z'
+    atomic_guid: 6731e8a0-5aeb-4180-8a90-4f8852e56de6
+    import_timestamp: '2026-09-05T06:41:04.436288Z'

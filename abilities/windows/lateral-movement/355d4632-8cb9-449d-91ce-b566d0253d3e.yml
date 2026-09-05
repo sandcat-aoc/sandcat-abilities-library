@@ -1,6 +1,7 @@
 - id: 355d4632-8cb9-449d-91ce-b566d0253d3e
-  name: RDP to DomainController
-  description: Attempt an RDP session via Remote Desktop Application to a DomainController.
+  name: RDP to Remote Host
+  description: Attempt an RDP session via the Remote Desktop Client (mstsc) to an
+    arbitrary remote host.
   tactic: lateral-movement
   technique:
     attack_id: T1021.001
@@ -8,14 +9,12 @@
   platforms:
     windows:
       psh:
-        command: 'if((Get-CIMInstance -Class Win32_ComputerSystem).PartOfDomain) {
-          exit 0} else { exit 1}; then : ; else Write-Host Joining this computer to
-          a domain must be done manually; fi; $Server=$ENV:logonserver.TrimStart("\");
-          $User = Join-Path $Env:USERDOMAIN $ENV:USERNAME; $Password="1password2!";
-          cmdkey /generic:TERMSRV/$Server /user:$User /pass:$Password; mstsc /v:$Server;
-          echo "RDP connection established"'
+        command: $Server = "127.0.0.1"; $User = if ("#{domain}") { "#{domain}\$ENV:USERNAME"
+          } else { "$ENV:USERNAME" }; $Password = "1password2!"; cmdkey /generic:TERMSRV/$Server
+          /user:$User /pass:$Password; mstsc /v:$Server; echo "RDP connection attempted"
         cleanup: $p=Tasklist /svc /fi "IMAGENAME eq mstsc.exe" /fo csv | convertfrom-csv;
-          if(-not ([string]::IsNullOrEmpty($p.PID))) { Stop-Process -Id $p.PID }
+          if(-not ([string]::IsNullOrEmpty($p.PID))) { Stop-Process -Id $p.PID };
+          cmdkey /delete:TERMSRV/#{target_host}| Out-Null
   plugin: atomic
   singleton: false
   repeatable: true
@@ -23,19 +22,20 @@
   privilege: ''
   buckets:
   - atomic-red-team
-  - lateral-movement
   - t1021.001
+  - lateral-movement
   author: Atomic Red Team
   additional_info:
     input_arguments:
-      logonserver:
-        description: ComputerName argument default %logonserver%
+      target_host:
+        description: IP address or hostname of the remote host to RDP into.
         type: string
-        default: $ENV:logonserver.TrimStart("\")
+        default: 127.0.0.1
       domain:
-        description: domain argument default %USERDOMAIN%
+        description: Domain of the account. Leave blank to use a local account (username
+          only).
         type: string
-        default: $Env:USERDOMAIN
+        default: ''
       username:
         description: Username argument default %username%
         type: string
@@ -44,18 +44,6 @@
         description: Password
         type: string
         default: 1password2!
-    dependencies:
-    - description: 'Computer must be domain joined
-
-        '
-      prereq_command: 'if((Get-CIMInstance -Class Win32_ComputerSystem).PartOfDomain)
-        { exit 0} else { exit 1}
-
-        '
-      get_prereq_command: 'Write-Host Joining this computer to a domain must be done
-        manually
-
-        '
     technique_created: '2020-02-11T18:23:26.059Z'
     atomic_guid: 355d4632-8cb9-449d-91ce-b566d0253d3e
-    import_timestamp: '2026-09-04T06:56:12.150504Z'
+    import_timestamp: '2026-09-05T06:41:06.378280Z'

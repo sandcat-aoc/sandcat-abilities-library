@@ -1,0 +1,35 @@
+- id: 42c55554-3dcb-4df6-8fbb-c8ccacc478d4
+  name: Find WireGuard configuration files
+  description: Find WireGuard configuration files in /etc/wireguard/, which contain
+    private keys and preshared keys in plaintext. Requires root privileges.
+  tactic: credential-access
+  technique:
+    attack_id: T1552.004
+    name: 'Unsecured Credentials: Private Keys'
+  platforms:
+    linux:
+      sh:
+        command: find /etc/wireguard -name '*.conf' -type f -exec sh -c 'echo "===
+          $1 ===" >> /tmp/creds.txt; cat "$1" >> /tmp/creds.txt' _ {} \; 2>/dev/null
+        cleanup: rm -f /tmp/creds.txt
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - atomic-red-team
+  - t1552.004
+  - credential-access
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      optional_flags:
+        description: optional flags passed into find that should be ran
+        type: string
+        default: -exec sh -c 'echo "=== $1 ===" >> /tmp/creds.txt; cat "$1" >> /tmp/creds.txt'
+          _ {} \;
+    technique_created: '2020-02-04T13:06:49.258Z'
+    atomic_guid: 42c55554-3dcb-4df6-8fbb-c8ccacc478d4
+    import_timestamp: '2026-09-05T06:41:20.037023Z'

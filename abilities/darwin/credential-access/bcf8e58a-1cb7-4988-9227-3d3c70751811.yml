@@ -1,0 +1,51 @@
+- id: bcf8e58a-1cb7-4988-9227-3d3c70751811
+  name: Find .env Files Containing Application Credentials
+  description: 'Searches common web application and service directories for .env files
+
+    (.env, .env.local, .env.production, .env.development, .env.staging) that may
+
+    contain credentials such as API keys, database passwords, and service secrets.
+
+    Adversaries targeting web servers or containerized environments search for these
+
+    files after gaining host access to harvest application-level credentials.'
+  tactic: credential-access
+  technique:
+    attack_id: T1552.001
+    name: 'Unsecured Credentials: Credentials In Files'
+  platforms:
+    darwin:
+      sh:
+        command: find /home /Users /root /opt /srv /var/www /app /data /var/lib /tmp
+          -maxdepth 6 -name ".env*" -type f -exec sh -c 'echo "=== $1 ===" >> /tmp/creds.txt;
+          cat "$1" >> /tmp/creds.txt' _ {} \; 2>/dev/null
+        cleanup: rm -f /tmp/creds.txt
+        elevation_required: false
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - atomic-red-team
+  - t1552.001
+  - credential-access
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      file_path:
+        description: Space-separated list of directories to search
+        type: string
+        default: /home /Users /root /opt /srv /var/www /app /data /var/lib /tmp
+      filename:
+        description: .env filename pattern to search for
+        type: string
+        default: .env*
+      optional_flags:
+        description: optional flags passed into find that should be ran
+        type: string
+        default: -exec sh -c 'echo "=== $1 ===" >> /tmp/creds.txt; cat "$1" >> /tmp/creds.txt'
+          _ {} \;
+    technique_created: '2020-02-04T12:52:13.006Z'
+    atomic_guid: bcf8e58a-1cb7-4988-9227-3d3c70751811
+    import_timestamp: '2026-09-05T06:40:49.902916Z'

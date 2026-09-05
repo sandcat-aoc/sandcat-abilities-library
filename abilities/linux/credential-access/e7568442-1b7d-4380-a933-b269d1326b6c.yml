@@ -1,0 +1,42 @@
+- id: e7568442-1b7d-4380-a933-b269d1326b6c
+  name: Enumerate WireGuard interface credentials with wg showconf
+  description: Dump WireGuard interface configurations including private keys and
+    preshared keys using wg showconf. Requires root privileges.
+  tactic: credential-access
+  technique:
+    attack_id: T1552.004
+    name: 'Unsecured Credentials: Private Keys'
+  platforms:
+    linux:
+      sh:
+        command: for iface in $(wg show interfaces); do wg showconf "$iface"; done
+        cleanup: if [ -f /tmp/wireguard_installed ]; then (apt-get remove -y wireguard-tools
+          || dnf remove -y wireguard-tools || yum remove -y wireguard-tools || pacman
+          -R --noconfirm wireguard-tools) && rm -f /tmp/wireguard_installed; fi
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - atomic-red-team
+  - t1552.004
+  - credential-access
+  author: Atomic Red Team
+  additional_info:
+    dependencies:
+    - description: 'wireguard-tools must be installed
+
+        '
+      prereq_command: 'which wg
+
+        '
+      get_prereq_command: '(apt-get install -y wireguard-tools || dnf install -y wireguard-tools
+        || yum install -y wireguard-tools || pacman -S --noconfirm wireguard-tools)
+        && touch /tmp/wireguard_installed
+
+        '
+    technique_created: '2020-02-04T13:06:49.258Z'
+    atomic_guid: e7568442-1b7d-4380-a933-b269d1326b6c
+    import_timestamp: '2026-09-05T06:41:20.034757Z'

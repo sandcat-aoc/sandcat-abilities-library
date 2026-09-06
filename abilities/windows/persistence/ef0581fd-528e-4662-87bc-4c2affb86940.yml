@@ -34,8 +34,8 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - atomic-red-team
   - persistence
+  - atomic-red-team
   - t1543.003
   author: Atomic Red Team
   additional_info:
@@ -46,4 +46,4 @@
         default: PathToAtomicsFolder\T1543.003\bin\W64Time.dll
     technique_created: '2020-01-17T19:13:50.402Z'
     atomic_guid: ef0581fd-528e-4662-87bc-4c2affb86940
-    import_timestamp: '2026-09-05T06:41:05.397297Z'
+    import_timestamp: '2026-09-06T06:52:05.216415Z'

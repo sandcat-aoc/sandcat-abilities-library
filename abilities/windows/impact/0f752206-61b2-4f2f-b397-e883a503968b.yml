@@ -23,9 +23,9 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - impact
-  - atomic-red-team
   - t1489
+  - atomic-red-team
+  - impact
   author: Atomic Red Team
   additional_info:
     dependencies:
@@ -39,4 +39,4 @@
         New-Item -Path "$env:TEMP\T1489_enabled" -ItemType File'
     technique_created: '2019-03-29T19:00:55.901Z'
     atomic_guid: 0f752206-61b2-4f2f-b397-e883a503968b
-    import_timestamp: '2026-09-05T06:41:07.765412Z'
+    import_timestamp: '2026-09-06T06:52:07.565652Z'

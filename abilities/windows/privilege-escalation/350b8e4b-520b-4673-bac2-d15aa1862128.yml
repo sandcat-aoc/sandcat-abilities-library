@@ -22,9 +22,9 @@
   delete_payload: false
   privilege: ''
   buckets:
+  - t1548.002
   - privilege-escalation
   - atomic-red-team
-  - t1548.002
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -34,4 +34,4 @@
         default: C:\Windows\System32\calc.exe
     technique_created: '2020-01-30T14:24:34.977Z'
     atomic_guid: 350b8e4b-520b-4673-bac2-d15aa1862128
-    import_timestamp: '2026-09-05T06:41:04.517288Z'
+    import_timestamp: '2026-09-06T06:52:04.338422Z'

@@ -26,4 +26,4 @@
     use_case: Use ioreg to check USB device vendor names
     source_file: ioreg.yml
     source_repository: https://github.com/infosecB/LOOBins
-    import_timestamp: '2026-09-05T06:40:34.325105Z'
+    import_timestamp: '2026-09-06T06:51:32.471740Z'

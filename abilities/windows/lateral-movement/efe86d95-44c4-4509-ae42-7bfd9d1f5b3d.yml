@@ -25,8 +25,8 @@
   privilege: ''
   buckets:
   - t1021.006
-  - atomic-red-team
   - lateral-movement
+  - atomic-red-team
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -60,4 +60,4 @@
       get_prereq_command: gem install evil-winrm
     technique_created: '2020-02-11T18:29:47.757Z'
     atomic_guid: efe86d95-44c4-4509-ae42-7bfd9d1f5b3d
-    import_timestamp: '2026-09-05T06:41:06.333672Z'
+    import_timestamp: '2026-09-06T06:52:06.142313Z'

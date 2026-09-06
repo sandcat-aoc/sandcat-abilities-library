@@ -59,9 +59,9 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - atomic-red-team
-  - t1546.003
   - persistence
+  - t1546.003
+  - atomic-red-team
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -71,4 +71,4 @@
         default: Get-Date
     technique_created: '2020-01-24T14:07:56.276Z'
     atomic_guid: 67cee1c5-8c9b-460b-a4c3-76a6c69bcd15
-    import_timestamp: '2026-09-05T06:41:05.792775Z'
+    import_timestamp: '2026-09-06T06:52:05.607378Z'

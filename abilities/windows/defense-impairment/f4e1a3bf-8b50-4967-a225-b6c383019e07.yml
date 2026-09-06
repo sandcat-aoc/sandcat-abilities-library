@@ -43,9 +43,9 @@
   delete_payload: false
   privilege: ''
   buckets:
+  - defense-impairment
   - t1686.003
   - atomic-red-team
-  - defense-impairment
   author: Atomic Red Team
   additional_info:
     dependencies:
@@ -63,4 +63,4 @@
         \ | Out-File -Append \"$env:TEMP\\network_profile_backup.txt\"\n}\n"
     technique_created: '2026-04-14T22:54:05.494Z'
     atomic_guid: f4e1a3bf-8b50-4967-a225-b6c383019e07
-    import_timestamp: '2026-09-05T06:41:06.415822Z'
+    import_timestamp: '2026-09-06T06:52:06.223864Z'

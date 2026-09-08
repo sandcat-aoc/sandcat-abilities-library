@@ -17,10 +17,10 @@
   privilege: ''
   buckets:
   - t1529
-  - impact
   - atomic-red-team
+  - impact
   author: Atomic Red Team
   additional_info:
     technique_created: '2019-10-04T20:42:28.541Z'
     atomic_guid: 7b1cee42-320f-4890-b056-d65c8b884ba5
-    import_timestamp: '2026-09-07T07:00:51.128222Z'
+    import_timestamp: '2026-09-08T06:55:00.015968Z'

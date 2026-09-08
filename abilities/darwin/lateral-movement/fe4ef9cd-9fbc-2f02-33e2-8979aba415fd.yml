@@ -51,4 +51,4 @@
     use_case: Covert file transfer via SNMP trap payloads
     source_file: snmptrap.yml
     source_repository: https://github.com/infosecB/LOOBins
-    import_timestamp: '2026-09-07T07:00:02.234177Z'
+    import_timestamp: '2026-09-08T06:54:18.710824Z'

@@ -37,9 +37,9 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - t1686.003
-  - atomic-red-team
   - defense-impairment
+  - atomic-red-team
+  - t1686.003
   author: Atomic Red Team
   additional_info:
     dependencies:
@@ -56,4 +56,4 @@
         T1686.003_firewall_backup.txt\"\n}\n"
     technique_created: '2026-04-14T22:54:05.494Z'
     atomic_guid: 0ef45922-1cd8-4211-8595-3cb3bd87f5d8
-    import_timestamp: '2026-09-08T06:54:47.070207Z'
+    import_timestamp: '2026-09-09T07:04:29.343248Z'

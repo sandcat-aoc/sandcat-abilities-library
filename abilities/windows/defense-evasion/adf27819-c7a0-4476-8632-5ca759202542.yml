@@ -1,0 +1,30 @@
+- id: adf27819-c7a0-4476-8632-5ca759202542
+  name: adf27819-c7a0-4476-8632-5ca759202542 - Malicious Driver Deployment
+  description: 'Malicious driver: adf27819-c7a0-4476-8632-5ca759202542
+
+    Category: malicious
+
+    Author: Michael Haag
+
+    Created: 2026-09-08
+
+    MITRE Technique: T1014'
+  tactic: defense-evasion
+  technique:
+    attack_id: T1014
+    name: Rootkit
+  platforms:
+    windows:
+      cmd:
+        command: sc create MaliciousDriver binPath= "C:\Windows\System32\drivers\malicious_driver.sys"
+          type= kernel
+  singleton: true
+  privilege: Elevated
+  repeatable: false
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: Michael Haag
+  operating_system: Windows (Version Unspecified)
+  created: '2026-09-08'
+  modified: '2026-09-08'

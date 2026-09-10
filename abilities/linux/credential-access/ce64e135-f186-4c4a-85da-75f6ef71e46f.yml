@@ -17,9 +17,9 @@
   delete_payload: false
   privilege: ''
   buckets:
+  - atomic-red-team
   - credential-access
   - t1552.003
-  - atomic-red-team
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -37,4 +37,4 @@
         default: ~/.mysql_history
     technique_created: '2020-02-04T13:02:11.685Z'
     atomic_guid: ce64e135-f186-4c4a-85da-75f6ef71e46f
-    import_timestamp: '2026-09-09T07:04:43.124136Z'
+    import_timestamp: '2026-09-10T07:01:26.378261Z'

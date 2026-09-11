@@ -1,7 +1,7 @@
 # Caldera Abilities Library
 
-![Total Abilities](https://img.shields.io/badge/Total%20Abilities-4525-blue)
-![Windows](https://img.shields.io/badge/Windows-3237-lightblue)
+![Total Abilities](https://img.shields.io/badge/Total%20Abilities-4527-blue)
+![Windows](https://img.shields.io/badge/Windows-3239-lightblue)
 ![Darwin](https://img.shields.io/badge/Darwin-618-orange)
 ![Linux](https://img.shields.io/badge/Linux-670-red)
 ![Unique Techniques](https://img.shields.io/badge/Unique%20Techniques-340-green)

@@ -1,0 +1,23 @@
+- id: 51030469-7228-6865-d593-9e42cbe82f2c
+  name: DbgSrv.exe - Creates a process server and launches the specified command using
+    the DbgSrv.exe -c option.
+  description: Creates a process server and launches the specified command using the
+    DbgSrv.exe -c option.
+  tactic: defense-evasion
+  technique:
+    attack_id: T1127
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: 'dbgsrv.exe -t tcp:port=5005 -c #{host.executable.name}'
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: Phyo Paing Htun
+  created: '2026-07-29'
+  modified: '2026-07-29'
+  operating_system: Windows All Versions

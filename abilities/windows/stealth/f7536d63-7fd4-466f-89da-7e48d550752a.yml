@@ -20,9 +20,9 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - atomic-red-team
-  - stealth
   - t1574.011
+  - stealth
+  - atomic-red-team
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -32,4 +32,4 @@
         default: weakservicename
     technique_created: '2020-03-13T11:42:14.444Z'
     atomic_guid: f7536d63-7fd4-466f-89da-7e48d550752a
-    import_timestamp: '2026-09-12T06:52:48.406976Z'
+    import_timestamp: '2026-09-13T07:10:35.785712Z'

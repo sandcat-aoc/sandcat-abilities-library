@@ -28,4 +28,4 @@
     use_case: Active Directory user enumeration
     source_file: dscl.yml
     source_repository: https://github.com/infosecB/LOOBins
-    import_timestamp: '2026-09-12T06:52:19.579173Z'
+    import_timestamp: '2026-09-13T07:10:06.148976Z'

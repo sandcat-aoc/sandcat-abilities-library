@@ -16,9 +16,9 @@
   delete_payload: false
   privilege: ''
   buckets:
+  - atomic-red-team
   - credential-access
   - t1552.003
-  - atomic-red-team
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -36,4 +36,4 @@
         default: ~/.zsh_history
     technique_created: '2020-02-04T13:02:11.685Z'
     atomic_guid: 8f2765a8-e795-438b-a102-5e25a7adcce1
-    import_timestamp: '2026-09-13T07:10:52.008361Z'
+    import_timestamp: '2026-09-14T07:34:02.667310Z'

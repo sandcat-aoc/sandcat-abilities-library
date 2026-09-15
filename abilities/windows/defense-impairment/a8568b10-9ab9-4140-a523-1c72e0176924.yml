@@ -51,4 +51,4 @@
         msiexec.exe /i "C:\Users\Public\SubInAcl\SubInAcl.msi" /qn'
     technique_created: '2020-02-04T19:17:41.767Z'
     atomic_guid: a8568b10-9ab9-4140-a523-1c72e0176924
-    import_timestamp: '2026-09-14T07:33:50.082207Z'
+    import_timestamp: '2026-09-15T07:10:57.333874Z'

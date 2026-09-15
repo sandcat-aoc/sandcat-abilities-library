@@ -33,4 +33,4 @@
         default: https://raw.githubusercontent.com/redcanaryco/atomic-red-team/master/atomics/T1218.011/src/T1218.011.sct
     technique_created: '2020-01-23T18:03:46.248Z'
     atomic_guid: 57ba4ce9-ee7a-4f27-9928-3c70c489b59d
-    import_timestamp: '2026-09-14T07:33:47.519309Z'
+    import_timestamp: '2026-09-15T07:10:54.761734Z'

@@ -18,8 +18,8 @@
   privilege: ''
   buckets:
   - t1552.003
-  - atomic-red-team
   - credential-access
+  - atomic-red-team
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -37,4 +37,4 @@
         default: ~/.mysql_history
     technique_created: '2020-02-04T13:02:11.685Z'
     atomic_guid: ce64e135-f186-4c4a-85da-75f6ef71e46f
-    import_timestamp: '2026-09-15T07:11:09.973128Z'
+    import_timestamp: '2026-09-16T07:11:24.439190Z'

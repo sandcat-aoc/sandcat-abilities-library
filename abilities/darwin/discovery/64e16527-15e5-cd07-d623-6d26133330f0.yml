@@ -24,4 +24,4 @@
     use_case: Get Active Directory user info from Jamf Connect
     source_file: defaults.yml
     source_repository: https://github.com/infosecB/LOOBins
-    import_timestamp: '2026-09-17T07:09:08.121395Z'
+    import_timestamp: '2026-09-18T07:03:37.648850Z'

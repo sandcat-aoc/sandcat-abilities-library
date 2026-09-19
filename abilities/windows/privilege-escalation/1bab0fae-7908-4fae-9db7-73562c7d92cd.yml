@@ -1,0 +1,30 @@
+- id: 1bab0fae-7908-4fae-9db7-73562c7d92cd
+  name: 1bab0fae-7908-4fae-9db7-73562c7d92cd - Malicious Driver Deployment
+  description: 'Malicious driver: 1bab0fae-7908-4fae-9db7-73562c7d92cd
+
+    Category: vulnerable driver
+
+    Author: Leonid (methmind), Michael Haag
+
+    Created: 2026-09-18
+
+    MITRE Technique: T1068'
+  tactic: privilege-escalation
+  technique:
+    attack_id: T1068
+    name: Rootkit
+  platforms:
+    windows:
+      cmd:
+        command: sc create MaliciousDriver binPath= "C:\Windows\System32\drivers\malicious_driver.sys"
+          type= kernel
+  singleton: true
+  privilege: Elevated
+  repeatable: false
+  buckets:
+  - privilege-escalation
+  version: '1.0'
+  author: Leonid (methmind), Michael Haag
+  operating_system: Windows (Version Unspecified)
+  created: '2026-09-18'
+  modified: '2026-09-18'

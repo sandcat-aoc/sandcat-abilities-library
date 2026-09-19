@@ -1,0 +1,30 @@
+- id: 70a7693f-2880-47a0-90f2-9703f2b4cab3
+  name: 70a7693f-2880-47a0-90f2-9703f2b4cab3 - Malicious Driver Deployment
+  description: 'Malicious driver: 70a7693f-2880-47a0-90f2-9703f2b4cab3
+
+    Category: vulnerable driver
+
+    Author: Robel Campbell
+
+    Created: 2026-09-09
+
+    MITRE Technique: T1562.001'
+  tactic: defense-evasion
+  technique:
+    attack_id: T1562.001
+    name: Rootkit
+  platforms:
+    windows:
+      cmd:
+        command: sc create MaliciousDriver binPath= "C:\Windows\System32\drivers\malicious_driver.sys"
+          type= kernel
+  singleton: true
+  privilege: Elevated
+  repeatable: false
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: Robel Campbell
+  operating_system: Windows (Version Unspecified)
+  created: '2026-09-09'
+  modified: '2026-09-09'

@@ -27,4 +27,4 @@
     use_case: Mount SMB volume without GUI using osascript mount volume
     source_file: osascript.yml
     source_repository: https://github.com/infosecB/LOOBins
-    import_timestamp: '2026-09-18T07:03:37.488002Z'
+    import_timestamp: '2026-09-19T07:01:09.965588Z'

@@ -26,9 +26,9 @@
   delete_payload: false
   privilege: ''
   buckets:
+  - t1018
   - atomic-red-team
   - discovery
-  - t1018
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -46,4 +46,4 @@
         default: /tmp/ssh_enum.txt
     technique_created: '2017-05-31T21:30:28.187Z'
     atomic_guid: 6fc814cb-16d1-43e6-80b3-2ff2a45250d1
-    import_timestamp: '2026-09-22T07:18:06.700800Z'
+    import_timestamp: '2026-09-23T07:17:41.789915Z'

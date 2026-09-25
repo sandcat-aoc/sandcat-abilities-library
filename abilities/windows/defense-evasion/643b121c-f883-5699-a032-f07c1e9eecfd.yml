@@ -1,0 +1,30 @@
+- id: 643b121c-f883-5699-a032-f07c1e9eecfd
+  name: 643b121c-f883-5699-a032-f07c1e9eecfd - Malicious Driver Deployment
+  description: 'Malicious driver: 643b121c-f883-5699-a032-f07c1e9eecfd
+
+    Category: vulnerable driver
+
+    Author: Xusheng Li
+
+    Created: 2026-09-23
+
+    MITRE Technique: T1562.001'
+  tactic: defense-evasion
+  technique:
+    attack_id: T1562.001
+    name: Rootkit
+  platforms:
+    windows:
+      cmd:
+        command: sc create MaliciousDriver binPath= "C:\Windows\System32\drivers\malicious_driver.sys"
+          type= kernel
+  singleton: true
+  privilege: Elevated
+  repeatable: false
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: Xusheng Li
+  operating_system: Windows (Version Unspecified)
+  created: '2026-09-23'
+  modified: '2026-09-23'

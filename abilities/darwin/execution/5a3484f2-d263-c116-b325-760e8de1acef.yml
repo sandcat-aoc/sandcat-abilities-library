@@ -24,4 +24,4 @@
     use_case: Mount a malicious dmg file
     source_file: hdiutil.yml
     source_repository: https://github.com/infosecB/LOOBins
-    import_timestamp: '2026-09-25T07:05:59.993682Z'
+    import_timestamp: '2026-09-26T07:03:29.133669Z'

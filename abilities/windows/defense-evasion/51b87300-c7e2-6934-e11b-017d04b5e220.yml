@@ -1,0 +1,23 @@
+- id: 51b87300-c7e2-6934-e11b-017d04b5e220
+  name: Fsutil.exe - Instantly creates a new file of any specified size to exhaust
+    free disk space.
+  description: Instantly creates a new file of any specified size to exhaust free
+    disk space.
+  tactic: defense-evasion
+  technique:
+    attack_id: T1562.001
+    name: System Binary Proxy Execution
+  platforms:
+    windows:
+      cmd:
+        command: 'fsutil.exe file createnew #{host.dir.temp} {LENGTH_IN_BYTES}'
+  singleton: false
+  privilege: User
+  repeatable: true
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: Elliot Killick
+  created: '2021-08-16'
+  modified: '2021-08-16'
+  operating_system: Windows All Versions

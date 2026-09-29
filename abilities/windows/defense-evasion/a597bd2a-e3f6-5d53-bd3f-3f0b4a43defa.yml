@@ -1,0 +1,30 @@
+- id: a597bd2a-e3f6-5d53-bd3f-3f0b4a43defa
+  name: a597bd2a-e3f6-5d53-bd3f-3f0b4a43defa - Malicious Driver Deployment
+  description: 'Malicious driver: a597bd2a-e3f6-5d53-bd3f-3f0b4a43defa
+
+    Category: vulnerable driver
+
+    Author: Michael Haag
+
+    Created: 2026-09-28
+
+    MITRE Technique: T1562.001'
+  tactic: defense-evasion
+  technique:
+    attack_id: T1562.001
+    name: Rootkit
+  platforms:
+    windows:
+      cmd:
+        command: sc create MaliciousDriver binPath= "C:\Windows\System32\drivers\malicious_driver.sys"
+          type= kernel
+  singleton: true
+  privilege: Elevated
+  repeatable: false
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: Michael Haag
+  operating_system: Windows (Version Unspecified)
+  created: '2026-09-28'
+  modified: '2026-09-28'

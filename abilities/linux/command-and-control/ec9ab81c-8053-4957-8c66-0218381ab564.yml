@@ -23,8 +23,8 @@
   privilege: ''
   buckets:
   - command-and-control
-  - t1102.002
   - atomic-red-team
+  - t1102.002
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -38,4 +38,4 @@
         default: https://paste.rs
     technique_created: '2020-03-14T22:34:03.024Z'
     atomic_guid: ec9ab81c-8053-4957-8c66-0218381ab564
-    import_timestamp: '2026-09-28T08:13:49.960237Z'
+    import_timestamp: '2026-09-29T07:53:12.061374Z'

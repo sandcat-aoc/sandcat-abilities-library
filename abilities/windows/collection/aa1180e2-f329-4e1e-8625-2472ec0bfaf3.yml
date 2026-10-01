@@ -23,10 +23,10 @@
   privilege: ''
   buckets:
   - atomic-red-team
-  - collection
   - t1119
+  - collection
   author: Atomic Red Team
   additional_info:
     technique_created: '2017-05-31T21:31:27.985Z'
     atomic_guid: aa1180e2-f329-4e1e-8625-2472ec0bfaf3
-    import_timestamp: '2026-09-30T07:55:58.720780Z'
+    import_timestamp: '2026-10-01T08:18:06.596583Z'

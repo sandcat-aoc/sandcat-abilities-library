@@ -53,4 +53,4 @@
         \  cmd /c \"PathToAtomicsFolder\\..\\ExternalPayloads\\winzip.exe\"\n}\n"
     technique_created: '2020-02-20T21:01:25.428Z'
     atomic_guid: 01df0353-d531-408d-a0c5-3161bf822134
-    import_timestamp: '2026-09-30T07:55:58.670343Z'
+    import_timestamp: '2026-10-01T08:18:06.547253Z'

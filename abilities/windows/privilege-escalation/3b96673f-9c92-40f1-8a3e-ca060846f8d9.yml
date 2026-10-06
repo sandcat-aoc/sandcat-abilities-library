@@ -43,4 +43,4 @@
         default: C:\Windows\System32\cmd.exe /c start cmd.exe
     technique_created: '2020-01-30T14:24:34.977Z'
     atomic_guid: 3b96673f-9c92-40f1-8a3e-ca060846f8d9
-    import_timestamp: '2026-10-05T08:14:44.273893Z'
+    import_timestamp: '2026-10-06T08:33:50.737238Z'

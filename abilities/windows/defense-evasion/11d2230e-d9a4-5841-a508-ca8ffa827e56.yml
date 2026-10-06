@@ -1,0 +1,30 @@
+- id: 11d2230e-d9a4-5841-a508-ca8ffa827e56
+  name: 11d2230e-d9a4-5841-a508-ca8ffa827e56 - Malicious Driver Deployment
+  description: 'Malicious driver: 11d2230e-d9a4-5841-a508-ca8ffa827e56
+
+    Category: vulnerable driver
+
+    Author: Xusheng Li
+
+    Created: 2026-09-19
+
+    MITRE Technique: T1562.001'
+  tactic: defense-evasion
+  technique:
+    attack_id: T1562.001
+    name: Rootkit
+  platforms:
+    windows:
+      cmd:
+        command: sc create MaliciousDriver binPath= "C:\Windows\System32\drivers\malicious_driver.sys"
+          type= kernel
+  singleton: true
+  privilege: Elevated
+  repeatable: false
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: Xusheng Li
+  operating_system: Windows (Version Unspecified)
+  created: '2026-09-19'
+  modified: '2026-09-19'

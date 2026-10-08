@@ -1,0 +1,36 @@
+- id: 901106f3-5222-d5b8-dae9-350e188eb913
+  name: trash - Move files and directories to the Trash without rm or unlink
+  description: 'trash moves each named file or directory into ~/.Trash. On the same volume this is a rename
+    rather than an unlink(2) of the original path, so endpoint rules and log-based monitoring keyed on
+    rm, unlink, or secure-delete utilities do not fire when an artifact leaves its staging location. A
+    directory is moved as a whole subtree in one call, replacing an rm -rf walk. The running account needs
+    an existing ~/.Trash (present for a normal login user). Items land in the Trash and stay recoverable
+    until it is emptied, so this hides the removal from deletion telemetry rather than destroying the
+    data.
+
+    '
+  tactic: defense-evasion
+  technique:
+    attack_id: T1564.001
+    name: 'Hide Artifacts: Hidden Files and Directories'
+  platforms:
+    darwin:
+      sh:
+        command: trash /private/tmp/stage.bin /Users/<USER>/Library/LaunchAgents/com.attacker.helper.plist
+          /Users/<USER>/Library/Caches/.workdir
+  singleton: false
+  privilege: Elevated
+  repeatable: true
+  delete_payload: false
+  buckets:
+  - loobins
+  - trash
+  - defense-evasion
+  version: '1.0'
+  author: LOOBins Project
+  additional_info:
+    loobins_tool: trash
+    use_case: Move files and directories to the Trash without rm or unlink
+    source_file: trash.yml
+    source_repository: https://github.com/infosecB/LOOBins
+    import_timestamp: '2026-10-08T08:25:09.273985Z'

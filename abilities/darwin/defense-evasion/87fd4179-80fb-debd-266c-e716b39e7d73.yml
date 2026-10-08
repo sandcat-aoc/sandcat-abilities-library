@@ -1,0 +1,28 @@
+- id: 87fd4179-80fb-debd-266c-e716b39e7d73
+  name: killall - Terminate Terminal to conceal malicious execution
+  description: Terminate running Terminal processes after malicious commands have been launched, reducing
+    visible evidence of execution and interfering with manual analysis.
+  tactic: defense-evasion
+  technique:
+    attack_id: T1562.001
+    name: 'Impair Defenses: Disable or Modify Tools'
+  platforms:
+    darwin:
+      sh:
+        command: killall Terminal
+  singleton: false
+  privilege: User
+  repeatable: true
+  delete_payload: false
+  buckets:
+  - loobins
+  - killall
+  - defense-evasion
+  version: '1.0'
+  author: LOOBins Project
+  additional_info:
+    loobins_tool: killall
+    use_case: Terminate Terminal to conceal malicious execution
+    source_file: killall.yml
+    source_repository: https://github.com/infosecB/LOOBins
+    import_timestamp: '2026-10-08T08:25:09.047753Z'

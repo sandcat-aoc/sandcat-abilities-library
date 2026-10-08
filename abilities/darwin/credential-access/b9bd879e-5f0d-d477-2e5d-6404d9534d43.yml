@@ -1,0 +1,31 @@
+- id: b9bd879e-5f0d-d477-2e5d-6404d9534d43
+  name: pmset - Retain the FileVault key across standby by disabling key destruction
+  description: On a FileVault-encrypted Mac, destroyfvkeyonstandby controls whether the volume key is
+    purged from memory when the system enters standby. Setting it to 0 (retain) as root keeps the key
+    resident so the machine wakes without a password prompt, which both preserves seamless access for
+    the attacker and keeps the key available in memory for a later extraction attempt. This weakens the
+    at-rest protection FileVault provides during sleep.
+  tactic: credential-access
+  technique:
+    attack_id: T1555.001
+    name: 'Credentials from Password Stores: Keychain'
+  platforms:
+    darwin:
+      sh:
+        command: sudo pmset -a destroyfvkeyonstandby 0
+  singleton: false
+  privilege: Elevated
+  repeatable: true
+  delete_payload: false
+  buckets:
+  - loobins
+  - pmset
+  - credential-access
+  version: '1.0'
+  author: LOOBins Project
+  additional_info:
+    loobins_tool: pmset
+    use_case: Retain the FileVault key across standby by disabling key destruction
+    source_file: pmset.yml
+    source_repository: https://github.com/infosecB/LOOBins
+    import_timestamp: '2026-10-08T08:25:09.126471Z'

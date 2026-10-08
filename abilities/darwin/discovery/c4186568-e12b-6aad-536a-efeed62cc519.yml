@@ -1,0 +1,30 @@
+- id: c4186568-e12b-6aad-536a-efeed62cc519
+  name: diskutil - Read per-disk detail and FileVault encryption state
+  description: The info verb reports the full detail of a disk or volume, and with -all covers every disk
+    on the host, including whether each volume is FileVault-encrypted. This tells an attacker which volumes
+    are protected before anything destructive or collection-oriented is attempted. It needs no privileges,
+    and -plist makes the output machine-parsable.
+  tactic: discovery
+  technique:
+    attack_id: T1082
+    name: System Information Discovery
+  platforms:
+    darwin:
+      sh:
+        command: diskutil info -plist -all
+  singleton: false
+  privilege: User
+  repeatable: true
+  delete_payload: false
+  buckets:
+  - loobins
+  - diskutil
+  - discovery
+  version: '1.0'
+  author: LOOBins Project
+  additional_info:
+    loobins_tool: diskutil
+    use_case: Read per-disk detail and FileVault encryption state
+    source_file: diskutil.yml
+    source_repository: https://github.com/infosecB/LOOBins
+    import_timestamp: '2026-10-08T08:25:09.238877Z'

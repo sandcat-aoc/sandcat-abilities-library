@@ -1,0 +1,30 @@
+- id: 5229b49e-171e-5101-23a2-352658a1b449
+  name: diskutil - Enumerate APFS snapshots on a volume
+  description: apfs listSnapshots enumerates every local APFS snapshot on a volume with its name, UUID
+    and numeric XID. Time Machine writes these snapshots to the volumes it protects, and they are the
+    fastest way to roll a machine back after file encryption or destructive tampering, so listing them
+    is the reconnaissance step before removing them. It is a read-only query.
+  tactic: discovery
+  technique:
+    attack_id: T1083
+    name: File and Directory Discovery
+  platforms:
+    darwin:
+      sh:
+        command: diskutil apfs listSnapshots -plist <VOLUME_DEVICE>
+  singleton: false
+  privilege: User
+  repeatable: true
+  delete_payload: false
+  buckets:
+  - loobins
+  - diskutil
+  - discovery
+  version: '1.0'
+  author: LOOBins Project
+  additional_info:
+    loobins_tool: diskutil
+    use_case: Enumerate APFS snapshots on a volume
+    source_file: diskutil.yml
+    source_repository: https://github.com/infosecB/LOOBins
+    import_timestamp: '2026-10-08T08:25:09.251478Z'

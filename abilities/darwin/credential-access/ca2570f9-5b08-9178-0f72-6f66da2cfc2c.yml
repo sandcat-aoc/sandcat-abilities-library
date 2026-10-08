@@ -1,0 +1,32 @@
+- id: ca2570f9-5b08-9178-0f72-6f66da2cfc2c
+  name: ldapsearch - Read LAPS local administrator passwords
+  description: Where Microsoft LAPS is deployed, the local administrator password is stored on the computer
+    object in the ms-Mcs-AdmPwd attribute. ldapsearch reads it directly when the bound account has been
+    delegated read access to that attribute - a common privilege-escalation path when a compromised account
+    or group holds LAPS read rights it should not. The attribute returns empty for principals without
+    the delegated permission.
+  tactic: credential-access
+  technique:
+    attack_id: T1555.001
+    name: 'Credentials from Password Stores: Keychain'
+  platforms:
+    darwin:
+      sh:
+        command: ldapsearch -x -H ldap://<DC_IP> -D "<USER>@<DOMAIN>" -w '<PASSWORD>' -b "DC=<DOMAIN>,DC=<TLD>"
+          -LLL "(objectClass=computer)" ms-Mcs-AdmPwd ms-Mcs-AdmPwdExpirationTime
+  singleton: false
+  privilege: User
+  repeatable: true
+  delete_payload: false
+  buckets:
+  - loobins
+  - ldapsearch
+  - credential-access
+  version: '1.0'
+  author: LOOBins Project
+  additional_info:
+    loobins_tool: ldapsearch
+    use_case: Read LAPS local administrator passwords
+    source_file: ldapsearch.yml
+    source_repository: https://github.com/infosecB/LOOBins
+    import_timestamp: '2026-10-08T08:25:09.040314Z'

@@ -1,0 +1,30 @@
+- id: e90e8929-ca26-c11c-a00f-e14889521de0
+  name: pbcopy - Park staged data on a non-general pasteboard to evade inspection
+  description: The -pboard flag selects which pasteboard pbcopy writes to. pbpaste and most tooling read
+    the general pasteboard by default, so data written to the find, font, or ruler pasteboard is less
+    likely to surface in a routine clipboard check while still being retrievable by an attacker who knows
+    where to look. It requires only user-level code execution.
+  tactic: collection
+  technique:
+    attack_id: T1115
+    name: Clipboard Data
+  platforms:
+    darwin:
+      sh:
+        command: cat <STAGED_FILE> | pbcopy -pboard find
+  singleton: false
+  privilege: User
+  repeatable: true
+  delete_payload: false
+  buckets:
+  - loobins
+  - pbcopy
+  - collection
+  version: '1.0'
+  author: LOOBins Project
+  additional_info:
+    loobins_tool: pbcopy
+    use_case: Park staged data on a non-general pasteboard to evade inspection
+    source_file: pbcopy.yml
+    source_repository: https://github.com/infosecB/LOOBins
+    import_timestamp: '2026-10-08T08:25:08.972572Z'

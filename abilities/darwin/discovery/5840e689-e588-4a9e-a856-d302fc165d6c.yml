@@ -1,0 +1,30 @@
+- id: 5840e689-e588-4a9e-a856-d302fc165d6c
+  name: pmset - Review sleep/wake history to infer when the host is unattended
+  description: pmset -g log prints a timeline of sleeps, wakes, display-on/off transitions, and their
+    causes, and requires no privileges. An operator can use it to infer when the host is actively used
+    versus left unattended, informing the timing of hands-on-keyboard activity to avoid an active user
+    noticing.
+  tactic: discovery
+  technique:
+    attack_id: T1082
+    name: System Information Discovery
+  platforms:
+    darwin:
+      sh:
+        command: pmset -g log
+  singleton: false
+  privilege: User
+  repeatable: true
+  delete_payload: false
+  buckets:
+  - loobins
+  - pmset
+  - discovery
+  version: '1.0'
+  author: LOOBins Project
+  additional_info:
+    loobins_tool: pmset
+    use_case: Review sleep/wake history to infer when the host is unattended
+    source_file: pmset.yml
+    source_repository: https://github.com/infosecB/LOOBins
+    import_timestamp: '2026-10-08T08:25:09.123713Z'

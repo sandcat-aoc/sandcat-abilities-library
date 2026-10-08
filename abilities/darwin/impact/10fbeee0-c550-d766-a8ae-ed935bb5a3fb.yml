@@ -1,0 +1,30 @@
+- id: 10fbeee0-c550-d766-a8ae-ed935bb5a3fb
+  name: diskutil - Delete an APFS snapshot to inhibit system recovery
+  description: apfs deleteSnapshot removes a chosen local APFS snapshot, permanently giving up the ability
+    to restore the volume to that point. Deletion runs in the background unless -wait is given. Ownership
+    of the affected disk is required. Removing snapshots leaves present-day file content untouched, so
+    the volume looks normal until a restore is attempted.
+  tactic: impact
+  technique:
+    attack_id: T1490
+    name: Inhibit System Recovery
+  platforms:
+    darwin:
+      sh:
+        command: diskutil apfs deleteSnapshot <VOLUME_DEVICE> -name <SNAPSHOT_NAME> -wait
+  singleton: true
+  privilege: User
+  repeatable: false
+  delete_payload: false
+  buckets:
+  - loobins
+  - diskutil
+  - impact
+  version: '1.0'
+  author: LOOBins Project
+  additional_info:
+    loobins_tool: diskutil
+    use_case: Delete an APFS snapshot to inhibit system recovery
+    source_file: diskutil.yml
+    source_repository: https://github.com/infosecB/LOOBins
+    import_timestamp: '2026-10-08T08:25:09.252893Z'

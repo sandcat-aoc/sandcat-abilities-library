@@ -1,0 +1,36 @@
+- id: addb491b-4aac-76fc-08d1-fc30aa993447
+  name: diskutil - Mount a volume with noowners to read or tamper with root-owned files (CVE-2023-42931)
+  description: diskutil mount accepts arbitrary mount options through -mountOptions, which diskarbitrationd
+    passes verbatim to the filesystem's mount program. The noowners option makes every object on the volume
+    appear owned by the calling user, so root-owned files that are not protected by SIP become attacker-writable.
+    Yann Gascuel of Alter Solutions showed that a local user - including a guest - could mount internal
+    storage this way, overwrite a non-SIP-protected root-owned placeholder file with a setuid payload,
+    then remount normally so that the file regained its root ownership and ran as root. Apple tracks this
+    as CVE-2023-42931 in DiskArbitration and fixed it in macOS Monterey 12.7.2, Ventura 13.6.3 and Sonoma
+    14.2 by ignoring noowners when mounting internal storage; the option still applies to external media.
+    Adding nobrowse and -mountPoint keeps the mount out of Finder and off /Volumes, which is why mounting
+    a volume at a chosen path is also useful for reaching data without the usual UI indication.
+  tactic: privilege-escalation
+  technique:
+    attack_id: T1068
+    name: Exploitation for Privilege Escalation
+  platforms:
+    darwin:
+      sh:
+        command: diskutil mount nobrowse -mountOptions noowners -mountPoint <MOUNT_PATH> <DEVICE>
+  singleton: false
+  privilege: User
+  repeatable: true
+  delete_payload: false
+  buckets:
+  - loobins
+  - diskutil
+  - privilege-escalation
+  version: '1.0'
+  author: LOOBins Project
+  additional_info:
+    loobins_tool: diskutil
+    use_case: Mount a volume with noowners to read or tamper with root-owned files (CVE-2023-42931)
+    source_file: diskutil.yml
+    source_repository: https://github.com/infosecB/LOOBins
+    import_timestamp: '2026-10-08T08:25:09.243357Z'

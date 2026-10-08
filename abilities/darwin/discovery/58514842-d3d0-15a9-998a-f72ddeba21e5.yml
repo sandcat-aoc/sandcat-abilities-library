@@ -1,0 +1,29 @@
+- id: 58514842-d3d0-15a9-998a-f72ddeba21e5
+  name: pmset - List active power assertions to identify running applications
+  description: pmset -g assertions lists the processes currently preventing idle or display sleep, without
+    requiring root. This exposes which applications are actively running and holding the machine awake,
+    complementing the sleep/wake timeline as a signal of user presence and workload.
+  tactic: discovery
+  technique:
+    attack_id: T1087.001
+    name: 'Account Discovery: Local Account'
+  platforms:
+    darwin:
+      sh:
+        command: pmset -g assertions
+  singleton: false
+  privilege: User
+  repeatable: true
+  delete_payload: false
+  buckets:
+  - loobins
+  - pmset
+  - discovery
+  version: '1.0'
+  author: LOOBins Project
+  additional_info:
+    loobins_tool: pmset
+    use_case: List active power assertions to identify running applications
+    source_file: pmset.yml
+    source_repository: https://github.com/infosecB/LOOBins
+    import_timestamp: '2026-10-08T08:25:09.125101Z'

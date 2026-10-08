@@ -1,0 +1,36 @@
+- id: 2876f36a-5943-7929-0cc1-591816d4fb95
+  name: diskutil - Overwrite free space to destroy deleted-file remnants
+  description: secureErase freespace overwrites the unallocated space of a mounted volume, leaving existing
+    files untouched while destroying the remnants of deleted files that forensic recovery depends on.
+    Level selects the pattern - 0 single-pass zero fill, 1 single-pass random fill, 2 a seven-pass fill,
+    3 the 35-pass Gutmann algorithm, and 4 a three-pass fill. Ownership of the affected disk is required.
+    OSX/Filecoder.E, the 2017 "Patcher" ransomware analysed by ESET, ran this after encrypting files to
+    null the root partition's free space; the sample failed only because it hardcoded /usr/bin/diskutil,
+    which does not exist - diskutil lives in /usr/sbin. Two honest constraints apply on current systems
+    - the verb refuses APFS volumes, reporting that a byte-run erase "makes no sense due to its possibly-unbounded
+    size" (-69489), so it is limited to HFS+, ExFAT and other fixed-size volumes rather than a modern
+    boot volume, and on SSDs wear levelling and block sparing mean overwritten blocks may survive regardless.
+  tactic: defense-evasion
+  technique:
+    attack_id: T1562.001
+    name: 'Impair Defenses: Disable or Modify Tools'
+  platforms:
+    darwin:
+      sh:
+        command: diskutil secureErase freespace 0 /Volumes/<VOLUME_NAME>
+  singleton: true
+  privilege: User
+  repeatable: false
+  delete_payload: false
+  buckets:
+  - loobins
+  - diskutil
+  - defense-evasion
+  version: '1.0'
+  author: LOOBins Project
+  additional_info:
+    loobins_tool: diskutil
+    use_case: Overwrite free space to destroy deleted-file remnants
+    source_file: diskutil.yml
+    source_repository: https://github.com/infosecB/LOOBins
+    import_timestamp: '2026-10-08T08:25:09.245337Z'

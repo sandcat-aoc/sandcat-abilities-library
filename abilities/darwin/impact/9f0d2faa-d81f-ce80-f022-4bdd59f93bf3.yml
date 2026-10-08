@@ -1,0 +1,30 @@
+- id: 9f0d2faa-d81f-ce80-f022-4bdd59f93bf3
+  name: diskutil - Erase a whole disk or volume
+  description: eraseDisk rewrites a whole disk's partition map and leaves a single empty volume, while
+    eraseVolume and reformat destroy an individual volume's contents. Ownership of the affected disk is
+    required, and the man page warns the operation presents no confirmation prompt. Locating Time Machine
+    and external disks first with apfs list makes backup media the obvious target.
+  tactic: impact
+  technique:
+    attack_id: T1490
+    name: Inhibit System Recovery
+  platforms:
+    darwin:
+      sh:
+        command: diskutil eraseDisk JHFS+ Untitled <DISK>
+  singleton: true
+  privilege: User
+  repeatable: false
+  delete_payload: false
+  buckets:
+  - loobins
+  - diskutil
+  - impact
+  version: '1.0'
+  author: LOOBins Project
+  additional_info:
+    loobins_tool: diskutil
+    use_case: Erase a whole disk or volume
+    source_file: diskutil.yml
+    source_repository: https://github.com/infosecB/LOOBins
+    import_timestamp: '2026-10-08T08:25:09.248730Z'

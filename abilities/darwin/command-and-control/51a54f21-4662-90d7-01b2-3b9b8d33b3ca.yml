@@ -1,0 +1,31 @@
+- id: 51a54f21-4662-90d7-01b2-3b9b8d33b3ca
+  name: pmset - Enable wake on network access for remote wake from the LAN
+  description: As root, pmset can enable "womp" (wake on ethernet magic packet). Once set, an attacker
+    positioned on the same broadcast domain can send a Wake-on-LAN magic packet to the target's MAC address
+    to bring a sleeping Mac back online on demand, rather than waiting on a fixed schedule. The wake path
+    brings the OS up behind the lock screen, so it is a network-reachability primitive, not an authentication
+    bypass.
+  tactic: command-and-control
+  technique:
+    attack_id: T1071.001
+    name: 'Application Layer Protocol: Web Protocols'
+  platforms:
+    darwin:
+      sh:
+        command: sudo pmset -a womp 1
+  singleton: true
+  privilege: Elevated
+  repeatable: false
+  delete_payload: false
+  buckets:
+  - loobins
+  - pmset
+  - command-and-control
+  version: '1.0'
+  author: LOOBins Project
+  additional_info:
+    loobins_tool: pmset
+    use_case: Enable wake on network access for remote wake from the LAN
+    source_file: pmset.yml
+    source_repository: https://github.com/infosecB/LOOBins
+    import_timestamp: '2026-10-08T08:25:09.122221Z'

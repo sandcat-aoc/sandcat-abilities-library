@@ -1,0 +1,32 @@
+- id: 58adac7f-164c-5d4a-ac0b-cce5aed0885b
+  name: trash - Verify a scripted cleanup with --stopOnError
+  description: 'The --stopOnError (-s) flag makes trash exit with an error if any item cannot be moved
+    to the Trash, and --verbose (-v) reports each move. A cleanup or self-destruct routine uses these
+    to confirm that every artifact was removed and to branch to a fallback if one could not be, without
+    calling rm. The removed items still land in ~/.Trash and are recoverable until the Trash is emptied.
+
+    '
+  tactic: defense-evasion
+  technique:
+    attack_id: T1562.001
+    name: 'Impair Defenses: Disable or Modify Tools'
+  platforms:
+    darwin:
+      sh:
+        command: trash --stopOnError --verbose /private/tmp/impl /private/tmp/creds.json
+  singleton: false
+  privilege: User
+  repeatable: true
+  delete_payload: false
+  buckets:
+  - loobins
+  - trash
+  - defense-evasion
+  version: '1.0'
+  author: LOOBins Project
+  additional_info:
+    loobins_tool: trash
+    use_case: Verify a scripted cleanup with --stopOnError
+    source_file: trash.yml
+    source_repository: https://github.com/infosecB/LOOBins
+    import_timestamp: '2026-10-08T08:25:09.275808Z'

@@ -1,0 +1,30 @@
+- id: 4d7052a1-a195-a2f3-a8de-c1991f636bec
+  name: diskutil - Enumerate APFS containers and volumes
+  description: The apfs list verb enumerates every APFS container and its volumes, including their roles
+    (the S/System, D/Data and T/Backup Time Machine roles) and mount points, without privileges. This
+    maps the logical volume layout of the host and identifies the Data and backup volumes that hold user
+    content. -plist makes the output machine-parsable.
+  tactic: discovery
+  technique:
+    attack_id: T1082
+    name: System Information Discovery
+  platforms:
+    darwin:
+      sh:
+        command: diskutil apfs list -plist
+  singleton: false
+  privilege: User
+  repeatable: true
+  delete_payload: false
+  buckets:
+  - loobins
+  - diskutil
+  - discovery
+  version: '1.0'
+  author: LOOBins Project
+  additional_info:
+    loobins_tool: diskutil
+    use_case: Enumerate APFS containers and volumes
+    source_file: diskutil.yml
+    source_repository: https://github.com/infosecB/LOOBins
+    import_timestamp: '2026-10-08T08:25:09.237466Z'

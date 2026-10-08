@@ -1,0 +1,32 @@
+- id: 174013fd-e093-cfc3-673e-2dfb9111be96
+  name: ldapsearch - Enumerate the directory using the host Kerberos ticket
+  description: The -Y GSSAPI option authenticates the bind with the SASL GSSAPI mechanism, which uses
+    the Kerberos credential cache of the current user instead of a password. On an Active-Directory-bound
+    Mac, or on a host where the user already holds a valid ticket-granting ticket, this enumerates the
+    directory with no password on the command line and no separate credential capture. -Q keeps SASL from
+    prompting.
+  tactic: discovery
+  technique:
+    attack_id: T1082
+    name: System Information Discovery
+  platforms:
+    darwin:
+      sh:
+        command: ldapsearch -Y GSSAPI -Q -H ldap://<DC_IP> -b "DC=<DOMAIN>,DC=<TLD>" -LLL "(objectClass=computer)"
+          dNSHostName operatingSystem
+  singleton: false
+  privilege: User
+  repeatable: true
+  delete_payload: false
+  buckets:
+  - loobins
+  - ldapsearch
+  - discovery
+  version: '1.0'
+  author: LOOBins Project
+  additional_info:
+    loobins_tool: ldapsearch
+    use_case: Enumerate the directory using the host Kerberos ticket
+    source_file: ldapsearch.yml
+    source_repository: https://github.com/infosecB/LOOBins
+    import_timestamp: '2026-10-08T08:25:09.033186Z'

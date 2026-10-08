@@ -1,0 +1,32 @@
+- id: f737efe3-934f-32a2-72ef-40795821bd7a
+  name: pmset - Disable idle sleep to keep an implanted host awake and reachable
+  description: As root, pmset can set the system, disk, and display idle-sleep timers to 0 (never) across
+    all power sources. A value of 0 disables the timer entirely, so a laptop left on battery no longer
+    sleeps and drops its network connection, keeping a long-running C2 channel or exfiltration session
+    alive. Unlike caffeinate, which holds a transient assertion for the life of a process, this writes
+    a persistent setting to com.apple.PowerManagement.plist that survives reboots and shows no owning
+    process in the assertions list.
+  tactic: command-and-control
+  technique:
+    attack_id: T1071.001
+    name: 'Application Layer Protocol: Web Protocols'
+  platforms:
+    darwin:
+      sh:
+        command: sudo pmset -a sleep 0 disksleep 0 displaysleep 0
+  singleton: true
+  privilege: Elevated
+  repeatable: false
+  delete_payload: false
+  buckets:
+  - loobins
+  - pmset
+  - command-and-control
+  version: '1.0'
+  author: LOOBins Project
+  additional_info:
+    loobins_tool: pmset
+    use_case: Disable idle sleep to keep an implanted host awake and reachable
+    source_file: pmset.yml
+    source_repository: https://github.com/infosecB/LOOBins
+    import_timestamp: '2026-10-08T08:25:09.120607Z'

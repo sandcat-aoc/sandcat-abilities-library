@@ -1,0 +1,31 @@
+- id: 4fe3ab5e-8281-9553-244e-e0ab22f17d1f
+  name: diskutil - Zero a disk to destroy filesystem identification
+  description: zeroDisk writes zeros over a disk or partition, and its short parameter writes only enough
+    zeros to destroy filesystem identification, which is fast enough to be practical against several disks
+    in sequence. The force parameter attempts non-error-terminating forced unmounts and shared-mode writes,
+    though the man page notes this is no guarantee against drivers holding a disk exclusively. Ownership
+    of the affected disk is required.
+  tactic: impact
+  technique:
+    attack_id: T1485
+    name: Data Destruction
+  platforms:
+    darwin:
+      sh:
+        command: diskutil zeroDisk force short /dev/<DISK>
+  singleton: true
+  privilege: User
+  repeatable: false
+  delete_payload: false
+  buckets:
+  - loobins
+  - diskutil
+  - impact
+  version: '1.0'
+  author: LOOBins Project
+  additional_info:
+    loobins_tool: diskutil
+    use_case: Zero a disk to destroy filesystem identification
+    source_file: diskutil.yml
+    source_repository: https://github.com/infosecB/LOOBins
+    import_timestamp: '2026-10-08T08:25:09.247264Z'

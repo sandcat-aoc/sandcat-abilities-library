@@ -1,0 +1,31 @@
+- id: c96b7508-b8ce-54bd-322b-c132fd616d00
+  name: ldapsearch - Identify AS-REP roastable accounts
+  description: The userAccountControl bitwise filter (matching rule OID 1.2.840.113556.1.4.803) with the
+    value 4194304 selects accounts that do not require Kerberos pre-authentication. For those accounts
+    an AS-REP hash can be requested without knowing the password and cracked offline (AS-REP roasting).
+    ldapsearch returns the candidate list from a single query with a valid bind.
+  tactic: credential-access
+  technique:
+    attack_id: T1555.001
+    name: 'Credentials from Password Stores: Keychain'
+  platforms:
+    darwin:
+      sh:
+        command: ldapsearch -x -H ldap://<DC_IP> -D "<USER>@<DOMAIN>" -w '<PASSWORD>' -b "DC=<DOMAIN>,DC=<TLD>"
+          -LLL "(&(objectClass=user)(userAccountControl:1.2.840.113556.1.4.803:=4194304))" sAMAccountName
+  singleton: false
+  privilege: User
+  repeatable: true
+  delete_payload: false
+  buckets:
+  - loobins
+  - ldapsearch
+  - credential-access
+  version: '1.0'
+  author: LOOBins Project
+  additional_info:
+    loobins_tool: ldapsearch
+    use_case: Identify AS-REP roastable accounts
+    source_file: ldapsearch.yml
+    source_repository: https://github.com/infosecB/LOOBins
+    import_timestamp: '2026-10-08T08:25:09.036964Z'

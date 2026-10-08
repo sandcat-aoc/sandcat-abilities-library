@@ -1,0 +1,31 @@
+- id: 13dd053c-26de-dd28-7b5e-05d10bd63c26
+  name: ldapsearch - Bulk-dump the directory to a file with paged results
+  description: The -E pr search extension requests LDAP paged results, which lets a single query retrieve
+    the entire directory past the server's default result cap. Writing the LDIF to a file stages a full
+    offline copy of the directory for later analysis. It requires a valid bind and read access to the
+    objects returned.
+  tactic: discovery
+  technique:
+    attack_id: T1087.001
+    name: 'Account Discovery: Local Account'
+  platforms:
+    darwin:
+      sh:
+        command: ldapsearch -x -H ldap://<DC_IP> -D "<USER>@<DOMAIN>" -w '<PASSWORD>' -b "DC=<DOMAIN>,DC=<TLD>"
+          -LLL -E pr=1000/noprompt "(objectClass=*)" > /tmp/dirdump.ldif
+  singleton: false
+  privilege: User
+  repeatable: true
+  delete_payload: false
+  buckets:
+  - loobins
+  - ldapsearch
+  - discovery
+  version: '1.0'
+  author: LOOBins Project
+  additional_info:
+    loobins_tool: ldapsearch
+    use_case: Bulk-dump the directory to a file with paged results
+    source_file: ldapsearch.yml
+    source_repository: https://github.com/infosecB/LOOBins
+    import_timestamp: '2026-10-08T08:25:09.038636Z'

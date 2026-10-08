@@ -1,0 +1,31 @@
+- id: d4be5a18-1464-d7d5-e94d-fcd91708dc57
+  name: pbcopy - Clear the clipboard to destroy sensitive copied data
+  description: Piping empty input to pbcopy overwrites the general pasteboard with nothing, discarding
+    whatever the user had copied (for example a password copied from a manager). An attacker can use this
+    to remove sensitive data after harvesting it, or to erase evidence that clipboard monitoring took
+    place, before an investigator or DLP agent inspects the pasteboard. It requires only user-level code
+    execution.
+  tactic: defense-evasion
+  technique:
+    attack_id: T1562.001
+    name: 'Impair Defenses: Disable or Modify Tools'
+  platforms:
+    darwin:
+      sh:
+        command: printf '' | pbcopy
+  singleton: false
+  privilege: User
+  repeatable: true
+  delete_payload: false
+  buckets:
+  - loobins
+  - pbcopy
+  - defense-evasion
+  version: '1.0'
+  author: LOOBins Project
+  additional_info:
+    loobins_tool: pbcopy
+    use_case: Clear the clipboard to destroy sensitive copied data
+    source_file: pbcopy.yml
+    source_repository: https://github.com/infosecB/LOOBins
+    import_timestamp: '2026-10-08T08:25:08.974070Z'

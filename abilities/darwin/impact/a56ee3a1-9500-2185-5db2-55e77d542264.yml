@@ -1,0 +1,29 @@
+- id: a56ee3a1-9500-2185-5db2-55e77d542264
+  name: killall - Repeatedly disrupt macOS user-interface processes
+  description: Repeatedly terminate macOS user-interface processes at short intervals to disrupt normal
+    desktop operation and force the victim to continue an attacker-controlled interaction flow.
+  tactic: impact
+  technique:
+    attack_id: T1490
+    name: Inhibit System Recovery
+  platforms:
+    darwin:
+      sh:
+        command: while true; do killall Finder Dock SystemUIServer NotificationCenter 2>/dev/null; sleep
+          0.1; done
+  singleton: true
+  privilege: User
+  repeatable: false
+  delete_payload: false
+  buckets:
+  - loobins
+  - killall
+  - impact
+  version: '1.0'
+  author: LOOBins Project
+  additional_info:
+    loobins_tool: killall
+    use_case: Repeatedly disrupt macOS user-interface processes
+    source_file: killall.yml
+    source_repository: https://github.com/infosecB/LOOBins
+    import_timestamp: '2026-10-08T08:25:09.049195Z'

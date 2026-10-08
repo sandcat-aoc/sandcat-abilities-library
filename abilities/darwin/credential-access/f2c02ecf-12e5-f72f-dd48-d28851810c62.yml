@@ -1,0 +1,32 @@
+- id: f2c02ecf-12e5-f72f-dd48-d28851810c62
+  name: diskutil - Test a candidate FileVault passphrase without changing lock state
+  description: apfs unlockVolume with -verify tests a candidate passphrase for a chosen cryptographic
+    user without changing the volume's locked or unlocked state, giving an on-host oracle for credentials
+    harvested elsewhere. Passing -passphrase places the secret in the process argument list where it is
+    visible to any process listing and to endpoint telemetry; -stdinpassphrase keeps it off argv. Ownership
+    of the affected disk is required.
+  tactic: credential-access
+  technique:
+    attack_id: T1555
+    name: Credentials from Password Stores
+  platforms:
+    darwin:
+      sh:
+        command: echo '<PASSPHRASE>' | diskutil apfs unlockVolume <VOLUME_DEVICE> -user <CRYPTO_USER_UUID>
+          -stdinpassphrase -verify
+  singleton: false
+  privilege: User
+  repeatable: true
+  delete_payload: false
+  buckets:
+  - loobins
+  - diskutil
+  - credential-access
+  version: '1.0'
+  author: LOOBins Project
+  additional_info:
+    loobins_tool: diskutil
+    use_case: Test a candidate FileVault passphrase without changing lock state
+    source_file: diskutil.yml
+    source_repository: https://github.com/infosecB/LOOBins
+    import_timestamp: '2026-10-08T08:25:09.241813Z'

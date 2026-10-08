@@ -1,0 +1,30 @@
+- id: a6bc3853-b86d-b0e0-202a-469ea33a6988
+  name: diskutil - List whole disks and partitions
+  description: The list verb requires no privileges and returns every whole disk and partition, whether
+    each disk is internal or external and physical or virtual, with their mount points. The -plist option
+    makes the output machine-parsable, so it is usable directly from a dropper. This shows an attacker
+    where storage lives and which disks are removable and worth watching for.
+  tactic: discovery
+  technique:
+    attack_id: T1082
+    name: System Information Discovery
+  platforms:
+    darwin:
+      sh:
+        command: diskutil list -plist external
+  singleton: false
+  privilege: User
+  repeatable: true
+  delete_payload: false
+  buckets:
+  - loobins
+  - diskutil
+  - discovery
+  version: '1.0'
+  author: LOOBins Project
+  additional_info:
+    loobins_tool: diskutil
+    use_case: List whole disks and partitions
+    source_file: diskutil.yml
+    source_repository: https://github.com/infosecB/LOOBins
+    import_timestamp: '2026-10-08T08:25:09.235898Z'

@@ -1,0 +1,30 @@
+- id: fc7f98e1-f091-0be3-2b4d-8a6a9e33e410
+  name: diskutil - Enumerate APFS cryptographic users to map FileVault-enabled accounts
+  description: apfs listCryptoUsers shows every cryptographic user associated with an APFS volume by UUID
+    and type, distinguishing the per-volume Disk user, personal and iCloud Recovery Keys, and Open Directory
+    users - the latter's UUIDs match the local account GUIDs visible through dscl, so this maps which
+    local accounts are FileVault-enabled. It is a read-only query that needs no privileges.
+  tactic: discovery
+  technique:
+    attack_id: T1087.001
+    name: 'Account Discovery: Local Account'
+  platforms:
+    darwin:
+      sh:
+        command: diskutil apfs listCryptoUsers -plist <VOLUME_DEVICE>
+  singleton: true
+  privilege: User
+  repeatable: false
+  delete_payload: false
+  buckets:
+  - loobins
+  - diskutil
+  - discovery
+  version: '1.0'
+  author: LOOBins Project
+  additional_info:
+    loobins_tool: diskutil
+    use_case: Enumerate APFS cryptographic users to map FileVault-enabled accounts
+    source_file: diskutil.yml
+    source_repository: https://github.com/infosecB/LOOBins
+    import_timestamp: '2026-10-08T08:25:09.240309Z'

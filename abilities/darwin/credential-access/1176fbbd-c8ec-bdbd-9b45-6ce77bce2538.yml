@@ -1,0 +1,31 @@
+- id: 1176fbbd-c8ec-bdbd-9b45-6ce77bce2538
+  name: ldapsearch - Identify Kerberoastable service accounts
+  description: An LDAP filter that matches user objects carrying a servicePrincipalName returns the accounts
+    whose Kerberos service tickets can be requested and cracked offline (Kerberoasting). ldapsearch surfaces
+    these targets directly from the directory. It needs a valid bind and the servicePrincipalName attribute
+    is a standard Active Directory attribute.
+  tactic: credential-access
+  technique:
+    attack_id: T1555.001
+    name: 'Credentials from Password Stores: Keychain'
+  platforms:
+    darwin:
+      sh:
+        command: ldapsearch -x -H ldap://<DC_IP> -D "<USER>@<DOMAIN>" -w '<PASSWORD>' -b "DC=<DOMAIN>,DC=<TLD>"
+          -LLL "(&(objectClass=user)(servicePrincipalName=*))" sAMAccountName servicePrincipalName
+  singleton: false
+  privilege: User
+  repeatable: true
+  delete_payload: false
+  buckets:
+  - loobins
+  - ldapsearch
+  - credential-access
+  version: '1.0'
+  author: LOOBins Project
+  additional_info:
+    loobins_tool: ldapsearch
+    use_case: Identify Kerberoastable service accounts
+    source_file: ldapsearch.yml
+    source_repository: https://github.com/infosecB/LOOBins
+    import_timestamp: '2026-10-08T08:25:09.035283Z'

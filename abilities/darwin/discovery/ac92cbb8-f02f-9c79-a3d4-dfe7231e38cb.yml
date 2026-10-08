@@ -1,0 +1,32 @@
+- id: ac92cbb8-f02f-9c79-a3d4-dfe7231e38cb
+  name: ldapsearch - Enumerate directory users with a simple bind
+  description: With a valid set of domain credentials (or against a server that permits anonymous binds),
+    ldapsearch performs a subtree search from the domain naming context and returns account objects and
+    their attributes. This maps usernames, descriptions, and group memberships without touching any Windows
+    tooling. It requires network reach to the LDAP port (389) on a domain controller and, on most Active
+    Directory deployments, valid credentials because anonymous binds are disabled by default.
+  tactic: discovery
+  technique:
+    attack_id: T1016
+    name: System Network Configuration Discovery
+  platforms:
+    darwin:
+      sh:
+        command: ldapsearch -x -H ldap://<DC_IP> -D "<USER>@<DOMAIN>" -w '<PASSWORD>' -b "DC=<DOMAIN>,DC=<TLD>"
+          -LLL "(objectClass=user)" sAMAccountName description memberOf
+  singleton: false
+  privilege: User
+  repeatable: true
+  delete_payload: false
+  buckets:
+  - loobins
+  - ldapsearch
+  - discovery
+  version: '1.0'
+  author: LOOBins Project
+  additional_info:
+    loobins_tool: ldapsearch
+    use_case: Enumerate directory users with a simple bind
+    source_file: ldapsearch.yml
+    source_repository: https://github.com/infosecB/LOOBins
+    import_timestamp: '2026-10-08T08:25:09.031497Z'

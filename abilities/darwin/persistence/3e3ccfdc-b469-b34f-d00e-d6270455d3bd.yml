@@ -1,0 +1,31 @@
+- id: 3e3ccfdc-b469-b34f-d00e-d6270455d3bd
+  name: pmset - Schedule a recurring wake or power-on for a command-and-control window
+  description: Running as root, pmset can register a repeating "wakeorpoweron" event that wakes a sleeping
+    Mac (or powers on a Mac that was shut down, on hardware that supports it) at a fixed time on chosen
+    weekdays. This guarantees the host is running and network-reachable during the operator's chosen window
+    without an implant having to keep the machine awake continuously. The schedule is stored in /Library/Preferences/SystemConfiguration/com.apple.AutoWake.plist
+    rather than in a launchd job, so it does not appear alongside conventional persistence.
+  tactic: persistence
+  technique:
+    attack_id: T1543.001
+    name: 'Create or Modify System Process: Launch Agent'
+  platforms:
+    darwin:
+      sh:
+        command: sudo pmset repeat wakeorpoweron MTWRFSU 03:00:00
+  singleton: false
+  privilege: Elevated
+  repeatable: true
+  delete_payload: false
+  buckets:
+  - loobins
+  - pmset
+  - persistence
+  version: '1.0'
+  author: LOOBins Project
+  additional_info:
+    loobins_tool: pmset
+    use_case: Schedule a recurring wake or power-on for a command-and-control window
+    source_file: pmset.yml
+    source_repository: https://github.com/infosecB/LOOBins
+    import_timestamp: '2026-10-08T08:25:09.118771Z'

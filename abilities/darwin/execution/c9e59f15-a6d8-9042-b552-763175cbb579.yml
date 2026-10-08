@@ -1,0 +1,29 @@
+- id: c9e59f15-a6d8-9042-b552-763175cbb579
+  name: pbcopy - Stage a command on the clipboard for clipboard-based execution
+  description: pbcopy places a command string on the pasteboard, which a second stage retrieves with pbpaste
+    and executes via command substitution. Using the clipboard as the carrier keeps the payload out of
+    the process command line of the stager itself. It requires only user-level code execution.
+  tactic: execution
+  technique:
+    attack_id: T1059.004
+    name: 'Command and Scripting Interpreter: Unix Shell'
+  platforms:
+    darwin:
+      sh:
+        command: echo '<COMMAND>' | pbcopy && eval "$(pbpaste)"
+  singleton: false
+  privilege: User
+  repeatable: true
+  delete_payload: false
+  buckets:
+  - loobins
+  - pbcopy
+  - execution
+  version: '1.0'
+  author: LOOBins Project
+  additional_info:
+    loobins_tool: pbcopy
+    use_case: Stage a command on the clipboard for clipboard-based execution
+    source_file: pbcopy.yml
+    source_repository: https://github.com/infosecB/LOOBins
+    import_timestamp: '2026-10-08T08:25:08.971052Z'

@@ -1,0 +1,27 @@
+- id: 0b0363bf-d897-10f9-1c71-85201fbb6bc1
+  name: killall - Suppress Notification Center
+  description: Repeatedly terminate NotificationCenter to interfere with the display of macOS notifications.
+  tactic: defense-evasion
+  technique:
+    attack_id: T1562.001
+    name: 'Impair Defenses: Disable or Modify Tools'
+  platforms:
+    darwin:
+      sh:
+        command: killall NotificationCenter
+  singleton: false
+  privilege: User
+  repeatable: true
+  delete_payload: false
+  buckets:
+  - loobins
+  - killall
+  - defense-evasion
+  version: '1.0'
+  author: LOOBins Project
+  additional_info:
+    loobins_tool: killall
+    use_case: Suppress Notification Center
+    source_file: killall.yml
+    source_repository: https://github.com/infosecB/LOOBins
+    import_timestamp: '2026-10-08T08:25:09.050542Z'

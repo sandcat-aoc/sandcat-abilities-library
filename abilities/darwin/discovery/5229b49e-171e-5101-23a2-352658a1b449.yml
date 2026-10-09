@@ -27,4 +27,4 @@
     use_case: Enumerate APFS snapshots on a volume
     source_file: diskutil.yml
     source_repository: https://github.com/infosecB/LOOBins
-    import_timestamp: '2026-10-08T08:25:09.251478Z'
+    import_timestamp: '2026-10-09T08:28:53.511535Z'

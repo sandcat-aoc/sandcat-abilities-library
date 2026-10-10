@@ -27,4 +27,4 @@
     use_case: Review sleep/wake history to infer when the host is unattended
     source_file: pmset.yml
     source_repository: https://github.com/infosecB/LOOBins
-    import_timestamp: '2026-10-09T08:28:53.369154Z'
+    import_timestamp: '2026-10-10T08:05:14.673145Z'

@@ -27,4 +27,4 @@
     use_case: Delete an APFS snapshot to inhibit system recovery
     source_file: diskutil.yml
     source_repository: https://github.com/infosecB/LOOBins
-    import_timestamp: '2026-10-09T08:28:53.513510Z'
+    import_timestamp: '2026-10-10T08:05:14.817365Z'

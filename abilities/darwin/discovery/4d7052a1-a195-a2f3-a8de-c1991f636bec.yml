@@ -27,4 +27,4 @@
     use_case: Enumerate APFS containers and volumes
     source_file: diskutil.yml
     source_repository: https://github.com/infosecB/LOOBins
-    import_timestamp: '2026-10-09T08:28:53.492381Z'
+    import_timestamp: '2026-10-10T08:05:14.796118Z'

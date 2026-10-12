@@ -1,0 +1,42 @@
+- id: 2e9f3701-da8b-19c9-49fc-176a5bb9805e
+  name: kickstart - Activate Remote Management and grant every local user full control
+  description: 'The -activate option loads the com.apple.screensharing LaunchDaemon and enables the service,
+    and -configure
+
+    -allowAccessFor -allUsers -privs -all sets ARD_AllLocalUsers and the all-user privilege mask so any
+    local account
+
+    can log in with full control. Mandiant observed this command after attackers connected over SSH. Requires
+    root; on
+
+    macOS 10.14 and later the ARDAgent additionally needs Screen Recording and Accessibility TCC grants
+    for screen
+
+    control to work.
+
+    '
+  tactic: lateral-movement
+  technique:
+    attack_id: T1021.004
+    name: 'Remote Services: SSH'
+  platforms:
+    darwin:
+      sh:
+        command: sudo /System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/kickstart
+          -activate -configure -allowAccessFor -allUsers -privs -all -quiet
+  singleton: false
+  privilege: Elevated
+  repeatable: true
+  delete_payload: false
+  buckets:
+  - loobins
+  - kickstart
+  - lateral-movement
+  version: '1.0'
+  author: LOOBins Project
+  additional_info:
+    loobins_tool: kickstart
+    use_case: Activate Remote Management and grant every local user full control
+    source_file: kickstart.yml
+    source_repository: https://github.com/infosecB/LOOBins
+    import_timestamp: '2026-10-12T08:33:56.366737Z'

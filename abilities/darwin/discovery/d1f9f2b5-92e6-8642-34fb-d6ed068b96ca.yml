@@ -1,0 +1,30 @@
+- id: d1f9f2b5-92e6-8642-34fb-d6ed068b96ca
+  name: PlistBuddy - Read an installed application's version from its Info.plist
+  description: Every application bundle carries an Info.plist with version strings. Reading CFBundleShortVersionString
+    reports the user-facing version, while CFBundleVersion reports the internal build number. An attacker
+    can fingerprint installed security tooling or other target applications without privileges or a TCC
+    grant.
+  tactic: discovery
+  technique:
+    attack_id: T1082
+    name: System Information Discovery
+  platforms:
+    darwin:
+      sh:
+        command: /usr/libexec/PlistBuddy -c "Print :CFBundleShortVersionString" /Applications/<APP>.app/Contents/Info.plist
+  singleton: true
+  privilege: User
+  repeatable: false
+  delete_payload: false
+  buckets:
+  - loobins
+  - plistbuddy
+  - discovery
+  version: '1.0'
+  author: LOOBins Project
+  additional_info:
+    loobins_tool: PlistBuddy
+    use_case: Read an installed application's version from its Info.plist
+    source_file: PlistBuddy.yml
+    source_repository: https://github.com/infosecB/LOOBins
+    import_timestamp: '2026-10-12T08:33:56.300445Z'

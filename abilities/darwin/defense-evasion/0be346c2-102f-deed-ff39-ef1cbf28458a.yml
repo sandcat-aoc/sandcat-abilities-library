@@ -1,0 +1,30 @@
+- id: 0be346c2-102f-deed-ff39-ef1cbf28458a
+  name: socketfilterfw - Disable block-all mode to re-open inbound access
+  description: Block-all mode blocks incoming connections to all non-essential applications, including
+    signed ones, and is sometimes enabled as a hardening measure. Turning it off with --setblockall off
+    reverses that hardening so a listening implant is once again reachable while the firewall itself remains
+    on. Requires root.
+  tactic: defense-evasion
+  technique:
+    attack_id: T1553.002
+    name: 'Subvert Trust Controls: Code Signing'
+  platforms:
+    darwin:
+      sh:
+        command: /usr/libexec/ApplicationFirewall/socketfilterfw --setblockall off
+  singleton: true
+  privilege: User
+  repeatable: false
+  delete_payload: false
+  buckets:
+  - loobins
+  - socketfilterfw
+  - defense-evasion
+  version: '1.0'
+  author: LOOBins Project
+  additional_info:
+    loobins_tool: socketfilterfw
+    use_case: Disable block-all mode to re-open inbound access
+    source_file: socketfilterfw.yml
+    source_repository: https://github.com/infosecB/LOOBins
+    import_timestamp: '2026-10-12T08:33:56.379773Z'

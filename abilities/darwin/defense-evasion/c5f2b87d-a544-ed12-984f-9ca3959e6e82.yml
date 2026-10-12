@@ -1,0 +1,31 @@
+- id: c5f2b87d-a544-ed12-984f-9ca3959e6e82
+  name: socketfilterfw - Register and allow a planted listener to receive inbound connections
+  description: --add registers an application with the firewall and --unblockapp marks it as allowed to
+    receive inbound connections. Applied to a bind shell or C2 implant, this creates a persistent firewall
+    allow-list entry so the implant accepts connections while the firewall stays enabled. Requires root,
+    and the binary must exist at the referenced path.
+  tactic: defense-evasion
+  technique:
+    attack_id: T1562.001
+    name: 'Impair Defenses: Disable or Modify Tools'
+  platforms:
+    darwin:
+      sh:
+        command: /usr/libexec/ApplicationFirewall/socketfilterfw --add <IMPLANT_PATH> && /usr/libexec/ApplicationFirewall/socketfilterfw
+          --unblockapp <IMPLANT_PATH>
+  singleton: false
+  privilege: User
+  repeatable: true
+  delete_payload: false
+  buckets:
+  - loobins
+  - socketfilterfw
+  - defense-evasion
+  version: '1.0'
+  author: LOOBins Project
+  additional_info:
+    loobins_tool: socketfilterfw
+    use_case: Register and allow a planted listener to receive inbound connections
+    source_file: socketfilterfw.yml
+    source_repository: https://github.com/infosecB/LOOBins
+    import_timestamp: '2026-10-12T08:33:56.378374Z'

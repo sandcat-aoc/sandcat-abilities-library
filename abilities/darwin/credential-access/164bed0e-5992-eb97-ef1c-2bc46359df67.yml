@@ -1,0 +1,33 @@
+- id: 164bed0e-5992-eb97-ef1c-2bc46359df67
+  name: PlistBuddy - Insert a malicious authorization plugin mechanism into an exported right
+  description: Authorization rights are stored as plists in the authorization database. An operator exports
+    the system.login.console right (security authorizationdb read), uses PlistBuddy to insert an attacker's
+    SecurityAgent plugin as a mechanism, and writes the right back (security authorizationdb write); the
+    plugin is then invoked at login and receives the entered username and password. The PlistBuddy edit
+    on a temp file needs no privileges, but installing the plugin and writing the right back require root.
+    Documented by Chris Ross (@xorrior).
+  tactic: credential-access
+  technique:
+    attack_id: T1555.001
+    name: 'Credentials from Password Stores: Keychain'
+  platforms:
+    darwin:
+      sh:
+        command: /usr/libexec/PlistBuddy -c "Add :mechanisms:0 string <BUNDLE_NAME>:login,privileged"
+          /tmp/system.login.console.plist
+  singleton: false
+  privilege: User
+  repeatable: true
+  delete_payload: false
+  buckets:
+  - loobins
+  - plistbuddy
+  - credential-access
+  version: '1.0'
+  author: LOOBins Project
+  additional_info:
+    loobins_tool: PlistBuddy
+    use_case: Insert a malicious authorization plugin mechanism into an exported right
+    source_file: PlistBuddy.yml
+    source_repository: https://github.com/infosecB/LOOBins
+    import_timestamp: '2026-10-12T08:33:56.296097Z'

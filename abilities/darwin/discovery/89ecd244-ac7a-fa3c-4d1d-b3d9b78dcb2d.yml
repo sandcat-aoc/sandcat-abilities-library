@@ -1,0 +1,31 @@
+- id: 89ecd244-ac7a-fa3c-4d1d-b3d9b78dcb2d
+  name: kmutil - Inventory loaded kernel extensions and DriverKit extensions to locate security tooling
+  description: showloaded queries the kernel directly for load information. --list-only --no-kernel-components
+    lists non-codeless kexts with their bundle identifiers, versions, load addresses, and reference counts.
+    Codeless kexts and DriverKit extensions require --collection codeless --show all to enumerate. Together
+    these identify any legacy kernel-resident or DriverKit-based endpoint security product. They do not
+    cover System Extensions, which systemextensionsctl enumerates instead.
+  tactic: discovery
+  technique:
+    attack_id: T1082
+    name: System Information Discovery
+  platforms:
+    darwin:
+      sh:
+        command: kmutil showloaded --list-only --no-kernel-components
+  singleton: false
+  privilege: User
+  repeatable: true
+  delete_payload: false
+  buckets:
+  - loobins
+  - kmutil
+  - discovery
+  version: '1.0'
+  author: LOOBins Project
+  additional_info:
+    loobins_tool: kmutil
+    use_case: Inventory loaded kernel extensions and DriverKit extensions to locate security tooling
+    source_file: kmutil.yml
+    source_repository: https://github.com/infosecB/LOOBins
+    import_timestamp: '2026-10-12T08:33:56.529930Z'

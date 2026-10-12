@@ -1,0 +1,29 @@
+- id: e8ac38e4-833f-28e2-e1b6-4f6de2fc25d9
+  name: socketfilterfw - Disable the Application Firewall entirely
+  description: Turning the firewall off with --setglobalstate off removes all per-application inbound
+    filtering and the associated "allow incoming connections?" prompts, so any listening service an attacker
+    plants on the host becomes reachable from the network. Requires root.
+  tactic: defense-evasion
+  technique:
+    attack_id: T1562.001
+    name: 'Impair Defenses: Disable or Modify Tools'
+  platforms:
+    darwin:
+      sh:
+        command: /usr/libexec/ApplicationFirewall/socketfilterfw --setglobalstate off
+  singleton: true
+  privilege: User
+  repeatable: false
+  delete_payload: false
+  buckets:
+  - loobins
+  - socketfilterfw
+  - defense-evasion
+  version: '1.0'
+  author: LOOBins Project
+  additional_info:
+    loobins_tool: socketfilterfw
+    use_case: Disable the Application Firewall entirely
+    source_file: socketfilterfw.yml
+    source_repository: https://github.com/infosecB/LOOBins
+    import_timestamp: '2026-10-12T08:33:56.377087Z'

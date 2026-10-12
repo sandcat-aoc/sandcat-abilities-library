@@ -1,0 +1,31 @@
+- id: 5eb8e795-2d71-0701-a769-589c1e9387af
+  name: kmutil - Strip all third-party kext approvals with trigger-panic-medic
+  description: trigger-panic-medic is meant to recover a machine from a kext that panics at boot. It removes
+    the auxiliary kext collection and revokes every kext approval on the next boot, which on a managed
+    fleet drops any third-party kernel extension the organization deployed, including a security vendor's
+    kext, and forces user re-approval before any can load again. It runs only in Recovery Mode, needing
+    the same access as configure-boot.
+  tactic: defense-evasion
+  technique:
+    attack_id: T1562.001
+    name: 'Impair Defenses: Disable or Modify Tools'
+  platforms:
+    darwin:
+      sh:
+        command: kmutil trigger-panic-medic
+  singleton: false
+  privilege: User
+  repeatable: true
+  delete_payload: false
+  buckets:
+  - loobins
+  - kmutil
+  - defense-evasion
+  version: '1.0'
+  author: LOOBins Project
+  additional_info:
+    loobins_tool: kmutil
+    use_case: Strip all third-party kext approvals with trigger-panic-medic
+    source_file: kmutil.yml
+    source_repository: https://github.com/infosecB/LOOBins
+    import_timestamp: '2026-10-12T08:33:56.537174Z'

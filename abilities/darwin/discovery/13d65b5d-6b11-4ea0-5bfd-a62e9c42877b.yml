@@ -1,0 +1,32 @@
+- id: 13d65b5d-6b11-4ea0-5bfd-a62e9c42877b
+  name: PlistBuddy - Parse live I/O Kit registry output from stdin to read screen lock state
+  description: PlistBuddy accepts /dev/stdin as its file argument, so a plist produced by another command
+    can be queried without touching disk. Google Threat Intelligence Group's UNC1069 report records the
+    SILENCELIFT backdoor using this to read :IOConsoleUsers:0:CGSSessionScreenIsLocked from ioreg output
+    and beacon the lock state to C2. The key is absent when the screen is unlocked, so PlistBuddy exits
+    non-zero and the error is discarded. No privileges required.
+  tactic: discovery
+  technique:
+    attack_id: T1087.001
+    name: 'Account Discovery: Local Account'
+  platforms:
+    darwin:
+      sh:
+        command: /usr/libexec/PlistBuddy -c "print :IOConsoleUsers:0:CGSSessionScreenIsLocked" /dev/stdin
+          2>/dev/null <<< "$(ioreg -n Root -d1 -a)"
+  singleton: false
+  privilege: User
+  repeatable: true
+  delete_payload: false
+  buckets:
+  - loobins
+  - plistbuddy
+  - discovery
+  version: '1.0'
+  author: LOOBins Project
+  additional_info:
+    loobins_tool: PlistBuddy
+    use_case: Parse live I/O Kit registry output from stdin to read screen lock state
+    source_file: PlistBuddy.yml
+    source_repository: https://github.com/infosecB/LOOBins
+    import_timestamp: '2026-10-12T08:33:56.297627Z'

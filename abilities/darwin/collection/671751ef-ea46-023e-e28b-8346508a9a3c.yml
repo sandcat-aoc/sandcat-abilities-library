@@ -1,0 +1,42 @@
+- id: 671751ef-ea46-023e-e28b-8346508a9a3c
+  name: kickstart - Escalate a headless SSH foothold to an interactive desktop session
+  description: 'A shell obtained over SSH cannot answer GUI-only prompts such as TCC consent dialogs,
+    keychain unlock requests or
+
+    authorization sheets. Activating Remote Management over the SSH session and restarting the agent gives
+    a
+
+    screen-sharing channel into the console user''s live session, where those dialogs can be clicked through
+    as the
+
+    logged-in user and the desktop and typed content observed. Requires root over SSH, an interactive
+    console session,
+
+    and on macOS 10.14 and later the Screen Recording and Accessibility TCC grants for the ARDAgent.
+
+    '
+  tactic: collection
+  technique:
+    attack_id: T1113
+    name: Screen Capture
+  platforms:
+    darwin:
+      sh:
+        command: ssh <USER>@<TARGET_IP> "sudo /System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/kickstart
+          -activate -configure -access -on -privs -all -users <USERNAME> -restart -agent -console"
+  singleton: false
+  privilege: Elevated
+  repeatable: true
+  delete_payload: false
+  buckets:
+  - loobins
+  - kickstart
+  - collection
+  version: '1.0'
+  author: LOOBins Project
+  additional_info:
+    loobins_tool: kickstart
+    use_case: Escalate a headless SSH foothold to an interactive desktop session
+    source_file: kickstart.yml
+    source_repository: https://github.com/infosecB/LOOBins
+    import_timestamp: '2026-10-12T08:33:56.372693Z'

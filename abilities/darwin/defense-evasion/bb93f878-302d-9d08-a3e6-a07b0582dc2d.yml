@@ -1,0 +1,32 @@
+- id: bb93f878-302d-9d08-a3e6-a07b0582dc2d
+  name: dsenableroot - Disable the root account to clean up after use
+  description: '-d removes the root account''s password and disables it, restoring the default macOS state.
+    An operator can
+
+    enable root, use it, and disable it again, leaving the account state as it was before.
+
+    '
+  tactic: defense-evasion
+  technique:
+    attack_id: T1562.001
+    name: 'Impair Defenses: Disable or Modify Tools'
+  platforms:
+    darwin:
+      sh:
+        command: dsenableroot -d -u <ADMIN_USER> -p <ADMIN_PASSWORD>
+  singleton: true
+  privilege: User
+  repeatable: false
+  delete_payload: false
+  buckets:
+  - loobins
+  - dsenableroot
+  - defense-evasion
+  version: '1.0'
+  author: LOOBins Project
+  additional_info:
+    loobins_tool: dsenableroot
+    use_case: Disable the root account to clean up after use
+    source_file: dsenableroot.yml
+    source_repository: https://github.com/infosecB/LOOBins
+    import_timestamp: '2026-10-12T08:33:56.526110Z'

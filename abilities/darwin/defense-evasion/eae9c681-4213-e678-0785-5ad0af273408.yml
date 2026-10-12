@@ -1,0 +1,30 @@
+- id: eae9c681-4213-e678-0785-5ad0af273408
+  name: kmutil - Unload a kernel extension to disable a kernel-resident security product
+  description: unload invokes a kext's stop function and ends its IOKit lifecycle, stopping a legacy security
+    kext from observing the system. It requires root and fails if another loaded kext holds a reference
+    to the target (shown by the Refs column of showloaded). The kext stays in its collection, so the change
+    does not survive a reboot. Applies only to products still shipping a kext rather than a System Extension.
+  tactic: defense-evasion
+  technique:
+    attack_id: T1562.001
+    name: 'Impair Defenses: Disable or Modify Tools'
+  platforms:
+    darwin:
+      sh:
+        command: sudo kmutil unload --bundle-identifier <TARGET_KEXT_BUNDLE_ID>
+  singleton: true
+  privilege: Elevated
+  repeatable: false
+  delete_payload: false
+  buckets:
+  - loobins
+  - kmutil
+  - defense-evasion
+  version: '1.0'
+  author: LOOBins Project
+  additional_info:
+    loobins_tool: kmutil
+    use_case: Unload a kernel extension to disable a kernel-resident security product
+    source_file: kmutil.yml
+    source_repository: https://github.com/infosecB/LOOBins
+    import_timestamp: '2026-10-12T08:33:56.531417Z'

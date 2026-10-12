@@ -1,0 +1,30 @@
+- id: d751e801-11fc-25c2-db65-51a79a1c8bb0
+  name: pwpolicy - Enumerate password policy to learn lockout thresholds and complexity rules
+  description: pwpolicy prints the account policy dictionary as XML, including the lockout threshold (policyAttributeMaximumFailedAuthentications),
+    expiry interval, and password content predicates. This reveals how many guesses an account tolerates
+    before any authentication is attempted. Without -u it returns the global policy; with -u <user> it
+    returns any per-account override. Runs without elevation.
+  tactic: discovery
+  technique:
+    attack_id: T1087.001
+    name: 'Account Discovery: Local Account'
+  platforms:
+    darwin:
+      sh:
+        command: pwpolicy -getaccountpolicies
+  singleton: false
+  privilege: User
+  repeatable: true
+  delete_payload: false
+  buckets:
+  - loobins
+  - pwpolicy
+  - discovery
+  version: '1.0'
+  author: LOOBins Project
+  additional_info:
+    loobins_tool: pwpolicy
+    use_case: Enumerate password policy to learn lockout thresholds and complexity rules
+    source_file: pwpolicy.yml
+    source_repository: https://github.com/infosecB/LOOBins
+    import_timestamp: '2026-10-12T08:33:56.349688Z'

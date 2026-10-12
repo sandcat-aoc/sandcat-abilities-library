@@ -1,0 +1,32 @@
+- id: 7bd221cf-90ce-0513-b0bd-17de3b8b1d7f
+  name: kmutil - Install an attacker-supplied kernel extension for boot persistence
+  description: load stages a kext bundle from disk and, if it is not already in the auxiliary kext collection,
+    has kernelmanagerd rebuild that collection so the kext loads at every subsequent boot. The prerequisites
+    are steep. It requires root; with SIP enabled the signature is verified before the kext is added;
+    kernelmanagerd prompts a logged-in administrator to approve the rebuild; the machine must reboot;
+    and on Apple silicon it must already be in Reduced Security with third-party kexts enabled. kmutil
+    signals the last two states with exit codes 27 (approval required) and 28 (reboot required).
+  tactic: persistence
+  technique:
+    attack_id: T1543.001
+    name: 'Create or Modify System Process: Launch Agent'
+  platforms:
+    darwin:
+      sh:
+        command: sudo kmutil load --bundle-path /Library/Extensions/<PAYLOAD>.kext
+  singleton: true
+  privilege: Elevated
+  repeatable: false
+  delete_payload: false
+  buckets:
+  - loobins
+  - kmutil
+  - persistence
+  version: '1.0'
+  author: LOOBins Project
+  additional_info:
+    loobins_tool: kmutil
+    use_case: Install an attacker-supplied kernel extension for boot persistence
+    source_file: kmutil.yml
+    source_repository: https://github.com/infosecB/LOOBins
+    import_timestamp: '2026-10-12T08:33:56.534166Z'

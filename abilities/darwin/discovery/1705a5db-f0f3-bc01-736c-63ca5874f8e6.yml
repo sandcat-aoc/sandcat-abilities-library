@@ -1,0 +1,30 @@
+- id: 1705a5db-f0f3-bc01-736c-63ca5874f8e6
+  name: dseditgroup - Enumerate group membership to identify privileged accounts
+  description: The read and checkmember operations consult the authentication search policy and do not
+    require root. "read" lists all members of a group (admin, com.apple.access_ssh, etc.), and "checkmember
+    -m" tests whether a specific user belongs to it. Either can map who holds administrator rights or
+    service access without writing to the directory.
+  tactic: discovery
+  technique:
+    attack_id: T1087.001
+    name: 'Account Discovery: Local Account'
+  platforms:
+    darwin:
+      sh:
+        command: dseditgroup -o read admin
+  singleton: false
+  privilege: User
+  repeatable: true
+  delete_payload: false
+  buckets:
+  - loobins
+  - dseditgroup
+  - discovery
+  version: '1.0'
+  author: LOOBins Project
+  additional_info:
+    loobins_tool: dseditgroup
+    use_case: Enumerate group membership to identify privileged accounts
+    source_file: dseditgroup.yml
+    source_repository: https://github.com/infosecB/LOOBins
+    import_timestamp: '2026-10-12T08:33:56.291630Z'

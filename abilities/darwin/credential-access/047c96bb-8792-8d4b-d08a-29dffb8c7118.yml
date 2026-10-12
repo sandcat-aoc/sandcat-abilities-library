@@ -1,0 +1,30 @@
+- id: 047c96bb-8792-8d4b-d08a-29dffb8c7118
+  name: pwpolicy - Identify which password hash formats are stored on disk
+  description: -getglobalhashtypes reports the hash formats macOS writes system-wide (the default SALTED-SHA512-PBKDF2
+    for loginwindow, plus any legacy formats such as CRAM-MD5 and SMB-NT), while -gethashtypes for a named
+    user reports which formats are actually stored for that account. This shows which hashes are worth
+    extracting and cracking offline. -gethashtypes requires root.
+  tactic: credential-access
+  technique:
+    attack_id: T1555.001
+    name: 'Credentials from Password Stores: Keychain'
+  platforms:
+    darwin:
+      sh:
+        command: pwpolicy -getglobalhashtypes
+  singleton: false
+  privilege: User
+  repeatable: true
+  delete_payload: false
+  buckets:
+  - loobins
+  - pwpolicy
+  - credential-access
+  version: '1.0'
+  author: LOOBins Project
+  additional_info:
+    loobins_tool: pwpolicy
+    use_case: Identify which password hash formats are stored on disk
+    source_file: pwpolicy.yml
+    source_repository: https://github.com/infosecB/LOOBins
+    import_timestamp: '2026-10-12T08:33:56.351051Z'

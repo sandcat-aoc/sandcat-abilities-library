@@ -1,0 +1,30 @@
+- id: 8bd1c090-15b9-5887-c13b-da7d779edbd2
+  name: kmutil - Terminate IOService instances to disable a driver without fully unloading its kext
+  description: unload --class-name terminates all instances of a named IOService class while leaving the
+    kext loaded. Adding --personalities-only also removes the kext's personalities so the driver cannot
+    restart. Either form stops the driver from doing work while leaving the kext visible in showloaded
+    output. Requires root.
+  tactic: defense-evasion
+  technique:
+    attack_id: T1562.001
+    name: 'Impair Defenses: Disable or Modify Tools'
+  platforms:
+    darwin:
+      sh:
+        command: sudo kmutil unload --class-name <TARGET_IOSERVICE_CLASS>
+  singleton: true
+  privilege: Elevated
+  repeatable: false
+  delete_payload: false
+  buckets:
+  - loobins
+  - kmutil
+  - defense-evasion
+  version: '1.0'
+  author: LOOBins Project
+  additional_info:
+    loobins_tool: kmutil
+    use_case: Terminate IOService instances to disable a driver without fully unloading its kext
+    source_file: kmutil.yml
+    source_repository: https://github.com/infosecB/LOOBins
+    import_timestamp: '2026-10-12T08:33:56.532852Z'

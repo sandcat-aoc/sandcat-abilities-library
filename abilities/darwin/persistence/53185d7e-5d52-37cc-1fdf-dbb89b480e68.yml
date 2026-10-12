@@ -1,0 +1,30 @@
+- id: 53185d7e-5d52-37cc-1fdf-dbb89b480e68
+  name: dseditgroup - Grant remote service access through a SACL group
+  description: When Remote Login or Screen Sharing is restricted to specific users, macOS enforces it
+    through the com.apple.access_ssh and com.apple.access_screensharing groups. Adding a controlled account
+    to either group opens a remote channel (SSH or GUI) without dropping a payload. The account still
+    needs valid credentials or an authorized key. Requires root.
+  tactic: persistence
+  technique:
+    attack_id: T1547.001
+    name: 'Boot or Logon Autostart Execution: Registry Run Keys / Startup Folder'
+  platforms:
+    darwin:
+      sh:
+        command: dseditgroup -o edit -a <TARGET_USER> -t user com.apple.access_ssh
+  singleton: false
+  privilege: User
+  repeatable: true
+  delete_payload: false
+  buckets:
+  - loobins
+  - dseditgroup
+  - persistence
+  version: '1.0'
+  author: LOOBins Project
+  additional_info:
+    loobins_tool: dseditgroup
+    use_case: Grant remote service access through a SACL group
+    source_file: dseditgroup.yml
+    source_repository: https://github.com/infosecB/LOOBins
+    import_timestamp: '2026-10-12T08:33:56.288934Z'

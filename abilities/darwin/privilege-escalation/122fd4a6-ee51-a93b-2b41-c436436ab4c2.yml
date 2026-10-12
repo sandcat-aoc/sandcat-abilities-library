@@ -1,0 +1,30 @@
+- id: 122fd4a6-ee51-a93b-2b41-c436436ab4c2
+  name: dseditgroup - Promote a local account to administrator
+  description: Adding a user record to the local "admin" group grants administrator rights, which on macOS
+    include authenticating to authorization prompts, using sudo and installing software. It survives reboots
+    because it changes the local directory database, not a running process. Modifying the admin group
+    requires root, so the command runs under sudo or an already-root context.
+  tactic: privilege-escalation
+  technique:
+    attack_id: T1068
+    name: Exploitation for Privilege Escalation
+  platforms:
+    darwin:
+      sh:
+        command: dseditgroup -o edit -a <TARGET_USER> -t user admin
+  singleton: false
+  privilege: User
+  repeatable: true
+  delete_payload: false
+  buckets:
+  - loobins
+  - dseditgroup
+  - privilege-escalation
+  version: '1.0'
+  author: LOOBins Project
+  additional_info:
+    loobins_tool: dseditgroup
+    use_case: Promote a local account to administrator
+    source_file: dseditgroup.yml
+    source_repository: https://github.com/infosecB/LOOBins
+    import_timestamp: '2026-10-12T08:33:56.286143Z'

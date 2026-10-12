@@ -1,0 +1,41 @@
+- id: e6186cf9-157c-83cc-da6d-53d08041479c
+  name: kickstart - Deactivate the service and strip the access privileges after use
+  description: '-deactivate unloads the com.apple.screensharing LaunchDaemon, kills the screen sharing
+    daemon and agent, and
+
+    deletes the RemoteManagement.launchd marker file. -uninstall -settings additionally deletes
+
+    com.apple.RemoteDesktop.plist, com.apple.ARDAgent.plist and com.apple.RemoteManagement.plist, and
+    destroys the
+
+    "naprivs" attribute on every local user record. An attacker uses this to remove the configuration
+    once the
+
+    objective is met. Requires root.
+
+    '
+  tactic: defense-evasion
+  technique:
+    attack_id: T1562.001
+    name: 'Impair Defenses: Disable or Modify Tools'
+  platforms:
+    darwin:
+      sh:
+        command: sudo /System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/kickstart
+          -uninstall -settings -deactivate -stop -quiet
+  singleton: false
+  privilege: Elevated
+  repeatable: true
+  delete_payload: false
+  buckets:
+  - loobins
+  - kickstart
+  - defense-evasion
+  version: '1.0'
+  author: LOOBins Project
+  additional_info:
+    loobins_tool: kickstart
+    use_case: Deactivate the service and strip the access privileges after use
+    source_file: kickstart.yml
+    source_repository: https://github.com/infosecB/LOOBins
+    import_timestamp: '2026-10-12T08:33:56.374254Z'

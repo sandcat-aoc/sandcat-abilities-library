@@ -1,0 +1,35 @@
+- id: 945f82b8-f7c2-65e1-b3d1-c01ff514b358
+  name: dsenableroot - Enable the root account non-interactively for persistent privileged access
+  description: '-u and -p supply administrator credentials and -r supplies the new root password, so the
+    command runs
+
+    unattended with no prompt. It needs valid admin credentials, and the resulting root account is independent
+    of
+
+    the admin account used to create it, so it survives that account''s password reset or deletion.
+
+    '
+  tactic: persistence
+  technique:
+    attack_id: T1136.001
+    name: 'Create Account: Local Account'
+  platforms:
+    darwin:
+      sh:
+        command: dsenableroot -u <ADMIN_USER> -p <ADMIN_PASSWORD> -r <NEW_ROOT_PASSWORD>
+  singleton: true
+  privilege: User
+  repeatable: false
+  delete_payload: false
+  buckets:
+  - loobins
+  - dsenableroot
+  - persistence
+  version: '1.0'
+  author: LOOBins Project
+  additional_info:
+    loobins_tool: dsenableroot
+    use_case: Enable the root account non-interactively for persistent privileged access
+    source_file: dsenableroot.yml
+    source_repository: https://github.com/infosecB/LOOBins
+    import_timestamp: '2026-10-12T08:33:56.523450Z'

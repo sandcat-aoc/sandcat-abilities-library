@@ -1,0 +1,30 @@
+- id: 5fb5ac32-ce27-7404-dc9e-eb3845cc490b
+  name: pwpolicy - Strip or replace account policies so password guessing is not throttled
+  description: -clearaccountpolicies removes the policy dictionary, including lockout thresholds, password
+    expiry, and content requirements. Without -u it clears the global policy; with -u it clears a single
+    account's. -setaccountpolicies replaces the dictionary from a plist, leaving a populated-looking policy
+    whose contents the attacker controls. Both require root or an administrator supplied with -a.
+  tactic: defense-evasion
+  technique:
+    attack_id: T1562.001
+    name: 'Impair Defenses: Disable or Modify Tools'
+  platforms:
+    darwin:
+      sh:
+        command: sudo pwpolicy -clearaccountpolicies
+  singleton: false
+  privilege: Elevated
+  repeatable: true
+  delete_payload: false
+  buckets:
+  - loobins
+  - pwpolicy
+  - defense-evasion
+  version: '1.0'
+  author: LOOBins Project
+  additional_info:
+    loobins_tool: pwpolicy
+    use_case: Strip or replace account policies so password guessing is not throttled
+    source_file: pwpolicy.yml
+    source_repository: https://github.com/infosecB/LOOBins
+    import_timestamp: '2026-10-12T08:33:56.353664Z'

@@ -1,0 +1,30 @@
+- id: 5cd627e8-7848-1fa1-7762-865697c48645
+  name: pwpolicy - Disable or re-enable user accounts at the directory level
+  description: -disableuser marks an account as not permitted to authenticate. The record and home directory
+    stay in place, so the account still appears in dscl while its owner is locked out. -enableuser reverses
+    it. An attacker can lock out administrators or responders, or keep a planted account disabled between
+    uses and re-enable it on demand. Requires root or an administrator supplied with -a.
+  tactic: impact
+  technique:
+    attack_id: T1490
+    name: Inhibit System Recovery
+  platforms:
+    darwin:
+      sh:
+        command: sudo pwpolicy -u <TARGET_USER> -disableuser
+  singleton: true
+  privilege: Elevated
+  repeatable: false
+  delete_payload: false
+  buckets:
+  - loobins
+  - pwpolicy
+  - impact
+  version: '1.0'
+  author: LOOBins Project
+  additional_info:
+    loobins_tool: pwpolicy
+    use_case: Disable or re-enable user accounts at the directory level
+    source_file: pwpolicy.yml
+    source_repository: https://github.com/infosecB/LOOBins
+    import_timestamp: '2026-10-12T08:33:56.356331Z'

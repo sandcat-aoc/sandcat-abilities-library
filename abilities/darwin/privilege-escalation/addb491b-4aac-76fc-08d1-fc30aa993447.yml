@@ -33,4 +33,4 @@
     use_case: Mount a volume with noowners to read or tamper with root-owned files (CVE-2023-42931)
     source_file: diskutil.yml
     source_repository: https://github.com/infosecB/LOOBins
-    import_timestamp: '2026-10-11T08:16:02.780131Z'
+    import_timestamp: '2026-10-12T08:33:56.547238Z'

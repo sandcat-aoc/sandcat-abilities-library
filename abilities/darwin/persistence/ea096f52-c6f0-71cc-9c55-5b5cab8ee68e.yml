@@ -1,0 +1,35 @@
+- id: ea096f52-c6f0-71cc-9c55-5b5cab8ee68e
+  name: dsenableroot - Enable the root account interactively to keep credentials out of the command line
+  description: 'With no arguments, dsenableroot prompts for the caller''s password and the new root password.
+    Neither secret
+
+    reaches argv, so they stay out of shell history and the process argument list, though the process
+    name is still
+
+    recorded. Requires an interactive TTY and an admin session.
+
+    '
+  tactic: persistence
+  technique:
+    attack_id: T1136.001
+    name: 'Create Account: Local Account'
+  platforms:
+    darwin:
+      sh:
+        command: dsenableroot
+  singleton: true
+  privilege: User
+  repeatable: false
+  delete_payload: false
+  buckets:
+  - loobins
+  - dsenableroot
+  - persistence
+  version: '1.0'
+  author: LOOBins Project
+  additional_info:
+    loobins_tool: dsenableroot
+    use_case: Enable the root account interactively to keep credentials out of the command line
+    source_file: dsenableroot.yml
+    source_repository: https://github.com/infosecB/LOOBins
+    import_timestamp: '2026-10-12T08:33:56.524828Z'

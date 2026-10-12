@@ -1,0 +1,30 @@
+- id: b3a46a45-05c9-f48a-529d-c9bdb7804031
+  name: pwpolicy - Confirm a harvested account is still usable without a login attempt
+  description: The -authentication-allowed command evaluates a user's account policies and reports whether
+    they currently permit authentication. An attacker holding a recovered credential can confirm the account
+    is not disabled, expired, or locked out before spending it. It evaluates policy only and does not
+    test the password.
+  tactic: discovery
+  technique:
+    attack_id: T1087.001
+    name: 'Account Discovery: Local Account'
+  platforms:
+    darwin:
+      sh:
+        command: pwpolicy -u <TARGET_USER> -authentication-allowed
+  singleton: false
+  privilege: User
+  repeatable: true
+  delete_payload: false
+  buckets:
+  - loobins
+  - pwpolicy
+  - discovery
+  version: '1.0'
+  author: LOOBins Project
+  additional_info:
+    loobins_tool: pwpolicy
+    use_case: Confirm a harvested account is still usable without a login attempt
+    source_file: pwpolicy.yml
+    source_repository: https://github.com/infosecB/LOOBins
+    import_timestamp: '2026-10-12T08:33:56.352370Z'

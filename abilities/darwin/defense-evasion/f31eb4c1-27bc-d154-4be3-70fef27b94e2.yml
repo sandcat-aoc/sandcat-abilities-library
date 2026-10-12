@@ -1,0 +1,40 @@
+- id: f31eb4c1-27bc-d154-4be3-70fef27b94e2
+  name: kickstart - Hide the Remote Management menu bar indicator
+  description: '-configure -clientopts -setmenuextra -menuextra no sets LoadRemoteManagementMenuExtra
+    to false in
+
+    com.apple.RemoteManagement.plist, stopping the Remote Management menu extra from loading in the menu
+    bar. Paired
+
+    with -restart -menu to reload the SystemUIServer-hosted item, this removes the most visible on-screen
+    cue that the
+
+    service is on, so a user at the console sees no indicator for the newly enabled remote access. Requires
+    root.
+
+    '
+  tactic: defense-evasion
+  technique:
+    attack_id: T1564.001
+    name: 'Hide Artifacts: Hidden Files and Directories'
+  platforms:
+    darwin:
+      sh:
+        command: sudo /System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/kickstart
+          -configure -clientopts -setmenuextra -menuextra no -restart -menu
+  singleton: false
+  privilege: Elevated
+  repeatable: true
+  delete_payload: false
+  buckets:
+  - loobins
+  - kickstart
+  - defense-evasion
+  version: '1.0'
+  author: LOOBins Project
+  additional_info:
+    loobins_tool: kickstart
+    use_case: Hide the Remote Management menu bar indicator
+    source_file: kickstart.yml
+    source_repository: https://github.com/infosecB/LOOBins
+    import_timestamp: '2026-10-12T08:33:56.371252Z'

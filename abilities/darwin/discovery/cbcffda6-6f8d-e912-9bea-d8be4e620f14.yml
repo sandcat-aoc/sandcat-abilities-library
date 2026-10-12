@@ -1,0 +1,30 @@
+- id: cbcffda6-6f8d-e912-9bea-d8be4e620f14
+  name: socketfilterfw - Enumerate Application Firewall state and allowed applications
+  description: --getglobalstate reports whether the firewall is enabled, --getstealthmode whether stealth
+    mode is active, and --listapps the registered applications with their allow/block state. Together
+    these tell an attacker whether an inbound listener needs the firewall weakened and which existing
+    allow-list entries are worth impersonating. All require root.
+  tactic: discovery
+  technique:
+    attack_id: T1518
+    name: Software Discovery
+  platforms:
+    darwin:
+      sh:
+        command: /usr/libexec/ApplicationFirewall/socketfilterfw --getglobalstate
+  singleton: false
+  privilege: User
+  repeatable: true
+  delete_payload: false
+  buckets:
+  - loobins
+  - socketfilterfw
+  - discovery
+  version: '1.0'
+  author: LOOBins Project
+  additional_info:
+    loobins_tool: socketfilterfw
+    use_case: Enumerate Application Firewall state and allowed applications
+    source_file: socketfilterfw.yml
+    source_repository: https://github.com/infosecB/LOOBins
+    import_timestamp: '2026-10-12T08:33:56.381087Z'

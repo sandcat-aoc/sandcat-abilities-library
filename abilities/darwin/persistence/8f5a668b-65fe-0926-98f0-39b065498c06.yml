@@ -27,4 +27,4 @@
     use_case: Take over an existing account by setting its password
     source_file: pwpolicy.yml
     source_repository: https://github.com/infosecB/LOOBins
-    import_timestamp: '2026-10-12T08:33:56.355004Z'
+    import_timestamp: '2026-10-13T08:56:25.281995Z'

@@ -27,4 +27,4 @@
     use_case: Identify which password hash formats are stored on disk
     source_file: pwpolicy.yml
     source_repository: https://github.com/infosecB/LOOBins
-    import_timestamp: '2026-10-12T08:33:56.351051Z'
+    import_timestamp: '2026-10-13T08:56:25.276714Z'

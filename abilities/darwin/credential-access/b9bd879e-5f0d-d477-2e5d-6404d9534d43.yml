@@ -28,4 +28,4 @@
     use_case: Retain the FileVault key across standby by disabling key destruction
     source_file: pmset.yml
     source_repository: https://github.com/infosecB/LOOBins
-    import_timestamp: '2026-10-12T08:33:56.441770Z'
+    import_timestamp: '2026-10-13T08:56:25.393485Z'

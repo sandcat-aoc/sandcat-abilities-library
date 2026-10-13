@@ -1,0 +1,28 @@
+- id: 5d9df450-b9c6-f2cd-9e57-09ac9f67f0b5
+  name: xattr - Recursively clear extended attributes via xattr
+  description: Use xattr -cr to clear extended attributes, including com.apple.quarantine, across an app
+    bundle or directory tree. Seen in MacSync and CrashStealer infections.
+  tactic: execution
+  technique:
+    attack_id: T1562.001
+    name: 'Impair Defenses: Disable or Modify Tools'
+  platforms:
+    darwin:
+      sh:
+        command: xattr -cr DIRECTORY
+  singleton: false
+  privilege: User
+  repeatable: true
+  delete_payload: false
+  buckets:
+  - loobins
+  - xattr
+  - execution
+  version: '1.0'
+  author: LOOBins Project
+  additional_info:
+    loobins_tool: xattr
+    use_case: Recursively clear extended attributes via xattr
+    source_file: xattr.yml
+    source_repository: https://github.com/infosecB/LOOBins
+    import_timestamp: '2026-10-13T08:56:25.442847Z'

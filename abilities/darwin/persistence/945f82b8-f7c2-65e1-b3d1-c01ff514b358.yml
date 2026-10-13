@@ -32,4 +32,4 @@
     use_case: Enable the root account non-interactively for persistent privileged access
     source_file: dsenableroot.yml
     source_repository: https://github.com/infosecB/LOOBins
-    import_timestamp: '2026-10-12T08:33:56.523450Z'
+    import_timestamp: '2026-10-13T08:56:25.499321Z'

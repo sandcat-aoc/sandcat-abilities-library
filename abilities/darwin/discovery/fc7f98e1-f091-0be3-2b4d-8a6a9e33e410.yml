@@ -27,4 +27,4 @@
     use_case: Enumerate APFS cryptographic users to map FileVault-enabled accounts
     source_file: diskutil.yml
     source_repository: https://github.com/infosecB/LOOBins
-    import_timestamp: '2026-10-12T08:33:56.544121Z'
+    import_timestamp: '2026-10-13T08:56:25.525760Z'

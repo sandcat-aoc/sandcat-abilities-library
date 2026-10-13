@@ -1,0 +1,29 @@
+- id: caadadf3-cd0b-02bc-9567-9cc237007a8b
+  name: xattr - Clear extended attributes from a file via xattr
+  description: Use xattr -c to clear a file's extended attributes. This removes com.apple.quarantine when
+    present without naming it, so the command line does not contain the string com.apple.quarantine. AMOS
+    ran this form on a dropped payload before executing it.
+  tactic: execution
+  technique:
+    attack_id: T1562.001
+    name: 'Impair Defenses: Disable or Modify Tools'
+  platforms:
+    darwin:
+      sh:
+        command: xattr -c FILE
+  singleton: false
+  privilege: User
+  repeatable: true
+  delete_payload: false
+  buckets:
+  - loobins
+  - xattr
+  - execution
+  version: '1.0'
+  author: LOOBins Project
+  additional_info:
+    loobins_tool: xattr
+    use_case: Clear extended attributes from a file via xattr
+    source_file: xattr.yml
+    source_repository: https://github.com/infosecB/LOOBins
+    import_timestamp: '2026-10-13T08:56:25.441488Z'

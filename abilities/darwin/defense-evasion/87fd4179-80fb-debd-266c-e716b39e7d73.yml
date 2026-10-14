@@ -25,4 +25,4 @@
     use_case: Terminate Terminal to conceal malicious execution
     source_file: killall.yml
     source_repository: https://github.com/infosecB/LOOBins
-    import_timestamp: '2026-10-13T08:56:25.290299Z'
+    import_timestamp: '2026-10-14T07:06:05.775682Z'

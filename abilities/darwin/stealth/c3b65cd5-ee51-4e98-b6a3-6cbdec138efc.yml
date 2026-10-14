@@ -41,4 +41,4 @@
       get_prereq_command: echo "Install Python3"
     technique_created: '2017-12-14T16:46:06.044Z'
     atomic_guid: c3b65cd5-ee51-4e98-b6a3-6cbdec138efc
-    import_timestamp: '2026-10-13T08:56:42.767662Z'
+    import_timestamp: '2026-10-14T07:06:21.985113Z'

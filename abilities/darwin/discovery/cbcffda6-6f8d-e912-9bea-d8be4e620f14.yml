@@ -27,4 +27,4 @@
     use_case: Enumerate Application Firewall state and allowed applications
     source_file: socketfilterfw.yml
     source_repository: https://github.com/infosecB/LOOBins
-    import_timestamp: '2026-10-14T07:06:05.801814Z'
+    import_timestamp: '2026-10-15T06:57:00.655433Z'

@@ -27,4 +27,4 @@
     use_case: Confirm a harvested account is still usable without a login attempt
     source_file: pwpolicy.yml
     source_repository: https://github.com/infosecB/LOOBins
-    import_timestamp: '2026-10-15T06:57:00.624620Z'
+    import_timestamp: '2026-10-16T06:44:04.291721Z'

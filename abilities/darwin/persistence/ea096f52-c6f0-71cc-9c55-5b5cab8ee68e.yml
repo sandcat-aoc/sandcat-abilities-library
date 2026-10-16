@@ -32,4 +32,4 @@
     use_case: Enable the root account interactively to keep credentials out of the command line
     source_file: dsenableroot.yml
     source_repository: https://github.com/infosecB/LOOBins
-    import_timestamp: '2026-10-15T06:57:00.806284Z'
+    import_timestamp: '2026-10-16T06:44:04.425380Z'

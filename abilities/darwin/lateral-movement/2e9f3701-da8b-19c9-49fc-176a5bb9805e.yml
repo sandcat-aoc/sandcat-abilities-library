@@ -39,4 +39,4 @@
     use_case: Activate Remote Management and grant every local user full control
     source_file: kickstart.yml
     source_repository: https://github.com/infosecB/LOOBins
-    import_timestamp: '2026-10-15T06:57:00.639338Z'
+    import_timestamp: '2026-10-16T06:44:04.303097Z'

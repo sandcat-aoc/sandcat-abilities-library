@@ -27,4 +27,4 @@
     use_case: Enumerate group membership to identify privileged accounts
     source_file: dseditgroup.yml
     source_repository: https://github.com/infosecB/LOOBins
-    import_timestamp: '2026-10-16T06:44:04.244579Z'
+    import_timestamp: '2026-10-17T06:33:42.543353Z'

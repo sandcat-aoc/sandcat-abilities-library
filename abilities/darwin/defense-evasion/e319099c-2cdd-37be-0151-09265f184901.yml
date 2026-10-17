@@ -25,4 +25,4 @@
     use_case: Forcefully terminate a named process
     source_file: killall.yml
     source_repository: https://github.com/infosecB/LOOBins
-    import_timestamp: '2026-10-16T06:44:04.302141Z'
+    import_timestamp: '2026-10-17T06:33:42.621344Z'

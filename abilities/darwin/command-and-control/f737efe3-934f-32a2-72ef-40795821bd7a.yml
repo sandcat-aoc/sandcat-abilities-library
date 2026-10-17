@@ -29,4 +29,4 @@
     use_case: Disable idle sleep to keep an implanted host awake and reachable
     source_file: pmset.yml
     source_repository: https://github.com/infosecB/LOOBins
-    import_timestamp: '2026-10-16T06:44:04.356208Z'
+    import_timestamp: '2026-10-17T06:33:42.706042Z'

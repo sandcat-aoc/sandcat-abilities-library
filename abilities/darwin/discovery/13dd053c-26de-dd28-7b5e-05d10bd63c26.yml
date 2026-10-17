@@ -28,4 +28,4 @@
     use_case: Bulk-dump the directory to a file with paged results
     source_file: ldapsearch.yml
     source_repository: https://github.com/infosecB/LOOBins
-    import_timestamp: '2026-10-16T06:44:04.287165Z'
+    import_timestamp: '2026-10-17T06:33:42.598910Z'

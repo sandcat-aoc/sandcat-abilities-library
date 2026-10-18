@@ -28,4 +28,4 @@
     use_case: Strip all third-party kext approvals with trigger-panic-medic
     source_file: kmutil.yml
     source_repository: https://github.com/infosecB/LOOBins
-    import_timestamp: '2026-10-17T06:33:42.820483Z'
+    import_timestamp: '2026-10-18T06:57:41.185637Z'

@@ -28,4 +28,4 @@
     use_case: Execute shell commands via osascript do shell script
     source_file: osascript.yml
     source_repository: https://github.com/infosecB/LOOBins
-    import_timestamp: '2026-10-17T06:33:42.655994Z'
+    import_timestamp: '2026-10-18T06:57:41.080829Z'

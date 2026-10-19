@@ -28,4 +28,4 @@
     use_case: Identify Kerberoastable service accounts
     source_file: ldapsearch.yml
     source_repository: https://github.com/infosecB/LOOBins
-    import_timestamp: '2026-10-18T06:57:41.037569Z'
+    import_timestamp: '2026-10-19T07:17:24.260142Z'

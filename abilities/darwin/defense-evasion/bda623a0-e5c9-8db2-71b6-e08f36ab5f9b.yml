@@ -27,4 +27,4 @@
     use_case: Remove a service access group so the service accepts all users
     source_file: dseditgroup.yml
     source_repository: https://github.com/infosecB/LOOBins
-    import_timestamp: '2026-10-18T06:57:41.002056Z'
+    import_timestamp: '2026-10-19T07:17:24.222091Z'

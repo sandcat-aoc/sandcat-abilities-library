@@ -40,4 +40,4 @@
     use_case: Build a LaunchAgent or LaunchDaemon key by key for persistence
     source_file: PlistBuddy.yml
     source_repository: https://github.com/infosecB/LOOBins
-    import_timestamp: '2026-10-18T06:57:41.005015Z'
+    import_timestamp: '2026-10-19T07:17:24.225371Z'

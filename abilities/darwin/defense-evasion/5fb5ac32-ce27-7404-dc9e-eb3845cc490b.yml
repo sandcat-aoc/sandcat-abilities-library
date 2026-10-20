@@ -27,4 +27,4 @@
     use_case: Strip or replace account policies so password guessing is not throttled
     source_file: pwpolicy.yml
     source_repository: https://github.com/infosecB/LOOBins
-    import_timestamp: '2026-10-19T07:17:24.268242Z'
+    import_timestamp: '2026-10-20T07:07:49.775950Z'

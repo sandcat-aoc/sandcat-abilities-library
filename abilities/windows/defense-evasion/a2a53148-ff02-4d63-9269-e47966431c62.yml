@@ -1,0 +1,30 @@
+- id: a2a53148-ff02-4d63-9269-e47966431c62
+  name: a2a53148-ff02-4d63-9269-e47966431c62 - Malicious Driver Deployment
+  description: 'Malicious driver: a2a53148-ff02-4d63-9269-e47966431c62
+
+    Category: malicious
+
+    Author: rommel193911-sudo
+
+    Created: 2026-10-15
+
+    MITRE Technique: T1562.001'
+  tactic: defense-evasion
+  technique:
+    attack_id: T1562.001
+    name: Rootkit
+  platforms:
+    windows:
+      cmd:
+        command: sc create MaliciousDriver binPath= "C:\Windows\System32\drivers\malicious_driver.sys"
+          type= kernel
+  singleton: true
+  privilege: Elevated
+  repeatable: false
+  buckets:
+  - defense-evasion
+  version: '1.0'
+  author: rommel193911-sudo
+  operating_system: Windows (Version Unspecified)
+  created: '2026-10-15'
+  modified: '2026-10-15'

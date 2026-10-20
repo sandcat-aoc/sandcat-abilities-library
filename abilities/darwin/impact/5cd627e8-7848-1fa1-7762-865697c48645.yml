@@ -27,4 +27,4 @@
     use_case: Disable or re-enable user accounts at the directory level
     source_file: pwpolicy.yml
     source_repository: https://github.com/infosecB/LOOBins
-    import_timestamp: '2026-10-19T07:17:24.270569Z'
+    import_timestamp: '2026-10-20T07:07:49.779972Z'

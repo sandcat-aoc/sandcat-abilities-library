@@ -27,4 +27,4 @@
     use_case: List whole disks and partitions
     source_file: diskutil.yml
     source_repository: https://github.com/infosecB/LOOBins
-    import_timestamp: '2026-10-19T07:17:24.425922Z'
+    import_timestamp: '2026-10-20T07:07:50.047070Z'

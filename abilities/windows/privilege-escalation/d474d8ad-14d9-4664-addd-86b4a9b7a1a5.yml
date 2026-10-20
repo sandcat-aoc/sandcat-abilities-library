@@ -4,7 +4,7 @@
 
     Category: vulnerable driver
 
-    Author: Michael Haag
+    Author: Michael Haag, Zhang Tingjia
 
     Created: 2026-06-16
 
@@ -24,7 +24,7 @@
   buckets:
   - privilege-escalation
   version: '1.0'
-  author: Michael Haag
+  author: Michael Haag, Zhang Tingjia
   operating_system: Windows (Version Unspecified)
   created: '2026-06-16'
   modified: '2026-06-16'

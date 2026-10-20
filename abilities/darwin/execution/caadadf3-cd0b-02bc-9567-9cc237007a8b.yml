@@ -26,4 +26,4 @@
     use_case: Clear extended attributes from a file via xattr
     source_file: xattr.yml
     source_repository: https://github.com/infosecB/LOOBins
-    import_timestamp: '2026-10-19T07:17:24.371267Z'
+    import_timestamp: '2026-10-20T07:07:49.956417Z'

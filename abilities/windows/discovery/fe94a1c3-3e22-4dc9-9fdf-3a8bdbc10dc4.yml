@@ -17,8 +17,9 @@
         command: 'if (Test-Path "PathToAtomicsFolder\T1010\src\T1010.cs") {exit 0}
           else {exit 1}; then : ; else New-Item -Type Directory (split-path "PathToAtomicsFolder\T1010\src\T1010.cs")
           -ErrorAction ignore | Out-Null; Invoke-WebRequest https://raw.githubusercontent.com/redcanaryco/atomic-red-team/master/atomics/T1010/src/T1010.cs
-          -OutFile "PathToAtomicsFolder\T1010\src\T1010.cs"; fi; C:\Windows\Microsoft.NET\Framework\v4.0.30319\csc.exe
-          -out:%TEMP%\T1010.exe "PathToAtomicsFolder\T1010\src\T1010.cs"; %TEMP%\T1010.exe'
+          -OutFile "PathToAtomicsFolder\T1010\src\T1010.cs" -UseBasicParsing; fi;
+          C:\Windows\Microsoft.NET\Framework\v4.0.30319\csc.exe -out:%TEMP%\T1010.exe
+          "PathToAtomicsFolder\T1010\src\T1010.cs"; %TEMP%\T1010.exe'
         cleanup: 'del /f /q /s #{output_file_name} >nul 2>&1'
   plugin: atomic
   singleton: false
@@ -26,9 +27,9 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - discovery
-  - atomic-red-team
   - t1010
+  - atomic-red-team
+  - discovery
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -51,9 +52,9 @@
         -ErrorAction ignore | Out-Null
 
         Invoke-WebRequest https://raw.githubusercontent.com/redcanaryco/atomic-red-team/master/atomics/T1010/src/T1010.cs
-        -OutFile "#{input_source_code}"
+        -OutFile "#{input_source_code}" -UseBasicParsing
 
         '
     technique_created: '2017-05-31T21:30:24.512Z'
     atomic_guid: fe94a1c3-3e22-4dc9-9fdf-3a8bdbc10dc4
-    import_timestamp: '2026-10-20T07:08:30.674363Z'
+    import_timestamp: '2026-10-21T07:01:52.524568Z'

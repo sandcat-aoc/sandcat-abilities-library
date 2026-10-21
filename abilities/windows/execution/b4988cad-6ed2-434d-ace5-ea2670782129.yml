@@ -13,9 +13,10 @@
           {exit 0} else {exit 1}; then : ; else Write-Host Downloading radmin installer;
           New-Item -Type Directory "PathToAtomicsFolder\..\ExternalPayloads\" -ErrorAction
           Ignore -Force | Out-Null; Invoke-WebRequest "https://www.radmin.com/download/Radmin_Viewer_3.5.2.1_EN.msi"
-          -OutFile "PathToAtomicsFolder\..\ExternalPayloads\RadminViewer.msi"; Write-Host
-          Install Radmin; Start-Process msiexec  -Wait -ArgumentList /i , "PathToAtomicsFolder\..\ExternalPayloads\RadminViewer.msi",
-          /qn; fi; "%PROGRAMFILES(x86)%/Radmin Viewer 3/Radmin.exe"'
+          -OutFile "PathToAtomicsFolder\..\ExternalPayloads\RadminViewer.msi" -UseBasicParsing;
+          Write-Host Install Radmin; Start-Process msiexec  -Wait -ArgumentList /i
+          , "PathToAtomicsFolder\..\ExternalPayloads\RadminViewer.msi", /qn; fi; "%PROGRAMFILES(x86)%/Radmin
+          Viewer 3/Radmin.exe"'
         elevation_required: true
   plugin: atomic
   singleton: false
@@ -23,9 +24,9 @@
   delete_payload: false
   privilege: ''
   buckets:
+  - execution
   - t1072
   - atomic-red-team
-  - execution
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -52,7 +53,7 @@
         Ignore -Force | Out-Null
 
         Invoke-WebRequest "https://www.radmin.com/download/Radmin_Viewer_3.5.2.1_EN.msi"
-        -OutFile "PathToAtomicsFolder\..\ExternalPayloads\#{radmin_installer}"
+        -OutFile "PathToAtomicsFolder\..\ExternalPayloads\#{radmin_installer}" -UseBasicParsing
 
         Write-Host Install Radmin
 
@@ -62,4 +63,4 @@
         '
     technique_created: '2017-05-31T21:30:57.201Z'
     atomic_guid: b4988cad-6ed2-434d-ace5-ea2670782129
-    import_timestamp: '2026-10-20T07:08:27.795183Z'
+    import_timestamp: '2026-10-21T07:01:50.385639Z'

@@ -13,9 +13,9 @@
         command: 'if (Test-Path "PathToAtomicsFolder\..\ExternalPayloads\T1036.zip")
           {exit 0} else {exit 1}; then : ; else New-Item -Type Directory "PathToAtomicsFolder\..\ExternalPayloads\"
           -ErrorAction ignore -Force | Out-Null; Invoke-WebRequest https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1036/bin/T1036.zip
-          -OutFile "PathToAtomicsFolder\..\ExternalPayloads\T1036.zip"; fi; Expand-Archive
-          -Path "PathToAtomicsFolder\..\ExternalPayloads\T1036.zip" -DestinationPath
-          "$env:userprofile\Downloads\T1036" -Force; cd "$env:userprofile\Downloads\T1036";
+          -OutFile "PathToAtomicsFolder\..\ExternalPayloads\T1036.zip" -UseBasicParsing;
+          fi; Expand-Archive -Path "PathToAtomicsFolder\..\ExternalPayloads\T1036.zip"
+          -DestinationPath "$env:userprofile\Downloads\T1036" -Force; cd "$env:userprofile\Downloads\T1036";
           cmd /c "$env:userprofile\Downloads\T1036\README.cmd" >$null 2>$null'
         cleanup: taskkill /IM Calculator.exe /f >$null 2>$null; Remove-Item "$env:userprofile\Downloads\T1036"
           -recurse -ErrorAction Ignore
@@ -25,9 +25,9 @@
   delete_payload: false
   privilege: ''
   buckets:
+  - stealth
   - t1036
   - atomic-red-team
-  - stealth
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -43,7 +43,8 @@
         '
       get_prereq_command: "New-Item -Type Directory \"PathToAtomicsFolder\\..\\ExternalPayloads\\\
         \" -ErrorAction ignore -Force | Out-Null\nInvoke-WebRequest #{url} -OutFile\
-        \ \"PathToAtomicsFolder\\..\\ExternalPayloads\\T1036.zip\" \n"
+        \ \"PathToAtomicsFolder\\..\\ExternalPayloads\\T1036.zip\" -UseBasicParsing\
+        \ \n"
     technique_created: '2017-05-31T21:30:38.511Z'
     atomic_guid: 4449c89b-ec82-43a4-89c1-91e2f1abeecc
-    import_timestamp: '2026-10-20T07:08:26.504945Z'
+    import_timestamp: '2026-10-21T07:01:49.285506Z'

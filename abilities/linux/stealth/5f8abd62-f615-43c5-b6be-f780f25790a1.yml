@@ -6,7 +6,7 @@
   tactic: stealth
   technique:
     attack_id: T1070.003
-    name: 'Indicator Removal on Host: Clear Command History'
+    name: 'Indicator Removal: Clear Command History'
   platforms:
     linux:
       sh:
@@ -43,4 +43,4 @@
         '
     technique_created: '2020-01-31T12:32:08.228Z'
     atomic_guid: 5f8abd62-f615-43c5-b6be-f780f25790a1
-    import_timestamp: '2026-10-20T07:08:45.001341Z'
+    import_timestamp: '2026-10-21T07:02:04.626399Z'

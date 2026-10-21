@@ -4,7 +4,7 @@
   tactic: execution
   technique:
     attack_id: T1574.006
-    name: 'Hijack Execution Flow: LD_PRELOAD'
+    name: 'Hijack Execution Flow: Dynamic Linker Hijacking'
   platforms:
     darwin:
       sh:
@@ -17,9 +17,9 @@
   delete_payload: false
   privilege: ''
   buckets:
+  - execution
   - t1574.006
   - atomic-red-team
-  - execution
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -48,4 +48,4 @@
         '
     technique_created: '2020-03-13T20:09:59.569Z'
     atomic_guid: 4d66029d-7355-43fd-93a4-b63ba92ea1be
-    import_timestamp: '2026-10-20T07:08:08.704284Z'
+    import_timestamp: '2026-10-21T07:01:34.792554Z'

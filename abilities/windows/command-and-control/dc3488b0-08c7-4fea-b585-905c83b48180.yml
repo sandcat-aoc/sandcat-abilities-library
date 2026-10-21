@@ -14,9 +14,10 @@
         command: 'if (Test-Path C:\Windows\System32\Curl.exe) {exit 0} else {exit
           1}; then : ; else New-Item -Type Directory "PathToAtomicsFolder\..\ExternalPayloads\"
           -ErrorAction Ignore -Force | Out-Null; Invoke-WebRequest "https://curl.se/windows/dl-8.6.0_2/curl-8.6.0_2-win32-mingw.zip"
-          -Outfile "PathToAtomicsFolder\..\ExternalPayloads\curl.zip"; Expand-Archive
-          -Path "PathToAtomicsFolder\..\ExternalPayloads\curl.zip" -DestinationPath
-          "PathToAtomicsFolder\..\ExternalPayloads\curl"; Copy-Item "PathToAtomicsFolder\..\ExternalPayloads\curl\curl-8.6.0_2-win32-mingw\bin\curl.exe"
+          -Outfile "PathToAtomicsFolder\..\ExternalPayloads\curl.zip" -UseBasicParsing;
+          Expand-Archive -Path "PathToAtomicsFolder\..\ExternalPayloads\curl.zip"
+          -DestinationPath "PathToAtomicsFolder\..\ExternalPayloads\curl"; Copy-Item
+          "PathToAtomicsFolder\..\ExternalPayloads\curl\curl-8.6.0_2-win32-mingw\bin\curl.exe"
           C:\Windows\System32\Curl.exe; Remove-Item "PathToAtomicsFolder\..\ExternalPayloads\curl";
           Remove-Item "PathToAtomicsFolder\..\ExternalPayloads\curl.zip"; fi; C:\Windows\System32\Curl.exe
           -s -A "HttpBrowser/1.0" -m3 www.google.com >nul 2>&1; C:\Windows\System32\Curl.exe
@@ -31,8 +32,8 @@
   privilege: ''
   buckets:
   - t1071.001
-  - command-and-control
   - atomic-red-team
+  - command-and-control
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -53,7 +54,7 @@
         -ErrorAction Ignore -Force | Out-Null
 
         Invoke-WebRequest "https://curl.se/windows/dl-8.6.0_2/curl-8.6.0_2-win32-mingw.zip"
-        -Outfile "PathToAtomicsFolder\..\ExternalPayloads\curl.zip"
+        -Outfile "PathToAtomicsFolder\..\ExternalPayloads\curl.zip" -UseBasicParsing
 
         Expand-Archive -Path "PathToAtomicsFolder\..\ExternalPayloads\curl.zip" -DestinationPath
         "PathToAtomicsFolder\..\ExternalPayloads\curl"
@@ -68,4 +69,4 @@
         '
     technique_created: '2020-03-15T16:13:46.151Z'
     atomic_guid: dc3488b0-08c7-4fea-b585-905c83b48180
-    import_timestamp: '2026-10-20T07:08:29.197374Z'
+    import_timestamp: '2026-10-21T07:01:51.266435Z'

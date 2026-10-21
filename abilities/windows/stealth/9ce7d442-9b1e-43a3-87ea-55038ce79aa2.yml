@@ -1,0 +1,49 @@
+- id: 9ce7d442-9b1e-43a3-87ea-55038ce79aa2
+  name: WMIC masquerade as ncv.exe in temp directory
+  description: 'Copies %SystemRoot%\System32\wbem\wmic.exe to a temporary directory,
+
+    renames it to ncv.exe, and executes it to retrieve OS version information.
+
+    This simulates an adversary using a renamed trusted binary from an
+
+    unexpected location to evade detection.'
+  tactic: stealth
+  technique:
+    attack_id: T1036.005
+    name: 'Masquerading: Match Legitimate Resource Name or Location'
+  platforms:
+    windows:
+      psh:
+        command: '$dir = "$env:TEMP\T1036_005_test"; $source = "$env:SystemRoot\System32\wbem\wmic.exe";
+          $target = Join-Path $dir "ncv.exe"; New-Item -ItemType Directory -Force
+          -Path $dir | Out-Null; Copy-Item -Path $source -Destination $target -Force;
+          Write-Host "Running masqueraded binary: $target"; & $target os get Caption,Version'
+        cleanup: Remove-Item -Recurse -Force "#{temp_dir}" -ErrorAction SilentlyContinue
+        elevation_required: false
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - stealth
+  - t1036.005
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      temp_dir:
+        description: Temporary working directory
+        type: Path
+        default: $env:TEMP\T1036_005_test
+      source_exe:
+        description: Path to the legitimate wmic.exe
+        type: Path
+        default: $env:SystemRoot\System32\wbem\wmic.exe
+      masqueraded_name:
+        description: Name of the masqueraded executable
+        type: string
+        default: ncv.exe
+    technique_created: '2020-02-10T20:43:10.239Z'
+    atomic_guid: 9ce7d442-9b1e-43a3-87ea-55038ce79aa2
+    import_timestamp: '2026-10-21T07:01:49.160151Z'

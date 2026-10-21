@@ -20,9 +20,9 @@
   delete_payload: false
   privilege: ''
   buckets:
+  - defense-impairment
   - t1553.005
   - atomic-red-team
-  - defense-impairment
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -40,10 +40,11 @@
 
         '
       get_prereq_command: 'Invoke-WebRequest #{file_to_download} -OutFile #{file_path}
+        -UseBasicParsing
 
         Set-Content -Path #{file_path} -Stream Zone.Identifier -Value ''[ZoneTransfer]'',''ZoneId=3''
 
         '
     technique_created: '2021-02-22T14:20:31.650Z'
     atomic_guid: 64b12afc-18b8-4d3f-9eab-7f6cae7c73f9
-    import_timestamp: '2026-10-20T07:08:29.798813Z'
+    import_timestamp: '2026-10-21T07:01:51.794263Z'

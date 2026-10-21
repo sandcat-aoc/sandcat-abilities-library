@@ -12,11 +12,11 @@
       psh:
         command: Write-Host 1.Downloading KeyScrambler from official website to temp
           directory; Invoke-WebRequest -Uri "https://download.qfxsoftware.com/download/latest/KeyScrambler_Setup.exe"
-          -OutFile $env:Temp\KeyScrambler_Setup.exe; Write-Host 2.Installing KeyScrambler
-          with KeyScrambler_Setup.exe from temp directory; Start-Process -FilePath
-          $env:Temp\KeyScrambler_Setup.exe -ArgumentList /S -Wait; Write-Host 3.Copying
-          KeyScrambler.exe to temp folder,to avoid permission issues, which calls
-          KeyScramblerIE.dll in CWD i.e. temp; Copy-Item "C:\Program Files (x86)\KeyScrambler\KeyScrambler.exe"
+          -OutFile $env:Temp\KeyScrambler_Setup.exe -UseBasicParsing; Write-Host 2.Installing
+          KeyScrambler with KeyScrambler_Setup.exe from temp directory; Start-Process
+          -FilePath $env:Temp\KeyScrambler_Setup.exe -ArgumentList /S -Wait; Write-Host
+          3.Copying KeyScrambler.exe to temp folder,to avoid permission issues, which
+          calls KeyScramblerIE.dll in CWD i.e. temp; Copy-Item "C:\Program Files (x86)\KeyScrambler\KeyScrambler.exe"
           -Destination $env:TEMP\KeyScrambler.exe; Write-Host 4.Executing KeyScrambler.exe,
           you should see a popup of missing KeyScramblerIE.dll, you can close this
           popup; Start-Process -FilePath $env:Temp\KeyScrambler.exe; Write-Host 5.A
@@ -34,11 +34,11 @@
   delete_payload: false
   privilege: ''
   buckets:
+  - stealth
   - atomic-red-team
   - t1574.001
-  - stealth
   author: Atomic Red Team
   additional_info:
     technique_created: '2020-03-13T18:11:08.357Z'
     atomic_guid: c095ad8e-4469-4d33-be9d-6f6d1fb21585
-    import_timestamp: '2026-10-20T07:08:26.431461Z'
+    import_timestamp: '2026-10-21T07:01:49.221695Z'

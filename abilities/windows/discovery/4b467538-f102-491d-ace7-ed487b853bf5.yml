@@ -18,10 +18,11 @@
         command: 'if (Test-Path "PathToAtomicsFolder\T1016\src\top-128.txt") {exit
           0} else {exit 1}; then : ; else New-Item -Type Directory (split-path "PathToAtomicsFolder\T1016\src\top-128.txt")
           -ErrorAction ignore | Out-Null; Invoke-WebRequest "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1016/src/top-128.txt"
-          -OutFile "PathToAtomicsFolder\T1016\src\top-128.txt"; fi; $ports = Get-content
-          "PathToAtomicsFolder\T1016\src\top-128.txt"; $file = "$env:USERPROFILE\Desktop\open-ports.txt";
-          $totalopen = 0; $totalports = 0; New-Item $file -Force; foreach ($port in
-          $ports) {; $test = new-object system.Net.Sockets.TcpClient; $wait = $test.beginConnect("allports.exposed",
+          -OutFile "PathToAtomicsFolder\T1016\src\top-128.txt" -UseBasicParsing; fi;
+          $ports = Get-content "PathToAtomicsFolder\T1016\src\top-128.txt"; $file
+          = "$env:USERPROFILE\Desktop\open-ports.txt"; $totalopen = 0; $totalports
+          = 0; New-Item $file -Force; foreach ($port in $ports) {; $test = new-object
+          system.Net.Sockets.TcpClient; $wait = $test.beginConnect("allports.exposed",
           $port, $null, $null); $wait.asyncwaithandle.waitone(250, $false) | Out-Null;
           $totalports++ | Out-Null; if ($test.Connected) {; $result = "$port open";
           Write-Host -ForegroundColor Green $result; $result | Out-File -Encoding
@@ -37,9 +38,9 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - atomic-red-team
-  - discovery
   - t1016
+  - discovery
+  - atomic-red-team
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -66,9 +67,9 @@
       get_prereq_command: 'New-Item -Type Directory (split-path "#{port_file}") -ErrorAction
         ignore | Out-Null
 
-        Invoke-WebRequest "#{portfile_url}" -OutFile "#{port_file}"
+        Invoke-WebRequest "#{portfile_url}" -OutFile "#{port_file}" -UseBasicParsing
 
         '
     technique_created: '2017-05-31T21:30:27.342Z'
     atomic_guid: 4b467538-f102-491d-ace7-ed487b853bf5
-    import_timestamp: '2026-10-20T07:08:30.695023Z'
+    import_timestamp: '2026-10-21T07:01:52.541909Z'

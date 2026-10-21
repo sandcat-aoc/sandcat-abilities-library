@@ -11,8 +11,9 @@
         command: 'if (cmd /c "nmap 2>nul") {exit 0} else {exit 1}; then : ; else New-Item
           -Type Directory "PathToAtomicsFolder\..\ExternalPayloads\" -ErrorAction
           Ignore -Force | Out-Null; Invoke-WebRequest -OutFile "PathToAtomicsFolder\..\ExternalPayloads\nmap-7.80-setup.exe"
-          https://nmap.org/dist/nmap-7.80-setup.exe; Start-Process "PathToAtomicsFolder\..\ExternalPayloads\nmap-7.80-setup.exe"
-          /S; fi; nmap 127.0.0.1'
+          https://nmap.org/dist/nmap-7.80-setup.exe -UseBasicParsing; Start-Process
+          "PathToAtomicsFolder\..\ExternalPayloads\nmap-7.80-setup.exe" /S; fi; nmap
+          127.0.0.1'
         elevation_required: true
   plugin: atomic
   singleton: false
@@ -20,9 +21,9 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - atomic-red-team
   - t1046
   - discovery
+  - atomic-red-team
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -43,7 +44,7 @@
         -ErrorAction Ignore -Force | Out-Null
 
         Invoke-WebRequest -OutFile "PathToAtomicsFolder\..\ExternalPayloads\nmap-7.80-setup.exe"
-        #{nmap_url}
+        #{nmap_url} -UseBasicParsing
 
         Start-Process "PathToAtomicsFolder\..\ExternalPayloads\nmap-7.80-setup.exe"
         /S
@@ -51,4 +52,4 @@
         '
     technique_created: '2017-05-31T21:30:43.915Z'
     atomic_guid: d696a3cb-d7a8-4976-8eb5-5af4abf2e3df
-    import_timestamp: '2026-10-20T07:08:30.900522Z'
+    import_timestamp: '2026-10-21T07:01:52.715644Z'

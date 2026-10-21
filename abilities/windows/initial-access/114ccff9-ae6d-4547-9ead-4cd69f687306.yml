@@ -14,7 +14,7 @@
       psh:
         command: $url = 'https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1566.001/bin/PhishingAttachment.xlsm';
           [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12;
-          Invoke-WebRequest -Uri $url -OutFile $env:TEMP\PhishingAttachment.xlsm
+          Invoke-WebRequest -Uri $url -OutFile $env:TEMP\PhishingAttachment.xlsm -UseBasicParsing
         cleanup: Remove-Item $env:TEMP\PhishingAttachment.xlsm -ErrorAction Ignore
   plugin: atomic
   singleton: false
@@ -29,4 +29,4 @@
   additional_info:
     technique_created: '2020-03-02T19:05:18.137Z'
     atomic_guid: 114ccff9-ae6d-4547-9ead-4cd69f687306
-    import_timestamp: '2026-10-20T07:08:31.067327Z'
+    import_timestamp: '2026-10-21T07:01:52.856130Z'

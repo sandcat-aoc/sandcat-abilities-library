@@ -4,8 +4,7 @@
   tactic: defense-impairment
   technique:
     attack_id: T1222.002
-    name: 'File and Directory Permissions Modification: FreeBSD, Linux and Mac File
-      and Directory Permissions Modification'
+    name: 'File and Directory Permissions Modification: Linux and Mac Permissions'
   platforms:
     darwin:
       sh:
@@ -16,9 +15,9 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - atomic-red-team
-  - defense-impairment
   - t1222.002
+  - defense-impairment
+  - atomic-red-team
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -32,4 +31,4 @@
         default: /tmp/AtomicRedTeam/atomics/T1222.002
     technique_created: '2020-02-04T19:24:27.774Z'
     atomic_guid: 3b015515-b3d8-44e9-b8cd-6fa84faf30b2
-    import_timestamp: '2026-10-20T07:08:08.914201Z'
+    import_timestamp: '2026-10-21T07:01:34.967505Z'

@@ -13,8 +13,8 @@
         command: 'if ((Test-Path "C:\Program Files\TightVNC\tvnviewer.exe")-Or (Test-Path
           "C:\Program Files (x86)\TightVNC\tvnviewer.exe")) {exit 0} else {exit 1};
           then : ; else Invoke-WebRequest ''https://www.tightvnc.com/download/2.8.63/tightvnc-2.8.63-gpl-setup-64bit.msi''
-          -OutFile "PathToAtomicsFolder\..\ExternalPayloads\tightvncinstaller.msi";
-          start-sleep -s 10; msiexec /i "PathToAtomicsFolder\..\ExternalPayloads\tightvncinstaller.msi"
+          -OutFile "PathToAtomicsFolder\..\ExternalPayloads\tightvncinstaller.msi"
+          -UseBasicParsing; start-sleep -s 10; msiexec /i "PathToAtomicsFolder\..\ExternalPayloads\tightvncinstaller.msi"
           /qn /norestart; start-sleep -s 15; fi; wmic /node:"127.0.0.1" product where
           "name like ''Tightvnc%%''" call uninstall'
         cleanup: msiexec /i "PathToAtomicsFolder\..\ExternalPayloads\tightvncinstaller.msi"
@@ -26,9 +26,9 @@
   delete_payload: false
   privilege: ''
   buckets:
+  - execution
   - t1047
   - atomic-red-team
-  - execution
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -48,7 +48,7 @@
         (Test-Path "C:\Program Files (x86)\TightVNC\tvnviewer.exe")) {exit 0} else
         {exit 1}
       get_prereq_command: 'Invoke-WebRequest ''https://www.tightvnc.com/download/2.8.63/tightvnc-2.8.63-gpl-setup-64bit.msi''
-        -OutFile "PathToAtomicsFolder\..\ExternalPayloads\tightvncinstaller.msi"
+        -OutFile "PathToAtomicsFolder\..\ExternalPayloads\tightvncinstaller.msi" -UseBasicParsing
 
         start-sleep -s 10
 
@@ -58,4 +58,4 @@
         start-sleep -s 15'
     technique_created: '2017-05-31T21:30:44.329Z'
     atomic_guid: c510d25b-1667-467d-8331-a56d3e9bc4ff
-    import_timestamp: '2026-10-20T07:08:27.668867Z'
+    import_timestamp: '2026-10-21T07:01:50.280744Z'

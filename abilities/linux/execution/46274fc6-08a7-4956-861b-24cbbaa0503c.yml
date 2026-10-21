@@ -6,7 +6,7 @@
   tactic: execution
   technique:
     attack_id: T1059.004
-    name: 'Command and Scripting Interpreter: Bash'
+    name: 'Command and Scripting Interpreter: Unix Shell'
   platforms:
     linux:
       sh:
@@ -45,4 +45,4 @@
         '
     technique_created: '2020-03-09T14:15:05.330Z'
     atomic_guid: 46274fc6-08a7-4956-861b-24cbbaa0503c
-    import_timestamp: '2026-10-20T07:08:45.357111Z'
+    import_timestamp: '2026-10-21T07:02:04.916378Z'

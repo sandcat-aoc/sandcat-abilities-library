@@ -16,23 +16,23 @@
           Ignore -Force | Out-Null; $arch = ([System.Runtime.InteropServices.RuntimeInformation]::OSArchitecture).ToString().ToLower();
           $operatingSystem = ([System.Runtime.InteropServices.RuntimeInformation]::OSDescription).ToString().ToLower();
           if ($operatingSystem -match "darwin") {; Invoke-WebRequest "https://downloads.rclone.org/rclone-current-osx-$arch.zip"
-          -OutFile "PathToAtomicsFolder/../ExternalPayloads/rclone.zip"; } elseif
-          ($operatingSystem -match "linux") {; Invoke-WebRequest "https://downloads.rclone.org/rclone-current-linux-$arch.zip"
-          -OutFile "PathToAtomicsFolder/../ExternalPayloads/rclone.zip"; }; Expand-archive
-          -path "PathToAtomicsFolder/../ExternalPayloads/rclone.zip" -DestinationPath
-          "PathToAtomicsFolder/../ExternalPayloads/T1567.002/" -force; fi; if (Test-Path
-          "terraform-v*") {exit 0} else {exit 1}; then : ; else New-Item -Type Directory
-          "PathToAtomicsFolder/../ExternalPayloads/" -ErrorAction Ignore -Force |
-          Out-Null; $arch = ([System.Runtime.InteropServices.RuntimeInformation]::OSArchitecture).ToString().ToLower();
+          -OutFile "PathToAtomicsFolder/../ExternalPayloads/rclone.zip" -UseBasicParsing;
+          } elseif ($operatingSystem -match "linux") {; Invoke-WebRequest "https://downloads.rclone.org/rclone-current-linux-$arch.zip"
+          -OutFile "PathToAtomicsFolder/../ExternalPayloads/rclone.zip" -UseBasicParsing;
+          }; Expand-archive -path "PathToAtomicsFolder/../ExternalPayloads/rclone.zip"
+          -DestinationPath "PathToAtomicsFolder/../ExternalPayloads/T1567.002/" -force;
+          fi; if (Test-Path "terraform-v*") {exit 0} else {exit 1}; then : ; else
+          New-Item -Type Directory "PathToAtomicsFolder/../ExternalPayloads/" -ErrorAction
+          Ignore -Force | Out-Null; $arch = ([System.Runtime.InteropServices.RuntimeInformation]::OSArchitecture).ToString().ToLower();
           $operatingSystem = ([System.Runtime.InteropServices.RuntimeInformation]::OSDescription).ToString().ToLower();
           if ($operatingSystem -match "darwin") {; Invoke-WebRequest "https://releases.hashicorp.com/terraform/1.10.5/terraform_1.10.5_darwin_$arch.zip"
-          -OutFile "PathToAtomicsFolder/../ExternalPayloads/terraform.zip"; } elseif
-          ($operatingSystem -match "linux") {; Invoke-WebRequest "https://releases.hashicorp.com/terraform/1.10.5/terraform_1.10.5_linux_$arch.zip"
-          -OutFile "PathToAtomicsFolder/../ExternalPayloads/terraform.zip"; }; Expand-archive
-          -path "PathToAtomicsFolder/../ExternalPayloads/terraform.zip" -DestinationPath
-          "PathToAtomicsFolder/../ExternalPayloads/T1567.002/terraform-v1.10.5/" -force;
-          fi; if (Test-Path "data") {exit 0} else {exit 1}; then : ; else New-Item
-          -Type Directory "PathToAtomicsFolder/../ExternalPayloads/T1567.002/data"
+          -OutFile "PathToAtomicsFolder/../ExternalPayloads/terraform.zip" -UseBasicParsing;
+          } elseif ($operatingSystem -match "linux") {; Invoke-WebRequest "https://releases.hashicorp.com/terraform/1.10.5/terraform_1.10.5_linux_$arch.zip"
+          -OutFile "PathToAtomicsFolder/../ExternalPayloads/terraform.zip" -UseBasicParsing;
+          }; Expand-archive -path "PathToAtomicsFolder/../ExternalPayloads/terraform.zip"
+          -DestinationPath "PathToAtomicsFolder/../ExternalPayloads/T1567.002/terraform-v1.10.5/"
+          -force; fi; if (Test-Path "data") {exit 0} else {exit 1}; then : ; else
+          New-Item -Type Directory "PathToAtomicsFolder/../ExternalPayloads/T1567.002/data"
           -ErrorAction Ignore -Force | Out-Null; foreach($fileSuffix in 1..10) {;
           Set-Content "PathToAtomicsFolder/../ExternalPayloads/T1567.002/data/test$fileSuffix.txt"
           "This is a test file"; }; fi; Write-Host "Deploying AWS infrastructure...
@@ -65,8 +65,8 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - atomic-red-team
   - exfiltration
+  - atomic-red-team
   - t1567.002
   author: Atomic Red Team
   additional_info:
@@ -110,11 +110,12 @@
         \ -ErrorAction Ignore -Force | Out-Null\n$arch = ([System.Runtime.InteropServices.RuntimeInformation]::OSArchitecture).ToString().ToLower()\n\
         $operatingSystem = ([System.Runtime.InteropServices.RuntimeInformation]::OSDescription).ToString().ToLower()\n\
         if ($operatingSystem -match \"darwin\") {\n  Invoke-WebRequest \"https://downloads.rclone.org/rclone-current-osx-$arch.zip\"\
-        \ -OutFile \"PathToAtomicsFolder/../ExternalPayloads/rclone.zip\"\n} elseif\
-        \ ($operatingSystem -match \"linux\") {\n  Invoke-WebRequest \"https://downloads.rclone.org/rclone-current-linux-$arch.zip\"\
-        \ -OutFile \"PathToAtomicsFolder/../ExternalPayloads/rclone.zip\"\n}\nExpand-archive\
-        \ -path \"PathToAtomicsFolder/../ExternalPayloads/rclone.zip\" -DestinationPath\
-        \ \"PathToAtomicsFolder/../ExternalPayloads/T1567.002/\" -force\n"
+        \ -OutFile \"PathToAtomicsFolder/../ExternalPayloads/rclone.zip\" -UseBasicParsing\n\
+        } elseif ($operatingSystem -match \"linux\") {\n  Invoke-WebRequest \"https://downloads.rclone.org/rclone-current-linux-$arch.zip\"\
+        \ -OutFile \"PathToAtomicsFolder/../ExternalPayloads/rclone.zip\" -UseBasicParsing\n\
+        }\nExpand-archive -path \"PathToAtomicsFolder/../ExternalPayloads/rclone.zip\"\
+        \ -DestinationPath \"PathToAtomicsFolder/../ExternalPayloads/T1567.002/\"\
+        \ -force\n"
     - description: terraform must exist at (#{terraform_path})
       prereq_command: 'if (Test-Path "#{terraform_path}") {exit 0} else {exit 1}
 
@@ -123,10 +124,10 @@
         \ -ErrorAction Ignore -Force | Out-Null\n$arch = ([System.Runtime.InteropServices.RuntimeInformation]::OSArchitecture).ToString().ToLower()\n\
         $operatingSystem = ([System.Runtime.InteropServices.RuntimeInformation]::OSDescription).ToString().ToLower()\n\
         if ($operatingSystem -match \"darwin\") {\n  Invoke-WebRequest \"https://releases.hashicorp.com/terraform/1.10.5/terraform_1.10.5_darwin_$arch.zip\"\
-        \ -OutFile \"PathToAtomicsFolder/../ExternalPayloads/terraform.zip\"\n} elseif\
-        \ ($operatingSystem -match \"linux\") {\n  Invoke-WebRequest \"https://releases.hashicorp.com/terraform/1.10.5/terraform_1.10.5_linux_$arch.zip\"\
-        \ -OutFile \"PathToAtomicsFolder/../ExternalPayloads/terraform.zip\"\n}\n\
-        Expand-archive -path \"PathToAtomicsFolder/../ExternalPayloads/terraform.zip\"\
+        \ -OutFile \"PathToAtomicsFolder/../ExternalPayloads/terraform.zip\" -UseBasicParsing\n\
+        } elseif ($operatingSystem -match \"linux\") {\n  Invoke-WebRequest \"https://releases.hashicorp.com/terraform/1.10.5/terraform_1.10.5_linux_$arch.zip\"\
+        \ -OutFile \"PathToAtomicsFolder/../ExternalPayloads/terraform.zip\" -UseBasicParsing\n\
+        }\nExpand-archive -path \"PathToAtomicsFolder/../ExternalPayloads/terraform.zip\"\
         \ -DestinationPath \"PathToAtomicsFolder/../ExternalPayloads/T1567.002/terraform-v1.10.5/\"\
         \ -force\n"
     - description: 'Must provide a valid directory or file path to exfiltrate to AWS
@@ -142,4 +143,4 @@
         \ \"This is a test file\"\n}\n"
     technique_created: '2020-03-09T15:04:32.767Z'
     atomic_guid: a4b74723-5cee-4300-91c3-5e34166909b4
-    import_timestamp: '2026-10-20T07:08:46.301664Z'
+    import_timestamp: '2026-10-21T07:02:05.794182Z'

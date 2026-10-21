@@ -18,8 +18,8 @@
         command: 'if (Test-Path "PathToAtomicsFolder\..\ExternalPayloads\PsExec.exe")
           { exit 0} else { exit 1}; then : ; else New-Item -Type Directory "PathToAtomicsFolder\..\ExternalPayloads\"
           -ErrorAction Ignore -Force | Out-Null; Invoke-WebRequest "https://download.sysinternals.com/files/PSTools.zip"
-          -OutFile "PathToAtomicsFolder\..\ExternalPayloads\PsTools.zip"; Expand-Archive
-          "PathToAtomicsFolder\..\ExternalPayloads\PsTools.zip" "PathToAtomicsFolder\..\ExternalPayloads\PsTools"
+          -OutFile "PathToAtomicsFolder\..\ExternalPayloads\PsTools.zip" -UseBasicParsing;
+          Expand-Archive "PathToAtomicsFolder\..\ExternalPayloads\PsTools.zip" "PathToAtomicsFolder\..\ExternalPayloads\PsTools"
           -Force; Copy-Item "PathToAtomicsFolder\..\ExternalPayloads\PsTools\PsExec.exe"
           "PathToAtomicsFolder\..\ExternalPayloads\PsExec.exe" -Force; fi; "PathToAtomicsFolder\..\ExternalPayloads\PsExec.exe"
           \\localhost -i -u DOMAIN\Administrator -p P@ssw0rd1 -accepteula "C:\Windows\System32\calc.exe"'
@@ -30,9 +30,9 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - atomic-red-team
   - execution
   - t1569.002
+  - atomic-red-team
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -61,7 +61,7 @@
         -ErrorAction Ignore -Force | Out-Null
 
         Invoke-WebRequest "https://download.sysinternals.com/files/PSTools.zip" -OutFile
-        "PathToAtomicsFolder\..\ExternalPayloads\PsTools.zip"
+        "PathToAtomicsFolder\..\ExternalPayloads\PsTools.zip" -UseBasicParsing
 
         Expand-Archive "PathToAtomicsFolder\..\ExternalPayloads\PsTools.zip" "PathToAtomicsFolder\..\ExternalPayloads\PsTools"
         -Force
@@ -72,4 +72,4 @@
         '
     technique_created: '2020-03-10T18:33:36.159Z'
     atomic_guid: 873106b7-cfed-454b-8680-fa9f6400431c
-    import_timestamp: '2026-10-20T07:08:28.326235Z'
+    import_timestamp: '2026-10-21T07:01:50.508623Z'

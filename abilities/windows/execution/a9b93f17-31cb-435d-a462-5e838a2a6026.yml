@@ -14,18 +14,18 @@
           0; } else {; exit 1; }; then : ; else New-Item -Type Directory "PathToAtomicsFolder\..\ExternalPayloads\"
           -ErrorAction Ignore -Force | Out-Null; $AutoItURL = "https://www.autoitscript.com/cgi-bin/getfile.pl?autoit3/autoit-v3-setup.exe";
           $InstallerPath = "$PathToAtomicsFolder\..\ExternalPayloads\autoit-v3-setup.exe";
-          Invoke-WebRequest -Uri $AutoItURL -OutFile $InstallerPath; Start-Process
-          -FilePath $InstallerPath -ArgumentList "/S" -Wait; fi; Start-Process -FilePath
-          "C:\Program Files (x86)\AutoIt3\AutoIt3.exe" -ArgumentList "PathToAtomicsFolder\T1059\src\calc.au3"'
+          Invoke-WebRequest -Uri $AutoItURL -OutFile $InstallerPath -UseBasicParsing;
+          Start-Process -FilePath $InstallerPath -ArgumentList "/S" -Wait; fi; Start-Process
+          -FilePath "C:\Program Files (x86)\AutoIt3\AutoIt3.exe" -ArgumentList "PathToAtomicsFolder\T1059\src\calc.au3"'
   plugin: atomic
   singleton: false
   repeatable: true
   delete_payload: false
   privilege: ''
   buckets:
+  - execution
   - t1059
   - atomic-red-team
-  - execution
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -51,11 +51,11 @@
 
         $InstallerPath = "$PathToAtomicsFolder\..\ExternalPayloads\autoit-v3-setup.exe"
 
-        Invoke-WebRequest -Uri $AutoItURL -OutFile $InstallerPath
+        Invoke-WebRequest -Uri $AutoItURL -OutFile $InstallerPath -UseBasicParsing
 
         Start-Process -FilePath $InstallerPath -ArgumentList "/S" -Wait
 
         '
     technique_created: '2017-05-31T21:30:49.546Z'
     atomic_guid: a9b93f17-31cb-435d-a462-5e838a2a6026
-    import_timestamp: '2026-10-20T07:08:27.791850Z'
+    import_timestamp: '2026-10-21T07:01:50.382836Z'

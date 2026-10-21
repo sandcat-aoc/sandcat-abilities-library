@@ -16,7 +16,7 @@
   tactic: command-and-control
   technique:
     attack_id: T1001.002
-    name: Data Obfuscation via Steganography
+    name: 'Data Obfuscation: Steganography'
   platforms:
     windows:
       psh:
@@ -24,11 +24,11 @@
           {exit 1} else {; {exit 0}; }; then : ; else New-Item -Type Directory (split-path
           "PathToAtomicsFolder\T1001.002\bin\T1001.002.jpg") -ErrorAction ignore |
           Out-Null; Write-Output "Downloading image file..."; $imageUrl = "https://github.com/raghavsingh7/Pictures/raw/a9617d9fce289909441120a1e0366315c2c5e19d/lime.jpg";
-          Invoke-WebRequest -Uri $imageUrl -OutFile "PathToAtomicsFolder\T1001.002\bin\T1001.002.jpg";
-          fi; if (!(Test-Path "$env:TEMP\random_passwords.txt")) {exit 1} else {;
-          {exit 0}; }; then : ; else Write-Output "Generating random passwords and
-          saving to file..."; $passwords = 1..10 | ForEach-Object { -join ((1..12)
-          | ForEach-Object { @(''A'',''B'',''C'',''D'',''E'',''F'',''G'',''H'',''I'',''J'',''K'',''L'',''M'',''N'',''O'',''P'',''Q'',''R'',''S'',''T'',''U'',''V'',''W'',''X'',''Y'',''Z'')
+          Invoke-WebRequest -Uri $imageUrl -OutFile "PathToAtomicsFolder\T1001.002\bin\T1001.002.jpg"
+          -UseBasicParsing; fi; if (!(Test-Path "$env:TEMP\random_passwords.txt"))
+          {exit 1} else {; {exit 0}; }; then : ; else Write-Output "Generating random
+          passwords and saving to file..."; $passwords = 1..10 | ForEach-Object {
+          -join ((1..12) | ForEach-Object { @(''A'',''B'',''C'',''D'',''E'',''F'',''G'',''H'',''I'',''J'',''K'',''L'',''M'',''N'',''O'',''P'',''Q'',''R'',''S'',''T'',''U'',''V'',''W'',''X'',''Y'',''Z'')
           + @(''a'',''b'',''c'',''d'',''e'',''f'',''g'',''h'',''i'',''j'',''k'',''l'',''m'',''n'',''o'',''p'',''q'',''r'',''s'',''t'',''u'',''v'',''w'',''x'',''y'',''z'')
           + @(''0'',''1'',''2'',''3'',''4'',''5'',''6'',''7'',''8'',''9'') + @(''!'',''@'',''#'',''$'',''%'',''^'',''&'',''*'',''('',''('','')'',''-'',''='',''+'',''_'',''['','']'',''{'',''}'',''|'','';'','';'','':'','','',''<'',''>'',''?'')
           | Get-Random }) }; $passwords | Out-File -FilePath "$env:TEMP\random_passwords.txt";
@@ -47,9 +47,9 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - t1001.002
-  - command-and-control
   - atomic-red-team
+  - command-and-control
+  - t1001.002
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -87,7 +87,7 @@
 
         $imageUrl = "https://github.com/raghavsingh7/Pictures/raw/a9617d9fce289909441120a1e0366315c2c5e19d/lime.jpg"
 
-        Invoke-WebRequest -Uri $imageUrl -OutFile "#{image_file}"
+        Invoke-WebRequest -Uri $imageUrl -OutFile "#{image_file}" -UseBasicParsing
 
         '
     - description: 'File to hide within tarz file must exist
@@ -122,4 +122,4 @@
         '
     technique_created: '2020-03-15T00:37:58.963Z'
     atomic_guid: c7921449-8b62-4c4d-8a83-d9281ac0190b
-    import_timestamp: '2026-10-20T07:08:29.297409Z'
+    import_timestamp: '2026-10-21T07:01:51.378150Z'

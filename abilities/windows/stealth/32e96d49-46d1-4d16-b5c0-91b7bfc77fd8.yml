@@ -1,0 +1,33 @@
+- id: 32e96d49-46d1-4d16-b5c0-91b7bfc77fd8
+  name: T1027.017 - Dynamic DOM Element Construction via SVG JavaScript
+  description: Constructs hidden HTML elements dynamically using JavaScript DOM manipulation.
+  tactic: stealth
+  technique:
+    attack_id: T1027.017
+    name: 'Obfuscated Files or Information: SVG Smuggling'
+  platforms:
+    windows:
+      psh:
+        command: '$svgPath = "$env:TEMP\T1027_017_dynamic_dom.svg"; $svgContent =
+          @"; <svg xmlns="http://www.w3.org/2000/svg">; <script type="text/javascript">;
+          var iframe = document.createElement("iframe");; iframe.style.display = "none";;
+          iframe.srcdoc = "<script>console.log(''Dynamic_DOM_Smuggle'');<\/script>";;
+          document.documentElement.appendChild(iframe);; </script>; </svg>; "@; [System.IO.File]::WriteAllText($svgPath,$svgContent);
+          Write-Host "[+] Generated dynamic DOM SVG at: $svgPath"'
+        cleanup: Remove-Item "$env:TEMP\T1027_017_dynamic_dom.svg" -Force -ErrorAction
+          SilentlyContinue
+        elevation_required: false
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - stealth
+  - atomic-red-team
+  - t1027.017
+  author: Atomic Red Team
+  additional_info:
+    technique_created: '2025-03-25T15:31:09.697Z'
+    atomic_guid: 32e96d49-46d1-4d16-b5c0-91b7bfc77fd8
+    import_timestamp: '2026-10-21T07:01:49.426864Z'

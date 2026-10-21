@@ -1,0 +1,32 @@
+- id: 81b21afb-46c8-4a8b-8278-c50572889387
+  name: T1027.017 - SVG Custom Data Attribute Payload Staging (`data-*`)
+  description: Stores obfuscated payload strings inside custom data-* attributes.
+  tactic: stealth
+  technique:
+    attack_id: T1027.017
+    name: 'Obfuscated Files or Information: SVG Smuggling'
+  platforms:
+    windows:
+      psh:
+        command: '$svgPath = "$env:TEMP\T1027_017_data_attribute.svg"; $svgContent
+          = @"; <svg xmlns="http://www.w3.org/2000/svg" id="stage" data-payload="d2luZG93LnNtdWdnbGVkID0gdHJ1ZTs=">;
+          <script type="text/javascript">; var encoded = document.getElementById(''stage'').getAttribute(''data-payload'');;
+          var decoded = atob(encoded);; eval(decoded);; </script>; </svg>; "@; [System.IO.File]::WriteAllText($svgPath,$svgContent);
+          Write-Host "[+] Generated data-attribute SVG at: $svgPath"'
+        cleanup: Remove-Item "$env:TEMP\T1027_017_data_attribute.svg" -Force -ErrorAction
+          SilentlyContinue
+        elevation_required: false
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - stealth
+  - atomic-red-team
+  - t1027.017
+  author: Atomic Red Team
+  additional_info:
+    technique_created: '2025-03-25T15:31:09.697Z'
+    atomic_guid: 81b21afb-46c8-4a8b-8278-c50572889387
+    import_timestamp: '2026-10-21T07:01:49.425310Z'

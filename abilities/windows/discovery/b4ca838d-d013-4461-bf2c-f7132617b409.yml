@@ -15,10 +15,10 @@
           -ErrorAction SilentlyContinue) {exit 0} else {exit 1}; then : ; else Write-Host
           Downloading PC Hunter; New-Item -Type Directory "C:\Temp\ExternalPayloads\"
           -ErrorAction Ignore -Force | Out-Null; Invoke-WebRequest "https://www.snapfiles.com/directdl/PCHunter_free.zip"
-          -OutFile "C:\Temp\ExternalPayloads\PCHunter_free.zip"; Expand-Archive -LiteralPath
-          ''C:\Temp\ExternalPayloads\PCHunter_free.zip'' -DestinationPath C:\Temp\ExternalPayloads;
-          Write-Host Unzipping Installing Process Hunter; fi; Start-Process -FilePath
-          "C:\Temp\ExternalPayloads\PCHunter_free\PChunter64.exe"'
+          -OutFile "C:\Temp\ExternalPayloads\PCHunter_free.zip" -UseBasicParsing;
+          Expand-Archive -LiteralPath ''C:\Temp\ExternalPayloads\PCHunter_free.zip''
+          -DestinationPath C:\Temp\ExternalPayloads; Write-Host Unzipping Installing
+          Process Hunter; fi; Start-Process -FilePath "C:\Temp\ExternalPayloads\PCHunter_free\PChunter64.exe"'
         elevation_required: true
   plugin: atomic
   singleton: false
@@ -48,7 +48,7 @@
         | Out-Null
 
         Invoke-WebRequest "https://www.snapfiles.com/directdl/PCHunter_free.zip" -OutFile
-        "C:\Temp\ExternalPayloads\PCHunter_free.zip"
+        "C:\Temp\ExternalPayloads\PCHunter_free.zip" -UseBasicParsing
 
         Expand-Archive -LiteralPath ''C:\Temp\ExternalPayloads\PCHunter_free.zip''
         -DestinationPath C:\Temp\ExternalPayloads
@@ -56,4 +56,4 @@
         Write-Host Unzipping Installing Process Hunter'
     technique_created: '2017-05-31T21:30:48.728Z'
     atomic_guid: b4ca838d-d013-4461-bf2c-f7132617b409
-    import_timestamp: '2026-10-20T07:08:30.775340Z'
+    import_timestamp: '2026-10-21T07:01:52.613128Z'

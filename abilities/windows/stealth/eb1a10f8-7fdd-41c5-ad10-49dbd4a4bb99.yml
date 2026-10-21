@@ -1,0 +1,32 @@
+- id: eb1a10f8-7fdd-41c5-ad10-49dbd4a4bb99
+  name: T1027.017 - XLink / Data URI Script Smuggling in SVG
+  description: Uses the xlink:href attribute combined with a data URI script.
+  tactic: stealth
+  technique:
+    attack_id: T1027.017
+    name: 'Obfuscated Files or Information: SVG Smuggling'
+  platforms:
+    windows:
+      psh:
+        command: '$svgPath = "$env:TEMP\T1027_017_xlink_data_uri.svg"; $svgContent
+          = ''<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><script
+          xlink:href="data:text/javascript;base64,Y29uc29sZS5sb2coJ1hMaW5rX1NtdWdnbGVfQ2FsbGJhY2snKTs="
+          /></svg>''; [System.IO.File]::WriteAllText($svgPath,$svgContent); Write-Host
+          "[+] Generated XLink SVG at: $svgPath"'
+        cleanup: Remove-Item "$env:TEMP\T1027_017_xlink_data_uri.svg" -Force -ErrorAction
+          SilentlyContinue
+        elevation_required: false
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - stealth
+  - atomic-red-team
+  - t1027.017
+  author: Atomic Red Team
+  additional_info:
+    technique_created: '2025-03-25T15:31:09.697Z'
+    atomic_guid: eb1a10f8-7fdd-41c5-ad10-49dbd4a4bb99
+    import_timestamp: '2026-10-21T07:01:49.423778Z'

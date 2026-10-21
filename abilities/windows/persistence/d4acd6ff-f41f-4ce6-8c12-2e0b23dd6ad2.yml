@@ -1,0 +1,40 @@
+- id: d4acd6ff-f41f-4ce6-8c12-2e0b23dd6ad2
+  name: Prevent system sleep via powercfg (AC/DC standby timeout)
+  description: 'Sets the active power plan''s AC and DC standby timeouts to 0 (never),
+    preventing the system from sleeping. Mirrors adversary abuse of powercfg to keep
+    an infected host active indefinitely.
+
+    Expected output: system will no longer enter standby on either AC or battery power
+    until cleanup restores the original value.'
+  tactic: persistence
+  technique:
+    attack_id: T1653
+    name: Power Settings
+  platforms:
+    windows:
+      psh:
+        command: '$script:origAC = (powercfg /query SCHEME_CURRENT SUB_SLEEP STANDBYIDLE
+          | Select-String "Current AC Power Setting Index" | ForEach-Object { ($_
+          -split ": ")[1].Trim() }); $script:origDC = (powercfg /query SCHEME_CURRENT
+          SUB_SLEEP STANDBYIDLE | Select-String "Current DC Power Setting Index" |
+          ForEach-Object { ($_ -split ": ")[1].Trim() }); powercfg /change standby-timeout-ac
+          0; powercfg /change standby-timeout-dc 0'
+        cleanup: if ($script:origAC) { powercfg /setacvalueindex SCHEME_CURRENT SUB_SLEEP
+          STANDBYIDLE $script:origAC; powercfg /setactive SCHEME_CURRENT }; if ($script:origDC)
+          { powercfg /setdcvalueindex SCHEME_CURRENT SUB_SLEEP STANDBYIDLE $script:origDC;
+          powercfg /setactive SCHEME_CURRENT }
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - persistence
+  - t1653
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    technique_created: '2023-06-05T15:52:52.467Z'
+    atomic_guid: d4acd6ff-f41f-4ce6-8c12-2e0b23dd6ad2
+    import_timestamp: '2026-10-21T07:01:51.116965Z'

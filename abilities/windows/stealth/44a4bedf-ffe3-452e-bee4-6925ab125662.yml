@@ -6,7 +6,7 @@
   tactic: stealth
   technique:
     attack_id: T1218.007
-    name: 'Signed Binary Proxy Execution: Msiexec'
+    name: 'System Binary Proxy Execution: Msiexec'
   platforms:
     windows:
       sh:
@@ -17,9 +17,9 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - t1218.007
-  - atomic-red-team
   - stealth
+  - atomic-red-team
+  - t1218.007
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -33,4 +33,4 @@
         default: c:\windows\system32\msiexec.exe
     technique_created: '2020-01-24T14:38:49.266Z'
     atomic_guid: 44a4bedf-ffe3-452e-bee4-6925ab125662
-    import_timestamp: '2026-10-20T07:08:26.473256Z'
+    import_timestamp: '2026-10-21T07:01:49.253874Z'

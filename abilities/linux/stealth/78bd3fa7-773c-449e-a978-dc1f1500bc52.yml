@@ -16,8 +16,8 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - atomic-red-team
   - stealth
+  - atomic-red-team
   - t1027.004
   author: Atomic Red Team
   additional_info:
@@ -27,6 +27,17 @@
         type: path
         default: PathToAtomicsFolder/T1027.004/src/T1027-004-test.go
     dependencies:
+    - description: 'Go must be installed
+
+        '
+      prereq_command: 'command -v go >/dev/null 2>&1
+
+        '
+      get_prereq_command: '(sudo apt update && sudo apt install -y golang) || (sudo
+        yum update -y && sudo yum install -y golang) || (sudo pacman -Syu --noconfirm
+        && sudo pacman -S --noconfirm go) || brew install golang
+
+        '
     - description: 'the source file must exist on disk at specified location (#{input_file})
 
         '
@@ -39,4 +50,4 @@
         '
     technique_created: '2020-03-16T15:30:57.711Z'
     atomic_guid: 78bd3fa7-773c-449e-a978-dc1f1500bc52
-    import_timestamp: '2026-10-20T07:08:45.081361Z'
+    import_timestamp: '2026-10-21T07:02:04.685378Z'

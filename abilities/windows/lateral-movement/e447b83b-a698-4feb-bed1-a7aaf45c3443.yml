@@ -13,8 +13,8 @@
           {exit 0} else {exit 1}; then : ; else Write-Host Downloading PDQ Deploy
           installer; New-Item -Type Directory "PathToAtomicsFolder\..\ExternalPayloads\"
           -ErrorAction Ignore -Force | Out-Null; Invoke-WebRequest "https://download.pdq.com/release/19/Deploy_19.3.350.0.exe"
-          -OutFile "PathToAtomicsFolder\..\ExternalPayloads\PDQDeploysetup.exe"; Write-Host
-          Install PDQ Deploy; Start-Process "PathToAtomicsFolder\..\ExternalPayloads\PDQDeploysetup.exe"
+          -OutFile "PathToAtomicsFolder\..\ExternalPayloads\PDQDeploysetup.exe" -UseBasicParsing;
+          Write-Host Install PDQ Deploy; Start-Process "PathToAtomicsFolder\..\ExternalPayloads\PDQDeploysetup.exe"
           -Wait -ArgumentList "/s"; fi; "%PROGRAMFILES(x86)%/Admin Arsenal/PDQ Deploy/PDQDeployConsole.exe"'
         elevation_required: true
   plugin: atomic
@@ -24,8 +24,8 @@
   privilege: ''
   buckets:
   - t1072
-  - atomic-red-team
   - lateral-movement
+  - atomic-red-team
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -52,6 +52,7 @@
 
         Invoke-WebRequest "https://download.pdq.com/release/19/Deploy_19.3.350.0.exe"
         -OutFile "PathToAtomicsFolder\..\ExternalPayloads\#{PDQ_Deploy_installer}"
+        -UseBasicParsing
 
         Write-Host Install PDQ Deploy
 
@@ -61,4 +62,4 @@
         '
     technique_created: '2017-05-31T21:30:57.201Z'
     atomic_guid: e447b83b-a698-4feb-bed1-a7aaf45c3443
-    import_timestamp: '2026-10-20T07:08:29.447871Z'
+    import_timestamp: '2026-10-21T07:01:51.506894Z'

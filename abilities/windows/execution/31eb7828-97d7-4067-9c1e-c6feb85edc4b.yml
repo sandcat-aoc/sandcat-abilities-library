@@ -14,19 +14,19 @@
           \ } else { exit 1 }; then : ; else DISM /Online /Add-Capability /CapabilityName:WMIC~~~~;\
           \ fi; if (Test-Path \"PathToAtomicsFolder\\..\\ExternalPayloads\\PsExec.exe\"\
           ) {exit 0} else {exit 1}; then : ; else Invoke-WebRequest \"https://download.sysinternals.com/files/PSTools.zip\"\
-          \ -OutFile \"PathToAtomicsFolder\\..\\ExternalPayloads\\PsTools.zip\"; Expand-Archive\
-          \ \"PathToAtomicsFolder\\..\\ExternalPayloads\\PsTools.zip\" \"PathToAtomicsFolder\\\
-          ..\\ExternalPayloads\\PsTools\" -Force; New-Item -ItemType Directory (Split-Path\
-          \ \"PathToAtomicsFolder\\..\\ExternalPayloads\\PsExec.exe\") -Force | Out-Null;\
-          \ Copy-Item \"PathToAtomicsFolder\\..\\ExternalPayloads\\PsTools\\PsExec.exe\"\
-          \ \"PathToAtomicsFolder\\..\\ExternalPayloads\\PsExec.exe\" -Force; fi;\
-          \ cmd.exe /c \"wmic \tcsproduct \tget UUID\"; cmd.exe /c \"fsutil behavior\
-          \ \tset SymlinkEvaluation R2L:1\"; cmd.exe /c \"fsutil behavior set \tSymlinkEvaluation\
-          \ R2R:1\"; reg    add    HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\\
-          Services\\LanmanServer\\Parameters    /v MaxMpxCt /d 65535 /t REG_DWORD\
-          \ /f; copy \"PathToAtomicsFolder\\..\\ExternalPayloads\\PsExec.exe\" $env:temp;\
-          \ cmd.exe /c \"$env:temp\\psexec.exe  -accepteula  \\\\$ENV:COMPUTERNAME\
-          \ cmd.exe  /c echo \"--access-token\"\""
+          \ -OutFile \"PathToAtomicsFolder\\..\\ExternalPayloads\\PsTools.zip\" -UseBasicParsing;\
+          \ Expand-Archive \"PathToAtomicsFolder\\..\\ExternalPayloads\\PsTools.zip\"\
+          \ \"PathToAtomicsFolder\\..\\ExternalPayloads\\PsTools\" -Force; New-Item\
+          \ -ItemType Directory (Split-Path \"PathToAtomicsFolder\\..\\ExternalPayloads\\\
+          PsExec.exe\") -Force | Out-Null; Copy-Item \"PathToAtomicsFolder\\..\\ExternalPayloads\\\
+          PsTools\\PsExec.exe\" \"PathToAtomicsFolder\\..\\ExternalPayloads\\PsExec.exe\"\
+          \ -Force; fi; cmd.exe /c \"wmic \tcsproduct \tget UUID\"; cmd.exe /c \"\
+          fsutil behavior \tset SymlinkEvaluation R2L:1\"; cmd.exe /c \"fsutil behavior\
+          \ set \tSymlinkEvaluation R2R:1\"; reg    add    HKEY_LOCAL_MACHINE\\SYSTEM\\\
+          CurrentControlSet\\Services\\LanmanServer\\Parameters    /v MaxMpxCt /d\
+          \ 65535 /t REG_DWORD /f; copy \"PathToAtomicsFolder\\..\\ExternalPayloads\\\
+          PsExec.exe\" $env:temp; cmd.exe /c \"$env:temp\\psexec.exe  -accepteula\
+          \  \\\\$ENV:COMPUTERNAME cmd.exe  /c echo \"--access-token\"\""
         cleanup: reg delete HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\LanmanServer\Parameters
           /v MaxMpxCt /f; cmd.exe /c "fsutil behavior set SymlinkEvaluation R2L:0";
           cmd.exe /c "fsutil behavior set SymlinkEvaluation R2R:0"; rm $env:temp\psexec.exe;
@@ -41,9 +41,9 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - atomic-red-team
   - execution
   - t1569.002
+  - atomic-red-team
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -72,7 +72,7 @@
 
         '
       get_prereq_command: 'Invoke-WebRequest "https://download.sysinternals.com/files/PSTools.zip"
-        -OutFile "PathToAtomicsFolder\..\ExternalPayloads\PsTools.zip"
+        -OutFile "PathToAtomicsFolder\..\ExternalPayloads\PsTools.zip" -UseBasicParsing
 
         Expand-Archive "PathToAtomicsFolder\..\ExternalPayloads\PsTools.zip" "PathToAtomicsFolder\..\ExternalPayloads\PsTools"
         -Force
@@ -86,4 +86,4 @@
         '
     technique_created: '2020-03-10T18:33:36.159Z'
     atomic_guid: 31eb7828-97d7-4067-9c1e-c6feb85edc4b
-    import_timestamp: '2026-10-20T07:08:28.330050Z'
+    import_timestamp: '2026-10-21T07:01:50.511780Z'

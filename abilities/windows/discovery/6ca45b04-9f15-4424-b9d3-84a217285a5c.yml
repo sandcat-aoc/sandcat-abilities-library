@@ -11,19 +11,19 @@
         command: 'if (Get-Command py -errorAction SilentlyContinue) { exit 0 } else
           { exit 1 }; then : ; else New-Item -Type Directory "PathToAtomicsFolder\..\ExternalPayloads\"
           -ErrorAction ignore -Force | Out-Null; invoke-webrequest "https://www.python.org/ftp/python/3.10.4/python-3.10.4-amd64.exe"
-          -outfile "PathToAtomicsFolder\..\ExternalPayloads\python_setup.exe"; Start-Process
-          -FilePath "PathToAtomicsFolder\..\ExternalPayloads\python_setup.exe" -ArgumentList
-          "/quiet InstallAllUsers=1 PrependPath=1 Include_test=0" -Wait; fi; python
-          "PathToAtomicsFolder\T1046\src\T1046.py" -i 127.0.0.1'
+          -outfile "PathToAtomicsFolder\..\ExternalPayloads\python_setup.exe" -UseBasicParsing;
+          Start-Process -FilePath "PathToAtomicsFolder\..\ExternalPayloads\python_setup.exe"
+          -ArgumentList "/quiet InstallAllUsers=1 PrependPath=1 Include_test=0" -Wait;
+          fi; python "PathToAtomicsFolder\T1046\src\T1046.py" -i 127.0.0.1'
   plugin: atomic
   singleton: false
   repeatable: true
   delete_payload: false
   privilege: ''
   buckets:
-  - atomic-red-team
   - t1046
   - discovery
+  - atomic-red-team
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -47,7 +47,7 @@
         -ErrorAction ignore -Force | Out-Null
 
         invoke-webrequest "https://www.python.org/ftp/python/3.10.4/python-3.10.4-amd64.exe"
-        -outfile "PathToAtomicsFolder\..\ExternalPayloads\python_setup.exe"
+        -outfile "PathToAtomicsFolder\..\ExternalPayloads\python_setup.exe" -UseBasicParsing
 
         Start-Process -FilePath "PathToAtomicsFolder\..\ExternalPayloads\python_setup.exe"
         -ArgumentList "/quiet InstallAllUsers=1 PrependPath=1 Include_test=0" -Wait
@@ -55,4 +55,4 @@
         '
     technique_created: '2017-05-31T21:30:43.915Z'
     atomic_guid: 6ca45b04-9f15-4424-b9d3-84a217285a5c
-    import_timestamp: '2026-10-20T07:08:30.903580Z'
+    import_timestamp: '2026-10-21T07:01:52.718199Z'

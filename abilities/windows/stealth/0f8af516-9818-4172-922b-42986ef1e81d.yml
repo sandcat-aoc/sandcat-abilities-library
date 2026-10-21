@@ -6,7 +6,7 @@
   tactic: stealth
   technique:
     attack_id: T1218.001
-    name: 'Signed Binary Proxy Execution: Compiled HTML File'
+    name: 'System Binary Proxy Execution: Compiled HTML File'
   platforms:
     windows:
       sh:
@@ -29,4 +29,4 @@
         default: https://raw.githubusercontent.com/redcanaryco/atomic-red-team/master/atomics/T1218.001/src/T1218.001.chm
     technique_created: '2020-01-23T18:53:54.377Z'
     atomic_guid: 0f8af516-9818-4172-922b-42986ef1e81d
-    import_timestamp: '2026-10-20T07:08:26.744281Z'
+    import_timestamp: '2026-10-21T07:01:49.507477Z'

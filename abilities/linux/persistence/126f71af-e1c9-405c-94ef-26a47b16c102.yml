@@ -4,7 +4,7 @@
   tactic: persistence
   technique:
     attack_id: T1037.004
-    name: 'Boot or Logon Initialization Scripts: Rc.common'
+    name: 'Boot or Logon Initialization Scripts: RC Scripts'
   platforms:
     linux:
       sh:
@@ -25,11 +25,11 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - t1037.004
-  - atomic-red-team
   - persistence
+  - atomic-red-team
+  - t1037.004
   author: Atomic Red Team
   additional_info:
     technique_created: '2020-01-15T16:25:22.260Z'
     atomic_guid: 126f71af-e1c9-405c-94ef-26a47b16c102
-    import_timestamp: '2026-10-20T07:08:45.495795Z'
+    import_timestamp: '2026-10-21T07:02:05.098282Z'

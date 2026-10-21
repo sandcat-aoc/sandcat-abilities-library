@@ -15,8 +15,8 @@
           {exit 0} else {exit 1}; then : ; else Write-Host Downloading Process Hacker;
           New-Item -Type Directory "C:\Temp\ExternalPayloads\" -ErrorAction Ignore
           -Force | Out-Null; Invoke-WebRequest "https://versaweb.dl.sourceforge.net/project/processhacker/processhacker2/processhacker-2.39-setup.exe"
-          -OutFile "C:\Temp\ExternalPayloads\processhacker-2.39-setup.exe"; Write-Host
-          Installing Process Hacker; Start-Process "c:\Temp\ExternalPayloads\processhacker-2.39-setup.exe"
+          -OutFile "C:\Temp\ExternalPayloads\processhacker-2.39-setup.exe" -UseBasicParsing;
+          Write-Host Installing Process Hacker; Start-Process "c:\Temp\ExternalPayloads\processhacker-2.39-setup.exe"
           -Wait -ArgumentList "/s"; fi; Start-Process -FilePath "$Env:ProgramFiles\Process
           Hacker 2\ProcessHacker.exe"'
         elevation_required: true
@@ -48,7 +48,7 @@
         | Out-Null
 
         Invoke-WebRequest "https://versaweb.dl.sourceforge.net/project/processhacker/processhacker2/processhacker-2.39-setup.exe"
-        -OutFile "C:\Temp\ExternalPayloads\processhacker-2.39-setup.exe"
+        -OutFile "C:\Temp\ExternalPayloads\processhacker-2.39-setup.exe" -UseBasicParsing
 
         Write-Host Installing Process Hacker
 
@@ -56,4 +56,4 @@
         -ArgumentList "/s"'
     technique_created: '2017-05-31T21:30:48.728Z'
     atomic_guid: 966f4c16-1925-4d9b-8ce0-01334ee0867d
-    import_timestamp: '2026-10-20T07:08:30.772089Z'
+    import_timestamp: '2026-10-21T07:01:52.610414Z'

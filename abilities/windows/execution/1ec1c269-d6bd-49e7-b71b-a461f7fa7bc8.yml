@@ -16,8 +16,9 @@
         command: 'if (Test-Path "PathToAtomicsFolder\T1127\src\hello.js") {exit 0}
           else {exit 1}; then : ; else New-Item -Type Directory (split-path "PathToAtomicsFolder\T1127\src\hello.js")
           -ErrorAction ignore | Out-Null; Invoke-WebRequest "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1127/src/hello.js"
-          -OutFile "PathToAtomicsFolder\T1127\src\hello.js"; fi; copy "PathToAtomicsFolder\T1127\src\hello.js"
-          %TEMP%\hello.js; C:\Windows\Microsoft.NET\Framework\v4.0.30319\jsc.exe %TEMP%\hello.js'
+          -OutFile "PathToAtomicsFolder\T1127\src\hello.js" -UseBasicParsing; fi;
+          copy "PathToAtomicsFolder\T1127\src\hello.js" %TEMP%\hello.js; C:\Windows\Microsoft.NET\Framework\v4.0.30319\jsc.exe
+          %TEMP%\hello.js'
         cleanup: del %TEMP%\hello.js; del %TEMP%\hello.exe
   plugin: atomic
   singleton: false
@@ -25,9 +26,9 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - atomic-red-team
   - execution
   - t1127
+  - atomic-red-team
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -55,9 +56,9 @@
         ignore | Out-Null
 
         Invoke-WebRequest "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1127/src/hello.js"
-        -OutFile "#{filename}"
+        -OutFile "#{filename}" -UseBasicParsing
 
         '
     technique_created: '2017-05-31T21:31:39.262Z'
     atomic_guid: 1ec1c269-d6bd-49e7-b71b-a461f7fa7bc8
-    import_timestamp: '2026-10-20T07:08:28.346989Z'
+    import_timestamp: '2026-10-21T07:01:50.526059Z'

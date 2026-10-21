@@ -21,8 +21,8 @@
           {exit 0} else {exit 1}; then : ; else New-Item -Type Directory (split-path
           "PathToAtomicsFolder\T1055\bin\x64\vuln_dll\msys-2.0.dll") -ErrorAction
           ignore | Out-Null; Invoke-WebRequest "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1055/bin/x64/vuln_dll/msys-2.0.dll"
-          -OutFile "PathToAtomicsFolder\T1055\bin\x64\vuln_dll\msys-2.0.dll"; fi;
-          $address = (& "$PathToAtomicsFolder\T1055\bin\x64\searchVuln.exe" "$PathToAtomicsFolder\T1055\bin\x64\vuln_dll\"
+          -OutFile "PathToAtomicsFolder\T1055\bin\x64\vuln_dll\msys-2.0.dll" -UseBasicParsing;
+          fi; $address = (& "$PathToAtomicsFolder\T1055\bin\x64\searchVuln.exe" "$PathToAtomicsFolder\T1055\bin\x64\vuln_dll\"
           | Out-String | Select-String -Pattern "VirtualAddress: (\w+)").Matches.Groups[1].Value;
           & "PathToAtomicsFolder\T1055\bin\x64\RWXinjectionLocal.exe" "PathToAtomicsFolder\T1055\bin\x64\vuln_dll\msys-2.0.dll"
           $address'
@@ -35,9 +35,9 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - atomic-red-team
   - privilege-escalation
   - t1055
+  - atomic-red-team
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -56,9 +56,9 @@
         ignore | Out-Null
 
         Invoke-WebRequest "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1055/bin/x64/vuln_dll/msys-2.0.dll"
-        -OutFile "#{vuln_dll}"
+        -OutFile "#{vuln_dll}" -UseBasicParsing
 
         '
     technique_created: '2017-05-31T21:30:47.843Z'
     atomic_guid: 0128e48e-8c1a-433a-a11a-a5387384f1e1
-    import_timestamp: '2026-10-20T07:08:27.222172Z'
+    import_timestamp: '2026-10-21T07:01:49.903186Z'

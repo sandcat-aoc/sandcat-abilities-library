@@ -5,7 +5,7 @@
   tactic: stealth
   technique:
     attack_id: T1218.005
-    name: 'Signed Binary Proxy Execution: Mshta'
+    name: 'System Binary Proxy Execution: Mshta'
   platforms:
     windows:
       sh:
@@ -16,9 +16,9 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - atomic-red-team
-  - t1218.005
   - stealth
+  - t1218.005
+  - atomic-red-team
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -28,4 +28,4 @@
         default: https://raw.githubusercontent.com/redcanaryco/atomic-red-team/master/atomics/T1218.005/src/mshta.sct
     technique_created: '2020-01-23T19:32:49.557Z'
     atomic_guid: 1483fab9-4f52-4217-a9ce-daa9d7747cae
-    import_timestamp: '2026-10-20T07:08:26.675758Z'
+    import_timestamp: '2026-10-21T07:01:49.448401Z'

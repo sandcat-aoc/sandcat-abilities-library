@@ -14,10 +14,11 @@
         command: 'if (Test-Path "PathToAtomicsFolder\..\ExternalPayloads\nircmd.exe")
           {exit 0} else {exit 1}; then : ; else New-Item -Type Directory "PathToAtomicsFolder\..\ExternalPayloads\"
           -ErrorAction Ignore -Force | Out-Null; invoke-webrequest "https://www.nirsoft.net/utils/nircmd-x64.zip"
-          -outfile "PathToAtomicsFolder\..\ExternalPayloads\nircmd.zip"; expand-archive
-          -path "PathToAtomicsFolder\..\ExternalPayloads\nircmd.zip" -destinationpath
-          "PathToAtomicsFolder\..\ExternalPayloads\"; fi; cmd /c "PathToAtomicsFolder\..\ExternalPayloads\nircmd.exe"
-          win child class "Shell_TrayWnd" hide class "TrayClockWClass"'
+          -outfile "PathToAtomicsFolder\..\ExternalPayloads\nircmd.zip" -UseBasicParsing;
+          expand-archive -path "PathToAtomicsFolder\..\ExternalPayloads\nircmd.zip"
+          -destinationpath "PathToAtomicsFolder\..\ExternalPayloads\"; fi; cmd /c
+          "PathToAtomicsFolder\..\ExternalPayloads\nircmd.exe" win child class "Shell_TrayWnd"
+          hide class "TrayClockWClass"'
         cleanup: 'cmd /c "#{nircmd_location}" #{cleanup_command_to_execute} -erroraction
           silentlycontinue | out-null'
         elevation_required: false
@@ -27,9 +28,9 @@
   delete_payload: false
   privilege: ''
   buckets:
+  - stealth
   - t1564
   - atomic-red-team
-  - stealth
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -54,9 +55,9 @@
         '
       get_prereq_command: "New-Item -Type Directory \"PathToAtomicsFolder\\..\\ExternalPayloads\\\
         \" -ErrorAction Ignore -Force | Out-Null\ninvoke-webrequest \"https://www.nirsoft.net/utils/nircmd-x64.zip\"\
-        \ -outfile \"PathToAtomicsFolder\\..\\ExternalPayloads\\nircmd.zip\" \nexpand-archive\
-        \ -path \"PathToAtomicsFolder\\..\\ExternalPayloads\\nircmd.zip\" -destinationpath\
-        \ \"PathToAtomicsFolder\\..\\ExternalPayloads\\\"\n"
+        \ -outfile \"PathToAtomicsFolder\\..\\ExternalPayloads\\nircmd.zip\" -UseBasicParsing\
+        \ \nexpand-archive -path \"PathToAtomicsFolder\\..\\ExternalPayloads\\nircmd.zip\"\
+        \ -destinationpath \"PathToAtomicsFolder\\..\\ExternalPayloads\\\"\n"
     technique_created: '2020-02-26T17:41:25.933Z'
     atomic_guid: 2748ab4a-1e0b-4cf2-a2b0-8ef765bec7be
-    import_timestamp: '2026-10-20T07:08:26.370455Z'
+    import_timestamp: '2026-10-21T07:01:49.170397Z'

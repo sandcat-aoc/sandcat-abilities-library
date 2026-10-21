@@ -17,8 +17,8 @@
           {exit 0} else {exit 1}; then : ; else New-Item -Type Directory (split-path
           "PathToAtomicsFolder\T1543.003\bin\AtomicService.exe") -ErrorAction ignore
           | Out-Null; Invoke-WebRequest "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1543.003/bin/AtomicService.exe"
-          -OutFile "PathToAtomicsFolder\T1543.003\bin\AtomicService.exe"; fi; sc.exe
-          \\localhost create AtomicTestService_CMD binPath= "PathToAtomicsFolder\T1543.003\bin\AtomicService.exe"
+          -OutFile "PathToAtomicsFolder\T1543.003\bin\AtomicService.exe" -UseBasicParsing;
+          fi; sc.exe \\localhost create AtomicTestService_CMD binPath= "PathToAtomicsFolder\T1543.003\bin\AtomicService.exe"
           start=auto type=Own; sc.exe \\localhost start AtomicTestService_CMD'
         cleanup: 'sc.exe \\#{remote_host} stop #{service_name} >nul 2>&1; sc.exe \\#{remote_host}
           delete #{service_name} >nul 2>&1'
@@ -66,9 +66,9 @@
         -ErrorAction ignore | Out-Null
 
         Invoke-WebRequest "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1543.003/bin/AtomicService.exe"
-        -OutFile "#{binary_path}"
+        -OutFile "#{binary_path}" -UseBasicParsing
 
         '
     technique_created: '2020-01-17T19:13:50.402Z'
     atomic_guid: fb4151a2-db33-4f8c-b7f8-78ea8790f961
-    import_timestamp: '2026-10-20T07:08:28.449051Z'
+    import_timestamp: '2026-10-21T07:01:50.614025Z'

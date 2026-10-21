@@ -36,4 +36,4 @@
     use_case: Grant ARD access to a single attacker-controlled account
     source_file: kickstart.yml
     source_repository: https://github.com/infosecB/LOOBins
-    import_timestamp: '2026-10-20T07:07:49.796823Z'
+    import_timestamp: '2026-10-21T07:01:17.856233Z'

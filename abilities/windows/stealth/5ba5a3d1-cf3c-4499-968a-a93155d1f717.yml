@@ -9,7 +9,7 @@
   tactic: stealth
   technique:
     attack_id: T1036.003
-    name: 'Masquerading: Rename System Utilities'
+    name: 'Masquerading: Rename Legitimate Utilities'
   platforms:
     windows:
       sh:
@@ -22,11 +22,11 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - atomic-red-team
   - stealth
   - t1036.003
+  - atomic-red-team
   author: Atomic Red Team
   additional_info:
     technique_created: '2020-02-10T20:03:11.691Z'
     atomic_guid: 5ba5a3d1-cf3c-4499-968a-a93155d1f717
-    import_timestamp: '2026-10-20T07:08:26.846904Z'
+    import_timestamp: '2026-10-21T07:01:49.590779Z'

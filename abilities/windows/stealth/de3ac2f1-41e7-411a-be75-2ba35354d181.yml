@@ -1,0 +1,34 @@
+- id: de3ac2f1-41e7-411a-be75-2ba35354d181
+  name: T1027.017 - Inline JavaScript via Embedded SVG Script Element
+  description: Constructs a standard SVG graphic containing an embedded inline <script>
+    element.
+  tactic: stealth
+  technique:
+    attack_id: T1027.017
+    name: 'Obfuscated Files or Information: SVG Smuggling'
+  platforms:
+    windows:
+      psh:
+        command: '$svgPath = "$env:TEMP\T1027_017_script_element.svg"; $svgContent
+          = @"; <svg xmlns="http://www.w3.org/2000/svg" width="200" height="200">;
+          <circle cx="100" cy="100" r="80" fill="blue" />; <script type="text/javascript">;
+          var payload = "SVG_Smuggling_Test_Active";; console.log(payload);; </script>;
+          </svg>; "@; [System.IO.File]::WriteAllText($svgPath,$svgContent); Write-Host
+          "[+] Generated SVG file at: $svgPath"'
+        cleanup: Remove-Item "$env:TEMP\T1027_017_script_element.svg" -Force -ErrorAction
+          SilentlyContinue
+        elevation_required: false
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - stealth
+  - atomic-red-team
+  - t1027.017
+  author: Atomic Red Team
+  additional_info:
+    technique_created: '2025-03-25T15:31:09.697Z'
+    atomic_guid: de3ac2f1-41e7-411a-be75-2ba35354d181
+    import_timestamp: '2026-10-21T07:01:49.414475Z'

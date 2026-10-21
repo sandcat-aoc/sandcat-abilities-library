@@ -13,7 +13,7 @@
     windows:
       psh:
         command: Invoke-WebRequest "https://raw.githubusercontent.com/redcanaryco/atomic-red-team/master/atomics/T1074.001/src/Discovery.bat"
-          -OutFile $env:TEMP\discovery.bat
+          -OutFile $env:TEMP\discovery.bat -UseBasicParsing
         cleanup: 'Remove-Item -Force #{output_file} -ErrorAction Ignore'
   plugin: atomic
   singleton: false
@@ -33,4 +33,4 @@
         default: $env:TEMP\discovery.bat
     technique_created: '2020-03-13T21:13:10.467Z'
     atomic_guid: 107706a5-6f9f-451a-adae-bab8c667829f
-    import_timestamp: '2026-10-20T07:08:29.358980Z'
+    import_timestamp: '2026-10-21T07:01:51.428508Z'

@@ -1,0 +1,40 @@
+- id: ac77e6c0-7b13-4d96-a53f-3bb0aeca96ec
+  name: Disable Fast Startup via direct registry modification (HiberbootEnabled)
+  description: 'Directly modifies HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Power\HiberbootEnabled
+    rather than using the powercfg CLI, altering how the system behaves on shutdown
+    (full shutdown vs. hybrid hibernate-backed fast startup). Exercises the registry-based
+    detection path MITRE cites for this technique (monitoring HKLM\SYSTEM\CurrentControlSet\Control\Power
+    and subkeys), distinct from the CLI-driven tests above.
+
+    Expected output: Fast Startup is disabled; next shutdown will perform a full shutdown
+    rather than a hybrid hibernate. Cleanup restores the original registry value.'
+  tactic: persistence
+  technique:
+    attack_id: T1653
+    name: Power Settings
+  platforms:
+    windows:
+      psh:
+        command: $regPath = "HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Power";
+          $script:origValue = (Get-ItemProperty -Path $regPath -Name HiberbootEnabled
+          -ErrorAction SilentlyContinue).HiberbootEnabled; Set-ItemProperty -Path
+          $regPath -Name HiberbootEnabled -Value 0 -Type DWord
+        cleanup: $regPath = "HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Power";
+          if ($null -ne $script:origValue) {; Set-ItemProperty -Path $regPath -Name
+          HiberbootEnabled -Value $script:origValue -Type DWord; } else {; Remove-ItemProperty
+          -Path $regPath -Name HiberbootEnabled -ErrorAction SilentlyContinue; }
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - persistence
+  - t1653
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    technique_created: '2023-06-05T15:52:52.467Z'
+    atomic_guid: ac77e6c0-7b13-4d96-a53f-3bb0aeca96ec
+    import_timestamp: '2026-10-21T07:01:51.123877Z'

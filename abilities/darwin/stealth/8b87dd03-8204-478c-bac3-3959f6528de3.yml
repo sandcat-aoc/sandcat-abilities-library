@@ -5,7 +5,7 @@
   tactic: stealth
   technique:
     attack_id: T1497.003
-    name: Time Based Evasion
+    name: 'Virtualization/Sandbox Evasion: Time Based Checks'
   platforms:
     darwin:
       sh:
@@ -16,9 +16,9 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - t1497.003
-  - atomic-red-team
   - stealth
+  - atomic-red-team
+  - t1497.003
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -32,4 +32,4 @@
         default: 250
     technique_created: '2020-03-06T21:11:11.225Z'
     atomic_guid: 8b87dd03-8204-478c-bac3-3959f6528de3
-    import_timestamp: '2026-10-20T07:08:08.550705Z'
+    import_timestamp: '2026-10-21T07:01:34.659464Z'

@@ -13,8 +13,8 @@
           0} else {exit 1}; then : ; else New-Item -ItemType Directory (Split-Path
           "PathToAtomicsFolder\T1059.007\src\sys_info.js") -Force | Out-Null; Invoke-WebRequest
           "https://raw.githubusercontent.com/redcanaryco/atomic-red-team/master/atomics/T1059.007/src/sys_info.js"
-          -OutFile "PathToAtomicsFolder\T1059.007\src\sys_info.js"; fi; cscript "PathToAtomicsFolder\T1059.007\src\sys_info.js"
-          > %tmp%\T1059.007.out.txt'
+          -OutFile "PathToAtomicsFolder\T1059.007\src\sys_info.js" -UseBasicParsing;
+          fi; cscript "PathToAtomicsFolder\T1059.007\src\sys_info.js" > %tmp%\T1059.007.out.txt'
         cleanup: del %tmp%\T1059.007.out.txt >nul 2>&1
   plugin: atomic
   singleton: false
@@ -22,8 +22,8 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - atomic-red-team
   - execution
+  - atomic-red-team
   - t1059.007
   author: Atomic Red Team
   additional_info:
@@ -41,7 +41,7 @@
         -Force | Out-Null
 
         Invoke-WebRequest "https://raw.githubusercontent.com/redcanaryco/atomic-red-team/master/atomics/T1059.007/src/sys_info.js"
-        -OutFile "#{jscript}"'
+        -OutFile "#{jscript}" -UseBasicParsing'
     technique_created: '2020-06-23T19:12:24.924Z'
     atomic_guid: 01d75adf-ca1b-4dd1-ac96-7c9550ad1035
-    import_timestamp: '2026-10-20T07:08:27.686981Z'
+    import_timestamp: '2026-10-21T07:01:50.295600Z'

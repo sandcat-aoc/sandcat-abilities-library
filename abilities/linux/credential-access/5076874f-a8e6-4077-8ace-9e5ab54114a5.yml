@@ -4,7 +4,7 @@
   tactic: credential-access
   technique:
     attack_id: T1003.008
-    name: 'OS Credential Dumping: /etc/passwd, /etc/master.passwd and /etc/shadow'
+    name: 'OS Credential Dumping: /etc/passwd and /etc/shadow'
   platforms:
     linux:
       sh:
@@ -29,4 +29,4 @@
         default: /tmp/T1003.008.txt
     technique_created: '2020-02-11T18:46:56.263Z'
     atomic_guid: 5076874f-a8e6-4077-8ace-9e5ab54114a5
-    import_timestamp: '2026-10-20T07:08:46.024325Z'
+    import_timestamp: '2026-10-21T07:02:05.556478Z'

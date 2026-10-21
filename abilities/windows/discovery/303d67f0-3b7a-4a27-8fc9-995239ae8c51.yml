@@ -1,0 +1,29 @@
+- id: 303d67f0-3b7a-4a27-8fc9-995239ae8c51
+  name: Enumerate Active Directory Users with csvde
+  description: The following test uses csvde.exe to export a list of Active Directory
+    users and their properties to a CSV file.
+  tactic: discovery
+  technique:
+    attack_id: T1087.002
+    name: 'Account Discovery: Domain Account'
+  platforms:
+    windows:
+      sh:
+        command: csvde -f users.csv -r "(&(objectClass=user)(objectCategory=person))"
+          -l "DN,sAMAccountName,userPrincipalName,mail,displayName,description,memberOf"
+        cleanup: del users.csv >nul 2>&1
+        elevation_required: false
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1087.002
+  - atomic-red-team
+  - discovery
+  author: Atomic Red Team
+  additional_info:
+    technique_created: '2020-02-21T21:08:26.480Z'
+    atomic_guid: 303d67f0-3b7a-4a27-8fc9-995239ae8c51
+    import_timestamp: '2026-10-21T07:01:52.388508Z'

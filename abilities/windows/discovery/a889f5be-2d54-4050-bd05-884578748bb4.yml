@@ -16,8 +16,9 @@
           {exit 0} else {exit 1}; then : ; else New-Item -Type Directory (split-path
           "PathToAtomicsFolder\..\ExternalPayloads\AdFind.exe") -ErrorAction ignore
           | Out-Null; Invoke-WebRequest -Uri "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1087.002/bin/AdFind.exe"
-          -OutFile "PathToAtomicsFolder\..\ExternalPayloads\AdFind.exe"; fi; "PathToAtomicsFolder\..\ExternalPayloads\AdFind.exe"
-          -f (objectcategory=computer) #{optional_args}'
+          -OutFile "PathToAtomicsFolder\..\ExternalPayloads\AdFind.exe" -UseBasicParsing;
+          fi; "PathToAtomicsFolder\..\ExternalPayloads\AdFind.exe" -f (objectcategory=computer)
+          #{optional_args}'
   plugin: atomic
   singleton: false
   repeatable: true
@@ -25,8 +26,8 @@
   privilege: ''
   buckets:
   - t1018
-  - atomic-red-team
   - discovery
+  - atomic-red-team
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -48,9 +49,9 @@
         -ErrorAction ignore | Out-Null
 
         Invoke-WebRequest -Uri "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1087.002/bin/AdFind.exe"
-        -OutFile "PathToAtomicsFolder\..\ExternalPayloads\AdFind.exe"
+        -OutFile "PathToAtomicsFolder\..\ExternalPayloads\AdFind.exe" -UseBasicParsing
 
         '
     technique_created: '2017-05-31T21:30:28.187Z'
     atomic_guid: a889f5be-2d54-4050-bd05-884578748bb4
-    import_timestamp: '2026-10-20T07:08:30.878520Z'
+    import_timestamp: '2026-10-21T07:01:52.696394Z'

@@ -15,8 +15,8 @@
         command: 'if (Test-Path "PathToAtomicsFolder\T1134.001\bin\NSudoLG.exe") {exit
           0} else {exit 1}; then : ; else New-Item -Type Directory "PathToAtomicsFolder\..\ExternalPayloads\"
           -ErrorAction Ignore -Force | Out-Null; Invoke-WebRequest -OutFile "PathToAtomicsFolder\..\ExternalPayloads\NSudo_8.2_All_Components.zip"
-          "https://github.com/M2Team/NSudo/releases/download/8.2/NSudo_8.2_All_Components.zip";
-          Expand-Archive -Path "PathToAtomicsFolder\..\ExternalPayloads\NSudo_8.2_All_Components.zip"
+          "https://github.com/M2Team/NSudo/releases/download/8.2/NSudo_8.2_All_Components.zip"
+          -UseBasicParsing; Expand-Archive -Path "PathToAtomicsFolder\..\ExternalPayloads\NSudo_8.2_All_Components.zip"
           -DestinationPath "PathToAtomicsFolder\..\ExternalPayloads\NSudo_8.2_All_Components"
           -Force; Copy-Item "PathToAtomicsFolder\..\ExternalPayloads\NSudo_8.2_All_Components\NSudo
           Launcher\x64\NSudoLG.exe" "PathToAtomicsFolder\T1134.001\bin\NSudoLG.exe";
@@ -31,9 +31,9 @@
   delete_payload: false
   privilege: ''
   buckets:
+  - privilege-escalation
   - t1134.001
   - atomic-red-team
-  - privilege-escalation
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -53,6 +53,7 @@
 
         Invoke-WebRequest -OutFile "PathToAtomicsFolder\..\ExternalPayloads\NSudo_8.2_All_Components.zip"
         "https://github.com/M2Team/NSudo/releases/download/8.2/NSudo_8.2_All_Components.zip"
+        -UseBasicParsing
 
         Expand-Archive -Path "PathToAtomicsFolder\..\ExternalPayloads\NSudo_8.2_All_Components.zip"
         -DestinationPath "PathToAtomicsFolder\..\ExternalPayloads\NSudo_8.2_All_Components"
@@ -70,4 +71,4 @@
         '
     technique_created: '2020-02-18T16:39:06.289Z'
     atomic_guid: 7be1bc0f-d8e5-4345-9333-f5f67d742cb9
-    import_timestamp: '2026-10-20T07:08:27.348797Z'
+    import_timestamp: '2026-10-21T07:01:50.013060Z'

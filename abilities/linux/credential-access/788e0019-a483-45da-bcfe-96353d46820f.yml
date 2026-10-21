@@ -5,7 +5,7 @@
   tactic: credential-access
   technique:
     attack_id: T1552.007
-    name: Kubernetes List Secrets
+    name: 'Unsecured Credentials: Container API'
   platforms:
     linux:
       sh:
@@ -79,4 +79,4 @@
         '
     technique_created: '2021-03-31T14:01:52.321Z'
     atomic_guid: 788e0019-a483-45da-bcfe-96353d46820f
-    import_timestamp: '2026-10-20T07:08:46.032735Z'
+    import_timestamp: '2026-10-21T07:02:05.563366Z'

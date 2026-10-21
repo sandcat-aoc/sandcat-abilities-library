@@ -11,10 +11,11 @@
       psh:
         command: 'if (Test-Path "${env:ProgramFiles(x86)}\Chocolatey\choco.exe") {exit
           0} else {exit 1}; then : ; else Write-Host Downloading Chocolatey installer;
-          Invoke-WebRequest -Uri "https://chocolatey.org/install.ps1" -OutFile "chocolatey-install.ps1";
-          Write-Host Installing Chocolatey; Start-Process -FilePath "powershell.exe"
-          -ArgumentList "-NoProfile -ExecutionPolicy Bypass -File chocolatey-install.ps1"
-          -Wait; fi; # Deploy 7-Zip using Chocolatey; choco install -y 7zip'
+          Invoke-WebRequest -Uri "https://chocolatey.org/install.ps1" -OutFile "chocolatey-install.ps1"
+          -UseBasicParsing; Write-Host Installing Chocolatey; Start-Process -FilePath
+          "powershell.exe" -ArgumentList "-NoProfile -ExecutionPolicy Bypass -File
+          chocolatey-install.ps1" -Wait; fi; # Deploy 7-Zip using Chocolatey; choco
+          install -y 7zip'
         elevation_required: false
   plugin: atomic
   singleton: false
@@ -22,9 +23,9 @@
   delete_payload: false
   privilege: ''
   buckets:
+  - execution
   - t1072
   - atomic-red-team
-  - execution
   author: Atomic Red Team
   additional_info:
     dependencies:
@@ -38,6 +39,7 @@
       get_prereq_command: 'Write-Host Downloading Chocolatey installer
 
         Invoke-WebRequest -Uri "https://chocolatey.org/install.ps1" -OutFile "chocolatey-install.ps1"
+        -UseBasicParsing
 
         Write-Host Installing Chocolatey
 
@@ -47,4 +49,4 @@
         '
     technique_created: '2017-05-31T21:30:57.201Z'
     atomic_guid: 2169e8b0-2ee7-44cb-8a6e-d816a5db7d8a
-    import_timestamp: '2026-10-20T07:08:27.801858Z'
+    import_timestamp: '2026-10-21T07:01:50.394445Z'

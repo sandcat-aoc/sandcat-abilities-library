@@ -17,8 +17,8 @@
       sh:
         command: 'if (Test-Path "PathToAtomicsFolder\..\ExternalPayloads\T1003.004\bin\PsExec.exe")
           {exit 0} else {exit 1}; then : ; else Invoke-WebRequest "https://download.sysinternals.com/files/PSTools.zip"
-          -OutFile "PathToAtomicsFolder\..\ExternalPayloads\PSTools.zip"; Expand-Archive
-          "PathToAtomicsFolder\..\ExternalPayloads\PSTools.zip" "PathToAtomicsFolder\..\ExternalPayloads\PSTools"
+          -OutFile "PathToAtomicsFolder\..\ExternalPayloads\PSTools.zip" -UseBasicParsing;
+          Expand-Archive "PathToAtomicsFolder\..\ExternalPayloads\PSTools.zip" "PathToAtomicsFolder\..\ExternalPayloads\PSTools"
           -Force; New-Item -ItemType Directory (Split-Path "PathToAtomicsFolder\..\ExternalPayloads\T1003.004\bin\PsExec.exe")
           -Force | Out-Null; Copy-Item "PathToAtomicsFolder\..\ExternalPayloads\PSTools\PsExec.exe"
           "PathToAtomicsFolder\..\ExternalPayloads\T1003.004\bin\PsExec.exe" -Force;
@@ -47,7 +47,7 @@
         (#{psexec_exe})
       prereq_command: if (Test-Path "#{psexec_exe}") {exit 0} else {exit 1}
       get_prereq_command: 'Invoke-WebRequest "https://download.sysinternals.com/files/PSTools.zip"
-        -OutFile "PathToAtomicsFolder\..\ExternalPayloads\PSTools.zip"
+        -OutFile "PathToAtomicsFolder\..\ExternalPayloads\PSTools.zip" -UseBasicParsing
 
         Expand-Archive "PathToAtomicsFolder\..\ExternalPayloads\PSTools.zip" "PathToAtomicsFolder\..\ExternalPayloads\PSTools"
         -Force
@@ -58,4 +58,4 @@
         -Force'
     technique_created: '2020-02-21T16:22:09.493Z'
     atomic_guid: 55295ab0-a703-433b-9ca4-ae13807de12f
-    import_timestamp: '2026-10-20T07:08:30.085018Z'
+    import_timestamp: '2026-10-21T07:01:52.029703Z'

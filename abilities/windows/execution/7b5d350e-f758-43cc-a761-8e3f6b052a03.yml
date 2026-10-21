@@ -14,8 +14,8 @@
           {; exit 0; } else {; exit 1; }; then : ; else New-Item -Type Directory "PathToAtomicsFolder\..\ExternalPayloads\"
           -ErrorAction Ignore -Force | Out-Null; $AutoHotKeyURL = "https://www.autohotkey.com/download/ahk.zip";
           $InstallerPath = "$PathToAtomicsFolder\..\ExternalPayloads"; Invoke-WebRequest
-          -Uri $AutoHotKeyURL -OutFile $InstallerPath\ahk.zip; Expand-Archive -Path
-          $InstallerPath -Force;; fi; Start-Process -FilePath "$PathToAtomicsFolder\..\ExternalPayloads\ahk\AutoHotKeyU64.exe"
+          -Uri $AutoHotKeyURL -OutFile $InstallerPath\ahk.zip -UseBasicParsing; Expand-Archive
+          -Path $InstallerPath -Force;; fi; Start-Process -FilePath "$PathToAtomicsFolder\..\ExternalPayloads\ahk\AutoHotKeyU64.exe"
           -ArgumentList "PathToAtomicsFolder\T1059.010\src\calc.ahk"'
   plugin: atomic
   singleton: false
@@ -24,8 +24,8 @@
   privilege: ''
   buckets:
   - t1059.010
-  - atomic-red-team
   - execution
+  - atomic-red-team
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -51,11 +51,11 @@
 
         $InstallerPath = "$PathToAtomicsFolder\..\ExternalPayloads"
 
-        Invoke-WebRequest -Uri $AutoHotKeyURL -OutFile $InstallerPath\ahk.zip
+        Invoke-WebRequest -Uri $AutoHotKeyURL -OutFile $InstallerPath\ahk.zip -UseBasicParsing
 
         Expand-Archive -Path $InstallerPath -Force;
 
         '
     technique_created: '2024-03-29T18:07:04.743Z'
     atomic_guid: 7b5d350e-f758-43cc-a761-8e3f6b052a03
-    import_timestamp: '2026-10-20T07:08:27.785489Z'
+    import_timestamp: '2026-10-21T07:01:50.378093Z'

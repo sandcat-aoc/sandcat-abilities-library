@@ -4,7 +4,7 @@
   tactic: privilege-escalation
   technique:
     attack_id: T1546.004
-    name: 'Event Triggered Execution: .bash_profile .bashrc and .shrc'
+    name: 'Event Triggered Execution: Unix Shell Configuration Modification'
   platforms:
     darwin:
       sh:
@@ -18,9 +18,9 @@
   delete_payload: false
   privilege: ''
   buckets:
+  - privilege-escalation
   - t1546.004
   - atomic-red-team
-  - privilege-escalation
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -30,4 +30,4 @@
         default: echo "Hello from Atomic Red Team T1546.004" > /tmp/T1546.004
     technique_created: '2020-01-24T14:13:45.936Z'
     atomic_guid: 94500ae1-7e31-47e3-886b-c328da46872f
-    import_timestamp: '2026-10-20T07:08:08.647807Z'
+    import_timestamp: '2026-10-21T07:01:34.745023Z'

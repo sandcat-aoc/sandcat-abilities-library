@@ -16,8 +16,8 @@
           {exit 0} else {exit 1}; then : ; else New-Item -Type Directory (split-path
           "PathToAtomicsFolder\T1082\src\griffon_recon.vbs") -ErrorAction ignore |
           Out-Null; Invoke-WebRequest "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1082/src/griffon_recon.vbs"
-          -OutFile "PathToAtomicsFolder\T1082\src\griffon_recon.vbs"; fi; cscript
-          "PathToAtomicsFolder\T1082\src\griffon_recon.vbs"'
+          -OutFile "PathToAtomicsFolder\T1082\src\griffon_recon.vbs" -UseBasicParsing;
+          fi; cscript "PathToAtomicsFolder\T1082\src\griffon_recon.vbs"'
         elevation_required: false
   plugin: atomic
   singleton: false
@@ -26,8 +26,8 @@
   privilege: ''
   buckets:
   - t1082
-  - atomic-red-team
   - discovery
+  - atomic-red-team
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -46,9 +46,9 @@
         ignore | Out-Null
 
         Invoke-WebRequest "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1082/src/griffon_recon.vbs"
-        -OutFile "#{vbscript}"
+        -OutFile "#{vbscript}" -UseBasicParsing
 
         '
     technique_created: '2017-05-31T21:31:04.307Z'
     atomic_guid: 69bd4abe-8759-49a6-8d21-0f15822d6370
-    import_timestamp: '2026-10-20T07:08:30.620625Z'
+    import_timestamp: '2026-10-21T07:01:52.477225Z'

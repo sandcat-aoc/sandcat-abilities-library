@@ -17,8 +17,8 @@
           {exit 0} else {exit 1}; then : ; else $parentpath = Split-Path "PathToAtomicsFolder\..\ExternalPayloads\DirLister.exe";
           New-Item -ItemType Directory -Force -Path $parentpath | Out-Null; Invoke-WebRequest
           https://github.com/SanderSade/DirLister/releases/download/v2.beta4/DirLister.v2.beta4.zip
-          -OutFile "PathToAtomicsFolder\..\ExternalPayloads\TDirLister.v2.beta4.zip";
-          Expand-Archive -Path "PathToAtomicsFolder\..\ExternalPayloads\TDirLister.v2.beta4.zip"
+          -OutFile "PathToAtomicsFolder\..\ExternalPayloads\TDirLister.v2.beta4.zip"
+          -UseBasicParsing; Expand-Archive -Path "PathToAtomicsFolder\..\ExternalPayloads\TDirLister.v2.beta4.zip"
           -DestinationPath "PathToAtomicsFolder\..\ExternalPayloads\TDirLister.v2.beta4"
           -Force; Copy-Item "PathToAtomicsFolder\..\ExternalPayloads\TDirLister.v2.beta4\*"
           "$parentpath" -Recurse; Remove-Item "PathToAtomicsFolder\..\ExternalPayloads\TDirLister.v2.beta4.zip","PathToAtomicsFolder\..\ExternalPayloads\TDirLister.v2.beta4"
@@ -30,9 +30,9 @@
   delete_payload: false
   privilege: ''
   buckets:
+  - t1083
   - discovery
   - atomic-red-team
-  - t1083
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -53,6 +53,7 @@
 
         Invoke-WebRequest https://github.com/SanderSade/DirLister/releases/download/v2.beta4/DirLister.v2.beta4.zip
         -OutFile "PathToAtomicsFolder\..\ExternalPayloads\TDirLister.v2.beta4.zip"
+        -UseBasicParsing
 
         Expand-Archive -Path "PathToAtomicsFolder\..\ExternalPayloads\TDirLister.v2.beta4.zip"
         -DestinationPath "PathToAtomicsFolder\..\ExternalPayloads\TDirLister.v2.beta4"
@@ -67,4 +68,4 @@
         '
     technique_created: '2017-05-31T21:31:04.710Z'
     atomic_guid: c5bec457-43c9-4a18-9a24-fe151d8971b7
-    import_timestamp: '2026-10-20T07:08:30.738664Z'
+    import_timestamp: '2026-10-21T07:01:52.577519Z'

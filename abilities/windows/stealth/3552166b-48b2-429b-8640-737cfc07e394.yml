@@ -1,0 +1,33 @@
+- id: 3552166b-48b2-429b-8640-737cfc07e394
+  name: T1027.017 - SVG Animation Element Script Execution (`<animate>`)
+  description: Uses SVG SMIL animation elements with event handlers like onbegin.
+  tactic: stealth
+  technique:
+    attack_id: T1027.017
+    name: 'Obfuscated Files or Information: SVG Smuggling'
+  platforms:
+    windows:
+      psh:
+        command: '$svgPath = "$env:TEMP\T1027_017_animate_element.svg"; $svgContent
+          = @"; <svg xmlns="http://www.w3.org/2000/svg" width="200" height="200">;
+          <rect width="100" height="100" fill="blue">; <animate attributeName="x"
+          from="0" to="50" dur="1s" onbegin="console.log(''Animate_Smuggle_Triggered'')"
+          />; </rect>; </svg>; "@; [System.IO.File]::WriteAllText($svgPath,$svgContent);
+          Write-Host "[+] Generated animate SVG at: $svgPath"'
+        cleanup: Remove-Item "$env:TEMP\T1027_017_animate_element.svg" -Force -ErrorAction
+          SilentlyContinue
+        elevation_required: false
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - stealth
+  - atomic-red-team
+  - t1027.017
+  author: Atomic Red Team
+  additional_info:
+    technique_created: '2025-03-25T15:31:09.697Z'
+    atomic_guid: 3552166b-48b2-429b-8640-737cfc07e394
+    import_timestamp: '2026-10-21T07:01:49.422274Z'

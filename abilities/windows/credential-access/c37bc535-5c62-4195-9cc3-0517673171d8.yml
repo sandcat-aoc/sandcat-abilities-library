@@ -24,11 +24,11 @@
         command: 'if (Get-Command py -errorAction SilentlyContinue) { exit 0 } else
           { exit 1 }; then : ; else New-Item -Type Directory "PathToAtomicsFolder\..\ExternalPayloads\"
           -ErrorAction ignore -Force | Out-Null; invoke-webrequest "https://www.python.org/ftp/python/3.10.4/python-3.10.4-amd64.exe"
-          -outfile "PathToAtomicsFolder\..\ExternalPayloads\python_setup.exe"; Start-Process
-          -FilePath "PathToAtomicsFolder\..\ExternalPayloads\python_setup.exe" -ArgumentList
-          "/quiet InstallAllUsers=1 PrependPath=1 Include_test=0" -Wait; fi; if (Test-Path
-          -Path "PathToAtomicsFolder\..\ExternalPayloads\venv_t1003_001") { exit 0
-          } else { exit 1 }; then : ; else py -m venv "PathToAtomicsFolder\..\ExternalPayloads\venv_t1003_001";
+          -outfile "PathToAtomicsFolder\..\ExternalPayloads\python_setup.exe" -UseBasicParsing;
+          Start-Process -FilePath "PathToAtomicsFolder\..\ExternalPayloads\python_setup.exe"
+          -ArgumentList "/quiet InstallAllUsers=1 PrependPath=1 Include_test=0" -Wait;
+          fi; if (Test-Path -Path "PathToAtomicsFolder\..\ExternalPayloads\venv_t1003_001")
+          { exit 0 } else { exit 1 }; then : ; else py -m venv "PathToAtomicsFolder\..\ExternalPayloads\venv_t1003_001";
           fi; if (Get-Command "PathToAtomicsFolder\..\ExternalPayloads\venv_t1003_001\Scripts\pypykatz"
           -errorAction SilentlyContinue) { exit 0 } else { exit 1 }; then : ; else
           & "PathToAtomicsFolder\..\ExternalPayloads\venv_t1003_001\Scripts\pip.exe"
@@ -64,7 +64,7 @@
         -ErrorAction ignore -Force | Out-Null
 
         invoke-webrequest "https://www.python.org/ftp/python/3.10.4/python-3.10.4-amd64.exe"
-        -outfile "PathToAtomicsFolder\..\ExternalPayloads\python_setup.exe"
+        -outfile "PathToAtomicsFolder\..\ExternalPayloads\python_setup.exe" -UseBasicParsing
 
         Start-Process -FilePath "PathToAtomicsFolder\..\ExternalPayloads\python_setup.exe"
         -ArgumentList "/quiet InstallAllUsers=1 PrependPath=1 Include_test=0" -Wait
@@ -91,4 +91,4 @@
         '
     technique_created: '2020-02-11T18:41:44.783Z'
     atomic_guid: c37bc535-5c62-4195-9cc3-0517673171d8
-    import_timestamp: '2026-10-20T07:08:30.243239Z'
+    import_timestamp: '2026-10-21T07:01:52.158401Z'

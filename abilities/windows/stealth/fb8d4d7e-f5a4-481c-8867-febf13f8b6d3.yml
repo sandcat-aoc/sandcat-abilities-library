@@ -13,7 +13,7 @@
   tactic: stealth
   technique:
     attack_id: T1564.006
-    name: Run Virtual Instance
+    name: 'Hide Artifacts: Run Virtual Instance'
   platforms:
     windows:
       psh:
@@ -30,9 +30,9 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - t1564.006
-  - atomic-red-team
   - stealth
+  - atomic-red-team
+  - t1564.006
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -57,4 +57,4 @@
         '
     technique_created: '2020-06-29T15:36:41.535Z'
     atomic_guid: fb8d4d7e-f5a4-481c-8867-febf13f8b6d3
-    import_timestamp: '2026-10-20T07:08:26.821834Z'
+    import_timestamp: '2026-10-21T07:01:49.572035Z'

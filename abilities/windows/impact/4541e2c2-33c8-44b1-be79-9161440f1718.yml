@@ -16,12 +16,12 @@
           "populating this file with some text"  # Create the test.txt file; New-Item
           -Type Directory "PathToAtomicsFolder\..\ExternalPayloads\" -ErrorAction
           Ignore -Force | Out-Null; invoke-webrequest "https://files.gpg4win.org/gpg4win-4.1.0.exe"
-          -outfile "PathToAtomicsFolder\..\ExternalPayloads\gpginstall.exe"; cmd /c
-          "PathToAtomicsFolder\..\ExternalPayloads\gpginstall.exe" /S; fi; Set-Content
-          -Path "$env:temp\test.txt" -Value "populating this file with some text"  #
-          Create the test.txt file again in case prereqs failed; cmd /c "`"C:\Program
-          Files (x86)\GnuPG\bin\gpg.exe`" --passphrase ''SomeParaphraseBlah'' --batch
-          --yes -c `"$env:temp\test.txt`""'
+          -outfile "PathToAtomicsFolder\..\ExternalPayloads\gpginstall.exe" -UseBasicParsing;
+          cmd /c "PathToAtomicsFolder\..\ExternalPayloads\gpginstall.exe" /S; fi;
+          Set-Content -Path "$env:temp\test.txt" -Value "populating this file with
+          some text"  # Create the test.txt file again in case prereqs failed; cmd
+          /c "`"C:\Program Files (x86)\GnuPG\bin\gpg.exe`" --passphrase ''SomeParaphraseBlah''
+          --batch --yes -c `"$env:temp\test.txt`""'
         cleanup: Remove-Item -Path "#{File_to_Encrypt_Location}" -Force -ErrorAction
           SilentlyContinue; Remove-Item -Path "#{File_to_Encrypt_Location}.gpg" -Force
           -ErrorAction SilentlyContinue
@@ -32,9 +32,9 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - impact
   - t1486
   - atomic-red-team
+  - impact
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -62,10 +62,11 @@
         Ignore -Force | Out-Null
 
         invoke-webrequest "https://files.gpg4win.org/gpg4win-4.1.0.exe" -outfile "PathToAtomicsFolder\..\ExternalPayloads\gpginstall.exe"
+        -UseBasicParsing
 
         cmd /c "PathToAtomicsFolder\..\ExternalPayloads\gpginstall.exe" /S
 
         '
     technique_created: '2019-03-15T13:59:30.390Z'
     atomic_guid: 4541e2c2-33c8-44b1-be79-9161440f1718
-    import_timestamp: '2026-10-20T07:08:30.993557Z'
+    import_timestamp: '2026-10-21T07:01:52.789941Z'

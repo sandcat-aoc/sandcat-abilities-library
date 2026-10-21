@@ -16,8 +16,8 @@
           {exit 0} else {exit 1}; then : ; else New-Item -Type Directory (split-path
           "PathToAtomicsFolder\..\ExternalPayloads\LanguageKeyboardLayout.exe") -ErrorAction
           Ignore | Out-Null; Invoke-WebRequest -Uri "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1614.001/bin/LanguageKeyboardLayout.exe"
-          -OutFile "PathToAtomicsFolder\..\ExternalPayloads\LanguageKeyboardLayout.exe";
-          fi; PathToAtomicsFolder\..\ExternalPayloads\LanguageKeyboardLayout.exe'
+          -OutFile "PathToAtomicsFolder\..\ExternalPayloads\LanguageKeyboardLayout.exe"
+          -UseBasicParsing; fi; PathToAtomicsFolder\..\ExternalPayloads\LanguageKeyboardLayout.exe'
         elevation_required: false
   plugin: atomic
   singleton: false
@@ -25,8 +25,8 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - atomic-red-team
   - t1614.001
+  - atomic-red-team
   - discovery
   author: Atomic Red Team
   additional_info:
@@ -44,8 +44,9 @@
 
         Invoke-WebRequest -Uri "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1614.001/bin/LanguageKeyboardLayout.exe"
         -OutFile "PathToAtomicsFolder\..\ExternalPayloads\LanguageKeyboardLayout.exe"
+        -UseBasicParsing
 
         '
     technique_created: '2021-08-18T14:06:45.244Z'
     atomic_guid: e39b99e9-ce7f-4b24-9c88-0fbad069e6c6
-    import_timestamp: '2026-10-20T07:08:30.809287Z'
+    import_timestamp: '2026-10-21T07:01:52.641145Z'

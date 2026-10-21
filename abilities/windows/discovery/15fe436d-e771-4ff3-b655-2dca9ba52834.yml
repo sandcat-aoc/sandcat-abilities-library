@@ -16,8 +16,9 @@
           {exit 0} else {exit 1}; then : ; else New-Item -Type Directory (split-path
           "PathToAtomicsFolder\..\ExternalPayloads\AdFind.exe") -ErrorAction ignore
           | Out-Null; Invoke-WebRequest -Uri "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1087.002/bin/AdFind.exe"
-          -OutFile "PathToAtomicsFolder\..\ExternalPayloads\AdFind.exe"; fi; "PathToAtomicsFolder\..\ExternalPayloads\AdFind.exe"
-          #{optional_args} -gcb -sc trustdmp'
+          -OutFile "PathToAtomicsFolder\..\ExternalPayloads\AdFind.exe" -UseBasicParsing;
+          fi; "PathToAtomicsFolder\..\ExternalPayloads\AdFind.exe" #{optional_args}
+          -gcb -sc trustdmp'
   plugin: atomic
   singleton: false
   repeatable: true
@@ -48,9 +49,9 @@
         -ErrorAction ignore | Out-Null
 
         Invoke-WebRequest -Uri "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1087.002/bin/AdFind.exe"
-        -OutFile "PathToAtomicsFolder\..\ExternalPayloads\AdFind.exe"
+        -OutFile "PathToAtomicsFolder\..\ExternalPayloads\AdFind.exe" -UseBasicParsing
 
         '
     technique_created: '2019-02-14T16:15:05.974Z'
     atomic_guid: 15fe436d-e771-4ff3-b655-2dca9ba52834
-    import_timestamp: '2026-10-20T07:08:30.720129Z'
+    import_timestamp: '2026-10-21T07:01:52.563100Z'

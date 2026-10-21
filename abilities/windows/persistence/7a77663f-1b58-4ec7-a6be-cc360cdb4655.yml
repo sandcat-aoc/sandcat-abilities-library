@@ -1,0 +1,39 @@
+- id: 7a77663f-1b58-4ec7-a6be-cc360cdb4655
+  name: Impair system shutdown capability by denying execute on shutdown.exe
+  description: 'Takes ownership of shutdown.exe (required since it''s normally owned
+    by TrustedInstaller) and denies the Everyone group execute permission, simulating
+    adversary impairment of a system''s ability to shut down without deleting the
+    binary outright. Cleanup restores both the original ACL and ownership.
+
+    Expected output: running shutdown.exe will fail with access denied until cleanup
+    restores permissions and ownership.'
+  tactic: persistence
+  technique:
+    attack_id: T1653
+    name: Power Settings
+  platforms:
+    windows:
+      psh:
+        command: $target = "C:\Windows\System32\shutdown.exe"; $backupPath = "$env:TEMP\shutdown_acl_backup.txt";
+          Push-Location (Split-Path $target); icacls (Split-Path $target -Leaf) /save
+          $backupPath | Out-Null; Pop-Location; takeown /f $target | Out-Null; icacls
+          $target /grant "*S-1-5-32-544:F" | Out-Null; icacls $target /deny Everyone:RX
+        cleanup: $target = "C:\Windows\System32\shutdown.exe"; $backupPath = "$env:TEMP\shutdown_acl_backup.txt";
+          icacls $target /remove:d Everyone; if (Test-Path $backupPath) {; Push-Location
+          (Split-Path $target); icacls . /restore $backupPath | Out-Null; Pop-Location;
+          Remove-Item $backupPath -Force -ErrorAction Ignore; }
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - persistence
+  - t1653
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    technique_created: '2023-06-05T15:52:52.467Z'
+    atomic_guid: 7a77663f-1b58-4ec7-a6be-cc360cdb4655
+    import_timestamp: '2026-10-21T07:01:51.122074Z'

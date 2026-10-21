@@ -7,7 +7,7 @@
   tactic: lateral-movement
   technique:
     attack_id: T1021.005
-    name: Remote Services:VNC
+    name: 'Remote Services: VNC'
   platforms:
     darwin:
       sh:
@@ -22,11 +22,11 @@
   delete_payload: false
   privilege: ''
   buckets:
+  - t1021.005
   - lateral-movement
   - atomic-red-team
-  - t1021.005
   author: Atomic Red Team
   additional_info:
     technique_created: '2020-02-11T18:28:44.950Z'
     atomic_guid: 8a930abe-841c-4d4f-a877-72e9fe90b9ea
-    import_timestamp: '2026-10-20T07:08:08.895772Z'
+    import_timestamp: '2026-10-21T07:01:34.952229Z'

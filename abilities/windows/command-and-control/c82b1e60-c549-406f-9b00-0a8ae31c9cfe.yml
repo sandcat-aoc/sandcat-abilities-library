@@ -11,8 +11,8 @@
         command: 'if (Test-Path PathToAtomicsFolder\..\ExternalPayloads\pscp.exe)
           {exit 0} else {exit 1}; then : ; else New-Item -Type Directory "PathToAtomicsFolder\..\ExternalPayloads\"
           -ErrorAction Ignore -Force | Out-Null; Invoke-WebRequest "https://the.earth.li/~sgtatham/putty/latest/w64/pscp.exe"
-          -Outfile "PathToAtomicsFolder\..\ExternalPayloads\pscp.exe"; fi; fsutil
-          file createnew C:\Temp\T1105_scp.zip 1048576; echo y | PathToAtomicsFolder\..\ExternalPayloads\pscp.exe
+          -Outfile "PathToAtomicsFolder\..\ExternalPayloads\pscp.exe" -UseBasicParsing;
+          fi; fsutil file createnew C:\Temp\T1105_scp.zip 1048576; echo y | PathToAtomicsFolder\..\ExternalPayloads\pscp.exe
           -P 22 -pw atomic C:\Temp\T1105_scp.zip atomic@127.0.0.1:T1105_scp.zip'
         cleanup: 'del /f /q #{exfil_package}'
         elevation_required: false
@@ -23,8 +23,8 @@
   privilege: ''
   buckets:
   - t1105
-  - command-and-control
   - atomic-red-team
+  - command-and-control
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -71,8 +71,9 @@
         -ErrorAction Ignore -Force | Out-Null
 
         Invoke-WebRequest "#{pscp_url}" -Outfile "PathToAtomicsFolder\..\ExternalPayloads\pscp.exe"
+        -UseBasicParsing
 
         '
     technique_created: '2017-05-31T21:31:16.408Z'
     atomic_guid: c82b1e60-c549-406f-9b00-0a8ae31c9cfe
-    import_timestamp: '2026-10-20T07:08:29.271468Z'
+    import_timestamp: '2026-10-21T07:01:51.356011Z'

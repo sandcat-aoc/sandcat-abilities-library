@@ -16,8 +16,8 @@
           2> nul") -or (Test-Path "PathToAtomicsFolder\..\ExternalPayloads\Sysmon\Sysmon.exe"))
           { exit 0 } else { exit 1 }; then : ; else New-Item -Type Directory "PathToAtomicsFolder\..\ExternalPayloads\"
           -ErrorAction Ignore -Force | Out-Null; Invoke-WebRequest "https://download.sysinternals.com/files/Sysmon.zip"
-          -OutFile "PathToAtomicsFolder\..\ExternalPayloads\Sysmon.zip"; Expand-Archive
-          "PathToAtomicsFolder\..\ExternalPayloads\Sysmon.zip" "PathToAtomicsFolder\..\ExternalPayloads\Sysmon"
+          -OutFile "PathToAtomicsFolder\..\ExternalPayloads\Sysmon.zip" -UseBasicParsing;
+          Expand-Archive "PathToAtomicsFolder\..\ExternalPayloads\Sysmon.zip" "PathToAtomicsFolder\..\ExternalPayloads\Sysmon"
           -Force; fi; if(sc.exe query sysmon | findstr sysmon) { exit 0 } else { exit
           1 }; then : ; else if(cmd.exe /c "where.exe Sysmon.exe 2> nul | findstr
           Sysmon 2> nul") { C:\Windows\Sysmon.exe -accepteula -i } else; { & "PathToAtomicsFolder\..\ExternalPayloads\Sysmon\Sysmon.exe"
@@ -37,8 +37,8 @@
   privilege: ''
   buckets:
   - defense-impairment
-  - atomic-red-team
   - t1685
+  - atomic-red-team
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -60,7 +60,7 @@
         -ErrorAction Ignore -Force | Out-Null
 
         Invoke-WebRequest "https://download.sysinternals.com/files/Sysmon.zip" -OutFile
-        "PathToAtomicsFolder\..\ExternalPayloads\Sysmon.zip"
+        "PathToAtomicsFolder\..\ExternalPayloads\Sysmon.zip" -UseBasicParsing
 
         Expand-Archive "PathToAtomicsFolder\..\ExternalPayloads\Sysmon.zip" "PathToAtomicsFolder\..\ExternalPayloads\Sysmon"
         -Force
@@ -94,4 +94,4 @@
         \ -i\n}\n"
     technique_created: '2026-04-14T22:53:26.949Z'
     atomic_guid: 811b3e76-c41b-430c-ac0d-e2380bfaa164
-    import_timestamp: '2026-10-20T07:08:29.813775Z'
+    import_timestamp: '2026-10-21T07:01:51.806854Z'

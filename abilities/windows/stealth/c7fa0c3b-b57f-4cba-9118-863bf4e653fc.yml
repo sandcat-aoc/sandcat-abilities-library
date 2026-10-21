@@ -17,13 +17,13 @@
           {exit 0} else {exit 1}; then : ; else New-Item -Type Directory (split-path
           "PathToAtomicsFolder\T1036.007\src\T1036.007_masquerading.vbs") -ErrorAction
           ignore | Out-Null; Invoke-WebRequest "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1036.007/src/T1036.007_masquerading.vbs"
-          -OutFile "PathToAtomicsFolder\T1036.007\src\T1036.007_masquerading.vbs";
-          fi; if (Test-Path "PathToAtomicsFolder\T1036.007\src\T1036.007_masquerading.ps1")
+          -OutFile "PathToAtomicsFolder\T1036.007\src\T1036.007_masquerading.vbs"
+          -UseBasicParsing; fi; if (Test-Path "PathToAtomicsFolder\T1036.007\src\T1036.007_masquerading.ps1")
           {exit 0} else {exit 1}; then : ; else New-Item -Type Directory (split-path
           "PathToAtomicsFolder\T1036.007\src\T1036.007_masquerading.ps1") -ErrorAction
           ignore | Out-Null; Invoke-WebRequest "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1036.007/src/T1036.007_masquerading.ps1"
-          -OutFile "PathToAtomicsFolder\T1036.007\src\T1036.007_masquerading.ps1";
-          fi; copy "C:\Windows\System32\calc.exe" %temp%\T1036.007_masquerading.docx.exe
+          -OutFile "PathToAtomicsFolder\T1036.007\src\T1036.007_masquerading.ps1"
+          -UseBasicParsing; fi; copy "C:\Windows\System32\calc.exe" %temp%\T1036.007_masquerading.docx.exe
           /Y; copy "C:\Windows\System32\calc.exe" %temp%\T1036.007_masquerading.pdf.exe
           /Y; copy "C:\Windows\System32\calc.exe" %temp%\T1036.007_masquerading.ps1.exe
           /Y; copy "PathToAtomicsFolder\T1036.007\src\T1036.007_masquerading.vbs"
@@ -52,9 +52,9 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - atomic-red-team
-  - t1036.007
   - stealth
+  - t1036.007
+  - atomic-red-team
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -81,7 +81,7 @@
         ignore | Out-Null
 
         Invoke-WebRequest "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1036.007/src/T1036.007_masquerading.vbs"
-        -OutFile "#{vbs_path}"
+        -OutFile "#{vbs_path}" -UseBasicParsing
 
         '
     - description: 'File to copy must exist on disk at specified location (#{ps1_path})
@@ -94,9 +94,9 @@
         ignore | Out-Null
 
         Invoke-WebRequest "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1036.007/src/T1036.007_masquerading.ps1"
-        -OutFile "#{ps1_path}"
+        -OutFile "#{ps1_path}" -UseBasicParsing
 
         '
     technique_created: '2021-08-04T20:54:03.066Z'
     atomic_guid: c7fa0c3b-b57f-4cba-9118-863bf4e653fc
-    import_timestamp: '2026-10-20T07:08:26.341261Z'
+    import_timestamp: '2026-10-21T07:01:49.143534Z'

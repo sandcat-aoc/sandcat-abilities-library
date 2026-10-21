@@ -13,9 +13,10 @@
       sh:
         command: 'if (Test-Path C:\Windows\System32\Curl.exe) {exit 0} else {exit
           1}; then : ; else Invoke-WebRequest "https://curl.se/windows/dl-7.79.1/curl-7.79.1-win64-mingw.zip"
-          -Outfile PathToAtomicsFolder\..\ExternalPayloads\curl.zip; Expand-Archive
-          -Path "PathToAtomicsFolder\..\ExternalPayloads\curl.zip" -DestinationPath
-          "PathToAtomicsFolder\..\ExternalPayloads\curl"; Copy-Item "PathToAtomicsFolder\..\ExternalPayloads\curl\curl-7.79.1-win64-mingw\bin\curl.exe"
+          -Outfile PathToAtomicsFolder\..\ExternalPayloads\curl.zip -UseBasicParsing;
+          Expand-Archive -Path "PathToAtomicsFolder\..\ExternalPayloads\curl.zip"
+          -DestinationPath "PathToAtomicsFolder\..\ExternalPayloads\curl"; Copy-Item
+          "PathToAtomicsFolder\..\ExternalPayloads\curl\curl-7.79.1-win64-mingw\bin\curl.exe"
           C:\Windows\System32\Curl.exe; Remove-Item "PathToAtomicsFolder\..\ExternalPayloads\curl";
           Remove-Item "PathToAtomicsFolder\..\ExternalPayloads\curl.zip"; fi; if (Test-Path
           c:\temp\atomictestfile.txt) {exit 0} else {exit 1}; then : ; else echo "This
@@ -31,8 +32,8 @@
   privilege: ''
   buckets:
   - t1105
-  - command-and-control
   - atomic-red-team
+  - command-and-control
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -56,7 +57,7 @@
 
         '
       get_prereq_command: 'Invoke-WebRequest "https://curl.se/windows/dl-7.79.1/curl-7.79.1-win64-mingw.zip"
-        -Outfile PathToAtomicsFolder\..\ExternalPayloads\curl.zip
+        -Outfile PathToAtomicsFolder\..\ExternalPayloads\curl.zip -UseBasicParsing
 
         Expand-Archive -Path "PathToAtomicsFolder\..\ExternalPayloads\curl.zip" -DestinationPath
         "PathToAtomicsFolder\..\ExternalPayloads\curl"
@@ -80,4 +81,4 @@
         '
     technique_created: '2017-05-31T21:31:16.408Z'
     atomic_guid: 635c9a38-6cbf-47dc-8615-3810bc1167cf
-    import_timestamp: '2026-10-20T07:08:29.233155Z'
+    import_timestamp: '2026-10-21T07:01:51.298316Z'

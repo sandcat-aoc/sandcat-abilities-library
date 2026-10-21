@@ -7,7 +7,7 @@
   tactic: stealth
   technique:
     attack_id: T1070.004
-    name: 'Indicator Removal on Host: File Deletion'
+    name: 'Indicator Removal: File Deletion'
   platforms:
     windows:
       sh:
@@ -19,11 +19,11 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - atomic-red-team
   - stealth
   - t1070.004
+  - atomic-red-team
   author: Atomic Red Team
   additional_info:
     technique_created: '2020-01-31T12:35:36.479Z'
     atomic_guid: f723d13d-48dc-4317-9990-cf43a9ac0bf2
-    import_timestamp: '2026-10-20T07:08:26.922682Z'
+    import_timestamp: '2026-10-21T07:01:49.653095Z'

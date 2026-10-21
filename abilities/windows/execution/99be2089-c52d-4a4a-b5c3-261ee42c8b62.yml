@@ -13,18 +13,18 @@
           {exit 0} else {exit 1}; then : ; else New-Item -Type Directory (split-path
           "PathToAtomicsFolder\T1106\src\CreateProcess.cs") -ErrorAction ignore |
           Out-Null; Invoke-WebRequest "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1106/src/CreateProcess.cs"
-          -OutFile "PathToAtomicsFolder\T1106\src\CreateProcess.cs"; fi; C:\Windows\Microsoft.NET\Framework\v4.0.30319\csc.exe
-          /out:"%tmp%\T1106.exe" /target:exe "PathToAtomicsFolder\T1106\src\CreateProcess.cs";
-          %tmp%/T1106.exe'
+          -OutFile "PathToAtomicsFolder\T1106\src\CreateProcess.cs" -UseBasicParsing;
+          fi; C:\Windows\Microsoft.NET\Framework\v4.0.30319\csc.exe /out:"%tmp%\T1106.exe"
+          /target:exe "PathToAtomicsFolder\T1106\src\CreateProcess.cs"; %tmp%/T1106.exe'
   plugin: atomic
   singleton: false
   repeatable: true
   delete_payload: false
   privilege: ''
   buckets:
+  - execution
   - t1106
   - atomic-red-team
-  - execution
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -47,9 +47,9 @@
         -ErrorAction ignore | Out-Null
 
         Invoke-WebRequest "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1106/src/CreateProcess.cs"
-        -OutFile "#{source_file}"
+        -OutFile "#{source_file}" -UseBasicParsing
 
         '
     technique_created: '2017-05-31T21:31:17.472Z'
     atomic_guid: 99be2089-c52d-4a4a-b5c3-261ee42c8b62
-    import_timestamp: '2026-10-20T07:08:27.775250Z'
+    import_timestamp: '2026-10-21T07:01:50.369107Z'

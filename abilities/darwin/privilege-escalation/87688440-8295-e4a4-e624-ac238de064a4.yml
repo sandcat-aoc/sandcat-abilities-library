@@ -29,4 +29,4 @@
     use_case: Edit a group using explicit credentials on a local or network directory node
     source_file: dseditgroup.yml
     source_repository: https://github.com/infosecB/LOOBins
-    import_timestamp: '2026-10-21T07:01:17.754924Z'
+    import_timestamp: '2026-10-22T07:04:09.336887Z'

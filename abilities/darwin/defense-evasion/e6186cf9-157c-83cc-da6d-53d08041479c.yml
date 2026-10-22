@@ -38,4 +38,4 @@
     use_case: Deactivate the service and strip the access privileges after use
     source_file: kickstart.yml
     source_repository: https://github.com/infosecB/LOOBins
-    import_timestamp: '2026-10-21T07:01:17.864093Z'
+    import_timestamp: '2026-10-22T07:04:09.459059Z'

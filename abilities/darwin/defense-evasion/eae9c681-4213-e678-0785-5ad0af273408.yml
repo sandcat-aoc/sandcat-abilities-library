@@ -27,4 +27,4 @@
     use_case: Unload a kernel extension to disable a kernel-resident security product
     source_file: kmutil.yml
     source_repository: https://github.com/infosecB/LOOBins
-    import_timestamp: '2026-10-21T07:01:18.063889Z'
+    import_timestamp: '2026-10-22T07:04:09.693505Z'

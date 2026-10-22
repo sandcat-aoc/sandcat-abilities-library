@@ -29,4 +29,4 @@
     use_case: Verify a scripted cleanup with --stopOnError
     source_file: trash.yml
     source_repository: https://github.com/infosecB/LOOBins
-    import_timestamp: '2026-10-21T07:01:18.116459Z'
+    import_timestamp: '2026-10-22T07:04:09.761761Z'

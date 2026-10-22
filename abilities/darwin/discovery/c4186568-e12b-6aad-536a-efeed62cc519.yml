@@ -27,4 +27,4 @@
     use_case: Read per-disk detail and FileVault encryption state
     source_file: diskutil.yml
     source_repository: https://github.com/infosecB/LOOBins
-    import_timestamp: '2026-10-21T07:01:18.082623Z'
+    import_timestamp: '2026-10-22T07:04:09.710370Z'

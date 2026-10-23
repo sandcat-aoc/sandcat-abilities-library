@@ -28,4 +28,4 @@
     use_case: Inventory loaded kernel extensions and DriverKit extensions to locate security tooling
     source_file: kmutil.yml
     source_repository: https://github.com/infosecB/LOOBins
-    import_timestamp: '2026-10-22T07:04:09.691337Z'
+    import_timestamp: '2026-10-23T06:57:00.472143Z'

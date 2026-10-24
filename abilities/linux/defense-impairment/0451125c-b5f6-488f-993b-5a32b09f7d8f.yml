@@ -32,4 +32,4 @@
         default: /tmp/AtomicRedTeam/atomics/T1222.002
     technique_created: '2020-02-04T19:24:27.774Z'
     atomic_guid: 0451125c-b5f6-488f-993b-5a32b09f7d8f
-    import_timestamp: '2026-10-23T06:57:45.486862Z'
+    import_timestamp: '2026-10-24T06:52:55.154085Z'

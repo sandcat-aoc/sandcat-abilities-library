@@ -27,4 +27,4 @@
     use_case: Use the osascript binary to gather sensitive clipboard data
     source_file: osascript.yml
     source_repository: https://github.com/infosecB/LOOBins
-    import_timestamp: '2026-10-23T06:57:00.269334Z'
+    import_timestamp: '2026-10-24T06:52:22.081255Z'

@@ -33,4 +33,4 @@
     use_case: Move files and directories to the Trash without rm or unlink
     source_file: trash.yml
     source_repository: https://github.com/infosecB/LOOBins
-    import_timestamp: '2026-10-23T06:57:00.529396Z'
+    import_timestamp: '2026-10-24T06:52:22.224334Z'

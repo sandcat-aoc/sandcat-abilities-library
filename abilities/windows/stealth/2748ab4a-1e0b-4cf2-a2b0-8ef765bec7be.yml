@@ -28,9 +28,9 @@
   delete_payload: false
   privilege: ''
   buckets:
+  - t1564
   - atomic-red-team
   - stealth
-  - t1564
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -60,4 +60,4 @@
         \ -destinationpath \"PathToAtomicsFolder\\..\\ExternalPayloads\\\"\n"
     technique_created: '2020-02-26T17:41:25.933Z'
     atomic_guid: 2748ab4a-1e0b-4cf2-a2b0-8ef765bec7be
-    import_timestamp: '2026-10-23T06:57:30.522456Z'
+    import_timestamp: '2026-10-24T06:52:44.116812Z'

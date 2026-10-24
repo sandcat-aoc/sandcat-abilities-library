@@ -28,4 +28,4 @@
     use_case: Read a downloadUrl key with PlistBuddy and fetch the next stage
     source_file: PlistBuddy.yml
     source_repository: https://github.com/infosecB/LOOBins
-    import_timestamp: '2026-10-23T06:57:00.161809Z'
+    import_timestamp: '2026-10-24T06:52:22.013751Z'

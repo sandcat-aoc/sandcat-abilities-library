@@ -27,4 +27,4 @@
     use_case: Read an installed application's version from its Info.plist
     source_file: PlistBuddy.yml
     source_repository: https://github.com/infosecB/LOOBins
-    import_timestamp: '2026-10-24T06:52:22.014916Z'
+    import_timestamp: '2026-10-25T07:17:19.403987Z'

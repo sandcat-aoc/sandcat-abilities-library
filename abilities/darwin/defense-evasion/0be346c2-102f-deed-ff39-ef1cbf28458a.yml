@@ -27,4 +27,4 @@
     use_case: Disable block-all mode to re-open inbound access
     source_file: socketfilterfw.yml
     source_repository: https://github.com/infosecB/LOOBins
-    import_timestamp: '2026-10-24T06:52:22.073811Z'
+    import_timestamp: '2026-10-25T07:17:19.512507Z'

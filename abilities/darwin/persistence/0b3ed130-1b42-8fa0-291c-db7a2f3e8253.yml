@@ -29,4 +29,4 @@
     use_case: Install a custom boot object to gain pre-boot code execution on Apple silicon
     source_file: kmutil.yml
     source_repository: https://github.com/infosecB/LOOBins
-    import_timestamp: '2026-10-24T06:52:22.194549Z'
+    import_timestamp: '2026-10-25T07:17:19.729987Z'

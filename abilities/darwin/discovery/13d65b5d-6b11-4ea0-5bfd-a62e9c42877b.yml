@@ -29,4 +29,4 @@
     use_case: Parse live I/O Kit registry output from stdin to read screen lock state
     source_file: PlistBuddy.yml
     source_repository: https://github.com/infosecB/LOOBins
-    import_timestamp: '2026-10-25T07:17:19.398696Z'
+    import_timestamp: '2026-10-26T07:26:10.318150Z'

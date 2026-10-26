@@ -26,4 +26,4 @@
     use_case: Disable the Application Firewall entirely
     source_file: socketfilterfw.yml
     source_repository: https://github.com/infosecB/LOOBins
-    import_timestamp: '2026-10-25T07:17:19.508506Z'
+    import_timestamp: '2026-10-26T07:26:10.422771Z'

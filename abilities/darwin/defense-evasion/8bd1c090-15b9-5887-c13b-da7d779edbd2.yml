@@ -27,4 +27,4 @@
     use_case: Terminate IOService instances to disable a driver without fully unloading its kext
     source_file: kmutil.yml
     source_repository: https://github.com/infosecB/LOOBins
-    import_timestamp: '2026-10-26T07:26:10.654509Z'
+    import_timestamp: '2026-10-27T07:16:15.664990Z'

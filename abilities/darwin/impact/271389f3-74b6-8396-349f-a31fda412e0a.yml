@@ -26,4 +26,4 @@
     use_case: Destroy an APFS container and all its volumes
     source_file: diskutil.yml
     source_repository: https://github.com/infosecB/LOOBins
-    import_timestamp: '2026-10-26T07:26:10.688279Z'
+    import_timestamp: '2026-10-27T07:16:15.691166Z'

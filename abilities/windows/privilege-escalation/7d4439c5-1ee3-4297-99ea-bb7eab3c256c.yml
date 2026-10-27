@@ -1,0 +1,30 @@
+- id: 7d4439c5-1ee3-4297-99ea-bb7eab3c256c
+  name: 7d4439c5-1ee3-4297-99ea-bb7eab3c256c - Malicious Driver Deployment
+  description: 'Malicious driver: 7d4439c5-1ee3-4297-99ea-bb7eab3c256c
+
+    Category: vulnerable driver
+
+    Author: Andrea Monzani
+
+    Created: 2026-10-25
+
+    MITRE Technique: T1068'
+  tactic: privilege-escalation
+  technique:
+    attack_id: T1068
+    name: Rootkit
+  platforms:
+    windows:
+      cmd:
+        command: sc create MaliciousDriver binPath= "C:\Windows\System32\drivers\malicious_driver.sys"
+          type= kernel
+  singleton: true
+  privilege: Elevated
+  repeatable: false
+  buckets:
+  - privilege-escalation
+  version: '1.0'
+  author: Andrea Monzani
+  operating_system: Windows (Version Unspecified)
+  created: '2026-10-25'
+  modified: '2026-10-25'

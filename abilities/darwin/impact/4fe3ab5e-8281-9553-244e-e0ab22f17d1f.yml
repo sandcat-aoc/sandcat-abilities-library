@@ -28,4 +28,4 @@
     use_case: Zero a disk to destroy filesystem identification
     source_file: diskutil.yml
     source_repository: https://github.com/infosecB/LOOBins
-    import_timestamp: '2026-10-26T07:26:10.684272Z'
+    import_timestamp: '2026-10-27T07:16:15.687738Z'

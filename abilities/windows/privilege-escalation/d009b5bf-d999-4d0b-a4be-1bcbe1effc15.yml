@@ -1,0 +1,30 @@
+- id: d009b5bf-d999-4d0b-a4be-1bcbe1effc15
+  name: d009b5bf-d999-4d0b-a4be-1bcbe1effc15 - Malicious Driver Deployment
+  description: 'Malicious driver: d009b5bf-d999-4d0b-a4be-1bcbe1effc15
+
+    Category: vulnerable driver
+
+    Author: Andrea Monzani
+
+    Created: 2026-10-25
+
+    MITRE Technique: T1068'
+  tactic: privilege-escalation
+  technique:
+    attack_id: T1068
+    name: Rootkit
+  platforms:
+    windows:
+      cmd:
+        command: sc create MaliciousDriver binPath= "C:\Windows\System32\drivers\malicious_driver.sys"
+          type= kernel
+  singleton: true
+  privilege: Elevated
+  repeatable: false
+  buckets:
+  - privilege-escalation
+  version: '1.0'
+  author: Andrea Monzani
+  operating_system: Windows (Version Unspecified)
+  created: '2026-10-25'
+  modified: '2026-10-25'

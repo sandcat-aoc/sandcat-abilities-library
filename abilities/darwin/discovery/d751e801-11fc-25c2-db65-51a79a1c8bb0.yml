@@ -27,4 +27,4 @@
     use_case: Enumerate password policy to learn lockout thresholds and complexity rules
     source_file: pwpolicy.yml
     source_repository: https://github.com/infosecB/LOOBins
-    import_timestamp: '2026-10-27T07:16:15.443879Z'
+    import_timestamp: '2026-10-28T07:55:27.987015Z'

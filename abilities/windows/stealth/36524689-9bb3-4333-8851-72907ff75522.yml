@@ -1,0 +1,34 @@
+- id: 36524689-9bb3-4333-8851-72907ff75522
+  name: T1218.013 - Mavinject Process Injection with Module Index Offset Parsing
+  description: Simulates an adversary utilizing mavinject.exe to perform module allocation
+    and injection passing module index offsets.
+  tactic: stealth
+  technique:
+    attack_id: T1218.013
+    name: 'System Binary Proxy Execution: Mavinject'
+  platforms:
+    windows:
+      psh:
+        command: $dll = "$env:TEMP\offset_stub.dll"; $proc = Start-Process notepad.exe
+          -PassThru; if (-not (Test-Path $dll)) { [System.IO.File]::WriteAllBytes($dll,
+          [byte[]](77,90,144,0,3,0,0,0,4,0,0,0,255,255,0,0)) }; mavinject.exe $proc.Id
+          /INJECTRUNNING $dll 0x1000; Write-Host "[+] Mavinject offset injection executed."
+        cleanup: $dll = "$env:TEMP\offset_stub.dll"; if (Test-Path $dll) { Remove-Item
+          $dll -Force -ErrorAction SilentlyContinue }; Stop-Process -Name notepad
+          -Force -ErrorAction SilentlyContinue; Write-Host "[+] Cleaned up offset
+          injection artifacts."
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1218.013
+  - stealth
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    technique_created: '2021-09-22T17:45:10.241Z'
+    atomic_guid: 36524689-9bb3-4333-8851-72907ff75522
+    import_timestamp: '2026-10-28T07:56:02.596215Z'

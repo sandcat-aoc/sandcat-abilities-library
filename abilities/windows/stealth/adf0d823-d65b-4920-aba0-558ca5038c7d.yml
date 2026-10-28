@@ -1,0 +1,30 @@
+- id: adf0d823-d65b-4920-aba0-558ca5038c7d
+  name: T1218.013 - Mavinject Execution with App-V Environment Policy Switch
+  description: Simulates an operator abusing mavinject.exe policy configuration switches
+    to override App-V isolation boundaries.
+  tactic: stealth
+  technique:
+    attack_id: T1218.013
+    name: 'System Binary Proxy Execution: Mavinject'
+  platforms:
+    windows:
+      psh:
+        command: $proc = Start-Process notepad.exe -PassThru; mavinject.exe $proc.Id
+          /SET_POLICY 0; Write-Host "[+] Mavinject set policy switch simulated."
+        cleanup: Stop-Process -Name notepad -Force -ErrorAction SilentlyContinue;
+          Write-Host "[+] Cleaned up policy switch target process."
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1218.013
+  - stealth
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    technique_created: '2021-09-22T17:45:10.241Z'
+    atomic_guid: adf0d823-d65b-4920-aba0-558ca5038c7d
+    import_timestamp: '2026-10-28T07:56:02.605436Z'

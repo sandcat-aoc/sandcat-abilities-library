@@ -1,0 +1,35 @@
+- id: 4640d18e-f45e-49bc-b0f6-0efd958ae1db
+  name: T1218.013 - Mavinject Injection Using Alternate Environment Executable Path
+  description: Simulates invoking mavinject.exe via explicit system environment variable
+    string concatenation to execute process injection.
+  tactic: stealth
+  technique:
+    attack_id: T1218.013
+    name: 'System Binary Proxy Execution: Mavinject'
+  platforms:
+    windows:
+      psh:
+        command: $mavPath = Join-Path $env:SystemRoot "System32\mavinject.exe"; $dll
+          = "$env:TEMP\env_stub.dll"; $proc = Start-Process notepad.exe -PassThru;
+          if (-not (Test-Path $dll)) { [System.IO.File]::WriteAllBytes($dll, [byte[]](77,90,144,0,3,0,0,0,4,0,0,0,255,255,0,0))
+          }; & $mavPath $proc.Id /INJECTRUNNING $dll; Write-Host "[+] Executed Mavinject
+          from explicit path variable."
+        cleanup: $dll = "$env:TEMP\env_stub.dll"; if (Test-Path $dll) { Remove-Item
+          $dll -Force -ErrorAction SilentlyContinue }; Stop-Process -Name notepad
+          -Force -ErrorAction SilentlyContinue; Write-Host "[+] Cleaned up path variable
+          test artifacts."
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1218.013
+  - stealth
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    technique_created: '2021-09-22T17:45:10.241Z'
+    atomic_guid: 4640d18e-f45e-49bc-b0f6-0efd958ae1db
+    import_timestamp: '2026-10-28T07:56:02.599292Z'

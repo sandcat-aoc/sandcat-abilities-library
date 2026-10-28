@@ -1,0 +1,34 @@
+- id: beb540df-3de7-41c8-b863-6c26c1f87dff
+  name: T1218.013 - Inject DLL into Target Process via Mavinject /INJECTRUNNING
+  description: Simulates an adversary utilizing mavinject.exe to inject a dynamic-link
+    library into a running process using the /INJECTRUNNING parameter.
+  tactic: stealth
+  technique:
+    attack_id: T1218.013
+    name: 'System Binary Proxy Execution: Mavinject'
+  platforms:
+    windows:
+      psh:
+        command: $dll = "$env:TEMP\mavinject_stub.dll"; $proc = Start-Process notepad.exe
+          -PassThru; if (-not (Test-Path $dll)) { [System.IO.File]::WriteAllBytes($dll,
+          [byte[]](77,90,144,0,3,0,0,0,4,0,0,0,255,255,0,0)) }; mavinject.exe $proc.Id
+          /INJECTRUNNING $dll; Write-Host "[+] Mavinject DLL injection executed."
+        cleanup: $dll = "$env:TEMP\mavinject_stub.dll"; if (Test-Path $dll) { Remove-Item
+          $dll -Force -ErrorAction SilentlyContinue }; Stop-Process -Name notepad
+          -Force -ErrorAction SilentlyContinue; Write-Host "[+] Cleaned up mavinject
+          process artifacts."
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1218.013
+  - stealth
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    technique_created: '2021-09-22T17:45:10.241Z'
+    atomic_guid: beb540df-3de7-41c8-b863-6c26c1f87dff
+    import_timestamp: '2026-10-28T07:56:02.594605Z'

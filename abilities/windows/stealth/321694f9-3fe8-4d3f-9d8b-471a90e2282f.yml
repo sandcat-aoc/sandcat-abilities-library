@@ -1,0 +1,34 @@
+- id: 321694f9-3fe8-4d3f-9d8b-471a90e2282f
+  name: T1218.013 - Mavinject Command Interpreter Subshell Invocation
+  description: Simulates calling mavinject.exe through a cmd.exe subshell wrapper
+    to evaluate command interpreter execution chains.
+  tactic: stealth
+  technique:
+    attack_id: T1218.013
+    name: 'System Binary Proxy Execution: Mavinject'
+  platforms:
+    windows:
+      psh:
+        command: $dll = "$env:TEMP\cmd_stub.dll"; if (-not (Test-Path $dll)) { [System.IO.File]::WriteAllBytes($dll,
+          [byte[]](77,90,144,0,3,0,0,0,4,0,0,0,255,255,0,0)) }; $proc = Start-Process
+          notepad.exe -PassThru; cmd.exe /c "mavinject.exe $($proc.Id) /INJECTRUNNING
+          $dll"; Write-Host "[+] Cmd-wrapped Mavinject process injection executed."
+        cleanup: $dll = "$env:TEMP\cmd_stub.dll"; if (Test-Path $dll) { Remove-Item
+          $dll -Force -ErrorAction SilentlyContinue }; Stop-Process -Name notepad
+          -Force -ErrorAction SilentlyContinue; Write-Host "[+] Cleaned up cmd subshell
+          artifacts."
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1218.013
+  - stealth
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    technique_created: '2021-09-22T17:45:10.241Z'
+    atomic_guid: 321694f9-3fe8-4d3f-9d8b-471a90e2282f
+    import_timestamp: '2026-10-28T07:56:02.602399Z'

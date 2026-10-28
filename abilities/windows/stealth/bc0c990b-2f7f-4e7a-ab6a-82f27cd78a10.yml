@@ -1,0 +1,36 @@
+- id: bc0c990b-2f7f-4e7a-ab6a-82f27cd78a10
+  name: T1218.013 - Mavinject Process Injection from Staged Temporary Subdirectory
+  description: Simulates staging a DLL inside a deeply nested temp directory before
+    passing it to mavinject.exe for process injection.
+  tactic: stealth
+  technique:
+    attack_id: T1218.013
+    name: 'System Binary Proxy Execution: Mavinject'
+  platforms:
+    windows:
+      psh:
+        command: $stageDir = "$env:TEMP\MavStage"; if (-not (Test-Path $stageDir))
+          { New-Item -Path $stageDir -ItemType Directory -Force | Out-Null }; $dll
+          = "$stageDir\staged_payload.dll"; [System.IO.File]::WriteAllBytes($dll,
+          [byte[]](77,90,144,0,3,0,0,0,4,0,0,0,255,255,0,0)); $proc = Start-Process
+          notepad.exe -PassThru; mavinject.exe $proc.Id /INJECTRUNNING $dll; Write-Host
+          "[+] Staged directory Mavinject payload injected."
+        cleanup: $stageDir = "$env:TEMP\MavStage"; if (Test-Path $stageDir) { Remove-Item
+          $stageDir -Recurse -Force -ErrorAction SilentlyContinue }; Stop-Process
+          -Name notepad -Force -ErrorAction SilentlyContinue; Write-Host "[+] Cleaned
+          up staging directory."
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1218.013
+  - stealth
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    technique_created: '2021-09-22T17:45:10.241Z'
+    atomic_guid: bc0c990b-2f7f-4e7a-ab6a-82f27cd78a10
+    import_timestamp: '2026-10-28T07:56:02.600832Z'

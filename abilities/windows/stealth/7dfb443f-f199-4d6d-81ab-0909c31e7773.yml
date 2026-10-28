@@ -1,0 +1,34 @@
+- id: 7dfb443f-f199-4d6d-81ab-0909c31e7773
+  name: T1218.013 - Mavinject Process Injection targeting App Container Host
+  description: Simulates injecting a custom payload module into a running target process
+    via mavinject.exe.
+  tactic: stealth
+  technique:
+    attack_id: T1218.013
+    name: 'System Binary Proxy Execution: Mavinject'
+  platforms:
+    windows:
+      psh:
+        command: $dll = "$env:TEMP\host_stub.dll"; if (-not (Test-Path $dll)) { [System.IO.File]::WriteAllBytes($dll,
+          [byte[]](77,90,144,0,3,0,0,0,4,0,0,0,255,255,0,0)) }; $proc = Start-Process
+          notepad.exe -PassThru; mavinject.exe $proc.Id /INJECTRUNNING $dll; Write-Host
+          "[+] Mavinject injection into host process completed."
+        cleanup: $dll = "$env:TEMP\host_stub.dll"; if (Test-Path $dll) { Remove-Item
+          $dll -Force -ErrorAction SilentlyContinue }; Stop-Process -Name notepad
+          -Force -ErrorAction SilentlyContinue; Write-Host "[+] Cleaned up target
+          process artifacts."
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1218.013
+  - stealth
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    technique_created: '2021-09-22T17:45:10.241Z'
+    atomic_guid: 7dfb443f-f199-4d6d-81ab-0909c31e7773
+    import_timestamp: '2026-10-28T07:56:02.606759Z'

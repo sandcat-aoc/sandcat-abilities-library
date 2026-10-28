@@ -1,0 +1,36 @@
+- id: 0d9bf912-4e16-42e8-a13e-8652fd16538a
+  name: T1218.013 - Mavinject Injection with NTFS Alternate Data Stream (ADS) Carrier
+  description: Simulates an adversary passing a payload stored inside an NTFS Alternate
+    Data Stream to mavinject.exe for process injection.
+  tactic: stealth
+  technique:
+    attack_id: T1218.013
+    name: 'System Binary Proxy Execution: Mavinject'
+  platforms:
+    windows:
+      psh:
+        command: $carrier = "$env:TEMP\legit_host.txt"; if (Test-Path $carrier) {
+          Remove-Item $carrier -Force -ErrorAction SilentlyContinue }; Set-Content
+          -Path $carrier -Value "Standard text container"; $ads = $carrier + ":mavinject_payload.dll";
+          Set-Content -Path $ads -Value "MZ_SIMULATED_DLL_HEADER_STREAM"; $proc =
+          Start-Process notepad.exe -PassThru; mavinject.exe $proc.Id /INJECTRUNNING
+          $ads; Write-Host "[+] ADS payload passed to Mavinject executed."
+        cleanup: $carrier = "$env:TEMP\legit_host.txt"; if (Test-Path $carrier) {
+          Remove-Item $carrier -Force -ErrorAction SilentlyContinue }; Stop-Process
+          -Name notepad -Force -ErrorAction SilentlyContinue; Write-Host "[+] Cleaned
+          up ADS Mavinject artifacts."
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1218.013
+  - stealth
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    technique_created: '2021-09-22T17:45:10.241Z'
+    atomic_guid: 0d9bf912-4e16-42e8-a13e-8652fd16538a
+    import_timestamp: '2026-10-28T07:56:02.608245Z'

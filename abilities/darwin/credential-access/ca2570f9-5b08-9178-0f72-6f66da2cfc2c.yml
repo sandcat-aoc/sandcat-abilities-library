@@ -29,4 +29,4 @@
     use_case: Read LAPS local administrator passwords
     source_file: ldapsearch.yml
     source_repository: https://github.com/infosecB/LOOBins
-    import_timestamp: '2026-10-27T07:16:15.442018Z'
+    import_timestamp: '2026-10-28T07:55:27.985179Z'

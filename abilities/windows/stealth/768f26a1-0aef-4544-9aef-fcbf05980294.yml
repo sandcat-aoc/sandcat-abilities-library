@@ -1,0 +1,31 @@
+- id: 768f26a1-0aef-4544-9aef-fcbf05980294
+  name: T1218.013 - Proxy Execution via Mavinject /STARTAPP Virtual Package Trigger
+  description: Simulates an adversary leveraging mavinject.exe /STARTAPP to launch
+    an arbitrary executable under an App-V subsystem context.
+  tactic: stealth
+  technique:
+    attack_id: T1218.013
+    name: 'System Binary Proxy Execution: Mavinject'
+  platforms:
+    windows:
+      psh:
+        command: $proc = Start-Process notepad.exe -PassThru; mavinject.exe $proc.Id
+          /STARTAPP "$env:SystemRoot\System32\cmd.exe"; Write-Host "[+] Mavinject
+          App-V STARTAPP execution simulated."
+        cleanup: Stop-Process -Name notepad -Force -ErrorAction SilentlyContinue;
+          Write-Host "[+] Cleaned up STARTAPP target processes."
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1218.013
+  - stealth
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    technique_created: '2021-09-22T17:45:10.241Z'
+    atomic_guid: 768f26a1-0aef-4544-9aef-fcbf05980294
+    import_timestamp: '2026-10-28T07:56:02.597842Z'

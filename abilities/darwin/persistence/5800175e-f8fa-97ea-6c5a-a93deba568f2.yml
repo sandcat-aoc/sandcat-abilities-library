@@ -42,4 +42,4 @@
     use_case: Enable legacy VNC authentication with an attacker-chosen password
     source_file: kickstart.yml
     source_repository: https://github.com/infosecB/LOOBins
-    import_timestamp: '2026-10-28T07:55:28.014387Z'
+    import_timestamp: '2026-10-29T08:01:18.357455Z'

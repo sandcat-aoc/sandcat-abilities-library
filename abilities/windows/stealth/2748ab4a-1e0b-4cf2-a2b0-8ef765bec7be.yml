@@ -29,8 +29,8 @@
   privilege: ''
   buckets:
   - t1564
-  - stealth
   - atomic-red-team
+  - stealth
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -60,4 +60,4 @@
         \ -destinationpath \"PathToAtomicsFolder\\..\\ExternalPayloads\\\"\n"
     technique_created: '2020-02-26T17:41:25.933Z'
     atomic_guid: 2748ab4a-1e0b-4cf2-a2b0-8ef765bec7be
-    import_timestamp: '2026-10-28T07:56:02.626021Z'
+    import_timestamp: '2026-10-29T08:01:49.146997Z'

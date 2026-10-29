@@ -29,4 +29,4 @@
     use_case: Enumerate the directory using the host Kerberos ticket
     source_file: ldapsearch.yml
     source_repository: https://github.com/infosecB/LOOBins
-    import_timestamp: '2026-10-28T07:55:27.977980Z'
+    import_timestamp: '2026-10-29T08:01:18.397928Z'

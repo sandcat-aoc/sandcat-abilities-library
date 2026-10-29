@@ -25,4 +25,4 @@
     use_case: Recursively clear extended attributes via xattr
     source_file: xattr.yml
     source_repository: https://github.com/infosecB/LOOBins
-    import_timestamp: '2026-10-28T07:55:28.153335Z'
+    import_timestamp: '2026-10-29T08:01:18.123525Z'

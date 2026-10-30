@@ -28,4 +28,4 @@
     use_case: Identify AS-REP roastable accounts
     source_file: ldapsearch.yml
     source_repository: https://github.com/infosecB/LOOBins
-    import_timestamp: '2026-10-29T08:01:18.401552Z'
+    import_timestamp: '2026-10-30T08:03:42.110403Z'

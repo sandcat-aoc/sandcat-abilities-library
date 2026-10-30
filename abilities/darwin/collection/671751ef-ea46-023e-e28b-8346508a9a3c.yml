@@ -39,4 +39,4 @@
     use_case: Escalate a headless SSH foothold to an interactive desktop session
     source_file: kickstart.yml
     source_repository: https://github.com/infosecB/LOOBins
-    import_timestamp: '2026-10-29T08:01:18.365585Z'
+    import_timestamp: '2026-10-30T08:03:42.085321Z'

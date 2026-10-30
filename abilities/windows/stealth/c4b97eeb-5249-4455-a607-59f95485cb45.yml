@@ -22,8 +22,8 @@
   privilege: ''
   buckets:
   - atomic-red-team
-  - stealth
   - t1218.005
+  - stealth
   author: Atomic Red Team
   additional_info:
     input_arguments:
@@ -37,4 +37,4 @@
         default: https://raw.githubusercontent.com/redcanaryco/atomic-red-team/master/atomics/T1218.005/src/T1218.005.hta
     technique_created: '2020-01-23T19:32:49.557Z'
     atomic_guid: c4b97eeb-5249-4455-a607-59f95485cb45
-    import_timestamp: '2026-10-29T08:01:49.436147Z'
+    import_timestamp: '2026-10-30T08:04:08.017432Z'
